@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="linux,基础运维,私有仓库,yum," />
 
 
 
@@ -79,16 +79,18 @@
 
 
 
-<meta name="description" content="日常运维文档整理。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="OperationMAN">
-<meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/page/2/index.html">
+<meta name="description" content="环境os:centos 7.3 1611 应用：yum-utils 互联网源：阿里云 步骤删除/etc/yum.repos.d下所有源文件 1、下载源repo到本地 1$ wget -O /etc/yum.repos.d/aliyun.repo https://mirrors.aliyun.com/repo/Centos-7.repo 2、安装yum-utils提供reporsync服务 1$ y">
+<meta name="keywords" content="linux,基础运维,私有仓库,yum">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centos同步yum源到本地">
+<meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/centos同步yum源到本地/index.html">
 <meta property="og:site_name" content="OperationMAN">
-<meta property="og:description" content="日常运维文档整理。">
+<meta property="og:description" content="环境os:centos 7.3 1611 应用：yum-utils 互联网源：阿里云 步骤删除/etc/yum.repos.d下所有源文件 1、下载源repo到本地 1$ wget -O /etc/yum.repos.d/aliyun.repo https://mirrors.aliyun.com/repo/Centos-7.repo 2、安装yum-utils提供reporsync服务 1$ y">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-16T10:16:27.195Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OperationMAN">
-<meta name="twitter:description" content="日常运维文档整理。">
+<meta name="twitter:title" content="centos同步yum源到本地">
+<meta name="twitter:description" content="环境os:centos 7.3 1611 应用：yum-utils 互联网源：阿里云 步骤删除/etc/yum.repos.d下所有源文件 1、下载源repo到本地 1$ wget -O /etc/yum.repos.d/aliyun.repo https://mirrors.aliyun.com/repo/Centos-7.repo 2、安装yum-utils提供reporsync服务 1$ y">
 
 
 
@@ -118,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://kxinter.github.io/kxinter.gitub.io/page/2/"/>
+  <link rel="canonical" href="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/centos同步yum源到本地/"/>
 
 
 
 
 
-  <title>OperationMAN</title>
+  <title>centos同步yum源到本地 | OperationMAN</title>
   
 
 
@@ -143,8 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -237,9 +238,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -252,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/15/docker小技巧/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/16/centos同步yum源到本地/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.Zhao">
@@ -269,9 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/08/15/docker小技巧/" itemprop="url">Docker小技巧</a></h1>
+          <h1 class="post-title" itemprop="name headline">centos同步yum源到本地</h1>
         
 
         <div class="post-meta">
@@ -283,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-15T19:14:54+08:00">
-                2018-08-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-16T18:12:05+08:00">
+                2018-08-16
               </time>
             
 
@@ -306,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
                   </a>
                 </span>
 
@@ -343,12 +342,24 @@
       
 
       
-        
-          
-            <h1 id="一、dockers开启privileged"><a href="#一、dockers开启privileged" class="headerlink" title="一、dockers开启privileged"></a>一、dockers开启privileged</h1><p>解决centos7容器无法使用systemctl命令的问题<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -e <span class="string">"container=docker"</span> --privileged=<span class="literal">true</span> -v /sys/fs/cgroup:/sys/fs/cgroup --name centos7 centos:7.5 /usr/sbin/init</span><br></pre></td></tr></table></figure></p>
+        <h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>os:centos 7.3 1611</p>
+<p>应用：yum-utils</p>
+<p>互联网源：阿里云</p>
+<h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1><p>删除/etc/yum.repos.d下所有源文件</p>
+<p>1、下载源repo到本地</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget -O /etc/yum.repos.d/aliyun.repo https://mirrors.aliyun.com/repo/Centos-7.repo</span><br></pre></td></tr></table></figure>
+<p>2、安装yum-utils提供reporsync服务</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yum install yum-utils -<span class="built_in">y</span></span><br></pre></td></tr></table></figure>
+<p>3、查看yum源仓库标识</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost yum.repos.d]<span class="comment"># yum repolist</span></span><br><span class="line">已加载插件：fastestmirror</span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line"> * base: mirrors.aliyun.com</span><br><span class="line"> * extras: mirrors.aliyun.com</span><br><span class="line"> * updates: mirrors.aliyun.com</span><br><span class="line">源标识 源名称 状态</span><br><span class="line">base/7/x86_64 CentOS-7 - Base - mirrors.aliyun.com 9,591</span><br><span class="line">extras/7/x86_64 CentOS-7 - Extras - mirrors.aliyun.com 196</span><br><span class="line">updates/7/x86_64 CentOS-7 - Updates - mirrors.aliyun.com 657</span><br><span class="line">repolist: 10,444</span><br></pre></td></tr></table></figure>
+<p>4、根据源标识同步源到本地目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># reposync -r base -p /var/www/html/     #这里同步base目录到本地</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意： 部分互联网yum源不支持同步</p>
+</blockquote>
+<p>参考资料<br><a href="http://www.cnblogs.com/chengd/articles/6912938.html" target="_blank" rel="noopener">http://www.cnblogs.com/chengd/articles/6912938.html</a></p>
+<p><a href="https://www.2cto.com/net/201512/455901.html" target="_blank" rel="noopener">https://www.2cto.com/net/201512/455901.html</a></p>
 
-          
-        
       
     </div>
     
@@ -363,142 +374,42 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/15/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mr.Zhao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="OperationMAN">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/08/15/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-15T18:34:48+08:00">
-                2018-08-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/kxinter.gitub.io/tags/linux/" rel="tag"># linux</a>
           
-            
+            <a href="/kxinter.gitub.io/tags/基础运维/" rel="tag"># 基础运维</a>
           
-
+            <a href="/kxinter.gitub.io/tags/私有仓库/" rel="tag"># 私有仓库</a>
           
+            <a href="/kxinter.gitub.io/tags/yum/" rel="tag"># yum</a>
           
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/kxinter.gitub.io/2018/08/16/Centos7安装独立显卡驱动/" rel="next" title="Centos7安装独立显卡驱动">
+                <i class="fa fa-chevron-left"></i> Centos7安装独立显卡驱动
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
       
     </footer>
   </div>
@@ -508,14 +419,11 @@
   </article>
 
 
-    
-  </section>
 
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/kxinter.gitub.io/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/kxinter.gitub.io/">1</a><span class="page-number current">2</span>
-  </nav>
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -523,6 +431,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -543,8 +455,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -604,6 +525,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境"><span class="nav-number">1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#步骤"><span class="nav-number">2.</span> <span class="nav-text">步骤</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -737,6 +674,10 @@
   
 
   
+  <script type="text/javascript" src="/kxinter.gitub.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/kxinter.gitub.io/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
