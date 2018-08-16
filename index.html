@@ -646,87 +646,53 @@
 <h1 id="7、YUM下载rpm包及依赖包"><a href="#7、YUM下载rpm包及依赖包" class="headerlink" title="7、YUM下载rpm包及依赖包"></a>7、YUM下载rpm包及依赖包</h1><p>#只下载bash-completion包到home目录，不进行安装<br>yum install –downloadonly –downloaddir=/home bash-completion</p>
 <h1 id="8、删除多少前天备份"><a href="#8、删除多少前天备份" class="headerlink" title="8、删除多少前天备份"></a>8、删除多少前天备份</h1><p>#删除目录/mnt/backup_data下30天前后缀为.sql的文件</p>
 <p>find /mnt/backup_data/ -name “*.sql” -type f -mtime +30 -exec rm -f {} \;</p>
-<h1 id="9、nmon显示系统性能显示工具"><a href="#9、nmon显示系统性能显示工具" class="headerlink" title="9、nmon显示系统性能显示工具"></a>9、nmon显示系统性能显示工具</h1><p>yum install nmon</p>
-<p>nmon<br><img src="./1534402931104.png" alt="enter description here"></p>
+<h1 id="9、nmon显示系统性能显示工具"><a href="#9、nmon显示系统性能显示工具" class="headerlink" title="9、nmon显示系统性能显示工具"></a>9、nmon显示系统性能显示工具</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install nmon</span><br><span class="line"></span><br><span class="line">nmon</span><br></pre></td></tr></table></figure>
+<p><img src="./1534402931104.png" alt="enter description here"></p>
 <p>参考<a href="https://linux.cn/article-6467-1.html" target="_blank" rel="noopener">https://linux.cn/article-6467-1.html</a></p>
-<p>10、Htop进程浏览器<br>yum install htop</p>
-<p>11、查看磁盘i/o工具<br>yum install sysstat</p>
-<p>#每2秒更新一次，-m 以MB显示，-k以kb显示</p>
-<p>iostat -d -m 2</p>
-<p>#or</p>
-<p>iostat -d -k 2</p>
-<p>#or</p>
-<p>iostat -d -m /dev/sda1</p>
-<p>yum install iotop</p>
-<p>#c查看哪个进程占用i/o</p>
-<p>iotop</p>
+<p>10、Htop进程浏览器<br>yum install htop<br><img src="2.png" alt="enter description here"></p>
+<p>11、查看磁盘i/o工具</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ yum install sysstat</span><br><span class="line"></span><br><span class="line">#每2秒更新一次，-m 以MB显示，-k以kb显示</span><br><span class="line"></span><br><span class="line">iostat -d -m <span class="number">2</span></span><br><span class="line"></span><br><span class="line">#or</span><br><span class="line"></span><br><span class="line">iostat -d -k <span class="number">2</span></span><br><span class="line"></span><br><span class="line">#or</span><br><span class="line"></span><br><span class="line">iostat -d -m /dev/sda1</span><br></pre></td></tr></table></figure>
+<p><img src="3.png" alt="enter description here"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum install iotop</span><br><span class="line"></span><br><span class="line">#c查看哪个进程占用i/o</span><br><span class="line"></span><br><span class="line">iotop</span><br></pre></td></tr></table></figure>
 <p>使用详解参考：<a href="http://man.linuxde.net/iotop" target="_blank" rel="noopener">http://man.linuxde.net/iotop</a></p>
-<p>12、linux常用的监控命令<br>12.1.  top<br>显示所有正在运行而且处于活动状态的实时进程， 而且会定期更新显示结果；它显示了CPU使用率，内存使用率，交换内存使用大小，调整缓存使用大小，缓冲区使用大小，进程PID， 使用的命令等信息。</p>
-<p>12.2.  vmstat<br>一般是通过两个数字参数来完成的，第一个参数是采样时间间隔，单位是秒， 第二个参数是采样的次数</p>
-<p>r:    表示运行队列，如果队列过大说明CPU很繁忙，一般会造成CPU使用率高</p>
-<p>b:    表示阻塞的进程数</p>
-<p>swap:  虚拟内存已使用的大小，如果大于0，说明机器的物理内存不够了</p>
-<p>free:  空闲的物理内存大小</p>
-<p>buff:   系统占用的缓存大小（写缓存）</p>
-<p>cache：  直接用来记忆我们打开的文件，给文件做缓冲，读缓存</p>
-<p>si:     每秒从磁盘读入虚拟内存大小，如果这个值大于0，表示物理内存不足了</p>
-<p>so:    每秒虚拟内存写入磁盘的大小，如果这个值大于0， 表示物理内存不足了</p>
-<p>us:    用户cpu时间</p>
-<p>sy:    系统CPU时间， 如果值 太高，说明系统调用，例如是IO操作频繁</p>
-<p>id:     空闲CPU时间，一般来说 id + us + sy = 100</p>
-<p>wt:    等待IO的CPU时间</p>
-<p>12.3.  lsof<br>列出打开的文件；它常用于以列表形式显示所有打开的文件和进程，包括磁盘文件，网络套接字，管道，设备和进程。</p>
+<h1 id="12、linux常用的监控命令"><a href="#12、linux常用的监控命令" class="headerlink" title="12、linux常用的监控命令"></a>12、linux常用的监控命令</h1><h2 id="12-1-top"><a href="#12-1-top" class="headerlink" title="12.1. top"></a>12.1. top</h2><p>显示所有正在运行而且处于活动状态的实时进程， 而且会定期更新显示结果；它显示了CPU使用率，内存使用率，交换内存使用大小，调整缓存使用大小，缓冲区使用大小，进程PID， 使用的命令等信息。</p>
+<h2 id="12-2-vmstat"><a href="#12-2-vmstat" class="headerlink" title="12.2. vmstat"></a>12.2. vmstat</h2><p><img src="4.png" alt="enter description here"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">一般是通过两个数字参数来完成的，第一个参数是采样时间间隔，单位是秒， 第二个参数是采样的次数</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">r:    表示运行队列，如果队列过大说明CPU很繁忙，一般会造成CPU使用率高</span><br><span class="line"></span><br><span class="line">b:    表示阻塞的进程数</span><br><span class="line"></span><br><span class="line">swap:  虚拟内存已使用的大小，如果大于0，说明机器的物理内存不够了</span><br><span class="line"></span><br><span class="line">free:  空闲的物理内存大小</span><br><span class="line"></span><br><span class="line">buff:   系统占用的缓存大小（写缓存）</span><br><span class="line"></span><br><span class="line">cache：  直接用来记忆我们打开的文件，给文件做缓冲，读缓存</span><br><span class="line"></span><br><span class="line">si:     每秒从磁盘读入虚拟内存大小，如果这个值大于0，表示物理内存不足了</span><br><span class="line"></span><br><span class="line">so:    每秒虚拟内存写入磁盘的大小，如果这个值大于0， 表示物理内存不足了</span><br><span class="line"></span><br><span class="line">us:    用户cpu时间</span><br><span class="line"></span><br><span class="line">sy:    系统CPU时间， 如果值 太高，说明系统调用，例如是IO操作频繁</span><br><span class="line"></span><br><span class="line">id:     空闲CPU时间，一般来说 id + us + sy = 100</span><br><span class="line"></span><br><span class="line">wt:    等待IO的CPU时间</span><br></pre></td></tr></table></figure>
+<h2 id="12-3-lsof"><a href="#12-3-lsof" class="headerlink" title="12.3. lsof"></a>12.3. lsof</h2><p>列出打开的文件；它常用于以列表形式显示所有打开的文件和进程，包括磁盘文件，网络套接字，管道，设备和进程。</p>
 <p>主要情形之一就是 无法挂载磁盘和显示正在使用或者打开某个文件的错误时，查看谁正在使用。</p>
-<p>12.4. tcpdump<br>apt-get install tcpdump</p>
+<h2 id="12-4-tcpdump"><a href="#12-4-tcpdump" class="headerlink" title="12.4. tcpdump"></a>12.4. tcpdump</h2><p>apt-get install tcpdump</p>
 <p>用于捕捉或过滤网络上指定接口上接收或者传输的TCP/IP包。</p>
 <p>-i  :   网络接口</p>
-<p>-c ： 需要输出包数量</p>
-<p>12.5. netstat<br>用于监控进出网络的包和网络接口统计的命令行工具，非常有用，用来监控网络性能，解决网络相关问题。</p>
+<p>-c ： 需要输出包数量<br><img src="5.png" alt="enter description here"></p>
+<h2 id="12-5-netstat"><a href="#12-5-netstat" class="headerlink" title="12.5. netstat"></a>12.5. netstat</h2><p>用于监控进出网络的包和网络接口统计的命令行工具，非常有用，用来监控网络性能，解决网络相关问题。</p>
 <p>-h   :   查看帮助</p>
 <p>-r   :    显示路由表</p>
 <p>-i   :     查看网络接口</p>
-<p>12.6. Htop<br>一个非常高级的交互式实时linux进程监控工具，和top相似，但更友好, 还支持鼠标。</p>
-<p>sudo apt-get install htop</p>
+<p><img src="6.png" alt="enter description here"></p>
+<p><img src="7.png" alt="enter description here"></p>
+<h2 id="12-6-Htop"><a href="#12-6-Htop" class="headerlink" title="12.6. Htop"></a>12.6. Htop</h2><p>一个非常高级的交互式实时linux进程监控工具，和top相似，但更友好, 还支持鼠标。</p>
+<p>sudo apt-get install htop<br><img src="8.png" alt="enter description here"></p>
 <p>12.7.  iotop<br>监控linux磁盘I/O, 用于查找大量使用磁盘读写进程的时候。python版本需要2.7以上。</p>
-<p>sudo apt-get install iotop</p>
-<p>-h:  查看帮助</p>
-<p>12.8. iostat<br>查看存储设备输入和输出状态统计的工具，用来追踪存储设备的性能 问题；包括设备，磁盘，NFS远程磁盘。</p>
-<p>sudo apt-get install sysstat</p>
-<p>%user:    在用户级别运行所使用的CPU百分比</p>
-<p>%nice:     优先进程消耗的CPU时间，占所有CPU百分比</p>
-<p>%system:   在系统级别运行所使用的CPU百分比</p>
-<p>%iowait:   cpu等待硬件I/O时，所占用的CPU百分比</p>
-<p>%steal:     管理程序维护另一个虚拟处理器时，虚拟CPU的无意识等待时间百分比</p>
-<p>%idle:        CPU空闲时间的百分比</p>
-<p>tps:         每秒发送到I/O的请求数</p>
-<p>KB_read/s:    每秒读取的block数</p>
-<p>KB_wrtn/s:    每秒写入的block数</p>
-<p>KB_read:     启动到现在block总数</p>
-<p>KB_wrtn:    启动到现在写入的block总数</p>
-<p>12.9. iptraf<br>用于采集通过网络接口的IP流量信息，包括tcp标记，icmp信息，TCP，UDP信等。</p>
-<p>sudo apt-get install iptraf</p>
-<p>sudo iptraf</p>
-<p>12.10. nethogs<br>监控每个进程使用的网络带宽</p>
-<p>sudo apt-get install nethogs</p>
-<p>sudo nethogs</p>
-<p>12.11. iftop<br>监控网络接口的应用网络带宽使用情况</p>
-<p>sudo apt-get install iftop</p>
-<p>sudo iftop</p>
-<p>=&gt; :  表示 流量方向</p>
-<p>TX：  发送的流量</p>
-<p>RX： 接收的流量</p>
-<p>TOTAL： 总流量</p>
-<p>Cumm:  运行iftop到目前总流量</p>
-<p>peak:    流量峰会</p>
-<p>rates:  分别表示 过去2秒，10秒，40秒的平均流量</p>
-<p>12.12. system monitor<br>监控cpu,内存，进程，硬盘的信息；分为进程监控，资源监控，文件监控; 遗憾的是需要图形界面支持。</p>
-<p>sudo apt-get install gnome-system-monitor</p>
-<p>gnome-system-monitor<br>13、禁止用户登录系统</p>
-<p>#禁止</p>
-<p>usermod -s /bin/false ftpuser</p>
-<p>#开启</p>
-<p>usermod -s /bin/base ftpuser</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ apt-get install iotop</span><br></pre></td></tr></table></figure>
+<p>-h:  查看帮助<br><img src="9.png" alt="enter description here"></p>
+<h2 id="12-8-iostat"><a href="#12-8-iostat" class="headerlink" title="12.8. iostat"></a>12.8. iostat</h2><p>查看存储设备输入和输出状态统计的工具，用来追踪存储设备的性能 问题；包括设备，磁盘，NFS远程磁盘。</p>
+<p>sudo apt-get install sysstat<br><img src="10.png" alt="enter description here"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">%user:    在用户级别运行所使用的CPU百分比</span><br><span class="line"></span><br><span class="line">%nice:     优先进程消耗的CPU时间，占所有CPU百分比</span><br><span class="line"></span><br><span class="line">%system:   在系统级别运行所使用的CPU百分比</span><br><span class="line"></span><br><span class="line">%iowait:   cpu等待硬件I/O时，所占用的CPU百分比</span><br><span class="line"></span><br><span class="line">%steal:     管理程序维护另一个虚拟处理器时，虚拟CPU的无意识等待时间百分比</span><br><span class="line"></span><br><span class="line">%idle:        CPU空闲时间的百分比</span><br><span class="line"></span><br><span class="line">tps:         每秒发送到I/O的请求数</span><br><span class="line"></span><br><span class="line">KB_read/s:    每秒读取的block数</span><br><span class="line"></span><br><span class="line">KB_wrtn/s:    每秒写入的block数</span><br><span class="line"></span><br><span class="line">KB_read:     启动到现在block总数</span><br><span class="line"></span><br><span class="line">KB_wrtn:    启动到现在写入的block总数</span><br></pre></td></tr></table></figure>
+<h2 id="12-9-iptraf"><a href="#12-9-iptraf" class="headerlink" title="12.9. iptraf"></a>12.9. iptraf</h2><p>用于采集通过网络接口的IP流量信息，包括tcp标记，icmp信息，TCP，UDP信等。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install iptraf</span><br><span class="line"></span><br><span class="line">$ sudo iptraf</span><br></pre></td></tr></table></figure>
+<p><img src="11.png" alt="enter description here"><br><img src="12.png" alt="enter description here"><br><img src="13.png" alt="enter description here"><br><img src="14.png" alt="enter description here"></p>
+<h2 id="12-10-nethogs"><a href="#12-10-nethogs" class="headerlink" title="12.10. nethogs"></a>12.10. nethogs</h2><p>监控每个进程使用的网络带宽</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install nethogs</span><br><span class="line"></span><br><span class="line">$ sudo nethogs</span><br></pre></td></tr></table></figure>
+<p><img src="15.png" alt="enter description here"></p>
+<h2 id="12-11-iftop"><a href="#12-11-iftop" class="headerlink" title="12.11. iftop"></a>12.11. iftop</h2><p>监控网络接口的应用网络带宽使用情况</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install iftop</span><br><span class="line"></span><br><span class="line">$ sudo iftop</span><br></pre></td></tr></table></figure>
+<p><img src="16.png" alt="enter description here"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">=&gt; :  表示 流量方向</span><br><span class="line"></span><br><span class="line">TX：  发送的流量</span><br><span class="line"></span><br><span class="line">RX： 接收的流量</span><br><span class="line"></span><br><span class="line">TOTAL： 总流量</span><br><span class="line"></span><br><span class="line">Cumm:  运行iftop到目前总流量</span><br><span class="line"></span><br><span class="line">peak:    流量峰会</span><br><span class="line"></span><br><span class="line">rates:  分别表示 过去2秒，10秒，40秒的平均流量</span><br></pre></td></tr></table></figure>
+<h2 id="12-12-system-monitor"><a href="#12-12-system-monitor" class="headerlink" title="12.12. system monitor"></a>12.12. system monitor</h2><p>监控cpu,内存，进程，硬盘的信息；分为进程监控，资源监控，文件监控; 遗憾的是需要图形界面支持。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install gnome-system-monitor</span><br><span class="line"></span><br><span class="line">gnome-system-monitor</span><br></pre></td></tr></table></figure>
+<h1 id="13、禁止用户登录系统"><a href="#13、禁止用户登录系统" class="headerlink" title="13、禁止用户登录系统"></a>13、禁止用户登录系统</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#禁止</span></span><br><span class="line"></span><br><span class="line">usermod -s /bin/<span class="literal">false</span> ftpuser</span><br><span class="line"></span><br><span class="line"><span class="comment">#开启</span></span><br><span class="line"></span><br><span class="line">usermod -s /bin/base ftpuser</span><br></pre></td></tr></table></figure>
 <p>14、nmtui配置网卡<br>使用nmtui命令（上一篇博客里有介绍界面）</p>
+<p><img src="17.png" alt="enter description here"></p>
 
           
         
