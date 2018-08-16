@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/kxinter.gitub.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/kxinter.gitub.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/kxinter.gitub.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/kxinter.gitub.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/kxinter.gitub.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/kxinter.gitub.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/kxinter.gitub.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="小技巧,运维工具," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1、centos -Tab键命令补全12345$ yum install -y bash-completion#执行脚本，使其生效或重新登录生效$ source /usr/share/bash-completion/bash_completion 2、自定义命令补全1234567# 自定义生成kubectl命令补全source &amp;lt;(kubectl completion bash)# 将命令添">
+<meta name="keywords" content="小技巧,运维工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用工具及小技巧">
+<meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/常用工具及小技巧/index.html">
+<meta property="og:site_name" content="OperationMAN">
+<meta property="og:description" content="1、centos -Tab键命令补全12345$ yum install -y bash-completion#执行脚本，使其生效或重新登录生效$ source /usr/share/bash-completion/bash_completion 2、自定义命令补全1234567# 自定义生成kubectl命令补全source &amp;lt;(kubectl completion bash)# 将命令添">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-16T06:46:17.722Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常用工具及小技巧">
+<meta name="twitter:description" content="1、centos -Tab键命令补全12345$ yum install -y bash-completion#执行脚本，使其生效或重新登录生效$ source /usr/share/bash-completion/bash_completion 2、自定义命令补全1234567# 自定义生成kubectl命令补全source &amp;lt;(kubectl completion bash)# 将命令添">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/kxinter.gitub.io/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/常用工具及小技巧/"/>
+
+
+
+
+
+  <title>常用工具及小技巧 | OperationMAN</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/kxinter.gitub.io/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OperationMAN</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/kxinter.gitub.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/kxinter.gitub.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/kxinter.gitub.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/kxinter.gitub.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/16/常用工具及小技巧/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.Zhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OperationMAN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">常用工具及小技巧</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-16T13:48:23+08:00">
+                2018-08-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1、centos-Tab键命令补全"><a href="#1、centos-Tab键命令补全" class="headerlink" title="1、centos -Tab键命令补全"></a>1、centos -Tab键命令补全</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ yum install -y bash-completion</span><br><span class="line"></span><br><span class="line">#执行脚本，使其生效或重新登录生效</span><br><span class="line"></span><br><span class="line">$ source /usr/share/bash-completion/bash_completion</span><br></pre></td></tr></table></figure>
+<h1 id="2、自定义命令补全"><a href="#2、自定义命令补全" class="headerlink" title="2、自定义命令补全"></a>2、自定义命令补全</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 自定义生成kubectl命令补全</span><br><span class="line"></span><br><span class="line">source &lt;(kubectl completion bash)</span><br><span class="line"></span><br><span class="line"># 将命令添加入bashrc文件，每次登录当前用户执行，使命令补全生效，也可添加入其它开机执行的脚本</span><br><span class="line"></span><br><span class="line">echo <span class="string">"source &lt;(kubectl completion bash)"</span> &gt;&gt; ~<span class="regexp">/.bashrc</span></span><br></pre></td></tr></table></figure>
+<h1 id="3、ubuntu-Tab键命令补全"><a href="#3、ubuntu-Tab键命令补全" class="headerlink" title="3、ubuntu-Tab键命令补全"></a>3、ubuntu-Tab键命令补全</h1><p>编辑/etc/bash.bashrc 里面有这几行语句，去掉#注释</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#enable bash completion in interactive shells</span><br><span class="line"></span><br><span class="line">if ! shopt -oq posix; then</span><br><span class="line"></span><br><span class="line">  if [ -f /usr/share/bash-completion/bash_completion ]; then</span><br><span class="line"></span><br><span class="line">    . /usr/share/bash-completion/bash_completion</span><br><span class="line"></span><br><span class="line">  elif [ -f /etc/bash_completion ]; then</span><br><span class="line"></span><br><span class="line">    . /etc/bash_completion</span><br><span class="line"></span><br><span class="line">  fi</span><br><span class="line"></span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<h1 id="4、Linux设置环境变量"><a href="#4、Linux设置环境变量" class="headerlink" title="4、Linux设置环境变量"></a>4、Linux设置环境变量</h1><p>在 linux 里设置环境变量的方法 （ export PATH ）</p>
+<p>一般来说，配置交叉编译工具链的时候需要指定编译工具的路径，此时就需要设置环境变量。例如我的mips-linux-gcc编译器在“/opt/au1200_rm /build_tools/bin”目录下，build_tools就是我的编译工具，则有如下三种方法来设置环境变量：</p>
+<h2 id="4-1、直接用export命令："><a href="#4-1、直接用export命令：" class="headerlink" title="4.1、直接用export命令："></a>4.1、直接用export命令：</h2><p>立即生效，重启丢失。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:/opt/au1200_rm/build_tools/bin</span><br></pre></td></tr></table></figure>
+<p>查看是否已经设好，可用命令export查看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#export</span><br><span class="line"></span><br><span class="line">declare -x BASH_ENV=&quot;/root/.bashrc&quot;</span><br><span class="line"></span><br><span class="line">declare -x G_BROKEN_FILENAMES=&quot;1&quot;</span><br><span class="line"></span><br><span class="line">declare -x HISTSIZE=&quot;1000&quot;</span><br><span class="line">PATH里面已经有了我要加的编译器的路径。</span><br></pre></td></tr></table></figure>
+<h2 id="4-2、修改profile文件："><a href="#4-2、修改profile文件：" class="headerlink" title="4.2、修改profile文件："></a>4.2、修改profile文件：</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$  vi /etc/profile</span><br><span class="line">在里面加入:</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> PATH=”$PATH:<span class="regexp">/opt/</span>au1200_rm/build_tools/bin”</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ . /etc/profile            #执行命令使配置生效</span><br></pre></td></tr></table></figure>
+<h2 id="4-3-修改-bashrc文件："><a href="#4-3-修改-bashrc文件：" class="headerlink" title="4.3. 修改.bashrc文件："></a>4.3. 修改.bashrc文件：</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ vi /root/.bashrc</span><br><span class="line"></span><br><span class="line">在里面加入：</span><br><span class="line"><span class="keyword">export</span> PATH=”$PATH:<span class="regexp">/opt/</span>au1200_rm/build_tools/bin”</span><br></pre></td></tr></table></figure>
+<p>后两种方法一般需要重新注销系统才能生效，最后可以通过echo命令测试一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo $PATH              #输出变量</span><br><span class="line">看看输出里面是不是已经有了 /my_new_path这个路径了。</span><br></pre></td></tr></table></figure>
+<h1 id="5、实时查看日志"><a href="#5、实时查看日志" class="headerlink" title="5、实时查看日志"></a>5、实时查看日志</h1><p>tail -f /var/log/messages</p>
+<h1 id="6、客户端-Xshell、SecureCRT-拖拉文件到服务器"><a href="#6、客户端-Xshell、SecureCRT-拖拉文件到服务器" class="headerlink" title="6、客户端(Xshell、SecureCRT)拖拉文件到服务器"></a>6、客户端(Xshell、SecureCRT)拖拉文件到服务器</h1><p>yum install lrzsz</p>
+<h1 id="7、YUM下载rpm包及依赖包"><a href="#7、YUM下载rpm包及依赖包" class="headerlink" title="7、YUM下载rpm包及依赖包"></a>7、YUM下载rpm包及依赖包</h1><p>#只下载bash-completion包到home目录，不进行安装<br>yum install –downloadonly –downloaddir=/home bash-completion</p>
+<h1 id="8、删除多少前天备份"><a href="#8、删除多少前天备份" class="headerlink" title="8、删除多少前天备份"></a>8、删除多少前天备份</h1><p>#删除目录/mnt/backup_data下30天前后缀为.sql的文件</p>
+<p>find /mnt/backup_data/ -name “*.sql” -type f -mtime +30 -exec rm -f {} \;</p>
+<h1 id="9、nmon显示系统性能显示工具"><a href="#9、nmon显示系统性能显示工具" class="headerlink" title="9、nmon显示系统性能显示工具"></a>9、nmon显示系统性能显示工具</h1><p>yum install nmon</p>
+<p>nmon</p>
+<p>参考<a href="https://linux.cn/article-6467-1.html" target="_blank" rel="noopener">https://linux.cn/article-6467-1.html</a></p>
+<p>10、Htop进程浏览器<br>yum install htop</p>
+<p>11、查看磁盘i/o工具<br>yum install sysstat</p>
+<p>#每2秒更新一次，-m 以MB显示，-k以kb显示</p>
+<p>iostat -d -m 2</p>
+<p>#or</p>
+<p>iostat -d -k 2</p>
+<p>#or</p>
+<p>iostat -d -m /dev/sda1</p>
+<p>yum install iotop</p>
+<p>#c查看哪个进程占用i/o</p>
+<p>iotop</p>
+<p>使用详解参考：<a href="http://man.linuxde.net/iotop" target="_blank" rel="noopener">http://man.linuxde.net/iotop</a></p>
+<p>12、linux常用的监控命令<br>12.1.  top<br>显示所有正在运行而且处于活动状态的实时进程， 而且会定期更新显示结果；它显示了CPU使用率，内存使用率，交换内存使用大小，调整缓存使用大小，缓冲区使用大小，进程PID， 使用的命令等信息。</p>
+<p>12.2.  vmstat<br>一般是通过两个数字参数来完成的，第一个参数是采样时间间隔，单位是秒， 第二个参数是采样的次数</p>
+<p>r:    表示运行队列，如果队列过大说明CPU很繁忙，一般会造成CPU使用率高</p>
+<p>b:    表示阻塞的进程数</p>
+<p>swap:  虚拟内存已使用的大小，如果大于0，说明机器的物理内存不够了</p>
+<p>free:  空闲的物理内存大小</p>
+<p>buff:   系统占用的缓存大小（写缓存）</p>
+<p>cache：  直接用来记忆我们打开的文件，给文件做缓冲，读缓存</p>
+<p>si:     每秒从磁盘读入虚拟内存大小，如果这个值大于0，表示物理内存不足了</p>
+<p>so:    每秒虚拟内存写入磁盘的大小，如果这个值大于0， 表示物理内存不足了</p>
+<p>us:    用户cpu时间</p>
+<p>sy:    系统CPU时间， 如果值 太高，说明系统调用，例如是IO操作频繁</p>
+<p>id:     空闲CPU时间，一般来说 id + us + sy = 100</p>
+<p>wt:    等待IO的CPU时间</p>
+<p>12.3.  lsof<br>列出打开的文件；它常用于以列表形式显示所有打开的文件和进程，包括磁盘文件，网络套接字，管道，设备和进程。</p>
+<p>主要情形之一就是 无法挂载磁盘和显示正在使用或者打开某个文件的错误时，查看谁正在使用。</p>
+<p>12.4. tcpdump<br>apt-get install tcpdump</p>
+<p>用于捕捉或过滤网络上指定接口上接收或者传输的TCP/IP包。</p>
+<p>-i  :   网络接口</p>
+<p>-c ： 需要输出包数量</p>
+<p>12.5. netstat<br>用于监控进出网络的包和网络接口统计的命令行工具，非常有用，用来监控网络性能，解决网络相关问题。</p>
+<p>-h   :   查看帮助</p>
+<p>-r   :    显示路由表</p>
+<p>-i   :     查看网络接口</p>
+<p>12.6. Htop<br>一个非常高级的交互式实时linux进程监控工具，和top相似，但更友好, 还支持鼠标。</p>
+<p>sudo apt-get install htop</p>
+<p>12.7.  iotop<br>监控linux磁盘I/O, 用于查找大量使用磁盘读写进程的时候。python版本需要2.7以上。</p>
+<p>sudo apt-get install iotop</p>
+<p>-h:  查看帮助</p>
+<p>12.8. iostat<br>查看存储设备输入和输出状态统计的工具，用来追踪存储设备的性能 问题；包括设备，磁盘，NFS远程磁盘。</p>
+<p>sudo apt-get install sysstat</p>
+<p>%user:    在用户级别运行所使用的CPU百分比</p>
+<p>%nice:     优先进程消耗的CPU时间，占所有CPU百分比</p>
+<p>%system:   在系统级别运行所使用的CPU百分比</p>
+<p>%iowait:   cpu等待硬件I/O时，所占用的CPU百分比</p>
+<p>%steal:     管理程序维护另一个虚拟处理器时，虚拟CPU的无意识等待时间百分比</p>
+<p>%idle:        CPU空闲时间的百分比</p>
+<p>tps:         每秒发送到I/O的请求数</p>
+<p>KB_read/s:    每秒读取的block数</p>
+<p>KB_wrtn/s:    每秒写入的block数</p>
+<p>KB_read:     启动到现在block总数</p>
+<p>KB_wrtn:    启动到现在写入的block总数</p>
+<p>12.9. iptraf<br>用于采集通过网络接口的IP流量信息，包括tcp标记，icmp信息，TCP，UDP信等。</p>
+<p>sudo apt-get install iptraf</p>
+<p>sudo iptraf</p>
+<p>12.10. nethogs<br>监控每个进程使用的网络带宽</p>
+<p>sudo apt-get install nethogs</p>
+<p>sudo nethogs</p>
+<p>12.11. iftop<br>监控网络接口的应用网络带宽使用情况</p>
+<p>sudo apt-get install iftop</p>
+<p>sudo iftop</p>
+<p>=&gt; :  表示 流量方向</p>
+<p>TX：  发送的流量</p>
+<p>RX： 接收的流量</p>
+<p>TOTAL： 总流量</p>
+<p>Cumm:  运行iftop到目前总流量</p>
+<p>peak:    流量峰会</p>
+<p>rates:  分别表示 过去2秒，10秒，40秒的平均流量</p>
+<p>12.12. system monitor<br>监控cpu,内存，进程，硬盘的信息；分为进程监控，资源监控，文件监控; 遗憾的是需要图形界面支持。</p>
+<p>sudo apt-get install gnome-system-monitor</p>
+<p>gnome-system-monitor<br>13、禁止用户登录系统</p>
+<p>#禁止</p>
+<p>usermod -s /bin/false ftpuser</p>
+<p>#开启</p>
+<p>usermod -s /bin/base ftpuser</p>
+<p>14、nmtui配置网卡<br>使用nmtui命令（上一篇博客里有介绍界面）</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/kxinter.gitub.io/tags/小技巧/" rel="tag"># 小技巧</a>
+          
+            <a href="/kxinter.gitub.io/tags/运维工具/" rel="tag"># 运维工具</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/kxinter.gitub.io/2018/08/15/docker小技巧/" rel="next" title="Docker小技巧">
+                <i class="fa fa-chevron-left"></i> Docker小技巧
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/kxinter.gitub.io/2018/08/16/批处理文件小技巧/" rel="prev" title="批处理文件小技巧">
+                批处理文件小技巧 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Mr.Zhao</p>
+              <p class="site-description motion-element" itemprop="description">日常运维文档整理。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/kxinter.gitub.io/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/kxinter.gitub.io/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/kxinter.gitub.io/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、centos-Tab键命令补全"><span class="nav-number">1.</span> <span class="nav-text">1、centos -Tab键命令补全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2、自定义命令补全"><span class="nav-number">2.</span> <span class="nav-text">2、自定义命令补全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3、ubuntu-Tab键命令补全"><span class="nav-number">3.</span> <span class="nav-text">3、ubuntu-Tab键命令补全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4、Linux设置环境变量"><span class="nav-number">4.</span> <span class="nav-text">4、Linux设置环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1、直接用export命令："><span class="nav-number">4.1.</span> <span class="nav-text">4.1、直接用export命令：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2、修改profile文件："><span class="nav-number">4.2.</span> <span class="nav-text">4.2、修改profile文件：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-修改-bashrc文件："><span class="nav-number">4.3.</span> <span class="nav-text">4.3. 修改.bashrc文件：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5、实时查看日志"><span class="nav-number">5.</span> <span class="nav-text">5、实时查看日志</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6、客户端-Xshell、SecureCRT-拖拉文件到服务器"><span class="nav-number">6.</span> <span class="nav-text">6、客户端(Xshell、SecureCRT)拖拉文件到服务器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7、YUM下载rpm包及依赖包"><span class="nav-number">7.</span> <span class="nav-text">7、YUM下载rpm包及依赖包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8、删除多少前天备份"><span class="nav-number">8.</span> <span class="nav-text">8、删除多少前天备份</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9、nmon显示系统性能显示工具"><span class="nav-number">9.</span> <span class="nav-text">9、nmon显示系统性能显示工具</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Zhao</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/kxinter.gitub.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/kxinter.gitub.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/kxinter.gitub.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/kxinter.gitub.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/kxinter.gitub.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  
+</body>
+</html>
