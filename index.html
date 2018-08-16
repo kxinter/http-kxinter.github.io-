@@ -252,6 +252,213 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/16/yapi部署/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.Zhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OperationMAN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/08/16/yapi部署/" itemprop="url">yapi部署</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-16T17:15:57+08:00">
+                2018-08-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="一、在线安装"><a href="#一、在线安装" class="headerlink" title="一、在线安装"></a>一、在线安装</h1><h2 id="1、安装nodejs"><a href="#1、安装nodejs" class="headerlink" title="1、安装nodejs"></a>1、安装nodejs</h2><p>下载压缩包，设置环境变量，这里不祥述。</p>
+<h2 id="2、安装mongodb"><a href="#2、安装mongodb" class="headerlink" title="2、安装mongodb"></a>2、安装mongodb</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加yum源</span></span><br><span class="line">$ vim /etc/yum.repos.d/mongodb-3.4.repo</span><br><span class="line"> </span><br><span class="line"><span class="comment">#添加下面的内容，wq保存。 </span></span><br><span class="line"></span><br><span class="line">[mongodb-org-3.4]</span><br><span class="line">name=MongoDB Repository</span><br><span class="line">baseurl=https://repo.mongodb.org/yum/RedHat/<span class="variable">$releasever</span>/mongodb-org/3.4/x86_64/</span><br><span class="line">gpgcheck= 0</span><br><span class="line">enabled=1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装mongodb</span></span><br><span class="line">yum install -y mongodb-org</span><br><span class="line"><span class="comment"># 配置mongod</span></span><br><span class="line"><span class="comment">#启动:</span></span><br><span class="line">$ service mongod start</span><br><span class="line">[root@CENTSVR247 vendors]<span class="comment"># mongo</span></span><br><span class="line">&amp;gt; use admin   <span class="comment">#切换到admin数据库</span></span><br><span class="line">switched to db admin</span><br><span class="line"><span class="comment">#创建dba用户</span></span><br><span class="line">&amp;gt; db.createUser(</span><br><span class="line">... ...   &#123;</span><br><span class="line">... ...     user: <span class="string">"dba"</span>,</span><br><span class="line">... ...     <span class="built_in">pwd</span>: <span class="string">"dba"</span>,</span><br><span class="line">... ...     roles: [ &#123; role: <span class="string">"userAdminAnyDatabase"</span>, db: <span class="string">"admin"</span> &#125; ]</span><br><span class="line">... ...   &#125;</span><br><span class="line">... ... )</span><br><span class="line"><span class="comment"># 创建yapi数据库</span></span><br><span class="line">use yapi</span><br><span class="line">switched to db yapi</span><br><span class="line">给yapi数据库添加test1用户,权限为读写</span><br><span class="line">db.createUser(</span><br><span class="line">... ...     &#123;</span><br><span class="line">... ...       user: <span class="string">"test1"</span>,</span><br><span class="line">... ...       <span class="built_in">pwd</span>: <span class="string">"test1"</span>,</span><br><span class="line">... ...       roles: [</span><br><span class="line">... ...          &#123; role: <span class="string">"readWrite"</span>, db: <span class="string">"yapi"</span> &#125;  </span><br><span class="line">... ...       ]</span><br><span class="line">... ...     &#125;</span><br><span class="line">... ... )</span><br></pre></td></tr></table></figure>
+<h2 id="3、安装Yapi"><a href="#3、安装Yapi" class="headerlink" title="3、安装Yapi"></a>3、安装Yapi</h2><p>官方说明：<a href="https://yapi.ymfe.org/devops/index.html" target="_blank" rel="noopener">https://yapi.ymfe.org/devops/index.html</a></p>
+<h3 id="方式一：可视化部署"><a href="#方式一：可视化部署" class="headerlink" title="方式一：可视化部署"></a>方式一：可视化部署</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g yapi-cli --registry https://registry.npm.taobao.org</span><br><span class="line">$ yapi server</span><br></pre></td></tr></table></figure>
+<p><img src="1.png" alt="enter description here"><br>根据提示，浏览器访问 http://部署YApi服务器的IP:9090。<br><img src="2.png" alt="enter description here"></p>
+<p>填写完信息后，点击“开始部署”。（大概等待1分钟）<br><img src="3.png" alt="enter description here"><br><img src="4.png" alt="enter description here"><br>退出当前状态</p>
+<p>CTRL + C</p>
+<p> <strong>修改配置</strong></p>
+<p>这里我们不急着根据提示进行启动，有些参数我们可以通过修改配置达到。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#修改config.json</span></span><br><span class="line"></span><br><span class="line">$ vim /root/my-yapi/config.json</span><br><span class="line"> 修改下面的内容（邮箱可以不用163的），wq保存。</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"port"</span>: <span class="string">"80"</span>,</span><br><span class="line">  <span class="string">"adminAccount"</span>: <span class="string">"yizitadmin@yizit.cn"</span>,</span><br><span class="line">  <span class="string">"db"</span>: &#123;</span><br><span class="line">       <span class="string">"servername"</span>: <span class="string">"127.0.0.1"</span>,</span><br><span class="line">       <span class="string">"DATABASE"</span>: <span class="string">"yapi"</span>,</span><br><span class="line">       <span class="string">"port"</span>: <span class="string">"27017"</span></span><br><span class="line">   &#125;,</span><br><span class="line">  <span class="string">"mail"</span>: &#123;</span><br><span class="line">       <span class="string">"enable"</span>: <span class="literal">true</span>,</span><br><span class="line">       <span class="string">"host"</span>: <span class="string">"smtp.163.com"</span>,</span><br><span class="line">       <span class="string">"port"</span>: 465,</span><br><span class="line">       <span class="string">"from"</span>: <span class="string">"可用于发送邮件的163邮箱"</span>,</span><br><span class="line">       <span class="string">"auth"</span>: &#123;</span><br><span class="line">           <span class="string">"user"</span>: <span class="string">"163邮箱"</span>,</span><br><span class="line">           <span class="string">"pass"</span>: <span class="string">"163邮箱对应的密码或授权码"</span></span><br><span class="line">       &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>启动</strong></p>
+<p> 切换到部署目录下</p>
+<p>cd /root/my-yapi<br><strong><em>启动服务</em></strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ node vendors/server/app.js</span><br></pre></td></tr></table></figure>
+<p>由于修改了配置，所以直接访问 http://部署YApi服务器的IP/login。</p>
+<p>访问http://部署YApi服务器的IP:3000/login</p>
+<p>默认用户密码：<a href="mailto:admin@admin.com" target="_blank" rel="noopener">admin@admin.com</a>               ymfe.org<br><img src="5.png" alt="enter description here"></p>
+<h3 id="方式二：命令行部署"><a href="#方式二：命令行部署" class="headerlink" title="方式二：命令行部署"></a>方式二：命令行部署</h3><p><strong>安装yapi</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir yapi</span><br><span class="line">$ <span class="built_in">cd</span> yapi</span><br><span class="line">$ git <span class="built_in">clone</span> https://github.com/YMFE/yapi.git vendors //或者下载 zip 包解压到 vendors 目录</span><br><span class="line">$ cp vendors/config_example.json ./config.json //复制完成后请修改相关配置</span><br><span class="line">$ <span class="built_in">cd</span> vendors</span><br><span class="line">$ npm install --production --registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<p><strong>安装pm2</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> vendors</span><br><span class="line">$ npm install -S pm2</span><br></pre></td></tr></table></figure>
+<p><strong>初始化及启动yapi</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm run install-server //安装程序会初始化数据库索引和管理员账号，管理员账号名可在 config.json 配置</span><br><span class="line">$ node server/app.js //启动服务器后，请访问 127.0.0.1:&#123;config.json配置的端口&#125;，初次运行会有个编译的过程，请耐心等候</span><br></pre></td></tr></table></figure>
+<p><strong>使用pm2启动方式</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动</span></span><br><span class="line">$ npx pm2 start ./server/app.js</span><br><span class="line"><span class="comment"># 停止</span></span><br><span class="line">$ npx pm2 stop all</span><br></pre></td></tr></table></figure>
+<h1 id="二、离线安装"><a href="#二、离线安装" class="headerlink" title="二、离线安装"></a>二、离线安装</h1><blockquote>
+<p>离线安装只能采用命令行部署方式</p>
+</blockquote>
+<h2 id="node安装"><a href="#node安装" class="headerlink" title="node安装"></a>node安装</h2><p>不再详述。</p>
+<h2 id="内网安装mongodb"><a href="#内网安装mongodb" class="headerlink" title="内网安装mongodb"></a>内网安装mongodb</h2><p>解压mongodb-linux-x86_64-3.6.4.tgz并放入mongodb文件夹中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ tar -zxvf mongodb-linux-x86_64-3.6.4.tgz</span><br><span class="line">$ mv mongodb-linux-x86_64-3.6.4 mongodb</span><br></pre></td></tr></table></figure>
+<p>把mongodb放入环境变量中, 修改~/.bashrc, 加入以下内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=&amp;lt;mongodb文件夹的路径&amp;gt;/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+<p>验证安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">source</span> ~/.bashrc</span><br><span class="line">$ mongo --version</span><br></pre></td></tr></table></figure>
+<p>创建dbdata/db文件夹和dblog文件夹(请自行确保这些文件夹的读写权限)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir -p dbdata/db</span><br><span class="line">$ mkdir dblog</span><br></pre></td></tr></table></figure>
+<p>启动mongodb服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ./mongodb/bin/mongod --fork --dbpath ./dbdata --logpath ./dblog/<span class="built_in">log</span></span><br></pre></td></tr></table></figure>
+<p>配置</p>
+<p>参考上文mongodb配置。</p>
+<h2 id="离线安装yapi"><a href="#离线安装yapi" class="headerlink" title="离线安装yapi"></a>离线安装yapi</h2><p>在一台连接互联网的pc上安装node环境</p>
+<p>在外网机器获取yapi源码并安装依赖<br>使用git获取yapi源码, 如果没有git命令请按照对应平台的安装方法安装git.</p>
+<p>创建一个新文件夹yapi, 使用clone将yapi源码放入vendors中:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir yapi</span><br><span class="line">$ <span class="built_in">cd</span> yapi</span><br><span class="line">$ git <span class="built_in">clone</span> https://github.com/YMFE/yapi.git vendors</span><br><span class="line">$ cp vendors/config_example.json ./config.json</span><br><span class="line">$ <span class="built_in">cd</span> vendors</span><br><span class="line">$ npm install --production</span><br></pre></td></tr></table></figure>
+<p>我这里还安装了pm2</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm n install -S pm2</span><br></pre></td></tr></table></figure>
+<p>将创建的yapi文件夹打成压缩包得到yapi.tar.gz(其目录下有config.json和vendors)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tar -czf yapi.tar.gz yapi</span><br></pre></td></tr></table></figure>
+<p>至此, 所有需要外部网络的操作已经完成, 可以进行内网部署.</p>
+<h2 id="启动yapi"><a href="#启动yapi" class="headerlink" title="启动yapi"></a>启动yapi</h2><p>解压yapi.tar.gz</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tar -zxvf yapi.tar.gz</span><br></pre></td></tr></table></figure>
+<p>按需要修改yapi/config.json中的相关配置(例如管理员账号等)</p>
+<p>初始化数据库:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> ./yapi/vendors</span><br><span class="line">$ npm run install-server</span><br></pre></td></tr></table></figure>
+<p>使用pm2启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npx n pm2 start ./server/app.js</span><br></pre></td></tr></table></figure>
+<p>启动完成后即可尝试访问yapi看是否成功, 具体地址要根据内网机器的ip和在config.json中配置的端口号</p>
+<p>如果要关闭yapi服务, 可以使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npx n pm2 stop all</span><br></pre></td></tr></table></figure>
+<h1 id="问题总结："><a href="#问题总结：" class="headerlink" title="问题总结："></a>问题总结：</h1><p>两种方式安装yapi,按照正常方式安装都是无法安装的，有如下错误</p>
+<p>方式1图形界面，yapi server 启动9090服务后，页面无法打开，会报错误，原因是无网络。<br>方式2命令行安装，npm install –production 回报git错误，因需要联网git操作，原因无网络，npm使用私库代理也不行。</p>
+<h1 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h1><p><a href="https://yapi.ymfe.org/devops/index.html" target="_blank" rel="noopener">https://yapi.ymfe.org/devops/index.html</a></p>
+<p><a href="http://stlighter.github.io/2018/04/19/yapi%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2/" target="_blank" rel="noopener">http://stlighter.github.io/2018/04/19/yapi%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2/</a></p>
+<p><a href="https://www.linuxidc.com/Linux/2018-01/150513.htm" target="_blank" rel="noopener">https://www.linuxidc.com/Linux/2018-01/150513.htm</a></p>
+<p><a href="https://blog.csdn.net/luwei42768/article/details/78919073" target="_blank" rel="noopener">https://blog.csdn.net/luwei42768/article/details/78919073</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/16/vsftp部署/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1427,7 +1634,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1449,7 +1656,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/kxinter.gitub.io/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
