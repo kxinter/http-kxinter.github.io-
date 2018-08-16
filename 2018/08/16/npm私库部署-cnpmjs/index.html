@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/kxinter.gitub.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/kxinter.gitub.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/kxinter.gitub.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/kxinter.gitub.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/kxinter.gitub.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/kxinter.gitub.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/kxinter.gitub.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="基础运维,私有仓库,npm,cnpmjs,部署," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="部署cnpm获取代码1git clone git://github.com/fengmk2/cnpmjs.org.git 创建mysql库Default 123create database cnpmjs;use cnpmjs;source docs/db.sql【db.sql位于cnpmjs.org/docs/db.sql】 安装依赖安装依赖其实就是一个 npm install，不过 CNPM">
+<meta name="keywords" content="基础运维,私有仓库,npm,cnpmjs,部署">
+<meta property="og:type" content="article">
+<meta property="og:title" content="npm私库部署-cnpmjs">
+<meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/npm私库部署-cnpmjs/index.html">
+<meta property="og:site_name" content="OperationMAN">
+<meta property="og:description" content="部署cnpm获取代码1git clone git://github.com/fengmk2/cnpmjs.org.git 创建mysql库Default 123create database cnpmjs;use cnpmjs;source docs/db.sql【db.sql位于cnpmjs.org/docs/db.sql】 安装依赖安装依赖其实就是一个 npm install，不过 CNPM">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/npm私库部署-cnpmjs/1.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/npm私库部署-cnpmjs/2.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/npm私库部署-cnpmjs/4.png">
+<meta property="og:updated_time" content="2018-08-16T10:49:08.755Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="npm私库部署-cnpmjs">
+<meta name="twitter:description" content="部署cnpm获取代码1git clone git://github.com/fengmk2/cnpmjs.org.git 创建mysql库Default 123create database cnpmjs;use cnpmjs;source docs/db.sql【db.sql位于cnpmjs.org/docs/db.sql】 安装依赖安装依赖其实就是一个 npm install，不过 CNPM">
+<meta name="twitter:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/npm私库部署-cnpmjs/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/kxinter.gitub.io/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/npm私库部署-cnpmjs/"/>
+
+
+
+
+
+  <title>npm私库部署-cnpmjs | OperationMAN</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/kxinter.gitub.io/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OperationMAN</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/kxinter.gitub.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/kxinter.gitub.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/kxinter.gitub.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/kxinter.gitub.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/16/npm私库部署-cnpmjs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.Zhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OperationMAN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">npm私库部署-cnpmjs</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-16T18:25:38+08:00">
+                2018-08-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="部署cnpm"><a href="#部署cnpm" class="headerlink" title="部署cnpm"></a>部署cnpm</h1><h2 id="获取代码"><a href="#获取代码" class="headerlink" title="获取代码"></a>获取代码</h2><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">clone</span> <span class="title">git</span>://github.com/fengmk2/cnpmjs.org.git</span><br></pre></td></tr></table></figure>
+<h2 id="创建mysql库"><a href="#创建mysql库" class="headerlink" title="创建mysql库"></a>创建mysql库</h2><p>Default</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> cnpmjs;</span><br><span class="line"><span class="keyword">use</span> cnpmjs;</span><br><span class="line">source docs/db.sql【db.sql位于cnpmjs.org/docs/db.sql】</span><br></pre></td></tr></table></figure>
+<h2 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h2><p>安装依赖其实就是一个 npm install，不过 CNPM 把该指令已经写到 Makefile 里面了，所以直接执行下面的命令就好了。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> cnpmjs.org </span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm install</span></span><br></pre></td></tr></table></figure></p>
+<p>当然万一你是 Windows 用户或者不会 make，那么还是要用 npm install。<br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install <span class="params">--build-from-source</span> <span class="params">--registry=https</span>:<span class="string">//registry.npm.taobao.org</span> <span class="params">--disturl=https</span>:<span class="string">//npm.taobao.org/mirrors/node</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>修改配置</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vim</span> /cnpmjs.org/config/<span class="built_in">index</span>.js</span><br></pre></td></tr></table></figure>
+<p><img src="1.png" alt="enter description here"></p>
+<p>cnpm提供两个端口：7001和7002，其中7001用于NPM的注册服务，7002用于Web访问。</p>
+<p>bindingHost为安装cnpm的服务器ip地址，也就是在浏览器中只能通过访问<a href="http://192.168.48.57来访问cnpm以及获取npm的注册服务。" target="_blank" rel="noopener">http://192.168.48.57来访问cnpm以及获取npm的注册服务。</a></p>
+<p><img src="2.png" alt="2"><br>按照之前创建的数据库来进行配置</p>
+<p>这里将会列举一些常用的配置项，其余的一些配置项请自行参考 config/index.js 文件。</p>
+<h3 id="配置字段参考"><a href="#配置字段参考" class="headerlink" title="配置字段参考"></a>配置字段参考</h3><p><a href="https://segmentfault.com/a/1190000005946580" target="_blank" rel="noopener">https://segmentfault.com/a/1190000005946580</a></p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">enableCluster：</span>是否启用 <span class="string">cluster-worker </span>模式启动服务，默认 <span class="string">false，</span>生产环节推荐为 <span class="string">true;</span></span><br><span class="line"><span class="string">registryPort：</span><span class="string">API </span>专用的 <span class="string">registry </span>服务端口，默认 <span class="string">7001；</span></span><br><span class="line"><span class="string">webPort：</span><span class="string">Web </span>服务端口，默认 <span class="string">7002；</span></span><br><span class="line"><span class="string">bindingHost：</span>监听绑定的 <span class="string">Host，</span>默认为 <span class="string">127.</span>0.0.1，如果外面架了一层本地的 <span class="string">Nginx </span>反向代理或者 <span class="string">Apache </span>反向代理的话推荐不用改；</span><br><span class="line"><span class="string">sessionSecret：</span><span class="string">session </span>用的盐；</span><br><span class="line"><span class="string">logdir：</span>日志目录；</span><br><span class="line"><span class="string">uploadDir：</span>临时上传文件目录；</span><br><span class="line"><span class="string">viewCache：</span>视图模板缓存是否开启，默认为 <span class="string">false；</span></span><br><span class="line"><span class="string">enableCompress：</span>是否开启 <span class="string">gzip </span>压缩，默认为 <span class="string">false；</span></span><br><span class="line"><span class="string">admins：</span>管理员们，这是一个 <span class="string">JSON </span><span class="string">Object，</span>对应各键名为各管理员的用户名，键值为其邮箱，默认为 &#123; <span class="string">fengmk2:</span> <span class="string">'fengmk2@gmail.com'</span>, <span class="string">admin:</span> <span class="string">'admin@cnpmjs.org'</span>, <span class="string">dead_horse:</span> <span class="string">'dead_horse@qq.com'</span> &#125;；</span><br><span class="line"><span class="string">logoURL：</span><span class="string">Logo </span>地址，不过对于我这个已经把 <span class="string">CNPM </span>前端改得面目全非的人来说已经忽略了这个配置了；</span><br><span class="line"><span class="string">adBanner：</span>广告 <span class="string">Banner </span>的地址；</span><br><span class="line"><span class="string">customReadmeFile：</span>实际上我们看到的 <span class="string">cnpmjs.</span><span class="string">org </span>首页中间一大堆冗长的介绍是一个 <span class="string">Markdown </span>文件转化而成的，你可以设置该项来自行替换这个文件；</span><br><span class="line"><span class="string">customFooter：</span>自定义页脚模板；</span><br><span class="line"><span class="string">npmClientName：</span>默认为 <span class="string">cnpm，</span>如果你有自己开发或者 <span class="string">fork </span>的 <span class="string">npm </span>客户端的话请改成自己的 <span class="string">CLI </span>命令，这个应该会在一些页面的说明处替换成你所写的；</span><br><span class="line"><span class="string">backupFilePrefix：</span>备份目录；</span><br><span class="line"><span class="string">database：</span>数据库相关配置，为一个对象，默认如果不配置将会是一个 ~/.<span class="string">cnpmjs.</span><span class="string">org/</span><span class="string">data.</span><span class="string">sqlite </span>的 <span class="string">SQLite；</span></span><br><span class="line"><span class="string">db：</span>数据的库名；</span><br><span class="line"><span class="string">username：</span>数据库用户名；</span><br><span class="line"><span class="string">password：</span>数据库密码；</span><br><span class="line"><span class="string">dialect：</span>数据库适配器，可选 <span class="string">"mysql"</span>、<span class="string">"sqlite"</span>、<span class="string">"postgres"</span>、<span class="string">"mariadb"</span>，默认为 <span class="string">"sqlite"</span>；</span><br><span class="line"><span class="string">hsot：</span>数据库地址；</span><br><span class="line"><span class="string">port：</span>数据库端口；</span><br><span class="line"><span class="string">pool：</span>数据库连接池相关配置，为一个对象；</span><br><span class="line"><span class="string">maxConnections：</span>最大连接数，默认为 <span class="string">10；</span></span><br><span class="line"><span class="string">minConnections：</span>最小连接数，默认为 0；</span><br><span class="line"><span class="string">maxIdleTime：</span>单条链接最大空闲时间，默认为 <span class="string">30000 </span>毫秒；</span><br><span class="line"><span class="string">storege：</span>仅对 <span class="string">SQLite </span>配置有效，数据库地址，默认为 ~/.<span class="string">cnpmjs/</span><span class="string">data.</span><span class="string">sqlite；</span></span><br><span class="line"><span class="string">nfs：</span>包文件系统处理对象，为一个 <span class="string">Node.</span><span class="string">js </span>对象，默认是 [<span class="string">fs-cnpm]</span>() 这个包，并且配置在 ~/.<span class="string">cnpmjs/</span><span class="string">nfs </span>目录下，也就是说默认所有同步的包都会被放在这个目录下；开发者可以使用别的一些文件系统插件（如上传到又拍云等）,又或者自己去按接口开发一个逻辑层，这些都是后话了；</span><br><span class="line"><span class="string">registryHost：</span>暂时还未试过，我猜是用于 <span class="string">Web </span>页面显示用的，默认为 r.<span class="string">cnpmjs.</span><span class="string">org；</span></span><br><span class="line"><span class="string">enablePrivate：</span>是否开启私有模式，默认为 <span class="string">false；</span></span><br><span class="line">如果是私有模式则只有管理员能发布包，其它人只能从源站同步包；</span><br><span class="line">如果是非私有模式则所有登录用户都能发布包；</span><br><span class="line"><span class="string">scopes：</span>非管理员发布包的时候只能用以 <span class="string">scopes </span>里面列举的命名空间为前缀来发布，如果没设置则无法发布，也就是说这是一个必填项，默认为 [ <span class="string">'@cnpm'</span>, <span class="string">'@cnpmtest'</span>, <span class="string">'@cnpm-test'</span> ]，据苏千大大解释是为了便于管理以及让公司的员工自觉按需发布；更多关于 <span class="string">NPM </span><span class="string">scope </span>的说明请参见 <span class="string">npm-scope；</span></span><br><span class="line"><span class="string">privatePackages：</span>就如该配置项的注释所述，出于历史包袱的原因，有些已经存在的私有包（可能之前是用 <span class="string">Git </span>的方式安装的）并没有以命名空间的形式来命名，而这种包本来是无法上传到 <span class="string">CNPM </span>的，这个配置项数组就是用来加这些例外白名单的，默认为一个空数组；</span><br><span class="line"><span class="string">sourceNpmRegistry：</span>更新源 <span class="string">NPM </span>的 <span class="string">registry </span>地址，默认为 <span class="string">https:</span>//<span class="string">registry.</span><span class="string">npm.</span><span class="string">taobao.</span><span class="string">org；</span></span><br><span class="line"><span class="string">sourceNpmRegistryIsCNpm：</span>源 <span class="string">registry </span>是否为 <span class="string">CNPM，</span>默认为 <span class="string">true，</span>如果你使用的源是官方 <span class="string">NPM </span>源，请将其设为 <span class="string">false；</span></span><br><span class="line"><span class="string">syncByInstall：</span>如果安装包的时候发现包不存在，则尝试从更新源同步，默认为 <span class="string">true；</span></span><br><span class="line"><span class="string">syncModel：</span>更新模式（不过我觉得是个 <span class="string">typo）</span>，有下面几种模式可以选择，默认为 <span class="string">"none"</span>;</span><br><span class="line"><span class="string">"none"</span>：永不同步，只管理私有用户上传的包，其它源包会直接从源站获取；</span><br><span class="line"><span class="string">"exist"</span>：定时同步已经存在于数据库的包；</span><br><span class="line"><span class="string">"all"</span>：定时同步所有源站的包；</span><br><span class="line"><span class="string">syncInterval：</span>同步间隔，默认为 <span class="string">"10m"</span> 即十分钟；</span><br><span class="line"><span class="string">syncDevDependencies：</span>是否同步每个包里面的 <span class="string">devDependencies </span>包们，默认为 <span class="string">false；</span></span><br><span class="line"><span class="string">badgeSubject：</span>包的 <span class="string">badge </span>显示的名字，默认为 <span class="string">cnpm；</span></span><br><span class="line"><span class="string">userService：</span>用户验证接口，默认为 <span class="string">null，</span>即无用户相关功能也就是无法有用户去上传包，该部分需要自己实现接口功能并配置，如与公司的 <span class="string">Gitlab </span>相对接，这也是后话了；</span><br><span class="line"><span class="string">alwaysAuth：</span>是否始终需要用户验证，即便是 $ <span class="string">cnpm </span><span class="string">install </span>等命令；</span><br><span class="line"><span class="string">httpProxy：</span>代理地址设置，用于你在墙内源站在墙外的情况。</span><br></pre></td></tr></table></figure>
+<p>下面是index.js配置实例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> mkdirp = <span class="built_in">require</span>(<span class="string">'mkdirp'</span>);</span><br><span class="line"><span class="keyword">var</span> copy = <span class="built_in">require</span>(<span class="string">'copy-to'</span>);</span><br><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">var</span> os = <span class="built_in">require</span>(<span class="string">'os'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> version = <span class="built_in">require</span>(<span class="string">'../package.json'</span>).version;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> root = path.dirname(__dirname);</span><br><span class="line"><span class="keyword">var</span> dataDir = path.join(process.env.HOME || root, <span class="string">'.cnpmjs.org'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> config = &#123;</span><br><span class="line">  version: version,</span><br><span class="line">  dataDir: dataDir,</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Cluster mode</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  enableCluster: <span class="literal">false</span>,</span><br><span class="line">  numCPUs: os.cpus().length,</span><br><span class="line"></span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">   * server configure</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="comment">//cnpm提供两个端口：7001和7002，其中7001用于NPM的注册服务，7002用于Web访问。</span></span><br><span class="line">  registryPort: <span class="number">7001</span>,</span><br><span class="line">  webPort: <span class="number">7002</span>,</span><br><span class="line">  <span class="comment">//bindingHost为安装cnpm的服务器ip地址，也就是在浏览器中只能通过访问http://192.168.48.57来访问cnpm以及获取npm的注册服务。</span></span><br><span class="line">  bindingHost: <span class="string">'192.168.1.12'</span>, <span class="comment">// only binding on 127.0.0.1 for local access</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// debug mode</span></span><br><span class="line">  <span class="comment">// if in debug mode, some middleware like limit wont load</span></span><br><span class="line">  <span class="comment">// logger module will print to stdout</span></span><br><span class="line">  debug: process.env.NODE_ENV === <span class="string">'development'</span>,</span><br><span class="line">  <span class="comment">// page mode, enable on development env</span></span><br><span class="line">  pagemock: process.env.NODE_ENV === <span class="string">'development'</span>,</span><br><span class="line">  <span class="comment">// session secret</span></span><br><span class="line">  sessionSecret: <span class="string">'cnpmjs.org test session secret'</span>,</span><br><span class="line">  <span class="comment">// max request json body size</span></span><br><span class="line">  jsonLimit: <span class="string">'10mb'</span>,</span><br><span class="line">  <span class="comment">// log dir name</span></span><br><span class="line">  logdir: path.join(dataDir, <span class="string">'logs'</span>),</span><br><span class="line">  <span class="comment">// update file template dir</span></span><br><span class="line">  uploadDir: path.join(dataDir, <span class="string">'downloads'</span>),</span><br><span class="line">  <span class="comment">// web page viewCache</span></span><br><span class="line">  viewCache: <span class="literal">false</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// config for koa-limit middleware</span></span><br><span class="line">  <span class="comment">// for limit download rates</span></span><br><span class="line">  limit: &#123;</span><br><span class="line">    enable: <span class="literal">false</span>,</span><br><span class="line">    token: <span class="string">'koa-limit:download'</span>,</span><br><span class="line">    limit: <span class="number">1000</span>,</span><br><span class="line">    interval: <span class="number">1000</span> * <span class="number">60</span> * <span class="number">60</span> * <span class="number">24</span>,</span><br><span class="line">    whiteList: [],</span><br><span class="line">    blackList: [],</span><br><span class="line">    message: <span class="string">'request frequency limited, any question, please contact fengmk2@gmail.com'</span>,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  enableCompress: <span class="literal">false</span>, <span class="comment">// enable gzip response or not</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// default system admins</span></span><br><span class="line">  admins: &#123;</span><br><span class="line">    <span class="comment">// name: email</span></span><br><span class="line">    fengmk2: <span class="string">'fengmk2@gmail.com'</span>,</span><br><span class="line">    admin: <span class="string">'admin@cnpmjs.org'</span>,</span><br><span class="line">    dead_horse: <span class="string">'dead_horse@qq.com'</span>,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// email notification for errors</span></span><br><span class="line">  <span class="comment">// check https://github.com/andris9/Nodemailer for more informations</span></span><br><span class="line">  mail: &#123;</span><br><span class="line">    enable: <span class="literal">false</span>,</span><br><span class="line">    appname: <span class="string">'cnpmjs.org'</span>,</span><br><span class="line">    <span class="keyword">from</span>: <span class="string">'cnpmjs.org mail sender &lt;adderss@gmail.com&gt;'</span>,</span><br><span class="line">    service: <span class="string">'gmail'</span>,</span><br><span class="line">    auth: &#123;</span><br><span class="line">      user: <span class="string">'address@gmail.com'</span>,</span><br><span class="line">      pass: <span class="string">'your password'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  logoURL: <span class="string">'https://os.alipayobjects.com/rmsportal/oygxuIUkkrRccUz.jpg'</span>, <span class="comment">// cnpm logo image url</span></span><br><span class="line">  adBanner: <span class="string">''</span>,</span><br><span class="line">  customReadmeFile: <span class="string">''</span>, <span class="comment">// you can use your custom readme file instead the cnpm one</span></span><br><span class="line">  customFooter: <span class="string">''</span>, <span class="comment">// you can add copyright and site total script html here</span></span><br><span class="line">  npmClientName: <span class="string">'cnpm'</span>, <span class="comment">// use `$&#123;name&#125; install package`</span></span><br><span class="line">  packagePageContributorSearch: <span class="literal">true</span>, <span class="comment">// package page contributor link to search, default is true</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// max handle number of package.json `dependencies` property</span></span><br><span class="line">  maxDependencies: <span class="number">200</span>,</span><br><span class="line">  <span class="comment">// backup filepath prefix</span></span><br><span class="line">  backupFilePrefix: <span class="string">'/cnpm/backup/'</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * database config</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="comment">//配置数据库连接信息</span></span><br><span class="line">  database: &#123;</span><br><span class="line">    db: <span class="string">'cnpm'</span>,</span><br><span class="line">    username: <span class="string">'root'</span>,</span><br><span class="line">    password: <span class="string">'123456'</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// the sql dialect of the database</span></span><br><span class="line">    <span class="comment">// - currently supported: 'mysql', 'sqlite', 'postgres', 'mariadb'</span></span><br><span class="line">    dialect: <span class="string">'mysql'</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// custom host; default: 127.0.0.1</span></span><br><span class="line">    host: <span class="string">'192.168.1.12'</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// custom port; default: 3306</span></span><br><span class="line">    port: <span class="number">3306</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// use pooling in order to reduce db connection overload and to increase speed</span></span><br><span class="line">    <span class="comment">// currently only for mysql and postgresql (since v1.5.0)</span></span><br><span class="line">    pool: &#123;</span><br><span class="line">      maxConnections: <span class="number">10</span>,</span><br><span class="line">      minConnections: <span class="number">0</span>,</span><br><span class="line">      maxIdleTime: <span class="number">30000</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// the storage engine for 'sqlite'</span></span><br><span class="line">    <span class="comment">// default store into ~/.cnpmjs.org/data.sqlite</span></span><br><span class="line">    storage: path.join(dataDir, <span class="string">'data.sqlite'</span>),</span><br><span class="line"></span><br><span class="line">    logging: !!process.env.SQL_DEBUG,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// package tarball store in local filesystem by default</span></span><br><span class="line">  nfs: <span class="built_in">require</span>(<span class="string">'fs-cnpm'</span>)(&#123;</span><br><span class="line">    dir: path.join(dataDir, <span class="string">'nfs'</span>)</span><br><span class="line">  &#125;),</span><br><span class="line">  <span class="comment">// if set true, will 302 redirect to `nfs.url(dist.key)`</span></span><br><span class="line">  downloadRedirectToNFS: <span class="literal">false</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// registry url name</span></span><br><span class="line">  registryHost: <span class="string">'r.cnpmjs.org'</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * registry mode config</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// enable private mode or not</span></span><br><span class="line">  <span class="comment">// private mode: only admins can publish, other users just can sync package from source npm</span></span><br><span class="line">  <span class="comment">// public mode: all users can publish</span></span><br><span class="line">  enablePrivate: <span class="literal">false</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// registry scopes, if don't set, means do not support scopes</span></span><br><span class="line">  scopes: [ <span class="string">'@cnpm'</span>, <span class="string">'@cnpmtest'</span>, <span class="string">'@cnpm-test'</span> ],</span><br><span class="line"></span><br><span class="line">  <span class="comment">// some registry already have some private packages in global scope</span></span><br><span class="line">  <span class="comment">// but we want to treat them as scoped private packages,</span></span><br><span class="line">  <span class="comment">// so you can use this white list.</span></span><br><span class="line">  privatePackages: [],</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * sync configs</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// the official npm registry</span></span><br><span class="line">  <span class="comment">// cnpm wont directly sync from this one</span></span><br><span class="line">  <span class="comment">// but sometimes will request it for some package infomations</span></span><br><span class="line">  <span class="comment">// please don't change it if not necessary</span></span><br><span class="line">  officialNpmRegistry: <span class="string">'https://registry.npmjs.com'</span>,</span><br><span class="line">  officialNpmReplicate: <span class="string">'https://replicate.npmjs.com'</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// sync source, upstream registry</span></span><br><span class="line">  <span class="comment">// If you want to directly sync from official npm's registry</span></span><br><span class="line">  <span class="comment">// please drop them an email first</span></span><br><span class="line">  sourceNpmRegistry: <span class="string">'https://registry.npm.taobao.org'</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// upstream registry is base on cnpm/cnpmjs.org or not</span></span><br><span class="line">  <span class="comment">// if your upstream is official npm registry, please turn it off</span></span><br><span class="line">  sourceNpmRegistryIsCNpm: <span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// if install return 404, try to sync from source registry</span></span><br><span class="line">  syncByInstall: <span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// sync mode select</span></span><br><span class="line">  <span class="comment">// none: do not sync any module, proxy all public modules from sourceNpmRegistry</span></span><br><span class="line">  <span class="comment">// exist: only sync exist modules</span></span><br><span class="line">  <span class="comment">// all: sync all modules</span></span><br><span class="line">  <span class="comment">//配置从仓库同步到本地（重要）</span></span><br><span class="line">  syncModel: <span class="string">'exist'</span>, <span class="comment">// 'none', 'all', 'exist'</span></span><br><span class="line"></span><br><span class="line">  syncConcurrency: <span class="number">1</span>,</span><br><span class="line">  <span class="comment">// sync interval, default is 10 minutes</span></span><br><span class="line">  syncInterval: <span class="string">'10m'</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// sync polular modules, default to false</span></span><br><span class="line">  <span class="comment">// because cnpm can't auto sync tag change for now</span></span><br><span class="line">  <span class="comment">// so we want to sync popular modules to ensure their tags</span></span><br><span class="line">  syncPopular: <span class="literal">false</span>,</span><br><span class="line">  syncPopularInterval: <span class="string">'1h'</span>,</span><br><span class="line">  <span class="comment">// top 100</span></span><br><span class="line">  topPopular: <span class="number">100</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// sync devDependencies or not, default is false</span></span><br><span class="line">  syncDevDependencies: <span class="literal">false</span>,</span><br><span class="line">  <span class="comment">// try to remove all deleted versions from original registry</span></span><br><span class="line">  syncDeletedVersions: <span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// changes streaming sync</span></span><br><span class="line">  syncChangesStream: <span class="literal">false</span>,</span><br><span class="line">  handleSyncRegistry: <span class="string">'http://127.0.0.1:7001'</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// badge subject on http://shields.io/</span></span><br><span class="line">  badgePrefixURL: <span class="string">'https://img.shields.io/badge'</span>,</span><br><span class="line">  badgeSubject: <span class="string">'cnpm'</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// custom user service, @see https://github.com/cnpm/cnpmjs.org/wiki/Use-Your-Own-User-Authorization</span></span><br><span class="line">  <span class="comment">// when you not intend to ingegrate with your company's user system, then use null, it would</span></span><br><span class="line">  <span class="comment">// use the default cnpm user system</span></span><br><span class="line">  userService: <span class="literal">null</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// always-auth https://docs.npmjs.com/misc/config#always-auth</span></span><br><span class="line">  <span class="comment">// Force npm to always require authentication when accessing the registry, even for GET requests.</span></span><br><span class="line">  alwaysAuth: <span class="literal">false</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// if you're behind firewall, need to request through http proxy, please set this</span></span><br><span class="line">  <span class="comment">// e.g.: `httpProxy: 'http://proxy.mycompany.com:8080'`</span></span><br><span class="line">  httpProxy: <span class="literal">null</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// snyk.io root url</span></span><br><span class="line">  snykUrl: <span class="string">'https://snyk.io'</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// https://github.com/cnpm/cnpmjs.org/issues/1149</span></span><br><span class="line">  <span class="comment">// if enable this option, must create module_abbreviated and package_readme table in database</span></span><br><span class="line">  <span class="comment">//enableAbbreviatedMetadata: false,</span></span><br><span class="line">  <span class="comment">//配置enableAbbreviatedMetadata为true（默认false）,解决不能同步。重要！</span></span><br><span class="line">  enableAbbreviatedMetadata: <span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// global hook function: function* (envelope) &#123;&#125;</span></span><br><span class="line">  <span class="comment">// envelope format please see https://github.com/npm/registry/blob/master/docs/hooks/hooks-payload.md#payload</span></span><br><span class="line">  globalHook: <span class="literal">null</span>,</span><br><span class="line"></span><br><span class="line">  opensearch: &#123;</span><br><span class="line">    host: <span class="string">''</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (process.env.NODE_ENV === <span class="string">'test'</span>) &#123;</span><br><span class="line">  config.enableAbbreviatedMetadata = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">'test'</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> customConfig;</span><br><span class="line">  <span class="keyword">if</span> (process.env.NODE_ENV === <span class="string">'development'</span>) &#123;</span><br><span class="line">    customConfig = path.join(root, <span class="string">'config'</span>, <span class="string">'config.js'</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 1. try to load `$dataDir/config.json` first, not exists then goto 2.</span></span><br><span class="line">    <span class="comment">// 2. load config/config.js, everything in config.js will cover the same key in index.js</span></span><br><span class="line">    customConfig = path.join(dataDir, <span class="string">'config.json'</span>);</span><br><span class="line">    <span class="keyword">if</span> (!fs.existsSync(customConfig)) &#123;</span><br><span class="line">      customConfig = path.join(root, <span class="string">'config'</span>, <span class="string">'config.js'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (fs.existsSync(customConfig)) &#123;</span><br><span class="line">    copy(<span class="built_in">require</span>(customConfig)).override(config);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">mkdirp.sync(config.logdir);</span><br><span class="line">mkdirp.sync(config.uploadDir);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = config;</span><br><span class="line"></span><br><span class="line">config.loadConfig = <span class="function"><span class="keyword">function</span> (<span class="params">customConfig</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!customConfig) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  copy(customConfig).override(config);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h2><p>搞好配置之后就可以直接启动服务了。<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">node</span> <span class="title">dispatch</span>.js</span><br></pre></td></tr></table></figure></p>
+<h3 id="官方脚本启动"><a href="#官方脚本启动" class="headerlink" title="官方脚本启动"></a>官方脚本启动</h3><p>官方的其它一些指令，比如你可以用 NPM 的 script 来运行。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm run start</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在 CNPM 里面，npm script 还有下面几种指令</p>
+</blockquote>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">run</span><span class="bash"> dev：调试模式启动；</span></span><br><span class="line"><span class="bash">npm run <span class="built_in">test</span>：跑测试；</span></span><br><span class="line"><span class="bash">npm run start：启动 CNPM；</span></span><br><span class="line"><span class="bash">npm run status：查看 CNPM 启动状态；</span></span><br><span class="line"><span class="bash">npm run stop：停止 CNPM。</span></span><br></pre></td></tr></table></figure>
+<h2 id="访问cnpm"><a href="#访问cnpm" class="headerlink" title="访问cnpm"></a>访问cnpm</h2><p><a href="http://192.168.1.12:7002/" target="_blank" rel="noopener">http://192.168.1.12:7002/</a><br><img src="4.png" alt="enter description here"></p>
+<h1 id="问题总结"><a href="#问题总结" class="headerlink" title="问题总结"></a>问题总结</h1><h2 id="问题1：安装cnmp依赖问题"><a href="#问题1：安装cnmp依赖问题" class="headerlink" title="问题1：安装cnmp依赖问题"></a>问题1：安装cnmp依赖问题</h2><p>npm 默认使用官方源（国外），速度慢,已报错；可以安装cnpm，使用cnpm install安装（淘宝源）</p>
+<p>Default</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//安装cnpm</span></span><br><span class="line"> <span class="symbol">$</span> npm install -g cnpm --registry=https:<span class="comment">//registry.npm.taobao.org</span></span><br><span class="line"><span class="comment">//使用cnpm执行安装依赖命令</span></span><br><span class="line"> <span class="symbol">$</span> cnpm install</span><br></pre></td></tr></table></figure>
+<h2 id="问题2：设置同步后报错"><a href="#问题2：设置同步后报错" class="headerlink" title="问题2：设置同步后报错"></a>问题2：设置同步后报错</h2><p>设置同步后，syncModel设置为exist或all,通过仓库下载模块报如下错误</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">[c#</span><span class="bash">0] [error] [connect] sync error: TypeError: Cannot <span class="built_in">read</span> property ‘findAll’ of null</span></span><br></pre></td></tr></table></figure>
+<p><strong>解决办法：</strong></p>
+<p>在index.js文件内设置enableAbbreviatedMetadata: true，问题解决。</p>
+<p>参考：<a href="https://github.com/cnpm/cnpmjs.org/issues/1236" target="_blank" rel="noopener">https://github.com/cnpm/cnpmjs.org/issues/1236</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/kxinter.gitub.io/tags/基础运维/" rel="tag"># 基础运维</a>
+          
+            <a href="/kxinter.gitub.io/tags/私有仓库/" rel="tag"># 私有仓库</a>
+          
+            <a href="/kxinter.gitub.io/tags/npm/" rel="tag"># npm</a>
+          
+            <a href="/kxinter.gitub.io/tags/cnpmjs/" rel="tag"># cnpmjs</a>
+          
+            <a href="/kxinter.gitub.io/tags/部署/" rel="tag"># 部署</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/kxinter.gitub.io/2018/08/16/centos同步yum源到本地/" rel="next" title="centos同步yum源到本地">
+                <i class="fa fa-chevron-left"></i> centos同步yum源到本地
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Mr.Zhao</p>
+              <p class="site-description motion-element" itemprop="description">日常运维文档整理。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/kxinter.gitub.io/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/kxinter.gitub.io/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/kxinter.gitub.io/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#部署cnpm"><span class="nav-number">1.</span> <span class="nav-text">部署cnpm</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#获取代码"><span class="nav-number">1.1.</span> <span class="nav-text">获取代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建mysql库"><span class="nav-number">1.2.</span> <span class="nav-text">创建mysql库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装依赖"><span class="nav-number">1.3.</span> <span class="nav-text">安装依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改配置文件"><span class="nav-number">1.4.</span> <span class="nav-text">修改配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置字段参考"><span class="nav-number">1.4.1.</span> <span class="nav-text">配置字段参考</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动服务"><span class="nav-number">1.5.</span> <span class="nav-text">启动服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#官方脚本启动"><span class="nav-number">1.5.1.</span> <span class="nav-text">官方脚本启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问cnpm"><span class="nav-number">1.6.</span> <span class="nav-text">访问cnpm</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题总结"><span class="nav-number">2.</span> <span class="nav-text">问题总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题1：安装cnmp依赖问题"><span class="nav-number">2.1.</span> <span class="nav-text">问题1：安装cnmp依赖问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题2：设置同步后报错"><span class="nav-number">2.2.</span> <span class="nav-text">问题2：设置同步后报错</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Zhao</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/kxinter.gitub.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/kxinter.gitub.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/kxinter.gitub.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/kxinter.gitub.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/kxinter.gitub.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  
+</body>
+</html>
