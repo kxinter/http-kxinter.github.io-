@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="linux,私有仓库,yum,基础运维," />
+  <meta name="keywords" content="zabbix," />
 
 
 
@@ -79,18 +79,23 @@
 
 
 
-<meta name="description" content="环境os:centos 7.3 1611 应用：yum-utils 互联网源：阿里云 步骤删除/etc/yum.repos.d下所有源文件 1、下载源repo到本地 1$ wget -O /etc/yum.repos.d/aliyun.repo https://mirrors.aliyun.com/repo/Centos-7.repo 2、安装yum-utils提供reporsync服务 1$ y">
-<meta name="keywords" content="linux,私有仓库,yum,基础运维">
+<meta name="description" content="一、日志item介绍下面介绍zabbix另一个“重量级”的功能——日志文件监控，它最主要的是监控日志文件中有没有某个字符串的表达式，对应日志轮转与否，zabbix都支持。 在配置Item的时候，Type选择Zabbix agent (active)，这里主要需要配置的是Key。下面是监控日志的两种key——log和logtr。 log[/path/to/some/file,,,,,] logtr[">
+<meta name="keywords" content="zabbix">
 <meta property="og:type" content="article">
-<meta property="og:title" content="centos同步yum源到本地">
-<meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/centos同步yum源到本地/index.html">
+<meta property="og:title" content="zabbix3.4.7监控日志">
+<meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/zabbix3-4-7监控日志/index.html">
 <meta property="og:site_name" content="OperationMAN">
-<meta property="og:description" content="环境os:centos 7.3 1611 应用：yum-utils 互联网源：阿里云 步骤删除/etc/yum.repos.d下所有源文件 1、下载源repo到本地 1$ wget -O /etc/yum.repos.d/aliyun.repo https://mirrors.aliyun.com/repo/Centos-7.repo 2、安装yum-utils提供reporsync服务 1$ y">
+<meta property="og:description" content="一、日志item介绍下面介绍zabbix另一个“重量级”的功能——日志文件监控，它最主要的是监控日志文件中有没有某个字符串的表达式，对应日志轮转与否，zabbix都支持。 在配置Item的时候，Type选择Zabbix agent (active)，这里主要需要配置的是Key。下面是监控日志的两种key——log和logtr。 log[/path/to/some/file,,,,,] logtr[">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-16T10:16:27.195Z">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/zabbix3-4-7监控日志/1.jpg">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/zabbix3-4-7监控日志/2.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/zabbix3-4-7监控日志/3.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/zabbix3-4-7监控日志/4.png">
+<meta property="og:updated_time" content="2018-08-23T08:10:23.507Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="centos同步yum源到本地">
-<meta name="twitter:description" content="环境os:centos 7.3 1611 应用：yum-utils 互联网源：阿里云 步骤删除/etc/yum.repos.d下所有源文件 1、下载源repo到本地 1$ wget -O /etc/yum.repos.d/aliyun.repo https://mirrors.aliyun.com/repo/Centos-7.repo 2、安装yum-utils提供reporsync服务 1$ y">
+<meta name="twitter:title" content="zabbix3.4.7监控日志">
+<meta name="twitter:description" content="一、日志item介绍下面介绍zabbix另一个“重量级”的功能——日志文件监控，它最主要的是监控日志文件中有没有某个字符串的表达式，对应日志轮转与否，zabbix都支持。 在配置Item的时候，Type选择Zabbix agent (active)，这里主要需要配置的是Key。下面是监控日志的两种key——log和logtr。 log[/path/to/some/file,,,,,] logtr[">
+<meta name="twitter:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/zabbix3-4-7监控日志/1.jpg">
 
 
 
@@ -120,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/centos同步yum源到本地/"/>
+  <link rel="canonical" href="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/zabbix3-4-7监控日志/"/>
 
 
 
 
 
-  <title>centos同步yum源到本地 | OperationMAN</title>
+  <title>zabbix3.4.7监控日志 | OperationMAN</title>
   
 
 
@@ -253,7 +258,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/16/centos同步yum源到本地/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/23/zabbix3-4-7监控日志/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.Zhao">
@@ -270,7 +275,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">centos同步yum源到本地</h1>
+          <h1 class="post-title" itemprop="name headline">zabbix3.4.7监控日志</h1>
         
 
         <div class="post-meta">
@@ -282,8 +287,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-16T18:12:05+08:00">
-                2018-08-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-23T16:01:47+08:00">
+                2018-08-23
               </time>
             
 
@@ -305,8 +310,19 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="/kxinter.gitub.io/categories/自动化运维/" itemprop="url" rel="index">
+                    <span itemprop="name">自动化运维</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/自动化运维/Zabbix/" itemprop="url" rel="index">
+                    <span itemprop="name">Zabbix</span>
                   </a>
                 </span>
 
@@ -342,23 +358,50 @@
       
 
       
-        <h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>os:centos 7.3 1611</p>
-<p>应用：yum-utils</p>
-<p>互联网源：阿里云</p>
-<h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1><p>删除/etc/yum.repos.d下所有源文件</p>
-<p>1、下载源repo到本地</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget -O /etc/yum.repos.d/aliyun.repo https://mirrors.aliyun.com/repo/Centos-7.repo</span><br></pre></td></tr></table></figure>
-<p>2、安装yum-utils提供reporsync服务</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yum install yum-utils -<span class="built_in">y</span></span><br></pre></td></tr></table></figure>
-<p>3、查看yum源仓库标识</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost yum.repos.d]<span class="comment"># yum repolist</span></span><br><span class="line">已加载插件：fastestmirror</span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line"> * base: mirrors.aliyun.com</span><br><span class="line"> * extras: mirrors.aliyun.com</span><br><span class="line"> * updates: mirrors.aliyun.com</span><br><span class="line">源标识 源名称 状态</span><br><span class="line">base/7/x86_64 CentOS-7 - Base - mirrors.aliyun.com 9,591</span><br><span class="line">extras/7/x86_64 CentOS-7 - Extras - mirrors.aliyun.com 196</span><br><span class="line">updates/7/x86_64 CentOS-7 - Updates - mirrors.aliyun.com 657</span><br><span class="line">repolist: 10,444</span><br></pre></td></tr></table></figure>
-<p>4、根据源标识同步源到本地目录</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># reposync -r base -p /var/www/html/     #这里同步base目录到本地</span></span><br></pre></td></tr></table></figure>
+        <h1 id="一、日志item介绍"><a href="#一、日志item介绍" class="headerlink" title="一、日志item介绍"></a>一、日志item介绍</h1><p>下面介绍zabbix另一个“重量级”的功能——日志文件监控，它最主要的是监控日志文件中有没有某个字符串的表达式，对应日志轮转与否，zabbix都支持。</p>
+<p>在配置Item的时候，Type选择Zabbix agent (active)，这里主要需要配置的是Key。下面是监控日志的两种key——log和logtr。</p>
+<p>log[/path/to/some/file,<regexp>,<encoding>,<maxlines>,<mode>,<output>]</output></mode></maxlines></encoding></regexp></p>
+<p>logtr[/path/to/some/filename_format,<regexp>,<encoding>,<maxlines>,<mode>,<output>]</output></mode></maxlines></encoding></regexp></p>
 <blockquote>
-<p>注意： 部分互联网yum源不支持同步</p>
+<p>◆ regexp：要匹配内容的正则表达式，或者直接写你要检索的内容也可以，例如我想检索带ERROR关键词的记录</p>
+<p>◆ encoding：编码相关，留空即可</p>
+<p>◆<br>maxlines：一次性最多提交多少行，这个参数覆盖配置文件zabbxi_agentd.conf中的’MaxLinesPerSecond’，我们也可以留空</p>
+<p>◆ mode：默认是all，也可以是skip，skip会跳过老数据</p>
+<p>◆ output：输出给zabbix<br>server的数据。可以是\1、\2一直\9，\1表示第一个正则表达式匹配出得内容，\2表示第二个正则表达式匹配错的内容。</p>
 </blockquote>
-<p>参考资料<br><a href="http://www.cnblogs.com/chengd/articles/6912938.html" target="_blank" rel="noopener">http://www.cnblogs.com/chengd/articles/6912938.html</a></p>
-<p><a href="https://www.2cto.com/net/201512/455901.html" target="_blank" rel="noopener">https://www.2cto.com/net/201512/455901.html</a></p>
+<p><em>如果仔细看可以发现，第一个参数不一样，logrt的第一个参数可以使用正则表达式。针对日志回滚用得，例如我们每天都切割nginx日志，日志名位<a href="http://www.a.com_2015-01-01.log、www.a.com_2015-01-02.log等等，使用log肯定不合适，如果文件名使用正则，那么新增的日志文件会立即加入监控。" target="_blank" rel="noopener">www.a.com_2015-01-01.log、www.a.com_2015-01-02.log等等，使用log肯定不合适，如果文件名使用正则，那么新增的日志文件会立即加入监控。</a></em></p>
+<blockquote>
+<p>备注：不管新日志、老日志，只要他们有变更，zabbix都会监控。</p>
+</blockquote>
+<p>只要配置了<regexp>，Zabbix会根据<regexp>的正则表达式来匹配日志中的内容。注意，一定要保证Zabbix用户对日志文件有可读权限，否则这个Item的状态会变成“unsupported”。</regexp></regexp></p>
+<h1 id="二、监控原理及注意事项"><a href="#二、监控原理及注意事项" class="headerlink" title="二、监控原理及注意事项"></a>二、监控原理及注意事项</h1><p>1、Zabbix Server和Zabbix Agent会追踪日志文件的大小和最后修改时间，并且分别记录在字节计数器和最新的时间计数器中。</p>
+<p>2、Agent会从上次读取日志的地方开始读取日志。</p>
+<p>3、字节计数器和最新时间计数器的数据会被记录在Zabbix数据库，并且发送给Agent，这样能够保证Agent从上次停止的地方开始读取日志。</p>
+<p>4、当日志文件大小小于字节计数器中的数字时，字节计数器会变为0，从头开始读取文件。</p>
+<p>5、所有符合配置的文件，都会被监控。</p>
+<p>6、一个目录下的多个文件如果修改时间相同，会按照字母顺序来读取。</p>
+<p>7、到每个Update interval的时间时，Agent会检查一次目录下的文件。</p>
+<p>8、Zabbix Agent每秒发送日志量，有一个日志行数上限，防止网络和CPU负载过高，这个数字在zabbix_agentd.conf中的MaxLinePerSecond。</p>
+<p>9、在logtr中，正则表达式只对文件名有效，对文件目录无效。</p>
+<h1 id="三、日志监控配置"><a href="#三、日志监控配置" class="headerlink" title="三、日志监控配置"></a>三、日志监控配置</h1><p>请确保Agent有如下两项配置</p>
+<p>1、Hostname设定为Server创建主机是填写的Host name，必须一致</p>
+<p>2、ServerActive设定为Server的IP</p>
+<p>Host&gt;&gt;目标主机&gt;&gt;监控项&gt;&gt;创建监控项，如下：</p>
+<h2 id="1、log方式"><a href="#1、log方式" class="headerlink" title="1、log方式"></a>1、log方式</h2><p><img src="1.jpg" alt="1"></p>
+<h2 id="2、logrt方式"><a href="#2、logrt方式" class="headerlink" title="2、logrt方式"></a>2、logrt方式</h2><p><img src="2.png" alt="enter description here"></p>
+<p>说明：</p>
+<ol>
+<li><p>type必须选择zabbix agent（active），因为数据是zabbix被监控的主动提交给server</p>
+</li>
+<li><p>key：log[/var/log/message,error]，我们这里是监控的系统日志，打印出带有error的行，大家也可以去监控其他的日志，mysql、nginx等等都是可以的。</p>
+</li>
+<li><p>key: logrt[“/mnt/backup/log/[0-9]+_[0-9]+.log”,END],监控备份日志，例如20180305_113523.log,正则表达式[0-9]+_[0-9]+.log，具体可以百度学习正则表达式写法；“”双引号在使用表达式时     候最好用上，否则在保存时可能报语法错误；</p>
+</li>
+<li><p>log time format：MMpddphh:mm:ss，对应日志的行头Sep 14 07:32:38，y表示年、M表示月、d表示日、p和:一个占位符，h表示小时，m表示分钟，s表示秒。</p>
+</li>
+</ol>
+<h1 id="四、结果查看"><a href="#四、结果查看" class="headerlink" title="四、结果查看"></a>四、结果查看</h1><p>切换到最新数据里面，找到相应数据，如下是我的监控截图<br><img src="3.png" alt="enter description here"></p>
+<h1 id="五、触发器设置"><a href="#五、触发器设置" class="headerlink" title="五、触发器设置"></a>五、触发器设置</h1><p>创建触发器，在周期24h内，写入日志则备份正常，否则告警；这里如下简单设置<br><img src="4.png" alt="enter description here"></p>
 
       
     </div>
@@ -376,13 +419,7 @@
       
         <div class="post-tags">
           
-            <a href="/kxinter.gitub.io/tags/linux/" rel="tag"># linux</a>
-          
-            <a href="/kxinter.gitub.io/tags/私有仓库/" rel="tag"># 私有仓库</a>
-          
-            <a href="/kxinter.gitub.io/tags/yum/" rel="tag"># yum</a>
-          
-            <a href="/kxinter.gitub.io/tags/基础运维/" rel="tag"># 基础运维</a>
+            <a href="/kxinter.gitub.io/tags/zabbix/" rel="tag"># zabbix</a>
           
         </div>
       
@@ -395,8 +432,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/kxinter.gitub.io/2018/08/16/Centos7安装独立显卡驱动/" rel="next" title="Centos7安装独立显卡驱动">
-                <i class="fa fa-chevron-left"></i> Centos7安装独立显卡驱动
+              <a href="/kxinter.gitub.io/2018/08/23/jenkins邮件通知/" rel="next" title="jenkins邮件通知">
+                <i class="fa fa-chevron-left"></i> jenkins邮件通知
               </a>
             
           </div>
@@ -404,10 +441,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/kxinter.gitub.io/2018/08/16/npm私库部署-cnpmjs/" rel="prev" title="npm私库部署-cnpmjs">
-                npm私库部署-cnpmjs <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -539,7 +572,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境"><span class="nav-number">1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#步骤"><span class="nav-number">2.</span> <span class="nav-text">步骤</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、日志item介绍"><span class="nav-number">1.</span> <span class="nav-text">一、日志item介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、监控原理及注意事项"><span class="nav-number">2.</span> <span class="nav-text">二、监控原理及注意事项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、日志监控配置"><span class="nav-number">3.</span> <span class="nav-text">三、日志监控配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、log方式"><span class="nav-number">3.1.</span> <span class="nav-text">1、log方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、logrt方式"><span class="nav-number">3.2.</span> <span class="nav-text">2、logrt方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、结果查看"><span class="nav-number">4.</span> <span class="nav-text">四、结果查看</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、触发器设置"><span class="nav-number">5.</span> <span class="nav-text">五、触发器设置</span></a></li></ol></div>
             
 
           </div>

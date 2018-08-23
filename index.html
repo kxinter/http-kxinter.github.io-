@@ -252,6 +252,202 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/23/zabbix3-4-7监控日志/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.Zhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OperationMAN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/08/23/zabbix3-4-7监控日志/" itemprop="url">zabbix3.4.7监控日志</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-23T16:01:47+08:00">
+                2018-08-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/自动化运维/" itemprop="url" rel="index">
+                    <span itemprop="name">自动化运维</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/自动化运维/Zabbix/" itemprop="url" rel="index">
+                    <span itemprop="name">Zabbix</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="一、日志item介绍"><a href="#一、日志item介绍" class="headerlink" title="一、日志item介绍"></a>一、日志item介绍</h1><p>下面介绍zabbix另一个“重量级”的功能——日志文件监控，它最主要的是监控日志文件中有没有某个字符串的表达式，对应日志轮转与否，zabbix都支持。</p>
+<p>在配置Item的时候，Type选择Zabbix agent (active)，这里主要需要配置的是Key。下面是监控日志的两种key——log和logtr。</p>
+<p>log[/path/to/some/file,<regexp>,<encoding>,<maxlines>,<mode>,<output>]</output></mode></maxlines></encoding></regexp></p>
+<p>logtr[/path/to/some/filename_format,<regexp>,<encoding>,<maxlines>,<mode>,<output>]</output></mode></maxlines></encoding></regexp></p>
+<blockquote>
+<p>◆ regexp：要匹配内容的正则表达式，或者直接写你要检索的内容也可以，例如我想检索带ERROR关键词的记录</p>
+<p>◆ encoding：编码相关，留空即可</p>
+<p>◆<br>maxlines：一次性最多提交多少行，这个参数覆盖配置文件zabbxi_agentd.conf中的’MaxLinesPerSecond’，我们也可以留空</p>
+<p>◆ mode：默认是all，也可以是skip，skip会跳过老数据</p>
+<p>◆ output：输出给zabbix<br>server的数据。可以是\1、\2一直\9，\1表示第一个正则表达式匹配出得内容，\2表示第二个正则表达式匹配错的内容。</p>
+</blockquote>
+<p><em>如果仔细看可以发现，第一个参数不一样，logrt的第一个参数可以使用正则表达式。针对日志回滚用得，例如我们每天都切割nginx日志，日志名位<a href="http://www.a.com_2015-01-01.log、www.a.com_2015-01-02.log等等，使用log肯定不合适，如果文件名使用正则，那么新增的日志文件会立即加入监控。" target="_blank" rel="noopener">www.a.com_2015-01-01.log、www.a.com_2015-01-02.log等等，使用log肯定不合适，如果文件名使用正则，那么新增的日志文件会立即加入监控。</a></em></p>
+<blockquote>
+<p>备注：不管新日志、老日志，只要他们有变更，zabbix都会监控。</p>
+</blockquote>
+<p>只要配置了<regexp>，Zabbix会根据<regexp>的正则表达式来匹配日志中的内容。注意，一定要保证Zabbix用户对日志文件有可读权限，否则这个Item的状态会变成“unsupported”。</regexp></regexp></p>
+<h1 id="二、监控原理及注意事项"><a href="#二、监控原理及注意事项" class="headerlink" title="二、监控原理及注意事项"></a>二、监控原理及注意事项</h1><p>1、Zabbix Server和Zabbix Agent会追踪日志文件的大小和最后修改时间，并且分别记录在字节计数器和最新的时间计数器中。</p>
+<p>2、Agent会从上次读取日志的地方开始读取日志。</p>
+<p>3、字节计数器和最新时间计数器的数据会被记录在Zabbix数据库，并且发送给Agent，这样能够保证Agent从上次停止的地方开始读取日志。</p>
+<p>4、当日志文件大小小于字节计数器中的数字时，字节计数器会变为0，从头开始读取文件。</p>
+<p>5、所有符合配置的文件，都会被监控。</p>
+<p>6、一个目录下的多个文件如果修改时间相同，会按照字母顺序来读取。</p>
+<p>7、到每个Update interval的时间时，Agent会检查一次目录下的文件。</p>
+<p>8、Zabbix Agent每秒发送日志量，有一个日志行数上限，防止网络和CPU负载过高，这个数字在zabbix_agentd.conf中的MaxLinePerSecond。</p>
+<p>9、在logtr中，正则表达式只对文件名有效，对文件目录无效。</p>
+<h1 id="三、日志监控配置"><a href="#三、日志监控配置" class="headerlink" title="三、日志监控配置"></a>三、日志监控配置</h1><p>请确保Agent有如下两项配置</p>
+<p>1、Hostname设定为Server创建主机是填写的Host name，必须一致</p>
+<p>2、ServerActive设定为Server的IP</p>
+<p>Host&gt;&gt;目标主机&gt;&gt;监控项&gt;&gt;创建监控项，如下：</p>
+<h2 id="1、log方式"><a href="#1、log方式" class="headerlink" title="1、log方式"></a>1、log方式</h2><p><img src="1.jpg" alt="1"></p>
+<h2 id="2、logrt方式"><a href="#2、logrt方式" class="headerlink" title="2、logrt方式"></a>2、logrt方式</h2><p><img src="2.png" alt="enter description here"></p>
+<p>说明：</p>
+<ol>
+<li><p>type必须选择zabbix agent（active），因为数据是zabbix被监控的主动提交给server</p>
+</li>
+<li><p>key：log[/var/log/message,error]，我们这里是监控的系统日志，打印出带有error的行，大家也可以去监控其他的日志，mysql、nginx等等都是可以的。</p>
+</li>
+<li><p>key: logrt[“/mnt/backup/log/[0-9]+_[0-9]+.log”,END],监控备份日志，例如20180305_113523.log,正则表达式[0-9]+_[0-9]+.log，具体可以百度学习正则表达式写法；“”双引号在使用表达式时     候最好用上，否则在保存时可能报语法错误；</p>
+</li>
+<li><p>log time format：MMpddphh:mm:ss，对应日志的行头Sep 14 07:32:38，y表示年、M表示月、d表示日、p和:一个占位符，h表示小时，m表示分钟，s表示秒。</p>
+</li>
+</ol>
+<h1 id="四、结果查看"><a href="#四、结果查看" class="headerlink" title="四、结果查看"></a>四、结果查看</h1><p>切换到最新数据里面，找到相应数据，如下是我的监控截图<br><img src="3.png" alt="enter description here"></p>
+<h1 id="五、触发器设置"><a href="#五、触发器设置" class="headerlink" title="五、触发器设置"></a>五、触发器设置</h1><p>创建触发器，在周期24h内，写入日志则备份正常，否则告警；这里如下简单设置<br><img src="4.png" alt="enter description here"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/23/jenkins邮件通知/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -308,6 +504,17 @@
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/kxinter.gitub.io/categories/自动化运维/" itemprop="url" rel="index">
                     <span itemprop="name">自动化运维</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/自动化运维/Jenkins/" itemprop="url" rel="index">
+                    <span itemprop="name">Jenkins</span>
                   </a>
                 </span>
 
@@ -1802,202 +2009,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/16/vsftp部署/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mr.Zhao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="OperationMAN">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/08/16/vsftp部署/" itemprop="url">vsftp部署</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-16T16:50:36+08:00">
-                2018-08-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="一、安装前的准备"><a href="#一、安装前的准备" class="headerlink" title="一、安装前的准备"></a>一、安装前的准备</h1><h2 id="1、关闭防火墙或者开端口权限。一般是firewalld或者iptables。"><a href="#1、关闭防火墙或者开端口权限。一般是firewalld或者iptables。" class="headerlink" title="1、关闭防火墙或者开端口权限。一般是firewalld或者iptables。"></a>1、关闭防火墙或者开端口权限。一般是firewalld或者iptables。</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl stop firewalld</span><br><span class="line">$ systemctl <span class="built_in">disable</span> firewalld</span><br></pre></td></tr></table></figure>
-<p>防火墙配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">如果开启防火墙，请开放21端口，被动模式下设置最大和最小端口范围，并在防火墙开放端口范围。</span><br><span class="line"></span><br><span class="line">修改vsftpd.conf文件，添加</span><br><span class="line"></span><br><span class="line">pasv_min_port=8022          #最小端口</span><br><span class="line">pasv_max_port=8030         #最大端口</span><br><span class="line">pasv_promiscuous=YES      #开启pasv（被动模式）</span><br><span class="line"></span><br><span class="line">放开21端口：firewall-cmd –zone=public –add-port=21/tcp –permanent</span><br><span class="line"></span><br><span class="line">放开8022-8030端口：firewall-cmd –zone=public –add-port=8022-8030/tcp –permanent</span><br><span class="line"></span><br><span class="line">重新加载防火墙：firewall-cmd –reload</span><br><span class="line">可能用到的命令：</span><br><span class="line"></span><br><span class="line">永久开放 ftp 服務：firewall-cmd –add-service=ftp –permanent (关闭ftp服务：firewall-cmd –remove-service=ftp –permanent) （验证不起作用）</span><br><span class="line"></span><br><span class="line">systemctl start firewalld 启动防火墙服务</span><br><span class="line"></span><br><span class="line">firewall-cmd –add-service=ftp 暂时开放ftp服务</span><br><span class="line"></span><br><span class="line">firewall-cmd –add-service=ftp –permanent永久开放ftp服務</span><br><span class="line"></span><br><span class="line">firewall-cmd –remove-service=ftp –permanent永久关闭ftp服務</span><br><span class="line"></span><br><span class="line">systemctl restart firewalld 重启firewalld服务</span><br><span class="line"></span><br><span class="line">firewall-cmd –reload 重载配置文件</span><br><span class="line"></span><br><span class="line">firewall-cmd –query-service ftp查看服务的启动状态</span><br><span class="line"></span><br><span class="line">firewall-cmd –list-all    显示防火墙应用列表</span><br><span class="line"></span><br><span class="line">firewall-cmd –add-port=8001/tcp    添加自定义的开放端口</span><br><span class="line"></span><br><span class="line">iptables -L -n | grep 21 查看设定是否生效</span><br><span class="line"></span><br><span class="line">firewall-cmd –state 检测防火墙状态</span><br></pre></td></tr></table></figure>
-<h2 id="2、关闭sellinux"><a href="#2、关闭sellinux" class="headerlink" title="2、关闭sellinux"></a>2、关闭sellinux</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 临时关闭</span></span><br><span class="line">$ setenforce 0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 永久关闭</span></span><br><span class="line">$ vi /etc/selinux/config</span><br><span class="line">修改</span><br><span class="line">SELINUX=disabled</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看是否关闭</span></span><br><span class="line">$ getenforce</span><br></pre></td></tr></table></figure>
-<h1 id="二、安装vsftpd"><a href="#二、安装vsftpd" class="headerlink" title="二、安装vsftpd"></a>二、安装vsftpd</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ yum install -y vsftpd</span><br><span class="line"><span class="comment"># 启动</span></span><br><span class="line">$ systemctl start vsftpd</span><br><span class="line"><span class="comment"># 自启</span></span><br><span class="line">$ systemctl <span class="built_in">enable</span> vsftpd</span><br></pre></td></tr></table></figure>
-<h1 id="三、配置vsftpd"><a href="#三、配置vsftpd" class="headerlink" title="三、配置vsftpd"></a>三、配置vsftpd</h1><p>创建vsftpd使用的系统用户，主目录为/home/vsftpd，禁止ssh登录。创建之后所有虚拟用户使用这个系统用户访问文件。<br>useradd vsftpd -d /home/vsftpd -s /bin/false</p>
-<h2 id="方式一、虚拟用户配置"><a href="#方式一、虚拟用户配置" class="headerlink" title="方式一、虚拟用户配置"></a>方式一、虚拟用户配置</h2><h3 id="1、创建虚拟用户主目录，比如虚拟用户叫ftp1，执行下面的命令。"><a href="#1、创建虚拟用户主目录，比如虚拟用户叫ftp1，执行下面的命令。" class="headerlink" title="1、创建虚拟用户主目录，比如虚拟用户叫ftp1，执行下面的命令。"></a>1、创建虚拟用户主目录，比如虚拟用户叫ftp1，执行下面的命令。</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir -p /home/vsftpd/ftp1</span><br></pre></td></tr></table></figure>
-<h3 id="2、创建这个虚拟用户"><a href="#2、创建这个虚拟用户" class="headerlink" title="2、创建这个虚拟用户"></a>2、创建这个虚拟用户</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ vi /etc/vsftpd/loginusers.conf</span><br><span class="line">增加</span><br><span class="line"></span><br><span class="line">ftp1</span><br><span class="line">123456</span><br><span class="line"><span class="comment"># 这样就创建了ftp1这个虚拟用户，密码为123456</span></span><br></pre></td></tr></table></figure>
-<h3 id="3、根据这个文件创建数据库文件"><a href="#3、根据这个文件创建数据库文件" class="headerlink" title="3、根据这个文件创建数据库文件"></a>3、根据这个文件创建数据库文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ db_load -T -t <span class="built_in">hash</span> -f /etc/vsftpd/loginusers.conf /etc/vsftpd/loginusers.db</span><br><span class="line">$ chmod 600 /etc/vsftpd/loginusers.db</span><br></pre></td></tr></table></figure>
-<h3 id="4、启用这个数据库文件"><a href="#4、启用这个数据库文件" class="headerlink" title="4、启用这个数据库文件"></a>4、启用这个数据库文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ vi /etc/pam.d/vsftpd</span><br><span class="line">注释掉所有内容后，增加下面的内容</span><br><span class="line"></span><br><span class="line">auth    sufficient /lib64/security/pam_userdb.so db=/etc/vsftpd/loginusers</span><br><span class="line">account sufficient /lib64/security/pam_userdb.so db=/etc/vsftpd/loginusers</span><br></pre></td></tr></table></figure>
-<h3 id="5、创建虚拟用户配置文件"><a href="#5、创建虚拟用户配置文件" class="headerlink" title="5、创建虚拟用户配置文件"></a>5、创建虚拟用户配置文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir /etc/vsftpd/userconf</span><br><span class="line">这里的文件名称必须与虚拟用户名一致</span><br><span class="line"></span><br><span class="line">$ vi /etc/vsftpd/userconf/ftp1</span><br><span class="line">增加下面的内容</span><br><span class="line"></span><br><span class="line">local_root=/home/vsftpd/ftp1/</span><br><span class="line">write_enable=YES</span><br><span class="line"><span class="comment"># 设定主目录为/home/vsftpd/ftp1</span></span><br></pre></td></tr></table></figure>
-<h3 id="6、最后修改主配置文件"><a href="#6、最后修改主配置文件" class="headerlink" title="6、最后修改主配置文件"></a>6、最后修改主配置文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ vi /etc/vsftpd/vsftpd.conf</span><br><span class="line">更改</span><br><span class="line"></span><br><span class="line">anonymous_enable=NO</span><br><span class="line"><span class="comment"># 去掉注释</span></span><br><span class="line"></span><br><span class="line">chroot_local_user=YES</span><br><span class="line">ascii_upload_enable=YES</span><br><span class="line">ascii_download_enable=YES</span><br><span class="line"><span class="comment"># 增加</span></span><br><span class="line"></span><br><span class="line">guest_enable=YES</span><br><span class="line">guest_username=vsftpd</span><br><span class="line">user_config_dir=/etc/vsftpd/userconf</span><br><span class="line">allow_writeable_chroot=YES</span><br></pre></td></tr></table></figure>
-<p>配置介绍：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">anonymous_enable=NO 禁止匿名用户登录</span><br><span class="line">chroot_local_user=YES 禁止用户访问除主目录以外的目录</span><br><span class="line">ascii_upload_enable=YES ascii_download_enable=YES 设定支持ASCII模式的上传和下载功能</span><br><span class="line">guest_enable=YES 启动虚拟用户</span><br><span class="line">guest_username=vsftpd 虚拟用户使用的系统用户名</span><br><span class="line">user_config_dir=/etc/vsftpd/userconf 虚拟用户使用的配置文件目录</span><br><span class="line">allow_writeable_chroot=YES 最新版的vsftpd为了安全必须用户主目录（也就是/home/vsftpd/ftp1）没有写权限，才能登录，或者使用allow_writeable_chroot=YES</span><br><span class="line">最后重启服务使配置生效</span><br><span class="line">systemctl restart vsftpd</span><br><span class="line">备注：设置ftp1目录权限为vsftpd,  chown -R vsftpd:vsftpd /home/vsftpd/ftp1,否则没有权限创建目录等写的权限，设置777权限也不行。</span><br></pre></td></tr></table></figure>
-<h2 id="方式二、本地用户配置"><a href="#方式二、本地用户配置" class="headerlink" title="方式二、本地用户配置"></a>方式二、本地用户配置</h2><p>配置 FTP 权限</p>
-<h3 id="1、了解-VSFTP-配置"><a href="#1、了解-VSFTP-配置" class="headerlink" title="1、了解 VSFTP 配置"></a>1、了解 VSFTP 配置</h3><p>vsftpd 的配置目录为 /etc/vsftpd，包含下列的配置文件：</p>
-<p>vsftpd.conf 为主要配置文件</p>
-<p>ftpusers 配置禁止访问 FTP 服务器的用户列表</p>
-<p>user_list 配置用户访问控制——这里的用户默认情况（即在/etc/vsftpd/vsftpd.conf中设置了userlist_deny=YES）下也不能访问FTP服务器</p>
-<h3 id="2、阻止匿名访问和切换根目录"><a href="#2、阻止匿名访问和切换根目录" class="headerlink" title="2、阻止匿名访问和切换根目录"></a>2、阻止匿名访问和切换根目录</h3><p>匿名访问和切换根目录都会给服务器带来安全风险，我们把这两个功能关闭。编辑 /etc/vsftpd/vsftpd.conf，找到下面两处配置并修改：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 禁用匿名用户  YES 改为NO anonymous_enable=NO</span><br><span class="line"></span><br><span class="line"># 禁止切换根目录 删除# chroot_local_user=YES</span><br></pre></td></tr></table></figure>
-<h3 id="3、修改默认根目录"><a href="#3、修改默认根目录" class="headerlink" title="3、修改默认根目录"></a>3、修改默认根目录</h3><p>修改ftp的根目录只要修改/etc/vsftpd/vsftpd.conf文件即可：</p>
-<p>加入如下几行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">local_root=/var/www/html</span><br><span class="line">chroot_local_user=YES</span><br><span class="line">anon_root=/var/www/html</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>注：local_root 针对系统用户；anon_root 针对匿名用户。</p>
-</blockquote>
-<p>编辑完成后保存配置，重新启动 FTP 服务 service vsftpd restart</p>
-<p>其它配置项说明：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">anonymous_enable=YES <span class="comment">#允许匿名登陆</span></span><br><span class="line"></span><br><span class="line">local_enable=YES <span class="comment">#启动home目录</span></span><br><span class="line"></span><br><span class="line">write_enable=YES <span class="comment">#ftp写的权限</span></span><br><span class="line"></span><br><span class="line">local_umask=022</span><br><span class="line"></span><br><span class="line">dirmessage_enable=YES <span class="comment">#连接打印的消息</span></span><br><span class="line"></span><br><span class="line">connect_from_port_20=YES <span class="comment">#20端口</span></span><br><span class="line"></span><br><span class="line">xferlog_std_format=YES</span><br><span class="line"></span><br><span class="line">idle_session_timeout=600</span><br><span class="line"></span><br><span class="line">data_connection_timeout=300</span><br><span class="line"></span><br><span class="line">accept_timeout=60</span><br><span class="line"></span><br><span class="line">connect_timeout=60</span><br><span class="line"></span><br><span class="line">ascii_upload_enable=YES <span class="comment">#上传</span></span><br><span class="line"></span><br><span class="line">ascii_download_enable=YES <span class="comment">#下载</span></span><br><span class="line"></span><br><span class="line">chroot_local_user=NO <span class="comment">#是否限制用户在主目录活动</span></span><br><span class="line"></span><br><span class="line">chroot_list_enable=YES <span class="comment">#启动限制用户的列表</span></span><br><span class="line"></span><br><span class="line">chroot_list_file=/etc/vsftpd/chroot_list <span class="comment">#每行一个用户名</span></span><br><span class="line"></span><br><span class="line">allow_writeable_chroot=YES <span class="comment">#允许写</span></span><br><span class="line"></span><br><span class="line">listen=NO</span><br><span class="line"></span><br><span class="line">listen_ipv6=YES</span><br><span class="line"></span><br><span class="line">pasv_min_port=50000 允许ftp工具访问的端口起止端口</span><br><span class="line"></span><br><span class="line">pasv_max_port=60000</span><br><span class="line"></span><br><span class="line">pam_service_name=vsftpd <span class="comment">#配置虚拟用户需要的</span></span><br><span class="line"></span><br><span class="line">userlist_enable=NO <span class="comment">#配置yes之后，user_list的用户不能访问ftp</span></span><br><span class="line"></span><br><span class="line">tcp_wrappers=YES</span><br><span class="line"></span><br><span class="line">chroot_list 文件需要自己建,内容一行一个用户名字</span><br><span class="line"></span><br><span class="line">anon_root=/data/ftp/public <span class="comment">#修改匿名用户的访问路径</span></span><br></pre></td></tr></table></figure>
-<h3 id="4、-创建-FTP-用户"><a href="#4、-创建-FTP-用户" class="headerlink" title="4、 创建 FTP 用户"></a>4、 创建 FTP 用户</h3><p>新建一个不能登录系统用户. 只用来登录ftp服务 ,这里如果没设置用户目录。默认是在home下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ useradd ftpuser -d /home/vsftpd -s /bin/<span class="literal">false</span></span><br></pre></td></tr></table></figure>
-<p>为ftpuser用户设置密码：passwd ftpuser</p>
-<p>可能用到：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">设置用户的主目录：usermod -d /data/ftp ftpuser</span><br><span class="line"></span><br><span class="line">彻底删除用户：#userdel -rf Fuser   //强制删除用户及相关目录文件</span><br><span class="line"></span><br><span class="line">变更用户属性：#usermod -s /sbin/nologinftpuser (/bin/bash：可以登录shell，/bin/false：禁止登录shell )</span><br><span class="line"></span><br><span class="line">查看当前服务：#netstat -lntp</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>备注：需要设置根目录权限为777 ，否则会出现无法写入的问题，chmod 777 /var/www/html</p>
-</blockquote>
-<h1 id="四、访问FTP"><a href="#四、访问FTP" class="headerlink" title="四、访问FTP"></a>四、访问FTP</h1><p>通过 FTP 客户端工具访问</p>
-<p>FTP 客户端工具众多，下面推荐两个常用的：</p>
-<p>WinSCP– Windows 下的 FTP 和 SFTP 连接客户端</p>
-<p>FileZilla – 跨平台的 FTP 客户端，支持 Windows 和 Mac</p>
-<p>本人测试时使用的是Xftp</p>
-<p>打开Xftp软件，新建一个会话，输入对应的信息，点击确定(查看ip地址：ip addr)</p>
-<p><img src="1.png" alt="enter description here"></p>
-<p>选中我们新建的会话，点击连接</p>
-<p><img src="2.png" alt="enter description here"></p>
-<p>连接成功后就可以使用Xftp上传文件了<br><img src="3.png" alt="enter description here"></p>
-<h1 id="五、要使用Xshell连接，则需要安装openssh-service"><a href="#五、要使用Xshell连接，则需要安装openssh-service" class="headerlink" title="五、要使用Xshell连接，则需要安装openssh-service"></a>五、要使用Xshell连接，则需要安装openssh-service</h1><p>查看是否安装ssh安装包，CentOS是被访问者，所以需要安装ssh-server安装包（如果没任何输出显示表示没有安装 openssh-server，可以通过输入</p>
-<p>yum install openssh-serve进行安装），查看命令为：rpm -qa | grep ssh，如下图所示，已经安装：<br><img src="4.png" alt="enter description here"></p>
-<p>找到/etc/ssh目录下的sshd_config文件，修改一些参数。去掉端口和监听地址的注释；然后允许远程登录；再开启使用用户名密码作为连接验证<br><img src="5.png" alt="enter description here"><br>开启sshd服务，service sshd start<br>检查sshd是否开启，ps -e|grep sshd<br><img src="6.png" alt="enter description here"><br>或者查看22端口是否被监听，netstat -an | grep 22<br><img src="7.png" alt="enter description here"><br>使用Xshell进行连接，打开Xshell软件，新建一个会话，输入对应的信息，点击确定(查看ip地址：ip addr)<br><img src="8.png" alt="enter description here"><br><img src="9.png" alt="enter description here"><br>选中我们新建的会话，点击连接<br><img src="10.png" alt="enter description here"><br>连接成功后就可以使用Xshell执行命令了<br><img src="11.png" alt="enter description here"></p>
-<p>参考：<a href="https://blog.csdn.net/will0532/article/details/79175478" target="_blank" rel="noopener">https://blog.csdn.net/will0532/article/details/79175478</a></p>
-<p><a href="https://blog.csdn.net/qq_32786873/article/details/78730303" target="_blank" rel="noopener">https://blog.csdn.net/qq_32786873/article/details/78730303</a></p>
-<p><a href="https://www.cnblogs.com/huangye-dream/p/3454595.html" target="_blank" rel="noopener">https://www.cnblogs.com/huangye-dream/p/3454595.html</a></p>
-<p><a href="https://blog.csdn.net/yifansj/article/details/72855484" target="_blank" rel="noopener">https://blog.csdn.net/yifansj/article/details/72855484</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2048,7 +2059,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2059,7 +2070,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/kxinter.gitub.io/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2070,7 +2081,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/kxinter.gitub.io/tags/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
