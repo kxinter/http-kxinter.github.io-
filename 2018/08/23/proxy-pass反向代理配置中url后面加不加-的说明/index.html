@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/kxinter.gitub.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/kxinter.gitub.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/kxinter.gitub.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/kxinter.gitub.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/kxinter.gitub.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/kxinter.gitub.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/kxinter.gitub.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="linux,基础运维,nginx,运维工具," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="环境OS:centos7 nginx _proxy服务器：192.168.1.23 web服务器：192.168.1.5 情况说明path路径后面加”/”情况一NGINX配置 12345678910111213[root@localhost conf.d]# cat test.confserver &amp;#123;listen 80;server_name localhost;location / &amp;">
+<meta name="keywords" content="linux,基础运维,nginx,运维工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="proxy_pass反向代理配置中url后面加不加&#x2F;的说明">
+<meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/proxy-pass反向代理配置中url后面加不加-的说明/index.html">
+<meta property="og:site_name" content="OperationMAN">
+<meta property="og:description" content="环境OS:centos7 nginx _proxy服务器：192.168.1.23 web服务器：192.168.1.5 情况说明path路径后面加”/”情况一NGINX配置 12345678910111213[root@localhost conf.d]# cat test.confserver &amp;#123;listen 80;server_name localhost;location / &amp;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/proxy-pass反向代理配置中url后面加不加-的说明/1.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/proxy-pass反向代理配置中url后面加不加-的说明/2.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/proxy-pass反向代理配置中url后面加不加-的说明/3.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/proxy-pass反向代理配置中url后面加不加-的说明/4.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/proxy-pass反向代理配置中url后面加不加-的说明/5.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/proxy-pass反向代理配置中url后面加不加-的说明/7.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/proxy-pass反向代理配置中url后面加不加-的说明/8.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/proxy-pass反向代理配置中url后面加不加-的说明/9.png">
+<meta property="og:updated_time" content="2018-08-23T09:46:46.838Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="proxy_pass反向代理配置中url后面加不加&#x2F;的说明">
+<meta name="twitter:description" content="环境OS:centos7 nginx _proxy服务器：192.168.1.23 web服务器：192.168.1.5 情况说明path路径后面加”/”情况一NGINX配置 12345678910111213[root@localhost conf.d]# cat test.confserver &amp;#123;listen 80;server_name localhost;location / &amp;">
+<meta name="twitter:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/proxy-pass反向代理配置中url后面加不加-的说明/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/kxinter.gitub.io/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/proxy-pass反向代理配置中url后面加不加-的说明/"/>
+
+
+
+
+
+  <title>proxy_pass反向代理配置中url后面加不加/的说明 | OperationMAN</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/kxinter.gitub.io/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OperationMAN</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/kxinter.gitub.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/kxinter.gitub.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/kxinter.gitub.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/kxinter.gitub.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/23/proxy-pass反向代理配置中url后面加不加-的说明/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.Zhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OperationMAN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">proxy_pass反向代理配置中url后面加不加/的说明</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-23T17:28:53+08:00">
+                2018-08-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>OS:centos7</p>
+<p>nginx _proxy服务器：192.168.1.23</p>
+<p>web服务器：192.168.1.5</p>
+<h1 id="情况说明"><a href="#情况说明" class="headerlink" title="情况说明"></a>情况说明</h1><h2 id="path路径后面加”-”"><a href="#path路径后面加”-”" class="headerlink" title="path路径后面加”/”"></a>path路径后面加”/”</h2><h3 id="情况一"><a href="#情况一" class="headerlink" title="情况一"></a>情况一</h3><p>NGINX配置</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost conf.d]<span class="comment"># cat test.conf</span></span><br><span class="line">server &#123;</span><br><span class="line">listen <span class="number">80</span>;</span><br><span class="line">server_name localhost;</span><br><span class="line"><span class="keyword">location</span> <span class="title">/ &#123;</span></span><br><span class="line"><span class="title">root</span> /var/www/html;</span><br><span class="line">index index.html;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">location</span>  <span class="title">/proxy</span>/ &#123;</span><br><span class="line">          proxy_pass http://<span class="number">192.168</span>.<span class="number">1.5</span>:<span class="number">8090</span>/;</span><br><span class="line">		  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样，访问<a href="http://192.168.1.23/proxy/就会被代理到http://192.168.1.5:8090/。匹配的proxy目录不需要存在根目录/var/www/html里面" target="_blank" rel="noopener">http://192.168.1.23/proxy/就会被代理到http://192.168.1.5:8090/。匹配的proxy目录不需要存在根目录/var/www/html里面</a></p>
+<blockquote>
+<p>注意，终端里如果访问<a href="http://192.168.1.23/proxy（即后面不带”/”），则会访问失败！因为proxy_pass配置的url后面加了”/”" target="_blank" rel="noopener">http://192.168.1.23/proxy（即后面不带”/”），则会访问失败！因为proxy_pass配置的url后面加了”/”</a></p>
+</blockquote>
+<p>访问结果如下</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost conf.d]<span class="meta"># curl http:<span class="comment">//192.168.1.23/proxy/</span></span></span><br><span class="line">this is <span class="number">192.168</span><span class="number">.1</span><span class="number">.5</span></span><br><span class="line">[root@localhost conf.d]<span class="meta"># curl http:<span class="comment">//192.168.1.23/proxy</span></span></span><br><span class="line"><span class="params">&lt;html&gt;</span></span><br><span class="line"><span class="params">&lt;head&gt;</span><span class="params">&lt;title&gt;</span><span class="number">301</span> Moved Permanently<span class="params">&lt;/title&gt;</span><span class="params">&lt;/head&gt;</span></span><br><span class="line"><span class="params">&lt;body bgcolor="white"&gt;</span></span><br><span class="line"><span class="params">&lt;center&gt;</span><span class="params">&lt;h1&gt;</span><span class="number">301</span> Moved Permanently<span class="params">&lt;/h1&gt;</span><span class="params">&lt;/center&gt;</span></span><br><span class="line"><span class="params">&lt;hr&gt;</span><span class="params">&lt;center&gt;</span>nginx/<span class="number">1.10</span><span class="number">.3</span><span class="params">&lt;/center&gt;</span></span><br><span class="line"><span class="params">&lt;/body&gt;</span></span><br><span class="line"><span class="params">&lt;/html&gt;</span></span><br></pre></td></tr></table></figure>
+<p>页面访问<a href="http://103.110.186.23/proxy的时候，会自动加上”/”（同理是由于proxy_pass配置的url后面加了”/”），并反代到http://103.110.186.5:8090的结果。" target="_blank" rel="noopener">http://103.110.186.23/proxy的时候，会自动加上”/”（同理是由于proxy_pass配置的url后面加了”/”），并反代到http://103.110.186.5:8090的结果。</a><br><img src="1.png" alt="enter description here"></p>
+<h3 id="情况二"><a href="#情况二" class="headerlink" title="情况二"></a>情况二</h3><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost conf.d]<span class="comment"># cat test.conf</span></span><br><span class="line">server &#123;</span><br><span class="line">listen <span class="number">80</span>;</span><br><span class="line">server_name localhost;</span><br><span class="line"><span class="keyword">location</span> <span class="title">/ &#123;</span></span><br><span class="line"><span class="title">root</span> /var/www/html;</span><br><span class="line">index index.html;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">location</span>  <span class="title">/proxy</span>/ &#123;</span><br><span class="line">          proxy_pass http://<span class="number">192.168</span>.<span class="number">1.5</span>:<span class="number">8090</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[root@localhost conf.d]<span class="comment"># service nginx restart</span></span><br><span class="line">Redirecting to /bin/systemctl restart  nginx.service</span><br><span class="line"><span class="comment">## 那么访问http://192.168.1.23/proxy或http://192.168.1.23/proxy/，都会失败！</span></span><br><span class="line"><span class="comment">## 这样配置后，访问http://192.168.1.23/proxy/就会被反向代理到http://192.168.1.5:8090/proxy/</span></span><br></pre></td></tr></table></figure>
+<p><img src="2.png" alt="enter description here"></p>
+<h3 id="情况三"><a href="#情况三" class="headerlink" title="情况三"></a>情况三</h3><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost <span class="keyword">conf</span>.<span class="keyword">d</span>]# <span class="keyword">cat</span> <span class="keyword">test</span>.<span class="keyword">conf</span></span><br><span class="line">server &#123;</span><br><span class="line">listen 80;</span><br><span class="line">server_name localhost;</span><br><span class="line">location / &#123;</span><br><span class="line">root /<span class="keyword">var</span>/www/html;</span><br><span class="line">index index.html;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">location  /proxy/ &#123;</span><br><span class="line">          proxy_pass http:<span class="comment">//192.168.1.5:8090/haha/;</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">[root@localhost <span class="keyword">conf</span>.<span class="keyword">d</span>]# service nginx restart</span><br><span class="line">Redirecting to /bin/systemctl restart  nginx.service</span><br><span class="line">[root@localhost <span class="keyword">conf</span>.<span class="keyword">d</span>]# curl http:<span class="comment">//192.168.1.23/proxy/</span></span><br><span class="line">192.168.1.5  haha-index.html</span><br></pre></td></tr></table></figure>
+<p>这样配置的话，访问<a href="http://103.110.186.23/proxy代理到http://192.168.1.5:8090/haha/" target="_blank" rel="noopener">http://103.110.186.23/proxy代理到http://192.168.1.5:8090/haha/</a><br><img src="3.png" alt="enter description here"></p>
+<h3 id="情况四"><a href="#情况四" class="headerlink" title="情况四"></a>情况四</h3><p>相对于第三种配置的url不加”/”</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost conf.d]# cat test.conf</span><br><span class="line">server &#123;</span><br><span class="line">listen <span class="number">80</span>;</span><br><span class="line">server_name localhost;</span><br><span class="line">location / &#123;</span><br><span class="line">root /var/www/html;</span><br><span class="line">index index.html;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">location  /proxy/ &#123;</span><br><span class="line">          proxy_pass http:<span class="comment">//192.168.1.5:8090/haha;</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">[root@localhost conf.d]# service nginx restart</span><br><span class="line">Redirecting to /bin/systemctl restart  nginx.service</span><br><span class="line">[root@localhost conf.d]# curl http:<span class="comment">//192.168.1.23/proxy/index.html</span></span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.5</span>   hahaindex.html</span><br><span class="line"></span><br><span class="line">##################################### </span><br><span class="line">上面配置后，访问http:<span class="comment">//192.168.1.23/proxy/index.html就会被代理到http://192.168.1.5:8090/hahaindex.html</span></span><br><span class="line">同理，访问http:<span class="comment">//192.168.1.23/proxy/test.html就会被代理到http://192.168.1.5:8090/hahatest.html</span></span><br><span class="line">[root@localhost conf.d]# curl http:<span class="comment">//192.168.1.23/proxy/index.html</span></span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.5</span>   hahaindex.html</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意，这种情况下，不能直接访问<a href="http://192.168.1.23/proxy/，后面就算是默认的index.html文件也要跟上，否则访问失败！" target="_blank" rel="noopener">http://192.168.1.23/proxy/，后面就算是默认的index.html文件也要跟上，否则访问失败！</a><br><img src="4.png" alt="enter description here"></p>
+</blockquote>
+<p>———————————————————————————————————————————<br>上面四种方式都是匹配的path路径后面加”/”，下面说下path路径后面不带”/”的情况：</p>
+<h2 id="path路径后面不加”-”"><a href="#path路径后面不加”-”" class="headerlink" title="path路径后面不加”/”"></a>path路径后面不加”/”</h2><h3 id="情况一-1"><a href="#情况一-1" class="headerlink" title="情况一"></a>情况一</h3><p>proxy_pass后面url带”/”：</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost conf.d]<span class="comment"># cat test.conf</span></span><br><span class="line">server &#123;</span><br><span class="line">listen <span class="number">80</span>;</span><br><span class="line">server_name localhost;</span><br><span class="line"><span class="keyword">location</span> <span class="title">/ &#123;</span></span><br><span class="line"><span class="title">root</span> /var/www/html;</span><br><span class="line">index index.html;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">location</span>  <span class="title">/proxy</span> &#123;</span><br><span class="line">          proxy_pass http://<span class="number">192.168</span>.<span class="number">1.5</span>:<span class="number">8090</span>/;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">[root@localhost conf.d]<span class="comment"># service nginx restart</span></span><br><span class="line">Redirecting to /bin/systemctl restart  nginx.service</span><br></pre></td></tr></table></figure>
+<p><img src="5.png" alt="enter description here"></p>
+<h3 id="情况二，"><a href="#情况二，" class="headerlink" title="情况二，"></a>情况二，</h3><p>proxy_pass后面url不带”/”</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost conf.d]<span class="comment"># cat test.conf</span></span><br><span class="line">server &#123;</span><br><span class="line">listen <span class="number">80</span>;</span><br><span class="line">server_name localhost;</span><br><span class="line"><span class="keyword">location</span> <span class="title">/ &#123;</span></span><br><span class="line"><span class="title">root</span> /var/www/html;</span><br><span class="line">index index.html;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">location</span>  <span class="title">/proxy</span> &#123;</span><br><span class="line">          proxy_pass http://<span class="number">192.168</span>.<span class="number">1.5</span>:<span class="number">8090</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">[root@localhost conf.d]<span class="comment"># service nginx restart</span></span><br><span class="line">Redirecting to /bin/systemctl restart  nginx.service</span><br><span class="line">[root@localhost conf.d]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<p>这样配置的话，访问<a href="http://103.110.186.23/proxy会自动加上”/”（即变成http://103.110.186.23/proxy/），代理到192.168.1.5:8090/proxy/" target="_blank" rel="noopener">http://103.110.186.23/proxy会自动加上”/”（即变成http://103.110.186.23/proxy/），代理到192.168.1.5:8090/proxy/</a><br><img src="7.png" alt="enter description here"></p>
+<h3 id="情况三-1"><a href="#情况三-1" class="headerlink" title="情况三"></a>情况三</h3><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost conf.d]<span class="comment"># cat test.conf</span></span><br><span class="line">server &#123;</span><br><span class="line">listen <span class="number">80</span>;</span><br><span class="line">server_name localhost;</span><br><span class="line"><span class="keyword">location</span> <span class="title">/ &#123;</span></span><br><span class="line"><span class="title">root</span> /var/www/html;</span><br><span class="line">index index.html;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">location</span>  <span class="title">/proxy</span> &#123;</span><br><span class="line">          proxy_pass http://<span class="number">192.168</span>.<span class="number">1.5</span>:<span class="number">8090</span>/haha/;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">[root@localhost conf.d]<span class="comment"># service nginx restart</span></span><br><span class="line">Redirecting to /bin/systemctl restart  nginx.service</span><br></pre></td></tr></table></figure>
+<p>这样配置的话，访问<a href="http://103.110.186.23/proxy会自动加上”/”（即变成http://103.110.186.23/proxy/），代理到http://192.168.1.5:8090/haha/" target="_blank" rel="noopener">http://103.110.186.23/proxy会自动加上”/”（即变成http://103.110.186.23/proxy/），代理到http://192.168.1.5:8090/haha/</a><br><img src="8.png" alt="enter description here"></p>
+<h3 id="情况四-1"><a href="#情况四-1" class="headerlink" title="情况四"></a>情况四</h3><p>相对于第三种配置的url不加”/”</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost conf.d]<span class="comment"># cat test.conf</span></span><br><span class="line">server &#123;</span><br><span class="line">listen <span class="number">80</span>;</span><br><span class="line">server_name localhost;</span><br><span class="line"><span class="keyword">location</span> <span class="title">/ &#123;</span></span><br><span class="line"><span class="title">root</span> /var/www/html;</span><br><span class="line">index index.html;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">location</span>  <span class="title">/proxy</span> &#123;</span><br><span class="line">          proxy_pass http://<span class="number">192.168</span>.<span class="number">1.5</span>:<span class="number">8090</span>/haha;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">[root@localhost conf.d]<span class="comment"># service nginx restart</span></span><br><span class="line">Redirecting to /bin/systemctl restart  nginx.service</span><br></pre></td></tr></table></figure>
+<p>这样配置的话，访问<a href="http://103.110.186.23/proxy，和第三种结果一样，同样被代理到http://192.168.1.5:8090/haha/" target="_blank" rel="noopener">http://103.110.186.23/proxy，和第三种结果一样，同样被代理到http://192.168.1.5:8090/haha/</a><br><img src="9.png" alt="enter description here"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/kxinter.gitub.io/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/kxinter.gitub.io/tags/基础运维/" rel="tag"># 基础运维</a>
+          
+            <a href="/kxinter.gitub.io/tags/nginx/" rel="tag"># nginx</a>
+          
+            <a href="/kxinter.gitub.io/tags/运维工具/" rel="tag"># 运维工具</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/kxinter.gitub.io/2018/08/23/Xmanager远程连接CentOS7/" rel="next" title="Xmanager远程连接CentOS7">
+                <i class="fa fa-chevron-left"></i> Xmanager远程连接CentOS7
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Mr.Zhao</p>
+              <p class="site-description motion-element" itemprop="description">日常运维文档整理。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/kxinter.gitub.io/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/kxinter.gitub.io/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/kxinter.gitub.io/tags/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境"><span class="nav-number">1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#情况说明"><span class="nav-number">2.</span> <span class="nav-text">情况说明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#path路径后面加”-”"><span class="nav-number">2.1.</span> <span class="nav-text">path路径后面加”/”</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#情况一"><span class="nav-number">2.1.1.</span> <span class="nav-text">情况一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#情况二"><span class="nav-number">2.1.2.</span> <span class="nav-text">情况二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#情况三"><span class="nav-number">2.1.3.</span> <span class="nav-text">情况三</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#情况四"><span class="nav-number">2.1.4.</span> <span class="nav-text">情况四</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#path路径后面不加”-”"><span class="nav-number">2.2.</span> <span class="nav-text">path路径后面不加”/”</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#情况一-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">情况一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#情况二，"><span class="nav-number">2.2.2.</span> <span class="nav-text">情况二，</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#情况三-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">情况三</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#情况四-1"><span class="nav-number">2.2.4.</span> <span class="nav-text">情况四</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Zhao</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/kxinter.gitub.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/kxinter.gitub.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/kxinter.gitub.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/kxinter.gitub.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/kxinter.gitub.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  
+</body>
+</html>
