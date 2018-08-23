@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="zabbix," />
+  <meta name="keywords" content="小技巧,基础运维,运维开发," />
 
 
 
@@ -79,23 +79,18 @@
 
 
 
-<meta name="description" content="一、日志item介绍下面介绍zabbix另一个“重量级”的功能——日志文件监控，它最主要的是监控日志文件中有没有某个字符串的表达式，对应日志轮转与否，zabbix都支持。 在配置Item的时候，Type选择Zabbix agent (active)，这里主要需要配置的是Key。下面是监控日志的两种key——log和logtr。 log[/path/to/some/file,,,,,] logtr[">
-<meta name="keywords" content="zabbix">
+<meta name="description" content="问题举例：rc.local内容如下 123456789101112131415#!/bin/bash# THIS FILE IS ADDED FOR COMPATIBILITY PURPOSES## It is highly advisable to create own systemd services or udev rules# to run scripts during boot inst">
+<meta name="keywords" content="小技巧,基础运维,运维开发">
 <meta property="og:type" content="article">
-<meta property="og:title" content="zabbix3.4.7监控日志">
-<meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/zabbix3-4-7监控日志/index.html">
+<meta property="og:title" content="编辑rc.local启动命令执行不成功处理">
+<meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/编辑rc-local启动命令执行不成功处理/index.html">
 <meta property="og:site_name" content="OperationMAN">
-<meta property="og:description" content="一、日志item介绍下面介绍zabbix另一个“重量级”的功能——日志文件监控，它最主要的是监控日志文件中有没有某个字符串的表达式，对应日志轮转与否，zabbix都支持。 在配置Item的时候，Type选择Zabbix agent (active)，这里主要需要配置的是Key。下面是监控日志的两种key——log和logtr。 log[/path/to/some/file,,,,,] logtr[">
+<meta property="og:description" content="问题举例：rc.local内容如下 123456789101112131415#!/bin/bash# THIS FILE IS ADDED FOR COMPATIBILITY PURPOSES## It is highly advisable to create own systemd services or udev rules# to run scripts during boot inst">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/zabbix3-4-7监控日志/1.jpg">
-<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/zabbix3-4-7监控日志/2.png">
-<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/zabbix3-4-7监控日志/3.png">
-<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/zabbix3-4-7监控日志/4.png">
-<meta property="og:updated_time" content="2018-08-23T08:10:23.507Z">
+<meta property="og:updated_time" content="2018-08-23T08:30:53.178Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zabbix3.4.7监控日志">
-<meta name="twitter:description" content="一、日志item介绍下面介绍zabbix另一个“重量级”的功能——日志文件监控，它最主要的是监控日志文件中有没有某个字符串的表达式，对应日志轮转与否，zabbix都支持。 在配置Item的时候，Type选择Zabbix agent (active)，这里主要需要配置的是Key。下面是监控日志的两种key——log和logtr。 log[/path/to/some/file,,,,,] logtr[">
-<meta name="twitter:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/zabbix3-4-7监控日志/1.jpg">
+<meta name="twitter:title" content="编辑rc.local启动命令执行不成功处理">
+<meta name="twitter:description" content="问题举例：rc.local内容如下 123456789101112131415#!/bin/bash# THIS FILE IS ADDED FOR COMPATIBILITY PURPOSES## It is highly advisable to create own systemd services or udev rules# to run scripts during boot inst">
 
 
 
@@ -125,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/zabbix3-4-7监控日志/"/>
+  <link rel="canonical" href="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/编辑rc-local启动命令执行不成功处理/"/>
 
 
 
 
 
-  <title>zabbix3.4.7监控日志 | OperationMAN</title>
+  <title>编辑rc.local启动命令执行不成功处理 | OperationMAN</title>
   
 
 
@@ -258,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/23/zabbix3-4-7监控日志/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/23/编辑rc-local启动命令执行不成功处理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.Zhao">
@@ -275,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">zabbix3.4.7监控日志</h1>
+          <h1 class="post-title" itemprop="name headline">编辑rc.local启动命令执行不成功处理</h1>
         
 
         <div class="post-meta">
@@ -287,7 +282,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-23T16:01:47+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-23T16:26:31+08:00">
                 2018-08-23
               </time>
             
@@ -310,19 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/自动化运维/" itemprop="url" rel="index">
-                    <span itemprop="name">自动化运维</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/自动化运维/Zabbix/" itemprop="url" rel="index">
-                    <span itemprop="name">Zabbix</span>
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
                   </a>
                 </span>
 
@@ -358,50 +342,14 @@
       
 
       
-        <h1 id="一、日志item介绍"><a href="#一、日志item介绍" class="headerlink" title="一、日志item介绍"></a>一、日志item介绍</h1><p>下面介绍zabbix另一个“重量级”的功能——日志文件监控，它最主要的是监控日志文件中有没有某个字符串的表达式，对应日志轮转与否，zabbix都支持。</p>
-<p>在配置Item的时候，Type选择Zabbix agent (active)，这里主要需要配置的是Key。下面是监控日志的两种key——log和logtr。</p>
-<p>log[/path/to/some/file,<regexp>,<encoding>,<maxlines>,<mode>,<output>]</output></mode></maxlines></encoding></regexp></p>
-<p>logtr[/path/to/some/filename_format,<regexp>,<encoding>,<maxlines>,<mode>,<output>]</output></mode></maxlines></encoding></regexp></p>
-<blockquote>
-<p>◆ regexp：要匹配内容的正则表达式，或者直接写你要检索的内容也可以，例如我想检索带ERROR关键词的记录</p>
-<p>◆ encoding：编码相关，留空即可</p>
-<p>◆<br>maxlines：一次性最多提交多少行，这个参数覆盖配置文件zabbxi_agentd.conf中的’MaxLinesPerSecond’，我们也可以留空</p>
-<p>◆ mode：默认是all，也可以是skip，skip会跳过老数据</p>
-<p>◆ output：输出给zabbix<br>server的数据。可以是\1、\2一直\9，\1表示第一个正则表达式匹配出得内容，\2表示第二个正则表达式匹配错的内容。</p>
-</blockquote>
-<p><em>如果仔细看可以发现，第一个参数不一样，logrt的第一个参数可以使用正则表达式。针对日志回滚用得，例如我们每天都切割nginx日志，日志名位<a href="http://www.a.com_2015-01-01.log、www.a.com_2015-01-02.log等等，使用log肯定不合适，如果文件名使用正则，那么新增的日志文件会立即加入监控。" target="_blank" rel="noopener">www.a.com_2015-01-01.log、www.a.com_2015-01-02.log等等，使用log肯定不合适，如果文件名使用正则，那么新增的日志文件会立即加入监控。</a></em></p>
-<blockquote>
-<p>备注：不管新日志、老日志，只要他们有变更，zabbix都会监控。</p>
-</blockquote>
-<p>只要配置了<regexp>，Zabbix会根据<regexp>的正则表达式来匹配日志中的内容。注意，一定要保证Zabbix用户对日志文件有可读权限，否则这个Item的状态会变成“unsupported”。</regexp></regexp></p>
-<h1 id="二、监控原理及注意事项"><a href="#二、监控原理及注意事项" class="headerlink" title="二、监控原理及注意事项"></a>二、监控原理及注意事项</h1><p>1、Zabbix Server和Zabbix Agent会追踪日志文件的大小和最后修改时间，并且分别记录在字节计数器和最新的时间计数器中。</p>
-<p>2、Agent会从上次读取日志的地方开始读取日志。</p>
-<p>3、字节计数器和最新时间计数器的数据会被记录在Zabbix数据库，并且发送给Agent，这样能够保证Agent从上次停止的地方开始读取日志。</p>
-<p>4、当日志文件大小小于字节计数器中的数字时，字节计数器会变为0，从头开始读取文件。</p>
-<p>5、所有符合配置的文件，都会被监控。</p>
-<p>6、一个目录下的多个文件如果修改时间相同，会按照字母顺序来读取。</p>
-<p>7、到每个Update interval的时间时，Agent会检查一次目录下的文件。</p>
-<p>8、Zabbix Agent每秒发送日志量，有一个日志行数上限，防止网络和CPU负载过高，这个数字在zabbix_agentd.conf中的MaxLinePerSecond。</p>
-<p>9、在logtr中，正则表达式只对文件名有效，对文件目录无效。</p>
-<h1 id="三、日志监控配置"><a href="#三、日志监控配置" class="headerlink" title="三、日志监控配置"></a>三、日志监控配置</h1><p>请确保Agent有如下两项配置</p>
-<p>1、Hostname设定为Server创建主机是填写的Host name，必须一致</p>
-<p>2、ServerActive设定为Server的IP</p>
-<p>Host&gt;&gt;目标主机&gt;&gt;监控项&gt;&gt;创建监控项，如下：</p>
-<h2 id="1、log方式"><a href="#1、log方式" class="headerlink" title="1、log方式"></a>1、log方式</h2><p><img src="1.jpg" alt="1"></p>
-<h2 id="2、logrt方式"><a href="#2、logrt方式" class="headerlink" title="2、logrt方式"></a>2、logrt方式</h2><p><img src="2.png" alt="enter description here"></p>
-<p>说明：</p>
-<ol>
-<li><p>type必须选择zabbix agent（active），因为数据是zabbix被监控的主动提交给server</p>
-</li>
-<li><p>key：log[/var/log/message,error]，我们这里是监控的系统日志，打印出带有error的行，大家也可以去监控其他的日志，mysql、nginx等等都是可以的。</p>
-</li>
-<li><p>key: logrt[“/mnt/backup/log/[0-9]+_[0-9]+.log”,END],监控备份日志，例如20180305_113523.log,正则表达式[0-9]+_[0-9]+.log，具体可以百度学习正则表达式写法；“”双引号在使用表达式时     候最好用上，否则在保存时可能报语法错误；</p>
-</li>
-<li><p>log time format：MMpddphh:mm:ss，对应日志的行头Sep 14 07:32:38，y表示年、M表示月、d表示日、p和:一个占位符，h表示小时，m表示分钟，s表示秒。</p>
-</li>
-</ol>
-<h1 id="四、结果查看"><a href="#四、结果查看" class="headerlink" title="四、结果查看"></a>四、结果查看</h1><p>切换到最新数据里面，找到相应数据，如下是我的监控截图<br><img src="3.png" alt="enter description here"></p>
-<h1 id="五、触发器设置"><a href="#五、触发器设置" class="headerlink" title="五、触发器设置"></a>五、触发器设置</h1><p>创建触发器，在周期24h内，写入日志则备份正常，否则告警；这里如下简单设置<br><img src="4.png" alt="enter description here"></p>
+        <h1 id="问题举例："><a href="#问题举例：" class="headerlink" title="问题举例："></a>问题举例：</h1><p>rc.local内容如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># THIS FILE IS ADDED FOR COMPATIBILITY PURPOSES</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># It is highly advisable to create own systemd services or udev rules</span></span><br><span class="line"><span class="comment"># to run scripts during boot instead of using this file.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># In contrast to previous versions due to parallel execution during boot</span></span><br><span class="line"><span class="comment"># this script will NOT be run after all other services.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Please note that you must run 'chmod +x /etc/rc.d/rc.local' to ensure</span></span><br><span class="line"><span class="comment"># that this script will be executed during boot.</span></span><br><span class="line"></span><br><span class="line">touch /var/lock/subsys/<span class="built_in">local</span></span><br><span class="line">mount -t cifs -o username=backup,password=xxxxxxx //192.168.1.170/192.168.1.11/ /mnt/backup_data/</span><br><span class="line">/usr/<span class="built_in">local</span>/tomcat/bin/startup.sh</span><br></pre></td></tr></table></figure>
+<p>挂载命令执行了，但tomcat没有启动</p>
+<h1 id="问题原因及处理方法"><a href="#问题原因及处理方法" class="headerlink" title="问题原因及处理方法"></a>问题原因及处理方法</h1><h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>因java使用的是解压缩版，在/etc/profile内添加java的环境变量，系统启动时先执行的是rc.local,因此tomcat启动失败</p>
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h2 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h2><p>在rc.local内添加java的环境变量命令（必须放在tomcat启动命令前）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/<span class="built_in">local</span>/java/jdk1.6.0_18</span><br><span class="line"><span class="built_in">export</span> JRE_HOME=/usr/<span class="built_in">local</span>/java/jdk1.6.0_18/jre</span><br></pre></td></tr></table></figure>
+<h2 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h2><p>在tomcat的启动脚本内添加java路径<br>分别在tomcat_home/bin目录内的catalina.sh ，setclasspath.sh脚本前面指定JAVA_HOME路径</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/<span class="built_in">local</span>/java/jdk1.6.0_18</span><br><span class="line"><span class="built_in">export</span> JRE_HOME=/usr/<span class="built_in">local</span>/java/jdk1.6.0_18/jre</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -419,7 +367,11 @@
       
         <div class="post-tags">
           
-            <a href="/kxinter.gitub.io/tags/zabbix/" rel="tag"># zabbix</a>
+            <a href="/kxinter.gitub.io/tags/小技巧/" rel="tag"># 小技巧</a>
+          
+            <a href="/kxinter.gitub.io/tags/基础运维/" rel="tag"># 基础运维</a>
+          
+            <a href="/kxinter.gitub.io/tags/运维开发/" rel="tag"># 运维开发</a>
           
         </div>
       
@@ -432,8 +384,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/kxinter.gitub.io/2018/08/23/jenkins邮件通知/" rel="next" title="jenkins邮件通知">
-                <i class="fa fa-chevron-left"></i> jenkins邮件通知
+              <a href="/kxinter.gitub.io/2018/08/23/docker私有仓库搭建/" rel="next" title="docker私有仓库搭建">
+                <i class="fa fa-chevron-left"></i> docker私有仓库搭建
               </a>
             
           </div>
@@ -441,10 +393,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/kxinter.gitub.io/2018/08/23/docker私有仓库搭建/" rel="prev" title="docker私有仓库搭建">
-                docker私有仓库搭建 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -576,7 +524,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、日志item介绍"><span class="nav-number">1.</span> <span class="nav-text">一、日志item介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、监控原理及注意事项"><span class="nav-number">2.</span> <span class="nav-text">二、监控原理及注意事项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、日志监控配置"><span class="nav-number">3.</span> <span class="nav-text">三、日志监控配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、log方式"><span class="nav-number">3.1.</span> <span class="nav-text">1、log方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、logrt方式"><span class="nav-number">3.2.</span> <span class="nav-text">2、logrt方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、结果查看"><span class="nav-number">4.</span> <span class="nav-text">四、结果查看</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、触发器设置"><span class="nav-number">5.</span> <span class="nav-text">五、触发器设置</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题举例："><span class="nav-number">1.</span> <span class="nav-text">问题举例：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题原因及处理方法"><span class="nav-number">2.</span> <span class="nav-text">问题原因及处理方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原因"><span class="nav-number">3.</span> <span class="nav-text">原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决办法"><span class="nav-number">4.</span> <span class="nav-text">解决办法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#方法1"><span class="nav-number">4.1.</span> <span class="nav-text">方法1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法2"><span class="nav-number">4.2.</span> <span class="nav-text">方法2</span></a></li></ol></li></ol></div>
             
 
           </div>
