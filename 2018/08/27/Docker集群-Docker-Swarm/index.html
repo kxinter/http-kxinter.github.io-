@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="1、安装 Swarm1.1 下载镜像1$ docker pull swarm 可以使用下面的命令来查看 Swarm 版本，验证是否成功下载 Swarm 镜像。 12$ docker run --rm swarm -vswarm version 1.2.2 (34e3da3) 1.2 配置节点Docker 主机在加入 Swarm 集群前，需要进行一些简单配置，添加 Docker daemon 的网络">
+<meta name="description" content="1 安装 Swarm1.1 下载镜像1$ docker pull swarm 可以使用下面的命令来查看 Swarm 版本，验证是否成功下载 Swarm 镜像。 12$ docker run --rm swarm -vswarm version 1.2.2 (34e3da3) 1.2 配置节点Docker 主机在加入 Swarm 集群前，需要进行一些简单配置，添加 Docker daemon 的网络">
 <meta name="keywords" content="docker,swarm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker集群-Docker_Swarm">
 <meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/27/Docker集群-Docker-Swarm/index.html">
 <meta property="og:site_name" content="OperationMAN">
-<meta property="og:description" content="1、安装 Swarm1.1 下载镜像1$ docker pull swarm 可以使用下面的命令来查看 Swarm 版本，验证是否成功下载 Swarm 镜像。 12$ docker run --rm swarm -vswarm version 1.2.2 (34e3da3) 1.2 配置节点Docker 主机在加入 Swarm 集群前，需要进行一些简单配置，添加 Docker daemon 的网络">
+<meta property="og:description" content="1 安装 Swarm1.1 下载镜像1$ docker pull swarm 可以使用下面的命令来查看 Swarm 版本，验证是否成功下载 Swarm 镜像。 12$ docker run --rm swarm -vswarm version 1.2.2 (34e3da3) 1.2 配置节点Docker 主机在加入 Swarm 集群前，需要进行一些简单配置，添加 Docker daemon 的网络">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-27T06:13:45.935Z">
+<meta property="og:updated_time" content="2018-08-27T06:30:28.582Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker集群-Docker_Swarm">
-<meta name="twitter:description" content="1、安装 Swarm1.1 下载镜像1$ docker pull swarm 可以使用下面的命令来查看 Swarm 版本，验证是否成功下载 Swarm 镜像。 12$ docker run --rm swarm -vswarm version 1.2.2 (34e3da3) 1.2 配置节点Docker 主机在加入 Swarm 集群前，需要进行一些简单配置，添加 Docker daemon 的网络">
+<meta name="twitter:description" content="1 安装 Swarm1.1 下载镜像1$ docker pull swarm 可以使用下面的命令来查看 Swarm 版本，验证是否成功下载 Swarm 镜像。 12$ docker run --rm swarm -vswarm version 1.2.2 (34e3da3) 1.2 配置节点Docker 主机在加入 Swarm 集群前，需要进行一些简单配置，添加 Docker daemon 的网络">
 
 
 
@@ -342,7 +342,7 @@
       
 
       
-        <h1 id="1、安装-Swarm"><a href="#1、安装-Swarm" class="headerlink" title="1、安装 Swarm"></a>1、安装 Swarm</h1><h2 id="1-1-下载镜像"><a href="#1-1-下载镜像" class="headerlink" title="1.1 下载镜像"></a>1.1 下载镜像</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker pull swarm</span></span><br></pre></td></tr></table></figure>
+        <h1 id="1-安装-Swarm"><a href="#1-安装-Swarm" class="headerlink" title="1 安装 Swarm"></a>1 安装 Swarm</h1><h2 id="1-1-下载镜像"><a href="#1-1-下载镜像" class="headerlink" title="1.1 下载镜像"></a>1.1 下载镜像</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> docker pull swarm</span><br></pre></td></tr></table></figure>
 <p>可以使用下面的命令来查看 Swarm 版本，验证是否成功下载 Swarm 镜像。</p>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --rm swarm -v</span><br><span class="line">swarm version <span class="number">1.2</span><span class="number">.2</span> (<span class="number">34e3</span>da3)</span><br></pre></td></tr></table></figure>
 <h2 id="1-2-配置节点"><a href="#1-2-配置节点" class="headerlink" title="1.2 配置节点"></a>1.2 配置节点</h2><p>Docker 主机在加入 Swarm 集群前，需要进行一些简单配置，添加 Docker daemon 的网络监听。</p>
@@ -352,33 +352,52 @@
 <p>注：Docker 1.8.0 版本之前不支持 daemon 命令，可以用 -d 代替。</p>
 </blockquote>
 <p>如果是通过服务方式启动，则需要修改服务的配置文件。</p>
-<p>以 Ubuntu 14.04 为例，配置文件为 ==/etc/default/docker==（其他版本的 Linux 上略有不同）。</p>
+<p>以 Ubuntu 14.04 为例，配置文件为 ·/etc/default/docker·（其他版本的 Linux 上略有不同）。</p>
 <p>在文件的最后添加：</p>
-<p>DOCKER_OPTS=”$DOCKER_OPTS -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock”<br>启动集群<br>Docker 集群管理需要使用服务发现（Service Discover）功能，Swarm 支持以下的几种方式：DockerHub、本地文件、etcd、consul、zookeeper 和手动指定节点 IP 地址信息等。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DOCKER_OPTS=<span class="string">"$DOCKER_OPTS -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock"</span></span><br></pre></td></tr></table></figure>
+<h2 id="1-3-启动集群"><a href="#1-3-启动集群" class="headerlink" title="1.3 启动集群"></a>1.3 启动集群</h2><p>Docker 集群管理需要使用服务发现（Service Discover）功能，Swarm 支持以下的几种方式：DockerHub、本地文件、etcd、consul、zookeeper 和手动指定节点 IP 地址信息等。</p>
 <p>除了手动指定外，这些方法原理上都是通过维护一套数据库机制，来管理集群中注册节点的 Docker daemon 的访问信息。</p>
 <p>本地配置集群推荐使用 consul 作为服务发现后端。利用社区提供的 Docker 镜像，整个过程只需要三步即可完成。</p>
-<p>启动 Consul 服务后端<br>启动 consul 服务容器，映射到主机的 8500 端口。</p>
-<p>$ docker run -d -p 8500:8500 –name=consul progrium/consul -server -bootstrap<br>获取到本地主机的地址作为 consul 的服务地址：&lt;consul_ip&gt;:8500。</p>
-<p>启动管理节点<br>首先，启动一个主管理节点，映射到主机的 4000 端口，并获取所在主机地址为 &lt;manager0_ip&gt;。其中 4000 端口是 Swarm 管理器的默认监听端口，用户也可以指定映射为其它端口。</p>
-<p>$ docker run -d -p 4000:4000 swarm manage -H :4000 –replication –advertise &lt;manager0_ip&gt;:4000 consul://&lt;consul_ip&gt;:8500<br>为了提高高可用性，用户也可以启动从管理节点。假定获取所在主机地址为 &lt;manager1_ip&gt;。</p>
-<p>$ docker run -d swarm manage -H :4000 –replication –advertise &lt;manager1_ip&gt;:4000 consul://&lt;consul_ip&gt;:8500<br>启动工作节点<br>需要在每个工作节点上启动 agent 服务。</p>
+<h3 id="1-3-1-启动-Consul-服务后端"><a href="#1-3-1-启动-Consul-服务后端" class="headerlink" title="1.3.1 启动 Consul 服务后端"></a>1.3.1 启动 Consul 服务后端</h3><p>启动 consul 服务容器，映射到主机的 8500 端口。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> docker run -d -p 8500:8500 --name=consul progrium/consul -server -bootstrap</span><br></pre></td></tr></table></figure>
+<p>获取到本地主机的地址作为 consul 的服务地址：&lt;consul_ip&gt;:8500。</p>
+<h3 id="1-3-2-启动管理节点"><a href="#1-3-2-启动管理节点" class="headerlink" title="1.3.2 启动管理节点"></a>1.3.2 启动管理节点</h3><p>首先，启动一个主管理节点，映射到主机的 4000 端口，并获取所在主机地址为 &lt;manager0_ip&gt;。其中 4000 端口是 Swarm 管理器的默认监听端口，用户也可以指定映射为其它端口。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d -p <span class="number">4000</span>:<span class="number">4000</span> swarm manage -<span class="string">H :</span><span class="number">4000</span> --replication --advertise &lt;manager0_ip&gt;:<span class="number">4000</span> <span class="string">consul:</span><span class="comment">//&lt;consul_ip&gt;:8500</span></span><br></pre></td></tr></table></figure>
+<p>为了提高高可用性，用户也可以启动从管理节点。假定获取所在主机地址为 &lt;manager1_ip&gt;。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d swarm manage -<span class="string">H :</span><span class="number">4000</span> --replication --advertise &lt;manager1_ip&gt;:<span class="number">4000</span> <span class="string">consul:</span><span class="comment">//&lt;consul_ip&gt;:8500</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-3-3-启动工作节点"><a href="#1-3-3-启动工作节点" class="headerlink" title="1.3.3 启动工作节点"></a>1.3.3 启动工作节点</h3><p>需要在每个工作节点上启动 agent 服务。</p>
 <p>获取节点的主机地址为 &lt;node_ip&gt;，并指定前面获取到的 consul 服务地址。</p>
-<p>$ docker run -d swarm join –advertise=&lt;node_ip&gt;:2375 consul://&lt;consul_ip&gt;:8500<br>节点启动后，用户可以指定 Docker 服务地址为 &lt;manager0_ip&gt;:4000&gt; 来测试各种 Docker 命令，可以看到整个 Swarm 集群就像一个虚拟的 Docker 主机一样正常工作。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d swarm <span class="keyword">join</span> --advertise=<span class="symbol">&lt;node_ip&gt;</span>:<span class="number">2375</span> consu<span class="variable">l:</span>//<span class="symbol">&lt;consul_ip&gt;</span>:<span class="number">8500</span></span><br></pre></td></tr></table></figure>
+<p>节点启动后，用户可以指定 Docker 服务地址为 &lt;manager0_ip&gt;:4000&gt; 来测试各种 Docker 命令，可以看到整个 Swarm 集群就像一个虚拟的 Docker 主机一样正常工作。</p>
 <p>由于 Swarm 实际上是通过 agent 调用了本地的 Docker daemon 来运行容器，当 Swarm 集群服务出现故障时，无法接受新的请求，但已经运行起来的容器将不会受到影响。</p>
-<p>使用 Swarm<br>前面演示了基于 consul 服务发现后端来配置一个本地 Swarm 集群。其中，consul 也可以被替换为 etcd、zookeeper 等。</p>
+<h1 id="2-使用-Swarm"><a href="#2-使用-Swarm" class="headerlink" title="2 使用 Swarm"></a>2 使用 Swarm</h1><p>前面演示了基于 consul 服务发现后端来配置一个本地 Swarm 集群。其中，consul 也可以被替换为 etcd、zookeeper 等。</p>
 <p>另外一个更方便的方式是直接使用 DockerHub 提供的免费服务发现后端。</p>
 <p>下面使用这种方式来演示 Swarm 的主要操作，包括：</p>
-<p>create：创建一个集群；<br>list：列出集群中的节点；<br>manage：管理一个集群；<br>join：让节点加入到某个集群。<br>注意，使用 DockerHub 的服务发现后端，需要各个节点能通过公网访问到 DockerHub 的服务接口。</p>
-<p>创建集群 id<br>在任意一台安装了 Swarm 的机器上执行 swarm create 命令来在 DockerHub 服务上进行注册。</p>
+<ul>
+<li>create：创建一个集群； </li>
+<li>list：列出集群中的节点； </li>
+<li>manage：管理一个集群； </li>
+<li>join：让节点加入到某个集群。</li>
+</ul>
+<blockquote>
+<p>注意，使用 DockerHub 的服务发现后端，需要各个节点能通过公网访问到 DockerHub 的服务接口。</p>
+</blockquote>
+<h2 id="2-1-创建集群-id"><a href="#2-1-创建集群-id" class="headerlink" title="2.1 创建集群 id"></a>2.1 创建集群 id</h2><p>在任意一台安装了 Swarm 的机器上执行 swarm create 命令来在 DockerHub 服务上进行注册。</p>
 <p>Swarm 会通过服务发现后端（此处为 DockerHub 提供）来获取一个唯一的由数字和字母组成的 token，用来标识要管理的集群。</p>
-<p>$ docker run –rm swarm create<br>946d65606f7c2f49766e4dddac5b4365<br>注意返回的字符串，这是集群的唯一 id，加入集群的各个节点将需要这个信息。</p>
-<p>配置集群节点<br>在所有要加入集群的普通节点上面执行 swarm join 命令，表示把这台机器加入指定集群当中。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker <span class="keyword">run</span> --rm swarm create</span><br><span class="line">946d65606f7c2f49766e4dddac5b4365</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意返回的字符串，这是集群的唯一 id，加入集群的各个节点将需要这个信息。</p>
+</blockquote>
+<h2 id="2-2-配置集群节点"><a href="#2-2-配置集群节点" class="headerlink" title="2.2 配置集群节点"></a>2.2 配置集群节点</h2><p>在所有要加入集群的普通节点上面执行 swarm join 命令，表示把这台机器加入指定集群当中。</p>
 <p>例如某台机器 IP 地址为 192.168.0.2，将其加入我们刚创建的 946d65606f7c2f49766e4dddac5b4365 集群，则可以通过：</p>
-<p>$ docker run –rm swarm join –addr=192.168.0.2:2375 token://946d65606f7c2f49766e4dddac5b4365<br>time=”2015-12-09T08:59:43Z” level=info msg=”Registering on the discovery service every 20s…” addr=”192.168.0.2:2375” discovery=”token://946d65606f7c2f49766e4dddac5b4365”<br>…<br>注：其中 –addr 指定的 IP 地址信息将被发送给服务发现后端，用以区分集群不同的节点。manager 服务必须要通过这个地址可以访问到该节点。</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker <span class="keyword">run</span> --<span class="keyword">rm</span> swarm join --addr=192.168.0.2:2375 <span class="keyword">token</span>:<span class="comment">//946d65606f7c2f49766e4dddac5b4365</span></span><br><span class="line">time=<span class="string">"2015-12-09T08:59:43Z"</span> level=info msg=<span class="string">"Registering on the discovery service every 20s..."</span> addr=<span class="string">"192.168.0.2:2375"</span> discovery=<span class="string">"token://946d65606f7c2f49766e4dddac5b4365"</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：其中 –addr 指定的 IP 地址信息将被发送给服务发现后端，用以区分集群不同的节点。manager<br>服务必须要通过这个地址可以访问到该节点。</p>
+</blockquote>
 <p>通过控制台可以看到，上述命令执行后，默认每隔 20 秒（可以通过 –heartbeat 选项指定），会输出一条心跳信息。对于发现服务后端来说，默认如果超过 60 秒（可以通过 –ttl 选项指定）没有收到心跳信息，则将节点从列表中删除。</p>
 <p>如果不希望看到输出日志信息，则可以用 -d 选项替换 –rm 选项，让服务后台执行。</p>
 <p>执行 swarm join 命令实际上是通过 agent 把自己的信息注册到发现服务上，因此，此时对于后端的发现服务来说，已经可以看到有若干节点注册上来了。那么，如何管理和使用这些节点呢，这就得需要 Swarm 的 manager 服务了。</p>
-<p>配置管理节点<br>配置管理节点需要通过 swarm manage 命令，该命令将启动 manager 服务，默认监听到 2375 端口，所有对集群的管理可以通过该服务接口进行。</p>
+<h2 id="2-3-配置管理节点"><a href="#2-3-配置管理节点" class="headerlink" title="2.3 配置管理节点"></a>2.3 配置管理节点</h2><p>配置管理节点需要通过 swarm manage 命令，该命令将启动 manager 服务，默认监听到 2375 端口，所有对集群的管理可以通过该服务接口进行。</p>
 <p>读者可能注意到，manager 服务默认监听的端口跟 Docker 服务监听端口是一样的，这是为了兼容其它基于 Docker 的服务，可以无缝地切换到 Swarm 平台上来。</p>
 <p>仍然在节点 192.168.0.2 进行操作。由于我们是采用 Docker 容器形式启动 manager 服务，本地的 2375端口已经被 Docker Daemon 占用。我们将 manager 服务监听端口映射到本地一个空闲的 12375 端口。</p>
 <p>$ docker run -d -p 12375:2375 swarm manage token://946d65606f7c2f49766e4dddac5b4365<br>1e1ca8c4117b6b7271efc693f9685b4e907d8dc95324350392b21e94b3cffd18<br>可以通过 docker ps 命令来查看启动的 swarm manager 服务容器。</p>
@@ -634,7 +653,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、安装-Swarm"><span class="nav-number">1.</span> <span class="nav-text">1、安装 Swarm</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-下载镜像"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 下载镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-配置节点"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 配置节点</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-安装-Swarm"><span class="nav-number">1.</span> <span class="nav-text">1 安装 Swarm</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-下载镜像"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 下载镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-配置节点"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 配置节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-启动集群"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 启动集群</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-1-启动-Consul-服务后端"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.3.1 启动 Consul 服务后端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-2-启动管理节点"><span class="nav-number">1.3.2.</span> <span class="nav-text">1.3.2 启动管理节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-3-启动工作节点"><span class="nav-number">1.3.3.</span> <span class="nav-text">1.3.3 启动工作节点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-使用-Swarm"><span class="nav-number">2.</span> <span class="nav-text">2 使用 Swarm</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-创建集群-id"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 创建集群 id</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-配置集群节点"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 配置集群节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-配置管理节点"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 配置管理节点</span></a></li></ol></li></ol></div>
             
 
           </div>
