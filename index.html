@@ -345,14 +345,17 @@
       
         
           
-            <h1 id="1、安装-Swarm"><a href="#1、安装-Swarm" class="headerlink" title="1、安装 Swarm"></a>1、安装 Swarm</h1><h2 id="1-1-下载镜像"><a href="#1-1-下载镜像" class="headerlink" title="1.1 下载镜像"></a>1.1 下载镜像</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker pull swarm</span></span><br></pre></td></tr></table></figure>
+            <h1 id="1、安装-Swarm"><a href="#1、安装-Swarm" class="headerlink" title="1、安装 Swarm"></a>1、安装 Swarm</h1><h2 id="1-1-下载镜像"><a href="#1-1-下载镜像" class="headerlink" title="1.1 下载镜像"></a>1.1 下载镜像</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> docker pull swarm</span><br></pre></td></tr></table></figure>
 <p>可以使用下面的命令来查看 Swarm 版本，验证是否成功下载 Swarm 镜像。</p>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --rm swarm -v</span><br><span class="line">swarm version <span class="number">1.2</span><span class="number">.2</span> (<span class="number">34e3</span>da3)</span><br></pre></td></tr></table></figure>
 <h2 id="1-2-配置节点"><a href="#1-2-配置节点" class="headerlink" title="1.2 配置节点"></a>1.2 配置节点</h2><p>Docker 主机在加入 Swarm 集群前，需要进行一些简单配置，添加 Docker daemon 的网络监听。</p>
 <p>例如，在启动 Docker daemon 的时候通过 -H 参数：</p>
-<p>$ sudo docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock<br>注：Docker 1.8.0 版本之前不支持 daemon 命令，可以用 -d 代替。</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo docker daemon -H <span class="symbol">tcp:</span>/<span class="regexp">/0.0.0.0:2375 -H unix:/</span><span class="regexp">//var</span><span class="regexp">/run/docker</span>.sock</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：Docker 1.8.0 版本之前不支持 daemon 命令，可以用 -d 代替。</p>
+</blockquote>
 <p>如果是通过服务方式启动，则需要修改服务的配置文件。</p>
-<p>以 Ubuntu 14.04 为例，配置文件为 /etc/default/docker（其他版本的 Linux 上略有不同）。</p>
+<p>以 Ubuntu 14.04 为例，配置文件为 ==/etc/default/docker==（其他版本的 Linux 上略有不同）。</p>
 <p>在文件的最后添加：</p>
 <p>DOCKER_OPTS=”$DOCKER_OPTS -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock”<br>启动集群<br>Docker 集群管理需要使用服务发现（Service Discover）功能，Swarm 支持以下的几种方式：DockerHub、本地文件、etcd、consul、zookeeper 和手动指定节点 IP 地址信息等。</p>
 <p>除了手动指定外，这些方法原理上都是通过维护一套数据库机制，来管理集群中注册节点的 Docker daemon 的访问信息。</p>
