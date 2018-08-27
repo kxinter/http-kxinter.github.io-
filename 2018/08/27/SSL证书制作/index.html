@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="一、环境OS:centos 7.3 二、步骤1、安装openssl1$ yum install opensll 2、制作CA证书12$ openssl genrsa -des3 -out my-ca.key 2048$ openssl req -new -x509 -days 3650 -key my-ca.key -out my-ca.crt 3、生成服务器证书123$ openssl genr">
+<meta name="description" content="一、环境OS:centos 7.3">
 <meta name="keywords" content="部署,ssl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SSL证书制作">
 <meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/27/SSL证书制作/index.html">
 <meta property="og:site_name" content="OperationMAN">
-<meta property="og:description" content="一、环境OS:centos 7.3 二、步骤1、安装openssl1$ yum install opensll 2、制作CA证书12$ openssl genrsa -des3 -out my-ca.key 2048$ openssl req -new -x509 -days 3650 -key my-ca.key -out my-ca.crt 3、生成服务器证书123$ openssl genr">
+<meta property="og:description" content="一、环境OS:centos 7.3">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-27T03:18:07.427Z">
+<meta property="og:updated_time" content="2018-08-27T08:14:40.876Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SSL证书制作">
-<meta name="twitter:description" content="一、环境OS:centos 7.3 二、步骤1、安装openssl1$ yum install opensll 2、制作CA证书12$ openssl genrsa -des3 -out my-ca.key 2048$ openssl req -new -x509 -days 3650 -key my-ca.key -out my-ca.crt 3、生成服务器证书123$ openssl genr">
+<meta name="twitter:description" content="一、环境OS:centos 7.3">
 
 
 
@@ -100,7 +100,7 @@
     root: '/kxinter.gitub.io/',
     scheme: 'Muse',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -187,6 +187,16 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/kxinter.gitub.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
           </a>
         </li>
       
@@ -324,6 +334,11 @@
           
 
           
+		  
+		  
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_value_page_pv"></span>次阅读
+          
 
           
 
@@ -342,7 +357,7 @@
       
 
       
-        <h1 id="一、环境"><a href="#一、环境" class="headerlink" title="一、环境"></a>一、环境</h1><p>OS:centos 7.3</p>
+        <h1 id="一、环境"><a href="#一、环境" class="headerlink" title="一、环境"></a>一、环境</h1><p>OS:centos 7.3<br><a id="more"></a></p>
 <h1 id="二、步骤"><a href="#二、步骤" class="headerlink" title="二、步骤"></a>二、步骤</h1><h2 id="1、安装openssl"><a href="#1、安装openssl" class="headerlink" title="1、安装openssl"></a>1、安装openssl</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yum install opensll</span><br></pre></td></tr></table></figure>
 <h2 id="2、制作CA证书"><a href="#2、制作CA证书" class="headerlink" title="2、制作CA证书"></a>2、制作CA证书</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ openssl genrsa -des3 -out my-ca.<span class="type">key</span> <span class="number">2048</span></span><br><span class="line">$ openssl req -new -x509 -days <span class="number">3650</span> -<span class="type">key</span> my-ca.<span class="type">key</span> -out my-ca.crt</span><br></pre></td></tr></table></figure>
 <h2 id="3、生成服务器证书"><a href="#3、生成服务器证书" class="headerlink" title="3、生成服务器证书"></a>3、生成服务器证书</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ openssl genrsa -des3 -out mars-server<span class="selector-class">.key</span> <span class="number">1024</span></span><br><span class="line">$ openssl req -new -key mars-server<span class="selector-class">.key</span> -out mars-server.csr</span><br><span class="line">$ openssl x509 -req -<span class="keyword">in</span> mars-server<span class="selector-class">.csr</span> -out mars-server<span class="selector-class">.crt</span> -sha1 -CA my-ca<span class="selector-class">.crt</span> -CAkey my-ca<span class="selector-class">.key</span> -CAcreateserial -days <span class="number">3650</span></span><br></pre></td></tr></table></figure>
@@ -363,9 +378,9 @@
       
         <div class="post-tags">
           
-            <a href="/kxinter.gitub.io/tags/部署/" rel="tag"># 部署</a>
+            <a href="/kxinter.gitub.io/tags/部署/" rel="tag"><i class="fa fa-tag"></i> 部署</a>
           
-            <a href="/kxinter.gitub.io/tags/ssl/" rel="tag"># ssl</a>
+            <a href="/kxinter.gitub.io/tags/ssl/" rel="tag"><i class="fa fa-tag"></i> ssl</a>
           
         </div>
       
@@ -526,7 +541,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、环境"><span class="nav-number">1.</span> <span class="nav-text">一、环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、步骤"><span class="nav-number">2.</span> <span class="nav-text">二、步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、安装openssl"><span class="nav-number">2.1.</span> <span class="nav-text">1、安装openssl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、制作CA证书"><span class="nav-number">2.2.</span> <span class="nav-text">2、制作CA证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、生成服务器证书"><span class="nav-number">2.3.</span> <span class="nav-text">3、生成服务器证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、生成无密码密钥"><span class="nav-number">2.4.</span> <span class="nav-text">4、生成无密码密钥</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、环境"><span class="nav-text">一、环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、步骤"><span class="nav-text">二、步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、安装openssl"><span class="nav-text">1、安装openssl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、制作CA证书"><span class="nav-text">2、制作CA证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、生成服务器证书"><span class="nav-text">3、生成服务器证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、生成无密码密钥"><span class="nav-text">4、生成无密码密钥</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -566,6 +581,17 @@
 
   <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
 
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
 
 
 

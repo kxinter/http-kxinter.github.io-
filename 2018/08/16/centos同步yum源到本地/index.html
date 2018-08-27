@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="一、环境os:centos 7.3 1611 应用：yum-utils 互联网源：阿里云 二、步骤删除/etc/yum.repos.d下所有源文件 1、下载源repo到本地1$ wget -O /etc/yum.repos.d/aliyun.repo https://mirrors.aliyun.com/repo/Centos-7.repo 2、安装yum-utils提供reporsync服务1$">
+<meta name="description" content="一、环境os:centos 7.3 1611 应用：yum-utils 互联网源：阿里云">
 <meta name="keywords" content="私有仓库,yum">
 <meta property="og:type" content="article">
 <meta property="og:title" content="centos同步yum源到本地">
 <meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/centos同步yum源到本地/index.html">
 <meta property="og:site_name" content="OperationMAN">
-<meta property="og:description" content="一、环境os:centos 7.3 1611 应用：yum-utils 互联网源：阿里云 二、步骤删除/etc/yum.repos.d下所有源文件 1、下载源repo到本地1$ wget -O /etc/yum.repos.d/aliyun.repo https://mirrors.aliyun.com/repo/Centos-7.repo 2、安装yum-utils提供reporsync服务1$">
+<meta property="og:description" content="一、环境os:centos 7.3 1611 应用：yum-utils 互联网源：阿里云">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-27T03:19:31.816Z">
+<meta property="og:updated_time" content="2018-08-27T08:15:04.430Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="centos同步yum源到本地">
-<meta name="twitter:description" content="一、环境os:centos 7.3 1611 应用：yum-utils 互联网源：阿里云 二、步骤删除/etc/yum.repos.d下所有源文件 1、下载源repo到本地1$ wget -O /etc/yum.repos.d/aliyun.repo https://mirrors.aliyun.com/repo/Centos-7.repo 2、安装yum-utils提供reporsync服务1$">
+<meta name="twitter:description" content="一、环境os:centos 7.3 1611 应用：yum-utils 互联网源：阿里云">
 
 
 
@@ -100,7 +100,7 @@
     root: '/kxinter.gitub.io/',
     scheme: 'Muse',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -187,6 +187,16 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/kxinter.gitub.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
           </a>
         </li>
       
@@ -324,6 +334,11 @@
           
 
           
+		  
+		  
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_value_page_pv"></span>次阅读
+          
 
           
 
@@ -344,7 +359,7 @@
       
         <h1 id="一、环境"><a href="#一、环境" class="headerlink" title="一、环境"></a>一、环境</h1><p>os:centos 7.3 1611</p>
 <p>应用：yum-utils</p>
-<p>互联网源：阿里云</p>
+<p>互联网源：阿里云<br><a id="more"></a></p>
 <h1 id="二、步骤"><a href="#二、步骤" class="headerlink" title="二、步骤"></a>二、步骤</h1><p>删除/etc/yum.repos.d下所有源文件</p>
 <h2 id="1、下载源repo到本地"><a href="#1、下载源repo到本地" class="headerlink" title="1、下载源repo到本地"></a>1、下载源repo到本地</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget -O /etc/yum.repos.d/aliyun.repo https://mirrors.aliyun.com/repo/Centos-7.repo</span><br></pre></td></tr></table></figure>
 <h2 id="2、安装yum-utils提供reporsync服务"><a href="#2、安装yum-utils提供reporsync服务" class="headerlink" title="2、安装yum-utils提供reporsync服务"></a>2、安装yum-utils提供reporsync服务</h2><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yum install yum-utils -<span class="built_in">y</span></span><br></pre></td></tr></table></figure>
@@ -372,9 +387,9 @@
       
         <div class="post-tags">
           
-            <a href="/kxinter.gitub.io/tags/私有仓库/" rel="tag"># 私有仓库</a>
+            <a href="/kxinter.gitub.io/tags/私有仓库/" rel="tag"><i class="fa fa-tag"></i> 私有仓库</a>
           
-            <a href="/kxinter.gitub.io/tags/yum/" rel="tag"># yum</a>
+            <a href="/kxinter.gitub.io/tags/yum/" rel="tag"><i class="fa fa-tag"></i> yum</a>
           
         </div>
       
@@ -535,7 +550,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、环境"><span class="nav-number">1.</span> <span class="nav-text">一、环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、步骤"><span class="nav-number">2.</span> <span class="nav-text">二、步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、下载源repo到本地"><span class="nav-number">2.1.</span> <span class="nav-text">1、下载源repo到本地</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、安装yum-utils提供reporsync服务"><span class="nav-number">2.2.</span> <span class="nav-text">2、安装yum-utils提供reporsync服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、查看yum源仓库标识"><span class="nav-number">2.3.</span> <span class="nav-text">3、查看yum源仓库标识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、根据源标识同步源到本地目录"><span class="nav-number">2.4.</span> <span class="nav-text">4、根据源标识同步源到本地目录</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、环境"><span class="nav-text">一、环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、步骤"><span class="nav-text">二、步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、下载源repo到本地"><span class="nav-text">1、下载源repo到本地</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、安装yum-utils提供reporsync服务"><span class="nav-text">2、安装yum-utils提供reporsync服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、查看yum源仓库标识"><span class="nav-text">3、查看yum源仓库标识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、根据源标识同步源到本地目录"><span class="nav-text">4、根据源标识同步源到本地目录</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -575,6 +590,17 @@
 
   <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
 
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
 
 
 

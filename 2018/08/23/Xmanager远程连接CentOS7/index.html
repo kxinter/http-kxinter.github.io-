@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="安装epel源1yum install -y epel-release 安装lightdm和xfce12yum install -y lightdm yum groupinstall -y xfce 修改配置文件1vim /etc/lightdm/lightdm.conf 内容如下 123[XDMCPServer]enabled=trueport=177 将Display Manager切换为li">
+<meta name="description" content="安装epel源1yum install -y epel-release">
 <meta name="keywords" content="基础运维,运维工具,xmanager">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Xmanager远程连接CentOS7">
 <meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/Xmanager远程连接CentOS7/index.html">
 <meta property="og:site_name" content="OperationMAN">
-<meta property="og:description" content="安装epel源1yum install -y epel-release 安装lightdm和xfce12yum install -y lightdm yum groupinstall -y xfce 修改配置文件1vim /etc/lightdm/lightdm.conf 内容如下 123[XDMCPServer]enabled=trueport=177 将Display Manager切换为li">
+<meta property="og:description" content="安装epel源1yum install -y epel-release">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/Xmanager远程连接CentOS7/1.jpg">
-<meta property="og:updated_time" content="2018-08-27T02:57:48.212Z">
+<meta property="og:updated_time" content="2018-08-27T08:14:46.999Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Xmanager远程连接CentOS7">
-<meta name="twitter:description" content="安装epel源1yum install -y epel-release 安装lightdm和xfce12yum install -y lightdm yum groupinstall -y xfce 修改配置文件1vim /etc/lightdm/lightdm.conf 内容如下 123[XDMCPServer]enabled=trueport=177 将Display Manager切换为li">
+<meta name="twitter:description" content="安装epel源1yum install -y epel-release">
 <meta name="twitter:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/Xmanager远程连接CentOS7/1.jpg">
 
 
@@ -102,7 +102,7 @@
     root: '/kxinter.gitub.io/',
     scheme: 'Muse',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -189,6 +189,16 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/kxinter.gitub.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
           </a>
         </li>
       
@@ -326,6 +336,11 @@
           
 
           
+		  
+		  
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_value_page_pv"></span>次阅读
+          
 
           
 
@@ -345,6 +360,7 @@
 
       
         <h1 id="安装epel源"><a href="#安装epel源" class="headerlink" title="安装epel源"></a>安装epel源</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> -y epel-<span class="keyword">release</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <h1 id="安装lightdm和xfce"><a href="#安装lightdm和xfce" class="headerlink" title="安装lightdm和xfce"></a>安装lightdm和xfce</h1><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">yum install -y lightdm</span> </span><br><span class="line"><span class="attribute">yum groupinstall -y xfce</span></span><br></pre></td></tr></table></figure>
 <h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vim</span> /etc/lightdm/lightdm.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
 <p>内容如下</p>
@@ -372,11 +388,11 @@
       
         <div class="post-tags">
           
-            <a href="/kxinter.gitub.io/tags/基础运维/" rel="tag"># 基础运维</a>
+            <a href="/kxinter.gitub.io/tags/基础运维/" rel="tag"><i class="fa fa-tag"></i> 基础运维</a>
           
-            <a href="/kxinter.gitub.io/tags/运维工具/" rel="tag"># 运维工具</a>
+            <a href="/kxinter.gitub.io/tags/运维工具/" rel="tag"><i class="fa fa-tag"></i> 运维工具</a>
           
-            <a href="/kxinter.gitub.io/tags/xmanager/" rel="tag"># xmanager</a>
+            <a href="/kxinter.gitub.io/tags/xmanager/" rel="tag"><i class="fa fa-tag"></i> xmanager</a>
           
         </div>
       
@@ -537,7 +553,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装epel源"><span class="nav-number">1.</span> <span class="nav-text">安装epel源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装lightdm和xfce"><span class="nav-number">2.</span> <span class="nav-text">安装lightdm和xfce</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#修改配置文件"><span class="nav-number">2.1.</span> <span class="nav-text">修改配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将Display-Manager切换为lightdm"><span class="nav-number">2.2.</span> <span class="nav-text">将Display Manager切换为lightdm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动lightdm"><span class="nav-number">2.3.</span> <span class="nav-text">启动lightdm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关闭防火墙"><span class="nav-number">2.4.</span> <span class="nav-text">关闭防火墙</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#登录"><span class="nav-number">3.</span> <span class="nav-text">登录</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装epel源"><span class="nav-text">安装epel源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装lightdm和xfce"><span class="nav-text">安装lightdm和xfce</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#修改配置文件"><span class="nav-text">修改配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将Display-Manager切换为lightdm"><span class="nav-text">将Display Manager切换为lightdm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动lightdm"><span class="nav-text">启动lightdm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关闭防火墙"><span class="nav-text">关闭防火墙</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#登录"><span class="nav-text">登录</span></a></li></ol></div>
             
 
           </div>
@@ -577,6 +593,17 @@
 
   <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
 
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
 
 
 

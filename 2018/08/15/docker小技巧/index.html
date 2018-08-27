@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="OperationMAN">
 <meta property="og:description" content="1、dockers开启privileged解决centos7容器无法使用systemctl命令的问题1docker run -d -e &quot;container=docker&quot; --privileged=true -v /sys/fs/cgroup:/sys/fs/cgroup --name centos7 centos:7.5 /usr/sbin/init">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-27T03:54:24.860Z">
+<meta property="og:updated_time" content="2018-08-27T08:14:11.413Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker小技巧">
 <meta name="twitter:description" content="1、dockers开启privileged解决centos7容器无法使用systemctl命令的问题1docker run -d -e &quot;container=docker&quot; --privileged=true -v /sys/fs/cgroup:/sys/fs/cgroup --name centos7 centos:7.5 /usr/sbin/init">
@@ -100,7 +100,7 @@
     root: '/kxinter.gitub.io/',
     scheme: 'Muse',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -187,6 +187,16 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/kxinter.gitub.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
           </a>
         </li>
       
@@ -324,6 +334,11 @@
           
 
           
+		  
+		  
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_value_page_pv"></span>次阅读
+          
 
           
 
@@ -343,6 +358,7 @@
 
       
         <h1 id="1、dockers开启privileged"><a href="#1、dockers开启privileged" class="headerlink" title="1、dockers开启privileged"></a>1、dockers开启privileged</h1><p>解决centos7容器无法使用systemctl命令的问题<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -e <span class="string">"container=docker"</span> --privileged=<span class="literal">true</span> -v /sys/fs/cgroup:/sys/fs/cgroup --name centos7 centos:7.5 /usr/sbin/init</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
 
       
     </div>
@@ -360,11 +376,11 @@
       
         <div class="post-tags">
           
-            <a href="/kxinter.gitub.io/tags/基础运维/" rel="tag"># 基础运维</a>
+            <a href="/kxinter.gitub.io/tags/基础运维/" rel="tag"><i class="fa fa-tag"></i> 基础运维</a>
           
-            <a href="/kxinter.gitub.io/tags/小知识/" rel="tag"># 小知识</a>
+            <a href="/kxinter.gitub.io/tags/小知识/" rel="tag"><i class="fa fa-tag"></i> 小知识</a>
           
-            <a href="/kxinter.gitub.io/tags/docker/" rel="tag"># docker</a>
+            <a href="/kxinter.gitub.io/tags/docker/" rel="tag"><i class="fa fa-tag"></i> docker</a>
           
         </div>
       
@@ -521,7 +537,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、dockers开启privileged"><span class="nav-number">1.</span> <span class="nav-text">1、dockers开启privileged</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、dockers开启privileged"><span class="nav-text">1、dockers开启privileged</span></a></li></ol></div>
             
 
           </div>
@@ -561,6 +577,17 @@
 
   <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
 
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
 
 
 

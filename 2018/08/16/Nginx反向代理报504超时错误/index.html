@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="一、nginx+tomcat后端为tomcat,nginx代理报504超时错误。 问题描述： #错误 121.198.17.123 - - [06/Jul/2018:01:48:57 +0000] &quot;POST /mapbj3/getticket HTTP/1.1&quot; 504 537 &quot;https://XXXXXXXXXX.com/walkcode3/index.html?openId=oB6UW0c">
+<meta name="description" content="一、nginx+tomcat后端为tomcat,nginx代理报504超时错误。">
 <meta name="keywords" content="nginx,tomcat">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nginx反向代理报504超时错误">
 <meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/Nginx反向代理报504超时错误/index.html">
 <meta property="og:site_name" content="OperationMAN">
-<meta property="og:description" content="一、nginx+tomcat后端为tomcat,nginx代理报504超时错误。 问题描述： #错误 121.198.17.123 - - [06/Jul/2018:01:48:57 +0000] &quot;POST /mapbj3/getticket HTTP/1.1&quot; 504 537 &quot;https://XXXXXXXXXX.com/walkcode3/index.html?openId=oB6UW0c">
+<meta property="og:description" content="一、nginx+tomcat后端为tomcat,nginx代理报504超时错误。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-27T03:18:44.592Z">
+<meta property="og:updated_time" content="2018-08-27T08:15:10.864Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx反向代理报504超时错误">
-<meta name="twitter:description" content="一、nginx+tomcat后端为tomcat,nginx代理报504超时错误。 问题描述： #错误 121.198.17.123 - - [06/Jul/2018:01:48:57 +0000] &quot;POST /mapbj3/getticket HTTP/1.1&quot; 504 537 &quot;https://XXXXXXXXXX.com/walkcode3/index.html?openId=oB6UW0c">
+<meta name="twitter:description" content="一、nginx+tomcat后端为tomcat,nginx代理报504超时错误。">
 
 
 
@@ -100,7 +100,7 @@
     root: '/kxinter.gitub.io/',
     scheme: 'Muse',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -187,6 +187,16 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/kxinter.gitub.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
           </a>
         </li>
       
@@ -324,6 +334,11 @@
           
 
           
+		  
+		  
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_value_page_pv"></span>次阅读
+          
 
           
 
@@ -342,8 +357,7 @@
       
 
       
-        <h1 id="一、nginx-tomcat"><a href="#一、nginx-tomcat" class="headerlink" title="一、nginx+tomcat"></a>一、nginx+tomcat</h1><p>后端为tomcat,nginx代理报504超时错误。</p>
-<p><strong>问题描述：</strong></p>
+        <h1 id="一、nginx-tomcat"><a href="#一、nginx-tomcat" class="headerlink" title="一、nginx+tomcat"></a>一、nginx+tomcat</h1><p>后端为tomcat,nginx代理报504超时错误。<br><a id="more"></a><br><strong>问题描述：</strong></p>
 <p>#错误</p>
 <figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.198.17.123</span> - - <span class="string">[06/Jul/2018:01:48:57 +0000]</span> <span class="string">"<span class="keyword">POST</span> /mapbj3/getticket HTTP/1.1"</span> <span class="number">504</span> <span class="number">537</span> <span class="string">"https://XXXXXXXXXX.com/walkcode3/index.html?openId=oB6UW0cF3Z_dnYXnz4tG4OFt7Rt0"</span> <span class="string">"Mozilla/5.0 (Linux; Android 8.1; PACM00 Build/O11019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/53.0.2785.143 Crosswalk/24.53.595.0 XWEB/155 MMWEBSDK/19 Mobile Safari/537.36 MicroMessenger/6.6.6.1300(0x26060638) NetType/WIFI Language/zh_CN MicroMessenger/6.6.6.1300(0x26060638) NetType/WIFI Language/zh_CN miniProgram"</span> <span class="string">"-"</span></span><br><span class="line"><span class="number">2018</span>/<span class="number">07</span>/<span class="number">06</span> <span class="number">01</span>:<span class="number">48</span>:<span class="number">57</span> <span class="string">[error]</span> <span class="number">6</span>#<span class="number">6</span>: *<span class="number">2573</span> upstream timed out (<span class="number">110</span>: Connection timed out) while connecting to upstream, client: <span class="number">1.198.17.123</span>, server: , request: <span class="string">"<span class="keyword">POST</span> /mapbj3/getticket HTTP/1.1"</span>, upstream: <span class="string">"http://123.149.236.180:8022/mapbj3//getticket"</span>, host: <span class="string">"XXXXXXXX.com"</span>, referrer: <span class="string">"https://XXXXXXX.com/walkcode3/index.html?openId=oB6UW0cF3Z_dnYXnz4tG4OFt7Rt0"</span></span><br></pre></td></tr></table></figure>
 <p>1、项目本地访问没问题，通过nginx访问报504错误；</p>
@@ -371,9 +385,9 @@
       
         <div class="post-tags">
           
-            <a href="/kxinter.gitub.io/tags/nginx/" rel="tag"># nginx</a>
+            <a href="/kxinter.gitub.io/tags/nginx/" rel="tag"><i class="fa fa-tag"></i> nginx</a>
           
-            <a href="/kxinter.gitub.io/tags/tomcat/" rel="tag"># tomcat</a>
+            <a href="/kxinter.gitub.io/tags/tomcat/" rel="tag"><i class="fa fa-tag"></i> tomcat</a>
           
         </div>
       
@@ -534,7 +548,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、nginx-tomcat"><span class="nav-number">1.</span> <span class="nav-text">一、nginx+tomcat</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、nginx-php-未验证"><span class="nav-number">2.</span> <span class="nav-text">二、nginx+php(未验证)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文档"><span class="nav-number">3.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、nginx-tomcat"><span class="nav-text">一、nginx+tomcat</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、nginx-php-未验证"><span class="nav-text">二、nginx+php(未验证)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文档"><span class="nav-text">参考文档</span></a></li></ol></div>
             
 
           </div>
@@ -574,6 +588,17 @@
 
   <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
 
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
 
 
 
