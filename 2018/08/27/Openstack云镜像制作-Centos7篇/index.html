@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/kxinter.gitub.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/kxinter.gitub.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/kxinter.gitub.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/kxinter.gitub.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/kxinter.gitub.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/kxinter.gitub.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/kxinter.gitub.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="openstack," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、制作步骤1、安装kvm参考centos 7系统安装配置kvm软件步骤 1、创建虚拟硬盘大小10G     名称：centos7-dis.qcow2 2、安装系统  注意一：分区，分区的时候只给”/“ 根目录分一个区即可，其他都不要。格式ext4注意二：网络设置方面，确保你的网卡eth0是DHCP状态的，而且请务必勾上”auto connect”的对勾  2、进入虚拟机系统操作关于CentOS镜">
+<meta name="keywords" content="openstack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Openstack云镜像制作-Centos7篇">
+<meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/27/Openstack云镜像制作-Centos7篇/index.html">
+<meta property="og:site_name" content="OperationMAN">
+<meta property="og:description" content="一、制作步骤1、安装kvm参考centos 7系统安装配置kvm软件步骤 1、创建虚拟硬盘大小10G     名称：centos7-dis.qcow2 2、安装系统  注意一：分区，分区的时候只给”/“ 根目录分一个区即可，其他都不要。格式ext4注意二：网络设置方面，确保你的网卡eth0是DHCP状态的，而且请务必勾上”auto connect”的对勾  2、进入虚拟机系统操作关于CentOS镜">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/27/Openstack云镜像制作-Centos7篇/1.png">
+<meta property="og:updated_time" content="2018-08-27T03:47:52.169Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Openstack云镜像制作-Centos7篇">
+<meta name="twitter:description" content="一、制作步骤1、安装kvm参考centos 7系统安装配置kvm软件步骤 1、创建虚拟硬盘大小10G     名称：centos7-dis.qcow2 2、安装系统  注意一：分区，分区的时候只给”/“ 根目录分一个区即可，其他都不要。格式ext4注意二：网络设置方面，确保你的网卡eth0是DHCP状态的，而且请务必勾上”auto connect”的对勾  2、进入虚拟机系统操作关于CentOS镜">
+<meta name="twitter:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/27/Openstack云镜像制作-Centos7篇/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/kxinter.gitub.io/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kxinter.github.io/kxinter.gitub.io/2018/08/27/Openstack云镜像制作-Centos7篇/"/>
+
+
+
+
+
+  <title>Openstack云镜像制作-Centos7篇 | OperationMAN</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/kxinter.gitub.io/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OperationMAN</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/kxinter.gitub.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/kxinter.gitub.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/kxinter.gitub.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/kxinter.gitub.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/27/Openstack云镜像制作-Centos7篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.Zhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OperationMAN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Openstack云镜像制作-Centos7篇</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-27T11:31:29+08:00">
+                2018-08-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/云计算/" itemprop="url" rel="index">
+                    <span itemprop="name">云计算</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一、制作步骤"><a href="#一、制作步骤" class="headerlink" title="一、制作步骤"></a>一、制作步骤</h1><h2 id="1、安装kvm"><a href="#1、安装kvm" class="headerlink" title="1、安装kvm"></a>1、安装kvm</h2><p>参考centos 7系统安装配置kvm软件步骤</p>
+<p><strong>1、创建虚拟硬盘大小10G     名称：centos7-dis.qcow2</strong></p>
+<p><strong>2、安装系统</strong></p>
+<blockquote>
+<p>注意一：分区，分区的时候只给”/“ 根目录分一个区即可，其他都不要。格式ext4<br>注意二：网络设置方面，确保你的网卡eth0是DHCP状态的，而且请务必勾上”auto connect”的对勾</p>
+</blockquote>
+<h2 id="2、进入虚拟机系统操作"><a href="#2、进入虚拟机系统操作" class="headerlink" title="2、进入虚拟机系统操作"></a>2、进入虚拟机系统操作</h2><p>关于CentOS镜像制作需要注意以下几点：</p>
+<p><strong>(1) 修改网络信息 /etc/sysconfig/network-scripts/ifcfg-eth0 （删掉mac信息)，如下：</strong></p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">TYPE</span>=Ethernet  </span><br><span class="line"><span class="attr">DEVICE</span>=eth0  </span><br><span class="line"><span class="attr">ONBOOT</span>=<span class="literal">yes</span>  </span><br><span class="line"><span class="attr">BOOTPROTO</span>=dhcp  </span><br><span class="line"><span class="attr">NM_CONTROLLED</span>=<span class="literal">no</span></span><br></pre></td></tr></table></figure>
+<p><strong>(2) 删除已生成的网络设备规则，否则制作的镜像不能上网</strong><br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">rm</span> -rf /etc/udev/rules.<span class="keyword">d</span>/70-persistent-<span class="keyword">net</span>.rules</span><br></pre></td></tr></table></figure></p>
+<p><strong>(3)增加一行到/etc/sysconfig/network</strong></p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">NOZERCONF</span>=<span class="literal">yes</span></span><br></pre></td></tr></table></figure>
+<p><strong>(4)安装cloud-init（可选），cloud-init可以在开机时进行密钥注入以及修改hostname等，关于cloud-init，陈沙克的一篇博文有介绍：<a href="http://www.chenshake.com/about-openstack-centos-mirror/" target="_blank" rel="noopener">http://www.chenshake.com/about-openstack-centos-mirror/</a></strong></p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yum install -y cloud-utils cloud-init parted</span><br></pre></td></tr></table></figure>
+<p>修改配置文件/etc/cloud/cloud.cfg ，在cloud_init_modules 下面增加:</p>
+<figure class="highlight ldif"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">- resolv-conf</span></span><br></pre></td></tr></table></figure>
+<p><strong>(5)设置系统能自动获取openstack指定的hostname和ssh-key（可选）</strong><br>编辑/etc/rc.local文件，该文件在开机后会执行，加入以下代码：</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">if [ ! -d /root/.ssh ]; then</span><br><span class="line">mkdir -p /root/.ssh</span><br><span class="line">chmod 700 /root/.ssh</span><br><span class="line">fi</span><br><span class="line"><span class="comment"># Fetch public key using HTTP</span></span><br><span class="line">ATTEMPTS=30</span><br><span class="line">FAILED=0</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">while [ ! -f /root/.ssh/authorized_keys ]; do</span><br><span class="line">curl -f http://169.254.169.254/latest/meta-data/public-keys/0/openssh-key &gt; /tmp/metadata-key 2&gt;/dev/null</span><br><span class="line">if [ $? -eq 0 ]; then</span><br><span class="line">cat /tmp/metadata-key &gt;&gt; /root/.ssh/authorized_keys</span><br><span class="line">chmod 0600 /root/.ssh/authorized_keys</span><br><span class="line">restorecon /root/.ssh/authorized_keys</span><br><span class="line">rm -f /tmp/metadata-key</span><br><span class="line">echo “Successfully retrieved<span class="keyword"> public</span> key from<span class="built_in"> instance </span>metadata”</span><br><span class="line">echo “*****************”</span><br><span class="line">echo “AUTHORIZED KEYS”</span><br><span class="line">echo “*****************”</span><br><span class="line">cat /root/.ssh/authorized_keys</span><br><span class="line">echo “*****************”</span><br><span class="line"></span><br><span class="line">curl -f http://169.254.169.254/latest/meta-data/hostname &gt; /tmp/metadata-hostname 2&gt;/dev/null</span><br><span class="line">if [ $? -eq 0 ]; then</span><br><span class="line">TEMP_HOST=`cat /tmp/metadata-hostname`</span><br><span class="line">sed -i “s/^HOSTNAME=.*$/HOSTNAME=$TEMP_HOST/g” /etc/sysconfig/network</span><br><span class="line">/bin/hostname $TEMP_HOST</span><br><span class="line">echo “Successfully retrieved hostname from<span class="built_in"> instance </span>metadata”</span><br><span class="line">echo “*****************”</span><br><span class="line">echo “HOSTNAME CONFIG”</span><br><span class="line">echo “*****************”</span><br><span class="line">cat /etc/sysconfig/network</span><br><span class="line">echo “*****************”</span><br><span class="line"></span><br><span class="line">else</span><br><span class="line">echo “Failed to retrieve hostname from<span class="built_in"> instance </span>metadata. This is a soft error so we’ll continue”</span><br><span class="line">fi</span><br><span class="line">rm -f /tmp/metadata-hostname</span><br><span class="line">else</span><br><span class="line">FAILED=$(($FAILED + 1))</span><br><span class="line">if [ $FAI<span class="class">LED -ge $ATTEMPTS ];</span> then</span><br><span class="line">echo “Failed to retrieve<span class="keyword"> public</span> key from<span class="built_in"> instance </span>metadata after $FAILED attempts, quitting”</span><br><span class="line">break</span><br><span class="line">fi</span><br><span class="line">echo “Could<span class="built_in"> not </span>retrieve<span class="keyword"> public</span> key from<span class="built_in"> instance </span>metadata (attempt <span class="comment">#$FAILED/$ATTEMPTS), retrying in 5 seconds…”</span></span><br><span class="line">sleep 5</span><br><span class="line">fi</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># set a random pass on first boot</span></span><br><span class="line"><span class="keyword">if</span> [ -f /root/firstrun ]; <span class="keyword">then</span></span><br><span class="line">  dd <span class="keyword">if</span>=/dev/urandom count=50|md5sum|passwd --stdin root</span><br><span class="line">  passwd -l root</span><br><span class="line">  rm /root/firstrun</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! -d /root/.ssh ]; <span class="keyword">then</span></span><br><span class="line">  mkdir -m 0700 -p /root/.ssh</span><br><span class="line">  restorecon /root/.ssh</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># Get the root ssh key setup</span></span><br><span class="line"><span class="comment"># Get the root ssh key setup</span></span><br><span class="line">ReTry=0</span><br><span class="line"><span class="keyword">while</span> [ ! -f /root/.ssh/authorized_keys ] &amp;&amp; [ <span class="variable">$ReTry</span> -lt 10 ]; <span class="keyword">do</span></span><br><span class="line">  sleep 2</span><br><span class="line">  curl -f http://169.254.169.254/latest/meta-data/public-keys/0/openssh-key &gt; /root/.ssh/pubkey</span><br><span class="line">  <span class="keyword">if</span> [ 0 -eq 0 ]; <span class="keyword">then</span></span><br><span class="line">    mv /root/.ssh/pubkey /root/.ssh/authorized_keys</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">  ReTry=$[Retry+1]</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line">chmod 600 /root/.ssh/authorized_keys &amp;&amp; restorecon /root/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+<p>主要目的就是获取hostname和公钥</p>
+<p><strong>(6)其他</strong></p>
+<p>route命令查看一下路由表</p>
+<p>查看/etc/ssh/sshd_conf中PermitRootLogin是不是为yes</p>
+<p>清除操作记录</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">清除登陆系统成功的记录</span><br><span class="line">[root<span class="variable">@localhost</span> root]<span class="comment"># echo &gt; /var/log/wtmp //此文件默认打开时乱码，可查到ip等信息</span></span><br><span class="line">[root<span class="variable">@localhost</span> root]<span class="comment"># last //此时即查不到用户登录信息</span></span><br><span class="line"></span><br><span class="line">清除登陆系统失败的记录</span><br><span class="line">[root<span class="variable">@localhost</span> root]<span class="comment"># echo &gt; /var/log/btmp //此文件默认打开时乱码，可查到登陆失败信息</span></span><br><span class="line">[root<span class="variable">@localhost</span> root]<span class="comment"># lastb //查不到登陆失败信息</span></span><br><span class="line"> </span><br><span class="line">清除历史执行命令</span><br><span class="line">[root<span class="variable">@localhost</span> root]<span class="comment"># history -c //清空历史执行命令</span></span><br><span class="line">[root<span class="variable">@localhost</span> root]<span class="comment"># echo &gt; ./.bash_history //或清空用户目录下的这个文件即可</span></span><br><span class="line"> </span><br><span class="line">导入空历史记录</span><br><span class="line">[root<span class="variable">@localhost</span> root]<span class="comment"># vi /root/history //新建记录文件</span></span><br><span class="line">[root<span class="variable">@localhost</span> root]<span class="comment"># history -c //清除记录 </span></span><br><span class="line">[root<span class="variable">@localhost</span> root]<span class="comment"># history -r /root/history.txt //导入记录 </span></span><br><span class="line">[root<span class="variable">@localhost</span> root]<span class="comment"># history //查询导入结果</span></span><br><span class="line"></span><br><span class="line">example </span><br><span class="line">[root<span class="variable">@localhost</span> root]<span class="comment"># vi /root/history</span></span><br><span class="line">[root<span class="variable">@localhost</span> root]<span class="comment"># history -c </span></span><br><span class="line">[root<span class="variable">@localhost</span> root]<span class="comment"># history -r /root/history.txt </span></span><br><span class="line">[root<span class="variable">@localhost</span> root]<span class="comment"># history </span></span><br><span class="line">[root<span class="variable">@localhost</span> root]<span class="comment"># echo &gt; /var/log/wtmp  </span></span><br><span class="line">[root<span class="variable">@localhost</span> root]<span class="comment"># last</span></span><br><span class="line">[root<span class="variable">@localhost</span> root]<span class="comment"># echo &gt; /var/log/btmp</span></span><br><span class="line">[root<span class="variable">@localhost</span> root]<span class="comment"># lastb </span></span><br><span class="line">[root<span class="variable">@localhost</span> root]<span class="comment"># history -c </span></span><br><span class="line">[root<span class="variable">@localhost</span> root]<span class="comment"># echo &gt; ./.bash_history</span></span><br><span class="line">[root<span class="variable">@localhost</span> root]<span class="comment"># history</span></span><br></pre></td></tr></table></figure>
+<p>关闭虚拟机</p>
+<h2 id="3、宿主机操作"><a href="#3、宿主机操作" class="headerlink" title="3、宿主机操作"></a>3、宿主机操作</h2><p>资料：<a href="https://www.cnblogs.com/BuildingHome/p/4834859.html" target="_blank" rel="noopener">KVM镜像管理利器-guestfish使用详解</a></p>
+<p>1）安装guestfish套件安装</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yum install libguestfs-tools</span><br></pre></td></tr></table></figure>
+<p>2）压缩镜像文件</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ virt-sparsify --<span class="keyword">compress</span> centos7-<span class="keyword">dis</span>.qcow2 centos7-<span class="keyword">dis</span>-cloud.qcow2</span><br></pre></td></tr></table></figure>
+<p><img src="1.png" alt="enter description here"><br>镜像制作完成</p>
+<p>上传openstack</p>
+<h1 id="参考文档："><a href="#参考文档：" class="headerlink" title="参考文档："></a>参考文档：</h1><p><a href="http://www.cnblogs.com/gorlf/p/4140740.html" target="_blank" rel="noopener">penStack镜像制作-CentOS</a></p>
+<p><a href="http://www.aboutyun.com/thread-6617-1-1.html" target="_blank" rel="noopener">openstack镜像制作思路、指导及问题总结</a></p>
+<p><a href="http://blog.csdn.net/xiegh2014/article/details/53248403" target="_blank" rel="noopener">openstack制作centos6</a>.5镜像</p>
+<p><a href="http://www.linuxidc.com/Linux/2012-10/72483.htm" target="_blank" rel="noopener">制作OpenStack上使用的CentOS系统镜像</a></p>
+<p><a href="https://www.cnblogs.com/BuildingHome/p/4834859.html" target="_blank" rel="noopener">KVM镜像管理利器-guestfish使用详解</a></p>
+<p><a href="http://blog.csdn.net/leadway123/article/details/49155421" target="_blank" rel="noopener">CentOS清除用户登录记录和命令历史方法</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/kxinter.gitub.io/tags/openstack/" rel="tag"># openstack</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/kxinter.gitub.io/2018/08/27/VMware共享文件夹设置方法/" rel="next" title="VMware共享文件夹设置方法">
+                <i class="fa fa-chevron-left"></i> VMware共享文件夹设置方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Mr.Zhao</p>
+              <p class="site-description motion-element" itemprop="description">日常运维文档整理。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/kxinter.gitub.io/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/kxinter.gitub.io/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/kxinter.gitub.io/tags/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、制作步骤"><span class="nav-number">1.</span> <span class="nav-text">一、制作步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、安装kvm"><span class="nav-number">1.1.</span> <span class="nav-text">1、安装kvm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、进入虚拟机系统操作"><span class="nav-number">1.2.</span> <span class="nav-text">2、进入虚拟机系统操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、宿主机操作"><span class="nav-number">1.3.</span> <span class="nav-text">3、宿主机操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文档："><span class="nav-number">2.</span> <span class="nav-text">参考文档：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Zhao</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/kxinter.gitub.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/kxinter.gitub.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/kxinter.gitub.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/kxinter.gitub.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/kxinter.gitub.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  
+</body>
+</html>

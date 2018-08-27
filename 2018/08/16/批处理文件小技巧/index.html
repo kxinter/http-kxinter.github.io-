@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="基础运维,bat,运维开发,小知识," />
+  <meta name="keywords" content="基础运维,小知识,bat,运维开发," />
 
 
 
@@ -80,14 +80,14 @@
 
 
 <meta name="description" content="批处理|多服务多窗口123@echo off  start cmd /k &quot;d:&amp;amp;&amp;amp;cd d:\123&amp;amp;&amp;amp;echo 这是一个窗口&amp;amp;&amp;amp;pause&amp;amp;&amp;amp;ping 192.168.1.3&amp;amp;&amp;amp;ping 172.168.1.10&quot;  start cmd /k &quot;d:&amp;amp;&amp;amp;cd d:\321&amp;amp;&amp;amp;echo">
-<meta name="keywords" content="基础运维,bat,运维开发,小知识">
+<meta name="keywords" content="基础运维,小知识,bat,运维开发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="批处理文件小技巧">
 <meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/批处理文件小技巧/index.html">
 <meta property="og:site_name" content="OperationMAN">
 <meta property="og:description" content="批处理|多服务多窗口123@echo off  start cmd /k &quot;d:&amp;amp;&amp;amp;cd d:\123&amp;amp;&amp;amp;echo 这是一个窗口&amp;amp;&amp;amp;pause&amp;amp;&amp;amp;ping 192.168.1.3&amp;amp;&amp;amp;ping 172.168.1.10&quot;  start cmd /k &quot;d:&amp;amp;&amp;amp;cd d:\321&amp;amp;&amp;amp;echo">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-27T03:05:22.459Z">
+<meta property="og:updated_time" content="2018-08-27T03:07:08.486Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="批处理文件小技巧">
 <meta name="twitter:description" content="批处理|多服务多窗口123@echo off  start cmd /k &quot;d:&amp;amp;&amp;amp;cd d:\123&amp;amp;&amp;amp;echo 这是一个窗口&amp;amp;&amp;amp;pause&amp;amp;&amp;amp;ping 192.168.1.3&amp;amp;&amp;amp;ping 172.168.1.10&quot;  start cmd /k &quot;d:&amp;amp;&amp;amp;cd d:\321&amp;amp;&amp;amp;echo">
@@ -347,6 +347,8 @@
 <h1 id="批处理-choice的使用示例"><a href="#批处理-choice的使用示例" class="headerlink" title="批处理|choice的使用示例"></a>批处理|choice的使用示例</h1><p><strong>示例1：</strong><br><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off </span><br><span class="line">::设置<span class="built_in">CMD</span>窗口字体颜色为<span class="number">0</span>a 在<span class="built_in">CMD</span>中输入命令 <span class="built_in">color</span> /? 可查看颜色列表</span><br><span class="line"><span class="built_in">color</span> <span class="number">0</span>a</span><br><span class="line">::设置<span class="built_in">CMD</span>窗口显示模式为<span class="number">100</span>列宽 <span class="number">20</span>行高</span><br><span class="line"><span class="built_in">MODE</span> <span class="built_in">con</span>: COLS=<span class="number">100</span> LINES=<span class="number">20</span></span><br><span class="line"><span class="built_in">echo</span>  -------------------</span><br><span class="line"><span class="built_in">echo</span>    choice 命令示例</span><br><span class="line"><span class="built_in">echo</span>  -------------------</span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line">:: /c按键列表 /m提示内容 /d默认选择 /t等待秒数   /d 必须和 /t同时出现</span><br><span class="line">choice  /c abcde /m "请输入" /d e /t <span class="number">5</span></span><br><span class="line"> </span><br><span class="line">::用户选择的结果会按项目序号数字（从<span class="number">1</span>开始）返回在<span class="keyword">errorlevel</span>变量中</span><br><span class="line"><span class="keyword">if</span> <span class="variable">%errorlevel%</span>==<span class="number">1</span> <span class="built_in">echo</span> 你选择了a</span><br><span class="line"><span class="keyword">if</span> <span class="variable">%errorlevel%</span>==<span class="number">2</span> <span class="built_in">echo</span> 你选择了b</span><br><span class="line"><span class="keyword">if</span> <span class="variable">%errorlevel%</span>==<span class="number">3</span> <span class="built_in">echo</span> 你选择了c</span><br><span class="line"><span class="keyword">if</span> <span class="variable">%errorlevel%</span>==<span class="number">4</span> <span class="built_in">echo</span> 你选择了d</span><br><span class="line"><span class="keyword">if</span> <span class="variable">%errorlevel%</span>==<span class="number">5</span> <span class="built_in">echo</span> 你选择了e</span><br></pre></td></tr></table></figure></p>
 <p><strong>示例2：</strong></p>
 <figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">echo</span> ***安装并启动mysql请输入<span class="number">1</span></span><br><span class="line"><span class="built_in">echo</span> ***启动Tomcat请输入<span class="number">2</span></span><br><span class="line"><span class="built_in">echo</span> *******************************************</span><br><span class="line"><span class="built_in">echo</span> 备注：</span><br><span class="line"><span class="built_in">echo</span> <span class="number">1</span>.通过关闭tomcat运行窗口关闭Tomcat###</span><br><span class="line"><span class="built_in">echo</span> <span class="number">2</span>.以下为mysql启动及关闭操作###</span><br><span class="line"><span class="built_in">echo</span> *******************************************</span><br><span class="line"><span class="built_in">echo</span> ***启动mysql请输入<span class="number">3</span></span><br><span class="line"><span class="built_in">echo</span> ***关闭mysql请输入<span class="number">4</span></span><br><span class="line"></span><br><span class="line">choice /C <span class="number">1234</span> /m ""</span><br><span class="line"><span class="keyword">if</span> <span class="variable">%errorlevel%</span>==<span class="number">1</span> <span class="keyword">goto</span> installmysql</span><br><span class="line"><span class="keyword">if</span> <span class="variable">%errorlevel%</span>==<span class="number">2</span> <span class="keyword">goto</span> starttomcat</span><br><span class="line"><span class="keyword">if</span> <span class="variable">%errorlevel%</span>==<span class="number">3</span> <span class="keyword">goto</span> startmysql</span><br><span class="line"><span class="keyword">if</span> <span class="variable">%errorlevel%</span>==<span class="number">4</span> <span class="keyword">goto</span> stopmysql</span><br><span class="line">:installmysql</span><br><span class="line"><span class="built_in">echo</span> "设置Mysql环境变量"</span><br><span class="line">setx <span class="built_in">PATH</span> "<span class="variable">%PATH%</span>;D:\iwhereEarth\mysql-<span class="number">5</span>.<span class="number">6</span>.<span class="number">39</span>-winx64\bin" /m</span><br><span class="line"><span class="built_in">echo</span> "设置Mysql环境变量成功"</span><br><span class="line"><span class="built_in">echo</span> "安装MYSQL"</span><br><span class="line"><span class="built_in">pushd</span> D:\iwhereEarth\mysql-<span class="number">5</span>.<span class="number">6</span>.<span class="number">39</span>-winx64\bin</span><br><span class="line">mysqld install</span><br><span class="line"><span class="built_in">net</span> <span class="built_in">start</span> mysql</span><br><span class="line"><span class="built_in">echo</span> "Mysql安装并启动成功"</span><br><span class="line"><span class="keyword">goto</span> end</span><br><span class="line">:starttomcat</span><br><span class="line"><span class="built_in">echo</span> "启动Tomcat"</span><br><span class="line"><span class="built_in">start</span> <span class="built_in">cmd</span> /k "d:&amp;&amp;<span class="built_in">cd</span> D:\iwhereEarth\apache-tomcat-<span class="number">7</span>.<span class="number">0</span>.<span class="number">63</span>\bin&amp;&amp;<span class="built_in">echo</span> Tomcat运行窗口&amp;&amp;catalina.bat run"</span><br><span class="line"><span class="keyword">goto</span> end</span><br><span class="line">:startmysql</span><br><span class="line"><span class="built_in">pushd</span> D:\iwhereEarth\mysql-<span class="number">5</span>.<span class="number">6</span>.<span class="number">39</span>-winx64\bin</span><br><span class="line"><span class="built_in">net</span> <span class="built_in">start</span> mysql</span><br><span class="line"><span class="keyword">goto</span> end</span><br><span class="line">:stopmysql</span><br><span class="line"><span class="built_in">pushd</span> D:\iwhereEarth\mysql-<span class="number">5</span>.<span class="number">6</span>.<span class="number">39</span>-winx64\bin</span><br><span class="line"><span class="built_in">net</span> stop mysql</span><br><span class="line"><span class="keyword">goto</span> end</span><br><span class="line">:end</span><br><span class="line"><span class="built_in">echo</span>.&amp;<span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<h1 id="脚本设置环境变量"><a href="#脚本设置环境变量" class="headerlink" title="脚本设置环境变量"></a>脚本设置环境变量</h1><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">::<span class="built_in">set</span> system environment variable</span><br><span class="line"></span><br><span class="line">::<span class="built_in">set</span> ant environment variable</span><br><span class="line">setx ANT_HOME E:\tools\apache-ant-<span class="number">1</span>.<span class="number">9</span>.<span class="number">0</span> /m</span><br><span class="line">setx <span class="built_in">PATH</span> "<span class="variable">%PATH%</span>;<span class="variable">%ANT_HOME%</span>\BIN" /m</span><br><span class="line"></span><br><span class="line">::<span class="built_in">set</span> android environment variable</span><br><span class="line">SETX ANDROID_HOME E:\android\android-sdk-windows /m</span><br><span class="line">SETX <span class="built_in">PATH</span> "<span class="variable">%PATH;%</span>ANDROID_HOME%\platform-tools" /m</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> "设置成功"</span><br><span class="line"><span class="built_in">pause</span></span><br><span class="line"><span class="keyword">exit</span></span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -365,11 +367,11 @@
           
             <a href="/kxinter.gitub.io/tags/基础运维/" rel="tag"># 基础运维</a>
           
+            <a href="/kxinter.gitub.io/tags/小知识/" rel="tag"># 小知识</a>
+          
             <a href="/kxinter.gitub.io/tags/bat/" rel="tag"># bat</a>
           
             <a href="/kxinter.gitub.io/tags/运维开发/" rel="tag"># 运维开发</a>
-          
-            <a href="/kxinter.gitub.io/tags/小知识/" rel="tag"># 小知识</a>
           
         </div>
       
@@ -471,7 +473,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -482,7 +484,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/kxinter.gitub.io/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -493,7 +495,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/kxinter.gitub.io/tags/index.html">
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -526,7 +528,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#批处理-多服务多窗口"><span class="nav-number">1.</span> <span class="nav-text">批处理|多服务多窗口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#批处理-choice的使用示例"><span class="nav-number">2.</span> <span class="nav-text">批处理|choice的使用示例</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#批处理-多服务多窗口"><span class="nav-number">1.</span> <span class="nav-text">批处理|多服务多窗口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#批处理-choice的使用示例"><span class="nav-number">2.</span> <span class="nav-text">批处理|choice的使用示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#脚本设置环境变量"><span class="nav-number">3.</span> <span class="nav-text">脚本设置环境变量</span></a></li></ol></div>
             
 
           </div>
