@@ -252,12 +252,266 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/27/Docker集群-Docker-Swarm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.Zhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OperationMAN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/08/27/Docker集群-Docker-Swarm/" itemprop="url">Docker集群-Docker_Swarm</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-27T11:52:53+08:00">
+                2018-08-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1、安装-Swarm"><a href="#1、安装-Swarm" class="headerlink" title="1、安装 Swarm"></a>1、安装 Swarm</h1><h2 id="1-1-下载镜像"><a href="#1-1-下载镜像" class="headerlink" title="1.1 下载镜像"></a>1.1 下载镜像</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker pull swarm</span></span><br></pre></td></tr></table></figure>
+<p>可以使用下面的命令来查看 Swarm 版本，验证是否成功下载 Swarm 镜像。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --rm swarm -v</span><br><span class="line">swarm version <span class="number">1.2</span><span class="number">.2</span> (<span class="number">34e3</span>da3)</span><br></pre></td></tr></table></figure>
+<h2 id="1-2-配置节点"><a href="#1-2-配置节点" class="headerlink" title="1.2 配置节点"></a>1.2 配置节点</h2><p>Docker 主机在加入 Swarm 集群前，需要进行一些简单配置，添加 Docker daemon 的网络监听。</p>
+<p>例如，在启动 Docker daemon 的时候通过 -H 参数：</p>
+<p>$ sudo docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock<br>注：Docker 1.8.0 版本之前不支持 daemon 命令，可以用 -d 代替。</p>
+<p>如果是通过服务方式启动，则需要修改服务的配置文件。</p>
+<p>以 Ubuntu 14.04 为例，配置文件为 /etc/default/docker（其他版本的 Linux 上略有不同）。</p>
+<p>在文件的最后添加：</p>
+<p>DOCKER_OPTS=”$DOCKER_OPTS -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock”<br>启动集群<br>Docker 集群管理需要使用服务发现（Service Discover）功能，Swarm 支持以下的几种方式：DockerHub、本地文件、etcd、consul、zookeeper 和手动指定节点 IP 地址信息等。</p>
+<p>除了手动指定外，这些方法原理上都是通过维护一套数据库机制，来管理集群中注册节点的 Docker daemon 的访问信息。</p>
+<p>本地配置集群推荐使用 consul 作为服务发现后端。利用社区提供的 Docker 镜像，整个过程只需要三步即可完成。</p>
+<p>启动 Consul 服务后端<br>启动 consul 服务容器，映射到主机的 8500 端口。</p>
+<p>$ docker run -d -p 8500:8500 –name=consul progrium/consul -server -bootstrap<br>获取到本地主机的地址作为 consul 的服务地址：&lt;consul_ip&gt;:8500。</p>
+<p>启动管理节点<br>首先，启动一个主管理节点，映射到主机的 4000 端口，并获取所在主机地址为 &lt;manager0_ip&gt;。其中 4000 端口是 Swarm 管理器的默认监听端口，用户也可以指定映射为其它端口。</p>
+<p>$ docker run -d -p 4000:4000 swarm manage -H :4000 –replication –advertise &lt;manager0_ip&gt;:4000 consul://&lt;consul_ip&gt;:8500<br>为了提高高可用性，用户也可以启动从管理节点。假定获取所在主机地址为 &lt;manager1_ip&gt;。</p>
+<p>$ docker run -d swarm manage -H :4000 –replication –advertise &lt;manager1_ip&gt;:4000 consul://&lt;consul_ip&gt;:8500<br>启动工作节点<br>需要在每个工作节点上启动 agent 服务。</p>
+<p>获取节点的主机地址为 &lt;node_ip&gt;，并指定前面获取到的 consul 服务地址。</p>
+<p>$ docker run -d swarm join –advertise=&lt;node_ip&gt;:2375 consul://&lt;consul_ip&gt;:8500<br>节点启动后，用户可以指定 Docker 服务地址为 &lt;manager0_ip&gt;:4000&gt; 来测试各种 Docker 命令，可以看到整个 Swarm 集群就像一个虚拟的 Docker 主机一样正常工作。</p>
+<p>由于 Swarm 实际上是通过 agent 调用了本地的 Docker daemon 来运行容器，当 Swarm 集群服务出现故障时，无法接受新的请求，但已经运行起来的容器将不会受到影响。</p>
+<p>使用 Swarm<br>前面演示了基于 consul 服务发现后端来配置一个本地 Swarm 集群。其中，consul 也可以被替换为 etcd、zookeeper 等。</p>
+<p>另外一个更方便的方式是直接使用 DockerHub 提供的免费服务发现后端。</p>
+<p>下面使用这种方式来演示 Swarm 的主要操作，包括：</p>
+<p>create：创建一个集群；<br>list：列出集群中的节点；<br>manage：管理一个集群；<br>join：让节点加入到某个集群。<br>注意，使用 DockerHub 的服务发现后端，需要各个节点能通过公网访问到 DockerHub 的服务接口。</p>
+<p>创建集群 id<br>在任意一台安装了 Swarm 的机器上执行 swarm create 命令来在 DockerHub 服务上进行注册。</p>
+<p>Swarm 会通过服务发现后端（此处为 DockerHub 提供）来获取一个唯一的由数字和字母组成的 token，用来标识要管理的集群。</p>
+<p>$ docker run –rm swarm create<br>946d65606f7c2f49766e4dddac5b4365<br>注意返回的字符串，这是集群的唯一 id，加入集群的各个节点将需要这个信息。</p>
+<p>配置集群节点<br>在所有要加入集群的普通节点上面执行 swarm join 命令，表示把这台机器加入指定集群当中。</p>
+<p>例如某台机器 IP 地址为 192.168.0.2，将其加入我们刚创建的 946d65606f7c2f49766e4dddac5b4365 集群，则可以通过：</p>
+<p>$ docker run –rm swarm join –addr=192.168.0.2:2375 token://946d65606f7c2f49766e4dddac5b4365<br>time=”2015-12-09T08:59:43Z” level=info msg=”Registering on the discovery service every 20s…” addr=”192.168.0.2:2375” discovery=”token://946d65606f7c2f49766e4dddac5b4365”<br>…<br>注：其中 –addr 指定的 IP 地址信息将被发送给服务发现后端，用以区分集群不同的节点。manager 服务必须要通过这个地址可以访问到该节点。</p>
+<p>通过控制台可以看到，上述命令执行后，默认每隔 20 秒（可以通过 –heartbeat 选项指定），会输出一条心跳信息。对于发现服务后端来说，默认如果超过 60 秒（可以通过 –ttl 选项指定）没有收到心跳信息，则将节点从列表中删除。</p>
+<p>如果不希望看到输出日志信息，则可以用 -d 选项替换 –rm 选项，让服务后台执行。</p>
+<p>执行 swarm join 命令实际上是通过 agent 把自己的信息注册到发现服务上，因此，此时对于后端的发现服务来说，已经可以看到有若干节点注册上来了。那么，如何管理和使用这些节点呢，这就得需要 Swarm 的 manager 服务了。</p>
+<p>配置管理节点<br>配置管理节点需要通过 swarm manage 命令，该命令将启动 manager 服务，默认监听到 2375 端口，所有对集群的管理可以通过该服务接口进行。</p>
+<p>读者可能注意到，manager 服务默认监听的端口跟 Docker 服务监听端口是一样的，这是为了兼容其它基于 Docker 的服务，可以无缝地切换到 Swarm 平台上来。</p>
+<p>仍然在节点 192.168.0.2 进行操作。由于我们是采用 Docker 容器形式启动 manager 服务，本地的 2375端口已经被 Docker Daemon 占用。我们将 manager 服务监听端口映射到本地一个空闲的 12375 端口。</p>
+<p>$ docker run -d -p 12375:2375 swarm manage token://946d65606f7c2f49766e4dddac5b4365<br>1e1ca8c4117b6b7271efc693f9685b4e907d8dc95324350392b21e94b3cffd18<br>可以通过 docker ps 命令来查看启动的 swarm manager 服务容器。</p>
+<p>$ docker ps<br>CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                     NAMES<br>1e1ca8c4117b        swarm               “/swarm manage token:”   11 seconds ago      Up 10 seconds       0.0.0.0:12375-&gt;2375/tcp   jovial_rosalind<br>命令如果执行成功会返回刚启动的 Swarm 容器的 ID，此时一个简单的 Swarm 集群就已经搭建起来了，包括一个普通节点和一个管理节点。</p>
+<p>查看集群节点列表<br>集群启动成功以后，用户可以在任何一台节点上使用 swarm list 命令查看集群中的节点列表。例如</p>
+<p>$ docker run –rm swarm list token://946d65606f7c2f49766e4dddac5b4365<br>192.168.0.2:2375<br>显示正是之前用 swarm join 命令加入集群的节点的地址。</p>
+<p>我们在另外一台节点 192.168.0.3 上同样使用 swarm join 命令新加入一个节点：</p>
+<p>$docker run –rm swarm join –addr=192.168.0.3:2375 token://946d65606f7c2f49766e4dddac5b4365<br>time=”2015-12-10T02:05:34Z” level=info msg=”Registering on the discovery service every 20s…” addr=”192.168.0.3:2375” discovery=”token://946d65606f7c2f49766e4dddac5b4365”<br>…<br>再次使用 swarm list 命令查看集群中的节点列表信息，可以看到新加入的节点：</p>
+<p>$ docker run –rm swarm list token://946d65606f7c2f49766e4dddac5b4365<br>192.168.0.3:2375<br>192.168.0.2:2375<br>使用集群服务<br>那么，怎么使用 Swarm 提供的服务呢？</p>
+<p>实际上，所有 Docker 客户端可以继续使用，只要指定使用 Swarm manager 服务的监听地址即可。</p>
+<p>例如，manager 服务监听的地址为 192.168.0.2:12375，则可以通过指定 -H 192.168.0.2:12375 选项来继续使用 Docker 客户端，执行任意 Docker 命令，例如 ps、info、run 等等。</p>
+<p>在任意节点上使用 docker run 来启动若干容器，例如</p>
+<p>$docker -H 192.168.0.2:12375:12375 run -d ubuntu ping 127.0.0.1<br>4c9bccbf86fb6e2243da58c1b15e9378fac362783a663426bbe7058eea84de46<br>使用 ps 命令查看集群中正在运行的容器。</p>
+<p>$ docker -H 192.168.0.2:12375 ps<br>CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                         NAMES<br>4c9bccbf86fb        ubuntu              “ping 127.0.0.1”         About a minute ago   Up About a minute                       clever_wright<br>730061a3801a        registry:latest     “docker-registry”        2 minutes ago        Up 2 minutes         192.168.0.2:5000-&gt;5000/tcp   Host-1/registry_registry_1<br>72d99f24a06f        redis:3.0           “/entrypoint.sh redis”   2 minutes ago        Up 2 minutes         6379/tcp                      Host-1/registry_redis_1,Host-1/registry_registry_1/redis,Host-1/registry_registry_1/redis_1,Host-1/registry_registry_1/registry_redis_1<br>输出结果中显示目前集群中正在运行的容器（注意不包括 Swarm manager 服务容器），可以在不同节点上使用 docker ps 查看本地容器，发现这些容器实际上可能运行在集群中多个节点上（被 Swarm 调度策略进行分配）。</p>
+<p>使用 info 查看所有节点的信息。</p>
+<p>$ docker -H 192.168.0.2:12375 info<br>Containers: 18<br>Images: 36<br>Role: primary<br>Strategy: spread<br>Filters: health, port, dependency, affinity, constraint<br>Nodes: 2<br> Host-1: 192.168.0.2:2375<br>  └ Containers: 15<br>  └ Reserved CPUs: 0 / 4<br>  └ Reserved Memory: 1 GiB / 4.053 GiB<br>  └ Labels: executiondriver=native-0.2, kernelversion=3.16.0-43-generic, operatingsystem=Ubuntu 14.04.3 LTS, storagedriver=aufs<br> Host-2: 192.168.0.3:2375<br>  └ Containers: 3<br>  └ Reserved CPUs: 0 / 8<br>  └ Reserved Memory: 0 B / 16.46 GiB<br>  └ Labels: executiondriver=native-0.2, kernelversion=3.16.0-30-generic, operatingsystem=Ubuntu 14.04.3 LTS, storagedriver=aufs<br>CPUs: 12<br>Total Memory: 20.51 GiB<br>Name: 1e1ca8c4117b<br>结果输出显示这个集群目前只有两个节点，地址分别是 192.168.0.2 和 192.168.0.3。</p>
+<p>类似的，也可以通过 Compose 模板来启动多个服务。不过请注意，要想让服务分布到多个 Swarm 节点上，需要采用版本 2 的写法。</p>
+<p>使用网络<br>Swarm 为了支持跨主机的网络，默认采用了 overlay 网络类型，实现上通过 vxlan 来构建联通整个 Swarm 集群的网络。</p>
+<p>首先，在集群中所有节点上，添加配置 Docker daemon 选项：</p>
+<p>–cluster-store=&lt;DISCOVERY_HOST:PORT&gt; –cluster-advertise=&lt;DOCKER_DAEMON_HOST:PORT&gt;<br>以 consul 服务为例，可能类似：</p>
+<p>–cluster-store=consul://<consul 服务地址="">:8500 –cluster-advertise=192.168.0.3:2375<br>之后重启 Docker 服务。</consul></p>
+<p>首先，创建一个网络。</p>
+<p>$ docker -H 192.168.0.2:12375 network create swarm_network<br>查看网络，将看到一个 overlay 类型的网络。</p>
+<p>$ docker -H 192.168.0.2:12375 network ls<br>NETWORK ID          NAME                DRIVER<br>6edf2d16ec97        swarm_network       overlay<br>此时，所有添加到这个网络上的容器将自动被分配到集群中的节点上，并且彼此联通。</p>
+<p>使用其它服务发现后端<br>Swarm 目前可以支持多种服务发现后端，这些后端功能上都是一致的，即维护属于某个集群的节点的信息。不同方案并无优劣之分，在实际使用时候，可以结合自身需求和环境限制进行选择，甚至自己定制其它方案。</p>
+<p>使用中可以通过不同的路径来选择特定的服务发现后端机制。</p>
+<p>token://<token>：使用 DockerHub 提供的服务，适用于可以访问公网情况；<br>file://path/to/file：使用本地文件，需要手动管理；<br>consul://<ip>/<path></path>：使用 consul 服务，私有环境推荐；<br>etcd://<ip1>,<ip2>/<path></path>：使用 etcd 服务，私有环境推荐；<br>zk://<ip1>,<ip2>/<path></path>：使用 zookeeper 服务，私有环境推荐；<br>[nodes://]<ip1>,<ip2>：手动指定集群中节点的地址，方便进行服务测试。<br>使用文件<br>使用本地文件的方式十分简单，就是讲所有属于某个集群的节点的 Docker daemon 信息写入一个文件中，然后让 manager 从这个文件中直接读取相关信息。</ip2></ip1></ip2></ip1></ip2></ip1></ip></token></p>
+<p>首先，在 Swarm 管理节点（192.168.0.2）上新建一个文件，把要加入集群的机器的 Docker daemon 信息写入文件：</p>
+<p>$ tee /tmp/cluster_info &lt;&lt;-‘EOF’<br>192.168.0.2:2375<br>192.168.0.3:2375<br>EOF<br>然后，本地执行 swarm manage 命令，并指定服务发现机制为本地文件，注意因为是容器方式运行 manager，需要将本地文件挂载到容器内。</p>
+<p>$ docker run -d -p 12375:2375 -v /tmp/cluster_info:/tmp/cluster_info swarm manage file:///tmp/cluster_info<br>接下来就可以通过使用 Swarm 服务来进行管理了，例如使用 info 查看所有节点的信息。</p>
+<p>$ docker -H 192.168.0.2:12375 info<br>Containers: 18<br>Images: 36<br>Role: primary<br>Strategy: spread<br>Filters: health, port, dependency, affinity, constraint<br>Nodes: 2<br> Host-1: 192.168.0.2:2375<br>  └ Containers: 15<br>  └ Reserved CPUs: 0 / 4<br>  └ Reserved Memory: 1 GiB / 4.053 GiB<br>  └ Labels: executiondriver=native-0.2, kernelversion=3.16.0-43-generic, operatingsystem=Ubuntu 14.04.3 LTS, storagedriver=aufs<br> Host-2: 192.168.0.3:2375<br>  └ Containers: 3<br>  └ Reserved CPUs: 0 / 8<br>  └ Reserved Memory: 0 B / 16.46 GiB<br>  └ Labels: executiondriver=native-0.2, kernelversion=3.16.0-30-generic, operatingsystem=Ubuntu 14.04.3 LTS, storagedriver=aufs<br>CPUs: 12<br>Total Memory: 20.51 GiB<br>Name: e71eb5f1d48b<br>其它发现服务后端<br>其它服务发现后端的使用方法，也是大同小异，不同之处在于使用 Swarm 命令时指定的路径格式不同。</p>
+<p>例如，对于前面介绍的 consul 服务后端来说。</p>
+<p>快速部署一个 consul 服务的命令为：</p>
+<p>$ docker run -d -p 8500:8500 –name=consul progrium/consul -server -bootstrap<br>之后创建 Swarm 的管理服务，指定使用 consul 服务，管理端口监听在本地的 4000 端口。</p>
+<p>$ docker run -d -p 4000:4000 swarm manage -H :4000 –replication –advertise &lt;manager_ip&gt;:4000 consul://&lt;consul_ip&gt;:8500<br>Swarm 节点注册时候命令格式类似于：</p>
+<p>$ swarm join –advertise=&lt;node_ip:2375&gt; consul://&lt;consul_addr&gt;/<optional path="" prefix=""><br>对于 etcd 服务后端来说，节点注册时候命令格式类似于：</optional></p>
+<p>$ swarm join –addr=&lt;node_addr:2375&gt; etcd://&lt;etcd_addr1&gt;,&lt;etcd_addr2&gt;/<optional path="" prefix=""><br>启动管理服务时候，格式类似于：</optional></p>
+<p>$ swarm manage -H tcp://&lt;manager_ip&gt;:4000 etcd://&lt;etcd_addr1&gt;,&lt;etcd_addr2&gt;/<optional path="" prefix=""><br>地址和端口的范围匹配<br>对于基于文件，以及手动指定节点信息两种服务发现后端机制来说，其中地址和端口域可以支持指定一个范围，以一次性指定多个地址。 例如：</optional></p>
+<p>192.168.0.[2:10]:2375 代表 192.168.0.2:2375 – 192.168.0.10:2375 一共 9 个地址；<br>192.168.0.2:[2:9]375 代表 192.168.0.2:2375 – 192.168.0.2:9375 一共 8 个地址。<br>Swarm 中的调度器<br>调度是集群十分重要的功能，Swarm 目前支持三种调度策略：spread、binpack 和 random。</p>
+<p>在执行swarm manage命令启动管理服务的时候，可以通过 –strategy 参数指定调度策略，默认的是 spread。</p>
+<p>简单来说，这三种调度策略的优化目标如下：</p>
+<p>spread：如果节点配置相同，选择一个正在运行的容器数量最少的那个节点，即尽量平摊容器到各个节点；<br>binpack：跟 spread 相反，尽可能的把所有的容器放在一台节点上面运行，即尽量少用节点，避免容器碎片化。<br>random：直接随机分配，不考虑集群中节点的状态，方便进行测试使用。<br>spread 调度策略<br>仍然以之前创建好的集群为例，来演示下 spread 策略的行为。</p>
+<p>在 192.168.0.2 节点启动管理服务，管理 token://946d65606f7c2f49766e4dddac5b4365 的集群。</p>
+<p>$ docker run -d -p 12375:2375 swarm manage  –strategy “spread” token://946d65606f7c2f49766e4dddac5b4365<br>c6f25e6e6abbe45c8bcf75ac674f2b64d5f31a5c6070d64ba954a0309b197930<br>列出集群中节点。</p>
+<p>$ docker run –rm swarm list token://946d65606f7c2f49766e4dddac5b4365<br>192.168.0.3:2375<br>192.168.0.2:2375<br>此时，两个节点上除了 swarm 外都没有运行其它容器。</p>
+<p>启动一个 ubuntu 容器。</p>
+<p>$ docker -H 192.168.0.2:12375 run -d ubuntu:14.04 ping 127.0.0.1<br>bac3dfda5306181140fc959969d738549d607bc598390f57bdd432d86f16f069<br>查看发现它实际上被调度到了 192.168.0.3 节点（当节点配置相同时候，初始节点随机选择）。</p>
+<p>再次启动一个 ubuntu 容器。</p>
+<p>$ docker -H 192.168.0.2:12375 run -d ubuntu:14.04 ping 127.0.0.1<br>8247067ba3a31e0cb692a8373405f95920a10389ce3c2a07091408281695281c<br>查看它的位置，发现被调度到了另外一个节点：192.168.0.2 节点。</p>
+<p>$ docker -H 192.168.0.2:12375 ps<br>CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                         NAMES<br>8247067ba3a3        ubuntu:14.04        “ping 127.0.0.1”         1 minutes ago       Up 1 minutes                            Host-2/sick_galileo<br>bac3dfda5306        ubuntu:14.04        “ping 127.0.0.1”         2 minutes ago       Up 2 minutes                            Host-3/compassionate_ritchie<br>当节点配置不同的时候，spread会更愿意分配到配置较高的节点上。</p>
+<p>binpack 调度策略<br>现在来看看 binpack 策略下的情况。</p>
+<p>直接启动若干 ubuntu 容器，并查看它们的位置。</p>
+<p>$ docker -H 192.168.0.2:12375 run -d ubuntu:14.04 ping 127.0.0.1<br>$ docker -H 192.168.0.2:12375 ps<br>CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                         NAMES<br>4c4f45eba866        ubuntu:14.04        “ping 127.0.0.1”         3 minutes ago       Up 3 minutes                            Host-3/hopeful_brown<br>5e650541233c        ubuntu:14.04        “ping 127.0.0.1”         3 minutes ago       Up 3 minutes                            Host-3/pensive_wright<br>99c5a092530a        ubuntu:14.04        “ping 127.0.0.1”         3 minutes ago       Up 3 minutes                            Host-3/naughty_engelbart<br>4ab392c26eb2        ubuntu:14.04        “ping 127.0.0.1”         3 minutes ago       Up 3 minutes                            Host-3/thirsty_mclean<br>可以看到，所有的容器都是分布在同一个节点（192.168.0.3）上运行的。</p>
+<p>Swarm 中的过滤器<br>Swarm 的调度器可以按照指定调度策略自动分配容器到节点。但有些时候希望能对这些分配加以干预。比如说，让 IO 敏感的容器分配到安装了 SSD 的节点上；让计算敏感的容器分配到 CPU 核数多的机器上；让网络敏感的容器分配到高带宽的机房；让某些容器尽量放同一个节点……。</p>
+<p>这可以通过过滤器（filter）来实现，目前支持 Constraint、Affinity、Port、Dependency、Health等五种过滤器。</p>
+<p>Constraint 过滤器<br>Constraint 过滤器是绑定到节点的键值对，相当于给节点添加标签。</p>
+<p>可在启动 Docker 服务的时候指定，例如指定某个节点颜色为 red。</p>
+<p>$ sudo docker daemon –label color=red -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock<br>同样的，可以写在 Docker 服务的配置文件里面（以 Ubuntu 14.04 为例，是 /etc/default/docker）。</p>
+<p>DOCKER_OPTS=”–label color=red -H 0.0.0.0:2375 -H unix:///var/run/docker.sock”<br>使用 Swarm 启动容器的时候，采用 -e constarint:key=value 的形式，可以过滤选择出匹配条件的节点。</p>
+<p>例如，我们将 192.168.0.2 节点打上红色标签，192.168.0.3 节点打上绿色标签。</p>
+<p>然后，分别启动两个容器，指定使用过滤器分别为红色和绿色。</p>
+<p>$ docker -H 192.168.0.2:12375 run -d -e constraint:color==red ubuntu:14.04 ping 127.0.0.1<br>252ffb48e64e9858c72241f5eedf6a3e4571b1ad926faf091db3e26672370f64<br>$ docker -H 192.168.0.2:12375 run -d -e constraint:color==green ubuntu:14.04 ping 127.0.0.1<br>3d6f8d7af8583416b17061d038545240c9e5c3be7067935d3ef2fbddce4b8136<br>注：指定标签中间是两个等号</p>
+<p>查看它们将被分配到指定节点上。</p>
+<p>$ docker -H 192.168.0.2:12375 ps<br>CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                         NAMES<br>252ffb48e64e        ubuntu:14.04        “ping 127.0.0.1”         1 minutes ago       Up 1 minutes                            Host-2/sick_galileo<br>3d6f8d7af858        ubuntu:14.04        “ping 127.0.0.1”         2 minutes ago       Up 2 minutes                            Host-3/compassionate_ritchie<br>另外，Docker 内置了一些常见的过滤器，包括 node、storagedriver、executiondriver、kernelversion、operatingsystem 等。这些值可以通过 docker info 命令查看。</p>
+<p>例如，目前集群中各个节点的信息为：</p>
+<p>$ docker -H 192.168.0.2:12375 info<br>Containers: 5<br>Images: 39<br>Role: primary<br>Strategy: spread<br>Filters: health, port, dependency, affinity, constraint<br>Nodes: 2<br> Host-2: 192.168.0.2:2375<br>  └ Containers: 4<br>  └ Reserved CPUs: 0 / 4<br>  └ Reserved Memory: 1 GiB / 4.053 GiB<br>  └ Labels: color=red, executiondriver=native-0.2, kernelversion=3.16.0-43-generic, operatingsystem=Ubuntu 14.04.3 LTS, storagedriver=aufs<br> Host-3: 192.168.0.3:2375<br>  └ Containers: 1<br>  └ Reserved CPUs: 0 / 8<br>  └ Reserved Memory: 0 B / 16.46 GiB<br>  └ Labels: color=green, executiondriver=native-0.2, kernelversion=3.16.0-30-generic, operatingsystem=Ubuntu 14.04.3 LTS, storagedriver=aufs<br>CPUs: 12<br>Total Memory: 20.51 GiB<br>Name: 946d65606f7c<br>Affinity 过滤器<br>Affinity 过滤器允许用户在启动一个容器的时候，让它分配到某个已有容器的节点上。</p>
+<p>例如，下面我们将启动一个 nginx 容器，让它分配到已经运行某个 ubuntu 容器的节点上。</p>
+<p>在 Constraint 过滤器的示例中，我们分别启动了两个 ubuntu 容器 sick_galileo 和 compassionate_ritchie，分别在 Host-2 和 Host-3 上。</p>
+<p>现在启动一个 nginx 容器，让它跟容器 sick_galileo 放在一起，都放到 Host-2 节点上。可以通过 -e affinity:container==<name or="" id=""> 参数来实现。</name></p>
+<p>$ docker -H 192.168.0.2:12375 run -d -e affinity:container==sick_galileo nginx<br>然后启动一个 redis 容器，让它跟容器 compassionate_ritchie 放在一起，都放到 Host-3 节点上。</p>
+<p>$ docker -H 192.168.0.2:12375 run -d -e affinity:container==compassionate_ritchie redis<br>查看所有容器运行情况。</p>
+<p>$ docker -H 192.168.0.2:12375 ps<br>CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                         NAMES<br>0a32f15aa8ee        redis               “/entrypoint.sh redis”   2 seconds ago       Up 1 seconds        6379/tcp                  Host-3/awesome_darwin<br>d2b9a53e67d5        nginx               “nginx -g ‘daemon off”   29 seconds ago      Up 28 seconds       80/tcp, 443/tcp               Host-2/fervent_wilson<br>252ffb48e64e        ubuntu:14.04        “ping 127.0.0.1”         2 minutes ago       Up 2 minutes                            Host-2/sick_galileo<br>3d6f8d7af858        ubuntu:14.04        “ping 127.0.0.1”         3 minutes ago       Up 3 minutes                            Host-3/compassionate_ritchie<br>其它过滤器<br>其它过滤器的使用方法也是大同小异，例如通过 -e affinity:image==<name or="" id=""> 来选择拥有指定镜像的节点；通过 -e affinity:label_name==value 来选择拥有指定标签的容器所允许的节点。</name></p>
+<p>此外，当容器端口需要映射到宿主机指定端口号的时候，Swarm 也会自动分配容器到指定宿主机端口可用的节点。</p>
+<p>当不同容器之间存在数据卷或链接依赖的时候，Swarm 会分配这些容器到同一个节点上。</p>
+<p>本章小结<br>本章笔者介绍了 Docker Swarm 的安装、使用和主要功能。</p>
+<p>通过使用 Swarm，用户可以将若干 Docker 主机节点组成的集群当作一个大的虚拟 Docker 主机使用。并且，原先基于单机的 Docker 应用，可以无缝的迁移到 Swarm 上来。</p>
+<p>实现这些功能的前提是服务自动发现能力。在现代分布式系统中，服务的自动发现、注册、更新等能力将成为系统的基本保障和重要基础。</p>
+<p>在生产环境中，Swarm 的管理节点和发现服务后端要采用高可用性上的保护，可以采用集群模式。</p>
+<p>值得一提的是，Swarm V2 功能已经被无缝嵌入到了 Docker 1.12+ 版本中，用户今后可以直接使用 Docker 命令来完成相关功能的配置，这将使得集群功能的管理更加简便。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/27/Openstack云镜像制作-Centos7篇/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.Zhao">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/avatar.gif">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -379,7 +633,7 @@
 <figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ virt-sparsify --<span class="keyword">compress</span> centos7-<span class="keyword">dis</span>.qcow2 centos7-<span class="keyword">dis</span>-cloud.qcow2</span><br></pre></td></tr></table></figure>
 <p><img src="1.png" alt="enter description here"><br>镜像制作完成</p>
 <p>上传openstack</p>
-<h1 id="参考文档："><a href="#参考文档：" class="headerlink" title="参考文档："></a>参考文档：</h1><p><a href="http://www.cnblogs.com/gorlf/p/4140740.html" target="_blank" rel="noopener">penStack镜像制作-CentOS</a></p>
+<h1 id="二、参考文档："><a href="#二、参考文档：" class="headerlink" title="二、参考文档："></a>二、参考文档：</h1><p><a href="http://www.cnblogs.com/gorlf/p/4140740.html" target="_blank" rel="noopener">penStack镜像制作-CentOS</a></p>
 <p><a href="http://www.aboutyun.com/thread-6617-1-1.html" target="_blank" rel="noopener">openstack镜像制作思路、指导及问题总结</a></p>
 <p><a href="http://blog.csdn.net/xiegh2014/article/details/53248403" target="_blank" rel="noopener">openstack制作centos6</a>.5镜像</p>
 <p><a href="http://www.linuxidc.com/Linux/2012-10/72483.htm" target="_blank" rel="noopener">制作OpenStack上使用的CentOS系统镜像</a></p>
@@ -438,7 +692,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.Zhao">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/avatar.gif">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -587,7 +841,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.Zhao">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/avatar.gif">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -732,7 +986,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.Zhao">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/avatar.gif">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -906,7 +1160,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.Zhao">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/avatar.gif">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1058,7 +1312,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.Zhao">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/avatar.gif">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1207,7 +1461,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.Zhao">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/avatar.gif">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1356,7 +1610,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.Zhao">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/avatar.gif">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1541,7 +1795,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.Zhao">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/avatar.gif">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1674,180 +1928,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/22/Docker集群WEB管理工具Shipyard/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mr.Zhao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="OperationMAN">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/08/22/Docker集群WEB管理工具Shipyard/" itemprop="url">Docker集群WEB管理工具Shipyard</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-22T17:00:58+08:00">
-                2018-08-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="一、-说明"><a href="#一、-说明" class="headerlink" title="一、 说明"></a>一、 说明</h1><p>Shipyard部署总体较为简单，有一键部署脚本，只需执行相应命令就可以实现部署，但在部署中还是出现很多问题，主要是shipyard官方网站无法访问，无法使用官方一键脚本部署，使用网上找到的修改版，里面有部分内容有所缺失，现已修改。</p>
-<h1 id="二、环境"><a href="#二、环境" class="headerlink" title="二、环境"></a>二、环境</h1><p>centos:7.4</p>
-<p>master: 192.168.1.44</p>
-<p>node1: 192.168.1.12</p>
-<p>node2: 192.168.1.18</p>
-<p>docker version: docker-ce-18.03.0-ce</p>
-<h1 id="三、安装步骤"><a href="#三、安装步骤" class="headerlink" title="三、安装步骤"></a>三、安装步骤</h1><p>安装之前需要部署好docker环境</p>
-<h2 id="1、master节点执行一件部署命令"><a href="#1、master节点执行一件部署命令" class="headerlink" title="1、master节点执行一件部署命令"></a>1、master节点执行一件部署命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 正常直接从官方拉取脚本执行就行了，命令如下</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> curl -s https://shipyard-project.com/deploy | bash -s</span></span><br><span class="line"></span><br><span class="line">[root@master ~]# curl -s https://shipyard-project.com/deploy | bash -s</span><br><span class="line">Deploying Shipyard</span><br><span class="line"><span class="meta"> -&gt;</span><span class="bash"> Starting Database</span></span><br><span class="line">Unable to find image 'rethinkdb:latest' locally</span><br><span class="line">Trying to pull repository xxx.mirror.aliyuncs.com/rethinkdb ...</span><br><span class="line">Pulling repository xxx.mirror.aliyuncs.com/rethinkdb</span><br><span class="line">Trying to pull repository docker.io/library/rethinkdb ...</span><br><span class="line">latest: Pulling from docker.io/library/rethinkdb</span><br><span class="line">Digest: sha256:29640c7d5015832c40305ad5dcc5d0996ce79b87f7e32d2fd99c9d65ad9414d4</span><br><span class="line"><span class="meta"> -&gt;</span><span class="bash"> Starting Discovery</span></span><br><span class="line"><span class="meta"> -&gt;</span><span class="bash"> Starting Cert Volume</span></span><br><span class="line"><span class="meta"> -&gt;</span><span class="bash"> Starting Proxy</span></span><br><span class="line"><span class="meta"> -&gt;</span><span class="bash"> Starting Swarm Manager</span></span><br><span class="line"><span class="meta"> -&gt;</span><span class="bash"> Starting Swarm Agent</span></span><br><span class="line"><span class="meta"> -&gt;</span><span class="bash"> Starting Controller</span></span><br><span class="line">Waiting for Shipyard on 192.168.1.44:8080</span><br><span class="line"> </span><br><span class="line">Shipyard available at http://192.168.1.44:8080</span><br><span class="line">Username: admin Password: shipyard</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者下载脚本后本地执行，命令如下</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sh deploy</span></span><br></pre></td></tr></table></figure>
-<p>执行脚本的时候会自动下载相关镜像，也可以事先下载镜像文件</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@<span class="keyword">master</span> <span class="title">~]# docker</span> pull alpine</span><br><span class="line">[root@<span class="keyword">master</span> <span class="title">~]# docker</span> pull library/rethinkdb</span><br><span class="line">[root@<span class="keyword">master</span> <span class="title">~]# docker</span> pull microbox/etcd</span><br><span class="line">[root@<span class="keyword">master</span> <span class="title">~]# docker</span> pull shipyard/docker-proxy</span><br><span class="line">[root@<span class="keyword">master</span> <span class="title">~]# docker</span> pull swarm</span><br><span class="line">[root@<span class="keyword">master</span> <span class="title">~]# docker</span> pull shipyard/shipyard</span><br></pre></td></tr></table></figure>
-<p>通过访问<a href="http://IP：8080登录shipyard,默认帐号密码：admin" target="_blank" rel="noopener">http://IP：8080登录shipyard,默认帐号密码：admin</a>   shipyard<br><img src="1.png" alt="enter description here"></p>
-<h2 id="2、分别在node节点执行如下命令，添加节点到shipyard"><a href="#2、分别在node节点执行如下命令，添加节点到shipyard" class="headerlink" title="2、分别在node节点执行如下命令，添加节点到shipyard"></a>2、分别在node节点执行如下命令，添加节点到shipyard</h2><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 部署机就是master节点</span></span><br><span class="line">$ curl -sSL https://shipyard-project.com/deploy | <span class="attr">ACTION=</span><span class="keyword">node</span> <span class="title">DISCOVERY</span>=etcd://<span class="tag">&lt;shipyard部署机ip&gt;</span> bash -s</span><br><span class="line"><span class="comment"># 或者通过本地脚本执行命令</span></span><br><span class="line">$ cat deploy | <span class="attr">ACTION=</span><span class="keyword">node</span> <span class="title">DISCOVERY</span>=etcd://<span class="tag">&lt;shipyard部署机ip&gt;</span> bash -s</span><br></pre></td></tr></table></figure>
-<p><img src="2.png" alt="enter description here"><br><img src="3.png" alt="enter description here"><br><img src="4.png" alt="enter description here"></p>
-<h1 id="四、问题总结"><a href="#四、问题总结" class="headerlink" title="四、问题总结"></a>四、问题总结</h1><h2 id="注意项目1："><a href="#注意项目1：" class="headerlink" title="注意项目1："></a>注意项目1：</h2><p>—————————————————————————————————————<br>上面安装shipyard的脚本是英文版的，其实还有中文版的脚本，下面两种都可以使用：（两个地址都失效）</p>
-<p>1）安装shipyard</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> curl -sSL http://dockerclub.net/public/script/deploy | bash -s ==&gt; 中文版</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> curl -sSL https://shipyard-project.com/deploy | bash -s ==&gt; 英文版</span></span><br></pre></td></tr></table></figure>
-<p>2）添加node节点</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> curl -sSL http://dockerclub.net/public/script/deploy | ACTION=node DISCOVERY=etcd://&lt;shipyard部署机ip&gt; bash -s ==&gt; 中文版</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> curl -sSL https://shipyard-project.com/deploy | ACTION=node DISCOVERY=etcd://&lt;shipyard部署机ip&gt; bash -s ==&gt; 英文版</span></span><br></pre></td></tr></table></figure>
-<p>3）删除shipyard（在节点机上执行，就会将节点从shipyard管理里踢出）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> curl http://dockerclub.net/public/script/deploy | ACTION=remove bash -s ==&gt; 中文版</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> curl -sSL https://shipyard-project.com/deploy | ACTION=remove bash -s ==&gt; 英文版</span></span><br></pre></td></tr></table></figure>
-<p>—————————————————————————————————————</p>
-<p>问题项目2：<br>—————————————————————————————————————</p>
-<p>1）安装shipyard前不需要部署swarm集群，一键包已包含集群建设</p>
-<p>2）部署后无法发现节点，容器页面报错，意思是到节点IP:3375端口无法建立连接，500错误；根据排查，发现所有节点swarm_manager容器都没有开启3375端口，于是在脚本里面修改</p>
-<p>容器启动命令，添加开启3375端口，具体看下方脚本；</p>
-<p>3）在shipyard web页面，master自身发现较慢，不知道什么原因</p>
-<p>4）中文版shipard创建容器的时候，设置端口映射但不生效，使用英文版没有问题，未发现问题原因</p>
-<p>5）shipyard只适合较小规模docker集群，功能上已跟不上现阶段的docker集群需求。</p>
-<p>—————————————————————————————————————</p>
-<h1 id="deploy脚本"><a href="#deploy脚本" class="headerlink" title="deploy脚本"></a>deploy脚本</h1><p>这个是中文版的脚本，和官方的区别就是修改了shipyard镜像文件，下方标注部分说明</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$1</span>"</span> != <span class="string">""</span> ] &amp;&amp; [ <span class="string">"<span class="variable">$1</span>"</span> = <span class="string">"-h"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Shipyard Deploy uses the following environment variables:"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"  ACTION: this is the action to use (deploy, upgrade, node, remove)"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"  DISCOVERY: discovery system used by Swarm (only if using 'node' action)"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"  IMAGE: this overrides the default Shipyard image"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"  PREFIX: prefix for container names"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"  SHIPYARD_ARGS: these are passed to the Shipyard controller container as controller args"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"  TLS_CERT_PATH: path to certs to enable TLS for Shipyard"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"  PORT: specify the listen port for the controller (default: 8080)"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"  IP: specify the address at which the controller or node will be available (default: eth0 ip)"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"  PROXY_PORT: port to run docker proxy (default: 2375)"</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -z <span class="string">"`which docker`"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"You must have the Docker CLI installed on your \$PATH"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"  See http://docs.docker.com for details"</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">ACTION=<span class="variable">$&#123;ACTION:-deploy&#125;</span></span><br><span class="line"><span class="comment">#官方IMAGE=$&#123;IMAGE:-shipyard/shipyard:latest&#125;</span></span><br><span class="line"><span class="comment">#备注官方shipyard:latest标签镜像似乎有问题，实际使用shipyard:master标签镜像</span></span><br><span class="line">IMAGE=<span class="variable">$&#123;IMAGE:-dockerclub/shipyard:latest&#125;</span></span><br><span class="line">PREFIX=<span class="variable">$&#123;PREFIX:-shipyard&#125;</span></span><br><span class="line">SHIPYARD_ARGS=<span class="variable">$&#123;SHIPYARD_ARGS:-""&#125;</span></span><br><span class="line">TLS_CERT_PATH=<span class="variable">$&#123;TLS_CERT_PATH:-&#125;</span></span><br><span class="line">CERT_PATH=<span class="string">"/etc/shipyard"</span></span><br><span class="line">PROXY_PORT=<span class="variable">$&#123;PROXY_PORT:-2375&#125;</span></span><br><span class="line">SWARM_PORT=3375</span><br><span class="line">SHIPYARD_PROTOCOL=http</span><br><span class="line">SHIPYARD_PORT=<span class="variable">$&#123;PORT:-8080&#125;</span></span><br><span class="line">SHIPYARD_IP=<span class="variable">$&#123;IP&#125;</span></span><br><span class="line">DISCOVERY_BACKEND=etcd</span><br><span class="line">DISCOVERY_PORT=4001</span><br><span class="line">DISCOVERY_PEER_PORT=7001</span><br><span class="line">ENABLE_TLS=0</span><br><span class="line">CERT_FINGERPRINT=<span class="string">""</span></span><br><span class="line">LOCAL_CA_CERT=<span class="string">""</span></span><br><span class="line">LOCAL_SSL_CERT=<span class="string">""</span></span><br><span class="line">LOCAL_SSL_KEY=<span class="string">""</span></span><br><span class="line">LOCAL_SSL_CLIENT_CERT=<span class="string">""</span></span><br><span class="line">LOCAL_SSL_CLIENT_KEY=<span class="string">""</span></span><br><span class="line">SSL_CA_CERT=<span class="string">""</span></span><br><span class="line">SSL_CERT=<span class="string">""</span></span><br><span class="line">SSL_KEY=<span class="string">""</span></span><br><span class="line">SSL_CLIENT_CERT=<span class="string">""</span></span><br><span class="line">SSL_CLIENT_KEY=<span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">show_cert_help</span></span>() &#123;</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"To use TLS in Shipyard, you must have existing certificates."</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"The certs must be named ca.pem, server.pem, server-key.pem, cert.pem and key.pem"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"If you need to generate certificates, see https://github.com/ehazlett/certm for examples."</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">check_certs</span></span>() &#123;</span><br><span class="line">    <span class="keyword">if</span> [ -z <span class="string">"<span class="variable">$TLS_CERT_PATH</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">return</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> [ ! -e <span class="variable">$TLS_CERT_PATH</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"Error: unable to find certificates in <span class="variable">$TLS_CERT_PATH</span>"</span></span><br><span class="line">        show_cert_help</span><br><span class="line">        <span class="built_in">exit</span> 1</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> [ <span class="string">"<span class="variable">$PROXY_PORT</span>"</span> = <span class="string">"2375"</span> ]; <span class="keyword">then</span></span><br><span class="line">        PROXY_PORT=2376</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    SWARM_PORT=3376</span><br><span class="line">    SHIPYARD_PROTOCOL=https</span><br><span class="line">    LOCAL_SSL_CA_CERT=<span class="string">"<span class="variable">$TLS_CERT_PATH</span>/ca.pem"</span></span><br><span class="line">    LOCAL_SSL_CERT=<span class="string">"<span class="variable">$TLS_CERT_PATH</span>/server.pem"</span></span><br><span class="line">    LOCAL_SSL_KEY=<span class="string">"<span class="variable">$TLS_CERT_PATH</span>/server-key.pem"</span></span><br><span class="line">    LOCAL_SSL_CLIENT_CERT=<span class="string">"<span class="variable">$TLS_CERT_PATH</span>/cert.pem"</span></span><br><span class="line">    LOCAL_SSL_CLIENT_KEY=<span class="string">"<span class="variable">$TLS_CERT_PATH</span>/key.pem"</span></span><br><span class="line">    SSL_CA_CERT=<span class="string">"<span class="variable">$CERT_PATH</span>/ca.pem"</span></span><br><span class="line">    SSL_CERT=<span class="string">"<span class="variable">$CERT_PATH</span>/server.pem"</span></span><br><span class="line">    SSL_KEY=<span class="string">"<span class="variable">$CERT_PATH</span>/server-key.pem"</span></span><br><span class="line">    SSL_CLIENT_CERT=<span class="string">"<span class="variable">$CERT_PATH</span>/cert.pem"</span></span><br><span class="line">    SSL_CLIENT_KEY=<span class="string">"<span class="variable">$CERT_PATH</span>/key.pem"</span></span><br><span class="line">    CERT_FINGERPRINT=$(openssl x509 -noout -<span class="keyword">in</span> <span class="variable">$LOCAL_SSL_CERT</span> -fingerprint -sha256 | awk -F= <span class="string">'&#123;print $2;&#125;'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> [ ! -e <span class="variable">$LOCAL_SSL_CA_CERT</span> ] || [ ! -e <span class="variable">$LOCAL_SSL_CERT</span> ] || [ ! -e <span class="variable">$LOCAL_SSL_KEY</span> ] || [ ! -e <span class="variable">$LOCAL_SSL_CLIENT_CERT</span> ] || [ ! -e <span class="variable">$LOCAL_SSL_CLIENT_KEY</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"Error: unable to find certificates"</span></span><br><span class="line">        show_cert_help</span><br><span class="line">        <span class="built_in">exit</span> 1</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    ENABLE_TLS=1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># container functions</span></span><br><span class="line"><span class="function"><span class="title">start_certs</span></span>() &#123;</span><br><span class="line">    ID=$(docker run \</span><br><span class="line">        -ti \</span><br><span class="line">        -d \</span><br><span class="line">        --restart=always \</span><br><span class="line">        --name <span class="variable">$PREFIX</span>-certs \</span><br><span class="line">        -v <span class="variable">$CERT_PATH</span> \</span><br><span class="line">        alpine \</span><br><span class="line">        sh)</span><br><span class="line">    <span class="keyword">if</span> [ <span class="variable">$ENABLE_TLS</span> = 1 ]; <span class="keyword">then</span></span><br><span class="line">        docker cp <span class="variable">$LOCAL_SSL_CA_CERT</span> <span class="variable">$PREFIX</span>-certs:<span class="variable">$SSL_CA_CERT</span></span><br><span class="line">        docker cp <span class="variable">$LOCAL_SSL_CERT</span> <span class="variable">$PREFIX</span>-certs:<span class="variable">$SSL_CERT</span></span><br><span class="line">        docker cp <span class="variable">$LOCAL_SSL_KEY</span> <span class="variable">$PREFIX</span>-certs:<span class="variable">$SSL_KEY</span></span><br><span class="line">        docker cp <span class="variable">$LOCAL_SSL_CLIENT_CERT</span> <span class="variable">$PREFIX</span>-certs:<span class="variable">$SSL_CLIENT_CERT</span></span><br><span class="line">        docker cp <span class="variable">$LOCAL_SSL_CLIENT_KEY</span> <span class="variable">$PREFIX</span>-certs:<span class="variable">$SSL_CLIENT_KEY</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">remove_certs</span></span>() &#123;</span><br><span class="line">    docker rm -fv <span class="variable">$PREFIX</span>-certs &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">get_ip</span></span>() &#123;</span><br><span class="line">    <span class="keyword">if</span> [ -z <span class="string">"<span class="variable">$SHIPYARD_IP</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        SHIPYARD_IP=`docker run --rm --net=host alpine ip route get 8.8.8.8 | awk <span class="string">'&#123; print $7;  &#125;'</span>`</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">start_discovery</span></span>() &#123;</span><br><span class="line">    get_ip</span><br><span class="line"></span><br><span class="line">    ID=$(docker run \</span><br><span class="line">        -ti \</span><br><span class="line">        -d \</span><br><span class="line">        -p 4001:4001 \</span><br><span class="line">        -p 7001:7001 \</span><br><span class="line">        --restart=always \</span><br><span class="line">        --name <span class="variable">$PREFIX</span>-discovery \</span><br><span class="line">        microbox/etcd:latest -addr <span class="variable">$SHIPYARD_IP</span>:<span class="variable">$DISCOVERY_PORT</span> -peer-addr <span class="variable">$SHIPYARD_IP</span>:<span class="variable">$DISCOVERY_PEER_PORT</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">remove_discovery</span></span>() &#123;</span><br><span class="line">    docker rm -fv <span class="variable">$PREFIX</span>-discovery &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">start_rethinkdb</span></span>() &#123;</span><br><span class="line">    ID=$(docker run \</span><br><span class="line">        -ti \</span><br><span class="line">        -d \</span><br><span class="line">        --restart=always \</span><br><span class="line">        --name <span class="variable">$PREFIX</span>-rethinkdb \</span><br><span class="line">        rethinkdb)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">remove_rethinkdb</span></span>() &#123;</span><br><span class="line">    docker rm -fv <span class="variable">$PREFIX</span>-rethinkdb &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">start_proxy</span></span>() &#123;</span><br><span class="line">    TLS_OPTS=<span class="string">""</span></span><br><span class="line">    <span class="keyword">if</span> [ <span class="variable">$ENABLE_TLS</span> = 1 ]; <span class="keyword">then</span></span><br><span class="line">        TLS_OPTS=<span class="string">"-e SSL_CA=<span class="variable">$SSL_CA_CERT</span> -e SSL_CERT=<span class="variable">$SSL_CERT</span> -e SSL_KEY=<span class="variable">$SSL_KEY</span> -e SSL_SKIP_VERIFY=1"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    <span class="comment"># Note: we add SSL_SKIP_VERIFY=1 to skip verification of the client</span></span><br><span class="line">    <span class="comment"># certificate in the proxy image.  this will pass it to swarm that</span></span><br><span class="line">    <span class="comment"># does verify.  this helps with performance and avoids certificate issues</span></span><br><span class="line">    <span class="comment"># when running through the proxy.  ultimately if the cert is invalid</span></span><br><span class="line">    <span class="comment"># swarm will fail to return.</span></span><br><span class="line">    ID=$(docker run \</span><br><span class="line">        -ti \</span><br><span class="line">        -d \</span><br><span class="line">        -p <span class="variable">$PROXY_PORT</span>:<span class="variable">$PROXY_PORT</span> \</span><br><span class="line">        --hostname=<span class="variable">$HOSTNAME</span> \</span><br><span class="line">        --restart=always \</span><br><span class="line">        --name <span class="variable">$PREFIX</span>-proxy \</span><br><span class="line">        -v /var/run/docker.sock:/var/run/docker.sock \</span><br><span class="line">        -e PORT=<span class="variable">$PROXY_PORT</span> \</span><br><span class="line">        --volumes-from=<span class="variable">$PREFIX</span>-certs <span class="variable">$TLS_OPTS</span>\</span><br><span class="line">        shipyard/docker-proxy:latest)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">remove_proxy</span></span>() &#123;</span><br><span class="line">    docker rm -fv <span class="variable">$PREFIX</span>-proxy &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">start_swarm_manager</span></span>() &#123;</span><br><span class="line">    get_ip</span><br><span class="line"></span><br><span class="line">    TLS_OPTS=<span class="string">""</span></span><br><span class="line">    <span class="keyword">if</span> [ <span class="variable">$ENABLE_TLS</span> = 1 ]; <span class="keyword">then</span></span><br><span class="line">        TLS_OPTS=<span class="string">"--tlsverify --tlscacert=<span class="variable">$SSL_CA_CERT</span> --tlscert=<span class="variable">$SSL_CERT</span> --tlskey=<span class="variable">$SSL_KEY</span>"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    EXTRA_RUN_OPTS=<span class="string">""</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> [ -z <span class="string">"<span class="variable">$DISCOVERY</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        DISCOVERY=<span class="string">"<span class="variable">$DISCOVERY_BACKEND</span>://discovery:<span class="variable">$DISCOVERY_PORT</span>"</span></span><br><span class="line">        EXTRA_RUN_OPTS=<span class="string">"--link <span class="variable">$PREFIX</span>-discovery:discovery"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    ID=$(docker run \</span><br><span class="line">        -ti \</span><br><span class="line">        -d \</span><br><span class="line"><span class="comment">#下面3375端口是我出现无法连接节点后自己添加的，问题是启动容器没有开放3375端口</span></span><br><span class="line">        -p 3375:3375 \</span><br><span class="line">        --restart=always \</span><br><span class="line">        --name <span class="variable">$PREFIX</span>-swarm-manager \</span><br><span class="line">        --volumes-from=<span class="variable">$PREFIX</span>-certs <span class="variable">$EXTRA_RUN_OPTS</span> \</span><br><span class="line">        swarm:latest \</span><br><span class="line">        m --replication --addr <span class="variable">$SHIPYARD_IP</span>:<span class="variable">$SWARM_PORT</span> --host tcp://0.0.0.0:<span class="variable">$SWARM_PORT</span> <span class="variable">$TLS_OPTS</span> <span class="variable">$DISCOVERY</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">remove_swarm_manager</span></span>() &#123;</span><br><span class="line">    docker rm -fv <span class="variable">$PREFIX</span>-swarm-manager &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">start_swarm_agent</span></span>() &#123;</span><br><span class="line">    get_ip</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> [ -z <span class="string">"<span class="variable">$DISCOVERY</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        DISCOVERY=<span class="string">"<span class="variable">$DISCOVERY_BACKEND</span>://discovery:<span class="variable">$DISCOVERY_PORT</span>"</span></span><br><span class="line">        EXTRA_RUN_OPTS=<span class="string">"--link <span class="variable">$PREFIX</span>-discovery:discovery"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    ID=$(docker run \</span><br><span class="line">        -ti \</span><br><span class="line">        -d \</span><br><span class="line">        --restart=always \</span><br><span class="line">        --name <span class="variable">$PREFIX</span>-swarm-agent <span class="variable">$EXTRA_RUN_OPTS</span> \</span><br><span class="line">        swarm:latest \</span><br><span class="line">        j --addr <span class="variable">$SHIPYARD_IP</span>:<span class="variable">$PROXY_PORT</span> <span class="variable">$DISCOVERY</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">remove_swarm_agent</span></span>() &#123;</span><br><span class="line">    docker rm -fv <span class="variable">$PREFIX</span>-swarm-agent &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">start_controller</span></span>() &#123;</span><br><span class="line">    <span class="comment">#-v $CERT_PATH:/etc/docker:ro \</span></span><br><span class="line">    TLS_OPTS=<span class="string">""</span></span><br><span class="line">    <span class="keyword">if</span> [ <span class="variable">$ENABLE_TLS</span> = 1 ]; <span class="keyword">then</span></span><br><span class="line">        TLS_OPTS=<span class="string">"--tls-ca-cert <span class="variable">$SSL_CA_CERT</span> --tls-cert=<span class="variable">$SSL_CERT</span> --tls-key=<span class="variable">$SSL_KEY</span> --shipyard-tls-ca-cert=<span class="variable">$SSL_CA_CERT</span> --shipyard-tls-cert=<span class="variable">$SSL_CERT</span> --shipyard-tls-key=<span class="variable">$SSL_KEY</span>"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    ID=$(docker run \</span><br><span class="line">        -ti \</span><br><span class="line">        -d \</span><br><span class="line">        --restart=always \</span><br><span class="line">        --name <span class="variable">$PREFIX</span>-controller \</span><br><span class="line">        --link <span class="variable">$PREFIX</span>-rethinkdb:rethinkdb \</span><br><span class="line">        --link <span class="variable">$PREFIX</span>-swarm-manager:swarm \</span><br><span class="line">        -p <span class="variable">$SHIPYARD_PORT</span>:<span class="variable">$SHIPYARD_PORT</span> \</span><br><span class="line">        --volumes-from=<span class="variable">$PREFIX</span>-certs \</span><br><span class="line">        <span class="variable">$IMAGE</span> \</span><br><span class="line">        --debug \</span><br><span class="line">        server \</span><br><span class="line">        --listen :<span class="variable">$SHIPYARD_PORT</span> \</span><br><span class="line">        -d tcp://swarm:<span class="variable">$SWARM_PORT</span> <span class="variable">$TLS_OPTS</span> <span class="variable">$SHIPYARD_ARGS</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">wait_for_available</span></span>() &#123;</span><br><span class="line">    <span class="built_in">set</span> +e </span><br><span class="line">    IP=<span class="variable">$1</span></span><br><span class="line">    PORT=<span class="variable">$2</span></span><br><span class="line">    <span class="built_in">echo</span> Waiting <span class="keyword">for</span> Shipyard on <span class="variable">$IP</span>:<span class="variable">$PORT</span></span><br><span class="line"></span><br><span class="line">    docker pull ehazlett/curl &gt; /dev/null 2&gt;&amp;1</span><br><span class="line"></span><br><span class="line">    TLS_OPTS=<span class="string">""</span></span><br><span class="line">    <span class="keyword">if</span> [ <span class="variable">$ENABLE_TLS</span> = 1 ]; <span class="keyword">then</span></span><br><span class="line">        TLS_OPTS=<span class="string">"-k"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    until $(docker run --rm ehazlett/curl --output /dev/null --connect-timeout 1 --silent --head --fail <span class="variable">$TLS_OPTS</span> <span class="variable">$SHIPYARD_PROTOCOL</span>://<span class="variable">$IP</span>:<span class="variable">$PORT</span>/ &gt; /dev/null 2&gt;&amp;1); <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">printf</span> <span class="string">'.'</span></span><br><span class="line">        sleep 1 </span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line">    <span class="built_in">printf</span> <span class="string">'\n'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">remove_controller</span></span>() &#123;</span><br><span class="line">    docker rm -fv <span class="variable">$PREFIX</span>-controller &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$ACTION</span>"</span> = <span class="string">"deploy"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">set</span> -e</span><br><span class="line"></span><br><span class="line">    check_certs</span><br><span class="line"></span><br><span class="line">    get_ip </span><br><span class="line"></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Deploying Shipyard"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Starting Database"</span></span><br><span class="line">    start_rethinkdb</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Starting Discovery"</span></span><br><span class="line">    start_discovery</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Starting Cert Volume"</span></span><br><span class="line">    start_certs</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Starting Proxy"</span></span><br><span class="line">    start_proxy</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Starting Swarm Manager"</span></span><br><span class="line">    start_swarm_manager</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Starting Swarm Agent"</span></span><br><span class="line">    start_swarm_agent</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Starting Controller"</span></span><br><span class="line">    start_controller</span><br><span class="line"></span><br><span class="line">    wait_for_available <span class="variable">$SHIPYARD_IP</span> <span class="variable">$SHIPYARD_PORT</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Shipyard available at <span class="variable">$SHIPYARD_PROTOCOL</span>://<span class="variable">$SHIPYARD_IP</span>:<span class="variable">$SHIPYARD_PORT</span>"</span></span><br><span class="line">    <span class="keyword">if</span> [ <span class="variable">$ENABLE_TLS</span> = 1 ] &amp;&amp; [ ! -z <span class="string">"<span class="variable">$CERT_FINGERPRINT</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"SSL SHA-256 Fingerprint: <span class="variable">$CERT_FINGERPRINT</span>"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Username: admin Password: shipyard"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">elif</span> [ <span class="string">"<span class="variable">$ACTION</span>"</span> = <span class="string">"node"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">set</span> -e</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> [ -z <span class="string">"<span class="variable">$DISCOVERY</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"You must set the DISCOVERY environment variable"</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"with the discovery system used with Swarm"</span></span><br><span class="line">        <span class="built_in">exit</span> 1</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    check_certs</span><br><span class="line"></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Adding Node"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Starting Cert Volume"</span></span><br><span class="line">    start_certs</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Starting Proxy"</span></span><br><span class="line">    start_proxy</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Starting Swarm Manager"</span></span><br><span class="line">    start_swarm_manager <span class="variable">$DISCOVERY</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Starting Swarm Agent"</span></span><br><span class="line">    start_swarm_agent</span><br><span class="line"></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Node added to Swarm: <span class="variable">$SHIPYARD_IP</span>"</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">elif</span> [ <span class="string">"<span class="variable">$ACTION</span>"</span> = <span class="string">"upgrade"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">set</span> -e</span><br><span class="line"></span><br><span class="line">    check_certs</span><br><span class="line"></span><br><span class="line">    get_ip</span><br><span class="line"></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Upgrading Shipyard"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Pulling <span class="variable">$IMAGE</span>"</span></span><br><span class="line">    docker pull <span class="variable">$IMAGE</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Upgrading Controller"</span></span><br><span class="line">    remove_controller</span><br><span class="line">    start_controller</span><br><span class="line"></span><br><span class="line">    wait_for_available <span class="variable">$SHIPYARD_IP</span> <span class="variable">$SHIPYARD_PORT</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Shipyard controller updated"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">elif</span> [ <span class="string">"<span class="variable">$ACTION</span>"</span> = <span class="string">"remove"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="comment"># ignore errors</span></span><br><span class="line">    <span class="built_in">set</span> +e</span><br><span class="line"></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Removing Shipyard"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Removing Database"</span></span><br><span class="line">    remove_rethinkdb</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Removing Discovery"</span></span><br><span class="line">    remove_discovery</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Removing Cert Volume"</span></span><br><span class="line">    remove_certs</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Removing Proxy"</span></span><br><span class="line">    remove_proxy</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Removing Swarm Agent"</span></span><br><span class="line">    remove_swarm_agent</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Removing Swarm Manager"</span></span><br><span class="line">    remove_swarm_manager</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Removing Controller"</span></span><br><span class="line">    remove_controller</span><br><span class="line"></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Done"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Unknown action <span class="variable">$ACTION</span>"</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://www.cnblogs.com/kevingrace/p/6867820.html" target="_blank" rel="noopener">https://www.cnblogs.com/kevingrace/p/6867820.html</a></p>
-<p><a href="https://www.fcwys.cc/index.php/archives/145.html" target="_blank" rel="noopener">https://www.fcwys.cc/index.php/archives/145.html</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1887,6 +1967,10 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image"
+                src="/kxinter.gitub.io/images/touxiang.jpeg"
+                alt="Mr.Zhao" />
+            
               <p class="site-author-name" itemprop="name">Mr.Zhao</p>
               <p class="site-description motion-element" itemprop="description">日常运维文档整理。</p>
           </div>
@@ -1898,7 +1982,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1920,7 +2004,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/kxinter.gitub.io/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
