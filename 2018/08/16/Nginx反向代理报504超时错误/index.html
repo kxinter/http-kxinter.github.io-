@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="一、nginx+tomcat后端为tomcat,nginx代理报504超时错误。 问题描述： #错误 121.198.17.123 - - [06/Jul/2018:01:48:57 +0000] &amp;quot;POST /mapbj3/getticket HTTP/1.1&amp;quot; 504 537 &amp;quot;https://XXXXXXXXXX.com/walkcode3/index.html">
+<meta name="description" content="一、nginx+tomcat后端为tomcat,nginx代理报504超时错误。 问题描述： #错误 121.198.17.123 - - [06/Jul/2018:01:48:57 +0000] &quot;POST /mapbj3/getticket HTTP/1.1&quot; 504 537 &quot;https://XXXXXXXXXX.com/walkcode3/index.html?openId=oB6UW0c">
 <meta name="keywords" content="nginx,tomcat">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nginx反向代理报504超时错误">
 <meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/Nginx反向代理报504超时错误/index.html">
 <meta property="og:site_name" content="OperationMAN">
-<meta property="og:description" content="一、nginx+tomcat后端为tomcat,nginx代理报504超时错误。 问题描述： #错误 121.198.17.123 - - [06/Jul/2018:01:48:57 +0000] &amp;quot;POST /mapbj3/getticket HTTP/1.1&amp;quot; 504 537 &amp;quot;https://XXXXXXXXXX.com/walkcode3/index.html">
+<meta property="og:description" content="一、nginx+tomcat后端为tomcat,nginx代理报504超时错误。 问题描述： #错误 121.198.17.123 - - [06/Jul/2018:01:48:57 +0000] &quot;POST /mapbj3/getticket HTTP/1.1&quot; 504 537 &quot;https://XXXXXXXXXX.com/walkcode3/index.html?openId=oB6UW0c">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-08-27T03:18:44.592Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx反向代理报504超时错误">
-<meta name="twitter:description" content="一、nginx+tomcat后端为tomcat,nginx代理报504超时错误。 问题描述： #错误 121.198.17.123 - - [06/Jul/2018:01:48:57 +0000] &amp;quot;POST /mapbj3/getticket HTTP/1.1&amp;quot; 504 537 &amp;quot;https://XXXXXXXXXX.com/walkcode3/index.html">
+<meta name="twitter:description" content="一、nginx+tomcat后端为tomcat,nginx代理报504超时错误。 问题描述： #错误 121.198.17.123 - - [06/Jul/2018:01:48:57 +0000] &quot;POST /mapbj3/getticket HTTP/1.1&quot; 504 537 &quot;https://XXXXXXXXXX.com/walkcode3/index.html?openId=oB6UW0c">
 
 
 
@@ -345,7 +345,7 @@
         <h1 id="一、nginx-tomcat"><a href="#一、nginx-tomcat" class="headerlink" title="一、nginx+tomcat"></a>一、nginx+tomcat</h1><p>后端为tomcat,nginx代理报504超时错误。</p>
 <p><strong>问题描述：</strong></p>
 <p>#错误</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.198.17.123 - - [06/Jul/2018:01:48:57 +0000] &quot;POST /mapbj3/getticket HTTP/1.1&quot; 504 537 &quot;https://XXXXXXXXXX.com/walkcode3/index.html?openId=oB6UW0cF3Z_dnYXnz4tG4OFt7Rt0&quot; &quot;Mozilla/5.0 (Linux; Android 8.1; PACM00 Build/O11019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/53.0.2785.143 Crosswalk/24.53.595.0 XWEB/155 MMWEBSDK/19 Mobile Safari/537.36 MicroMessenger/6.6.6.1300(0x26060638) NetType/WIFI Language/zh_CN MicroMessenger/6.6.6.1300(0x26060638) NetType/WIFI Language/zh_CN miniProgram&quot; &quot;-&quot;</span><br><span class="line">2018/07/06 01:48:57 [error] 6#6: *2573 upstream timed out (110: Connection timed out) while connecting to upstream, client: 1.198.17.123, server: , request: &quot;POST /mapbj3/getticket HTTP/1.1&quot;, upstream: &quot;http://123.149.236.180:8022/mapbj3//getticket&quot;, host: &quot;XXXXXXXX.com&quot;, referrer: &quot;https://XXXXXXX.com/walkcode3/index.html?openId=oB6UW0cF3Z_dnYXnz4tG4OFt7Rt0&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.198.17.123</span> - - <span class="string">[06/Jul/2018:01:48:57 +0000]</span> <span class="string">"<span class="keyword">POST</span> /mapbj3/getticket HTTP/1.1"</span> <span class="number">504</span> <span class="number">537</span> <span class="string">"https://XXXXXXXXXX.com/walkcode3/index.html?openId=oB6UW0cF3Z_dnYXnz4tG4OFt7Rt0"</span> <span class="string">"Mozilla/5.0 (Linux; Android 8.1; PACM00 Build/O11019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/53.0.2785.143 Crosswalk/24.53.595.0 XWEB/155 MMWEBSDK/19 Mobile Safari/537.36 MicroMessenger/6.6.6.1300(0x26060638) NetType/WIFI Language/zh_CN MicroMessenger/6.6.6.1300(0x26060638) NetType/WIFI Language/zh_CN miniProgram"</span> <span class="string">"-"</span></span><br><span class="line"><span class="number">2018</span>/<span class="number">07</span>/<span class="number">06</span> <span class="number">01</span>:<span class="number">48</span>:<span class="number">57</span> <span class="string">[error]</span> <span class="number">6</span>#<span class="number">6</span>: *<span class="number">2573</span> upstream timed out (<span class="number">110</span>: Connection timed out) while connecting to upstream, client: <span class="number">1.198.17.123</span>, server: , request: <span class="string">"<span class="keyword">POST</span> /mapbj3/getticket HTTP/1.1"</span>, upstream: <span class="string">"http://123.149.236.180:8022/mapbj3//getticket"</span>, host: <span class="string">"XXXXXXXX.com"</span>, referrer: <span class="string">"https://XXXXXXX.com/walkcode3/index.html?openId=oB6UW0cF3Z_dnYXnz4tG4OFt7Rt0"</span></span><br></pre></td></tr></table></figure>
 <p>1、项目本地访问没问题，通过nginx访问报504错误；</p>
 <p>2、重启nginx后正常，反复发生，其它项目代理没有问题；</p>
 <p>3、搜索了一大推”NGINX 504 Gateway Time-out tomcat”,都是与php有关的,而默认优化的就是php配置的;</p>

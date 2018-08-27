@@ -345,7 +345,7 @@
       
         
           
-            <h1 id="1、安装-Swarm"><a href="#1、安装-Swarm" class="headerlink" title="1、安装 Swarm"></a>1、安装 Swarm</h1><h2 id="1-1-下载镜像"><a href="#1-1-下载镜像" class="headerlink" title="1.1 下载镜像"></a>1.1 下载镜像</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> docker pull swarm</span><br></pre></td></tr></table></figure>
+            <h1 id="1、安装-Swarm"><a href="#1、安装-Swarm" class="headerlink" title="1、安装 Swarm"></a>1、安装 Swarm</h1><h2 id="1-1-下载镜像"><a href="#1-1-下载镜像" class="headerlink" title="1.1 下载镜像"></a>1.1 下载镜像</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker pull swarm</span></span><br></pre></td></tr></table></figure>
 <p>可以使用下面的命令来查看 Swarm 版本，验证是否成功下载 Swarm 镜像。</p>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --rm swarm -v</span><br><span class="line">swarm version <span class="number">1.2</span><span class="number">.2</span> (<span class="number">34e3</span>da3)</span><br></pre></td></tr></table></figure>
 <h2 id="1-2-配置节点"><a href="#1-2-配置节点" class="headerlink" title="1.2 配置节点"></a>1.2 配置节点</h2><p>Docker 主机在加入 Swarm 集群前，需要进行一些简单配置，添加 Docker daemon 的网络监听。</p>
