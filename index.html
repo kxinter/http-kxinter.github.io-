@@ -296,6 +296,309 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/28/openstack-mitaka调整实例大小报错/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/08/28/openstack-mitaka调整实例大小报错/" itemprop="url">openstack-mitaka调整实例大小报错</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-28T16:28:21+08:00">
+                2018-08-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/云计算/" itemprop="url" rel="index">
+                    <span itemprop="name">云计算</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-问题1"><a href="#1-问题1" class="headerlink" title="1 问题1"></a>1 问题1</h1><p>在openstack图形界面对实例进行迁移操作时，出现如下错误</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">11</span>:<span class="number">00</span>:<span class="number">21.828</span> <span class="number">1386</span> INFO nova<span class="selector-class">.compute</span><span class="selector-class">.resource_tracker</span> [req-<span class="number">4</span>fe2d206-e9bc-<span class="number">4</span>a61-<span class="number">9389</span>-a01007335c61 - - - - -] Total usable vcpus: <span class="number">12</span>, total allocated vcpus: <span class="number">5</span></span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> return self._do_dispatch(endpoint, method, ctxt, args)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/oslo_messaging/rpc/dispatcher.py"</span>, line <span class="number">127</span>, <span class="keyword">in</span> _do_dispatch</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> result = func(ctxt, **new_args)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/nova/exception.py"</span>, line <span class="number">114</span>, <span class="keyword">in</span> wrapped</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> payload)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/oslo_utils/excutils.py"</span>, line <span class="number">220</span>, <span class="keyword">in</span> __exit__</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> self.force_reraise()</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/oslo_utils/excutils.py"</span>, line <span class="number">196</span>, <span class="keyword">in</span> force_reraise</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> six.reraise(self<span class="selector-class">.type_</span>, self<span class="selector-class">.value</span>, self.tb)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/nova/exception.py"</span>, line <span class="number">89</span>, <span class="keyword">in</span> wrapped</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> return f(self, context, *args, **kw)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/nova/compute/manager.py"</span>, line <span class="number">359</span>, <span class="keyword">in</span> decorated_function</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> LOG.warning(msg, e, instance=instance)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/oslo_utils/excutils.py"</span>, line <span class="number">220</span>, <span class="keyword">in</span> __exit__</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> self.force_reraise()</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/oslo_utils/excutils.py"</span>, line <span class="number">196</span>, <span class="keyword">in</span> force_reraise</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> six.reraise(self<span class="selector-class">.type_</span>, self<span class="selector-class">.value</span>, self.tb)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/nova/compute/manager.py"</span>, line <span class="number">328</span>, <span class="keyword">in</span> decorated_function</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> return function(self, context, *args, **kwargs)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/nova/compute/manager.py"</span>, line <span class="number">409</span>, <span class="keyword">in</span> decorated_function</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> return function(self, context, *args, **kwargs)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/nova/compute/manager.py"</span>, line <span class="number">316</span>, <span class="keyword">in</span> decorated_function</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> migration<span class="selector-class">.instance_uuid</span>, exc_info=True)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/oslo_utils/excutils.py"</span>, line <span class="number">220</span>, <span class="keyword">in</span> __exit__</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> self.force_reraise()</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/oslo_utils/excutils.py"</span>, line <span class="number">196</span>, <span class="keyword">in</span> force_reraise</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> six.reraise(self<span class="selector-class">.type_</span>, self<span class="selector-class">.value</span>, self.tb)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/nova/compute/manager.py"</span>, line <span class="number">293</span>, <span class="keyword">in</span> decorated_function</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> return function(self, context, *args, **kwargs)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/nova/compute/manager.py"</span>, line <span class="number">387</span>, <span class="keyword">in</span> decorated_function</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> kwargs[<span class="string">'instance'</span>], e, sys.exc_info())</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/oslo_utils/excutils.py"</span>, line <span class="number">220</span>, <span class="keyword">in</span> __exit__</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> self.force_reraise()</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/oslo_utils/excutils.py"</span>, line <span class="number">196</span>, <span class="keyword">in</span> force_reraise</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> six.reraise(self<span class="selector-class">.type_</span>, self<span class="selector-class">.value</span>, self.tb)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/nova/compute/manager.py"</span>, line <span class="number">375</span>, <span class="keyword">in</span> decorated_function</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> return function(self, context, *args, **kwargs)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/nova/compute/manager.py"</span>, line <span class="number">3933</span>, <span class="keyword">in</span> resize_instance</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> self<span class="selector-class">.instance_events</span><span class="selector-class">.clear_events_for_instance</span>(instance)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib64/python2.7/contextlib.py"</span>, line <span class="number">35</span>, <span class="keyword">in</span> __exit__</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> self<span class="selector-class">.gen</span><span class="selector-class">.throw</span>(type, value, traceback)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/nova/compute/manager.py"</span>, line <span class="number">6643</span>, <span class="keyword">in</span> _error_out_instance_on_exception</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> raise error.inner_exception</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> ResizeError: Resize error: not able to execute ssh command: Unexpected error while running command.</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> Command: ssh -o BatchMode=yes <span class="number">192.168</span>.<span class="number">1.116</span> mkdir -<span class="selector-tag">p</span> /var/lib/nova/instances/<span class="number">724</span>a9fc0-<span class="number">3786</span>-<span class="number">4</span>ba4-<span class="number">8</span>a43-<span class="number">744</span>ec19a0881</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> Exit <span class="selector-tag">code</span>: <span class="number">255</span></span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> Stdout: u<span class="string">''</span></span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> Stderr: u<span class="string">'Host key verification failed.\r\n</span></span><br></pre></td></tr></table></figure>
+<p>建立各计算节点、控制节点之间的SSH免密登录，建立私钥</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><ul>
+<li>开启nova用户登录权限</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usermod -s /bin/bash nova</span><br></pre></td></tr></table></figure>
+<ul>
+<li>切换到nova用户</li>
+</ul>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">su</span> nova</span><br></pre></td></tr></table></figure>
+<p>生成密钥（各个计算节点执行，控制节点也执行）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ssh-keygen -t rsa</span></span><br><span class="line"><span class="meta">#</span><span class="bash">默认路径，直接回车</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>所有计算节点均配置</li>
+</ul>
+<blockquote>
+<p>依然在nova用户下操作</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">cat &lt;&lt; EOF &gt; ~/.ssh/config</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Host *</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> StrictHostKeyChecking no</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> UserKnownHostsFile=/dev/null</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> EOF</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>发送公钥到控制节点</li>
+</ul>
+<p>compute1</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp id_rsa.pub <span class="number">10.20</span>.<span class="number">0</span>.<span class="number">2</span><span class="symbol">:/var/lib/nova/</span>.ssh/id_rsa.pub2</span><br></pre></td></tr></table></figure>
+<p>compute2</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp id_rsa.pub <span class="number">10.20</span>.<span class="number">0</span>.<span class="number">2</span><span class="symbol">:/var/lib/nova/</span>.ssh/id_rsa.pub3</span><br></pre></td></tr></table></figure>
+<p>contrloller(10.20.0.2)</p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># cat id_dsa.pub id_dsa.pub2 id_rsa.pub id_rsa.pub2   id_rsa.pub3 id_dsa.pub3 &gt; authorized_keys</span></span><br><span class="line"><span class="meta"># scp authorized_keys  computer1:/var/lib/nova/.ssh</span></span><br><span class="line"><span class="meta"># scp authorized_keys  computer2:/var/lib/nova/.ssh</span></span><br></pre></td></tr></table></figure>
+<p>修改权限</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># chown nova:nova <span class="regexp">/var/</span>lib<span class="regexp">/nova/</span>.ssh<span class="regexp">/id_rsa /</span>var<span class="regexp">/lib/</span>nova<span class="regexp">/.ssh/</span>authorized_keys</span><br></pre></td></tr></table></figure>
+<ul>
+<li>登录测试</li>
+</ul>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ssh</span> nova<span class="variable">@computer</span></span><br></pre></td></tr></table></figure>
+<p>在迁移实例，不再报错，并成功。</p>
+<blockquote>
+<p>实例迁移根据使用存储不同，有不同差异，详细介绍参考openstack官方文档</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/28/Openstack调整实例大小-冷迁移/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/08/28/Openstack调整实例大小-冷迁移/" itemprop="url">Openstack调整实例大小_冷迁移</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-28T16:03:09+08:00">
+                2018-08-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/28/Openstack的临时(Ephemeral)存储和块(Block)存储/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -338,6 +641,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/云计算/" itemprop="url" rel="index">
+                    <span itemprop="name">云计算</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -369,7 +694,7 @@
       
         
           
-            <p>参考：<a href="http://www.aboutyun.com/thread-8114-1-1.html" target="_blank" rel="noopener">http://www.aboutyun.com/thread-8114-1-1.html</a></p>
+            <p>转载：<a href="http://www.aboutyun.com/thread-8114-1-1.html" target="_blank" rel="noopener">http://www.aboutyun.com/thread-8114-1-1.html</a></p>
 <h1 id="Openstack的临时-Ephemeral-存储和块-Block-存储"><a href="#Openstack的临时-Ephemeral-存储和块-Block-存储" class="headerlink" title="Openstack的临时(Ephemeral)存储和块(Block)存储"></a>Openstack的临时(Ephemeral)存储和块(Block)存储</h1><h2 id="问题导读："><a href="#问题导读：" class="headerlink" title="问题导读："></a>问题导读：</h2><p>1、OpenStack中什么是临时存储，有什么好处？<br>2、什么是块存储，和临时的有什么不同？</p>
 <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>Openstack不管是Ephemeral Storage还是Block Storage, 其实从接口上看，其实都是块服务。那么为什么要搞两个不同的类型呢，本文从这两种不同类型块存储的实现上来分析下其中的原因。</p>
 <h2 id="临时存储"><a href="#临时存储" class="headerlink" title="临时存储"></a>临时存储</h2><p>Openstack临时存储是由Nova提供的，主要是利用主机的本地存储给虚拟机提供卷服务。如果虚拟机被删除了，挂在这个虚拟机上的任何临时存储自动释放。这样的实现方式决定了：<br>使用Ephemeral Storage的虚拟机不能支持迁移，以及和虚拟机迁移相关的特性，包括 1) HA 2) 动态调度 等等。<br>存放在Ephemeral Storage上的数据是高度不可靠的，任何虚拟机和主机的故障都可能会导致数据丢失。</p>
@@ -1561,309 +1886,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/27/SSL证书制作/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/08/27/SSL证书制作/" itemprop="url">SSL证书制作</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-27T11:13:09+08:00">
-                2018-08-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="一、环境"><a href="#一、环境" class="headerlink" title="一、环境"></a>一、环境</h1><p>OS:centos 7.3<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/kxinter.gitub.io/2018/08/27/SSL证书制作/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/23/proxy-pass反向代理配置中url后面加不加-的说明/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/08/23/proxy-pass反向代理配置中url后面加不加-的说明/" itemprop="url">proxy_pass反向代理配置中url后面加不加/的说明</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-23T17:28:53+08:00">
-                2018-08-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1-环境"><a href="#1-环境" class="headerlink" title="1 环境"></a>1 环境</h1><p>OS:centos7</p>
-<p>nginx _proxy服务器：192.168.1.23</p>
-<p>web服务器：192.168.1.5<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/kxinter.gitub.io/2018/08/23/proxy-pass反向代理配置中url后面加不加-的说明/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/kxinter.gitub.io/page/2/">2</a><a class="page-number" href="/kxinter.gitub.io/page/3/">3</a><a class="extend next" rel="next" href="/kxinter.gitub.io/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/kxinter.gitub.io/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/kxinter.gitub.io/page/4/">4</a><a class="extend next" rel="next" href="/kxinter.gitub.io/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1913,7 +1940,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
