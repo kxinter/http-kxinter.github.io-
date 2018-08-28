@@ -296,6 +296,211 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/28/Centos搭建私有仓库/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/08/28/Centos搭建私有仓库/" itemprop="url">Centos搭建私有仓库</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-28T16:38:00+08:00">
+                2018-08-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-本地YUM源"><a href="#1-本地YUM源" class="headerlink" title="1 本地YUM源"></a>1 本地YUM源</h1><h2 id="1-1-安装createrepo"><a href="#1-1-安装createrepo" class="headerlink" title="1.1 安装createrepo"></a>1.1 安装createrepo</h2><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">yum -y install createrepo</span></span><br></pre></td></tr></table></figure>
+<h2 id="1-2-创建目录"><a href="#1-2-创建目录" class="headerlink" title="1.2 创建目录"></a>1.2 创建目录</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -<span class="selector-tag">p</span> /yum/yum-custom/packages</span><br></pre></td></tr></table></figure>
+<h2 id="1-3-下载rpm包及依赖到packages"><a href="#1-3-下载rpm包及依赖到packages" class="headerlink" title="1.3 下载rpm包及依赖到packages"></a>1.3 下载rpm包及依赖到packages</h2><blockquote>
+<p>rpm包放在/yum-custom/<em>    “`</em>`”可以是自定义文件夹，不一定要是packages</p>
+</blockquote>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install httpd <span class="params">--downloadonly</span> <span class="params">--downloaddir=/yum/yum-custom/packages</span></span><br></pre></td></tr></table></figure>
+<h2 id="1-4-创建repo"><a href="#1-4-创建repo" class="headerlink" title="1.4 创建repo"></a>1.4 创建repo</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ createrepo  /yum/yum-custom/</span><br><span class="line">Spawning worker 0 with 1 pkgs</span><br><span class="line">Spawning worker 1 with 0 pkgs</span><br><span class="line">Workers Finished</span><br><span class="line">Saving Primary metadata</span><br><span class="line">Saving file lists metadata</span><br><span class="line">Saving other metadata</span><br><span class="line">Generating sqlite DBs</span><br><span class="line">Sqlite DBs complete</span><br><span class="line">$ ll /yum/yum-custom/</span><br><span class="line">total 4</span><br><span class="line">drwxr-xr-x. 2 root root   41 Dec 20 07:03 packages</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Dec 20 07:08 repodata</span><br></pre></td></tr></table></figure>
+<h2 id="1-5-配置自定义repo"><a href="#1-5-配置自定义repo" class="headerlink" title="1.5 配置自定义repo"></a>1.5 配置自定义repo</h2><h3 id="1-5-1-删除备份repo文件"><a href="#1-5-1-删除备份repo文件" class="headerlink" title="1.5.1 删除备份repo文件"></a>1.5.1 删除备份repo文件</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@localhost</span> /]<span class="comment"># cd /etc/yum.repos.d/</span></span><br><span class="line">[root<span class="variable">@localhost</span> yum.repos.d]<span class="comment"># ls</span></span><br><span class="line">CentOS-Base.repo         CentOS-CR.repo         CentOS-fasttrack.repo  CentOS-Media.repo.bak         CentOS-QEMU-EV.repo  CentOS-Vault.repo</span><br><span class="line">CentOS-Ceph-Hammer.repo  CentOS-Debuginfo.repo  CentOS-Media.repo      CentOS-OpenStack-mitaka.repo  CentOS-Sources.repo  repo.bak.tar</span><br><span class="line">[root<span class="variable">@localhost</span> yum.repos.d]<span class="comment"># tar zcvf *.repo</span></span><br><span class="line">[root<span class="variable">@localhost</span> yum.repos.d]<span class="comment"># rm -f *.repo</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-5-2-创建CentOS-Media-repo"><a href="#1-5-2-创建CentOS-Media-repo" class="headerlink" title="1.5.2 创建CentOS-Media.repo"></a>1.5.2 创建CentOS-Media.repo</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vi /etc/yum.repos.d/CentOS-Media.repo</span></span><br><span class="line"><span class="comment"># 填入如下内容</span></span><br><span class="line"></span><br><span class="line"><span class="section">[c7-media]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="variable">$releasever</span> - Media</span><br><span class="line"><span class="attr">baseurl</span>=file:///yum/yum-custom/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">0</span>              </span><br><span class="line"><span class="attr">enabled</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br></pre></td></tr></table></figure>
+<h2 id="1-6-重建YUM缓存"><a href="#1-6-重建YUM缓存" class="headerlink" title="1.6 重建YUM缓存"></a>1.6 重建YUM缓存</h2><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[root@linuxidc.com ~]</span># <span class="selector-tag">yum</span> <span class="selector-tag">clean</span> <span class="keyword">all</span>               #删除缓存</span><br><span class="line"><span class="selector-tag">Loaded</span> <span class="selector-tag">plugins</span>: <span class="selector-tag">fastestmirror</span></span><br><span class="line"><span class="selector-tag">Cleaning</span> <span class="selector-tag">repos</span>: <span class="selector-tag">c7-media</span></span><br><span class="line"><span class="selector-tag">Cleaning</span> <span class="selector-tag">up</span> <span class="selector-tag">everything</span></span><br><span class="line"><span class="selector-tag">Cleaning</span> <span class="selector-tag">up</span> <span class="selector-tag">list</span> <span class="selector-tag">of</span> <span class="selector-tag">fastest</span> <span class="selector-tag">mirrors</span></span><br><span class="line"><span class="selector-attr">[root@linuxidc.com ~]</span># <span class="selector-tag">yum</span> <span class="selector-tag">makecache</span>               #建立缓存</span><br><span class="line"><span class="selector-tag">Loaded</span> <span class="selector-tag">plugins</span>: <span class="selector-tag">fastestmirror</span></span><br><span class="line"><span class="selector-tag">c7-media</span>                                                                                                         | <span class="selector-tag">3</span><span class="selector-class">.0</span> <span class="selector-tag">kB</span>  <span class="selector-tag">00</span><span class="selector-pseudo">:00</span><span class="selector-pseudo">:00</span>     </span><br><span class="line">(<span class="number">1</span>/<span class="number">3</span>): <span class="selector-tag">c7-media</span>/<span class="selector-tag">filelists_db</span>                                                                                     |  <span class="selector-tag">880</span> <span class="selector-tag">B</span>  <span class="selector-tag">00</span><span class="selector-pseudo">:00</span><span class="selector-pseudo">:00</span>     </span><br><span class="line">(<span class="number">2</span>/<span class="number">3</span>): <span class="selector-tag">c7-media</span>/<span class="selector-tag">primary_db</span>                                                                                       | <span class="selector-tag">1</span><span class="selector-class">.8</span> <span class="selector-tag">kB</span>  <span class="selector-tag">00</span><span class="selector-pseudo">:00</span><span class="selector-pseudo">:00</span>     </span><br><span class="line">(<span class="number">3</span>/<span class="number">3</span>): <span class="selector-tag">c7-media</span>/<span class="selector-tag">other_db</span>                                                                                         | <span class="selector-tag">1</span><span class="selector-class">.3</span> <span class="selector-tag">kB</span>  <span class="selector-tag">00</span><span class="selector-pseudo">:00</span><span class="selector-pseudo">:00</span>     </span><br><span class="line"><span class="selector-tag">Determining</span> <span class="selector-tag">fastest</span> <span class="selector-tag">mirrors</span></span><br><span class="line"><span class="selector-tag">Metadata</span> <span class="selector-tag">Cache</span> <span class="selector-tag">Created</span></span><br></pre></td></tr></table></figure>
+<h2 id="1-7-使用本地yum"><a href="#1-7-使用本地yum" class="headerlink" title="1.7 使用本地yum"></a>1.7 使用本地yum</h2><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">yum install httpd</span></span><br></pre></td></tr></table></figure>
+<h1 id="2-局域网YUM源（vsftpd）"><a href="#2-局域网YUM源（vsftpd）" class="headerlink" title="2 局域网YUM源（vsftpd）"></a>2 局域网YUM源（vsftpd）</h1><h2 id="2-1-安装createrepo"><a href="#2-1-安装createrepo" class="headerlink" title="2.1 安装createrepo"></a>2.1 安装createrepo</h2><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">yum -y install createrepo</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-2-安装vsftpd"><a href="#2-2-安装vsftpd" class="headerlink" title="2.2 安装vsftpd"></a>2.2 安装vsftpd</h2><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">yum -y install vsftpd</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-2-1-配置vsftpd-conf"><a href="#2-2-1-配置vsftpd-conf" class="headerlink" title="2.2.1 配置vsftpd.conf"></a>2.2.1 配置vsftpd.conf</h3><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vi /etc/vsftpd/vsftpd.conf</span></span><br><span class="line"><span class="comment">#并增加匿名用户root目录（默认已经启用匿名访问）</span></span><br><span class="line"></span><br><span class="line">anon_root=/yum/</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-2-启动vsftpd"><a href="#2-2-2-启动vsftpd" class="headerlink" title="2.2.2 启动vsftpd"></a>2.2.2 启动vsftpd</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start vsftpd             <span class="comment">#启动服务</span></span><br><span class="line">systemctl <span class="built_in">enable</span> vsftpd            <span class="comment">#开机启动</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-3-创建目录"><a href="#2-3-创建目录" class="headerlink" title="2.3 创建目录"></a>2.3 创建目录</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -<span class="selector-tag">p</span> /yum/yum-custom/packages</span><br></pre></td></tr></table></figure>
+<h2 id="2-4-下载rpm包及依赖到packages"><a href="#2-4-下载rpm包及依赖到packages" class="headerlink" title="2.4 下载rpm包及依赖到packages"></a>2.4 下载rpm包及依赖到packages</h2><blockquote>
+<p>rpm包放在/yum-custom/<em>    “</em>”可以是自定义文件夹，不一定要是packages</p>
+</blockquote>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install httpd <span class="params">--downloadonly</span> <span class="params">--downloaddir=/yum/yum-custom/packages</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-5-创建repo"><a href="#2-5-创建repo" class="headerlink" title="2.5 创建repo"></a>2.5 创建repo</h2><figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># createrepo  /yum/yum-custom/</span></span><br><span class="line">Spawning worker<span class="number"> 0 </span>with<span class="number"> 1 </span>pkgs</span><br><span class="line">Spawning worker<span class="number"> 1 </span>with<span class="number"> 0 </span>pkgs</span><br><span class="line">Workers Finished</span><br><span class="line">Saving Primary metadata</span><br><span class="line">Saving file lists metadata</span><br><span class="line">Saving other metadata</span><br><span class="line">Generating sqlite DBs</span><br><span class="line">Sqlite DBs complete</span><br><span class="line"><span class="comment"># ll /yum/yum-custom/</span></span><br><span class="line">total 4</span><br><span class="line">drwxr-xr-x.<span class="number"> 2 </span>root root  <span class="number"> 41 </span>Dec<span class="number"> 20 </span>07:03 packages</span><br><span class="line">drwxr-xr-x.<span class="number"> 2 </span>root root<span class="number"> 4096 </span>Dec<span class="number"> 20 </span>07:08 repodata</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>以下步骤局域网机器操作！</p>
+</blockquote>
+<h3 id="2-5-1-删除备份repo文件"><a href="#2-5-1-删除备份repo文件" class="headerlink" title="2.5.1 删除备份repo文件"></a>2.5.1 删除备份repo文件</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@localhost</span> /]<span class="comment"># cd /etc/yum.repos.d/</span></span><br><span class="line">[root<span class="variable">@localhost</span> yum.repos.d]<span class="comment"># ls</span></span><br><span class="line">CentOS-Base.repo         CentOS-CR.repo         CentOS-fasttrack.repo  CentOS-Media.repo.bak         CentOS-QEMU-EV.repo  CentOS-Vault.repo</span><br><span class="line">CentOS-Ceph-Hammer.repo  CentOS-Debuginfo.repo  CentOS-Media.repo      CentOS-OpenStack-mitaka.repo  CentOS-Sources.repo  repo.bak.tar</span><br><span class="line">[root<span class="variable">@localhost</span> yum.repos.d]<span class="comment"># tar zcvf *.repo</span></span><br><span class="line">[root<span class="variable">@localhost</span> yum.repos.d]<span class="comment"># rm -f *.repo</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-5-2-修改自定义repo如下"><a href="#2-5-2-修改自定义repo如下" class="headerlink" title="2.5.2 修改自定义repo如下"></a>2.5.2 修改自定义repo如下</h3><blockquote>
+<p>修改局域网服务器的repo，哪个服务器使用，修改哪个服务器文件。</p>
+</blockquote>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[root@localhost /]</span><span class="comment"># vim /etc/yum.repos.d/CentOS-Media.repo</span></span><br><span class="line"><span class="comment"># 内容如下</span></span><br><span class="line"></span><br><span class="line"><span class="section">[c7-media]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="variable">$releasever</span> - Media</span><br><span class="line"><span class="attr">baseurl</span>=ftp://<span class="number">192.168</span>.<span class="number">118.133</span>/yum-custom    #注意是ftp，不是file</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">0</span></span><br><span class="line"><span class="attr">enabled</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"><span class="comment"># 其中192.168.118.133为上面vsftp服务器地址</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-6-重建YUM缓存"><a href="#2-6-重建YUM缓存" class="headerlink" title="2.6 重建YUM缓存"></a>2.6 重建YUM缓存</h2><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[root@linuxidc.com ~]</span># <span class="selector-tag">yum</span> <span class="selector-tag">clean</span> <span class="keyword">all</span>               #删除缓存</span><br><span class="line"><span class="selector-tag">Loaded</span> <span class="selector-tag">plugins</span>: <span class="selector-tag">fastestmirror</span></span><br><span class="line"><span class="selector-tag">Cleaning</span> <span class="selector-tag">repos</span>: <span class="selector-tag">c7-media</span></span><br><span class="line"><span class="selector-tag">Cleaning</span> <span class="selector-tag">up</span> <span class="selector-tag">everything</span></span><br><span class="line"><span class="selector-tag">Cleaning</span> <span class="selector-tag">up</span> <span class="selector-tag">list</span> <span class="selector-tag">of</span> <span class="selector-tag">fastest</span> <span class="selector-tag">mirrors</span></span><br><span class="line"><span class="selector-attr">[root@linuxidc.com ~]</span># <span class="selector-tag">yum</span> <span class="selector-tag">makecache</span>               #建立缓存</span><br><span class="line"><span class="selector-tag">Loaded</span> <span class="selector-tag">plugins</span>: <span class="selector-tag">fastestmirror</span></span><br><span class="line"><span class="selector-tag">c7-media</span>                                                                                                         | <span class="selector-tag">3</span><span class="selector-class">.0</span> <span class="selector-tag">kB</span>  <span class="selector-tag">00</span><span class="selector-pseudo">:00</span><span class="selector-pseudo">:00</span>     </span><br><span class="line">(<span class="number">1</span>/<span class="number">3</span>): <span class="selector-tag">c7-media</span>/<span class="selector-tag">filelists_db</span>                                                                                     |  <span class="selector-tag">880</span> <span class="selector-tag">B</span>  <span class="selector-tag">00</span><span class="selector-pseudo">:00</span><span class="selector-pseudo">:00</span>     </span><br><span class="line">(<span class="number">2</span>/<span class="number">3</span>): <span class="selector-tag">c7-media</span>/<span class="selector-tag">primary_db</span>                                                                                       | <span class="selector-tag">1</span><span class="selector-class">.8</span> <span class="selector-tag">kB</span>  <span class="selector-tag">00</span><span class="selector-pseudo">:00</span><span class="selector-pseudo">:00</span>     </span><br><span class="line">(<span class="number">3</span>/<span class="number">3</span>): <span class="selector-tag">c7-media</span>/<span class="selector-tag">other_db</span>                                                                                         | <span class="selector-tag">1</span><span class="selector-class">.3</span> <span class="selector-tag">kB</span>  <span class="selector-tag">00</span><span class="selector-pseudo">:00</span><span class="selector-pseudo">:00</span>     </span><br><span class="line"><span class="selector-tag">Determining</span> <span class="selector-tag">fastest</span> <span class="selector-tag">mirrors</span></span><br><span class="line"><span class="selector-tag">Metadata</span> <span class="selector-tag">Cache</span> <span class="selector-tag">Created</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-7-使用局域网yum"><a href="#2-7-使用局域网yum" class="headerlink" title="2.7 使用局域网yum"></a>2.7 使用局域网yum</h2><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">yum install httpd</span></span><br></pre></td></tr></table></figure>
+<h1 id="3-局域网YUM源（httpd）"><a href="#3-局域网YUM源（httpd）" class="headerlink" title="3 局域网YUM源（httpd）"></a>3 局域网YUM源（httpd）</h1><h2 id="3-1-安装createrepo"><a href="#3-1-安装createrepo" class="headerlink" title="3.1 安装createrepo"></a>3.1 安装createrepo</h2><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">yum -y install createrepo</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-2-安装httpd"><a href="#3-2-安装httpd" class="headerlink" title="3.2 安装httpd"></a>3.2 安装httpd</h2><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">yum -y install httpd</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-2-1-配置httpd-conf"><a href="#3-2-1-配置httpd-conf" class="headerlink" title="3.2.1 配置httpd.conf"></a>3.2.1 配置httpd.conf</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">$ vim /etc/httpd/conf/httpd.conf</span><br><span class="line"><span class="comment"># 修改http根目录</span></span><br><span class="line"><span class="attribute"><span class="nomarkup">DocumentRoot</span></span> <span class="string">"/yum"</span>                             #修改</span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Relax access to content within /var/www.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="section">&lt;Directory "/var/www/html"&gt;</span></span><br><span class="line">    <span class="attribute">AllowOverride</span> None</span><br><span class="line">    <span class="comment"># Allow open access:</span></span><br><span class="line">    <span class="attribute">Require</span> <span class="literal">all</span> granted</span><br><span class="line"><span class="section">&lt;/Directory&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Further relax access to the default document root:</span></span><br><span class="line"><span class="section">&lt;Directory "/yum"&gt;</span>                             <span class="comment">#修改</span></span><br><span class="line">    <span class="comment"># </span></span><br><span class="line">    <span class="comment"># Possible values for the Options directive are "None", "All",</span></span><br><span class="line">    <span class="comment"># or any combination of:</span></span><br><span class="line">    <span class="comment">#   Indexes Includes FollowSymLinks SymLinksifOwnerMatch ExecCGI MultiViews</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    <span class="comment"># Note that "MultiViews" must be named *explicitly* --- "Options All"</span></span><br><span class="line">    <span class="comment"># doesn't give it to you.</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    <span class="comment"># The Options directive is both complicated and important.  Please see</span></span><br><span class="line">    <span class="comment"># http://httpd.apache.org/docs/2.4/mod/core.html#options</span></span><br><span class="line">    <span class="comment"># for more information.</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    <span class="attribute"><span class="nomarkup">Options</span></span> Indexes FollowSymLinks</span><br><span class="line"></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    <span class="comment"># AllowOverride controls what directives may be placed in .htaccess files.</span></span><br><span class="line">    <span class="comment"># It can be "All", "None", or any combination of the keywords:</span></span><br><span class="line">    <span class="comment">#   Options FileInfo AuthConfig Limit</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    <span class="attribute">AllowOverride</span> None</span><br><span class="line"></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    <span class="comment"># Controls who can get stuff from this server.</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    <span class="attribute">Require</span> <span class="literal">all</span> granted</span><br><span class="line"><span class="section">&lt;/Directory&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-2-2-启动httpd"><a href="#3-2-2-启动httpd" class="headerlink" title="3.2.2 启动httpd"></a>3.2.2 启动httpd</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start httpd             <span class="comment">#启动服务</span></span><br><span class="line">systemctl <span class="built_in">enable</span> httpd            <span class="comment">#开机启动</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-3-创建目录"><a href="#3-3-创建目录" class="headerlink" title="3.3 创建目录"></a>3.3 创建目录</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -<span class="selector-tag">p</span> /yum/yum-custom/packages</span><br></pre></td></tr></table></figure>
+<h2 id="3-4-下载rpm包及依赖到packages"><a href="#3-4-下载rpm包及依赖到packages" class="headerlink" title="3.4 下载rpm包及依赖到packages"></a>3.4 下载rpm包及依赖到packages</h2><blockquote>
+<p>rpm包放在/yum-custom/<em>    “</em>”可以是自定义文件夹，不一定要是packages</p>
+</blockquote>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install httpd <span class="params">--downloadonly</span> <span class="params">--downloaddir=/yum/yum-custom/packages</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-5-创建repo"><a href="#3-5-创建repo" class="headerlink" title="3.5 创建repo"></a>3.5 创建repo</h2><figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#createrepo  /yum/yum-custom/                            </span></span><br><span class="line">Spawning worker<span class="number"> 0 </span>with<span class="number"> 1 </span>pkgs</span><br><span class="line">Spawning worker<span class="number"> 1 </span>with<span class="number"> 0 </span>pkgs</span><br><span class="line">Workers Finished</span><br><span class="line">Saving Primary metadata</span><br><span class="line">Saving file lists metadata</span><br><span class="line">Saving other metadata</span><br><span class="line">Generating sqlite DBs</span><br><span class="line">Sqlite DBs complete</span><br><span class="line"><span class="comment">#ll /yum/yum-custom/</span></span><br><span class="line">total 4</span><br><span class="line">drwxr-xr-x.<span class="number"> 2 </span>root root  <span class="number"> 41 </span>Dec<span class="number"> 20 </span>07:03 packages</span><br><span class="line">drwxr-xr-x.<span class="number"> 2 </span>root root<span class="number"> 4096 </span>Dec<span class="number"> 20 </span>07:08 repodata</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>以下步骤局域网机器操作！</p>
+</blockquote>
+<h3 id="3-5-1-删除备份repo文件"><a href="#3-5-1-删除备份repo文件" class="headerlink" title="3.5.1 删除备份repo文件"></a>3.5.1 删除备份repo文件</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@localhost</span> /]<span class="comment"># cd /etc/yum.repos.d/</span></span><br><span class="line">[root<span class="variable">@localhost</span> yum.repos.d]<span class="comment"># ls</span></span><br><span class="line">CentOS-Base.repo         CentOS-CR.repo         CentOS-fasttrack.repo  CentOS-Media.repo.bak         CentOS-QEMU-EV.repo  CentOS-Vault.repo</span><br><span class="line">CentOS-Ceph-Hammer.repo  CentOS-Debuginfo.repo  CentOS-Media.repo      CentOS-OpenStack-mitaka.repo  CentOS-Sources.repo  repo.bak.tar</span><br><span class="line">[root<span class="variable">@localhost</span> yum.repos.d]<span class="comment"># tar zcvf *.repo</span></span><br><span class="line">[root<span class="variable">@localhost</span> yum.repos.d]<span class="comment"># rm -f *.repo</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-5-2-修改自定义repo如下"><a href="#3-5-2-修改自定义repo如下" class="headerlink" title="3.5.2 修改自定义repo如下"></a>3.5.2 修改自定义repo如下</h3><blockquote>
+<p>修改局域网服务器的repo，哪个服务器使用，修改哪个服务器文件。</p>
+</blockquote>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[root@localhost /]</span><span class="comment"># vim /etc/yum.repos.d/CentOS-Media.repo</span></span><br><span class="line"><span class="comment">#内容如下</span></span><br><span class="line"></span><br><span class="line"><span class="section">[c7-media]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="variable">$releasever</span> - Media</span><br><span class="line"><span class="attr">baseurl</span>=http://<span class="number">192.168</span>.<span class="number">118.133</span>/yum-custom    #注意是http，不是file、ftp</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">0</span></span><br><span class="line"><span class="attr">enabled</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"><span class="comment">#其中192.168.118.133为上面vsftp服务器地址</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-6重建YUM缓存"><a href="#3-6重建YUM缓存" class="headerlink" title="3.6重建YUM缓存"></a>3.6重建YUM缓存</h2><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[root@linuxidc.com ~]</span># <span class="selector-tag">yum</span> <span class="selector-tag">clean</span> <span class="keyword">all</span>               #删除缓存</span><br><span class="line"><span class="selector-tag">Loaded</span> <span class="selector-tag">plugins</span>: <span class="selector-tag">fastestmirror</span></span><br><span class="line"><span class="selector-tag">Cleaning</span> <span class="selector-tag">repos</span>: <span class="selector-tag">c7-media</span></span><br><span class="line"><span class="selector-tag">Cleaning</span> <span class="selector-tag">up</span> <span class="selector-tag">everything</span></span><br><span class="line"><span class="selector-tag">Cleaning</span> <span class="selector-tag">up</span> <span class="selector-tag">list</span> <span class="selector-tag">of</span> <span class="selector-tag">fastest</span> <span class="selector-tag">mirrors</span></span><br><span class="line"><span class="selector-attr">[root@linuxidc.com ~]</span># <span class="selector-tag">yum</span> <span class="selector-tag">makecache</span>               #建立缓存</span><br><span class="line"><span class="selector-tag">Loaded</span> <span class="selector-tag">plugins</span>: <span class="selector-tag">fastestmirror</span></span><br><span class="line"><span class="selector-tag">c7-media</span>                                                                                                         | <span class="selector-tag">3</span><span class="selector-class">.0</span> <span class="selector-tag">kB</span>  <span class="selector-tag">00</span><span class="selector-pseudo">:00</span><span class="selector-pseudo">:00</span>     </span><br><span class="line">(<span class="number">1</span>/<span class="number">3</span>): <span class="selector-tag">c7-media</span>/<span class="selector-tag">filelists_db</span>                                                                                     |  <span class="selector-tag">880</span> <span class="selector-tag">B</span>  <span class="selector-tag">00</span><span class="selector-pseudo">:00</span><span class="selector-pseudo">:00</span>     </span><br><span class="line">(<span class="number">2</span>/<span class="number">3</span>): <span class="selector-tag">c7-media</span>/<span class="selector-tag">primary_db</span>                                                                                       | <span class="selector-tag">1</span><span class="selector-class">.8</span> <span class="selector-tag">kB</span>  <span class="selector-tag">00</span><span class="selector-pseudo">:00</span><span class="selector-pseudo">:00</span>     </span><br><span class="line">(<span class="number">3</span>/<span class="number">3</span>): <span class="selector-tag">c7-media</span>/<span class="selector-tag">other_db</span>                                                                                         | <span class="selector-tag">1</span><span class="selector-class">.3</span> <span class="selector-tag">kB</span>  <span class="selector-tag">00</span><span class="selector-pseudo">:00</span><span class="selector-pseudo">:00</span>     </span><br><span class="line"><span class="selector-tag">Determining</span> <span class="selector-tag">fastest</span> <span class="selector-tag">mirrors</span></span><br><span class="line"><span class="selector-tag">Metadata</span> <span class="selector-tag">Cache</span> <span class="selector-tag">Created</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-7-使用局域网yum"><a href="#3-7-使用局域网yum" class="headerlink" title="3.7 使用局域网yum"></a>3.7 使用局域网yum</h2><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">yum install httpd</span></span><br></pre></td></tr></table></figure>
+<h1 id="4-注意事项："><a href="#4-注意事项：" class="headerlink" title="4 注意事项："></a>4 注意事项：</h1><p>1、YUM源服务器每次添加rpm包到yum-custom目录，都需要重新运行<code>#createrepo /yum/yum-custom/</code>命令（YUM源服务器运行），同时局域网电脑重新建立缓存<code>#yum clean all</code> 和<code>#yum makecache</code>，否则无法发现新加安装包。</p>
+<p>2、YUM源在<code>/yum/yum-custom</code>下可创建自定义目录，可根据rpm包进行分类，便于本地YUM源管理，同上，有任何改变，必须重新运行事项1命令。</p>
+<p>3、局域网主机安装rpm的时候<strong>出现报错</strong><br><img src="1.png" alt="enter description here"></p>
+<p>原因：使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">createrepo -u -d  /yum/yum-custom/</span><br></pre></td></tr></table></figure>
+<p>创建repo，</p>
+<p>解决办法：使用命令</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">createrepo</span>  /yum/yum-custom/</span><br></pre></td></tr></table></figure>
+<p>不添加任何参数。</p>
+<p>4、<strong>selinux必须关闭</strong>，否则局域网机器无法从仓库建立缓存。</p>
+<h1 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h1><p><a href="http://www.linuxidc.com/Linux/2017-03/141391.htm" target="_blank" rel="noopener">http://www.linuxidc.com/Linux/2017-03/141391.htm</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/28/openstack-mitaka调整实例大小报错/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -390,48 +595,14 @@
 
       
         
-          
-            <h1 id="1-问题1"><a href="#1-问题1" class="headerlink" title="1 问题1"></a>1 问题1</h1><p>在openstack图形界面对实例进行迁移操作时，出现如下错误</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">11</span>:<span class="number">00</span>:<span class="number">21.828</span> <span class="number">1386</span> INFO nova<span class="selector-class">.compute</span><span class="selector-class">.resource_tracker</span> [req-<span class="number">4</span>fe2d206-e9bc-<span class="number">4</span>a61-<span class="number">9389</span>-a01007335c61 - - - - -] Total usable vcpus: <span class="number">12</span>, total allocated vcpus: <span class="number">5</span></span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> return self._do_dispatch(endpoint, method, ctxt, args)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/oslo_messaging/rpc/dispatcher.py"</span>, line <span class="number">127</span>, <span class="keyword">in</span> _do_dispatch</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> result = func(ctxt, **new_args)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/nova/exception.py"</span>, line <span class="number">114</span>, <span class="keyword">in</span> wrapped</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> payload)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/oslo_utils/excutils.py"</span>, line <span class="number">220</span>, <span class="keyword">in</span> __exit__</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> self.force_reraise()</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/oslo_utils/excutils.py"</span>, line <span class="number">196</span>, <span class="keyword">in</span> force_reraise</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> six.reraise(self<span class="selector-class">.type_</span>, self<span class="selector-class">.value</span>, self.tb)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/nova/exception.py"</span>, line <span class="number">89</span>, <span class="keyword">in</span> wrapped</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> return f(self, context, *args, **kw)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/nova/compute/manager.py"</span>, line <span class="number">359</span>, <span class="keyword">in</span> decorated_function</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> LOG.warning(msg, e, instance=instance)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/oslo_utils/excutils.py"</span>, line <span class="number">220</span>, <span class="keyword">in</span> __exit__</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> self.force_reraise()</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/oslo_utils/excutils.py"</span>, line <span class="number">196</span>, <span class="keyword">in</span> force_reraise</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> six.reraise(self<span class="selector-class">.type_</span>, self<span class="selector-class">.value</span>, self.tb)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/nova/compute/manager.py"</span>, line <span class="number">328</span>, <span class="keyword">in</span> decorated_function</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> return function(self, context, *args, **kwargs)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/nova/compute/manager.py"</span>, line <span class="number">409</span>, <span class="keyword">in</span> decorated_function</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> return function(self, context, *args, **kwargs)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/nova/compute/manager.py"</span>, line <span class="number">316</span>, <span class="keyword">in</span> decorated_function</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> migration<span class="selector-class">.instance_uuid</span>, exc_info=True)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/oslo_utils/excutils.py"</span>, line <span class="number">220</span>, <span class="keyword">in</span> __exit__</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> self.force_reraise()</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/oslo_utils/excutils.py"</span>, line <span class="number">196</span>, <span class="keyword">in</span> force_reraise</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> six.reraise(self<span class="selector-class">.type_</span>, self<span class="selector-class">.value</span>, self.tb)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/nova/compute/manager.py"</span>, line <span class="number">293</span>, <span class="keyword">in</span> decorated_function</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> return function(self, context, *args, **kwargs)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/nova/compute/manager.py"</span>, line <span class="number">387</span>, <span class="keyword">in</span> decorated_function</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> kwargs[<span class="string">'instance'</span>], e, sys.exc_info())</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/oslo_utils/excutils.py"</span>, line <span class="number">220</span>, <span class="keyword">in</span> __exit__</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> self.force_reraise()</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/oslo_utils/excutils.py"</span>, line <span class="number">196</span>, <span class="keyword">in</span> force_reraise</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> six.reraise(self<span class="selector-class">.type_</span>, self<span class="selector-class">.value</span>, self.tb)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/nova/compute/manager.py"</span>, line <span class="number">375</span>, <span class="keyword">in</span> decorated_function</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> return function(self, context, *args, **kwargs)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/nova/compute/manager.py"</span>, line <span class="number">3933</span>, <span class="keyword">in</span> resize_instance</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> self<span class="selector-class">.instance_events</span><span class="selector-class">.clear_events_for_instance</span>(instance)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib64/python2.7/contextlib.py"</span>, line <span class="number">35</span>, <span class="keyword">in</span> __exit__</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> self<span class="selector-class">.gen</span><span class="selector-class">.throw</span>(type, value, traceback)</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> File <span class="string">"/usr/lib/python2.7/site-packages/nova/compute/manager.py"</span>, line <span class="number">6643</span>, <span class="keyword">in</span> _error_out_instance_on_exception</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> raise error.inner_exception</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> ResizeError: Resize error: not able to execute ssh command: Unexpected error while running command.</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> Command: ssh -o BatchMode=yes <span class="number">192.168</span>.<span class="number">1.116</span> mkdir -<span class="selector-tag">p</span> /var/lib/nova/instances/<span class="number">724</span>a9fc0-<span class="number">3786</span>-<span class="number">4</span>ba4-<span class="number">8</span>a43-<span class="number">744</span>ec19a0881</span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> Exit <span class="selector-tag">code</span>: <span class="number">255</span></span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> Stdout: u<span class="string">''</span></span><br><span class="line"><span class="number">2017</span>-<span class="number">09</span>-<span class="number">18</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">08.695</span> <span class="number">1386</span> ERROR oslo_messaging<span class="selector-class">.rpc</span><span class="selector-class">.dispatcher</span> Stderr: u<span class="string">'Host key verification failed.\r\n</span></span><br></pre></td></tr></table></figure>
-<p>建立各计算节点、控制节点之间的SSH免密登录，建立私钥</p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><ul>
-<li>开启nova用户登录权限</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usermod -s /bin/bash nova</span><br></pre></td></tr></table></figure>
-<ul>
-<li>切换到nova用户</li>
-</ul>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">su</span> nova</span><br></pre></td></tr></table></figure>
-<p>生成密钥（各个计算节点执行，控制节点也执行）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ssh-keygen -t rsa</span></span><br><span class="line"><span class="meta">#</span><span class="bash">默认路径，直接回车</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>所有计算节点均配置</li>
-</ul>
-<blockquote>
-<p>依然在nova用户下操作</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">cat &lt;&lt; EOF &gt; ~/.ssh/config</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Host *</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> StrictHostKeyChecking no</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> UserKnownHostsFile=/dev/null</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> EOF</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>发送公钥到控制节点</li>
-</ul>
-<p>compute1</p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp id_rsa.pub <span class="number">10.20</span>.<span class="number">0</span>.<span class="number">2</span><span class="symbol">:/var/lib/nova/</span>.ssh/id_rsa.pub2</span><br></pre></td></tr></table></figure>
-<p>compute2</p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp id_rsa.pub <span class="number">10.20</span>.<span class="number">0</span>.<span class="number">2</span><span class="symbol">:/var/lib/nova/</span>.ssh/id_rsa.pub3</span><br></pre></td></tr></table></figure>
-<p>contrloller(10.20.0.2)</p>
-<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># cat id_dsa.pub id_dsa.pub2 id_rsa.pub id_rsa.pub2   id_rsa.pub3 id_dsa.pub3 &gt; authorized_keys</span></span><br><span class="line"><span class="meta"># scp authorized_keys  computer1:/var/lib/nova/.ssh</span></span><br><span class="line"><span class="meta"># scp authorized_keys  computer2:/var/lib/nova/.ssh</span></span><br></pre></td></tr></table></figure>
-<p>修改权限</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># chown nova:nova <span class="regexp">/var/</span>lib<span class="regexp">/nova/</span>.ssh<span class="regexp">/id_rsa /</span>var<span class="regexp">/lib/</span>nova<span class="regexp">/.ssh/</span>authorized_keys</span><br></pre></td></tr></table></figure>
-<ul>
-<li>登录测试</li>
-</ul>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ssh</span> nova<span class="variable">@computer</span></span><br></pre></td></tr></table></figure>
-<p>在迁移实例，不再报错，并成功。</p>
-<blockquote>
-<p>实例迁移根据使用存储不同，有不同差异，详细介绍参考openstack官方文档</p>
-</blockquote>
-
-          
+          <h1 id="1-问题1"><a href="#1-问题1" class="headerlink" title="1 问题1"></a>1 问题1</h1><p>在openstack图形界面对实例进行迁移操作时，出现如下错误<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/kxinter.gitub.io/2018/08/28/openstack-mitaka调整实例大小报错/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -520,6 +691,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/云计算/" itemprop="url" rel="index">
+                    <span itemprop="name">云计算</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -550,9 +743,17 @@
 
       
         
-          
-            
-          
+          <blockquote>
+<p>有时虚拟机创建后发现虚拟机规格太小，满足不了业务需求。于是需要在线拉伸虚拟机的规格。</p>
+</blockquote>
+<p>1、用admin用户登录dashboard，创建满足需求的虚拟机规格<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/kxinter.gitub.io/2018/08/28/Openstack调整实例大小-冷迁移/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -693,17 +894,15 @@
 
       
         
-          
-            <p>转载：<a href="http://www.aboutyun.com/thread-8114-1-1.html" target="_blank" rel="noopener">http://www.aboutyun.com/thread-8114-1-1.html</a></p>
-<h1 id="Openstack的临时-Ephemeral-存储和块-Block-存储"><a href="#Openstack的临时-Ephemeral-存储和块-Block-存储" class="headerlink" title="Openstack的临时(Ephemeral)存储和块(Block)存储"></a>Openstack的临时(Ephemeral)存储和块(Block)存储</h1><h2 id="问题导读："><a href="#问题导读：" class="headerlink" title="问题导读："></a>问题导读：</h2><p>1、OpenStack中什么是临时存储，有什么好处？<br>2、什么是块存储，和临时的有什么不同？</p>
-<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>Openstack不管是Ephemeral Storage还是Block Storage, 其实从接口上看，其实都是块服务。那么为什么要搞两个不同的类型呢，本文从这两种不同类型块存储的实现上来分析下其中的原因。</p>
-<h2 id="临时存储"><a href="#临时存储" class="headerlink" title="临时存储"></a>临时存储</h2><p>Openstack临时存储是由Nova提供的，主要是利用主机的本地存储给虚拟机提供卷服务。如果虚拟机被删除了，挂在这个虚拟机上的任何临时存储自动释放。这样的实现方式决定了：<br>使用Ephemeral Storage的虚拟机不能支持迁移，以及和虚拟机迁移相关的特性，包括 1) HA 2) 动态调度 等等。<br>存放在Ephemeral Storage上的数据是高度不可靠的，任何虚拟机和主机的故障都可能会导致数据丢失。</p>
-<h2 id="块存储"><a href="#块存储" class="headerlink" title="块存储"></a>块存储</h2><p>目前Openstack的块存储由Cinder提供，其后端支持很多类型的存储设备，比如多个厂商不同型号的阵列设备，或者是Ceph, Glusterfs, Sheepdog之类的分布式存储系统。基于块存储，可以为用户提供：<br>高可靠的存储（基于阵列的RAID, 或者是分布式存储的多副本机制；甚至还可以充分利用设备的备份，远程复制能力）</p>
-<p>共享存储 （意味着可以支持HA, 虚拟机迁移等等）</p>
-<h2 id="临时存储的妙用"><a href="#临时存储的妙用" class="headerlink" title="临时存储的妙用"></a>临时存储的妙用</h2><p>这么看来，临时存储岂不是几乎没什么作用了，那为什么还需要提供这个服务呢？其实原因非常简单： 这个服务便宜，而且便宜到令人发指的地步，比如AWS的Ephemeral Storage, 就是免费的。用户可以用它来做不少有意思的事情，比如：<br>无状态虚拟机，为系统提供Cache服务<br>为虚拟机操作系统提供交换分区，或者用来存放其它类型的临时文件<br>改进EBS的性能，比如买4个EBS盘，再配置2个免费的Ephermal盘，组建一个RAID 10系统</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>对于云服务提供商，不管采用什么样的后端技术，为用户提供7个9甚至更高可靠性的EBS服务，成本是巨大的，如果使用阵列，其价格本来就昂贵；如果使用分布式存储，起码要3个副本，再考虑到定期备份，快照，跨地域容灾，成本一样很高。现在的SATA, SAS盘便宜而且量又足，很容易造成在本地主机上空闲，所以干脆直接送给用户，由他们去玩，而且对于玩的好的用户，还真能对业务有不少帮助。<br><strong>最后再附上Openstack官方文档对几种存储的对比：</strong><br><img src="1.jpg" alt="enter description here"></p>
-
-          
+          <p>转载：<a href="http://www.aboutyun.com/thread-8114-1-1.html" target="_blank" rel="noopener">http://www.aboutyun.com/thread-8114-1-1.html</a></p>
+<h1 id="Openstack的临时-Ephemeral-存储和块-Block-存储"><a href="#Openstack的临时-Ephemeral-存储和块-Block-存储" class="headerlink" title="Openstack的临时(Ephemeral)存储和块(Block)存储"></a>Openstack的临时(Ephemeral)存储和块(Block)存储</h1><h2 id="问题导读："><a href="#问题导读：" class="headerlink" title="问题导读："></a>问题导读：</h2><p>1、OpenStack中什么是临时存储，有什么好处？<br>2、什么是块存储，和临时的有什么不同？<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/kxinter.gitub.io/2018/08/28/Openstack的临时(Ephemeral)存储和块(Block)存储/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -844,125 +1043,14 @@
 
       
         
-          
-            <h1 id="1-迁移类型："><a href="#1-迁移类型：" class="headerlink" title="1 迁移类型："></a>1 迁移类型：</h1><p>*<code>非在线迁移</code> (有时也称之为‘<code>迁移</code>’)。也就是在迁移到另外的计算节点时的这段时间虚拟机实例是处于宕机状态的。在此情况下，实例需要重启才能工作。</p>
-<p>*<code>在线迁移</code> (或 ‘<code>真正的在线迁移</code>‘)。实例几乎没有宕机时间。用于当实例需要在迁移时保持运行。在线迁移有下面几种类型：</p>
-<ul>
-<li><p>基于共享存储的在线迁移。所有的Hypervisor都可以访问共享存储。</p>
-</li>
-<li><p>块在线迁移。无须共享存储。但诸如CD-ROM之类的只读设备是无法实现的。</p>
-</li>
-<li><p>基于卷的在线迁移。实例都是基于卷的而不是临时的磁盘，无须共享存储，也支持迁移(目前仅支持基于libvirt的hypervisor)。</p>
-</li>
-</ul>
-<h2 id="1-1-什么是热迁移"><a href="#1-1-什么是热迁移" class="headerlink" title="1.1 什么是热迁移"></a>1.1 什么是热迁移</h2><p><code>热迁移</code>（Live Migration，又叫<code>动态迁移</code>、<code>实时迁移</code>），即虚拟机保存/恢复(Save/Restore)：将整个虚拟机的运行状态完整保存下来，同时可以快速的恢复到原有硬件平台甚至是不同硬件平台上。恢复以后，虚拟机仍旧平滑运行，用户不会察觉到任何差异。</p>
-<h2 id="1-2-Openstack热迁移"><a href="#1-2-Openstack热迁移" class="headerlink" title="1.2 Openstack热迁移"></a>1.2 Openstack热迁移</h2><p>OpenStack有两种在线迁移类型：<code>live migration</code>和<code>block migration</code>。<code>Livemigration</code>需要实例保存在NFS共享存储中，这种迁移主要是实例的内存状态的迁移，速度应该会很快。<code>Block migration</code>除了实例内存状态要迁移外，还得迁移磁盘文件，速度会慢些，但是它不要求实例存储在共享文件系统中。<br>NFS允许一个系统在网络上与他人共享目录和文件。通过使用NFS，用户和程序可以像访问本地文件一样访问远端系统上的文件。</p>
-<h3 id="1-2-1-迁移步骤"><a href="#1-2-1-迁移步骤" class="headerlink" title="1.2.1 迁移步骤"></a>1.2.1 迁移步骤</h3><ol>
-<li><p>迁移前的条件检查<br>动态迁移要成功执行，一些条件必须满足，所以在执行迁移前必须做一些条件检查。</p>
-<ul>
-<li>权限检查，执行迁移的用户是否有足够的权限执行动态迁移。</li>
-<li>参数检查，传递给 API 的参数是否足够和正确，如是否指定了 block-migrate 参数。</li>
-<li>检查目标物理主机是否存在。</li>
-<li>检查被迁移的虚拟机是否是 running 状态。</li>
-<li>检查源和目的物理主机上的 nova-compute service 是否正常运行。</li>
-<li>检查目的物理主机和源物理主机是否是同一台机器。</li>
-<li>检查目的物理主机是否有足够的内存(memory)。</li>
-<li>检查目的和源物理主机器 hypervisor 和 hypervisor 的版本是否相同。</li>
-</ul>
-<ol start="2">
-<li>迁移前的预处理<br>在真正执行迁移前，必须做一下热身，做一些准备工作。</li>
-</ol>
-<ul>
-<li><p>在目的物理主机上获得和准备虚拟机挂载的块设备(<code>volume</code>)。</p>
-</li>
-<li><p>在目的物理主机上设置虚拟机的网络(<code>networks</code>)。</p>
-</li>
-<li><p>目的物理主机上设置虚拟机的防火墙(<code>fireware</code>)。</p>
-</li>
-</ul>
-<ol start="3">
-<li>迁移<br>条件满足并且做完了预处理工作后，就可以执行动态迁移了。主要步骤如下：</li>
-</ol>
-<ul>
-<li>调用 libvirt python 接口 migrateToURI，来把源主机迁移到目的主机。<br>dom.migrateToURI(CONF.live_migration_uri % dest,logical_sum,None,CONF.live_migration_bandwidth)<br>live_migration_uri：这个 URI 就是在 3.2.2 里介绍的 libvirtd 进程定义的。<br>live_migration_bandwidth：这个参数定义了迁移过程中所使用的最大的带宽。</li>
-<li>以一定的时间间隔（0.5）循环调用 wait_for_live_migration 方法，来检测虚拟机迁移 的状态，一直到虚拟机成功迁移为止。</li>
-</ul>
-<ol start="4">
-<li>迁移后的处理<br>当虚拟机迁移完成后，要做一些善后工作。</li>
-</ol>
-<ul>
-<li>在源物理主机上 detach volume。</li>
-<li>在源物理主机上释放 security group ingress rule。</li>
-<li>在目的物理主机上更新数据库里虚拟机的状态。</li>
-<li>在源物理主机上删除虚拟机。<br>上面四步正常完成后，虚拟机就成功的从源物理主机成功地迁移到了目的物理主机了</li>
-</ul>
-</li>
-</ol>
-<h3 id="1-2-2-Live-Migration-的实现"><a href="#1-2-2-Live-Migration-的实现" class="headerlink" title="1.2.2 Live Migration 的实现"></a>1.2.2 Live Migration 的实现</h3><p>热迁移条件：</p>
-<ol>
-<li><p>计算节点之间可以通过主机名互相访问</p>
-</li>
-<li><p>计算节点和控制节点的nova uid和gid保持一致</p>
-</li>
-<li><p>vncserver_proxyclient_address和vncserver_listen 监听的是本地IP</p>
-</li>
-<li><p>必须有共享存储，实例存放在共享存储中，且每个计算节点都可以访问共享存储。否则只能使用块迁移</p>
-</li>
-</ol>
-<h3 id="1-2-3-配置"><a href="#1-2-3-配置" class="headerlink" title="1.2.3 配置"></a>1.2.3 配置</h3><ul>
-<li>添加live_migration_flag<br>修改nova的配置文件，在<code>[libvirt]</code> 段下 添加如下字段</li>
-</ul>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">live_migration_flag=<span class="string">"VIR_MIGRATE_UNDEFINE_SOURCE,VIR_MIGRATE_PEER2PEER,VIR_MIGRATE_LIVE,VIR_MIGRATE_PERSIST_DEST,VIR_MIGRATE_TUNNELLED"</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>配置配置versh免密码连接，修改/etc/libvirt/libvirtd.conf<br>添加如下配置</li>
-</ul>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">listen_tls = 0</span><br><span class="line"></span><br><span class="line">listen_tcp = 1</span><br><span class="line"></span><br><span class="line">tcp_port = <span class="string">"16509"</span></span><br><span class="line"></span><br><span class="line">listen_addr = <span class="string">"172.16.201.8"</span>   <span class="comment">#根据自己的计算节点IP改写</span></span><br><span class="line"></span><br><span class="line">auth_tcp = <span class="string">"none"</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>修改/etc/sysconfig/libvirtd 添加如下参数</li>
-</ul>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LIBVIRTD_CONFIG=/etc/libvirt/libvirtd.conf</span><br><span class="line"></span><br><span class="line">LIBVIRTD_ARGS=<span class="string">"--listen"</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>重启libvirt</li>
-</ul>
-<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">restart</span> libvirtd.service</span><br></pre></td></tr></table></figure>
-<ul>
-<li>查看监听端口：</li>
-</ul>
-<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@compute1 ~]# netstat -lnpt | grep libvirtd</span><br><span class="line"></span><br><span class="line">tcp        <span class="number">0</span>      <span class="number">0</span> <span class="number">172.16</span><span class="meta">.206</span><span class="meta">.6</span>:<span class="number">16509</span>      <span class="number">0.0</span><span class="meta">.0</span><span class="meta">.0</span>:*               LISTEN      <span class="number">9852</span>/libvirtd</span><br></pre></td></tr></table></figure>
-<ul>
-<li>测试：</li>
-</ul>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">在compute1节点上：</span><br><span class="line"></span><br><span class="line">virsh -c qemu+<span class="string">tcp:</span><span class="comment">//compute2/system</span></span><br><span class="line"></span><br><span class="line">在compute2节点上</span><br><span class="line"></span><br><span class="line">virsh -c qemu+<span class="string">tcp:</span><span class="comment">//compute1/system</span></span><br></pre></td></tr></table></figure>
-<p>如果能无密码连接上去，表示配置没问题</p>
-<h3 id="1-2-4动态迁移"><a href="#1-2-4动态迁移" class="headerlink" title="1.2.4动态迁移"></a>1.2.4动态迁移</h3><ul>
-<li>查看所有实例<br>nova list</li>
-<li>查看需要迁移虚拟机实例<br>nova show f3d749ba-98e1-4624-9782-6da729ad164c</li>
-<li>查看可用的计算节点<br>nova-manage service list</li>
-<li>查看目标节点资源<br>nova-manage service describe_resource computer1</li>
-<li><p>开始迁移，正常无任何回显<br>nova live-migration 8da00f69-05f6-4425-9a8a-df56b79a474f computer1</p>
-</li>
-<li><p>也可以通过dashboard 节点迁移<br>用节点迁移需要使用admin管理员用户执</p>
-</li>
-</ul>
-<h2 id="1-3-冷迁移配置"><a href="#1-3-冷迁移配置" class="headerlink" title="1.3 冷迁移配置"></a>1.3 冷迁移配置</h2><ol>
-<li>冷迁移需要启动nova账户，并配置ssh 免密码认证</li>
-</ol>
-<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">usermod -s /bin/bash nova</span><br><span class="line"></span><br><span class="line">su - nova</span><br><span class="line"></span><br><span class="line">ssh-keygen -t rsa</span><br><span class="line"></span><br><span class="line"><span class="meta"># 生成密钥</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">cp</span> -fa id_rsa.pub authorized_keys</span><br></pre></td></tr></table></figure>
-<p>将密钥复制到所有计算节点的/var/lib/nova/.ssh下，并设置权限为nova用户</p>
-<ol start="2">
-<li>编辑/etc/nova/nova.conf的配置文件，修改下面参数</li>
-</ol>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">allow_resize_to_same_host</span>=<span class="literal">True</span> </span><br><span class="line"></span><br><span class="line"><span class="attr">scheduler_default_filters</span>=RetryFilter,AvailabilityZoneFilter,RamFilter,ComputeFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter,ServerGroupAntiAffinityFilter,ServerGroupAffinityFilter</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>在计算节点重启nova服务</li>
-</ol>
-<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">restart</span> openstack-nova-compute</span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>在controller节点重启nova 相关服务</li>
-</ol>
-<figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart openstack-nova-api.<span class="keyword">service</span> openstack-nova-scheduler.<span class="keyword">service</span></span><br></pre></td></tr></table></figure>
-
-          
+          <h1 id="1-迁移类型："><a href="#1-迁移类型：" class="headerlink" title="1 迁移类型："></a>1 迁移类型：</h1><p><em><code>非在线迁移</code> (有时也称之为‘<code>迁移</code>’)。也就是在迁移到另外的计算节点时的这段时间虚拟机实例是处于宕机状态的。在此情况下，实例需要重启才能工作。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/kxinter.gitub.io/2018/08/28/Openstack热迁移和冷迁移/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1103,16 +1191,14 @@
 
       
         
-          
-            <h1 id="1-Docker常用命令"><a href="#1-Docker常用命令" class="headerlink" title="1 Docker常用命令"></a>1 Docker常用命令</h1><h2 id="1-1-镜像管理"><a href="#1-1-镜像管理" class="headerlink" title="1.1 镜像管理"></a>1.1 镜像管理</h2><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># 列出本地所有镜像</span></span><br><span class="line">docker images</span><br><span class="line"><span class="meta"># 查找image</span></span><br><span class="line">docker search &lt;IMAGE_ID/NAME&gt;</span><br><span class="line"><span class="meta"># 下载image</span></span><br><span class="line">docker pull &lt;IMAGE_ID&gt;</span><br><span class="line"><span class="meta"># 上传image</span></span><br><span class="line">docker push &lt;IMAGE_ID&gt;</span><br><span class="line"><span class="meta"># 删除image</span></span><br><span class="line">docker rmi &lt;IMAGE_ID&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="1-2-容器管理"><a href="#1-2-容器管理" class="headerlink" title="1.2 容器管理"></a>1.2 容器管理</h2><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">docker run -i -t <span class="variable">&lt;IMAGE_ID&gt;</span> /bin/bash：   </span><br><span class="line">-i：标准输入给容器 </span><br><span class="line">-t：分配一个虚拟终端 </span><br><span class="line">/bin/bash：执行bash脚本</span><br><span class="line">-d：以守护进程方式运行（后台）</span><br><span class="line">-P：默认匹配docker容器的<span class="number">5000</span>端口号到宿主机的<span class="number">49153</span> <span class="keyword">to</span> <span class="number">65535</span>端口</span><br><span class="line">-p <span class="variable">&lt;HOT_PORT&gt;</span>:<span class="variable">&lt;CONTAINER_PORT&gt;</span>：指定端口号</span><br><span class="line">--name： 指定容器的名称</span><br><span class="line">--rm：退出时删除容器</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止container</span></span><br><span class="line">docker stop <span class="variable">&lt;CONTAINER_ID&gt;</span></span><br><span class="line"><span class="comment">#重新启动container</span></span><br><span class="line">docker start <span class="variable">&lt;CONTAINER_ID&gt;</span></span><br><span class="line"><span class="comment">#显示运行的容器</span></span><br><span class="line">docker ps</span><br><span class="line">-l：显示最后启动的容器</span><br><span class="line">-a：同时显示停止的容器，默认只显示启动状态</span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接到启动的容器</span></span><br><span class="line">docker attach <span class="variable">&lt;CONTAINER_ID&gt;</span></span><br><span class="line"><span class="comment">#输出容器日志</span></span><br><span class="line">docker logs <span class="variable">&lt;CONTAINER_ID&gt;</span></span><br><span class="line">-f：实时输出</span><br><span class="line"></span><br><span class="line"><span class="comment"># 复制容器内的文件到宿主机目录上</span></span><br><span class="line">docker cp <span class="variable">&lt;CONTAINER_ID&gt;</span>:路径 宿主机路径</span><br><span class="line"><span class="comment"># 删除container</span></span><br><span class="line">docker rm <span class="variable">&lt;CONTAINER_ID&gt;</span></span><br><span class="line"><span class="comment"># 删除所有容器</span></span><br><span class="line">docker rm `docker ps -a -q`</span><br><span class="line">docker kill `docker ps -q`</span><br><span class="line">docker rmi `docker images -q -a`</span><br><span class="line">docker wait <span class="variable">&lt;CONTAINER_ID&gt;</span>：阻塞对容器的其他调用方法，直到容器停止后退出</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看容器中运行的进程</span></span><br><span class="line">docker top <span class="variable">&lt;CONTAINER_ID&gt;</span></span><br><span class="line"><span class="comment"># 查看容器中的变化</span></span><br><span class="line">docker diff <span class="variable">&lt;CONTAINER_ID&gt;</span></span><br><span class="line"><span class="comment"># 查看容器详细信息（输出为Json）</span></span><br><span class="line">docker inspect <span class="variable">&lt;CONTAINER_ID&gt;</span></span><br><span class="line">-f：查找特定信息，如docker inspect -f '&#123;&#123; .NetworkSettings.IPAddress &#125;&#125;'</span><br><span class="line">docker commit -m <span class="string">"comment"</span> -a <span class="string">"author"</span> <span class="variable">&lt;CONTAINER_ID&gt;</span> ouruser/imagename:<span class="keyword">tag</span></span><br><span class="line"></span><br><span class="line">docker extc -it <span class="variable">&lt;CONTAINER&gt;</span> <span class="variable">&lt;COMMAND&gt;</span>：在容器里执行命令，并输出结果</span><br></pre></td></tr></table></figure>
-<h2 id="1-3-网络管理"><a href="#1-3-网络管理" class="headerlink" title="1.3 网络管理"></a>1.3 网络管理</h2><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 随机分配端口号</span></span><br><span class="line">docker <span class="keyword">run</span><span class="bash"> -P</span></span><br><span class="line"><span class="bash"><span class="comment"># 绑定特定端口号（主机的所有网络接口的5000端口均绑定容器的5000端口）</span></span></span><br><span class="line"><span class="bash">docker run -p 5000:5000</span></span><br><span class="line"><span class="bash"><span class="comment"># 绑定主机的特定接口的端口号</span></span></span><br><span class="line"><span class="bash">docker run -p 127.0.0.1:5000:5000</span></span><br><span class="line"><span class="bash"><span class="comment"># 绑定udp端口号</span></span></span><br><span class="line"><span class="bash">docker run -d -p 127.0.0.1:5000:5000/udp training/webapp python app.py</span></span><br><span class="line"><span class="bash"><span class="comment"># 查看容器的5000端口对应本地机器的IP和端口号</span></span></span><br><span class="line"><span class="bash">docker port &lt;CONTAINER_ID&gt; 5000</span></span><br><span class="line"><span class="bash"><span class="comment"># 使用Docker Linking连接容器：</span></span></span><br><span class="line"><span class="bash"><span class="comment"># Docker为源容器和接收容器创建一个安全的通道，容器之间不需要暴露端口，接收的容器可以访问源容器的数据</span></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">docker run -d -P --name &lt;CONTAINER_NAME&gt; --link &lt;CONTAINER_NAME_TO_LINK&gt;:&lt;ALIAS&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="1-4-数据管理"><a href="#1-4-数据管理" class="headerlink" title="1.4 数据管理"></a>1.4 数据管理</h2><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Data Volumes：volume是在一个或多个容器里指定的特殊目录</span></span><br><span class="line"><span class="comment"># 数据卷可以在容器间共享和重复使用</span></span><br><span class="line"><span class="comment"># 可以直接修改容器卷的数据</span></span><br><span class="line"><span class="comment"># 容器卷里的数据不会被包含到镜像中</span></span><br><span class="line"><span class="comment"># 容器卷保持到没有容器再使用它</span></span><br><span class="line"><span class="comment"># 可以在容器启动的时候添加-v参数指定容器卷，也可以在Dockerfile里用VOLUMN命令添加</span></span><br><span class="line">docker <span class="keyword">run</span><span class="bash"> -d -P --name web -v /webapp training/webapp python app.py</span></span><br><span class="line"><span class="bash"><span class="comment"># 也可以将容器卷挂载到宿主机目录或宿主机的文件上，&lt;容器目录或文件&gt;的内容会被替换为&lt;宿主机目录或文件&gt;的内容，默认容器对这个目录有可读写权限</span></span></span><br><span class="line"><span class="bash">docker run -d -P --name web -v &lt;宿主机目录&gt;:&lt;容器目录&gt; training/webapp python app.py</span></span><br><span class="line"><span class="bash"><span class="comment"># 可以通过指定ro，将权限改为只读</span></span></span><br><span class="line"><span class="bash">docker run -d -P --name web -v &lt;宿主机目录&gt;:&lt;容器目录&gt;:ro training/webapp python app.py</span></span><br><span class="line"><span class="bash"><span class="comment"># 在一个容器创建容器卷后，其他容器便可以通过--volumes-from共享这个容器卷数据，如下：</span></span></span><br><span class="line"><span class="bash">docker run -d -v /dbdata --name db1 training/postgres <span class="built_in">echo</span> Data-only container <span class="keyword">for</span> postgres</span></span><br><span class="line"><span class="bash"><span class="comment"># 首先启动了一个容器，并为这个容器增加一个数据卷/dbdata，然后启动另一个容器，共享这个数据卷</span></span></span><br><span class="line"><span class="bash">docker run -d --volumes-from db1 --name db2 training/postgres</span></span><br><span class="line"><span class="bash"><span class="comment"># 此时db2使用了db1的容器卷，当容器db1被删除时，容器卷也不会被删除，只有所有容器不再使用此容器卷时，才会被删除</span></span></span><br><span class="line"><span class="bash">docker rm -v：删除容器卷</span></span><br><span class="line"><span class="bash"><span class="comment"># 除了共享数据外，容器卷另一个作用是用来备份、恢复和迁移数据</span></span></span><br><span class="line"><span class="bash">docker run --volumes-from db1 -v /home/backup:/backup ubuntu tar cvf /backup/backup.tar /dbdata</span></span><br><span class="line"><span class="bash"><span class="comment"># 启动一个容器数据卷使用db1容器的数据卷，同时新建立一个数据卷指向宿主机目录/home/backup，将/dbdata目录的数据压缩为/backup/backup.tar</span></span></span><br><span class="line"><span class="bash">docker run -v /dbdata --name dbdata2 ubuntu /bin/bash</span></span><br><span class="line"><span class="bash">docker run --volumes-from dbdata2 -v /home/backup:/backup busybox tar xvf /backup/backup.tar</span></span><br><span class="line"><span class="bash"><span class="comment"># 启动一个容器，同时把backup.tar的内容解压到容器的backup</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="1-5-仓库管理"><a href="#1-5-仓库管理" class="headerlink" title="1.5 仓库管理"></a>1.5 仓库管理</h2><p>docker login：登录</p>
-<h2 id="1-6-镜像打包及恢复"><a href="#1-6-镜像打包及恢复" class="headerlink" title="1.6 镜像打包及恢复"></a>1.6 镜像打包及恢复</h2><h3 id="1-6-1-保存镜像为文件"><a href="#1-6-1-保存镜像为文件" class="headerlink" title="1.6.1 保存镜像为文件"></a>1.6.1 保存镜像为文件</h3><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># centos为镜像，centos为打包名，centos后可以指定标签</span></span><br><span class="line">docker <span class="keyword">save</span> -o centos.tar    centos</span><br><span class="line"><span class="keyword">or</span></span><br><span class="line">docker <span class="keyword">save</span> -o centos.tar    centos:<span class="number">7.2</span></span><br></pre></td></tr></table></figure>
-<h3 id="1-6-2-从文件载入镜像"><a href="#1-6-2-从文件载入镜像" class="headerlink" title="1.6.2 从文件载入镜像"></a>1.6.2 从文件载入镜像</h3><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># home/centos.tar为镜像文件路径</span></span><br><span class="line">docker <span class="built_in">load</span> <span class="comment">--input /home/centos.tar</span></span><br><span class="line"><span class="keyword">or</span></span><br><span class="line">docker <span class="built_in">load</span> &lt; /home/centos.tar</span><br></pre></td></tr></table></figure>
-
-          
+          <h1 id="1-Docker常用命令"><a href="#1-Docker常用命令" class="headerlink" title="1 Docker常用命令"></a>1 Docker常用命令</h1>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/kxinter.gitub.io/2018/08/28/Dokcer常用命令/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1738,154 +1824,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/27/VMware共享文件夹设置方法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/08/27/VMware共享文件夹设置方法/" itemprop="url">VMware共享文件夹设置方法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-27T11:24:35+08:00">
-                2018-08-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="一、安装包依赖："><a href="#一、安装包依赖：" class="headerlink" title="一、安装包依赖："></a>一、安装包依赖：</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ yum -y <span class="keyword">install</span> kernel-devel-$(uname -r) </span><br><span class="line">$ yum -y <span class="keyword">install</span> net-tools perl gcc gcc-c++</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/kxinter.gitub.io/2018/08/27/VMware共享文件夹设置方法/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1940,7 +1878,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1962,7 +1900,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/kxinter.gitub.io/tags/index.html">
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
