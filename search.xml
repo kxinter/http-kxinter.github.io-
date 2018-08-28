@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Openstack热迁移和冷迁移]]></title>
+    <url>%2Fkxinter.gitub.io%2F2018%2F08%2F28%2FOpenstack%E7%83%AD%E8%BF%81%E7%A7%BB%E5%92%8C%E5%86%B7%E8%BF%81%E7%A7%BB%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Dokcer常用命令]]></title>
+    <url>%2Fkxinter.gitub.io%2F2018%2F08%2F28%2FDokcer%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[1 Docker常用命令1.1 镜像管理12345678910# 列出本地所有镜像docker images# 查找imagedocker search &lt;IMAGE_ID/NAME&gt;# 下载imagedocker pull &lt;IMAGE_ID&gt;# 上传imagedocker push &lt;IMAGE_ID&gt;# 删除imagedocker rmi &lt;IMAGE_ID&gt; 1.2 容器管理123456789101112131415161718192021222324252627282930313233343536373839404142434445docker run -i -t &lt;IMAGE_ID&gt; /bin/bash： -i：标准输入给容器 -t：分配一个虚拟终端 /bin/bash：执行bash脚本-d：以守护进程方式运行（后台）-P：默认匹配docker容器的5000端口号到宿主机的49153 to 65535端口-p &lt;HOT_PORT&gt;:&lt;CONTAINER_PORT&gt;：指定端口号--name： 指定容器的名称--rm：退出时删除容器# 停止containerdocker stop &lt;CONTAINER_ID&gt;#重新启动containerdocker start &lt;CONTAINER_ID&gt;#显示运行的容器docker ps-l：显示最后启动的容器-a：同时显示停止的容器，默认只显示启动状态# 连接到启动的容器docker attach &lt;CONTAINER_ID&gt;#输出容器日志docker logs &lt;CONTAINER_ID&gt;-f：实时输出# 复制容器内的文件到宿主机目录上docker cp &lt;CONTAINER_ID&gt;:路径 宿主机路径# 删除containerdocker rm &lt;CONTAINER_ID&gt;# 删除所有容器docker rm `docker ps -a -q`docker kill `docker ps -q`docker rmi `docker images -q -a`docker wait &lt;CONTAINER_ID&gt;：阻塞对容器的其他调用方法，直到容器停止后退出# 查看容器中运行的进程docker top &lt;CONTAINER_ID&gt;# 查看容器中的变化docker diff &lt;CONTAINER_ID&gt;# 查看容器详细信息（输出为Json）docker inspect &lt;CONTAINER_ID&gt;-f：查找特定信息，如docker inspect -f '&#123;&#123; .NetworkSettings.IPAddress &#125;&#125;'docker commit -m "comment" -a "author" &lt;CONTAINER_ID&gt; ouruser/imagename:tagdocker extc -it &lt;CONTAINER&gt; &lt;COMMAND&gt;：在容器里执行命令，并输出结果 1.3 网络管理1234567891011121314# 随机分配端口号docker run -P# 绑定特定端口号（主机的所有网络接口的5000端口均绑定容器的5000端口）docker run -p 5000:5000# 绑定主机的特定接口的端口号docker run -p 127.0.0.1:5000:5000# 绑定udp端口号docker run -d -p 127.0.0.1:5000:5000/udp training/webapp python app.py# 查看容器的5000端口对应本地机器的IP和端口号docker port &lt;CONTAINER_ID&gt; 5000# 使用Docker Linking连接容器：# Docker为源容器和接收容器创建一个安全的通道，容器之间不需要暴露端口，接收的容器可以访问源容器的数据docker run -d -P --name &lt;CONTAINER_NAME&gt; --link &lt;CONTAINER_NAME_TO_LINK&gt;:&lt;ALIAS&gt; 1.4 数据管理1234567891011121314151617181920212223# Data Volumes：volume是在一个或多个容器里指定的特殊目录# 数据卷可以在容器间共享和重复使用# 可以直接修改容器卷的数据# 容器卷里的数据不会被包含到镜像中# 容器卷保持到没有容器再使用它# 可以在容器启动的时候添加-v参数指定容器卷，也可以在Dockerfile里用VOLUMN命令添加docker run -d -P --name web -v /webapp training/webapp python app.py# 也可以将容器卷挂载到宿主机目录或宿主机的文件上，&lt;容器目录或文件&gt;的内容会被替换为&lt;宿主机目录或文件&gt;的内容，默认容器对这个目录有可读写权限docker run -d -P --name web -v &lt;宿主机目录&gt;:&lt;容器目录&gt; training/webapp python app.py# 可以通过指定ro，将权限改为只读docker run -d -P --name web -v &lt;宿主机目录&gt;:&lt;容器目录&gt;:ro training/webapp python app.py# 在一个容器创建容器卷后，其他容器便可以通过--volumes-from共享这个容器卷数据，如下：docker run -d -v /dbdata --name db1 training/postgres echo Data-only container for postgres# 首先启动了一个容器，并为这个容器增加一个数据卷/dbdata，然后启动另一个容器，共享这个数据卷docker run -d --volumes-from db1 --name db2 training/postgres# 此时db2使用了db1的容器卷，当容器db1被删除时，容器卷也不会被删除，只有所有容器不再使用此容器卷时，才会被删除docker rm -v：删除容器卷# 除了共享数据外，容器卷另一个作用是用来备份、恢复和迁移数据docker run --volumes-from db1 -v /home/backup:/backup ubuntu tar cvf /backup/backup.tar /dbdata# 启动一个容器数据卷使用db1容器的数据卷，同时新建立一个数据卷指向宿主机目录/home/backup，将/dbdata目录的数据压缩为/backup/backup.tardocker run -v /dbdata --name dbdata2 ubuntu /bin/bashdocker run --volumes-from dbdata2 -v /home/backup:/backup busybox tar xvf /backup/backup.tar# 启动一个容器，同时把backup.tar的内容解压到容器的backup 1.5 仓库管理docker login：登录 1.6 镜像打包及恢复1.6.1 保存镜像为文件1234# centos为镜像，centos为打包名，centos后可以指定标签docker save -o centos.tar centosordocker save -o centos.tar centos:7.2 1.6.2 从文件载入镜像1234# home/centos.tar为镜像文件路径docker load --input /home/centos.tarordocker load &lt; /home/centos.tar]]></content>
+      <categories>
+        <category>Dokcer</category>
+      </categories>
+      <tags>
+        <tag>基础运维</tag>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Ubuntu部署本地源仓库]]></title>
     <url>%2Fkxinter.gitub.io%2F2018%2F08%2F27%2FUbuntu%E9%83%A8%E7%BD%B2%E6%9C%AC%E5%9C%B0%E6%BA%90%E4%BB%93%E5%BA%93%2F</url>
     <content type="text"><![CDATA[1 本地源的制作1.1 安装所需软件包1sudo apt-get install dpkg-dev 1.2 打包deb软件包12#加上-d参数，只下载安装包，不安装及解压。sudo apt-get install -d nginx 将/var/cache/apt/archives/下的所有deb文件拷到/home/packages/下的Natty目录中：/home/packages/Natty，拷贝前建议执行一下: 12#autoclean - 删除已下载的旧包文件sudo apt-get autoclean 1.3 进入指定目录上一级目录拷完后在终端中进入刚才新建的目录Natty所在的上一级目录，也就是： 1cd /home/packages 生成软件包依赖信息文件 1sudo dpkg-scanpackages Natty/ | gzip &gt;Natty/Packages.gz 至此本地源的软件包已经准备完毕；下面接着介绍如何使用。 2 本地源的使用2.1 本机源服务器的搭建将地址加入更新源列表文件 123$ sudo vim /etc/apt/sources.list# 添加以下路径，其它deb信息使用#号注释掉deb file:///home/packages/ Natty/ #注意Natty后面有一个斜杠,前面还要有空格(这是书写方式) 2.2 更新源信息12#更新信息，生成数据缓存$ sudo apt-get update 之后即可正常安装所需软件。 3 局域网源服务器3.1 安装apache21sudo apt-get install apache2 启动服务 注意：配置apache2的时候注意端口，不要配置成可能被其他网络应用使用的端口就可以。 3.2 配置服务器上的Ubuntu源12#在apache2发布目录/var/www/html位置创建到源目录的软链接sudo ln -s /home/packages/Natty/ /var/www/html/ubuntu-local 3.3 配置局域网客户机sources.list1234$ sudo vim /etc/apt/sources.list#添加如下信息,其它deb信息使用#号注释掉deb http://192.168.1.224 ubuntu-local/ #注意书写方式，ip地址后空格，目录地址/ 3.4 客户机更新源信息12#更新信息，生成数据缓存sudo apt-get update 之后即可正常安装所需软件。 4 参考资料https://www.iyunv.com/thread-384273-1-1.html]]></content>
@@ -180,9 +197,9 @@
       </categories>
       <tags>
         <tag>私有仓库</tag>
+        <tag>部署</tag>
         <tag>npm</tag>
         <tag>cnpmjs</tag>
-        <tag>部署</tag>
       </tags>
   </entry>
   <entry>
@@ -253,9 +270,9 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>部署</tag>
         <tag>vsftp</tag>
         <tag>ftp</tag>
+        <tag>部署</tag>
       </tags>
   </entry>
   <entry>
