@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="问题举例：rc.local内容如下">
+<meta name="description" content="1 问题举例：rc.local内容如下">
 <meta name="keywords" content="基础运维,tomcat,运维开发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="编辑rc.local启动命令执行不成功处理">
 <meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/编辑rc-local启动命令执行不成功处理/index.html">
 <meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="问题举例：rc.local内容如下">
+<meta property="og:description" content="1 问题举例：rc.local内容如下">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-27T08:15:15.632Z">
+<meta property="og:updated_time" content="2018-08-30T04:03:02.791Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="编辑rc.local启动命令执行不成功处理">
-<meta name="twitter:description" content="问题举例：rc.local内容如下">
+<meta name="twitter:description" content="1 问题举例：rc.local内容如下">
 
 
 
@@ -391,12 +391,12 @@
       
 
       
-        <h1 id="问题举例："><a href="#问题举例：" class="headerlink" title="问题举例："></a>问题举例：</h1><p>rc.local内容如下<br><a id="more"></a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># THIS FILE IS ADDED FOR COMPATIBILITY PURPOSES</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># It is highly advisable to create own systemd services or udev rules</span></span><br><span class="line"><span class="comment"># to run scripts during boot instead of using this file.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># In contrast to previous versions due to parallel execution during boot</span></span><br><span class="line"><span class="comment"># this script will NOT be run after all other services.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Please note that you must run 'chmod +x /etc/rc.d/rc.local' to ensure</span></span><br><span class="line"><span class="comment"># that this script will be executed during boot.</span></span><br><span class="line"></span><br><span class="line">touch /var/lock/subsys/<span class="built_in">local</span></span><br><span class="line">mount -t cifs -o username=backup,password=xxxxxxx //192.168.1.170/192.168.1.11/ /mnt/backup_data/</span><br><span class="line">/usr/<span class="built_in">local</span>/tomcat/bin/startup.sh</span><br></pre></td></tr></table></figure></p>
+        <h1 id="1-问题举例："><a href="#1-问题举例：" class="headerlink" title="1 问题举例："></a>1 问题举例：</h1><p>rc.local内容如下<br><a id="more"></a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># THIS FILE IS ADDED FOR COMPATIBILITY PURPOSES</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># It is highly advisable to create own systemd services or udev rules</span></span><br><span class="line"><span class="comment"># to run scripts during boot instead of using this file.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># In contrast to previous versions due to parallel execution during boot</span></span><br><span class="line"><span class="comment"># this script will NOT be run after all other services.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Please note that you must run 'chmod +x /etc/rc.d/rc.local' to ensure</span></span><br><span class="line"><span class="comment"># that this script will be executed during boot.</span></span><br><span class="line"></span><br><span class="line">touch /var/lock/subsys/<span class="built_in">local</span></span><br><span class="line">mount -t cifs -o username=backup,password=xxxxxxx //192.168.1.170/192.168.1.11/ /mnt/backup_data/</span><br><span class="line">/usr/<span class="built_in">local</span>/tomcat/bin/startup.sh</span><br></pre></td></tr></table></figure></p>
 <p>挂载命令执行了，但tomcat没有启动</p>
-<h1 id="问题原因及处理方法"><a href="#问题原因及处理方法" class="headerlink" title="问题原因及处理方法"></a>问题原因及处理方法</h1><h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>因java使用的是解压缩版，在/etc/profile内添加java的环境变量，系统启动时先执行的是rc.local,因此tomcat启动失败</p>
-<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h2 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h2><p>在rc.local内添加java的环境变量命令（必须放在tomcat启动命令前）</p>
+<h1 id="2-问题原因及处理方法"><a href="#2-问题原因及处理方法" class="headerlink" title="2 问题原因及处理方法"></a>2 问题原因及处理方法</h1><h2 id="2-1-原因"><a href="#2-1-原因" class="headerlink" title="2.1 原因"></a>2.1 原因</h2><p>因java使用的是解压缩版，在/etc/profile内添加java的环境变量，系统启动时先执行的是rc.local,因此tomcat启动失败</p>
+<h2 id="2-2-解决办法"><a href="#2-2-解决办法" class="headerlink" title="2.2 解决办法"></a>2.2 解决办法</h2><h3 id="2-2-1-方法1"><a href="#2-2-1-方法1" class="headerlink" title="2.2.1 方法1"></a>2.2.1 方法1</h3><p>在rc.local内添加java的环境变量命令（必须放在tomcat启动命令前）</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/<span class="built_in">local</span>/java/jdk1.6.0_18</span><br><span class="line"><span class="built_in">export</span> JRE_HOME=/usr/<span class="built_in">local</span>/java/jdk1.6.0_18/jre</span><br></pre></td></tr></table></figure>
-<h2 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h2><p>在tomcat的启动脚本内添加java路径<br>分别在tomcat_home/bin目录内的catalina.sh ，setclasspath.sh脚本前面指定JAVA_HOME路径</p>
+<h3 id="2-2-2-方法2"><a href="#2-2-2-方法2" class="headerlink" title="2.2.2 方法2"></a>2.2.2 方法2</h3><p>在tomcat的启动脚本内添加java路径<br>分别在tomcat_home/bin目录内的catalina.sh ，setclasspath.sh脚本前面指定JAVA_HOME路径</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/<span class="built_in">local</span>/java/jdk1.6.0_18</span><br><span class="line"><span class="built_in">export</span> JRE_HOME=/usr/<span class="built_in">local</span>/java/jdk1.6.0_18/jre</span><br></pre></td></tr></table></figure>
 
       
@@ -525,7 +525,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -547,7 +547,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/kxinter.gitub.io/tags/index.html">
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -620,7 +620,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题举例："><span class="nav-text">问题举例：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题原因及处理方法"><span class="nav-text">问题原因及处理方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原因"><span class="nav-text">原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决办法"><span class="nav-text">解决办法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#方法1"><span class="nav-text">方法1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法2"><span class="nav-text">方法2</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-问题举例："><span class="nav-text">1 问题举例：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-问题原因及处理方法"><span class="nav-text">2 问题原因及处理方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-原因"><span class="nav-text">2.1 原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-解决办法"><span class="nav-text">2.2 解决办法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-方法1"><span class="nav-text">2.2.1 方法1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-方法2"><span class="nav-text">2.2.2 方法2</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

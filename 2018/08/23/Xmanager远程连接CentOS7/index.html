@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="安装epel源1yum install -y epel-release">
+<meta name="description" content="1 安装epel源1yum install -y epel-release">
 <meta name="keywords" content="基础运维,运维工具,xmanager">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Xmanager远程连接CentOS7">
 <meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/Xmanager远程连接CentOS7/index.html">
 <meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="安装epel源1yum install -y epel-release">
+<meta property="og:description" content="1 安装epel源1yum install -y epel-release">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/Xmanager远程连接CentOS7/1.jpg">
-<meta property="og:updated_time" content="2018-08-27T08:14:46.999Z">
+<meta property="og:updated_time" content="2018-08-30T04:02:03.705Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Xmanager远程连接CentOS7">
-<meta name="twitter:description" content="安装epel源1yum install -y epel-release">
+<meta name="twitter:description" content="1 安装epel源1yum install -y epel-release">
 <meta name="twitter:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/23/Xmanager远程连接CentOS7/1.jpg">
 
 
@@ -393,16 +393,16 @@
       
 
       
-        <h1 id="安装epel源"><a href="#安装epel源" class="headerlink" title="安装epel源"></a>安装epel源</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> -y epel-<span class="keyword">release</span></span><br></pre></td></tr></table></figure>
+        <h1 id="1-安装epel源"><a href="#1-安装epel源" class="headerlink" title="1 安装epel源"></a>1 安装epel源</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> -y epel-<span class="keyword">release</span></span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<h1 id="安装lightdm和xfce"><a href="#安装lightdm和xfce" class="headerlink" title="安装lightdm和xfce"></a>安装lightdm和xfce</h1><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">yum install -y lightdm</span> </span><br><span class="line"><span class="attribute">yum groupinstall -y xfce</span></span><br></pre></td></tr></table></figure>
-<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vim</span> /etc/lightdm/lightdm.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
+<h1 id="2-安装lightdm和xfce"><a href="#2-安装lightdm和xfce" class="headerlink" title="2 安装lightdm和xfce"></a>2 安装lightdm和xfce</h1><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">yum install -y lightdm</span> </span><br><span class="line"><span class="attribute">yum groupinstall -y xfce</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-1-修改配置文件"><a href="#2-1-修改配置文件" class="headerlink" title="2.1 修改配置文件"></a>2.1 修改配置文件</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vim</span> /etc/lightdm/lightdm.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
 <p>内容如下</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[XDMCPServer]</span></span><br><span class="line"><span class="attr">enabled</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">port</span>=<span class="number">177</span></span><br></pre></td></tr></table></figure>
-<h2 id="将Display-Manager切换为lightdm"><a href="#将Display-Manager切换为lightdm" class="headerlink" title="将Display Manager切换为lightdm"></a>将Display Manager切换为lightdm</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">disable</span> gdm &amp;&amp; systemctl <span class="built_in">enable</span> lightdm</span><br></pre></td></tr></table></figure>
-<h2 id="启动lightdm"><a href="#启动lightdm" class="headerlink" title="启动lightdm"></a>启动lightdm</h2><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">systemctl start lightdm</span></span><br></pre></td></tr></table></figure>
-<h2 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h2><figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="keyword">stop</span> firewalld.service</span><br></pre></td></tr></table></figure>
-<h1 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h1><p>打开Xmanger客户端，选择XDMCP并输入服务器的ip，回车运行即可。<br>输入账号密码<br>然后就出现下图：（如果正常跳过这步）<br><img src="1.jpg" alt="enter description here"><br><strong>或者出现黑屏提示无法建立连接</strong><br>这是因为刚开始安装的是Gnome，所以系统默认使用它，现在要改成Xfce，最简单的方法就是把xfce.desktopz之外的文件都干掉。</p>
+<h2 id="2-2-将Display-Manager切换为lightdm"><a href="#2-2-将Display-Manager切换为lightdm" class="headerlink" title="2.2 将Display Manager切换为lightdm"></a>2.2 将Display Manager切换为lightdm</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">disable</span> gdm &amp;&amp; systemctl <span class="built_in">enable</span> lightdm</span><br></pre></td></tr></table></figure>
+<h2 id="2-3-启动lightdm"><a href="#2-3-启动lightdm" class="headerlink" title="2.3 启动lightdm"></a>2.3 启动lightdm</h2><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">systemctl start lightdm</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-4-关闭防火墙"><a href="#2-4-关闭防火墙" class="headerlink" title="2.4 关闭防火墙"></a>2.4 关闭防火墙</h2><figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="keyword">stop</span> firewalld.service</span><br></pre></td></tr></table></figure>
+<h1 id="3-登录"><a href="#3-登录" class="headerlink" title="3 登录"></a>3 登录</h1><p>打开Xmanger客户端，选择XDMCP并输入服务器的ip，回车运行即可。<br>输入账号密码<br>然后就出现下图：（如果正常跳过这步）<br><img src="1.jpg" alt="enter description here"><br><strong>或者出现黑屏提示无法建立连接</strong><br>这是因为刚开始安装的是Gnome，所以系统默认使用它，现在要改成Xfce，最简单的方法就是把xfce.desktopz之外的文件都干掉。</p>
 <figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/share/xsessions/</span><br><span class="line"><span class="built_in">mkdir</span> bak</span><br><span class="line">mv gnome* bak</span><br><span class="line">systemctl <span class="built_in">restart</span> lightdm</span><br></pre></td></tr></table></figure>
 <p>重新连接<br>一切正常操作之后就成功连接了。然后就可以快速便捷的工作了。</p>
 
@@ -532,7 +532,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -554,7 +554,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/kxinter.gitub.io/tags/index.html">
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -627,7 +627,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装epel源"><span class="nav-text">安装epel源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装lightdm和xfce"><span class="nav-text">安装lightdm和xfce</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#修改配置文件"><span class="nav-text">修改配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将Display-Manager切换为lightdm"><span class="nav-text">将Display Manager切换为lightdm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动lightdm"><span class="nav-text">启动lightdm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关闭防火墙"><span class="nav-text">关闭防火墙</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#登录"><span class="nav-text">登录</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-安装epel源"><span class="nav-text">1 安装epel源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-安装lightdm和xfce"><span class="nav-text">2 安装lightdm和xfce</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-修改配置文件"><span class="nav-text">2.1 修改配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-将Display-Manager切换为lightdm"><span class="nav-text">2.2 将Display Manager切换为lightdm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-启动lightdm"><span class="nav-text">2.3 启动lightdm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-关闭防火墙"><span class="nav-text">2.4 关闭防火墙</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-登录"><span class="nav-text">3 登录</span></a></li></ol></div>
             
 
           </div>
