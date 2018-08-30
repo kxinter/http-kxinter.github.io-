@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/kxinter.gitub.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/kxinter.gitub.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/kxinter.gitub.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/kxinter.gitub.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/kxinter.gitub.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/kxinter.gitub.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/kxinter.gitub.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="基础运维,小知识,运维工具," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1、centos -Tab键命令补全">
+<meta name="keywords" content="基础运维,小知识,运维工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用工具及小技巧">
+<meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/常用工具及小技巧/index.html">
+<meta property="og:site_name" content="Operation随笔">
+<meta property="og:description" content="1、centos -Tab键命令补全">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/常用工具及小技巧/1534402931104.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/常用工具及小技巧/2.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/常用工具及小技巧/3.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/常用工具及小技巧/4.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/常用工具及小技巧/5.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/常用工具及小技巧/6.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/常用工具及小技巧/7.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/常用工具及小技巧/8.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/常用工具及小技巧/9.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/常用工具及小技巧/10.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/常用工具及小技巧/11.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/常用工具及小技巧/12.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/常用工具及小技巧/13.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/常用工具及小技巧/14.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/常用工具及小技巧/15.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/常用工具及小技巧/16.png">
+<meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/常用工具及小技巧/17.png">
+<meta property="og:updated_time" content="2018-08-27T08:15:26.550Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常用工具及小技巧">
+<meta name="twitter:description" content="1、centos -Tab键命令补全">
+<meta name="twitter:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/常用工具及小技巧/1534402931104.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/kxinter.gitub.io/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/常用工具及小技巧/"/>
+
+
+
+
+
+  <title>常用工具及小技巧 | Operation随笔</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/kxinter.gitub.io/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Operation随笔</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/kxinter.gitub.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/kxinter.gitub.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/kxinter.gitub.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/kxinter.gitub.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/kxinter.gitub.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/16/常用工具及小技巧/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">常用工具及小技巧</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-16T13:48:23+08:00">
+                2018-08-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_value_page_pv"></span>次阅读
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1、centos-Tab键命令补全"><a href="#1、centos-Tab键命令补全" class="headerlink" title="1、centos -Tab键命令补全"></a>1、centos -Tab键命令补全</h1><a id="more"></a>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ yum install -y bash-completion</span><br><span class="line"></span><br><span class="line">#执行脚本，使其生效或重新登录生效</span><br><span class="line"></span><br><span class="line">$ source /usr/share/bash-completion/bash_completion</span><br></pre></td></tr></table></figure>
+<h1 id="2、自定义命令补全"><a href="#2、自定义命令补全" class="headerlink" title="2、自定义命令补全"></a>2、自定义命令补全</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 自定义生成kubectl命令补全</span><br><span class="line"></span><br><span class="line">source &lt;(kubectl completion bash)</span><br><span class="line"></span><br><span class="line"># 将命令添加入bashrc文件，每次登录当前用户执行，使命令补全生效，也可添加入其它开机执行的脚本</span><br><span class="line"></span><br><span class="line">echo <span class="string">"source &lt;(kubectl completion bash)"</span> &gt;&gt; ~<span class="regexp">/.bashrc</span></span><br></pre></td></tr></table></figure>
+<h1 id="3、ubuntu-Tab键命令补全"><a href="#3、ubuntu-Tab键命令补全" class="headerlink" title="3、ubuntu-Tab键命令补全"></a>3、ubuntu-Tab键命令补全</h1><p>编辑/etc/bash.bashrc 里面有这几行语句，去掉#注释</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#enable bash completion in interactive shells</span><br><span class="line"></span><br><span class="line">if ! shopt -oq posix; then</span><br><span class="line"></span><br><span class="line">  if [ -f /usr/share/bash-completion/bash_completion ]; then</span><br><span class="line"></span><br><span class="line">    . /usr/share/bash-completion/bash_completion</span><br><span class="line"></span><br><span class="line">  elif [ -f /etc/bash_completion ]; then</span><br><span class="line"></span><br><span class="line">    . /etc/bash_completion</span><br><span class="line"></span><br><span class="line">  fi</span><br><span class="line"></span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<h1 id="4、Linux设置环境变量"><a href="#4、Linux设置环境变量" class="headerlink" title="4、Linux设置环境变量"></a>4、Linux设置环境变量</h1><p>在 linux 里设置环境变量的方法 （ export PATH ）</p>
+<p>一般来说，配置交叉编译工具链的时候需要指定编译工具的路径，此时就需要设置环境变量。例如我的mips-linux-gcc编译器在“/opt/au1200_rm /build_tools/bin”目录下，build_tools就是我的编译工具，则有如下三种方法来设置环境变量：</p>
+<h2 id="4-1、直接用export命令："><a href="#4-1、直接用export命令：" class="headerlink" title="4.1、直接用export命令："></a>4.1、直接用export命令：</h2><p>立即生效，重启丢失。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:/opt/au1200_rm/build_tools/bin</span><br></pre></td></tr></table></figure>
+<p>查看是否已经设好，可用命令export查看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#export</span><br><span class="line"></span><br><span class="line">declare -x BASH_ENV=&quot;/root/.bashrc&quot;</span><br><span class="line"></span><br><span class="line">declare -x G_BROKEN_FILENAMES=&quot;1&quot;</span><br><span class="line"></span><br><span class="line">declare -x HISTSIZE=&quot;1000&quot;</span><br><span class="line">PATH里面已经有了我要加的编译器的路径。</span><br></pre></td></tr></table></figure>
+<h2 id="4-2、修改profile文件："><a href="#4-2、修改profile文件：" class="headerlink" title="4.2、修改profile文件："></a>4.2、修改profile文件：</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$  vi /etc/profile</span><br><span class="line">在里面加入:</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> PATH=”$PATH:<span class="regexp">/opt/</span>au1200_rm/build_tools/bin”</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ . /etc/profile            #执行命令使配置生效</span><br></pre></td></tr></table></figure>
+<h2 id="4-3-修改-bashrc文件："><a href="#4-3-修改-bashrc文件：" class="headerlink" title="4.3. 修改.bashrc文件："></a>4.3. 修改.bashrc文件：</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ vi /root/.bashrc</span><br><span class="line"></span><br><span class="line">在里面加入：</span><br><span class="line"><span class="keyword">export</span> PATH=”$PATH:<span class="regexp">/opt/</span>au1200_rm/build_tools/bin”</span><br></pre></td></tr></table></figure>
+<p>后两种方法一般需要重新注销系统才能生效，最后可以通过echo命令测试一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo $PATH              #输出变量</span><br><span class="line">看看输出里面是不是已经有了 /my_new_path这个路径了。</span><br></pre></td></tr></table></figure>
+<h1 id="5、实时查看日志"><a href="#5、实时查看日志" class="headerlink" title="5、实时查看日志"></a>5、实时查看日志</h1><p>tail -f /var/log/messages</p>
+<h1 id="6、客户端-Xshell、SecureCRT-拖拉文件到服务器"><a href="#6、客户端-Xshell、SecureCRT-拖拉文件到服务器" class="headerlink" title="6、客户端(Xshell、SecureCRT)拖拉文件到服务器"></a>6、客户端(Xshell、SecureCRT)拖拉文件到服务器</h1><p>yum install lrzsz</p>
+<h1 id="7、YUM下载rpm包及依赖包"><a href="#7、YUM下载rpm包及依赖包" class="headerlink" title="7、YUM下载rpm包及依赖包"></a>7、YUM下载rpm包及依赖包</h1><p>#只下载bash-completion包到home目录，不进行安装<br>yum install –downloadonly –downloaddir=/home bash-completion</p>
+<h1 id="8、删除多少前天备份"><a href="#8、删除多少前天备份" class="headerlink" title="8、删除多少前天备份"></a>8、删除多少前天备份</h1><p>#删除目录/mnt/backup_data下30天前后缀为.sql的文件</p>
+<p>find /mnt/backup_data/ -name “*.sql” -type f -mtime +30 -exec rm -f {} \;</p>
+<h1 id="9、nmon显示系统性能显示工具"><a href="#9、nmon显示系统性能显示工具" class="headerlink" title="9、nmon显示系统性能显示工具"></a>9、nmon显示系统性能显示工具</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install nmon</span><br><span class="line"></span><br><span class="line">nmon</span><br></pre></td></tr></table></figure>
+<p><img src="./1534402931104.png" alt="enter description here"></p>
+<p>参考<a href="https://linux.cn/article-6467-1.html" target="_blank" rel="noopener">https://linux.cn/article-6467-1.html</a></p>
+<p>10、Htop进程浏览器<br>yum install htop<br><img src="2.png" alt="enter description here"></p>
+<p>11、查看磁盘i/o工具</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ yum install sysstat</span><br><span class="line"></span><br><span class="line">#每2秒更新一次，-m 以MB显示，-k以kb显示</span><br><span class="line"></span><br><span class="line">iostat -d -m <span class="number">2</span></span><br><span class="line"></span><br><span class="line">#or</span><br><span class="line"></span><br><span class="line">iostat -d -k <span class="number">2</span></span><br><span class="line"></span><br><span class="line">#or</span><br><span class="line"></span><br><span class="line">iostat -d -m /dev/sda1</span><br></pre></td></tr></table></figure>
+<p><img src="3.png" alt="enter description here"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum install iotop</span><br><span class="line"></span><br><span class="line">#c查看哪个进程占用i/o</span><br><span class="line"></span><br><span class="line">iotop</span><br></pre></td></tr></table></figure>
+<p>使用详解参考：<a href="http://man.linuxde.net/iotop" target="_blank" rel="noopener">http://man.linuxde.net/iotop</a></p>
+<h1 id="12、linux常用的监控命令"><a href="#12、linux常用的监控命令" class="headerlink" title="12、linux常用的监控命令"></a>12、linux常用的监控命令</h1><h2 id="12-1-top"><a href="#12-1-top" class="headerlink" title="12.1. top"></a>12.1. top</h2><p>显示所有正在运行而且处于活动状态的实时进程， 而且会定期更新显示结果；它显示了CPU使用率，内存使用率，交换内存使用大小，调整缓存使用大小，缓冲区使用大小，进程PID， 使用的命令等信息。</p>
+<h2 id="12-2-vmstat"><a href="#12-2-vmstat" class="headerlink" title="12.2. vmstat"></a>12.2. vmstat</h2><p><img src="4.png" alt="enter description here"></p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">一般是通过两个数字参数来完成的，第一个参数是采样时间间隔，单位是秒， 第二个参数是采样的次数</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="symbol">r:</span>    表示运行队列，如果队列过大说明CPU很繁忙，一般会造成CPU使用率高</span><br><span class="line"></span><br><span class="line"><span class="symbol">b:</span>    表示阻塞的进程数</span><br><span class="line"></span><br><span class="line"><span class="symbol">swap:</span>  虚拟内存已使用的大小，如果大于<span class="number">0</span>，说明机器的物理内存不够了</span><br><span class="line"></span><br><span class="line"><span class="symbol">free:</span>  空闲的物理内存大小</span><br><span class="line"></span><br><span class="line"><span class="symbol">buff:</span>   系统占用的缓存大小（写缓存）</span><br><span class="line"></span><br><span class="line">cache：  直接用来记忆我们打开的文件，给文件做缓冲，读缓存</span><br><span class="line"></span><br><span class="line"><span class="symbol">si:</span>     每秒从磁盘读入虚拟内存大小，如果这个值大于<span class="number">0</span>，表示物理内存不足了</span><br><span class="line"></span><br><span class="line"><span class="symbol">so:</span>    每秒虚拟内存写入磁盘的大小，如果这个值大于<span class="number">0</span>， 表示物理内存不足了</span><br><span class="line"></span><br><span class="line"><span class="symbol">us:</span>    用户cpu时间</span><br><span class="line"></span><br><span class="line"><span class="symbol">sy:</span>    系统CPU时间， 如果值 太高，说明系统调用，例如是IO操作频繁</span><br><span class="line"></span><br><span class="line"><span class="symbol">id:</span>     空闲CPU时间，一般来说 id + us + sy = <span class="number">100</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">wt:</span>    等待IO的CPU时间</span><br></pre></td></tr></table></figure>
+<h2 id="12-3-lsof"><a href="#12-3-lsof" class="headerlink" title="12.3. lsof"></a>12.3. lsof</h2><p>列出打开的文件；它常用于以列表形式显示所有打开的文件和进程，包括磁盘文件，网络套接字，管道，设备和进程。</p>
+<p>主要情形之一就是 无法挂载磁盘和显示正在使用或者打开某个文件的错误时，查看谁正在使用。</p>
+<h2 id="12-4-tcpdump"><a href="#12-4-tcpdump" class="headerlink" title="12.4. tcpdump"></a>12.4. tcpdump</h2><p>apt-get install tcpdump</p>
+<p>用于捕捉或过滤网络上指定接口上接收或者传输的TCP/IP包。</p>
+<p>-i  :   网络接口</p>
+<p>-c ： 需要输出包数量<br><img src="5.png" alt="enter description here"></p>
+<h2 id="12-5-netstat"><a href="#12-5-netstat" class="headerlink" title="12.5. netstat"></a>12.5. netstat</h2><p>用于监控进出网络的包和网络接口统计的命令行工具，非常有用，用来监控网络性能，解决网络相关问题。</p>
+<p>-h   :   查看帮助</p>
+<p>-r   :    显示路由表</p>
+<p>-i   :     查看网络接口</p>
+<p><img src="6.png" alt="enter description here"></p>
+<p><img src="7.png" alt="enter description here"></p>
+<h2 id="12-6-Htop"><a href="#12-6-Htop" class="headerlink" title="12.6. Htop"></a>12.6. Htop</h2><p>一个非常高级的交互式实时linux进程监控工具，和top相似，但更友好, 还支持鼠标。</p>
+<p>sudo apt-get install htop<br><img src="8.png" alt="enter description here"></p>
+<p>12.7.  iotop<br>监控linux磁盘I/O, 用于查找大量使用磁盘读写进程的时候。python版本需要2.7以上。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ apt-get install iotop</span><br></pre></td></tr></table></figure>
+<p>-h:  查看帮助<br><img src="9.png" alt="enter description here"></p>
+<h2 id="12-8-iostat"><a href="#12-8-iostat" class="headerlink" title="12.8. iostat"></a>12.8. iostat</h2><p>查看存储设备输入和输出状态统计的工具，用来追踪存储设备的性能 问题；包括设备，磁盘，NFS远程磁盘。</p>
+<p>sudo apt-get install sysstat<br><img src="10.png" alt="enter description here"></p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">%<span class="selector-tag">user</span></span>:    在用户级别运行所使用的CPU百分比</span><br><span class="line"></span><br><span class="line"><span class="tag">%<span class="selector-tag">nice</span></span>:     优先进程消耗的CPU时间，占所有CPU百分比</span><br><span class="line"></span><br><span class="line"><span class="tag">%<span class="selector-tag">system</span></span>:   在系统级别运行所使用的CPU百分比</span><br><span class="line"></span><br><span class="line"><span class="tag">%<span class="selector-tag">iowait</span></span>:   cpu等待硬件I/O时，所占用的CPU百分比</span><br><span class="line"></span><br><span class="line"><span class="tag">%<span class="selector-tag">steal</span></span>:     管理程序维护另一个虚拟处理器时，虚拟CPU的无意识等待时间百分比</span><br><span class="line"></span><br><span class="line"><span class="tag">%<span class="selector-tag">idle</span></span>:        CPU空闲时间的百分比</span><br><span class="line"></span><br><span class="line">tps:         每秒发送到I/O的请求数</span><br><span class="line"></span><br><span class="line">KB_read/s:    每秒读取的block数</span><br><span class="line"></span><br><span class="line">KB_wrtn/s:    每秒写入的block数</span><br><span class="line"></span><br><span class="line">KB_read:     启动到现在block总数</span><br><span class="line"></span><br><span class="line">KB_wrtn:    启动到现在写入的block总数</span><br></pre></td></tr></table></figure>
+<h2 id="12-9-iptraf"><a href="#12-9-iptraf" class="headerlink" title="12.9. iptraf"></a>12.9. iptraf</h2><p>用于采集通过网络接口的IP流量信息，包括tcp标记，icmp信息，TCP，UDP信等。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install iptraf</span><br><span class="line"></span><br><span class="line">$ sudo iptraf</span><br></pre></td></tr></table></figure>
+<p><img src="11.png" alt="enter description here"><br><img src="12.png" alt="enter description here"><br><img src="13.png" alt="enter description here"><br><img src="14.png" alt="enter description here"></p>
+<h2 id="12-10-nethogs"><a href="#12-10-nethogs" class="headerlink" title="12.10. nethogs"></a>12.10. nethogs</h2><p>监控每个进程使用的网络带宽</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install nethogs</span><br><span class="line"></span><br><span class="line">$ sudo nethogs</span><br></pre></td></tr></table></figure>
+<p><img src="15.png" alt="enter description here"></p>
+<h2 id="12-11-iftop"><a href="#12-11-iftop" class="headerlink" title="12.11. iftop"></a>12.11. iftop</h2><p>监控网络接口的应用网络带宽使用情况</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install iftop</span><br><span class="line"></span><br><span class="line">$ sudo iftop</span><br></pre></td></tr></table></figure>
+<p><img src="16.png" alt="enter description here"></p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">=&gt; <span class="symbol">:</span>  表示 流量方向</span><br><span class="line"></span><br><span class="line">TX：  发送的流量</span><br><span class="line"></span><br><span class="line">RX： 接收的流量</span><br><span class="line"></span><br><span class="line">TOTAL： 总流量</span><br><span class="line"></span><br><span class="line">Cu<span class="symbol">mm:</span>  运行iftop到目前总流量</span><br><span class="line"></span><br><span class="line">pe<span class="symbol">ak:</span>    流量峰会</span><br><span class="line"></span><br><span class="line">rat<span class="symbol">es:</span>  分别表示 过去<span class="number">2</span>秒，<span class="number">10</span>秒，<span class="number">40</span>秒的平均流量</span><br></pre></td></tr></table></figure>
+<h2 id="12-12-system-monitor"><a href="#12-12-system-monitor" class="headerlink" title="12.12. system monitor"></a>12.12. system monitor</h2><p>监控cpu,内存，进程，硬盘的信息；分为进程监控，资源监控，文件监控; 遗憾的是需要图形界面支持。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install gnome-system-monitor</span><br><span class="line"></span><br><span class="line">gnome-system-monitor</span><br></pre></td></tr></table></figure>
+<h1 id="13、禁止用户登录系统"><a href="#13、禁止用户登录系统" class="headerlink" title="13、禁止用户登录系统"></a>13、禁止用户登录系统</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#禁止</span></span><br><span class="line"></span><br><span class="line">usermod -s /bin/<span class="literal">false</span> ftpuser</span><br><span class="line"></span><br><span class="line"><span class="comment">#开启</span></span><br><span class="line"></span><br><span class="line">usermod -s /bin/base ftpuser</span><br></pre></td></tr></table></figure>
+<p>14、nmtui配置网卡<br>使用nmtui命令（上一篇博客里有介绍界面）</p>
+<p><img src="17.png" alt="enter description here"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/kxinter.gitub.io/tags/基础运维/" rel="tag"><i class="fa fa-tag"></i> 基础运维</a>
+          
+            <a href="/kxinter.gitub.io/tags/小知识/" rel="tag"><i class="fa fa-tag"></i> 小知识</a>
+          
+            <a href="/kxinter.gitub.io/tags/运维工具/" rel="tag"><i class="fa fa-tag"></i> 运维工具</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/kxinter.gitub.io/2018/08/15/docker小技巧/" rel="next" title="Docker小技巧">
+                <i class="fa fa-chevron-left"></i> Docker小技巧
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/kxinter.gitub.io/2018/08/16/批处理文件小技巧/" rel="prev" title="批处理文件小技巧">
+                批处理文件小技巧 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/kxinter.gitub.io/images/touxiang.jpeg"
+                alt="OperationMAN" />
+            
+              <p class="site-author-name" itemprop="name">OperationMAN</p>
+              <p class="site-description motion-element" itemprop="description">日常运维文档整理。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/kxinter.gitub.io/archives/">
+              
+                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/kxinter.gitub.io/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/kxinter.gitub.io/tags/index.html">
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/kxinter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:kxhuanzi@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://medoc.000webhostapp.com" target="_blank" title="随手笔记">
+                      
+                        <i class="fa fa-fw fa-globe"></i>随手笔记</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://linux.vbird.org" target="_blank" title="鸟哥的私房菜">
+                      
+                        <i class="fa fa-fw fa-globe"></i>鸟哥的私房菜</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.chenshake.com/" target="_blank" title="陈沙克日志">
+                      
+                        <i class="fa fa-fw fa-globe"></i>陈沙克日志</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://bitnami.com/" target="_blank" title="Bitnami">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Bitnami</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.runoob.com/" target="_blank" title="RUNOOB.com">
+                      
+                        <i class="fa fa-fw fa-globe"></i>RUNOOB.com</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、centos-Tab键命令补全"><span class="nav-text">1、centos -Tab键命令补全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2、自定义命令补全"><span class="nav-text">2、自定义命令补全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3、ubuntu-Tab键命令补全"><span class="nav-text">3、ubuntu-Tab键命令补全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4、Linux设置环境变量"><span class="nav-text">4、Linux设置环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1、直接用export命令："><span class="nav-text">4.1、直接用export命令：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2、修改profile文件："><span class="nav-text">4.2、修改profile文件：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-修改-bashrc文件："><span class="nav-text">4.3. 修改.bashrc文件：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5、实时查看日志"><span class="nav-text">5、实时查看日志</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6、客户端-Xshell、SecureCRT-拖拉文件到服务器"><span class="nav-text">6、客户端(Xshell、SecureCRT)拖拉文件到服务器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7、YUM下载rpm包及依赖包"><span class="nav-text">7、YUM下载rpm包及依赖包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8、删除多少前天备份"><span class="nav-text">8、删除多少前天备份</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9、nmon显示系统性能显示工具"><span class="nav-text">9、nmon显示系统性能显示工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12、linux常用的监控命令"><span class="nav-text">12、linux常用的监控命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#12-1-top"><span class="nav-text">12.1. top</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-2-vmstat"><span class="nav-text">12.2. vmstat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-3-lsof"><span class="nav-text">12.3. lsof</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-4-tcpdump"><span class="nav-text">12.4. tcpdump</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-5-netstat"><span class="nav-text">12.5. netstat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-6-Htop"><span class="nav-text">12.6. Htop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-8-iostat"><span class="nav-text">12.8. iostat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-9-iptraf"><span class="nav-text">12.9. iptraf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-10-nethogs"><span class="nav-text">12.10. nethogs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-11-iftop"><span class="nav-text">12.11. iftop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-12-system-monitor"><span class="nav-text">12.12. system monitor</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13、禁止用户登录系统"><span class="nav-text">13、禁止用户登录系统</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OperationMAN</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kxinter.gitub.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/kxinter.gitub.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/kxinter.gitub.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/kxinter.gitub.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/kxinter.gitub.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/kxinter.gitub.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/kxinter.gitub.io/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  
+</body>
+</html>
