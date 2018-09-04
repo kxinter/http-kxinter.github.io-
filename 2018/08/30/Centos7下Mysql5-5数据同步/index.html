@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="1 环境| 服务器 | 系统 | 服务 | java | mysql | ip || Liferay-a | Centos7 | Liferay+keepalive+sersync | 1.7.0_80 | 5.5.42 | 172.20.20.59 || Liferay-b | Centos7 | Liferay+keepalive+rsync | 1.7.0_80 | 5.5.42 | 172">
+<meta name="description" content="1 环境            服务器        系统        服务        java        mysql        ip                  Liferay-a         Centos7        Liferay+keepalive+sersync        1.7.0_80        5.5.42        172.20.20.59">
 <meta name="keywords" content="mysql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Centos7下Mysql5.5数据同步">
 <meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/30/Centos7下Mysql5-5数据同步/index.html">
 <meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="1 环境| 服务器 | 系统 | 服务 | java | mysql | ip || Liferay-a | Centos7 | Liferay+keepalive+sersync | 1.7.0_80 | 5.5.42 | 172.20.20.59 || Liferay-b | Centos7 | Liferay+keepalive+rsync | 1.7.0_80 | 5.5.42 | 172">
+<meta property="og:description" content="1 环境            服务器        系统        服务        java        mysql        ip                  Liferay-a         Centos7        Liferay+keepalive+sersync        1.7.0_80        5.5.42        172.20.20.59">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/30/Centos7下Mysql5-5数据同步/1.jpg">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/30/Centos7下Mysql5-5数据同步/2.jpg">
@@ -96,10 +96,10 @@
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/30/Centos7下Mysql5-5数据同步/7.png">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/30/Centos7下Mysql5-5数据同步/8.png">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/30/Centos7下Mysql5-5数据同步/9.png">
-<meta property="og:updated_time" content="2018-09-04T10:32:59.756Z">
+<meta property="og:updated_time" content="2018-09-04T10:34:06.830Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Centos7下Mysql5.5数据同步">
-<meta name="twitter:description" content="1 环境| 服务器 | 系统 | 服务 | java | mysql | ip || Liferay-a | Centos7 | Liferay+keepalive+sersync | 1.7.0_80 | 5.5.42 | 172.20.20.59 || Liferay-b | Centos7 | Liferay+keepalive+rsync | 1.7.0_80 | 5.5.42 | 172">
+<meta name="twitter:description" content="1 环境            服务器        系统        服务        java        mysql        ip                  Liferay-a         Centos7        Liferay+keepalive+sersync        1.7.0_80        5.5.42        172.20.20.59">
 <meta name="twitter:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/30/Centos7下Mysql5-5数据同步/1.jpg">
 
 
@@ -401,8 +401,7 @@
       
 
       
-        <h1 id="1-环境"><a href="#1-环境" class="headerlink" title="1 环境"></a>1 环境</h1><p>| 服务器 | 系统 | 服务 | java | mysql | ip |<br>| Liferay-a | Centos7 | Liferay+keepalive+sersync | 1.7.0_80 | 5.5.42 | 172.20.20.59 |<br>| Liferay-b | Centos7 | Liferay+keepalive+rsync | 1.7.0_80 | 5.5.42 | 172.20.20.60 |<br>| 虚拟IP:172.20.20.58 |</p>
-<a id="more"></a>
+        <h1 id="1-环境"><a href="#1-环境" class="headerlink" title="1 环境"></a>1 环境</h1><p><table><br>    <tr><br>        <td>服务器</td><br>        <td>系统</td><br>        <td>服务</td><br>        <td>java</td><br>        <td>mysql</td><br>        <td>ip</td><br>   </tr><br>       <tr><br>        <td>Liferay-a</td><br>        <td> Centos7</td><br>        <td>Liferay+keepalive+sersync</td><br>        <td>1.7.0_80</td><br>        <td>5.5.42</td><br>        <td>172.20.20.59 </td><br>   </tr><br>       <tr><br>        <td>Liferay-b</td><br>        <td> Centos7</td><br>        <td>Liferay+keepalive+rsync</td><br>        <td>1.7.0_80</td><br>        <td>5.5.42</td><br>        <td>172.20.20.60 </td><br>   </tr><br>    <tr><br>        <td colspan="6">虚拟IP:172.20.20.58</td><br>    </tr><br></table><br><a id="more"></a></p>
 <h1 id="2-安装liferay"><a href="#2-安装liferay" class="headerlink" title="2 安装liferay"></a>2 安装liferay</h1><p>安装liferay官方版本6.2-ce4,方法自行度娘。恢复数据参考《liferay备份还原文档》</p>
 <h1 id="3-安装keepalive"><a href="#3-安装keepalive" class="headerlink" title="3 安装keepalive"></a>3 安装keepalive</h1><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Yum install keepalive</span></span><br></pre></td></tr></table></figure>
 <h2 id="3-1-编辑配置文件"><a href="#3-1-编辑配置文件" class="headerlink" title="3.1 编辑配置文件"></a>3.1 编辑配置文件</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vi</span> /etc/keepalived/keepalived.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
