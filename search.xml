@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[rsync+sersync实时双向同步]]></title>
+    <url>%2Fkxinter.gitub.io%2F2018%2F09%2F04%2Frsync-sersync%E5%AE%9E%E6%97%B6%E5%8F%8C%E5%90%91%E5%90%8C%E6%AD%A5%2F</url>
+    <content type="text"><![CDATA[1 环境 操作系统 Centos7.1 511 主服务器 172.20.20.111 从服务器 172.20.22.99 测试目的：实现主服务器/rsync目录与从服务器/rsync目录实时双向同步。 参考资料：http://blog.sina.com.cn/s/blog_9f4962b10102vqua.htmlhttp://402753795.blog.51cto.com/10788998/1713179 2 以下操作主从服务器都要操作2.1 关闭selinux123456[root@server1]# vi /etc/selinux/config #编辑防火墙配置文件#SELINUX=enforcing #注释掉SELINUX=disabled #增加[root@server1]# setenforce 0 #立即生效 2.2 开启防火墙tcp 873端口（Rsync默认端口）123[root@server1 ]# firewall-cmd --zone=public --add-port=873/tcp --permanent[root@server1 ]# firewall-cmd --reload 主服务做rsync服务端，从服务器做客户端 3 安装rsync（服务端）1Yum install rsync 3.1 编辑配置文件1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253Vi /etc/rsyncd.confuid = root #/rsync目录用户属性gid = root #/rsync目录用户组属性port = 873 #rsync同步端口号，默认873address = 172.20.20.111 #本机IP地址use chroot = yes #是否禁锢用户read only = no # no客户端可上传文件,yes只读write only = no # no客户端可下载文件,yes不能下载#list = yeshosts allow = 172.20.22.99 #指定可以联系的客户端主机名或IPhosts deny = * #指定拒绝访问的客户端主机名或IPmax connections = 50 # 客户端最大连接数目（设置大些，否则同步中可能报错）motd file = /etc/rsyncd.motd pid file = /var/run/rsyncd.pid #启动后将进程PID放入此文件log file = /var/log/rsyncd.log # rsync使用syslog输出日志lock file = /var/run/rsync.lock #设置rsync锁文件transfer logging = yeslog format = %t%a%m%bsyslog facility = local3timeout = 300 #超时时间[liferay1] # 要同步的模块名path =/rsync # 要同步的目录（客户端同步文件到哪个目录）list = yes ignore errorsauth users = root # 登陆系统使用的用户名，没有默认为匿名（非主机用户，自定义）secrets file = /etc/rsyncd.pass1 ## 密码文件存放的位置comment = linuxsir liferay1 # 这个名名称无所谓，最后模块名一直 3.2 配置密码文件密码文件为配置文件中所写的文件/etc/rsyncd.secrets格式为**账户:密码** 1[root@server1 ]# vi /etc/rsyncd.pass1 输入帐号密码（自定义） 3.3 修改配置文件及密码文件权限(必须600)123 # chmod 600 /etc/rsyncd.conf # chmod 600 /etc/rsyncd.pass1 3.4 检查rsync是否启动123# lsof -i :873 或# netstat -an |grep 873 4 配置从服务器(客户端)4.1 设定密码文件配置密码文件 (注：为了安全，设定密码档案的属性为：600。rsync.pass1的密码一定要和Rsync 服务器端/etc/rsyncd.pass1的设定的密码一样) 1# vi /etc/rsyncd.pass1 密码文件可与服务端密码文件不一样，这里为了便于记忆，都设置为rsyncd.pass1 客户端密码文件只输入密码，不输入帐号。 4.2 赋予600权限1# chmod 600 /etc/rsyncd.pass1 # 必须修改权限 4.3 测试1$ rsync -avzP --password-file=/etc/rsyncd.pass1 /opt/liferay/data/ tongbu@172.20.20.111::liferay1 从客户端同步/rsync目录到服务端 4.4 安装sersync下载地址：https://code.google.com/archive/p/sersync/downloads 下载sersync2.5.4_64bit_binary_stable_final.tar 4.4.1 解压1Tar –xvf sersync2.5.4_64bit_binary_stable_final.tar 解压文件到/usr/local,重命名为serync 4.4.2 修改配置文件1Vi /usr/local/serync/confxml.xml 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;&lt;head version="2.5"&gt; &lt;host hostip="localhost" port="8008"&gt;&lt;/host&gt; &lt;debug start="true"/&gt; &lt;fileSystem xfs="false"/&gt; &lt;filter start="false"&gt; #设置为true，开启同步过滤，这里不开启 &lt;exclude expression="(.*)\.svn"&gt;&lt;/exclude&gt; &lt;exclude expression="(.*)\.gz"&gt;&lt;/exclude&gt; &lt;exclude expression="^info/*"&gt;&lt;/exclude&gt; &lt;exclude expression="^static/*"&gt;&lt;/exclude&gt; &lt;/filter&gt; &lt;inotify&gt; &lt;delete start="true"/&gt; &lt;createFolder start="true"/&gt; &lt;createFile start="true"/&gt; &lt;closeWrite start="true"/&gt; &lt;moveFrom start="true"/&gt; &lt;moveTo start="true"/&gt; &lt;attrib start="false"/&gt; &lt;modify start="false"/&gt; &lt;/inotify&gt; &lt;sersync&gt; &lt;localpath watch="/rsync"&gt; &lt;remote ip="172.20.20.111" name="liferay1"/&gt; &lt;!--&lt;remote ip="192.168.8.39" name="tongbu"/&gt;--&gt; &lt;!--&lt;remote ip="192.168.8.40" name="tongbu"/&gt;--&gt; &lt;/localpath&gt; &lt;rsync&gt; &lt;commonParams params="-artuz"/&gt; &lt;auth start="true" users="root" passwordfile="/etc/rsyncd.pass1"/&gt; &lt;userDefinedPort start="false" port="874"/&gt;&lt;!-- port=874 --&gt; &lt;timeout start="false" time="100"/&gt;&lt;!-- timeout=100 --&gt; &lt;ssh start="false"/&gt; &lt;/rsync&gt; &lt;failLog path="/usr/local/sersync/rsync_fail_log.sh" timeToExecute="60"/&gt;&lt;!--default every 60mins execute once--&gt; &lt;crontab start="false" schedule="600"&gt;&lt;!--600mins--&gt; &lt;crontabfilter start="false"&gt; &lt;exclude expression="*.php"&gt;&lt;/exclude&gt; &lt;exclude expression="info/*"&gt;&lt;/exclude&gt; &lt;/crontabfilter&gt; &lt;/crontab&gt; &lt;plugin start="false" name="command"/&gt; &lt;/sersync&gt; &lt;plugin name="command"&gt; &lt;param prefix="/bin/sh" suffix="" ignoreError="true"/&gt; &lt;!--prefix /opt/tongbu/mmm.sh suffix--&gt; &lt;filter start="false"&gt; &lt;include expression="(.*)\.php"/&gt; &lt;include expression="(.*)\.sh"/&gt; &lt;/filter&gt; &lt;/plugin&gt; &lt;plugin name="socket"&gt; &lt;localpath watch="/opt/tongbu"&gt; 123456789101112131415161718修改的代码如下:&lt;delete start="true"/&gt;&lt;createFolder start="true"/&gt;&lt;createFile start="true"/&gt;&lt;closeWrite start="true"/ #对于大多数应用，可以尝试把createFile（监控文件事件选项）设置为false来提高性能，减少 rsync通讯。因为拷贝文件到监控目录会产生create事件与close_write事件，所以如果关闭create事件，只监控文件拷贝结束时的事件close_write，同样可以实现文件完整同步。 注意：强将createFolder保持为 true，如果将createFolder设为false，则不会对产生的目录进行监控，该目录下的子文件与子目录也不会被监控。所以除非特殊需要，请开启。默认情况下对创建文件（目录）事件与删除文件（目录）事件都进行监控，如果项目中不需要删除远程目标服务器的文件（目录），则可以将delete 参数设置为false，则不对删除事件进行监控。对于大多数应用，可以尝试把createFile（监控文件事件选项）设置为false来提高性能，减少 rsync通讯。因为拷贝文件到监控目录会产生create事件与close_write事件，所以如果关闭create事件，只监控文件拷贝结束时的事件close_write，同样可以实现文件完整同步。 注意：强将createFolder保持为 true，如果将createFolder设为false，则不会对产生的目录进行监控，该目录下的子文件与子目录也不会被监控。所以除非特殊需要，请开启。默认情况下对创建文件（目录）事件与删除文件（目录）事件都进行监控，如果项目中不需要删除远程目标服务器的文件（目录），则可以将delete 参数设置为false，则不对删除事件进行监控。&lt;localpath watch="/rsync"&gt;： #本地监听目录，源服务器同步目录&lt;remote ip="172.20.20.111" name="liferay1"/&gt;： #服务端IP地址和模块名&lt;auth start="true" users="root" passwordfile="/etc/rsyncd.pass1"/&gt;#服务端模块rsync认证用户名,服务端rsync认证用户的密码存放路径failLog path="/tmp/rsync_fail_log.sh" #脚本运行失败日志路径 4.4.3 创建日志文件1Vi /usr/local/serync/ rsync_fail_log.sh 4.4.4 启动sersync1/usr/local/sersync/sersync2 -d -r -o /usr/local/sersync/confxml.xml 此时客户端可以实施同步目录文件到服务端了。 5 实现双向同步把主从服务器角色互换，从服务器作为服务端，主服务器作为客户端重新部署一次，这样就可以双向实时同步了。 6 附件：=sersync2.5.4_64bit_binary_stable_final.tar.gz]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>rsync</tag>
+        <tag>sersync</tag>
+        <tag>同步</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Linux运维工具]]></title>
     <url>%2Fkxinter.gitub.io%2F2018%2F09%2F04%2FLinux%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7%2F</url>
     <content type="text"><![CDATA[1、linux常用的监控命令1.1. top显示所有正在运行而且处于活动状态的实时进程， 而且会定期更新显示结果；它显示了CPU使用率，内存使用率，交换内存使用大小，调整缓存使用大小，缓冲区使用大小，进程PID， 使用的命令等信息。 1.2. vmstat 123456789101112131415161718192021222324252627一般是通过两个数字参数来完成的，第一个参数是采样时间间隔，单位是秒， 第二个参数是采样的次数r: 表示运行队列，如果队列过大说明CPU很繁忙，一般会造成CPU使用率高b: 表示阻塞的进程数swap: 虚拟内存已使用的大小，如果大于0，说明机器的物理内存不够了free: 空闲的物理内存大小buff: 系统占用的缓存大小（写缓存）cache： 直接用来记忆我们打开的文件，给文件做缓冲，读缓存si: 每秒从磁盘读入虚拟内存大小，如果这个值大于0，表示物理内存不足了so: 每秒虚拟内存写入磁盘的大小，如果这个值大于0， 表示物理内存不足了us: 用户cpu时间sy: 系统CPU时间， 如果值 太高，说明系统调用，例如是IO操作频繁id: 空闲CPU时间，一般来说 id + us + sy = 100wt: 等待IO的CPU时间 1.3. lsof列出打开的文件；它常用于以列表形式显示所有打开的文件和进程，包括磁盘文件，网络套接字，管道，设备和进程。 主要情形之一就是 无法挂载磁盘和显示正在使用或者打开某个文件的错误时，查看谁正在使用。 1.4. tcpdumpapt-get install tcpdump 用于捕捉或过滤网络上指定接口上接收或者传输的TCP/IP包。 -i : 网络接口 -c ： 需要输出包数量 1.5. netstat用于监控进出网络的包和网络接口统计的命令行工具，非常有用，用来监控网络性能，解决网络相关问题。 -h : 查看帮助 -r : 显示路由表 -i : 查看网络接口 1.6. Htop一个非常高级的交互式实时linux进程监控工具，和top相似，但更友好, 还支持鼠标。 sudo apt-get install htop 1.7. iotop监控linux磁盘I/O, 用于查找大量使用磁盘读写进程的时候。python版本需要2.7以上。 1$ apt-get install iotop -h: 查看帮助 1.8. iostat查看存储设备输入和输出状态统计的工具，用来追踪存储设备的性能 问题；包括设备，磁盘，NFS远程磁盘。 sudo apt-get install sysstat 123456789101112131415161718192021%user: 在用户级别运行所使用的CPU百分比%nice: 优先进程消耗的CPU时间，占所有CPU百分比%system: 在系统级别运行所使用的CPU百分比%iowait: cpu等待硬件I/O时，所占用的CPU百分比%steal: 管理程序维护另一个虚拟处理器时，虚拟CPU的无意识等待时间百分比%idle: CPU空闲时间的百分比tps: 每秒发送到I/O的请求数KB_read/s: 每秒读取的block数KB_wrtn/s: 每秒写入的block数KB_read: 启动到现在block总数KB_wrtn: 启动到现在写入的block总数 1.9. iptraf用于采集通过网络接口的IP流量信息，包括tcp标记，icmp信息，TCP，UDP信等。 123$ sudo apt-get install iptraf$ sudo iptraf 1.10. nethogs监控每个进程使用的网络带宽 123$ sudo apt-get install nethogs$ sudo nethogs 1.11. iftop监控网络接口的应用网络带宽使用情况 123$ sudo apt-get install iftop$ sudo iftop 12345678910111213=&gt; : 表示 流量方向TX： 发送的流量RX： 接收的流量TOTAL： 总流量Cumm: 运行iftop到目前总流量peak: 流量峰会rates: 分别表示 过去2秒，10秒，40秒的平均流量 1.12. system monitor监控cpu,内存，进程，硬盘的信息；分为进程监控，资源监控，文件监控; 遗憾的是需要图形界面支持。 123sudo apt-get install gnome-system-monitorgnome-system-monitor 2、nmtui配置网卡使用nmtui命令（上一篇博客里有介绍界面）]]></content>
@@ -401,8 +414,8 @@
       </categories>
       <tags>
         <tag>基础运维</tag>
-        <tag>运维工具</tag>
         <tag>nginx</tag>
+        <tag>运维工具</tag>
       </tags>
   </entry>
   <entry>
@@ -499,9 +512,9 @@
       </categories>
       <tags>
         <tag>私有仓库</tag>
+        <tag>部署</tag>
         <tag>npm</tag>
         <tag>cnpmjs</tag>
-        <tag>部署</tag>
       </tags>
   </entry>
   <entry>
@@ -572,9 +585,9 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>部署</tag>
         <tag>vsftp</tag>
         <tag>ftp</tag>
+        <tag>部署</tag>
       </tags>
   </entry>
   <entry>
