@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="分区," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,18 +79,17 @@
 
 
 
-<meta name="description" content="1 磁盘占用修改home目录大小，增加根目录容量。">
-<meta name="keywords" content="分区">
+<meta name="description" content="1 2 3 4     1 2 3 4   1 2 3 4   1  2">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Centos7缩减home目录扩展根目录（xfs分区格式）">
-<meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/30/Centos7缩减home目录扩展根目录-xfs分区格式/index.html">
+<meta property="og:title" content="JIRA6.3.6部署及破解">
+<meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/05/JIRA6-3-6部署及破解/index.html">
 <meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="1 磁盘占用修改home目录大小，增加根目录容量。">
+<meta property="og:description" content="1 2 3 4     1 2 3 4   1 2 3 4   1  2">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-30T08:41:43.755Z">
+<meta property="og:updated_time" content="2018-09-05T01:42:56.295Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Centos7缩减home目录扩展根目录（xfs分区格式）">
-<meta name="twitter:description" content="1 磁盘占用修改home目录大小，增加根目录容量。">
+<meta name="twitter:title" content="JIRA6.3.6部署及破解">
+<meta name="twitter:description" content="1 2 3 4     1 2 3 4   1 2 3 4   1  2">
 
 
 
@@ -120,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://kxinter.github.io/kxinter.gitub.io/2018/08/30/Centos7缩减home目录扩展根目录-xfs分区格式/"/>
+  <link rel="canonical" href="https://kxinter.github.io/kxinter.gitub.io/2018/09/05/JIRA6-3-6部署及破解/"/>
 
 
 
 
 
-  <title>Centos7缩减home目录扩展根目录（xfs分区格式） | Operation随笔</title>
+  <title>JIRA6.3.6部署及破解 | Operation随笔</title>
   
 
 
@@ -297,7 +296,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/30/Centos7缩减home目录扩展根目录-xfs分区格式/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/05/JIRA6-3-6部署及破解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OperationMAN">
@@ -314,7 +313,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Centos7缩减home目录扩展根目录（xfs分区格式）</h1>
+          <h1 class="post-title" itemprop="name headline">JIRA6.3.6部署及破解</h1>
         
 
         <div class="post-meta">
@@ -326,8 +325,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-30T11:41:10+08:00">
-                2018-08-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-05T09:42:00+08:00">
+                2018-09-05
               </time>
             
 
@@ -336,28 +335,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -391,22 +368,36 @@
       
 
       
-        <h1 id="1-磁盘占用"><a href="#1-磁盘占用" class="headerlink" title="1 磁盘占用"></a>1 磁盘占用</h1><p>修改home目录大小，增加根目录容量。<br><a id="more"></a></p>
-<h1 id="2-注意事项"><a href="#2-注意事项" class="headerlink" title="2 注意事项"></a>2 注意事项</h1><ul>
-<li>xfsf分区减小分区无法做到无损数据（必须备份数据） </li>
-<li>扩容分区可以保存数据无损</li>
-</ul>
-<h1 id="3-xfs分区扩展根目录命令过程"><a href="#3-xfs分区扩展根目录命令过程" class="headerlink" title="3 xfs分区扩展根目录命令过程"></a>3 xfs分区扩展根目录命令过程</h1><p>把/home内容备份，然后将/home文件系统所在的逻辑卷删除，扩大/root文件系统，新建/home：</p>
-<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">tar cvf <span class="string">/tmp/home.tar</span> <span class="string">/home</span>       <span class="comment">#备份/home</span></span><br><span class="line">umount <span class="string">/home</span>                      <span class="comment">#卸载/home，如果无法卸载，先终止使用/home文件系统的进程</span></span><br><span class="line">lvremove <span class="string">/dev/centos/home</span>         <span class="comment">#删除/home所在的lv（可删除分区，也可使用下行缩减分区）</span></span><br><span class="line">lvreduce -L 180G <span class="string">/dev/centos/home</span> <span class="comment">#缩小分区到180G(缩小分区后分区数据丢失，需重新格式化并挂载分区，否则重启故障)</span></span><br><span class="line">lvextend -L +50G <span class="string">/dev/centos/root</span> <span class="comment">#扩展/root所在的lv，增加50G</span></span><br><span class="line">xfs_growfs <span class="string">/dev/centos/root</span>       <span class="comment">#扩展/root文件系统</span></span><br><span class="line">lvcreate -L 56G -n home centos    <span class="comment">#重新创建home lv</span></span><br><span class="line">mkfs.xfs <span class="string">/dev/centos/home</span>         <span class="comment">#创建文件系统及格式化</span></span><br><span class="line">mount <span class="string">/dev/centos/home</span> <span class="string">/home</span>      <span class="comment">#挂载</span></span><br><span class="line">df -h</span><br></pre></td></tr></table></figure>
-<h1 id="4-收缩分区"><a href="#4-收缩分区" class="headerlink" title="4 收缩分区"></a>4 收缩分区</h1><blockquote>
-<p>ext与xfs格式分区收缩分区命令不同，lvextend -L+19.8G /dev/VolGroup00/LogVol00<br>分区命令后，执行相应收缩命令后扩展的容量才能正常使用</p>
-</blockquote>
-<p><strong>xfs格式</strong><br>如果分区格式为xfs，扩展使用  要用xfs_growfs命令而不是resize2fs命令收缩分区，</p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@rac2</span> ~]<span class="comment"># xfs_growfs -p /dev/VolGroup00/LogVol00</span></span><br></pre></td></tr></table></figure>
-<p>执行以上命令后，<code>df  -h</code>命令查看才会显示扩容成功。</p>
-<p><strong>ext2、ext3、ext4格式（补充）</strong><br>Ext2、ext3、ext4等使用resize2fs收缩分区，xfs使用xfs-growfs命令收缩分区。详情找度娘。</p>
-<p>例如:</p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@rac2</span> ~]<span class="comment"># resize2fs -p /dev/VolGroup00/LogVol00</span></span><br></pre></td></tr></table></figure>
+        <table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+</tr>
+<tr>
+<td>1</td>
+<td></td>
+<td>2</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 
       
     </div>
@@ -422,12 +413,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/kxinter.gitub.io/tags/分区/" rel="tag"><i class="fa fa-tag"></i> 分区</a>
-          
-        </div>
-      
 
       
       
@@ -437,8 +422,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/kxinter.gitub.io/2018/08/30/linux调整目录分区大小，linux调整home目录大小，linux调整root目录大小-ext格式-LVM/" rel="next" title="linux调整目录分区大小，linux调整home目录大小，linux调整root目录大小（ext格式/LVM）">
-                <i class="fa fa-chevron-left"></i> linux调整目录分区大小，linux调整home目录大小，linux调整root目录大小（ext格式/LVM）
+              <a href="/kxinter.gitub.io/2018/09/04/rsync-sersync实时双向同步/" rel="next" title="rsync和sersync实时双向同步">
+                <i class="fa fa-chevron-left"></i> rsync和sersync实时双向同步
               </a>
             
           </div>
@@ -446,10 +431,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/kxinter.gitub.io/2018/08/30/window下安装压缩版mysql5-6-35/" rel="prev" title="window下安装压缩版mysql5.6.35">
-                window下安装压缩版mysql5.6.35 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -501,17 +482,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -627,22 +599,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-磁盘占用"><span class="nav-text">1 磁盘占用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-注意事项"><span class="nav-text">2 注意事项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-xfs分区扩展根目录命令过程"><span class="nav-text">3 xfs分区扩展根目录命令过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-收缩分区"><span class="nav-text">4 收缩分区</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
