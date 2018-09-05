@@ -87,20 +87,20 @@
 
 
 
-<meta name="description" content="1 环境            操作系统        Centos7.1 511                    主服务器         172.20.20.111                  从服务器          172.20.22.99                测试目的：实现主服务器/rsync目录与从服务器/rsync目录实时双向同步。8">
+<meta name="description" content="1 环境            操作系统        Centos7.1 511                  主服务器         172.20.20.111                  从服务器          172.20.22.99                测试目的：实现主服务器/rsync目录与从服务器/rsync目录实时双向同步。8">
 <meta name="keywords" content="rsync">
 <meta property="og:type" content="article">
 <meta property="og:title" content="rsync和sersync实时双向同步">
 <meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/04/rsync-sersync实时双向同步/index.html">
 <meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="1 环境            操作系统        Centos7.1 511                    主服务器         172.20.20.111                  从服务器          172.20.22.99                测试目的：实现主服务器/rsync目录与从服务器/rsync目录实时双向同步。8">
+<meta property="og:description" content="1 环境            操作系统        Centos7.1 511                  主服务器         172.20.20.111                  从服务器          172.20.22.99                测试目的：实现主服务器/rsync目录与从服务器/rsync目录实时双向同步。8">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/04/rsync-sersync实时双向同步/1.png">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/04/rsync-sersync实时双向同步/2.png">
-<meta property="og:updated_time" content="2018-09-05T10:02:37.260Z">
+<meta property="og:updated_time" content="2018-09-05T10:04:01.436Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="rsync和sersync实时双向同步">
-<meta name="twitter:description" content="1 环境            操作系统        Centos7.1 511                    主服务器         172.20.20.111                  从服务器          172.20.22.99                测试目的：实现主服务器/rsync目录与从服务器/rsync目录实时双向同步。8">
+<meta name="twitter:description" content="1 环境            操作系统        Centos7.1 511                  主服务器         172.20.20.111                  从服务器          172.20.22.99                测试目的：实现主服务器/rsync目录与从服务器/rsync目录实时双向同步。8">
 <meta name="twitter:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/04/rsync-sersync实时双向同步/1.png">
 
 
@@ -355,7 +355,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-05T18:02:37+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-05T18:04:01+08:00">
                 2018-09-05
               </time>
             
@@ -447,8 +447,7 @@
       
 
       
-        <h1 id="1-环境"><a href="#1-环境" class="headerlink" title="1 环境"></a>1 环境</h1><p><table><br>    <tr><br>        <td>操作系统</td><br>        <td>Centos7.1 511</td> </tr></table></p>
-<p>   <br>       <tr><br>        <td>主服务器</td><br>        <td> 172.20.20.111</td><br>   </tr><br>       <tr><br>        <td>从服务器 </td><br>        <td> 172.20.22.99 </td><br>   </tr><br>    <tr><br>        <td colspan="2">测试目的：实现主服务器/rsync目录与从服务器/rsync目录实时双向同步。8</td><br>    </tr><br>    <tr><br>       <td colspan="2">参考资料：<a href="http://blog.sina.com.cn/s/blog_9f4962b10102vqua.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_9f4962b10102vqua.html</a><br>        <a href="http://402753795.blog.51cto.com/10788998/1713179" target="_blank" rel="noopener">http://402753795.blog.51cto.com/10788998/1713179</a>  </td><br>        </tr><br><br><a id="more"></a></p>
+        <h1 id="1-环境"><a href="#1-环境" class="headerlink" title="1 环境"></a>1 环境</h1><p><table><br>    <tr><br>        <td>操作系统</td><br>        <td>Centos7.1 511</td><br>   </tr><br>       <tr><br>        <td>主服务器</td><br>        <td> 172.20.20.111</td><br>   </tr><br>       <tr><br>        <td>从服务器 </td><br>        <td> 172.20.22.99 </td><br>   </tr><br>    <tr><br>        <td colspan="2">测试目的：实现主服务器/rsync目录与从服务器/rsync目录实时双向同步。8</td><br>    </tr><br>    <tr><br>       <td colspan="2">参考资料：<a href="http://blog.sina.com.cn/s/blog_9f4962b10102vqua.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_9f4962b10102vqua.html</a><br>        <a href="http://402753795.blog.51cto.com/10788998/1713179" target="_blank" rel="noopener">http://402753795.blog.51cto.com/10788998/1713179</a>  </td><br>        </tr><br></table><br><a id="more"></a></p>
 <h1 id="2-以下操作主从服务器都要操作"><a href="#2-以下操作主从服务器都要操作" class="headerlink" title="2 以下操作主从服务器都要操作"></a>2 以下操作主从服务器都要操作</h1><h2 id="2-1-关闭selinux"><a href="#2-1-关闭selinux" class="headerlink" title="2.1 关闭selinux"></a>2.1 关闭selinux</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">[root@server1]#</span> vi /etc/selinux/config     #编辑防火墙配置文件</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>SELINUX=enforcing                 #注释掉</span><br><span class="line">SELINUX=disabled                #增加</span><br><span class="line"></span><br><span class="line"><span class="meta">[root@server1]#</span> setenforce 0               #立即生效</span><br></pre></td></tr></table></figure>
 <h2 id="2-2-开启防火墙tcp-873端口（Rsync默认端口）"><a href="#2-2-开启防火墙tcp-873端口（Rsync默认端口）" class="headerlink" title="2.2 开启防火墙tcp 873端口（Rsync默认端口）"></a>2.2 开启防火墙tcp 873端口（Rsync默认端口）</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@server1</span> ]<span class="comment">#  firewall-cmd --zone=public --add-port=873/tcp --permanent</span></span><br><span class="line"></span><br><span class="line">[root<span class="variable">@server1</span> ]<span class="comment">#  firewall-cmd --reload</span></span><br></pre></td></tr></table></figure>
 <blockquote>
