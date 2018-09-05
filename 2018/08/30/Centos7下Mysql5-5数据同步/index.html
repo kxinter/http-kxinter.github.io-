@@ -11,7 +11,17 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
-
+<!--添加文章加密-->
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
 
 
 
@@ -110,7 +120,7 @@
     root: '/kxinter.gitub.io/',
     scheme: 'Muse',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -342,7 +352,19 @@
             
 
             
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-04T18:34:06+08:00">
+                2018-09-04
+              </time>
             
           </span>
 
@@ -384,6 +406,37 @@
              <span id="busuanzi_value_page_pv"></span>次阅读
           
 
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  505
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
           
 
           
@@ -438,6 +491,16 @@
     
     
     
+	
+	  <div>
+        
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+        
+      </div>
 
     
 
@@ -591,51 +654,63 @@
             <div class="links-of-author motion-element">
                 
                   <span class="links-of-author-item">
-                    <a href="https://github.com/kxinter" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
                     <a href="mailto:kxhuanzi@gmail.com" target="_blank" title="E-Mail">
                       
                         <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
                   </span>
                 
                   <span class="links-of-author-item">
+                    <a href="https://github.com/kxinter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
                     <a href="https://medoc.000webhostapp.com" target="_blank" title="随手笔记">
                       
-                        <i class="fa fa-fw fa-globe"></i>随手笔记</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="http://linux.vbird.org" target="_blank" title="鸟哥的私房菜">
-                      
-                        <i class="fa fa-fw fa-globe"></i>鸟哥的私房菜</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="http://www.chenshake.com/" target="_blank" title="陈沙克日志">
-                      
-                        <i class="fa fa-fw fa-globe"></i>陈沙克日志</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://bitnami.com/" target="_blank" title="Bitnami">
-                      
-                        <i class="fa fa-fw fa-globe"></i>Bitnami</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="http://www.runoob.com/" target="_blank" title="RUNOOB.com">
-                      
-                        <i class="fa fa-fw fa-globe"></i>RUNOOB.com</a>
+                        <i class="fa fa-fw fa-wordpress"></i>随手笔记</a>
                   </span>
                 
                   <span class="links-of-author-item">
                     <a href="http://man.linuxde.net/" target="_blank" title="Linux命令大全">
                       
-                        <i class="fa fa-fw fa-globe"></i>Linux命令大全</a>
+                        <i class="fa fa-fw fa-linux"></i>Linux命令大全</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://linux.vbird.org" target="_blank" title="鸟哥的私房菜">
+                      
+                        <i class="fa fa-fw fa-linux"></i>鸟哥的私房菜</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.runoob.com/" target="_blank" title="RUNOOB.com">
+                      
+                        <i class="fa fa-fw fa-linux"></i>RUNOOB.com</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.chenshake.com/" target="_blank" title="陈沙克日志">
+                      
+                        <i class="fa fa-fw fa-cloud"></i>陈沙克日志</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://bitnami.com/" target="_blank" title="Bitnami">
+                      
+                        <i class="fa fa-fw fa-bold"></i>Bitnami</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://fontawesome.com/icons?d=gallery" target="_blank" title="Font Awesome">
+                      
+                        <i class="fa fa-fw fa-font-awesome"></i>Font Awesome</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.000webhost.com/cpanel-login?from=panel#" target="_blank" title="Statistics">
+                      
+                        <i class="fa fa-fw fa-server"></i>Statistics</a>
                   </span>
                 
             </div>
@@ -645,6 +720,20 @@
           
 
           
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/ || linux" title="Title" target="_blank">Title</a>
+                  </li>
+                
+              </ul>
+            </div>
           
 
           
@@ -689,9 +778,19 @@
   <span class="author" itemprop="copyrightHolder">OperationMAN</span>
 
   
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">54.2k</span>
+  
 </div>
 
 
+<!--修改页面底部主题名字和网站软件名字-->
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
@@ -701,6 +800,7 @@
 
 
   <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
 
 
 <div>
@@ -1196,6 +1296,7 @@
   
 
   
-  
+ <script type="text/javascript" src="/kxinter.gitub.io/lib/canvas-nest/canvas-nest.min.js"></script> 
 </body>
 </html>
+<script type="text/javascript" src="/kxinter.gitub.io/js/src/love.js"></script>
