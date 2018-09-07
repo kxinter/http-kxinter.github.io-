@@ -332,6 +332,1065 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/Mediawiki优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/07/Mediawiki优化/" itemprop="url">Mediawiki优化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-07T14:29:55+08:00">
+                2018-09-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T14:34:47+08:00">
+                2018-09-07
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  570
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-修改URL后缀"><a href="#1-修改URL后缀" class="headerlink" title="1 修改URL后缀"></a>1 修改URL后缀</h1><p>修改网址显示（<code>http://172.20.20.21/mediawiki/首页</code>改为<code>http://172.20.20.21/首页</code>）</p>
+<ul>
+<li>修改/opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/ LocalSettings.php文件</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">wgArticlePath = <span class="string">"/mediawiki/<span class="variable">$1</span>"</span>;</span></span><br><span class="line"></span><br><span class="line">改为</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash">wgArticlePath = <span class="string">"/<span class="variable">$1</span>"</span>;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>再修改/opt/mediawiki-1.26.2-2/apache2/conf/bitnami/bitnami.conf</li>
+</ul>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;VirtualHost _default_:80&gt;</span><br><span class="line"></span><br><span class="line">DocumentRoot "/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/apache2/htdocs"</span><br><span class="line"></span><br><span class="line">&lt;Directory "/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/apache2/htdocs"&gt;</span><br><span class="line"></span><br><span class="line">改为</span><br><span class="line"></span><br><span class="line">&lt;VirtualHost _default_:80&gt;</span><br><span class="line"></span><br><span class="line">DocumentRoot "/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/apps/mediawiki/htdocs"</span><br><span class="line"></span><br><span class="line">&lt;Directory "/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/apps/mediawiki/htdocs"&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="2-修改网站LOGO"><a href="#2-修改网站LOGO" class="headerlink" title="2 修改网站LOGO"></a>2 修改网站LOGO</h1><h2 id="2-1-右上角logo"><a href="#2-1-右上角logo" class="headerlink" title="2.1 右上角logo"></a>2.1 右上角logo</h2><p><strong>方法一</strong>,替换图片文件。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/opt/</span>mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span><span class="regexp">/apps/</span>mediawiki<span class="regexp">/htdocs/</span>resources<span class="regexp">/assets/</span>wiki.png</span><br></pre></td></tr></table></figure>
+<p><strong>方法二</strong>，修改<code>LocalSettings.php</code>文件，重新指定LOGO路径</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">wgLogo             = <span class="string">"<span class="variable">$wgScriptPath</span>/resources/assets/huahe.png"</span>;</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-2-左下角"><a href="#2-2-左下角" class="headerlink" title="2.2 左下角"></a>2.2 左下角</h2><p>在配置文件LocalSettings.php中加入如下行即<code>unset($wgFooterIcons[&#39;poweredby&#39;]);</code></p>
+<h1 id="3-修改目录悬浮加自动隐藏"><a href="#3-修改目录悬浮加自动隐藏" class="headerlink" title="3 修改目录悬浮加自动隐藏"></a>3 修改目录悬浮加自动隐藏</h1><p>让目录悬浮起来，并且在不用时让它自动折叠起来，方便阅读和其他操作。自动折叠通过CSS的hover选择器实现，当鼠标移动到目录上时，目录框自动变大。</p>
+<p>代码</p>
+<p>先进入到下面页面（也许你需要将localhost替换成其他的）：</p>
+<p><a href="http://localhost/mediawiki/index.php/MediaWiki:Common.css" target="_blank" rel="noopener">http://localhost/mediawiki/index.php/MediaWiki:Common.css</a></p>
+<p>在此页你可以设置全局的css样式，在这里加入如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#toc</span>&#123;</span><br><span class="line"> <span class="attribute">display</span>: block;</span><br><span class="line"> <span class="attribute">position</span>: fixed;</span><br><span class="line"> <span class="attribute">top</span>: <span class="number">100px</span>;</span><br><span class="line"> <span class="attribute">right</span>: <span class="number">0px</span>;</span><br><span class="line"> <span class="attribute">min-width</span>: <span class="number">100px</span>;</span><br><span class="line"> <span class="attribute">max-width</span>: <span class="number">350px</span>;</span><br><span class="line"> <span class="attribute">max-height</span>: <span class="number">20px</span>;</span><br><span class="line"> <span class="attribute">overflow-y</span>: scroll;</span><br><span class="line"> <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#aaa</span>;</span><br><span class="line"> <span class="attribute">border-radius</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">1px</span> <span class="number">1px</span>;</span><br><span class="line"> <span class="attribute">-moz-border-radius</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">1px</span> <span class="number">1px</span>;</span><br><span class="line"> <span class="attribute">background</span>: <span class="built_in">rgba</span>(249,249,249,0.75);</span><br><span class="line"> <span class="attribute">padding</span>: <span class="number">12px</span>;</span><br><span class="line"> <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">1px</span> <span class="number">8px</span> #;</span><br><span class="line"> <span class="attribute">-webkit-box-shadow</span>: <span class="number">0</span> <span class="number">1px</span> <span class="number">8px</span> #;</span><br><span class="line"> <span class="attribute">-moz-box-shadow</span>: <span class="number">0</span> <span class="number">1px</span> <span class="number">8px</span> #;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="selector-id">#toc</span><span class="selector-pseudo">:hover</span>&#123;</span><br><span class="line"> <span class="attribute">display</span>: block;</span><br><span class="line"> <span class="attribute">position</span>: fixed;</span><br><span class="line"> <span class="attribute">top</span>: <span class="number">100px</span>;</span><br><span class="line"> <span class="attribute">right</span>: <span class="number">0px</span>;</span><br><span class="line"> <span class="attribute">min-width</span>: <span class="number">100px</span>;</span><br><span class="line"> <span class="attribute">max-width</span>: <span class="number">350px</span>;</span><br><span class="line"> <span class="attribute">max-height</span>: <span class="number">500px</span>;</span><br><span class="line"> <span class="attribute">overflow-y</span>: scroll;</span><br><span class="line"> <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#aaa</span>;</span><br><span class="line"> <span class="attribute">border-radius</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">1px</span> <span class="number">1px</span>;</span><br><span class="line"> <span class="attribute">-moz-border-radius</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">1px</span> <span class="number">1px</span>;</span><br><span class="line"> <span class="attribute">background</span>: <span class="built_in">rgba</span>(249,249,249,0.75);</span><br><span class="line"> <span class="attribute">padding</span>: <span class="number">12px</span>;</span><br><span class="line"> <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">1px</span> <span class="number">8px</span> #;</span><br><span class="line"> <span class="attribute">-webkit-box-shadow</span>: <span class="number">0</span> <span class="number">1px</span> <span class="number">8px</span> #;</span><br><span class="line"> <span class="attribute">-moz-box-shadow</span>: <span class="number">0</span> <span class="number">1px</span> <span class="number">8px</span> #;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="selector-tag">body</span> &#123; <span class="attribute">overflow-x</span>: hidden;&#125;</span><br></pre></td></tr></table></figure>
+<p>保存，清除浏览器缓存，看看如何！</p>
+<p>简直炫酷！。</p>
+<p><strong>关键点解释</strong></p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">top</span>: <span class="number">100px</span>;　　目录框到顶部距离</span><br><span class="line"></span><br><span class="line"><span class="attribute">right</span>: <span class="number">0px</span>;　　   目录框到右边框距离</span><br><span class="line"></span><br><span class="line"><span class="attribute">min-width</span>: <span class="number">100px</span>;　　目录框最小宽度</span><br><span class="line"></span><br><span class="line"><span class="attribute">max-width</span>: <span class="number">350px</span>;　　目录框最大宽度</span><br><span class="line"></span><br><span class="line"><span class="attribute">max-height</span>: <span class="number">500px</span>;　　目录框最大高度</span><br><span class="line"></span><br><span class="line"><span class="attribute">background</span>: rgba(<span class="number">249</span>,<span class="number">249</span>,<span class="number">249</span>,<span class="number">0.75</span>);　　背景色和透明度</span><br></pre></td></tr></table></figure>
+<p>MediaWiki版本</p>
+<p>1.20.2</p>
+<p>参考<br><a href="http://blog.klniu.com/post/mediawiki-floating-directory-and-scroll/" target="_blank" rel="noopener">http://blog.klniu.com/post/mediawiki-floating-directory-and-scroll/</a> </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/Bitnami-Liferay系统设置去掉后缀/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/07/Bitnami-Liferay系统设置去掉后缀/" itemprop="url">Bitnami_Liferay系统设置去掉后缀</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-07T14:26:26+08:00">
+                2018-09-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T14:29:09+08:00">
+                2018-09-07
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  232
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-修改配置文件"><a href="#1-修改配置文件" class="headerlink" title="1 修改配置文件"></a>1 修改配置文件</h1><p>执行以下操作：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mv <span class="regexp">/opt/</span>liferay<span class="number">-6.2</span><span class="number">-7</span><span class="regexp">/apache-tomcat/</span>webapps<span class="regexp">/ROOT/</span> <span class="regexp">/opt/</span>liferay<span class="number">-6.2</span><span class="number">-7</span><span class="regexp">/apache-tomcat/</span>webapps/ROOT.backup</span><br><span class="line"></span><br><span class="line">mv <span class="regexp">/opt/</span>liferay<span class="number">-6.2</span><span class="number">-7</span><span class="regexp">/apache-tomcat/</span>webapps<span class="regexp">/liferay /</span>opt<span class="regexp">/liferay-6.2-7/</span>apache-tomcat<span class="regexp">/webapps/</span>ROOT</span><br><span class="line"></span><br><span class="line">sed -i <span class="string">'s/portal.ctx/#portal.ctx/g'</span>  <span class="regexp">/opt/</span>liferay<span class="number">-6.2</span><span class="number">-7</span><span class="regexp">/apache-tomcat/</span>webapps<span class="regexp">/ROOT/</span>WEB-INF<span class="regexp">/classes/</span>portal-ext.properties</span><br></pre></td></tr></table></figure>
+<p>打开<code>/opt/liferay-6.2-7/apps/liferay/conf/httpd-app.conf</code>文件做如下修改：</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">将<span class="params">&lt;Location /liferay&gt;</span></span><br><span class="line"></span><br><span class="line">  ProxyPass ajp:<span class="comment">//localhost:8009/liferay</span></span><br><span class="line"></span><br><span class="line">  <span class="params">&lt;IfModule pagespeed_module&gt;</span></span><br><span class="line"></span><br><span class="line">      ModPagespeedDisallow <span class="string">"*"</span></span><br><span class="line"></span><br><span class="line">  <span class="params">&lt;/IfModule&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="params">&lt;/Location&gt;</span></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">改为：</span><br><span class="line"></span><br><span class="line"><span class="params">&lt;Location /&gt;</span></span><br><span class="line"></span><br><span class="line">  ProxyPass ajp:<span class="comment">//localhost:8009/</span></span><br><span class="line"></span><br><span class="line">  <span class="params">&lt;IfModule pagespeed_module&gt;</span></span><br><span class="line"></span><br><span class="line">      ModPagespeedDisallow <span class="string">"*"</span></span><br><span class="line"></span><br><span class="line">  <span class="params">&lt;/IfModule&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="params">&lt;/Location&gt;</span></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">并且在最后加上：</span><br><span class="line"></span><br><span class="line"><span class="meta"># App url redirect</span></span><br><span class="line"></span><br><span class="line">RewriteEngine On</span><br><span class="line"></span><br><span class="line">RedirectMatch ^/$ /</span><br></pre></td></tr></table></figure>
+<h1 id="2-修改数据库"><a href="#2-修改数据库" class="headerlink" title="2 修改数据库"></a>2 修改数据库</h1><p>访问bitnami_liferay数据库，找到journalarticle表，用：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> journalarticle <span class="keyword">set</span> <span class="keyword">content</span>=<span class="keyword">REPLACE</span> (<span class="keyword">content</span>,<span class="string">'/liferay/document'</span>,<span class="string">'/document'</span>)</span><br></pre></td></tr></table></figure>
+<p>对表中<code>content</code>字段的记录进行批量替换</p>
+<blockquote>
+<p>最后手工修改“规章制度”和“文档模板”的链接<br><img src="1.png" alt="enter description here"></p>
+</blockquote>
+<p>现在访问<a href="http://172.20.20.58已经可以正常显示了" target="_blank" rel="noopener">http://172.20.20.58已经可以正常显示了</a> </p>
+<p>参考：<a href="https://wiki.bitnami.com/Applications/BitNami_Liferay#Manual_Approach" target="_blank" rel="noopener">https://wiki.bitnami.com/Applications/BitNami_Liferay#Manual_Approach</a> </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/Liferay6-2-ce4官方原版安装简述/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/07/Liferay6-2-ce4官方原版安装简述/" itemprop="url">Liferay6.2-ce4官方原版安装简述</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-07T14:23:53+08:00">
+                2018-09-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T14:25:08+08:00">
+                2018-09-07
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  84
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-软件："><a href="#1-软件：" class="headerlink" title="1 软件："></a>1 软件：</h1><p>Tomcat: apache-tomcat-7.0.61.tar.gz</p>
+<p>Java: java version “1.7.0_76”</p>
+<p>Liferay: liferay-portal-6.2-ce-ga4-20150416163831865.war</p>
+<h1 id="2-简单步骤"><a href="#2-简单步骤" class="headerlink" title="2 简单步骤"></a>2 简单步骤</h1><ul>
+<li>解压java、tomcat,设置环境变量</li>
+<li>创建liferay目录，把java、tomcat放进这个目录</li>
+<li>下载liferay依赖包，放到tomcat/lib/ext目录（重要）</li>
+<li>新建setenc.sh</li>
+<li>新建ROOT.xml</li>
+<li>修改catalina.properties、server.xml</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/Bitnami-Liferayx自定义路径/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/07/Bitnami-Liferayx自定义路径/" itemprop="url">Bitnami_Liferayx自定义路径</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-07T14:17:46+08:00">
+                2018-09-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T14:22:17+08:00">
+                2018-09-07
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  418
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-修改文件存储路径"><a href="#1-修改文件存储路径" class="headerlink" title="1 修改文件存储路径"></a>1 修改文件存储路径</h1><p>#配置文件<code>portal-ext.properties</code>     修改文件存储路径</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@htest2 classes]# vi   <span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/apache-tomcat/</span>webapps<span class="regexp">/liferay/</span>WEB-INF<span class="regexp">/classes/</span>portal-ext.properties</span><br></pre></td></tr></table></figure>
+<p>移动存储目录<code>/opt/liferay-6.2-7/apps/liferay/data/document_library</code>到<code>/drbd</code>,修改<code>portal-ext.properties</code>内<code>dl.store.file.system.root.dir=</code>参数（没有这项手动添加参数）</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">dl</span><span class="selector-class">.store</span><span class="selector-class">.file</span><span class="selector-class">.system</span><span class="selector-class">.root</span><span class="selector-class">.dir</span>=/drbd/document_library</span><br></pre></td></tr></table></figure>
+<h1 id="2-修改数据库路径"><a href="#2-修改数据库路径" class="headerlink" title="2 修改数据库路径"></a>2 修改数据库路径</h1><p>移动<code>/opt/liferay-6.2-7/mysql/data/</code>到<code>/home/mysql/data</code></p>
+<h2 id="2-1-修改my-cnf参数"><a href="#2-1-修改my-cnf参数" class="headerlink" title="2.1 修改my.cnf参数"></a>2.1 修改my.cnf参数</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@htest2 home]# <span class="keyword">vi</span>   /<span class="keyword">opt</span>/liferay-<span class="number">6.2</span>-<span class="number">7</span>/mysql/my.<span class="keyword">cnf</span></span><br></pre></td></tr></table></figure>
+<p> 修改my.cnf数据库路径参数</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">datadir</span>=/opt/liferay<span class="number">-6.2</span><span class="number">-7</span>/mysql/<span class="class"><span class="keyword">data</span></span></span><br><span class="line"></span><br><span class="line">改为</span><br><span class="line"></span><br><span class="line"><span class="title">datadir</span>=/home/mysql/<span class="class"><span class="keyword">data</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="2-2-修改ctl-sh路径参数"><a href="#2-2-修改ctl-sh路径参数" class="headerlink" title="2.2 修改ctl.sh路径参数"></a>2.2 修改ctl.sh路径参数</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@htest2 drbd]# <span class="keyword">vi</span>   /<span class="keyword">opt</span>/liferay-<span class="number">6.2</span>-<span class="number">7</span>/mysql/scripts/ctl.<span class="keyword">sh</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">MYSQL_PIDFILE=/   <span class="keyword">opt</span>/liferay-<span class="number">6.2</span>-<span class="number">7</span>/mysql/data/mysqld.pid</span><br><span class="line"></span><br><span class="line">MYSQL_START=<span class="comment">"/opt/liferay-6.2-7/mysql/bin/mysqld_safe   --defaults-file=/opt/lifer</span></span><br><span class="line"></span><br><span class="line">ay-<span class="number">6.2</span>-<span class="number">7</span>/mysql/my.<span class="keyword">cnf</span> --port=<span class="number">3306</span>   --socket=/<span class="keyword">opt</span>/liferay-<span class="number">6.2</span>-<span class="number">7</span>/mysql/tmp/mysql.<span class="keyword">so</span></span><br><span class="line"></span><br><span class="line">ck    --datadir=/<span class="keyword">opt</span>/liferay-<span class="number">6.2</span>-<span class="number">7</span>/mysql/data   --<span class="built_in">log</span>-error=/<span class="keyword">opt</span>/liferay-<span class="number">6.2</span>-<span class="number">7</span>/mysql</span><br><span class="line"></span><br><span class="line">/data/mysqld.<span class="built_in">log</span>  --pid-<span class="keyword">file</span>=$MYSQL_PIDFILE   --lower-case-table-names=<span class="number">1</span> <span class="comment">"</span></span><br><span class="line"></span><br><span class="line">改为</span><br><span class="line"></span><br><span class="line">MYSQL_PIDFILE=/home/mysql/data/mysqld.pid</span><br><span class="line"></span><br><span class="line">MYSQL_START=<span class="comment">"/opt/liferay-6.2-7/mysql/bin/mysqld_safe   --defaults-file=/opt/lifer</span></span><br><span class="line"></span><br><span class="line">ay-<span class="number">6.2</span>-<span class="number">7</span>/mysql/my.<span class="keyword">cnf</span> --port=<span class="number">3306</span>   --socket=/<span class="keyword">opt</span>/liferay-<span class="number">6.2</span>-<span class="number">7</span>/mysql/tmp/mysql.<span class="keyword">so</span></span><br><span class="line"></span><br><span class="line">ck    --datadir=/home/mysql/data --<span class="built_in">log</span>-error=/home/mysql/data/mysqld.<span class="built_in">log</span>  --pid-fi</span><br><span class="line"></span><br><span class="line"><span class="keyword">le</span>=$MYSQL_PIDFILE   --lower-case-table-names=<span class="number">1</span> <span class="comment">"</span></span><br></pre></td></tr></table></figure>
+<h1 id="3-修改插件目录路径-暂不修改"><a href="#3-修改插件目录路径-暂不修改" class="headerlink" title="3 修改插件目录路径(暂不修改)"></a>3 修改插件目录路径(暂不修改)</h1><h2 id="3-1-修改catalina-bat参数"><a href="#3-1-修改catalina-bat参数" class="headerlink" title="3.1 修改catalina.bat参数"></a>3.1 修改catalina.bat参数</h2><p>移动/opt/liferay-6.2-7/apache-tomcat/temp到/drbd,修改catalina.bat参数</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[htest2<span class="meta">@htest</span>2 bin]$ vi <span class="regexp">/opt/</span>liferay<span class="number">-6.2</span><span class="number">-7</span><span class="regexp">/apache-tomcat/</span>bin/   catalina.bat</span><br></pre></td></tr></table></figure>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> <span class="string">"%CATALINA_TMPDIR%"</span> ==   <span class="string">""</span> <span class="keyword">goto</span> gotTmpdir</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span> <span class="string">"CATALINA_TMPDIR=%CATALINA_BASE%\temp"</span></span><br><span class="line"></span><br><span class="line">:gotTmpdir</span><br><span class="line"></span><br><span class="line">改为</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> <span class="string">"%CATALINA_TMPDIR%"</span> ==   <span class="string">""</span> <span class="keyword">goto</span> gotTmpdir</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span> <span class="string">"CATALINA_TMPDIR=\drbd\temp"</span></span><br><span class="line"></span><br><span class="line">:gotTmpdir</span><br></pre></td></tr></table></figure>
+<h2 id="3-2-修改ctl-sh"><a href="#3-2-修改ctl-sh" class="headerlink" title="3.2 修改ctl.sh"></a>3.2 修改ctl.sh</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[htest1<span class="meta">@htest</span>1 ~]$ vi   <span class="regexp">/opt/</span>liferay<span class="number">-6.2</span><span class="number">-7</span><span class="regexp">/apache-tomcat/</span>scripts/ctl.sh</span><br></pre></td></tr></table></figure>
+<p>修改CATALINA_PID路径</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CATALINA_PID=/opt/liferay-6.2-7/apache-tomcat/temp/catalina.pid</span><br><span class="line"></span><br><span class="line">改为</span><br><span class="line"></span><br><span class="line">CATALINA_PID=/drbd/temp/catalina.pid</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/OTRS发送邮件设置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/07/OTRS发送邮件设置/" itemprop="url">OTRS发送邮件设置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-07T14:12:14+08:00">
+                2018-09-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T14:16:12+08:00">
+                2018-09-07
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  236
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="分三步"><a href="#分三步" class="headerlink" title="分三步:"></a>分三步:</h1><ol>
+<li>(图一)在<code>系统配置</code>里找到<code>Framework -&gt; Core::Sendmail</code> 配置你的 SMTP 信息, 如帐号, 密码, 邮件服务器地址<br>直达地址:<br><a href="https://your.otrs.host/otrs/in" target="_blank" rel="noopener">https://your.otrs.host/otrs/in</a> … ework</li>
+</ol>
+<blockquote>
+<p> 如果发送邮件失败，按图中的位置把邮箱地址写上<br><img src="1.png" alt="enter description here"></p>
+</blockquote>
+<ol start="2">
+<li>(图二)在系统管理找到配置邮件发送地址管理, 增加系统邮件地址<br>直达地址:<br><a href="https://your.otrs.host/otrs/in" target="_blank" rel="noopener">https://your.otrs.host/otrs/in</a> … dress<br><img src="2.png" alt="enter description here"></li>
+</ol>
+<ol start="3">
+<li>(图三)在队列调用该邮件地址<br>直达地址:<br><a href="https://your.otrs.host/otrs/in" target="_blank" rel="noopener">https://your.otrs.host/otrs/in</a> … D%3D1<br><img src="3.png" alt="enter description here"> </li>
+</ol>
+<ol start="4">
+<li><p>创建工单, 测试发送邮件, 如果无法发送请抓系统日志来看.</p>
+</li>
+<li><p>可能遇到的问题, 通知邮件发送不出去, 请使用本网站的搜索功能, 此问题已经讨论过很多了. 如果你找很久(骂前面解决问题后失踪人)才找到, 那么请对有用的答案点赞, 这样就会影响问题的先后排序</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/05/JIRA6-3-6部署及破解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -379,7 +1438,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T12:34:17+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T14:16:55+08:00">
                 2018-09-07
               </time>
             
@@ -1358,1023 +2417,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/30/Centos7下Mysql5-5数据同步/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/08/30/Centos7下Mysql5-5数据同步/" itemprop="url">Centos7下Mysql5.5数据同步</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-30T17:23:58+08:00">
-                2018-08-30
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-04T18:34:06+08:00">
-                2018-09-04
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  505
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1-环境"><a href="#1-环境" class="headerlink" title="1 环境"></a>1 环境</h1><p><table><br>    <tr><br>        <td>服务器</td><br>        <td>系统</td><br>        <td>服务</td><br>        <td>java</td><br>        <td>mysql</td><br>        <td>ip</td><br>   </tr><br>       <tr><br>        <td>Liferay-a</td><br>        <td> Centos7</td><br>        <td>Liferay+keepalive+sersync</td><br>        <td>1.7.0_80</td><br>        <td>5.5.42</td><br>        <td>172.20.20.59 </td><br>   </tr><br>       <tr><br>        <td>Liferay-b</td><br>        <td> Centos7</td><br>        <td>Liferay+keepalive+rsync</td><br>        <td>1.7.0_80</td><br>        <td>5.5.42</td><br>        <td>172.20.20.60 </td><br>   </tr><br>    <tr><br>        <td colspan="6">虚拟IP:172.20.20.58</td><br>    </tr><br></table><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/kxinter.gitub.io/2018/08/30/Centos7下Mysql5-5数据同步/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/30/Zabbix通过jmx监控tomcat/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/08/30/Zabbix通过jmx监控tomcat/" itemprop="url">Zabbix通过jmx监控tomcat</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-30T17:09:11+08:00">
-                2018-08-30
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-30T17:18:44+08:00">
-                2018-08-30
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  770
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1-环境"><a href="#1-环境" class="headerlink" title="1 环境"></a>1 环境</h1><table>
-<thead>
-<tr>
-<th>名称</th>
-<th>IP</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>zabbix server</td>
-<td>172.20.20.22</td>
-</tr>
-<tr>
-<td>tomcat server</td>
-<td>172.20.20.111</td>
-</tr>
-</tbody>
-</table>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/kxinter.gitub.io/2018/08/30/Zabbix通过jmx监控tomcat/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/30/workpress编辑器插件UEditor/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/08/30/workpress编辑器插件UEditor/" itemprop="url">workpress编辑器插件UEditor</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-30T17:03:48+08:00">
-                2018-08-30
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-30T17:06:57+08:00">
-                2018-08-30
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  265
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="百度UEditor-KityFormula-for-wordpress-2-0-2发布"><a href="#百度UEditor-KityFormula-for-wordpress-2-0-2发布" class="headerlink" title="百度UEditor-KityFormula for wordpress 2.0.2发布"></a>百度UEditor-KityFormula for wordpress 2.0.2发布</h1><p>自从UEditor-KityFormula-for-wordpress 2.0.1版本发布以来，用户反应较好，对某些使用者提出的没有百度地图、google地图及iframe,2.0.2版本进行了补充。现已发布，不过谷歌地图由于某些原因(被墙)，国内用不了，需要使用vpn，建议使用百度地图。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/kxinter.gitub.io/2018/08/30/workpress编辑器插件UEditor/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/30/openvpn-squid搭建通过http代理访问openvpn服务器/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/08/30/openvpn-squid搭建通过http代理访问openvpn服务器/" itemprop="url">openvpn+squid搭建通过http代理访问openvpn服务器</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-30T16:57:08+08:00">
-                2018-08-30
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-05T17:53:49+08:00">
-                2018-09-05
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  6
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1-环境："><a href="#1-环境：" class="headerlink" title="1 环境："></a>1 环境：</h1><p>OS : Centos 7.2 x86_64<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/kxinter.gitub.io/2018/08/30/openvpn-squid搭建通过http代理访问openvpn服务器/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/30/windows重置网卡解决无法上网问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/08/30/windows重置网卡解决无法上网问题/" itemprop="url">windows重置网卡解决无法上网问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-30T16:52:39+08:00">
-                2018-08-30
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-30T16:54:42+08:00">
-                2018-08-30
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Windows/" itemprop="url" rel="index">
-                    <span itemprop="name">Windows</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  118
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1-故障表现："><a href="#1-故障表现：" class="headerlink" title="1 故障表现："></a>1 故障表现：</h1><p>网卡获取地址正常，无法访问域名，Ping域名无法找到主机，表现为DNS故障。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/kxinter.gitub.io/2018/08/30/windows重置网卡解决无法上网问题/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2432,7 +2474,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2454,7 +2496,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/kxinter.gitub.io/tags/index.html">
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2613,7 +2655,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">55k</span>
+    <span title="Site words total count">56.5k</span>
   
 </div>
 

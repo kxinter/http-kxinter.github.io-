@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Mediawiki优化]]></title>
+    <url>%2Fkxinter.gitub.io%2F2018%2F09%2F07%2FMediawiki%E4%BC%98%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[1 修改URL后缀修改网址显示（http://172.20.20.21/mediawiki/首页改为http://172.20.20.21/首页） 修改/opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/ LocalSettings.php文件 12345$wgArticlePath = "/mediawiki/$1";改为$wgArticlePath = "/$1"; 再修改/opt/mediawiki-1.26.2-2/apache2/conf/bitnami/bitnami.conf 12345678910111213&lt;VirtualHost _default_:80&gt;DocumentRoot "/opt/mediawiki-1.26.2-2/apache2/htdocs"&lt;Directory "/opt/mediawiki-1.26.2-2/apache2/htdocs"&gt;改为&lt;VirtualHost _default_:80&gt;DocumentRoot "/opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs"&lt;Directory "/opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs"&gt; 2 修改网站LOGO2.1 右上角logo方法一,替换图片文件。 1/opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/resources/assets/wiki.png 方法二，修改LocalSettings.php文件，重新指定LOGO路径 1$wgLogo = "$wgScriptPath/resources/assets/huahe.png"; 2.2 左下角在配置文件LocalSettings.php中加入如下行即unset($wgFooterIcons[&#39;poweredby&#39;]); 3 修改目录悬浮加自动隐藏让目录悬浮起来，并且在不用时让它自动折叠起来，方便阅读和其他操作。自动折叠通过CSS的hover选择器实现，当鼠标移动到目录上时，目录框自动变大。 代码 先进入到下面页面（也许你需要将localhost替换成其他的）： http://localhost/mediawiki/index.php/MediaWiki:Common.css 在此页你可以设置全局的css样式，在这里加入如下： 12345678910111213141516171819202122232425262728293031323334353637383940#toc&#123; display: block; position: fixed; top: 100px; right: 0px; min-width: 100px; max-width: 350px; max-height: 20px; overflow-y: scroll; border: 1px solid #aaa; border-radius: 0 0 1px 1px; -moz-border-radius: 0 0 1px 1px; background: rgba(249,249,249,0.75); padding: 12px; box-shadow: 0 1px 8px #; -webkit-box-shadow: 0 1px 8px #; -moz-box-shadow: 0 1px 8px #;&#125; #toc:hover&#123; display: block; position: fixed; top: 100px; right: 0px; min-width: 100px; max-width: 350px; max-height: 500px; overflow-y: scroll; border: 1px solid #aaa; border-radius: 0 0 1px 1px; -moz-border-radius: 0 0 1px 1px; background: rgba(249,249,249,0.75); padding: 12px; box-shadow: 0 1px 8px #; -webkit-box-shadow: 0 1px 8px #; -moz-box-shadow: 0 1px 8px #; &#125; body &#123; overflow-x: hidden;&#125; 保存，清除浏览器缓存，看看如何！ 简直炫酷！。 关键点解释 1234567891011top: 100px; 目录框到顶部距离right: 0px; 目录框到右边框距离min-width: 100px; 目录框最小宽度max-width: 350px; 目录框最大宽度max-height: 500px; 目录框最大高度background: rgba(249,249,249,0.75); 背景色和透明度 MediaWiki版本 1.20.2 参考http://blog.klniu.com/post/mediawiki-floating-directory-and-scroll/]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>mediawiki</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Bitnami_Liferay系统设置去掉后缀]]></title>
+    <url>%2Fkxinter.gitub.io%2F2018%2F09%2F07%2FBitnami-Liferay%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE%E5%8E%BB%E6%8E%89%E5%90%8E%E7%BC%80%2F</url>
+    <content type="text"><![CDATA[1 修改配置文件执行以下操作： 12345mv /opt/liferay-6.2-7/apache-tomcat/webapps/ROOT/ /opt/liferay-6.2-7/apache-tomcat/webapps/ROOT.backupmv /opt/liferay-6.2-7/apache-tomcat/webapps/liferay /opt/liferay-6.2-7/apache-tomcat/webapps/ROOTsed -i 's/portal.ctx/#portal.ctx/g' /opt/liferay-6.2-7/apache-tomcat/webapps/ROOT/WEB-INF/classes/portal-ext.properties 打开/opt/liferay-6.2-7/apps/liferay/conf/httpd-app.conf文件做如下修改： 12345678910111213141516171819202122232425262728293031323334353637将&lt;Location /liferay&gt; ProxyPass ajp://localhost:8009/liferay &lt;IfModule pagespeed_module&gt; ModPagespeedDisallow "*" &lt;/IfModule&gt;&lt;/Location&gt; 改为：&lt;Location /&gt; ProxyPass ajp://localhost:8009/ &lt;IfModule pagespeed_module&gt; ModPagespeedDisallow "*" &lt;/IfModule&gt;&lt;/Location&gt; 并且在最后加上：# App url redirectRewriteEngine OnRedirectMatch ^/$ / 2 修改数据库访问bitnami_liferay数据库，找到journalarticle表，用： 1update journalarticle set content=REPLACE (content,'/liferay/document','/document') 对表中content字段的记录进行批量替换 最后手工修改“规章制度”和“文档模板”的链接 现在访问http://172.20.20.58已经可以正常显示了 参考：https://wiki.bitnami.com/Applications/BitNami_Liferay#Manual_Approach]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>liferay</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Liferay6.2-ce4官方原版安装简述]]></title>
+    <url>%2Fkxinter.gitub.io%2F2018%2F09%2F07%2FLiferay6-2-ce4%E5%AE%98%E6%96%B9%E5%8E%9F%E7%89%88%E5%AE%89%E8%A3%85%E7%AE%80%E8%BF%B0%2F</url>
+    <content type="text"><![CDATA[1 软件：Tomcat: apache-tomcat-7.0.61.tar.gz Java: java version “1.7.0_76” Liferay: liferay-portal-6.2-ce-ga4-20150416163831865.war 2 简单步骤 解压java、tomcat,设置环境变量 创建liferay目录，把java、tomcat放进这个目录 下载liferay依赖包，放到tomcat/lib/ext目录（重要） 新建setenc.sh 新建ROOT.xml 修改catalina.properties、server.xml]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>liferay</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Bitnami_Liferayx自定义路径]]></title>
+    <url>%2Fkxinter.gitub.io%2F2018%2F09%2F07%2FBitnami-Liferayx%E8%87%AA%E5%AE%9A%E4%B9%89%E8%B7%AF%E5%BE%84%2F</url>
+    <content type="text"><![CDATA[1 修改文件存储路径#配置文件portal-ext.properties 修改文件存储路径 1[root@htest2 classes]# vi /opt/liferay-6.2-7/apache-tomcat/webapps/liferay/WEB-INF/classes/portal-ext.properties 移动存储目录/opt/liferay-6.2-7/apps/liferay/data/document_library到/drbd,修改portal-ext.properties内dl.store.file.system.root.dir=参数（没有这项手动添加参数） 1dl.store.file.system.root.dir=/drbd/document_library 2 修改数据库路径移动/opt/liferay-6.2-7/mysql/data/到/home/mysql/data 2.1 修改my.cnf参数1[root@htest2 home]# vi /opt/liferay-6.2-7/mysql/my.cnf 修改my.cnf数据库路径参数 12345datadir=/opt/liferay-6.2-7/mysql/data改为datadir=/home/mysql/data 2.2 修改ctl.sh路径参数1[root@htest2 drbd]# vi /opt/liferay-6.2-7/mysql/scripts/ctl.sh 123456789101112131415161718192021MYSQL_PIDFILE=/ opt/liferay-6.2-7/mysql/data/mysqld.pidMYSQL_START="/opt/liferay-6.2-7/mysql/bin/mysqld_safe --defaults-file=/opt/liferay-6.2-7/mysql/my.cnf --port=3306 --socket=/opt/liferay-6.2-7/mysql/tmp/mysql.sock --datadir=/opt/liferay-6.2-7/mysql/data --log-error=/opt/liferay-6.2-7/mysql/data/mysqld.log --pid-file=$MYSQL_PIDFILE --lower-case-table-names=1 "改为MYSQL_PIDFILE=/home/mysql/data/mysqld.pidMYSQL_START="/opt/liferay-6.2-7/mysql/bin/mysqld_safe --defaults-file=/opt/liferay-6.2-7/mysql/my.cnf --port=3306 --socket=/opt/liferay-6.2-7/mysql/tmp/mysql.sock --datadir=/home/mysql/data --log-error=/home/mysql/data/mysqld.log --pid-file=$MYSQL_PIDFILE --lower-case-table-names=1 " 3 修改插件目录路径(暂不修改)3.1 修改catalina.bat参数移动/opt/liferay-6.2-7/apache-tomcat/temp到/drbd,修改catalina.bat参数 1[htest2@htest2 bin]$ vi /opt/liferay-6.2-7/apache-tomcat/bin/ catalina.bat 12345678910111213if not "%CATALINA_TMPDIR%" == "" goto gotTmpdirset "CATALINA_TMPDIR=%CATALINA_BASE%\temp":gotTmpdir改为if not "%CATALINA_TMPDIR%" == "" goto gotTmpdirset "CATALINA_TMPDIR=\drbd\temp":gotTmpdir 3.2 修改ctl.sh1[htest1@htest1 ~]$ vi /opt/liferay-6.2-7/apache-tomcat/scripts/ctl.sh 修改CATALINA_PID路径 12345CATALINA_PID=/opt/liferay-6.2-7/apache-tomcat/temp/catalina.pid改为CATALINA_PID=/drbd/temp/catalina.pid]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>liferay</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[OTRS发送邮件设置]]></title>
+    <url>%2Fkxinter.gitub.io%2F2018%2F09%2F07%2FOTRS%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6%E8%AE%BE%E7%BD%AE%2F</url>
+    <content type="text"><![CDATA[分三步: (图一)在系统配置里找到Framework -&gt; Core::Sendmail 配置你的 SMTP 信息, 如帐号, 密码, 邮件服务器地址直达地址:https://your.otrs.host/otrs/in … ework 如果发送邮件失败，按图中的位置把邮箱地址写上 (图二)在系统管理找到配置邮件发送地址管理, 增加系统邮件地址直达地址:https://your.otrs.host/otrs/in … dress (图三)在队列调用该邮件地址直达地址:https://your.otrs.host/otrs/in … D%3D1 创建工单, 测试发送邮件, 如果无法发送请抓系统日志来看. 可能遇到的问题, 通知邮件发送不出去, 请使用本网站的搜索功能, 此问题已经讨论过很多了. 如果你找很久(骂前面解决问题后失踪人)才找到, 那么请对有用的答案点赞, 这样就会影响问题的先后排序]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>otrs</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[JIRA6.3.6部署及破解]]></title>
     <url>%2Fkxinter.gitub.io%2F2018%2F09%2F05%2FJIRA6-3-6%E9%83%A8%E7%BD%B2%E5%8F%8A%E7%A0%B4%E8%A7%A3%2F</url>
     <content type="text"><![CDATA[1 环境：操作系统：CentOS7.2 1151 数据库：mysql 5.6.35 Java: java 1.8.0_65 平台软件：JIRA 6.3.6 2 安装步骤2.1 安装JDK安装JDK 1.7或1.8，本次部署直接YUM安装，版本1.8. 2.2 安装数据库安装mysql5.6.35,并创建jira数据库。 2.3 下载JIRA下载地址：https://www.atlassian.com/software/jira/download-archives 下载atlassian-jira-6.3.6.tar.gz 2.4 安装JIRA123[root@jira-24 home]# tar zxvf atlassian-jira-6.3.6.tar.gz[root@jira-24 home]# mv atlassian-jira-6.3.6 /opt/jira 2.5 修改端口修改端口号为80 1[root@jira-24 home]# vi /opt/jira/conf/server.xml 2.6 创建及配置jira_home1[root@jira-24 home]# mkdir /home/jira_home 配置路径 1[root@jira-24 home]# vi /opt/jira/atlassian-jira/WEB-INF/classes/jira-application.properties 2.7 启动JIRA1[root@jira-24 home]# /opt/jira/bin/start-jira.sh 打开http://172.20.20.24 配置完数据库之后，在新界面录入程序标题，点击“向后”按钮 输入临时授权码，进行注册： 注册完之后，填写管理员账户和密码 2.8 汉化汉化包位置：\\172.20.20.14\Software\Development\jira 中文软件包下载完毕后，我们需要登陆到jira系统找到Add-ons–Manage add-ons–upload add-on，如下： 中文软件包安装完毕后，我们现在配置jira，如下： 通过上图，我们可以很明显的看出，jira已经被中文语言了。 2.9 破解JIRA破解文件位置：\\172.20.20.14\Software\Development\jira 到了这一步，就是破解的过程了，此时操作如下： 1）先将JIRA服务关掉，不必关闭浏览器。 2）解压破解包到你的硬盘指定目录下，然后按如下指令操作。 1、用atlassian-extras-2.2.2.jar替换你的JIRA的安装目录的\atlassian-jira\WEB-INF\lib同名jar包。 2、用atlassian-universal-plugin-manager-plugin-2.10.1.jar替换你的JIRA的安装目录的\atlassian-jira\atlassian-bundled-plugins中的同名jar包。 3、根据自己的情况，按照keytpl.txt的格式填写好自己的license。 点击右上角齿轮形状的管理图标，选择“系统”，再选择“授权”，看到使用日期不到1个月，如下所示： 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879填写授权码，授权码参数范例如下：Description=JIRA: Commercial,CreationDate=你的安装日期，格式（yyyy-mm-dd）,jira.LicenseEdition=ENTERPRISE,Evaluation=false,jira.LicenseTypeName=COMMERCIAL,jira.active=true,licenseVersion=2,MaintenanceExpiryDate=你想设置的失效日期如：2099-12-31,Organisation=joiandjoin,SEN=你申请到的SEN注意没有前缀LID,ServerID=你申请到的ServerID,jira.NumberOfUsers=-1,LicenseID=LID你申请到的SEN，注意LID前缀不要丢掉,LicenseExpiryDate=你想设置的失效日期如：2099-12-31,PurchaseDate=你的安装日期，格式（yyyy-mm-dd） 本次安装授权码实例为：Description=JIRA: Commercial,CreationDate=2017-01-25,jira.LicenseEdition=ENTERPRISE,Evaluation=false,jira.LicenseTypeName=COMMERCIAL,jira.active=true,licenseVersion=2,MaintenanceExpiryDate=2099-12-31,Organisation=pl,SEN=SEN-L9178727,ServerID=BIBT-L882-5ZZ3-F2IZ,jira.NumberOfUsers=-1,LicenseID=AAABdA0ODAoPeNp9UU1PwkAUvO+vaOJFD9vQRS2SbCK0a1JTwNBqIvGyloeswrZ5u0X011tojaDgcd7HvJl5J2kJzq3UDjt3WKvrse75pRMkaQU8n7wggJ7nRQHoxioDbUBMlVW55mKYivHdOEoEGZbLZ8DR7N4AGk498qpQun+qdyVmc2kglBb4hp62PMouSEOcfhQwlEvgwWgwEOMg6sXfLbEuFH7s7DHK2iTItZWZFQOpFvxtPS+l/lTX3mXbzfIlSQBXgFHI+1E/pXGnw+jFZNKmNyya1AILzKdlZt0NoCaf2XeJ4FaMagXcYgn12HHfB9I5ZKLSpy1oqbMjRv5R8yfE5k7lK47CRAxpfOX5HZ/5pAJ8r/APbWIlWkA+kwsDZIQvUisjt/5C0YtFL3kkAcK28vtdi1rBQyVoM8/2YoDKKRaoTJNgCCZDVWyZb6Nxz0kaCc5p/aCzp64jVnJRbm/Vmo+94FC4u8d39344a/wFDcT8NjAsAhRCNRjYwj4n0JHDJmMZWChYSaegEgIUd1blNKrDbGRX6QLiCbEyzoyRJnA=X02i6,LicenseExpiryDate=2099-12-31,PurchaseDate=2017-01-25 将以上授权码信息填入授权码输入框，点击“增加”按钮，如下所示： 之后，看到授权信息更新了，就表示破解成功，会看到如下成功信息, 如下图： 2.10 插件破解插件破解和软件破解方法不一样，插件破解需要破解包内自带的Key. 破解Key在我百度云内。 参考资料：http://www.cnblogs.com/yangxia-test/p/4448002.html]]></content>
@@ -8,6 +63,7 @@
         <category>Linux</category>
       </categories>
       <tags>
+        <tag>部署</tag>
         <tag>jira</tag>
       </tags>
   </entry>
