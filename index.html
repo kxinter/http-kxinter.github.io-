@@ -332,6 +332,1352 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/Liferay-drbd双机热备部署/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/07/Liferay-drbd双机热备部署/" itemprop="url">Liferay+drbd双机热备部署</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-07T15:42:19+08:00">
+                2018-09-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T15:55:10+08:00">
+                2018-09-07
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-主节点配置"><a href="#1-主节点配置" class="headerlink" title="1 主节点配置"></a>1 主节点配置</h1><h2 id="1-1-添加硬盘"><a href="#1-1-添加硬盘" class="headerlink" title="1.1 添加硬盘"></a>1.1 添加硬盘</h2><p>为主服务器添加一块硬盘50G。</p>
+<h2 id="1-2-创建分区"><a href="#1-2-创建分区" class="headerlink" title="1.2 创建分区"></a>1.2 创建分区</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">fdisk</span> /dev/sdb</span><br></pre></td></tr></table></figure>
+<p>为新硬盘创建分区<code>sdb1</code>,大小<code>50G</code>.分区格式<code>lvm</code></p>
+<h2 id="1-3-创建物理卷"><a href="#1-3-创建物理卷" class="headerlink" title="1.3 创建物理卷"></a>1.3 创建物理卷</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">pvcreate</span> /dev/sdb1</span><br></pre></td></tr></table></figure>
+<h2 id="1-4-将物理卷添加入卷组"><a href="#1-4-将物理卷添加入卷组" class="headerlink" title="1.4 将物理卷添加入卷组"></a>1.4 将物理卷添加入卷组</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">vgextend</span> vg_cosliferay /dev/sdb1</span><br></pre></td></tr></table></figure>
+<p>卷组名通过<code>vgdisplay</code>查看。<code>vg_cosliferay</code>是卷组名。</p>
+<h2 id="1-5-创建逻辑卷"><a href="#1-5-创建逻辑卷" class="headerlink" title="1.5 创建逻辑卷"></a>1.5 创建逻辑卷</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lvcreate -L <span class="number">50</span>G -n drbdlv vg_cosliferay</span><br></pre></td></tr></table></figure>
+<p>创建大小为<code>50G</code>，名字为<code>drbdlv</code>的逻辑卷。</p>
+<h2 id="1-6-安装drbd"><a href="#1-6-安装drbd" class="headerlink" title="1.6 安装drbd"></a>1.6 安装drbd</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">yum</span> -y install drbd84-utils kmod-drbd84</span><br></pre></td></tr></table></figure>
+<h3 id="1-6-1-配置global-common-conf"><a href="#1-6-1-配置global-common-conf" class="headerlink" title="1.6.1 配置global_common.conf"></a>1.6.1 配置global_common.conf</h3><p>编辑全局配置：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vi</span>  /etc/drbd.d/global_common.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
+<p>确保文件中包含有下内容：</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">global </span>&#123;  </span><br><span class="line"></span><br><span class="line">    usage-count yes;  </span><br><span class="line">  &#125;  </span><br><span class="line"></span><br><span class="line">  <span class="class">common </span>&#123;  </span><br><span class="line">    <span class="class">net </span>&#123;  </span><br><span class="line"></span><br><span class="line">      protocol C;  <span class="meta"># 使用协议C.表示收到远程主机的写入确认后,则认为写入完成.</span></span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>当然，还可以有其它配置，这是最基本的。</p>
+<h3 id="1-6-2-配置r0资源："><a href="#1-6-2-配置r0资源：" class="headerlink" title="1.6.2 配置r0资源："></a>1.6.2 配置r0资源：</h3><p><strong>创建r0资源</strong>：</p>
+<blockquote>
+<p>注：r0可以随便命名。</p>
+</blockquote>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vi</span>  /etc/drbd.d/r0.<span class="keyword">res</span></span><br></pre></td></tr></table></figure>
+<p>写入文件内容：</p>
+<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">resource r0&#123; </span><br><span class="line"></span><br><span class="line">        on masterNode&#123; </span><br><span class="line"></span><br><span class="line">                  device          /<span class="built_in">dev</span>/drbd1; #逻辑设备的路径 </span><br><span class="line"></span><br><span class="line">                  disk            /<span class="built_in">dev</span>/sda3;  #物理设备 </span><br><span class="line"></span><br><span class="line">                  address           <span class="number">192.168</span><span class="number">.58</span><span class="number">.128</span>:<span class="number">7788</span>; </span><br><span class="line"></span><br><span class="line">                  <span class="built_in">meta</span>-disk       internal; </span><br><span class="line"></span><br><span class="line">        &#125; </span><br><span class="line"></span><br><span class="line">        on backupNode&#123; </span><br><span class="line"></span><br><span class="line">                  device          /<span class="built_in">dev</span>/drbd1; </span><br><span class="line"></span><br><span class="line">                  disk            /<span class="built_in">dev</span>/sda3; </span><br><span class="line"></span><br><span class="line">                  address           <span class="number">192.168</span><span class="number">.58</span><span class="number">.129</span>:<span class="number">7788</span>; </span><br><span class="line"></span><br><span class="line">                  <span class="built_in">meta</span>-disk       internal; </span><br><span class="line"></span><br><span class="line">        &#125; </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要把上面用到的防火墙7788端口打开，这个端口是自定义的，如果嫌麻烦可以直接关掉防火墙。</p>
+<blockquote>
+<p>注：masterNode/ backupNode是主机名字，根据实际情况书写。</p>
+</blockquote>
+<p>说明：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">device  是自定义的物理设备的逻辑路径</span><br><span class="line"></span><br><span class="line"><span class="keyword">disk </span>       是磁盘设备，或者是逻辑分区</span><br><span class="line"></span><br><span class="line"><span class="keyword">address </span>  是机器监听地址和端口</span><br><span class="line"></span><br><span class="line">meta-<span class="keyword">disk </span>  这个还没弄明白，看到的资料都是设为：internal（局域网）</span><br></pre></td></tr></table></figure>
+<h3 id="1-6-3-建立resource"><a href="#1-6-3-建立resource" class="headerlink" title="1.6.3 建立resource"></a>1.6.3 建立resource</h3><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">modprobe drbd                               <span class="comment">//载入 drbd 模块  </span></span><br><span class="line"></span><br><span class="line">lsmod | <span class="keyword">grep</span> drbd                                            <span class="comment">//确认 drbd 模块是否载入</span></span><br></pre></td></tr></table></figure>
+<p><img src="1.png" alt="1"></p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">dd </span><span class="string">if=</span>/<span class="string">dev/</span><span class="string">zero </span><span class="string">of=</span>/<span class="string">dev/</span><span class="string">sda2 </span><span class="string">bs=</span><span class="string">1M </span><span class="string">count=</span><span class="string">100 </span>   //把一些资料塞到 <span class="string">sda3 </span>內 (否则 <span class="built_in">create-md</span> 时会报错)  </span><br><span class="line"></span><br><span class="line"><span class="string">drbdadm </span><span class="built_in">create-md</span> <span class="string">r0 </span>                                    //建立 <span class="string">drbd </span><span class="string">resource </span> </span><br><span class="line"></span><br><span class="line"><span class="string">drbdadm </span><span class="string">up </span><span class="string">r0 </span>                   //   <span class="comment">#启用资源</span></span><br></pre></td></tr></table></figure>
+<h1 id="2-备节点配置"><a href="#2-备节点配置" class="headerlink" title="2 备节点配置"></a>2 备节点配置</h1><p>把以上主节点的操作在备节点上操作一次，操作过程完全一样。</p>
+<h2 id="2-1-设置Primary-Node"><a href="#2-1-设置Primary-Node" class="headerlink" title="2.1 设置Primary Node"></a>2.1 设置Primary Node</h2><p>将<code>masterNode</code>设为主服务器(<code>primary node</code>)，在<code>masterNode</code>上执行：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@backupNode</span> /]<span class="comment"># drbdadm primary --force r0</span></span><br></pre></td></tr></table></figure>
+<p><strong>查看drbd状态：</strong></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[root@backupNode /]</span># <span class="selector-tag">cat</span> /<span class="selector-tag">proc</span>/<span class="selector-tag">drbd</span>  </span><br><span class="line"></span><br><span class="line"><span class="selector-tag">version</span>: <span class="selector-tag">8</span><span class="selector-class">.4</span><span class="selector-class">.1</span> (<span class="attribute">api</span>:<span class="number">1</span>/<span class="attribute">proto</span>:<span class="number">86</span>-<span class="number">100</span>)  </span><br><span class="line"></span><br><span class="line"> <span class="selector-tag">GIT-hash</span>: <span class="selector-tag">91b4c048c1a0e06777b5f65d312b38d47abaea80</span> <span class="selector-tag">build</span> <span class="selector-tag">by</span> <span class="selector-tag">root</span>@<span class="selector-tag">masterNode</span>, <span class="selector-tag">2012-05-27</span> <span class="selector-tag">18</span><span class="selector-pseudo">:34</span><span class="selector-pseudo">:27</span>  </span><br><span class="line"></span><br><span class="line">       <span class="selector-tag">1</span>: <span class="selector-tag">cs</span><span class="selector-pseudo">:Connected</span> <span class="selector-tag">ro</span><span class="selector-pseudo">:Primary</span>/<span class="selector-tag">Secondary</span> <span class="selector-tag">ds</span><span class="selector-pseudo">:UpToDate</span>/<span class="selector-tag">UpToDate</span> <span class="selector-tag">C</span> <span class="selector-tag">r-----</span>  </span><br><span class="line"></span><br><span class="line">     <span class="selector-tag">ns</span><span class="selector-pseudo">:4</span> <span class="selector-tag">nr</span><span class="selector-pseudo">:9504584</span> <span class="selector-tag">dw</span><span class="selector-pseudo">:9504588</span> <span class="selector-tag">dr</span><span class="selector-pseudo">:1017</span> <span class="selector-tag">al</span><span class="selector-pseudo">:1</span> <span class="selector-tag">bm</span><span class="selector-pseudo">:576</span> <span class="selector-tag">lo</span><span class="selector-pseudo">:0</span> <span class="selector-tag">pe</span><span class="selector-pseudo">:0</span> <span class="selector-tag">ua</span><span class="selector-pseudo">:0</span> <span class="selector-tag">ap</span><span class="selector-pseudo">:0</span> <span class="selector-tag">ep</span><span class="selector-pseudo">:1</span> <span class="selector-tag">wo</span><span class="selector-pseudo">:b</span> <span class="selector-tag">oos</span><span class="selector-pseudo">:0</span></span><br></pre></td></tr></table></figure>
+<p> 已经变成了主服务器。</p>
+<h2 id="2-2-创建DRBD文件系统"><a href="#2-2-创建DRBD文件系统" class="headerlink" title="2.2 创建DRBD文件系统"></a>2.2 创建DRBD文件系统</h2><p>上面已经完成了<code>/dev/drbd1</code>的初始化，现在来把<code>/dev/drbd1</code>格式化成<code>ext4</code>格式的文件系统,在<code>masterNode</code>上执行：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> [root<span class="variable">@masterNode</span> /]<span class="comment"># mkfs.ext3 /dev/drbd1</span></span><br></pre></td></tr></table></figure>
+<h1 id="3-安装配置keepalived"><a href="#3-安装配置keepalived" class="headerlink" title="3 安装配置keepalived"></a>3 安装配置keepalived</h1><h2 id="3-1-YUM安装keepalived"><a href="#3-1-YUM安装keepalived" class="headerlink" title="3.1 YUM安装keepalived"></a>3.1 YUM安装keepalived</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@drbd1</span> rc3.d]<span class="comment"># yum install -y keepalived</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-2-配置keepalived-conf"><a href="#3-2-配置keepalived-conf" class="headerlink" title="3.2 配置keepalived.conf"></a>3.2 配置keepalived.conf</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="meta">@drbd</span>1 <span class="regexp">/]# vi /</span>etc<span class="regexp">/keepalived/</span>keepalived.conf</span><br></pre></td></tr></table></figure>
+<h3 id="3-2-1-主服务器配置"><a href="#3-2-1-主服务器配置" class="headerlink" title="3.2.1 主服务器配置"></a>3.2.1 主服务器配置</h3><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line"></span><br><span class="line">   notification_email &#123;</span><br><span class="line"></span><br><span class="line">     acassen@firewall.loc</span><br><span class="line"></span><br><span class="line">     failover@firewall.loc</span><br><span class="line"></span><br><span class="line">     sysadmin@firewall.loc</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   notification_email_from Alexandre.Cassen@firewall.loc</span><br><span class="line"></span><br><span class="line">   smtp_server <span class="number">192.168</span><span class="number">.200</span><span class="number">.1</span></span><br><span class="line"></span><br><span class="line">   smtp_connect_timeout <span class="number">30</span></span><br><span class="line"></span><br><span class="line">   router_id LVS_DEVEL</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;          <span class="comment">//定义vrrp实例</span></span><br><span class="line"></span><br><span class="line">    <span class="section">state</span> MASTER              <span class="comment">//主节点 ，备用节点为BACKUP             </span></span><br><span class="line"></span><br><span class="line">    interface enp2s0          <span class="comment">//绑定的网卡</span></span><br><span class="line"></span><br><span class="line">    virtual_router_id <span class="number">51</span>     <span class="comment">//ID,默认就行 .同一实例下virtual_router_id必须相同</span></span><br><span class="line"></span><br><span class="line">    priority <span class="number">100</span>             <span class="comment">//优先级，备用节点设置为比100小的值</span></span><br><span class="line"></span><br><span class="line">    advert_int <span class="number">1</span>             <span class="comment">//MASTER与BACKUP负载均衡器之间同步检查的时间间隔，单位是秒</span></span><br><span class="line"></span><br><span class="line">    authentication &#123;</span><br><span class="line"></span><br><span class="line">        auth_type PASS       <span class="comment">//验证类型和密码 </span></span><br><span class="line"></span><br><span class="line">        auth_pass <span class="number">1111</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line"></span><br><span class="line">        <span class="number">172.20</span><span class="number">.20</span><span class="number">.237</span>                  <span class="comment">//设置虚拟IP地址，可以多个</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-2-2-备服务器配置"><a href="#3-2-2-备服务器配置" class="headerlink" title="3.2.2 备服务器配置"></a>3.2.2 备服务器配置</h3><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line"></span><br><span class="line">   notification_email &#123;</span><br><span class="line"></span><br><span class="line">     acassen@firewall.loc</span><br><span class="line"></span><br><span class="line">     failover@firewall.loc</span><br><span class="line"></span><br><span class="line">     sysadmin@firewall.loc</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   notification_email_from Alexandre.Cassen@firewall.loc</span><br><span class="line"></span><br><span class="line">   smtp_server <span class="number">192.168</span><span class="number">.200</span><span class="number">.1</span></span><br><span class="line"></span><br><span class="line">   smtp_connect_timeout <span class="number">30</span></span><br><span class="line"></span><br><span class="line">   router_id LVS_DEVEL</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;          <span class="comment">//定义vrrp实例</span></span><br><span class="line"></span><br><span class="line">    <span class="section">state</span> BACKUP             <span class="comment">//备节点 ，主用节点为MASTER             </span></span><br><span class="line"></span><br><span class="line">    interface ens192          <span class="comment">//绑定的网卡</span></span><br><span class="line"></span><br><span class="line">    virtual_router_id <span class="number">51</span>     <span class="comment">//ID,默认就行 .同一实例下virtual_router_id必须相同</span></span><br><span class="line"></span><br><span class="line">    priority <span class="number">50</span>             <span class="comment">//优先级，备用节点设置为比100小的值</span></span><br><span class="line"></span><br><span class="line">    advert_int <span class="number">1</span>             <span class="comment">//MASTER与BACKUP负载均衡器之间同步检查的时间间隔，单位是秒</span></span><br><span class="line"></span><br><span class="line">    authentication &#123;</span><br><span class="line"></span><br><span class="line">        auth_type PASS       <span class="comment">//验证类型和密码 </span></span><br><span class="line"></span><br><span class="line">        auth_pass <span class="number">1111</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line"></span><br><span class="line">        <span class="number">172.20</span><span class="number">.20</span><span class="number">.237</span>                  <span class="comment">//设置虚拟IP地址，可以多个</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-3-启动服务"><a href="#3-3-启动服务" class="headerlink" title="3.3 启动服务"></a>3.3 启动服务</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@drbd1</span> /]<span class="comment"># systemctl start keepalived</span></span><br></pre></td></tr></table></figure>
+<h1 id="4-问题"><a href="#4-问题" class="headerlink" title="4 问题"></a>4 问题</h1><p><code>Liferay</code>配置<code>drbd</code>双击热备中，在备机启动程序时，遇到以下问题。问题根本原因是原主机是32位系统安装32位程序，在备机64位系统运行32位程序没有运行库而报错。</p>
+<h2 id="4-1-问题1："><a href="#4-1-问题1：" class="headerlink" title="4.1 问题1："></a>4.1 问题1：</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">09</span>:<span class="number">55</span>:<span class="number">50</span>][root@liferay-backup opt]<span class="comment">#   /opt/liferay-6.2-7/ctlscript.sh start</span></span><br><span class="line"></span><br><span class="line">[<span class="number">09</span>:<span class="number">55</span>:<span class="number">50</span>]<span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql/</span>bin<span class="regexp">/my_print_defaults:   /</span>opt<span class="regexp">/liferay-6.2-7/my</span>sql<span class="regexp">/bin/my</span>_print_defaults.bin:   <span class="regexp">/lib/</span>ld-linux.so.<span class="number">2</span>: bad ELF interpreter: 没有那个文件或目录</span><br><span class="line"></span><br><span class="line">[<span class="number">09</span>:<span class="number">55</span>:<span class="number">50</span>]<span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql/</span>bin<span class="regexp">/my_print_defaults:行12: /</span>opt<span class="regexp">/liferay-6.2-7/my</span>sql<span class="regexp">/bin/my</span>_print_defaults.bin: 成功</span><br><span class="line"></span><br><span class="line">[<span class="number">09</span>:<span class="number">55</span>:<span class="number">50</span>]<span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql/</span>bin<span class="regexp">/my_print_defaults:   /</span>opt<span class="regexp">/liferay-6.2-7/my</span>sql<span class="regexp">/bin/my</span>_print_defaults.bin: <span class="regexp">/lib/</span>ld-linux.so.<span class="number">2</span>: bad   ELF interpreter: 没有那个文件或目录</span><br><span class="line"></span><br><span class="line">[<span class="number">09</span>:<span class="number">55</span>:<span class="number">50</span>]<span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql/</span>bin<span class="regexp">/my_print_defaults:行12: /</span>opt<span class="regexp">/liferay-6.2-7/my</span>sql<span class="regexp">/bin/my</span>_print_defaults.bin: 成功</span><br><span class="line"></span><br><span class="line">[<span class="number">09</span>:<span class="number">55</span>:<span class="number">50</span>]<span class="number">161221</span> <span class="number">09</span>:<span class="number">55</span>:<span class="number">53</span> mysqld_safe   Logging to <span class="string">'/opt/liferay-6.2-7/mysql/data/mysqld.log'</span>.</span><br><span class="line"></span><br><span class="line">[<span class="number">09</span>:<span class="number">55</span>:<span class="number">50</span>]<span class="number">161221</span> <span class="number">09</span>:<span class="number">55</span>:<span class="number">53</span> mysqld_safe   Starting mysqld daemon with databases from <span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql/</span>data</span><br><span class="line"></span><br><span class="line">[<span class="number">09</span>:<span class="number">55</span>:<span class="number">50</span>]<span class="number">161221</span> <span class="number">09</span>:<span class="number">55</span>:<span class="number">53</span> mysqld_safe   mysqld from pid file <span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql/</span>data<span class="regexp">/mysqld.pid ended</span></span><br></pre></td></tr></table></figure>
+<p><strong>解决办法：</strong></p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@liferay</span>-backup opt]<span class="comment">#  yum install   glibc.i686</span></span><br></pre></td></tr></table></figure>
+<p>安装后<strong>又报错</strong>：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@liferay-backup data]<span class="comment">#   /opt/liferay-6.2-7/ctlscript.sh start</span></span><br><span class="line"></span><br><span class="line">[<span class="number">10</span>:<span class="number">30</span>:<span class="number">47</span>]libgcc_s.so.<span class="number">1</span> must be installed   <span class="keyword">for</span> pthread_cancel to work</span><br><span class="line"></span><br><span class="line">[<span class="number">10</span>:<span class="number">30</span>:<span class="number">47</span>]libgcc_s.so.<span class="number">1</span> must be installed   <span class="keyword">for</span> pthread_cancel to work</span><br><span class="line"></span><br><span class="line">[<span class="number">10</span>:<span class="number">30</span>:<span class="number">47</span>]<span class="number">161221</span> <span class="number">10</span>:<span class="number">30</span>:<span class="number">50</span> mysqld_safe   Logging to <span class="string">'/opt/liferay-6.2-7/mysql/data/mysqld.log'</span>.</span><br><span class="line"></span><br><span class="line">[<span class="number">10</span>:<span class="number">30</span>:<span class="number">47</span>]<span class="number">161221</span> <span class="number">10</span>:<span class="number">30</span>:<span class="number">50</span> mysqld_safe   Starting mysqld daemon with databases from <span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql/</span>data</span><br><span class="line"></span><br><span class="line">[<span class="number">10</span>:<span class="number">30</span>:<span class="number">48</span>]libgcc_s.so.<span class="number">1</span>   must be installed <span class="keyword">for</span> pthread_cancel to work</span><br><span class="line"></span><br><span class="line">[<span class="number">10</span>:<span class="number">30</span>:<span class="number">48</span>]<span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql/</span>bin<span class="regexp">/mysqld_safe:   行 165: 19283 已放弃               (吐核)LD_LIBRARY_PATH=/</span>opt<span class="regexp">/liferay-6.2-7/my</span>sql<span class="regexp">/lib\:/</span>opt<span class="regexp">/liferay-6.2-7/my</span>sql<span class="regexp">/lib\:/</span>opt<span class="regexp">/liferay-6.2-7/</span>sqlite<span class="regexp">/lib\:/</span>opt<span class="regexp">/liferay-6.2-7/</span>apache2<span class="regexp">/lib\:/</span>opt<span class="regexp">/liferay-6.2-7/</span>common<span class="regexp">/lib\:   nohup /</span>opt<span class="regexp">/liferay-6.2-7/my</span>sql<span class="regexp">/bin/my</span>sqld   --defaults-file=<span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql/my</span>.cnf   --basedir=<span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql --datadir=/</span>opt<span class="regexp">/liferay-6.2-7/my</span>sql<span class="regexp">/data   --plugin-dir=/</span>opt<span class="regexp">/liferay-6.2-7/my</span>sql<span class="regexp">/lib/</span>plugin --user=mysql   --lower-case-table-names=<span class="number">1</span>   --log-error=<span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql/</span>data<span class="regexp">/mysqld.log   --pid-file=/</span>opt<span class="regexp">/liferay-6.2-7/my</span>sql<span class="regexp">/data/my</span>sqld.pid   --socket=<span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql/</span>tmp<span class="regexp">/mysql.sock --port=3306 &lt; /</span>dev<span class="regexp">/null   &gt;&gt; /</span>opt<span class="regexp">/liferay-6.2-7/my</span>sql<span class="regexp">/data/my</span>sqld.log <span class="number">2</span>&gt;&amp;<span class="number">1</span></span><br><span class="line"></span><br><span class="line">[<span class="number">10</span>:<span class="number">30</span>:<span class="number">48</span>]<span class="number">161221</span> <span class="number">10</span>:<span class="number">30</span>:<span class="number">51</span> mysqld_safe   mysqld from pid file <span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql/</span>data<span class="regexp">/mysqld.pid ended</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>没有安装32位运行库</p>
+</blockquote>
+<p>直接安装<code>yum install glibc.i686</code>无法成功，系统已安装64位运行库，无法在安装。需要</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Linux的有些软件需要32位运行库才能运行，如Dr.com客户端等</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">yum在线安装： sudo yum <span class="keyword">install</span>   xulrunner.i686</span><br><span class="line"></span><br><span class="line">或者： sudo yum <span class="keyword">install</span>   ia32-libs.i686</span><br><span class="line"></span><br><span class="line">ubuntu下： sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> ia32-libs</span><br></pre></td></tr></table></figure>
+<p>最终没有采用此方法，使用的方法为本博客内的<br><strong><a href="https://kxinter.github.io/kxinter.gitub.io/2018/09/04/rsync-sersync%E5%AE%9E%E6%97%B6%E5%8F%8C%E5%90%91%E5%90%8C%E6%AD%A5/">Rsync+sersync实时双向同步</a></strong></p>
+<p>参考资料1：<a href="http://blog.csdn.net/tmy257/article/details/41013985" target="_blank" rel="noopener">http://blog.csdn.net/tmy257/article/details/41013985</a></p>
+<p>参考资料2：<a href="http://blog.csdn.net/attagain/article/details/17026433" target="_blank" rel="noopener">http://blog.csdn.net/attagain/article/details/17026433</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/bitnami删除页面右下角Manage图标/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/07/bitnami删除页面右下角Manage图标/" itemprop="url">bitnami删除页面右下角Manage图标</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-07T15:38:02+08:00">
+                2018-09-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T15:40:48+08:00">
+                2018-09-07
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  85
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Bitnami-info-page"><a href="#Bitnami-info-page" class="headerlink" title="Bitnami info page"></a>Bitnami info page</h1><p><img src="1.png" alt="1"></p>
+<p><img src="2.png" alt="2"><br><strong>How to remove the banner(如何删除旗帜)</strong></p>
+<p>如果你想删除的旗帜，你只需要使用工具<code>bnconfig</code>,执行下面命令。</p>
+<p><strong>Linux and OS X Systems</strong></p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="string">/opt/bitnami/apps/</span>软件目录<span class="string">/bnconfig</span> <span class="params">--disable_banner</span> 1</span><br></pre></td></tr></table></figure>
+<p>然后重启APache:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /<span class="keyword">opt</span>/bitnami/ctlscript.<span class="keyword">sh</span> restart apache</span><br></pre></td></tr></table></figure>
+<p><strong>Windows Systems</strong></p>
+<p>进入算计路径：:</p>
+<p><code>cd apps\</code>软件目录</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bnconfig.exe </span>--<span class="keyword">disable_banner </span><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/bitnami软件修改URL方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/07/bitnami软件修改URL方法/" itemprop="url">bitnami软件修改URL方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-07T15:33:16+08:00">
+                2018-09-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T15:37:39+08:00">
+                2018-09-07
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  318
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-更改首页页面"><a href="#1-更改首页页面" class="headerlink" title="1 更改首页页面"></a>1 更改首页页面</h1><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">install/apache2/<span class="keyword">conf</span>/bitnami/bitnami.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
+<p>修改<code>bitnami.con</code>文件，更改首页页面。</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;VirtualHost _default_:80&gt;</span><br><span class="line">  DocumentRoot "/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/apache2/htdocs"</span><br><span class="line">  &lt;Directory "/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/apache2/htdocs"&gt;</span><br><span class="line">   改为</span><br><span class="line">&lt;VirtualHost _default_:80&gt;</span><br><span class="line">  DocumentRoot "/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/apps/mediawiki/htdocs"</span><br><span class="line">  &lt;Directory "/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/apps/mediawiki/htdocs"&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="2-更改应用访问地址后缀"><a href="#2-更改应用访问地址后缀" class="headerlink" title="2 更改应用访问地址后缀"></a>2 更改应用访问地址后缀</h1><p>例如：<a href="http://172.20.20.37/moodle" target="_blank" rel="noopener">http://172.20.20.37/moodle</a>   改为<a href="http://172.20.20.37" target="_blank" rel="noopener">http://172.20.20.37</a> </p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Install/apps/moodle/<span class="keyword">conf</span>/httpd-prefix.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
+<p>修改<code>httpd-prefix.conf</code>文件，更改应用页面更目录</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Alias /moodle/ "C:<span class="tag">\<span class="name">Bitnami</span></span><span class="tag">\<span class="name">moodle</span></span>-2.8.5-1/apps/moodle/htdocs/login/"</span><br><span class="line">Alias /moodle "C:<span class="tag">\<span class="name">Bitnami</span></span><span class="tag">\<span class="name">moodle</span></span>-2.8.5-1/apps/moodle/htdocs/login/"</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">改为</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">DocumentRoot "C:<span class="tag">\<span class="name">Bitnami</span></span><span class="tag">\<span class="name">moodle</span></span>-2.8.5-1/apps/moodle/htdocs/login"   </span><br><span class="line">#Alias /moodle/ "C:<span class="tag">\<span class="name">Bitnami</span></span><span class="tag">\<span class="name">moodle</span></span>-2.8.5-1/apps/moodle/htdocs/login/"</span><br><span class="line">#Alias /moodle "C:<span class="tag">\<span class="name">Bitnami</span></span><span class="tag">\<span class="name">moodle</span></span>-2.8.5-1/apps/moodle/htdocs/login/"</span><br></pre></td></tr></table></figure>
+<h1 id="3-更改应用根目录。"><a href="#3-更改应用根目录。" class="headerlink" title="3 更改应用根目录。"></a>3 更改应用根目录。</h1><p>一般情况下，只需修改<code>bitnami.con</code>文件就可以达到URL后缀显示的问题，个别情况下需要修改<code>apps</code>下的<code>httpd-prefix.conf</code>文件。</p>
+<p>还可以修改后缀名称。</p>
+<p>例如：<a href="http://172.20.20.21/moodle" target="_blank" rel="noopener">http://172.20.20.21/moodle</a>     改为 <a href="http://172.20.20.21/mmkk" target="_blank" rel="noopener">http://172.20.20.21/mmkk</a> </p>
+<p>也是修改<code>httpd-prefix.conf</code>文件。</p>
+<h1 id="4-修改端口号：参考上面80位置"><a href="#4-修改端口号：参考上面80位置" class="headerlink" title="4 修改端口号：参考上面80位置"></a>4 修改端口号：参考上面80位置</h1><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">install/apache2/<span class="keyword">conf</span>/bitnami/bitnami.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
+<p>如果还不行，同时修改apache配置文件端口号。</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">install/apache2/<span class="keyword">conf</span>/httpd.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/ELK部署过程中问题总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/07/ELK部署过程中问题总结/" itemprop="url">ELK部署过程中问题总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-07T15:27:50+08:00">
+                2018-09-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T15:31:40+08:00">
+                2018-09-07
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  180
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-错误1："><a href="#1-错误1：" class="headerlink" title="1 错误1："></a>1 错误1：</h1><p>启动<code>elasticsearch-5.3.0</code>报错<br><img src="1.png" alt="1"></p>
+<p>不能使用root用户启动。新建用户elk，用户组elk.</p>
+<h1 id="2-错误2："><a href="#2-错误2：" class="headerlink" title="2 错误2："></a>2 错误2：</h1><p>使用elk启动报错<br><img src="2.png" alt="2"></p>
+<p>改变<code>elasticsearch</code>文件夹所有者到当前用户</p>
+<h1 id="3-错误3："><a href="#3-错误3：" class="headerlink" title="3 错误3："></a>3 错误3：</h1><p>修改<code>network-name : 0.0.0.0</code>,后报错</p>
+<p> <img src="3.png" alt="3"></p>
+<blockquote>
+<p>注意： es启动要求提高一些系统参数配置，否则会报错</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span>. 增大vm.max_map_count到至少<span class="number">262144</span></span><br><span class="line"></span><br><span class="line">$ sudo vim  /etc/sysctl.conf</span><br><span class="line"></span><br><span class="line">添加  vm.max_map_count=<span class="number">262144</span></span><br><span class="line"></span><br><span class="line">$ sudo sysctl -p</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">b</span>. 增大文件句柄数至少 <span class="number">65536</span>  ulimit -a查看</span><br><span class="line"></span><br><span class="line">$ sudo vim /etc/security/limits.conf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">* soft nofile 65536</span><br><span class="line"></span><br><span class="line">* hard nofile 65536</span><br></pre></td></tr></table></figure>
+<h1 id="4-错误4："><a href="#4-错误4：" class="headerlink" title="4 错误4："></a>4 错误4：</h1><p>启动<code>elasticsearch</code>报错<br><img src="4.png" alt="4"></p>
+<p>elasticsearch-head</p>
+<p>·         不能放在<code>elasticsearch</code>的<code>plugins</code>、<code>modules</code> 目录下</p>
+<p>·         不能使用 <code>elasticsearch-plugin install</code></p>
+<p>移动<code>elasticsearch-head</code>,到别的目录，启动成功。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/rsyslog-loganalyzer-evtsys搭建日志服务器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/07/rsyslog-loganalyzer-evtsys搭建日志服务器/" itemprop="url">rsyslog+loganalyzer+evtsys搭建日志服务器</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-07T15:01:32+08:00">
+                2018-09-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T15:25:48+08:00">
+                2018-09-07
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="1-环境要求"><a href="#1-环境要求" class="headerlink" title="1 环境要求"></a>1 环境要求</h1><p>将所有的服务器的日志都集中保存在一台rsyslog日志服务器中，mysql作为数据库，loganalyzer将服务器的日志数据进行分析展现，evtsys是windows服务器提交日志的客户端软件。</p>
+<p>实验环境如下：</p>
+<table>
+<thead>
+<tr>
+<th>节点</th>
+<th>OS</th>
+<th>IP</th>
+<th>网络</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rsyslog Server</td>
+<td>Centos6.4</td>
+<td>192.168.200.106</td>
+<td>单网卡</td>
+</tr>
+<tr>
+<td>Linux Client</td>
+<td>Centos6.4</td>
+<td>192.168.200.106</td>
+<td>单网卡</td>
+</tr>
+<tr>
+<td>Windows Client</td>
+<td>Windows2008x64</td>
+<td>192.168.200.31</td>
+<td>单网卡</td>
+</tr>
+</tbody>
+</table>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/kxinter.gitub.io/2018/09/07/rsyslog-loganalyzer-evtsys搭建日志服务器/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/Mediawiki安装及LDAP认证问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/07/Mediawiki安装及LDAP认证问题/" itemprop="url">Mediawiki安装及LDAP认证问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-07T14:41:01+08:00">
+                2018-09-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T14:59:48+08:00">
+                2018-09-07
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-环境"><a href="#1-环境" class="headerlink" title="1 环境"></a>1 环境</h1><p>安装环境：CentOS-7-x86_64-DVD-1511</p>
+<p>Mediawiki: bitnami-mediawiki-1.26.2-2-linux-x64-installer.run</p>
+<p>LDAP扩展插件：LdapAuthentication-REL1_26-70ab129.tar.gz</p>
+<h1 id="2-安装mediawiki"><a href="#2-安装mediawiki" class="headerlink" title="2 安装mediawiki"></a>2 安装mediawiki</h1><p>首先安装<code>bitnami-mediawiki-1.26.2-2-linux-x64-installer.run</code></p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#chmod   <span class="number">755</span> bitnami-mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span>-linux-x64-installer.run   <span class="comment">//赋予读写权限</span></span><br><span class="line"></span><br><span class="line">#./bitnami-mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span>-linux-x64-installer.run           <span class="comment">//执行安装</span></span><br></pre></td></tr></table></figure>
+<p><strong>安装到最后出现mysql数据库错误</strong>：</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Error: </span>Error running /opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/mysql/scripts/myscript.sh</span><br><span class="line"></span><br><span class="line">/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/mysql ****: FATAL ERROR: please install the following</span><br><span class="line"></span><br><span class="line">Perl modules before executing scripts/mysql_install_db:</span><br><span class="line"></span><br><span class="line">Data::Dumper</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">ERROR </span>2002 (HY000): Can't connect to local MySQL server through socket</span><br><span class="line"></span><br><span class="line">'/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/mysql/tmp/mysql.sock' (2)</span><br><span class="line"></span><br><span class="line"><span class="keyword">ERROR </span>2002 (HY000): Can't connect to local MySQL server through socket</span><br><span class="line"></span><br><span class="line">'/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/mysql/tmp/mysql.sock' (2)</span><br><span class="line"></span><br><span class="line"><span class="keyword">ERROR </span>2002 (HY000): Can't connect to local MySQL server through socket</span><br><span class="line"></span><br><span class="line">'/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/mysql/tmp/mysql.sock' (2)</span><br></pre></td></tr></table></figure>
+<p>（根据提示，发现系统缺少Dumper模块）</p>
+<p>根据提示安装Data-Dumper.x86_64</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr"># yum install perl-Data-Dumper.x86</span>_<span class="number">64</span>          <span class="comment">//安装插件模块。</span></span><br></pre></td></tr></table></figure>
+<p>……………</p>
+<p>OK,  Mediawiki安装成功。</p>
+<h1 id="3-开启AD域用户认证登录"><a href="#3-开启AD域用户认证登录" class="headerlink" title="3 开启AD域用户认证登录"></a>3 开启AD域用户认证登录</h1><p>Ldap认证需要php支持ldap,需要安装ldap支持模块（<code>php-ldap</code>），及开启<code>php</code>的<code>ldap</code>功能(修改<code>php.ini</code>文件)。</p>
+<pre><code>&gt; 备注：不安装php-ldap，LdapAuthentication插件不工作
+</code></pre><p>1、  安装php-ldap模块：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@localhost</span> mediawiki]<span class="comment"># yum   install php-ldap</span></span><br></pre></td></tr></table></figure>
+<p> 2、 开启<code>ldap</code>功能<br>即修改<code>php.ini</code>文件，将<code>extension=php_ldap.dll</code>前的分号去掉。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost mediawiki]# vi   /opt/mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span>/php/etc/php.ini</span><br></pre></td></tr></table></figure>
+<p><img src="1.png" alt="enter description here"></p>
+<p>3、下载<code>LdapAuthentication</code>插件：<code>LdapAuthentication-REL1_26-70ab129.tar.gz</code></p>
+<p>解压插件到extensions目录：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># tar -xzf   LdapAuthentication-REL1_26<span class="number">-70</span>ab129.tar.gz   /opt/mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span>/apps/mediawiki/htdocs/extensions/</span><br></pre></td></tr></table></figure>
+<p>4、编辑<code>LocalSettings.php</code>配置文件<br><img src="2.png" alt="enter description here"></p>
+<p>在<code>LocalSettings.php</code> 末尾添加如下内容：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require_once</span>(<span class="string">"extensions/LdapAuthentication/LdapAuthentication.php"</span>);</span><br><span class="line"></span><br><span class="line">$wgAuth= <span class="keyword">new</span> LdapAuthenticationPlugin(); <span class="comment">## 这两行激活插件</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$wgLDAPDomainNames = <span class="keyword">array</span>( <span class="string">"dealeasy"</span>   );    <span class="comment">//域名简写</span></span><br><span class="line"></span><br><span class="line">$wgLDAPServerNames = <span class="keyword">array</span>(   <span class="string">"dealeasy"</span>=&gt;<span class="string">"172.20.20.10"</span> );     <span class="comment">//域控域名或者ip</span></span><br><span class="line"></span><br><span class="line">$wgLDAPSearchStrings = <span class="keyword">array</span>(   <span class="string">"dealeasy"</span>=&gt;<span class="string">"USER-NAME@dealeasy"</span> );     <span class="comment">//USER-NAME 不要修改它,默认用户名替代位置，特定字符</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$wgLDAPBaseDNs = <span class="keyword">array</span>(   <span class="string">"dealeasy"</span>=&gt;<span class="string">"dc=dealeasy,dc=local"</span>);</span><br><span class="line"></span><br><span class="line">$wgLDAPSearchAttributes = <span class="keyword">array</span>(   <span class="string">"dealeasy"</span>=&gt;<span class="string">"sAMAccountName"</span>);    <span class="comment">//加上这两句就可以把DC上的用户名都同步过来了</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$wgLDAPUseLocal = <span class="keyword">false</span>;       是否使用本地用户,ture代表使用，这里写入不使用</span><br><span class="line"></span><br><span class="line">$wgLDAPUpdateLDAP = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">$wgLDAPMailPassword = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$wgMinimalPasswordLength = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">$wgLDAPEncryptionType =   <span class="keyword">array</span>(<span class="string">"dealeasy"</span>=&gt;<span class="string">"clear"</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$wgShowSQLErrors = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">$wgDebugDumpSql = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">$wgShowDBErrorBacktrace = <span class="keyword">true</span>;          <span class="comment">//这三行网上找到，因ldap用户登录出现数据库查询错误，添加这三行后，在出现错误时可以在页面上显示错误信息</span></span><br></pre></td></tr></table></figure>
+<p><img src="3.png" alt="enter description here"></p>
+<p>Ok, <code>LocalSettings.php</code>编辑完成。</p>
+<p>下面就可以直接使用域用户登录了。</p>
+<h1 id="4-Database错误"><a href="#4-Database错误" class="headerlink" title="4 Database错误"></a>4 Database错误</h1><p><img src="4.png" alt="enter description here"></p>
+<p>报错（前面<code>LocalSettings.php</code>添加后三行才能看到报错详情）：</p>
+<p><strong>Database error</strong><br><img src="5.png" alt="enter description here"><br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">A database <span class="keyword">query</span> <span class="keyword">error</span> has occurred. This may indicate a bug <span class="keyword">in</span> the software.</span><br><span class="line"></span><br><span class="line">（翻译：数据库错误　　　　一个数据库查询错误发生。这可能表明软件中的缺陷。）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">Query</span>:</span><br><span class="line"></span><br><span class="line">SELECT domain FROM `ldap_domains` WHERE user_id = '4' LIMIT 1</span><br><span class="line"></span><br><span class="line">Function: LdapAuthenticationPlugin::loadDomain</span><br><span class="line"></span><br><span class="line"><span class="keyword">Error</span>: 1146 <span class="keyword">Table</span> 'bitnami_mediawiki.ldap_domains' doesn't exist (localhost:3306)</span><br><span class="line"></span><br><span class="line">Backtrace:</span><br><span class="line"></span><br><span class="line">#0 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/<span class="keyword">db</span>/Database.php(1076): DatabaseBase-&gt;reportQueryError('<span class="keyword">Table</span> 'bitnami_...', 1146, 'SELECT  domain ...', 'LdapAuthenticat...', false)</span><br><span class="line"></span><br><span class="line">#1 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/<span class="keyword">db</span>/Database.php(1600): DatabaseBase-&gt;<span class="keyword">query</span>('SELECT  domain ...', 'LdapAuthenticat...')</span><br><span class="line"></span><br><span class="line">#2 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/<span class="keyword">db</span>/Database.php(1689): DatabaseBase-&gt;select('ldap_domains', Array, Array, 'LdapAuthenticat...', Array, Array)</span><br><span class="line"></span><br><span class="line">#3 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/extensions/LdapAuthentication/LdapAuthentication.php(2041): DatabaseBase-&gt;selectRow('ldap_domains', Array, Array, 'LdapAuthenticat...')</span><br><span class="line"></span><br><span class="line">#4 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/extensions/LdapAuthentication/LdapAuthentication.php(2060): LdapAuthenticationPlugin::loadDomain(Object(User))</span><br><span class="line"></span><br><span class="line">#5 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/extensions/LdapAuthentication/LdapAuthentication.php(1237): LdapAuthenticationPlugin::saveDomain(Object(User), 'dealeasy')</span><br><span class="line"></span><br><span class="line">#6 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/specials/SpecialUserlogin.php(830): LdapAuthenticationPlugin-&gt;updateUser(Object(User))</span><br><span class="line"></span><br><span class="line">#7 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/specials/SpecialUserlogin.php(958): LoginForm-&gt;authenticateUserData()</span><br><span class="line"></span><br><span class="line">#8 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/specials/SpecialUserlogin.php(341): LoginForm-&gt;processLogin()</span><br><span class="line"></span><br><span class="line">#9 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/specialpage/SpecialPage.php(384): LoginForm-&gt;execute(NULL)</span><br><span class="line"></span><br><span class="line">#10 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/specialpage/SpecialPageFactory.php(553): SpecialPage-&gt;<span class="keyword">run</span>(NULL)</span><br><span class="line"></span><br><span class="line">#11 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/MediaWiki.php(281): SpecialPageFactory::executePath(Object(Title), Object(RequestContext))</span><br><span class="line"></span><br><span class="line">#12 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/MediaWiki.php(714): MediaWiki-&gt;performRequest()</span><br><span class="line"></span><br><span class="line">#13 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/MediaWiki.php(508): MediaWiki-&gt;main()</span><br><span class="line"></span><br><span class="line">#14 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/index.php(41): MediaWiki-&gt;<span class="keyword">run</span>()</span><br><span class="line"></span><br><span class="line">#15 &#123;main&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最终，通过报错信息<code>Error: 1146 Table &#39;bitnami_mediawiki.ldap_domains&#39; doesn&#39;t exist (localhost:3306)</code>，发现不存在<code>ldap_domains</code>表，即<code>bitnami_mediawiki</code>不存在这个表，后来尝试在<code>phpmyAdmin</code>上为<code>bitnami_mediawiki</code>创建<code>ldap_domains</code>表，并在表内创建<code>user_id</code>和<code>domain</code>列，问题解决。</p>
+<blockquote>
+<p>备注：根据多次实验和页面错误提示，才确认建立<code>user_id</code>和<code>domain</code>列</p>
+</blockquote>
+<h1 id="5-备份"><a href="#5-备份" class="headerlink" title="5 备份"></a>5 备份</h1><p>备份数据库、配置文件、附件目录<code>images</code>、插件目录<code>extensions</code></p>
+<h2 id="5-1-备份脚本"><a href="#5-1-备份脚本" class="headerlink" title="5.1 备份脚本"></a>5.1 备份脚本</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Now=$(date   +<span class="string">"%Y%m%d%H"</span>)</span><br><span class="line"></span><br><span class="line">File=bitnami_mediawiki-$Now.sql</span><br><span class="line"></span><br><span class="line">echo   **********start$Now************    &gt;&gt;    <span class="regexp">/mnt/</span>mediawiki-bak<span class="regexp">/log/</span>$Now.log</span><br><span class="line"></span><br><span class="line"><span class="regexp">/opt/</span>mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span><span class="regexp">/mysql/</span>bin<span class="regexp">/mysqldump   -uroot -pDe123456 bitnami_mediawiki &gt; /</span>mnt<span class="regexp">/mediawiki-bak/</span>$File</span><br><span class="line"></span><br><span class="line">echo   **********cp LocalSettings.php********** &gt;&gt;  <span class="regexp">/mnt/</span>mediawiki-bak<span class="regexp">/log/</span>$Now.log</span><br><span class="line"></span><br><span class="line">rsync   -avzrtopgL  --progress    <span class="regexp">/opt/</span>mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span><span class="regexp">/apps/</span>mediawiki<span class="regexp">/htdocs/</span>LocalSettings.php   <span class="regexp">/mnt/</span>mediawiki-bak/LocalSettings.php</span><br><span class="line"></span><br><span class="line">echo   *********cp images ******** &gt;&gt;    <span class="regexp">/mnt/</span>mediawiki-bak<span class="regexp">/log/</span>$Now.log</span><br><span class="line"></span><br><span class="line">rsync   -avzrtopgL  --progress   <span class="regexp">/opt/</span>mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span><span class="regexp">/apps/</span>mediawiki<span class="regexp">/htdocs/</span>images <span class="regexp">/mnt/</span>mediawiki-bak/</span><br><span class="line"></span><br><span class="line">echo   ********cp extensions ********* &gt;&gt;    <span class="regexp">/mnt/</span>mediawiki-bak<span class="regexp">/log/</span>$Now.log</span><br><span class="line"></span><br><span class="line">rsync   -avzrtopgL  --progress   <span class="regexp">/opt/</span>mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span><span class="regexp">/apps/</span>mediawiki<span class="regexp">/htdocs/</span>extensions <span class="regexp">/mnt/</span>mediawiki-bak<span class="regexp">/   &gt;&gt; /</span>mnt<span class="regexp">/mediawiki-bak/</span>log/$Now.log</span><br><span class="line"></span><br><span class="line">echo   ********end$Now********* &gt;&gt; <span class="regexp">/mnt/</span>mediawiki-bak<span class="regexp">/log/</span>$Now.log</span><br></pre></td></tr></table></figure>
+<h1 id="6-安装包及插件等"><a href="#6-安装包及插件等" class="headerlink" title="6 安装包及插件等"></a>6 安装包及插件等</h1><p><img src="LdapAuthentication-REL1_26-70ab129.tar.gz" alt="LdapAuthentication-REL1_26-70ab129.tar.gz"></p>
+<p><img src="LdapAuthentication-REL1_26-70ab129.tar.gz" alt="LdapAuthentication-REL1_26-70ab129.tar.gz"></p>
+<p><img src="MsUpload-REL1_26-47cfb25.tar.gz" alt="MsUpload-REL1_26-47cfb25.tar.gz"></p>
+<p><img src="SyntaxHighlight_GeSHi-REL1_26-a15f02e.tar.gz" alt="SyntaxHighlight_GeSHi-REL1_26-a15f02e.tar.gz"></p>
+<p><img src="WikiEditor-REL1_26-72db6c7.tar.gz" alt="WikiEditor-REL1_26-72db6c7.tar.gz"></p>
+<p>安装包：<code>bitnami_mediawiki</code>（自己下载）</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/Mediawiki优化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -379,7 +1725,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T14:34:47+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T14:42:40+08:00">
                 2018-09-07
               </time>
             
@@ -601,7 +1947,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T14:29:09+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T15:41:36+08:00">
                 2018-09-07
               </time>
             
@@ -986,7 +2332,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/07/Bitnami-Liferayx自定义路径/" itemprop="url">Bitnami_Liferayx自定义路径</a></h1>
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/07/Bitnami-Liferayx自定义路径/" itemprop="url">Bitnami_Liferay自定义路径</a></h1>
         
 
         <div class="post-meta">
@@ -1014,7 +2360,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T14:22:17+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T15:41:54+08:00">
                 2018-09-07
               </time>
             
@@ -1165,1263 +2511,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/OTRS发送邮件设置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/07/OTRS发送邮件设置/" itemprop="url">OTRS发送邮件设置</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-07T14:12:14+08:00">
-                2018-09-07
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T14:16:12+08:00">
-                2018-09-07
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  236
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="分三步"><a href="#分三步" class="headerlink" title="分三步:"></a>分三步:</h1><ol>
-<li>(图一)在<code>系统配置</code>里找到<code>Framework -&gt; Core::Sendmail</code> 配置你的 SMTP 信息, 如帐号, 密码, 邮件服务器地址<br>直达地址:<br><a href="https://your.otrs.host/otrs/in" target="_blank" rel="noopener">https://your.otrs.host/otrs/in</a> … ework</li>
-</ol>
-<blockquote>
-<p> 如果发送邮件失败，按图中的位置把邮箱地址写上<br><img src="1.png" alt="enter description here"></p>
-</blockquote>
-<ol start="2">
-<li>(图二)在系统管理找到配置邮件发送地址管理, 增加系统邮件地址<br>直达地址:<br><a href="https://your.otrs.host/otrs/in" target="_blank" rel="noopener">https://your.otrs.host/otrs/in</a> … dress<br><img src="2.png" alt="enter description here"></li>
-</ol>
-<ol start="3">
-<li>(图三)在队列调用该邮件地址<br>直达地址:<br><a href="https://your.otrs.host/otrs/in" target="_blank" rel="noopener">https://your.otrs.host/otrs/in</a> … D%3D1<br><img src="3.png" alt="enter description here"> </li>
-</ol>
-<ol start="4">
-<li><p>创建工单, 测试发送邮件, 如果无法发送请抓系统日志来看.</p>
-</li>
-<li><p>可能遇到的问题, 通知邮件发送不出去, 请使用本网站的搜索功能, 此问题已经讨论过很多了. 如果你找很久(骂前面解决问题后失踪人)才找到, 那么请对有用的答案点赞, 这样就会影响问题的先后排序</p>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/05/JIRA6-3-6部署及破解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/05/JIRA6-3-6部署及破解/" itemprop="url">JIRA6.3.6部署及破解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-05T09:42:00+08:00">
-                2018-09-05
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T14:16:55+08:00">
-                2018-09-07
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  857
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="1-环境："><a href="#1-环境：" class="headerlink" title="1 环境："></a>1 环境：</h1><p>操作系统：CentOS7.2 1151</p>
-<p>数据库：mysql 5.6.35</p>
-<p>Java: java 1.8.0_65</p>
-<p>平台软件：JIRA 6.3.6</p>
-<h1 id="2-安装步骤"><a href="#2-安装步骤" class="headerlink" title="2 安装步骤"></a>2 安装步骤</h1><h2 id="2-1-安装JDK"><a href="#2-1-安装JDK" class="headerlink" title="2.1 安装JDK"></a>2.1 安装JDK</h2><p>安装JDK 1.7或1.8，本次部署直接YUM安装，版本1.8.</p>
-<h2 id="2-2-安装数据库"><a href="#2-2-安装数据库" class="headerlink" title="2.2 安装数据库"></a>2.2 安装数据库</h2><p>安装mysql5.6.35,并创建jira数据库。</p>
-<h2 id="2-3-下载JIRA"><a href="#2-3-下载JIRA" class="headerlink" title="2.3 下载JIRA"></a>2.3 下载JIRA</h2><p>下载地址：<a href="https://www.atlassian.com/software/jira/download-archives" target="_blank" rel="noopener">https://www.atlassian.com/software/jira/download-archives</a></p>
-<p>下载<code>atlassian-jira-6.3.6.tar.gz</code></p>
-<h2 id="2-4-安装JIRA"><a href="#2-4-安装JIRA" class="headerlink" title="2.4 安装JIRA"></a>2.4 安装JIRA</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@jira<span class="number">-24</span> home]# tar zxvf atlassian-jira<span class="number">-6.3</span><span class="number">.6</span>.tar.gz</span><br><span class="line"></span><br><span class="line">[root@jira<span class="number">-24</span> home]# mv atlassian-jira<span class="number">-6.3</span><span class="number">.6</span> /opt/jira</span><br></pre></td></tr></table></figure>
-<h2 id="2-5-修改端口"><a href="#2-5-修改端口" class="headerlink" title="2.5 修改端口"></a>2.5 修改端口</h2><p>修改端口号为80</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@jira-<span class="number">24</span> home]# <span class="keyword">vi</span> /<span class="keyword">opt</span>/jira/<span class="keyword">conf</span>/server.xml</span><br></pre></td></tr></table></figure>
-<p><img src="1.png" alt="enter description here"></p>
-<h2 id="2-6-创建及配置jira-home"><a href="#2-6-创建及配置jira-home" class="headerlink" title="2.6 创建及配置jira_home"></a>2.6 创建及配置jira_home</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@jira</span>-<span class="number">24</span> home]<span class="comment"># mkdir /home/jira_home</span></span><br></pre></td></tr></table></figure>
-<p>配置路径</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@jira-<span class="number">24</span> home]# vi <span class="regexp">/opt/</span>jira<span class="regexp">/atlassian-jira/</span>WEB-INF<span class="regexp">/classes/</span>jira-application.properties</span><br></pre></td></tr></table></figure>
-<p><img src="2.png" alt="enter description here"></p>
-<h2 id="2-7-启动JIRA"><a href="#2-7-启动JIRA" class="headerlink" title="2.7 启动JIRA"></a>2.7 启动JIRA</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@jira</span>-<span class="number">24</span> home]<span class="comment"># /opt/jira/bin/start-jira.sh</span></span><br></pre></td></tr></table></figure>
-<p>打开<a href="http://172.20.20.24" target="_blank" rel="noopener">http://172.20.20.24</a><br><img src="3.png" alt="enter description here"><br> <img src="4.png" alt="enter description here"></p>
-<p>配置完数据库之后，在新界面录入程序标题，点击“向后”按钮<br><img src="5.png" alt="enter description here"><br> <img src="6.png" alt="enter description here"></p>
-<p>输入临时授权码，进行注册：<br><img src="7.png" alt="enter description here"></p>
-<p>注册完之后，填写管理员账户和密码<br><img src="8.png" alt="enter description here"></p>
-<h2 id="2-8-汉化"><a href="#2-8-汉化" class="headerlink" title="2.8 汉化"></a>2.8 汉化</h2><p>汉化包位置：<code>\\172.20.20.14\Software\Development\jira</code></p>
-<p>中文软件包下载完毕后，我们需要登陆到jira系统找到Add-ons–Manage add-ons–upload add-on，如下：<br><img src="9.png" alt="enter description here"><br> <img src="9.1.png" alt="enter description here"><br><img src="10.png" alt="enter description here"><br> <img src="11.png" alt="enter description here"><br><img src="12.png" alt="enter description here"><br> <img src="13.png" alt="enter description here"></p>
-<p> 中文软件包安装完毕后，我们现在配置jira，如下：<br><img src="14.png" alt="enter description here"><br> <img src="15.png" alt="enter description here"><br><img src="16.png" alt="enter description here"></p>
-<p>通过上图，我们可以很明显的看出，jira已经被中文语言了。</p>
-<h2 id="2-9-破解JIRA"><a href="#2-9-破解JIRA" class="headerlink" title="2.9 破解JIRA"></a>2.9 破解JIRA</h2><p>破解文件位置：<code>\\172.20.20.14\Software\Development\jira</code></p>
-<p>到了这一步，就是<strong>破解的过程</strong>了，此时操作如下：</p>
-<p>　　1）先将JIRA服务关掉，<strong>不必关闭浏览器</strong>。</p>
-<p>　　2）解压破解包到你的硬盘指定目录下，然后按如下指令操作。</p>
-<blockquote>
-<p>1、用atlassian-extras-2.2.2.jar替换你的JIRA的安装目录的\atlassian-jira\WEB-INF\lib同名jar包。</p>
-<p>2、用atlassian-universal-plugin-manager-plugin-2.10.1.jar替换你的JIRA的安装目录的\atlassian-jira\atlassian-bundled-plugins中的同名jar包。</p>
-<p>3、根据自己的情况，按照keytpl.txt的格式填写好自己的license。</p>
-</blockquote>
-<p>点击右上角齿轮形状的管理图标，选择“系统”，再选择“授权”，看到使用日期不到1个月，如下所示：<br><img src="17.png" alt="enter description here"></p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">填写授权码，授权码参数范例如下：</span><br><span class="line"></span><br><span class="line">Description=JIRA: Commercial,</span><br><span class="line"></span><br><span class="line">CreationDate=你的安装日期，格式（yyyy-mm-dd）,</span><br><span class="line"></span><br><span class="line">jira.LicenseEdition=ENTERPRISE,</span><br><span class="line"></span><br><span class="line">Evaluation=false,</span><br><span class="line"></span><br><span class="line">jira.LicenseTypeName=COMMERCIAL,</span><br><span class="line"></span><br><span class="line">jira.active=true,</span><br><span class="line"></span><br><span class="line">licenseVersion=2,</span><br><span class="line"></span><br><span class="line">MaintenanceExpiryDate=你想设置的失效日期如：2099-12-31,</span><br><span class="line"></span><br><span class="line">Organisation=joiandjoin,</span><br><span class="line"></span><br><span class="line">SEN=你申请到的SEN注意没有前缀LID,</span><br><span class="line"></span><br><span class="line">ServerID=你申请到的ServerID,</span><br><span class="line"></span><br><span class="line">jira.NumberOfUsers=-1,</span><br><span class="line"></span><br><span class="line">LicenseID=LID你申请到的SEN，注意LID前缀不要丢掉,</span><br><span class="line"></span><br><span class="line">LicenseExpiryDate=你想设置的失效日期如：2099-12-31,</span><br><span class="line"></span><br><span class="line">PurchaseDate=你的安装日期，格式（yyyy-mm-dd）</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">本次安装授权码实例为：</span><br><span class="line"></span><br><span class="line">Description=JIRA: Commercial,</span><br><span class="line"></span><br><span class="line">CreationDate=2017-01-25,</span><br><span class="line"></span><br><span class="line">jira.LicenseEdition=ENTERPRISE,</span><br><span class="line"></span><br><span class="line">Evaluation=false,</span><br><span class="line"></span><br><span class="line">jira.LicenseTypeName=COMMERCIAL,</span><br><span class="line"></span><br><span class="line">jira.active=true,</span><br><span class="line"></span><br><span class="line">licenseVersion=2,</span><br><span class="line"></span><br><span class="line">MaintenanceExpiryDate=2099-12-31,</span><br><span class="line"></span><br><span class="line">Organisation=pl,</span><br><span class="line"></span><br><span class="line">SEN=SEN-L9178727,</span><br><span class="line"></span><br><span class="line">ServerID=BIBT-L882-5ZZ3-F2IZ,</span><br><span class="line"></span><br><span class="line">jira.NumberOfUsers=-1,</span><br><span class="line"></span><br><span class="line">LicenseID=AAABdA0ODAoPeNp9UU1PwkAUvO+vaOJFD9vQRS2SbCK0a1JTwNBqIvGyloeswrZ5u0X011tojaDgc</span><br><span class="line"></span><br><span class="line">d7HvJl5J2kJzq3UDjt3WKvrse75pRMkaQU8n7wggJ7nRQHoxioDbUBMlVW55mKYivHdOEoEGZbLZ</span><br><span class="line"></span><br><span class="line">8DR7N4AGk498qpQun+qdyVmc2kglBb4hp62PMouSEOcfhQwlEvgwWgwEOMg6sXfLbEuFH7s7DHK2</span><br><span class="line"></span><br><span class="line">iTItZWZFQOpFvxtPS+l/lTX3mXbzfIlSQBXgFHI+1E/pXGnw+jFZNKmNyya1AILzKdlZt0NoCaf2</span><br><span class="line"></span><br><span class="line">XeJ4FaMagXcYgn12HHfB9I5ZKLSpy1oqbMjRv5R8yfE5k7lK47CRAxpfOX5HZ/5pAJ8r/APbWIlW</span><br><span class="line"></span><br><span class="line">kA+kwsDZIQvUisjt/5C0YtFL3kkAcK28vtdi1rBQyVoM8/2YoDKKRaoTJNgCCZDVWyZb6Nxz0kaC</span><br><span class="line"></span><br><span class="line">c5p/aCzp64jVnJRbm/Vmo+94FC4u8d39344a/wFDcT8NjAsAhRCNRjYwj4n0JHDJmMZWChYSaegE</span><br><span class="line"></span><br><span class="line">gIUd1blNKrDbGRX6QLiCbEyzoyRJnA=X02i6,</span><br><span class="line"></span><br><span class="line">LicenseExpiryDate=2099-12-31,</span><br><span class="line"></span><br><span class="line">PurchaseDate=2017-01-25</span><br></pre></td></tr></table></figure>
-<p>将以上授权码信息填入授权码输入框，点击“增加”按钮，如下所示：<br><img src="18.png" alt="enter description here"></p>
-<p>之后，看到授权信息更新了，就表示破解成功，会看到如下成功信息, 如下图：<br><img src="19.png" alt="enter description here"></p>
-<h2 id="2-10-插件破解"><a href="#2-10-插件破解" class="headerlink" title="2.10 插件破解"></a>2.10 插件破解</h2><p>插件破解和软件破解方法不一样，插件破解需要破解包内自带的Key.</p>
-<p>破解Key在我百度云内。</p>
-<p>参考资料：<a href="http://www.cnblogs.com/yangxia-test/p/4448002.html" target="_blank" rel="noopener">http://www.cnblogs.com/yangxia-test/p/4448002.html</a> </p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/04/rsync-sersync实时双向同步/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/04/rsync-sersync实时双向同步/" itemprop="url">rsync和sersync实时双向同步</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-04T18:10:20+08:00">
-                2018-09-04
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-05T18:06:35+08:00">
-                2018-09-05
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.8k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  8
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1-环境"><a href="#1-环境" class="headerlink" title="1 环境"></a>1 环境</h1><p>123</p>
-<p><table><br>    <tr><br>        <td>操作系统</td><br>        <td>Centos7.1 511</td><br>   </tr><br>       <tr><br>        <td>主服务器</td><br>        <td> 172.20.20.111</td><br>   </tr><br>       <tr><br>        <td>从服务器 </td><br>        <td> 172.20.22.99 </td><br>   </tr><br>    <tr><br>        <td colspan="2">测试目的：实现主服务器/rsync目录与从服务器/rsync目录实时双向同步.</td><br>    </tr><br>    <tr><br>       <td colspan="2">参考资料：<a href="http://blog.sina.com.cn/s/blog_9f4962b10102vqua.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_9f4962b10102vqua.html</a><br>        <a href="http://402753795.blog.51cto.com/10788998/1713179" target="_blank" rel="noopener">http://402753795.blog.51cto.com/10788998/1713179</a>  </td><br>        </tr><br></table><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/kxinter.gitub.io/2018/09/04/rsync-sersync实时双向同步/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/04/Linux运维工具/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/04/Linux运维工具/" itemprop="url">Linux运维工具</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-04T16:28:39+08:00">
-                2018-09-04
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-04T16:55:53+08:00">
-                2018-09-04
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.1k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1、linux常用的监控命令"><a href="#1、linux常用的监控命令" class="headerlink" title="1、linux常用的监控命令"></a>1、linux常用的监控命令</h1><h2 id="1-1-top"><a href="#1-1-top" class="headerlink" title="1.1. top"></a>1.1. top</h2><p>显示所有正在运行而且处于活动状态的实时进程， 而且会定期更新显示结果；它显示了CPU使用率，内存使用率，交换内存使用大小，调整缓存使用大小，缓冲区使用大小，进程PID， 使用的命令等信息。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/kxinter.gitub.io/2018/09/04/Linux运维工具/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/31/Openvpn基于LDAP认证下进行包过滤-控制访问权限/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/08/31/Openvpn基于LDAP认证下进行包过滤-控制访问权限/" itemprop="url">Openvpn基于LDAP认证下进行包过滤（控制访问权限）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-31T17:54:57+08:00">
-                2018-08-31
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-31T18:05:20+08:00">
-                2018-08-31
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  5
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1-说明"><a href="#1-说明" class="headerlink" title="1 说明"></a>1 说明</h1><blockquote>
-<p>方案：采用minimal_pf.so模块和包过滤</p>
-<p>此方法同样适用于基本认证。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/kxinter.gitub.io/2018/08/31/Openvpn基于LDAP认证下进行包过滤-控制访问权限/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/31/Mysql命令示例/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/08/31/Mysql命令示例/" itemprop="url">Mysql命令示例</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-31T17:46:20+08:00">
-                2018-08-31
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-05T17:53:19+08:00">
-                2018-09-05
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  860
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1-创建数据库"><a href="#1-创建数据库" class="headerlink" title="1 创建数据库"></a>1 创建数据库</h1><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Mysql&gt;<span class="keyword">create</span> <span class="keyword">database</span> 库名;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/kxinter.gitub.io/2018/08/31/Mysql命令示例/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/kxinter.gitub.io/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/kxinter.gitub.io/page/6/">6</a><a class="extend next" rel="next" href="/kxinter.gitub.io/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/kxinter.gitub.io/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/kxinter.gitub.io/page/7/">7</a><a class="extend next" rel="next" href="/kxinter.gitub.io/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2474,7 +2568,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2496,7 +2590,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/kxinter.gitub.io/tags/index.html">
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2655,7 +2749,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">56.5k</span>
+    <span title="Site words total count">61.8k</span>
   
 </div>
 
