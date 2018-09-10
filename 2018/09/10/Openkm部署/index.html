@@ -131,7 +131,7 @@
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/10/Openkm部署/8.png">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/10/Openkm部署/9.png">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/10/Openkm部署/10.png">
-<meta property="og:updated_time" content="2018-09-10T09:49:20.731Z">
+<meta property="og:updated_time" content="2018-09-10T09:54:17.124Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Openkm部署">
 <meta name="twitter:description" content="1 环境：系统：Centos7.1 软件：openkm-6.3.1-community-linux-x64-installer.run 辅助插件：Apache_OpenOffice_4.1.2_Linux_x86-64_install-rpm_zh-CN.tar.gz 数据库：mariadb-5.5.47-1.el7_2.x86_64 2 安装步骤2.1 数据库安装1[root@bogon ope">
@@ -389,7 +389,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-10T17:49:20+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-10T17:54:17+08:00">
                 2018-09-10
               </time>
             
@@ -509,7 +509,7 @@
 <p><strong>解决办法：</strong></p>
 <p>修改<code>swftools-0.9.2/swfs</code>下的</p>
 <p><code>Makefile</code>和<code>Makefile.in</code>文件； </p>
-<div class="note info no-cion"><br><p><br>install:<br>$(mkinstalldirs) $(pkgdatadir)<br>$(mkinstalldirs) $(pkgdatadir)/swfs<br>$(INSTALL_DATA) ./simple_viewer.swf $(pkgdatadir)/swfs/simple_viewer.swf<br>$(INSTALL_DATA) ./keyboard_viewer.swf $(pkgdatadir)/swfs/keyboard_viewer.swf<br>$(INSTALL_DATA) ./PreLoaderTemplate.swf $(pkgdatadir)/swfs/PreLoaderTemplate.swf<br>$(INSTALL_DATA) ./tessel_loader.swf $(pkgdatadir)/swfs/tessel_loader.swf<br>$(INSTALL_DATA) ./swft_loader.swf $(pkgdatadir)/swfs/swft_loader.swf<br><code>rm -f $(pkgdatadir)/swfs/default_viewer.swf -o -L $(pkgdatadir)/swfs/default_viewer.swf</code><br>$(LN_S) $(pkgdatadir)/swfs/simple_viewer.swf $(pkgdatadir)/swfs/default_viewer.swf<br><code>rm -f $(pkgdatadir)/swfs/default_loader.swf -o -L $(pkgdatadir)/swfs/default_loader.swf</code><br>$(LN_S) $(pkgdatadir)/swfs/tessel_loader.swf $(pkgdatadir)/swfs/default_loader.swf<br></p><br></div>
+<div class="note info no-cion"><br><p>install:<br>$(mkinstalldirs) $(pkgdatadir)<br>$(mkinstalldirs) $(pkgdatadir)/swfs<br>$(INSTALL_DATA) ./simple_viewer.swf $(pkgdatadir)/swfs/simple_viewer.swf<br>$(INSTALL_DATA) ./keyboard_viewer.swf $(pkgdatadir)/swfs/keyboard_viewer.swf<br>$(INSTALL_DATA) ./PreLoaderTemplate.swf $(pkgdatadir)/swfs/PreLoaderTemplate.swf<br>$(INSTALL_DATA) ./tessel_loader.swf $(pkgdatadir)/swfs/tessel_loader.swf<br>$(INSTALL_DATA) ./swft_loader.swf $(pkgdatadir)/swfs/swft_loader.swf<br><code>rm -f $(pkgdatadir)/swfs/default_viewer.swf -o -L $(pkgdatadir)/swfs/default_viewer.swf</code><br>$(LN_S) $(pkgdatadir)/swfs/simple_viewer.swf $(pkgdatadir)/swfs/default_viewer.swf<br><code>rm -f $(pkgdatadir)/swfs/default_loader.swf -o -L $(pkgdatadir)/swfs/default_loader.swf</code><br>$(LN_S) $(pkgdatadir)/swfs/tessel_loader.swf $(pkgdatadir)/swfs/default_loader.swf</p><br></div>
 
 <p>将两个文件中的标记红色的<code>-o -L</code> 去掉；</p>
 <p>然后删除安装目录<code>/usr/local/swftools</code>,重新编译安装即可；</p>

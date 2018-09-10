@@ -140,7 +140,7 @@
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/10/OTRS部署及优化过程/17.png">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/10/OTRS部署及优化过程/18.png">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/10/OTRS部署及优化过程/19.png">
-<meta property="og:updated_time" content="2018-09-10T09:28:32.805Z">
+<meta property="og:updated_time" content="2018-09-10T09:55:19.474Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OTRS部署及优化过程">
 <meta name="twitter:description" content="1 环境系统：centos 7.2 1511 Otrs：otrs-5.0.14-02.noarch.rpm Mysql：5.5.50-MariaDB Apache: Apache/2.4.6 2 安装步骤2.1 禁用SELinux在文件/etc/selinux/config中配置SELINUX=disabled 1[root@drbd2 home]# vi /etc/selinux/config">
@@ -398,7 +398,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-10T17:28:32+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-10T17:55:19+08:00">
                 2018-09-10
               </time>
             
@@ -506,7 +506,7 @@
 <p>现在执行<code>systemctl start mariadb</code>来重启数据库服务器并激活刚才的修改内容。然后运行命令<code>/usr/bin/mysql_secure_installation</code>，并按照屏幕上的指令来设置数据库的root密码、移除匿名访问及删除test数据库。</p>
 <h2 id="2-3-安装otrs"><a href="#2-3-安装otrs" class="headerlink" title="2.3 安装otrs"></a>2.3 安装otrs</h2><p>使用<code>yum</code>通过命令行来安装<code>OTRS</code>，它还会拉入一些依赖包如<code>Apache WEB</code>服务器和一些<code>Perl模块</code>。</p>
 <p><div class="“note" success”=""></div></p>
-<p></p><p><br>确保你已经将OTRS RPM文件复制到了当前目录。(必须在otrsrpm安装包的目录运行安装命令)<br></p><br><p></p>
+<p></p><p>确保你已经将OTRS RPM文件复制到了当前目录。(必须在otrsrpm安装包的目录运行安装命令)</p><br><p></p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[root@drbd2 home]</span># <span class="selector-tag">yum</span> <span class="selector-tag">install</span>   <span class="selector-tag">--nogpgcheck</span> <span class="selector-tag">otrs-5</span><span class="selector-class">.0</span><span class="selector-class">.14-02</span><span class="selector-class">.noarch</span><span class="selector-class">.rpm</span></span><br></pre></td></tr></table></figure>
 <p>现在使用命令<code>systemctl restart httpd.service</code>重启<code>Apache</code>以载入为<code>OTRS</code>修改的配置。</p>
 <h2 id="2-4-安装额外的perl模块"><a href="#2-4-安装额外的perl模块" class="headerlink" title="2.4 安装额外的perl模块"></a>2.4 安装额外的perl模块</h2><p>除了通过<code>RPM包</code>安装的<code>Perl模块</code>外，<code>OTRS</code>还需要一些其它的<code>Perl模块</code>，你可以手动安装。通过执行位于目录<code>/opt/otrs</code>下的文件<code>bin/otrs.CheckModules.pl</code>来检查缺失的模块。一些模块只是可选的功能才需要，比如与<code>IMAP</code>服务器通讯或生成<code>PDF</code>。具体可参考《OTRS-4.0.5系统安装手册 otrs_5.0_管理员说明书》。</p>
@@ -520,12 +520,12 @@
 <p><img src="8.png" alt="8"></p>
 <p>5、 创建一个新的数据库用户，选择一个数据库名称，并点击‘下一步’（见下图）。</p>
 <p><div class="“note" info="" no-icon="" ”=""></div></p>
-<p></p><p><br>OTRS会为你生成一个强密码，当然如果你愿意也可以输入你自己的密码。这个密码会写入到配置文件Kernel/Config.pm，所以无需记住这个密码。<br></p><br><br><img src="9.png" alt="9"><br>6、 如果需要会创建数据库，并填充相应数据，如图所示。点击‘下一步’进入下一个窗口。<br><img src="10.png" alt="10"><p></p>
+<p></p><p>OTRS会为你生成一个强密码，当然如果你愿意也可以输入你自己的密码。这个密码会写入到配置文件Kernel/Config.pm，所以无需记住这个密码。</p><br><br><img src="9.png" alt="9"><br>6、 如果需要会创建数据库，并填充相应数据，如图所示。点击‘下一步’进入下一个窗口。<br><img src="10.png" alt="10"><p></p>
 <p>7、 提供所有必填的系统设置，并点击‘下一步’（如下图）。</p>
 <p><img src="11.png" alt="11"></p>
 <p>8、 若需要，你可以提供需要的数据来配置收发邮件，或者点击窗口底部右边的按钮跳过这一步（如下图）。</p>
 <p><div class="note info"></div></p>
-<p></p><p><br>暂时先跳过这一步，后期在进行配置。<br></p><br><br><img src="12.png" alt="12"><p></p>
+<p></p><p>暂时先跳过这一步，后期在进行配置。</p><br><br><img src="12.png" alt="12"><p></p>
 <p>9、 记录管理员密码，安装完成。</p>
 <p><img src="13.png" alt="13"></p>
 <h2 id="2-6-登陆地址"><a href="#2-6-登陆地址" class="headerlink" title="2.6 登陆地址"></a>2.6 登陆地址</h2><p>服务人员登录地址：<a href="http://172.20.22.108/otrs/index.pl" target="_blank" rel="noopener">http://172.20.22.108/otrs/index.pl</a></p>
