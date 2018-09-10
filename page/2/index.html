@@ -332,6 +332,216 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/ELK部署过程中问题总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/07/ELK部署过程中问题总结/" itemprop="url">ELK部署过程中问题总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-07T15:27:50+08:00">
+                2018-09-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T15:31:40+08:00">
+                2018-09-07
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  180
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-错误1："><a href="#1-错误1：" class="headerlink" title="1 错误1："></a>1 错误1：</h1><p>启动<code>elasticsearch-5.3.0</code>报错<br><img src="1.png" alt="1"></p>
+<p>不能使用root用户启动。新建用户elk，用户组elk.</p>
+<h1 id="2-错误2："><a href="#2-错误2：" class="headerlink" title="2 错误2："></a>2 错误2：</h1><p>使用elk启动报错<br><img src="2.png" alt="2"></p>
+<p>改变<code>elasticsearch</code>文件夹所有者到当前用户</p>
+<h1 id="3-错误3："><a href="#3-错误3：" class="headerlink" title="3 错误3："></a>3 错误3：</h1><p>修改<code>network-name : 0.0.0.0</code>,后报错</p>
+<p> <img src="3.png" alt="3"></p>
+<blockquote>
+<p>注意： es启动要求提高一些系统参数配置，否则会报错</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span>. 增大vm.max_map_count到至少<span class="number">262144</span></span><br><span class="line"></span><br><span class="line">$ sudo vim  /etc/sysctl.conf</span><br><span class="line"></span><br><span class="line">添加  vm.max_map_count=<span class="number">262144</span></span><br><span class="line"></span><br><span class="line">$ sudo sysctl -p</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">b</span>. 增大文件句柄数至少 <span class="number">65536</span>  ulimit -a查看</span><br><span class="line"></span><br><span class="line">$ sudo vim /etc/security/limits.conf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">* soft nofile 65536</span><br><span class="line"></span><br><span class="line">* hard nofile 65536</span><br></pre></td></tr></table></figure>
+<h1 id="4-错误4："><a href="#4-错误4：" class="headerlink" title="4 错误4："></a>4 错误4：</h1><p>启动<code>elasticsearch</code>报错<br><img src="4.png" alt="4"></p>
+<p>elasticsearch-head</p>
+<p>·         不能放在<code>elasticsearch</code>的<code>plugins</code>、<code>modules</code> 目录下</p>
+<p>·         不能使用 <code>elasticsearch-plugin install</code></p>
+<p>移动<code>elasticsearch-head</code>,到别的目录，启动成功。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/rsyslog-loganalyzer-evtsys搭建日志服务器/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2284,206 +2494,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/04/Linux运维工具/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/04/Linux运维工具/" itemprop="url">Linux运维工具</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-04T16:28:39+08:00">
-                2018-09-04
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-04T16:55:53+08:00">
-                2018-09-04
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.1k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1、linux常用的监控命令"><a href="#1、linux常用的监控命令" class="headerlink" title="1、linux常用的监控命令"></a>1、linux常用的监控命令</h1><h2 id="1-1-top"><a href="#1-1-top" class="headerlink" title="1.1. top"></a>1.1. top</h2><p>显示所有正在运行而且处于活动状态的实时进程， 而且会定期更新显示结果；它显示了CPU使用率，内存使用率，交换内存使用大小，调整缓存使用大小，缓冲区使用大小，进程PID， 使用的命令等信息。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/kxinter.gitub.io/2018/09/04/Linux运维工具/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2541,7 +2551,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-count">73</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2563,7 +2573,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/kxinter.gitub.io/tags/index.html">
-                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-count">63</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2726,7 +2736,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">73.1k</span>
+    <span title="Site words total count">75k</span>
   
 </div>
 
