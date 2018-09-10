@@ -14,8 +14,8 @@
 <!--添加文章加密-->
 <script>
     (function(){
-        if('123456'){
-            if (prompt('请输入文章密码') !== '123456'){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
                 alert('密码错误！');
                 history.back();
             }
@@ -163,7 +163,7 @@
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/10/Windows2003域控迁移到Windows2008域控/40.png">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/10/Windows2003域控迁移到Windows2008域控/41.png">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/10/Windows2003域控迁移到Windows2008域控/42.png">
-<meta property="og:updated_time" content="2018-09-10T08:11:43.039Z">
+<meta property="og:updated_time" content="2018-09-10T08:38:38.860Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows2003域控迁移到Windows2008域控">
 <meta name="twitter:description" content="1 前期背景：现有DNS、DHCP服务器域控为Windows 2003 系统，需要将Windows 2003 域控升级为2008. 2 环境：主域控 ：Server 2003 X86 迁移域控服务器：Server 2008 R2 X64  3 操作步骤3.1 配置Windows server 2008域控兼容环境 首先将Windows 2008系统加入 Windows 2003 域控的域中。这里为">
@@ -421,7 +421,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-10T16:11:43+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-10T16:38:38+08:00">
                 2018-09-10
               </time>
             
@@ -646,10 +646,8 @@
 </ol>
 <h1 id="4-错误"><a href="#4-错误" class="headerlink" title="4 错误"></a>4 错误</h1><h2 id="4-1-错误1："><a href="#4-1-错误1：" class="headerlink" title="4.1 错误1："></a>4.1 错误1：</h2><p>输入<code>adprep  /rodcprep</code>报错</p>
 <p>症状如下：</p>
-<p><div class="“note" danger”=""></div></p>
-<p></p><p><br>Adprep could not contact a replica for   partition DC=DomainDnsZones,DC=Contoso,DC=com<br>  Adprep failed the operation on partition   DC=DomainDnsZones,DC=Contoso,DC=com Skipping to next partition. </p>
-<p>  Adprep could not contact a replica for   partition DC=ForestDnsZones,DC=Contoso,DC=com<br>  Adprep encountered an LDAP error. Error code: 0x0.   Server extended error code: 0x0, Server error message: (null). </p>
-<p>  Adprep failed the operation on partition   DC=ForestDnsZones,DC=Contoso,DC=com Skipping to next partition.<br>  Adprep completed with errors. Not all partitions are   updated.<br></p><br><br><strong>原因是：</strong><p></p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Adprep could <span class="keyword">not</span> contact a replica <span class="keyword">for</span>   partition DC=DomainDnsZones,DC=Contoso,DC=com </span><br><span class="line">  Adprep failed the operation <span class="keyword">on</span> partition   DC=DomainDnsZones,DC=Contoso,DC=com Skipping <span class="keyword">to</span> <span class="keyword">next</span> partition. </span><br><span class="line">  </span><br><span class="line">  Adprep could <span class="keyword">not</span> contact a replica <span class="keyword">for</span>   partition DC=ForestDnsZones,DC=Contoso,DC=com </span><br><span class="line">  Adprep encountered an LDAP <span class="keyword">error</span>. <span class="keyword">Error</span> code: <span class="number">0x0</span>.   <span class="built_in">Server</span> extended <span class="keyword">error</span> code: <span class="number">0x0</span>, <span class="built_in">Server</span> <span class="keyword">error</span> message: (<span class="literal">null</span>). </span><br><span class="line">  </span><br><span class="line">  Adprep failed the operation <span class="keyword">on</span> partition   DC=ForestDnsZones,DC=Contoso,DC=com Skipping <span class="keyword">to</span> <span class="keyword">next</span> partition. </span><br><span class="line">  Adprep completed <span class="keyword">with</span> errors. <span class="keyword">Not</span> all partitions are   updated.</span><br></pre></td></tr></table></figure>
+<p><strong>原因是：</strong></p>
 <ol>
 <li><p>分区或在错误消息中不再存在引用分区</p>
 </li>
@@ -784,6 +782,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/kxinter.gitub.io/2018/09/10/Centos7创建分区及扩展分区/" rel="prev" title="Centos7创建分区及扩展分区">
+                Centos7创建分区及扩展分区 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -871,7 +873,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">78</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -893,7 +895,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/kxinter.gitub.io/tags/index.html">
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1072,7 +1074,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">75k</span>
+    <span title="Site words total count">78.6k</span>
   
 </div>
 

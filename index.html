@@ -332,6 +332,1158 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/10/Openkm部署/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/10/Openkm部署/" itemprop="url">Openkm部署</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-10T17:29:43+08:00">
+                2018-09-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-10T17:49:20+08:00">
+                2018-09-10
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  832
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-环境："><a href="#1-环境：" class="headerlink" title="1 环境："></a>1 环境：</h1><p>系统：Centos7.1</p>
+<p>软件：openkm-6.3.1-community-linux-x64-installer.run</p>
+<p>辅助插件：Apache_OpenOffice_4.1.2_Linux_x86-64_install-rpm_zh-CN.tar.gz</p>
+<p>数据库：mariadb-5.5.47-1.el7_2.x86_64</p>
+<h1 id="2-安装步骤"><a href="#2-安装步骤" class="headerlink" title="2 安装步骤"></a>2 安装步骤</h1><h2 id="2-1-数据库安装"><a href="#2-1-数据库安装" class="headerlink" title="2.1 数据库安装"></a>2.1 数据库安装</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="meta">@bogon</span> openkm]# yum install mysql  -y        <span class="comment">//yum安装数据库</span></span><br></pre></td></tr></table></figure>
+<p>//登录数据库<br><img src="1.png" alt="1"><br><img src="2.png" alt="2"></p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [(none)]&gt; <span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> okmdb DEFAULT CHARACTER <span class="keyword">SET</span> utf8 DEFAULT <span class="keyword">COLLATE</span> utf8_bin;               //创建okmdb数据库,支持utf8</span><br></pre></td></tr></table></figure>
+<p><img src="3.png" alt="3"></p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [(<span class="literal">none</span>)]&gt; grant all <span class="keyword">on</span> <span class="title">okmdb</span>.* <span class="title">to</span> <span class="title">openkm</span>@<span class="title">localhost</span> <span class="title">identified</span> <span class="title">by</span> <span class="string">'openkm'</span>;</span><br><span class="line">//创建本地用户并赋予数据库okmdb所有权限</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">MariaDB [(<span class="literal">none</span>)]&gt; flush privileges;                     <span class="comment"> ///刷新权限</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-2-openKM安装"><a href="#2-2-openKM安装" class="headerlink" title="2.2 openKM安装"></a>2.2 openKM安装</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon openkm]# chmod <span class="number">755</span> openkm<span class="number">-6.3</span><span class="number">.1</span>-community-linux-x64-installer.run</span><br><span class="line"></span><br><span class="line"><span class="comment">//赋予安装包权限</span></span><br><span class="line"></span><br><span class="line">[root@bogon openkm]# ./openkm<span class="number">-6.3</span><span class="number">.1</span>-community-linux-x64-installer.run   <span class="comment">//安装软件</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-2-1-配置数据库迁移（数据库由HSQL迁移到mysql）"><a href="#2-2-1-配置数据库迁移（数据库由HSQL迁移到mysql）" class="headerlink" title="2.2.1  配置数据库迁移（数据库由HSQL迁移到mysql）"></a>2.2.1  配置数据库迁移（数据库由HSQL迁移到mysql）</h3><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon openkm]# vi /opt/openkm<span class="number">-6.3</span><span class="number">.1</span>-community/tomcat/OpenKM.cfg</span><br></pre></td></tr></table></figure>
+<p><img src="4.png" alt="4"></p>
+<p>//修改<code>HSQLDialect</code>（代表HSQL数据库）为<code>MySQL5Dialect</code>（代表mysql数据库）,   <code>none</code>改为<code>create</code>(初始化数据库)。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon openkm]# <span class="keyword">vi</span> /<span class="keyword">opt</span>/openkm-<span class="number">6.3</span>.<span class="number">1</span>-community/tomcat/<span class="keyword">conf</span>/server.xml</span><br></pre></td></tr></table></figure>
+<p>//修改配置文件<br><img src="5.png" alt="5"></p>
+<p>//修改mysql相关</p>
+<h3 id="2-2-2-修改web浏览端口号"><a href="#2-2-2-修改web浏览端口号" class="headerlink" title="2.2.2 修改web浏览端口号"></a>2.2.2 修改web浏览端口号</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon openkm]# <span class="keyword">vi</span> /<span class="keyword">opt</span>/openkm-<span class="number">6.3</span>.<span class="number">1</span>-community/tomcat/<span class="keyword">conf</span>/server.xml</span><br></pre></td></tr></table></figure>
+<p><img src="6.png" alt="6"></p>
+<h1 id="3-办公插件安装"><a href="#3-办公插件安装" class="headerlink" title="3 办公插件安装"></a>3 办公插件安装</h1><h2 id="3-1-Openoffice安装"><a href="#3-1-Openoffice安装" class="headerlink" title="3.1 Openoffice安装"></a>3.1 Openoffice安装</h2><p>软件下载地址：<a href="http://www.openoffice.org/download/index.html" target="_blank" rel="noopener">http://www.openoffice.org/download/index.html</a></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="meta">@bogon</span> openkm]# wget http:<span class="comment">//freefr.dl.sourceforge.net/project/openofficeorg.mirror/4.1.2/binaries/zh-CN/Apache_OpenOffice_4.1.2_Linux_x86-64_install-rpm_zh-CN.tar.gz</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//下载安装包</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[root<span class="meta">@bogon</span> openkm]# tar -zxvf <span class="type">Apache_OpenOffice_4</span><span class="number">.1</span><span class="number">.2</span>_Linux_x86<span class="number">-64</span>_install-rpm_zh-<span class="type">CN</span>.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment">//解压缩安装包</span></span><br><span class="line"></span><br><span class="line">[root<span class="meta">@bogon</span> openkm]# cd zh-<span class="type">CN</span>/<span class="type">RPMS</span>/            <span class="comment">// 进入解压后的目录</span></span><br><span class="line"></span><br><span class="line">[root<span class="meta">@bogon</span> <span class="type">RPMS</span>]# rpm -<span class="type">Uvih</span> *rpm              <span class="comment">//安装新版本，默认将会安装/升级Apache OpenOffice到/opt目录</span></span><br></pre></td></tr></table></figure>
+<p><img src="7.png" alt="7"></p>
+<p>修改配置，指向<code>openoffice</code>安装目录，实现office文档预览。</p>
+<h2 id="3-2-swftools安装"><a href="#3-2-swftools安装" class="headerlink" title="3.2 swftools安装"></a>3.2 swftools安装</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="meta">@bogon</span> openkm]# yum install gcc* automake zlib-devel libjpeg-devel giflib-devel freetype-devel</span><br><span class="line"></span><br><span class="line"><span class="comment">//安装所需的库和组件</span></span><br><span class="line"></span><br><span class="line">[root<span class="meta">@bogon</span> openkm]# wget http:<span class="comment">//www.swftools.org/swftools-0.9.2.tar.gz</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//下载安装包</span></span><br><span class="line"></span><br><span class="line">[root<span class="meta">@bogon</span> openkm]# tar vxzf swftools<span class="number">-0.9</span><span class="number">.2</span>.tar.gz        <span class="comment">//解压安装包</span></span><br><span class="line"></span><br><span class="line">[root<span class="meta">@bogon</span> openkm]# cd swftools<span class="number">-0.9</span><span class="number">.2</span>/                      <span class="comment">//进入解压目录</span></span><br><span class="line"></span><br><span class="line">[root<span class="meta">@bogon</span> swftools<span class="number">-0.9</span><span class="number">.2</span>]# ./configure --prefix=<span class="regexp">/usr/</span>local/swftools</span><br><span class="line"></span><br><span class="line"><span class="comment">//编辑文件，并指定安装位置</span></span><br><span class="line"></span><br><span class="line">[root<span class="meta">@bogon</span> swftools<span class="number">-0.9</span><span class="number">.2</span>]# make install                  <span class="comment">//安装</span></span><br></pre></td></tr></table></figure>
+<p><strong>报错：</strong></p>
+<p><img src="8.png" alt="8"></p>
+<p><strong>解决办法：</strong></p>
+<p>修改<code>swftools-0.9.2/swfs</code>下的</p>
+<p><code>Makefile</code>和<code>Makefile.in</code>文件； </p>
+<div class="note info no-cion"><br><p><br>install:<br>$(mkinstalldirs) $(pkgdatadir)<br>$(mkinstalldirs) $(pkgdatadir)/swfs<br>$(INSTALL_DATA) ./simple_viewer.swf $(pkgdatadir)/swfs/simple_viewer.swf<br>$(INSTALL_DATA) ./keyboard_viewer.swf $(pkgdatadir)/swfs/keyboard_viewer.swf<br>$(INSTALL_DATA) ./PreLoaderTemplate.swf $(pkgdatadir)/swfs/PreLoaderTemplate.swf<br>$(INSTALL_DATA) ./tessel_loader.swf $(pkgdatadir)/swfs/tessel_loader.swf<br>$(INSTALL_DATA) ./swft_loader.swf $(pkgdatadir)/swfs/swft_loader.swf<br><code>rm -f $(pkgdatadir)/swfs/default_viewer.swf -o -L $(pkgdatadir)/swfs/default_viewer.swf</code><br>$(LN_S) $(pkgdatadir)/swfs/simple_viewer.swf $(pkgdatadir)/swfs/default_viewer.swf<br><code>rm -f $(pkgdatadir)/swfs/default_loader.swf -o -L $(pkgdatadir)/swfs/default_loader.swf</code><br>$(LN_S) $(pkgdatadir)/swfs/tessel_loader.swf $(pkgdatadir)/swfs/default_loader.swf<br></p><br></div>
+
+<p>将两个文件中的标记红色的<code>-o -L</code> 去掉；</p>
+<p>然后删除安装目录<code>/usr/local/swftools</code>,重新编译安装即可；</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon swftools<span class="number">-0.9</span><span class="number">.2</span>]# vi /etc/profile</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//编辑文件，添加如下内容，设置swftools环境变量，使pdf2swf成为一个可执行命令</span></span><br><span class="line"></span><br><span class="line">export PATH=$PATH:/usr/local/swftools/bin/</span><br></pre></td></tr></table></figure>
+<p>安装xpdf语言包。下载<a href="ftp://ftp.foolabs.com/pub/xpdf/xpdf-chinese-simplified.tar.gz" target="_blank" rel="noopener">xpdf-chinese-simplified.tar.gz</a>文件，解压到<code>/usr/local</code>下，编辑<code>add-to-xpdfrc</code>文件，如下：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon ~]# <span class="keyword">vi</span> /usr/local/xpdf-chinese-simplified/<span class="built_in">add</span>-<span class="keyword">to</span>-xpdfrc</span><br></pre></td></tr></table></figure>
+<p>//编辑文件</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fontDir <span class="regexp">/usr/</span>share<span class="regexp">/fonts/</span>win </span><br><span class="line">displayCIDFontTT Adobe-GB1 <span class="regexp">/usr/</span>share<span class="regexp">/fonts/</span>win/simhei.ttf</span><br></pre></td></tr></table></figure>
+<p><img src="9.png" alt="9"><br>//管理-配置-编辑路径</p>
+<h2 id="3-3-ImageMagick安装"><a href="#3-3-ImageMagick安装" class="headerlink" title="3.3 ImageMagick安装"></a>3.3 ImageMagick安装</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="meta">@bogon</span> ~]# yum install <span class="type">ImageMagick</span> –y                <span class="comment">//yum安装插件</span></span><br></pre></td></tr></table></figure>
+<p><img src="10.png" alt="10"></p>
+<p>//管理-配置-添加路径</p>
+<h1 id="4-资料"><a href="#4-资料" class="headerlink" title="4 资料"></a>4 资料</h1><p>linux-安装openkm6.3.doc</p>
+<p>xpdf-chinese-simplified.tar.gz</p>
+<p>swftools-0.9.2.tar.gz</p>
+<p>OpenKM_6_zh-CN.rar</p>
+<p>链接: <a href="http://pan.baidu.com/s/1slFGCOl" target="_blank" rel="noopener">所有相关文件</a> 密码: iryc</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/10/OTRS部署及优化过程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/10/OTRS部署及优化过程/" itemprop="url">OTRS部署及优化过程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-10T16:58:06+08:00">
+                2018-09-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-10T17:28:32+08:00">
+                2018-09-10
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-环境"><a href="#1-环境" class="headerlink" title="1 环境"></a>1 环境</h1><p>系统：centos 7.2 1511</p>
+<p>Otrs：otrs-5.0.14-02.noarch.rpm</p>
+<p>Mysql：5.5.50-MariaDB</p>
+<p>Apache: Apache/2.4.6</p>
+<h1 id="2-安装步骤"><a href="#2-安装步骤" class="headerlink" title="2 安装步骤"></a>2 安装步骤</h1><h2 id="2-1-禁用SELinux"><a href="#2-1-禁用SELinux" class="headerlink" title="2.1 禁用SELinux"></a>2.1 禁用SELinux</h2><p>在文件<code>/etc/selinux/config</code>中配置<code>SELINUX=disabled</code></p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@drbd2</span> home]<span class="comment"># vi /etc/selinux/config</span></span><br></pre></td></tr></table></figure>
+<p><img src="1.png" alt="1"></p>
+<p>重启系统。重启后确认命令getenforce返回为Disabled</p>
+<p><img src="2.png" alt="2"></p>
+<h2 id="2-2-安装数据库"><a href="#2-2-安装数据库" class="headerlink" title="2.2 安装数据库"></a>2.2 安装数据库</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@drbd2 home] yum -y <span class="keyword">install</span>   mariadb-<span class="keyword">server</span></span><br></pre></td></tr></table></figure>
+<p>这会在你的系统上使用默认选项安装MySQL，你需要修改默认设置以适用于OTRS。使用文本编辑器来</p>
+<p>创建一个新文件<code>/etc/my.cnf.d/zotrs.cnf</code>，包含如下内容：</p>
+<p><img src="3.png" alt="3"><br><img src="4.png" alt="4"></p>
+<p>现在执行<code>systemctl start mariadb</code>来重启数据库服务器并激活刚才的修改内容。然后运行命令<code>/usr/bin/mysql_secure_installation</code>，并按照屏幕上的指令来设置数据库的root密码、移除匿名访问及删除test数据库。</p>
+<h2 id="2-3-安装otrs"><a href="#2-3-安装otrs" class="headerlink" title="2.3 安装otrs"></a>2.3 安装otrs</h2><p>使用<code>yum</code>通过命令行来安装<code>OTRS</code>，它还会拉入一些依赖包如<code>Apache WEB</code>服务器和一些<code>Perl模块</code>。</p>
+<p><div class="“note" success”=""></div></p>
+<p></p><p><br>确保你已经将OTRS RPM文件复制到了当前目录。(必须在otrsrpm安装包的目录运行安装命令)<br></p><br><p></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[root@drbd2 home]</span># <span class="selector-tag">yum</span> <span class="selector-tag">install</span>   <span class="selector-tag">--nogpgcheck</span> <span class="selector-tag">otrs-5</span><span class="selector-class">.0</span><span class="selector-class">.14-02</span><span class="selector-class">.noarch</span><span class="selector-class">.rpm</span></span><br></pre></td></tr></table></figure>
+<p>现在使用命令<code>systemctl restart httpd.service</code>重启<code>Apache</code>以载入为<code>OTRS</code>修改的配置。</p>
+<h2 id="2-4-安装额外的perl模块"><a href="#2-4-安装额外的perl模块" class="headerlink" title="2.4 安装额外的perl模块"></a>2.4 安装额外的perl模块</h2><p>除了通过<code>RPM包</code>安装的<code>Perl模块</code>外，<code>OTRS</code>还需要一些其它的<code>Perl模块</code>，你可以手动安装。通过执行位于目录<code>/opt/otrs</code>下的文件<code>bin/otrs.CheckModules.pl</code>来检查缺失的模块。一些模块只是可选的功能才需要，比如与<code>IMAP</code>服务器通讯或生成<code>PDF</code>。具体可参考《OTRS-4.0.5系统安装手册 otrs_5.0_管理员说明书》。</p>
+<h2 id="2-5-使用Web安装器"><a href="#2-5-使用Web安装器" class="headerlink" title="2.5 使用Web安装器"></a>2.5 使用Web安装器</h2><p>在安装完<code>OTRS</code>软件后，你可以使用<code>OTRS</code>的<code>WEB安装器</code>来设置和配置<code>OTRS数据库</code>。WEB安装器是一个能通过浏览器访问的WEB页面。WEB安装器的地址是：<a href="http://localhost/otrs/installer.pl" target="_blank" rel="noopener">http://localhost/otrs/installer.pl</a> 。</p>
+<p>启动WEB安装器后，请跟随下面的步骤来设置你的系统：</p>
+<p>1、 检验OTRS办公室信息并点击‘下一步’以继续（见下图）。<br><img src="5.png" alt="5"></p>
+<p>2、 阅读GNU Affero通用公共许可证（见下图）并页面底部的相应按钮接受许可。<br><img src="6.png" alt="6"></p>
+<p>3、 选择你要在OTRS中使用的数据库。如果你选择<code>MySQL</code>或<code>PostgreSQL</code>，你还能在这里选择是通过WEB安装器新建一个数据库还是使用你的数据库管理员已经创建好的空数据库。</p>
+<p><img src="7.png" alt="7"></p>
+<p>4、 根据你选择的数据库的不同，以及在上一步中是用WEB安装器新建数据库还是使用已有数据库，这个窗口可用有一点点差异。在这个窗口输入数据库认证信息。</p>
+<p><img src="8.png" alt="8"></p>
+<p>5、 创建一个新的数据库用户，选择一个数据库名称，并点击‘下一步’（见下图）。</p>
+<p><div class="“note" info="" no-icon="" ”=""></div></p>
+<p></p><p><br>OTRS会为你生成一个强密码，当然如果你愿意也可以输入你自己的密码。这个密码会写入到配置文件Kernel/Config.pm，所以无需记住这个密码。<br></p><br><br><img src="9.png" alt="9"><br>6、 如果需要会创建数据库，并填充相应数据，如图所示。点击‘下一步’进入下一个窗口。<br><img src="10.png" alt="10"><p></p>
+<p>7、 提供所有必填的系统设置，并点击‘下一步’（如下图）。</p>
+<p><img src="11.png" alt="11"></p>
+<p>8、 若需要，你可以提供需要的数据来配置收发邮件，或者点击窗口底部右边的按钮跳过这一步（如下图）。</p>
+<p><div class="note info"></div></p>
+<p></p><p><br>暂时先跳过这一步，后期在进行配置。<br></p><br><br><img src="12.png" alt="12"><p></p>
+<p>9、 记录管理员密码，安装完成。</p>
+<p><img src="13.png" alt="13"></p>
+<h2 id="2-6-登陆地址"><a href="#2-6-登陆地址" class="headerlink" title="2.6 登陆地址"></a>2.6 登陆地址</h2><p>服务人员登录地址：<a href="http://172.20.22.108/otrs/index.pl" target="_blank" rel="noopener">http://172.20.22.108/otrs/index.pl</a></p>
+<p>客户登陆地址：<a href="http://172.20.22.108/otrs/customer.pl" target="_blank" rel="noopener">http://172.20.22.108/otrs/customer.pl</a></p>
+<h1 id="3-备份与恢复"><a href="#3-备份与恢复" class="headerlink" title="3 备份与恢复"></a>3 备份与恢复</h1><h2 id="3-1-备份"><a href="#3-1-备份" class="headerlink" title="3.1 备份"></a>3.1 备份</h2><p>有两种类型的数据需要备份：应用程序文件（如<code>/opt/otrs</code>目录下的文件）和存储在<code>数据库</code>中的数据。</p>
+<p>为了简化备份，在每个OTRS安装中已经包括了脚本<code>scripts/backup.pl</code>。运行它可以备份所有重要的数据。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@drbd2   scripts]<span class="comment"># ./backup.pl -d /home/</span></span><br><span class="line"></span><br><span class="line">Backup   <span class="string">/home//2016-12-13_13-18/Config.tar.gz</span> <span class="string">...</span> done</span><br><span class="line"></span><br><span class="line">Backup <span class="string">/home//2016-12-13_13-18/Application.tar.gz</span>   <span class="string">...</span> done</span><br><span class="line"></span><br><span class="line">Dump MySQL   rdbms <span class="string">...</span> done</span><br><span class="line"></span><br><span class="line">Compress   SQL-file.<span class="string">..</span> done</span><br></pre></td></tr></table></figure>
+<p>所有数据都保存在目录<code>/home/2016-12-13_13-18/</code>下。另外，这些数据被保存到一个<code>.tar.gz文件</code>。</p>
+<h2 id="3-2-恢复"><a href="#3-2-恢复" class="headerlink" title="3.2 恢复"></a>3.2 恢复</h2><p>要恢复一个备份，保存的应用程序数据必须被写回到安装目录，如<code>/opt/otrs</code>。还必须要恢复数据库。</p>
+<p>每个OTRS安装都自带了一个脚本文件<code>scripts/restore.pl</code>（见下面的脚本），它简化了恢复过程，支持<code>MySQL</code>和<code>PostgreSQL</code>。</p>
+<p><div class="note danger"></div></p>
+<p></p><p><br>恢复要求数据库为空<br></p><br><p></p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@drbd2 scripts]# ./restore.pl -b   /home/<span class="number">2016</span><span class="number">-12</span><span class="number">-13</span>_13<span class="number">-18</span> -d /opt/otrs</span><br><span class="line"></span><br><span class="line">Restore /home/<span class="number">2016</span><span class="number">-12</span><span class="number">-13</span>_13<span class="number">-18</span><span class="comment">//Config.tar.gz   ...</span></span><br><span class="line"></span><br><span class="line">Restore /home/<span class="number">2016</span><span class="number">-12</span><span class="number">-13</span>_13<span class="number">-18</span><span class="comment">//Application.tar.gz   ...</span></span><br><span class="line"></span><br><span class="line">create MySQL</span><br><span class="line"></span><br><span class="line">decompresses SQL-file ...</span><br><span class="line"></span><br><span class="line">cat SQL-file into MySQL database</span><br><span class="line"></span><br><span class="line">compress SQL-file...</span><br></pre></td></tr></table></figure>
+<h1 id="4-优化"><a href="#4-优化" class="headerlink" title="4 优化"></a>4 优化</h1><h2 id="4-1-开启工单关注"><a href="#4-1-开启工单关注" class="headerlink" title="4.1 开启工单关注"></a>4.1 开启工单关注</h2><p>系统配置》搜索配置参数<code>Ticket::watcher</code>》激活功能。</p>
+<p><img src="14.png" alt="14"><br><img src="15.png" alt="15"></p>
+<h2 id="4-2-PDF打印中文乱码"><a href="#4-2-PDF打印中文乱码" class="headerlink" title="4.2 PDF打印中文乱码"></a>4.2 PDF打印中文乱码</h2><p><strong>解决方案</strong></p>
+<p>此方法适合于<code>Linux，Win</code>系列可以直接跳过拷贝文件设定配置即可解决，也可安装其它字体。</p>
+<p>安装中文字体</p>
+<ol>
+<li><p>从windows 7/vista/2008 系统中拷贝微软雅黑字体msyh.ttf文件</p>
+</li>
+<li><p>将字体文件上传至/usr/share/fonts/chinese/TrueType/msyh.ttf</p>
+</li>
+<li><p>打开OTRS配置页面</p>
+</li>
+</ol>
+<p>在otrs配置 <code>core::PDF</code>中添加字体文件的绝对路径<code>/usr/share/fonts/chinese/TrueType/msyh.ttf</code></p>
+<p>Win下可直接设定字体名称，otrs系统会自动至Fonts目录查找指定的字体用于处理中文。</p>
+<p>进入 <code>OTRS to Admin &gt; SysConfig &gt; Framework &gt; Core::PDF</code>并更新字体位置，为PDF打印选择指定的新字体</p>
+<p><img src="16.png" alt="16"></p>
+<h2 id="4-3-FAQ显示更多属性"><a href="#4-3-FAQ显示更多属性" class="headerlink" title="4.3 FAQ显示更多属性"></a>4.3 FAQ显示更多属性</h2><p>首先，在系统配置的FAQ中选择配置项<code>Frontend::Agent::FAQ::ViewExplorer</code>。</p>
+<p><img src="17.png" alt="17"></p>
+<p>然后在打开的页面中找到配置项<code>FAQ::Frontend::AgentFAQExplorer###ShowColumns</code>。按照下图进行配置。</p>
+<p><img src="18.png" alt="18"></p>
+<p>最后，我们返回到FAQ浏览器页面，就可以看到FAQ文章的更多属性。</p>
+<p><img src="19.png" alt="19"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/10/zabbix在php7下安装always-populate-raw-post-data-1问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/10/zabbix在php7下安装always-populate-raw-post-data-1问题/" itemprop="url">zabbix在php7下安装always-populate-raw-post-data=-1问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-10T16:55:44+08:00">
+                2018-09-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-10T16:57:42+08:00">
+                2018-09-10
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/自动化运维/" itemprop="url" rel="index">
+                    <span itemprop="name">自动化运维</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  110
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p> <img src="1.png" alt="1">                                            </p>
+<p>LNMP 平台 php7 ，<code>zabbix 安装</code>可能会出现的问题<code>always-populate-raw-post-data = -1</code>，解决方案：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim <span class="regexp">/目录/</span>zabbix<span class="regexp">/include/</span>classes<span class="regexp">/setup/</span>CFrontendSetup.php</span><br></pre></td></tr></table></figure>
+<p>找到下面代码、关于<code>always-populate-raw-post-data</code>;<br>添加 </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$current = <span class="number">-1</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">checkPhpAlwaysPopulateRawPostData</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                $current = ini_get(<span class="string">'always_populate_raw_post_data'</span>);</span><br><span class="line">                $current = <span class="number">-1</span>;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">array</span>(</span><br><span class="line">                        <span class="string">'name'</span> =&gt; _(<span class="string">'PHP always_populate_raw_post_data'</span>),</span><br><span class="line">                        <span class="string">'current'</span> =&gt; ($current != <span class="number">-1</span>) ? _(<span class="string">'on'</span>) : _(<span class="string">'off'</span>),</span><br><span class="line">                        <span class="string">'required'</span> =&gt; _(<span class="string">'off'</span>),</span><br><span class="line">                        <span class="string">'result'</span> =&gt; ($current != <span class="number">-1</span>) ? <span class="keyword">self</span>::CHECK_FATAL : <span class="keyword">self</span>::CHECK_OK,</span><br><span class="line">                        <span class="string">'error'</span> =&gt; _(<span class="string">'PHP always_populate_raw_post_data must be set to -1.'</span>)</span><br><span class="line">                );</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>重新刷新 zabbix 安装页面即可；</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/10/centos7系统安装配置kvm软件步骤/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/10/centos7系统安装配置kvm软件步骤/" itemprop="url">centos7系统安装配置kvm软件步骤</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-10T16:48:09+08:00">
+                2018-09-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-10T16:54:31+08:00">
+                2018-09-10
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  806
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-kvm相关安装包及其作用"><a href="#1-kvm相关安装包及其作用" class="headerlink" title="1 kvm相关安装包及其作用"></a>1 kvm相关安装包及其作用</h1><p><code>qemu-kvm</code> 主要的KVM程序包</p>
+<p><code>python-virtinst</code> 创建虚拟机所需要的命令行工具和程序库</p>
+<p><code>virt-manager</code> GUI虚拟机管理工具</p>
+<p><code>virt-top</code> 虚拟机统计命令</p>
+<p><code>virt-viewer</code> GUI连接程序，连接到已配置好的虚拟机</p>
+<p><code>libvirt</code> C语言工具包，提供libvirt服务</p>
+<p><code>libvirt-client</code> 为虚拟客户机提供的C语言工具包</p>
+<p><code>virt-install</code> 基于libvirt服务的虚拟机创建命令</p>
+<p><code>bridge-utils</code> 创建和管理桥接设备的工具</p>
+<h1 id="2-安装kvm-软件"><a href="#2-安装kvm-软件" class="headerlink" title="2 安装kvm 软件"></a>2 安装kvm 软件</h1><p>大致列下步骤：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="subst">@361</span>way ~]<span class="meta"># yum -y install qemu-kvm   libvirt virt-install bridge-utils virt-manager</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-1-查看是否加载kvm模块"><a href="#2-1-查看是否加载kvm模块" class="headerlink" title="2.1 查看是否加载kvm模块"></a>2.1 查看是否加载kvm模块</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@kvm ~]# lsmod|grep kvm</span><br><span class="line"></span><br><span class="line">kvm_intel             <span class="number">138567</span>  <span class="number">0</span></span><br><span class="line"></span><br><span class="line">kvm                   <span class="number">441119</span>  <span class="number">1</span> kvm_intel</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#如果没有这两条，可以用<span class="string">"modprobe kvm"</span>加载；</span><br><span class="line"></span><br><span class="line">#相关命令<span class="string">"insmod;rmmod;modinfo"</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-2-启动libvirtd"><a href="#2-2-启动libvirtd" class="headerlink" title="2.2 启动libvirtd"></a>2.2 启动libvirtd</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@localhost</span> ~]<span class="comment"># systemctl start libvirtd           # 启动</span></span><br><span class="line"></span><br><span class="line">[root<span class="variable">@localhost</span> ~]<span class="comment"># systemctl enable libvirtd          # 开机启动</span></span><br><span class="line"></span><br><span class="line">[root<span class="variable">@localhost</span> ~]<span class="comment"># systemctl list-unit-files|grep libvirtd      # 检测是否开机启动</span></span><br><span class="line"></span><br><span class="line">libvirtd.service                            enabled</span><br></pre></td></tr></table></figure>
+<h1 id="3-置网卡桥接"><a href="#3-置网卡桥接" class="headerlink" title="3 置网卡桥接"></a>3 置网卡桥接</h1><h2 id="3-1-修改网卡文件eno16777736"><a href="#3-1-修改网卡文件eno16777736" class="headerlink" title="3.1 修改网卡文件eno16777736"></a>3.1 修改网卡文件eno16777736</h2><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> [root<span class="symbol">@kvm</span> ~]<span class="meta"># cd   /etc/sysconfig/network-scripts/</span></span><br><span class="line"></span><br><span class="line">[root<span class="symbol">@kvm</span> network-scripts]<span class="meta"># echo <span class="string">"BRIDGE=br0"</span>   &gt;&gt; ifcfg-eno16777736  </span></span><br><span class="line"><span class="meta"># 在ifcfg-e**原网卡文件中增加<span class="string">"BRIDGE=br0"</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="3-2-新建网桥文件ifcfg-br0-网桥名称-增加内容如下"><a href="#3-2-新建网桥文件ifcfg-br0-网桥名称-增加内容如下" class="headerlink" title="3.2 新建网桥文件ifcfg-br0(网桥名称),增加内容如下"></a>3.2 新建网桥文件ifcfg-br0(网桥名称),增加内容如下</h2><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@kvm network-scripts]<span class="comment"># vi ifcfg-br0</span></span><br><span class="line"></span><br><span class="line">*************************************************</span><br><span class="line"></span><br><span class="line">DEVICE=br0                                 </span><br><span class="line"></span><br><span class="line">TYPE=<span class="string">"Bridge"</span>      <span class="comment">#大小写敏感，所以必须是Bridge</span></span><br><span class="line"></span><br><span class="line">BOOTPROTO=<span class="string">"dhcp"</span> </span><br><span class="line"></span><br><span class="line">ONBOOT=<span class="string">"yes"</span></span><br><span class="line"></span><br><span class="line">DELAY=<span class="string">"0"</span></span><br><span class="line"></span><br><span class="line">STP=<span class="string">"yes"</span>         <span class="comment">#这一行是来启动STP,和brctl命令行出来的结果有关</span></span><br><span class="line"></span><br><span class="line">*************************************************</span><br></pre></td></tr></table></figure>
+<h2 id="3-3-重启NetworkManager及network服务："><a href="#3-3-重启NetworkManager及network服务：" class="headerlink" title="3.3 重启NetworkManager及network服务："></a>3.3 重启NetworkManager及network服务：</h2><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">[root@kvm network-scripts]<span class="comment"># systemctl restart NetworkManager</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 当你手动修改了网卡文件后，需要重启NetworkManager服务来重新接管网络配置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 网卡配置文件和NetworkManager配置冲突时，解决方案:｛1、重启NetworkManager;2、关闭NetworkManager｝</span></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">[root@kvm network-scripts]<span class="comment"># systemctl restart network</span></span><br><span class="line"></span><br><span class="line">[root@kvm network-scripts]<span class="comment"># ip a                                                   #ip命令用来查看和管理ip信息</span></span><br><span class="line"></span><br><span class="line"><span class="number">1</span>: lo: <span class="variable">&lt;LOOPBACK,UP,LOWER_UP&gt;</span> mtu <span class="number">65536</span> qdisc noqueue <span class="keyword">state</span> UNKNOWN</span><br><span class="line"></span><br><span class="line">    link/loopback <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> brd <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">inet</span> <span class="number">127.0</span>.<span class="number">0.1</span>/<span class="number">8</span> scope host lo</span><br><span class="line"></span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"></span><br><span class="line">    <span class="keyword">inet6</span> ::<span class="number">1</span>/<span class="number">128</span> scope host</span><br><span class="line"></span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>: eno16777736: <span class="variable">&lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt;</span> mtu <span class="number">1500</span> qdisc pfifo_fast master br0 <span class="keyword">state</span> UP qlen <span class="number">1000</span></span><br><span class="line"></span><br><span class="line">    link/ether <span class="number">00</span>:<span class="number">0</span>c:<span class="number">29</span>:<span class="number">61</span>:<span class="number">5</span>c:<span class="number">1</span>d brd ff:ff:ff:ff:ff:ff</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>: virbr0: <span class="variable">&lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt;</span> mtu <span class="number">1500</span> qdisc noqueue <span class="keyword">state</span> DOWN</span><br><span class="line"></span><br><span class="line">    link/ether <span class="number">52</span>:<span class="number">54</span>:<span class="number">00</span>:b6:<span class="number">45</span>:<span class="number">5</span>b brd ff:ff:ff:ff:ff:ff</span><br><span class="line"></span><br><span class="line">    <span class="keyword">inet</span> <span class="number">192.168</span>.<span class="number">122.1</span>/<span class="number">24</span> brd <span class="number">192.168</span>.<span class="number">122.255</span> scope <span class="keyword">global</span> virbr0</span><br><span class="line"></span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>: virbr0-nic: <span class="variable">&lt;BROADCAST,MULTICAST&gt;</span> mtu <span class="number">1500</span> qdisc pfifo_fast master virbr0 <span class="keyword">state</span> DOWN qlen <span class="number">500</span></span><br><span class="line"></span><br><span class="line">    link/ether <span class="number">52</span>:<span class="number">54</span>:<span class="number">00</span>:b6:<span class="number">45</span>:<span class="number">5</span>b brd ff:ff:ff:ff:ff:ff</span><br><span class="line"></span><br><span class="line"><span class="number">6</span>: br0: <span class="variable">&lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt;</span> mtu <span class="number">1500</span> qdisc noqueue <span class="keyword">state</span> UP</span><br><span class="line"></span><br><span class="line">    link/ether <span class="number">00</span>:<span class="number">0</span>c:<span class="number">29</span>:<span class="number">61</span>:<span class="number">5</span>c:<span class="number">1</span>d brd ff:ff:ff:ff:ff:ff</span><br><span class="line"></span><br><span class="line">    <span class="keyword">inet</span> <span class="number">192.168</span>.<span class="number">0.32</span>/<span class="number">24</span> brd <span class="number">192.168</span>.<span class="number">0.255</span> scope <span class="keyword">global</span> dynamic br0</span><br><span class="line"></span><br><span class="line">       valid_lft <span class="number">11979</span>sec preferred_lft <span class="number">11979</span>sec</span><br><span class="line"></span><br><span class="line">    <span class="keyword">inet6</span> fe80::<span class="number">20</span>c:<span class="number">29</span>ff:fe61:<span class="number">5</span>c1d/<span class="number">64</span> scope link</span><br><span class="line"></span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"></span><br><span class="line"><span class="number">7</span>: vnet0: <span class="variable">&lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt;</span> mtu <span class="number">1500</span> qdisc pfifo_fast master br0 <span class="keyword">state</span> UNKNOWN qlen <span class="number">500</span></span><br><span class="line"></span><br><span class="line">    link/ether fe:<span class="number">54</span>:<span class="number">00</span>:cb:<span class="number">63</span>:b2 brd ff:ff:ff:ff:ff:ff</span><br><span class="line"></span><br><span class="line">    <span class="keyword">inet6</span> fe80::fc54:ff:fecb:<span class="number">63</span>b2/<span class="number">64</span> scope link</span><br><span class="line"></span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+<h2 id="3-4-查看网桥连接"><a href="#3-4-查看网桥连接" class="headerlink" title="3.4 查看网桥连接"></a>3.4 查看网桥连接</h2><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@kvm network-<span class="keyword">scripts]# </span><span class="keyword">brctl </span><span class="keyword">show </span>                                              <span class="comment">#brctl是一个网桥连接管理命令</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">bridge </span>name     <span class="keyword">bridge </span>id               STP enabled     interfaces  <span class="comment">#如果上面不设置STP=yes，这里就会显示no</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">br0 </span>            <span class="number">8000</span>.<span class="number">000</span>c29615c1d       yes             eno16777736</span><br><span class="line"></span><br><span class="line">                                                                                 vnet0</span><br><span class="line"></span><br><span class="line">virbr0          <span class="number">8000</span>.<span class="number">525400</span>b<span class="number">6455b</span>       yes             virbr0-nic</span><br></pre></td></tr></table></figure>
+<h1 id="4-selinux防火墙关闭"><a href="#4-selinux防火墙关闭" class="headerlink" title="4 selinux防火墙关闭"></a>4 selinux防火墙关闭</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> setenforce  0</span></span><br><span class="line"><span class="meta"> #</span><span class="bash"> sed -i <span class="string">'s/=enforcing/=disabled/g'</span> /etc/selinux/config</span></span><br></pre></td></tr></table></figure>
+<p>5 打开图形界面</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@bogon</span> ~]<span class="comment"># virt-manager</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/10/Centos7创建分区及扩展分区/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/10/Centos7创建分区及扩展分区/" itemprop="url">Centos7创建分区及扩展分区</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-10T16:39:49+08:00">
+                2018-09-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-10T16:47:35+08:00">
+                2018-09-10
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  402
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-添加硬盘并挂载"><a href="#1-添加硬盘并挂载" class="headerlink" title="1 添加硬盘并挂载"></a>1 添加硬盘并挂载</h1><h2 id="1-1-查询硬盘信息"><a href="#1-1-查询硬盘信息" class="headerlink" title="1.1 查询硬盘信息"></a>1.1 查询硬盘信息</h2><p>（如果使用的是新加硬盘，可以在最下方看到硬盘信息，例子使用本地空闲空间）</p>
+<p>例如：<br><img src="1.png" alt="1"></p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> [root<span class="variable">@bogon</span> /]<span class="comment"># fdisk -l</span></span><br></pre></td></tr></table></figure>
+<p><img src="2.png" alt="2"></p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@bogon</span> /]<span class="comment"># df –h</span></span><br></pre></td></tr></table></figure>
+<p><img src="3.png" alt="3"></p>
+<h2 id="1-2-Fdisk创建分区"><a href="#1-2-Fdisk创建分区" class="headerlink" title="1.2 Fdisk创建分区"></a>1.2 Fdisk创建分区</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@bogon</span> /]<span class="comment"># fdisk /dev/sda</span></span><br></pre></td></tr></table></figure>
+<p><img src="4.png" alt="4"></p>
+<p><img src="5.png" alt="5"></p>
+<h2 id="1-3-查看硬盘信息"><a href="#1-3-查看硬盘信息" class="headerlink" title="1.3 查看硬盘信息"></a>1.3 查看硬盘信息</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@bogon</span> /]<span class="comment"># fdisk –l</span></span><br></pre></td></tr></table></figure>
+<p><img src="6.png" alt="6"></p>
+<h2 id="1-4-Partprobe刷新分区表（注：最好每做一步遇到找不到问题都刷新一下）"><a href="#1-4-Partprobe刷新分区表（注：最好每做一步遇到找不到问题都刷新一下）" class="headerlink" title="1.4 Partprobe刷新分区表（注：最好每做一步遇到找不到问题都刷新一下）"></a>1.4 Partprobe刷新分区表（注：最好每做一步遇到找不到问题都刷新一下）</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@bogon</span> /]<span class="comment"># partprobe</span></span><br></pre></td></tr></table></figure>
+<h2 id="1-5-创建物理卷（PV）"><a href="#1-5-创建物理卷（PV）" class="headerlink" title="1.5 创建物理卷（PV）"></a>1.5 创建物理卷（PV）</h2><p>使用<code>pvcreate</code> 命令创建物理卷，<code>pvdisplay</code> 查看物理卷信息：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon /]<span class="comment"># pvcreate /dev/sda2</span></span><br><span class="line"></span><br><span class="line">  Physical <span class="keyword">volume</span><span class="bash"> <span class="string">"/dev/sda2"</span> successfully created</span></span><br><span class="line"><span class="bash">  </span></span><br><span class="line"><span class="bash">[root@bogon /]<span class="comment"># pvdisplay</span></span></span><br></pre></td></tr></table></figure>
+<p><img src="7.png" alt="7"></p>
+<h2 id="1-6-将PV加入卷组（VG）"><a href="#1-6-将PV加入卷组（VG）" class="headerlink" title="1.6 将PV加入卷组（VG）"></a>1.6 将PV加入卷组（VG）</h2><p>使用<code>vgdisplay</code> 查看卷组信息，下图显示卷组名为<code>centos</code>，空闲大小为<code>0</code>：</p>
+<p><img src="8.png" alt="8"></p>
+<p>使用 <code>vgextend</code> 命令把<code>/dev/vdb1</code>加入到<code>centos</code>：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@bogon</span> /]<span class="comment"># vgextend centos /dev/sda2</span></span><br></pre></td></tr></table></figure>
+<p><img src="9.png" alt="9"></p>
+<h2 id="1-7-创建逻辑卷（LV）"><a href="#1-7-创建逻辑卷（LV）" class="headerlink" title="1.7 创建逻辑卷（LV）"></a>1.7 创建逻辑卷（LV）</h2><p>使用<code>lvcreate</code> 命令从卷组里划分一个新的逻辑卷，这里创建了名称为<code>newlv</code>，大小9GB的逻辑卷分区；使用<code>lvdisplay</code> 查看逻辑卷信息：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@bogon</span> /]<span class="comment"># lvcreate -L 9G -n newlv centos</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="symbol">WARNING:</span> xfs signature detected on /dev/centos/newlv at offset <span class="number">0</span>. Wipe it? [y/n]: y</span><br><span class="line"></span><br><span class="line">Wiping xfs signature on /dev/centos/newlv.</span><br><span class="line"></span><br><span class="line">Logical volume <span class="string">"newlv"</span> created.</span><br></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@bogon</span> /]<span class="comment"># lvdisplay</span></span><br></pre></td></tr></table></figure>
+<p><img src="10.png" alt="10"><br><img src="11.png" alt="11"></p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@bogon</span> /]<span class="comment"># vgdisplay</span></span><br></pre></td></tr></table></figure>
+<p><img src="12.png" alt="12"></p>
+<h2 id="1-8-格式化逻辑卷并挂载"><a href="#1-8-格式化逻辑卷并挂载" class="headerlink" title="1.8 格式化逻辑卷并挂载"></a>1.8 格式化逻辑卷并挂载</h2><p>新逻辑卷经过格式化就可以挂载到系统里存储数据了。使用<code>mkfs.xfs</code> 格式化为CentOS7的<code>xfs</code>文件系统：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="meta">@bogon</span> <span class="regexp">/]# mkfs.xfs /</span>dev<span class="regexp">/centos/</span>newlv</span><br></pre></td></tr></table></figure>
+<p><img src="13.png" alt="13"></p>
+<p>创建<code>drbd</code>目录，并挂载到<code>/drbd</code>目录，挂载后查询容量为9个G.</p>
+<p><img src="14.png" alt="14"></p>
+<p>设置开机自动挂载，编辑 <code>/etc/fstab</code>文件，加入最后一行：</p>
+<p><img src="15.png" alt="15"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/10/Windows2003域控迁移到Windows2008域控/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -379,7 +1531,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-10T16:11:43+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-10T16:38:38+08:00">
                 2018-09-10
               </time>
             
@@ -603,10 +1755,8 @@
 </ol>
 <h1 id="4-错误"><a href="#4-错误" class="headerlink" title="4 错误"></a>4 错误</h1><h2 id="4-1-错误1："><a href="#4-1-错误1：" class="headerlink" title="4.1 错误1："></a>4.1 错误1：</h2><p>输入<code>adprep  /rodcprep</code>报错</p>
 <p>症状如下：</p>
-<p><div class="“note" danger”=""></div></p>
-<p></p><p><br>Adprep could not contact a replica for   partition DC=DomainDnsZones,DC=Contoso,DC=com<br>  Adprep failed the operation on partition   DC=DomainDnsZones,DC=Contoso,DC=com Skipping to next partition. </p>
-<p>  Adprep could not contact a replica for   partition DC=ForestDnsZones,DC=Contoso,DC=com<br>  Adprep encountered an LDAP error. Error code: 0x0.   Server extended error code: 0x0, Server error message: (null). </p>
-<p>  Adprep failed the operation on partition   DC=ForestDnsZones,DC=Contoso,DC=com Skipping to next partition.<br>  Adprep completed with errors. Not all partitions are   updated.<br></p><br><br><strong>原因是：</strong><p></p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Adprep could <span class="keyword">not</span> contact a replica <span class="keyword">for</span>   partition DC=DomainDnsZones,DC=Contoso,DC=com </span><br><span class="line">  Adprep failed the operation <span class="keyword">on</span> partition   DC=DomainDnsZones,DC=Contoso,DC=com Skipping <span class="keyword">to</span> <span class="keyword">next</span> partition. </span><br><span class="line">  </span><br><span class="line">  Adprep could <span class="keyword">not</span> contact a replica <span class="keyword">for</span>   partition DC=ForestDnsZones,DC=Contoso,DC=com </span><br><span class="line">  Adprep encountered an LDAP <span class="keyword">error</span>. <span class="keyword">Error</span> code: <span class="number">0x0</span>.   <span class="built_in">Server</span> extended <span class="keyword">error</span> code: <span class="number">0x0</span>, <span class="built_in">Server</span> <span class="keyword">error</span> message: (<span class="literal">null</span>). </span><br><span class="line">  </span><br><span class="line">  Adprep failed the operation <span class="keyword">on</span> partition   DC=ForestDnsZones,DC=Contoso,DC=com Skipping <span class="keyword">to</span> <span class="keyword">next</span> partition. </span><br><span class="line">  Adprep completed <span class="keyword">with</span> errors. <span class="keyword">Not</span> all partitions are   updated.</span><br></pre></td></tr></table></figure>
+<p><strong>原因是：</strong></p>
 <ol>
 <li><p>分区或在错误消息中不再存在引用分区</p>
 </li>
@@ -1764,1147 +2914,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/Liferay中文乱码-tomcat中文乱码/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/07/Liferay中文乱码-tomcat中文乱码/" itemprop="url">Liferay中文乱码(tomcat中文乱码)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-07T17:34:25+08:00">
-                2018-09-07
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T17:38:54+08:00">
-                2018-09-07
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  19
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="1.png" alt="1"><br><img src="2.png" alt="2"><br><img src="3.png" alt="3"><br>都是修改tomcat配置文件<code>server.xml</code>,添加<code>URIEncoding=”UTF-8”</code>解决问题。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/ELK部署/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/07/ELK部署/" itemprop="url">ELK部署</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-07T15:59:21+08:00">
-                2018-09-07
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T17:28:51+08:00">
-                2018-09-07
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.9k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  8
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="1-环境"><a href="#1-环境" class="headerlink" title="1 环境"></a>1 环境</h1><p>系统：centos 7.2 x86_64 -1511</p>
-<p>JDK: 1.8.0_111</p>
-<p>ELK: elasticsearch kibana logstash</p>
-<p><a href="https://www.elastic.co/cn/downloads" target="_blank" rel="noopener">https://www.elastic.co/cn/downloads</a><br><img src="1.png" alt="1"></p>
-<h1 id="2-Elasticsearch部署"><a href="#2-Elasticsearch部署" class="headerlink" title="2 Elasticsearch部署"></a>2 Elasticsearch部署</h1><p>下载并解压<code>elasticsearch-5.3.2.tar.gz</code></p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf elasticsearch-<span class="number">5.3</span>.<span class="number">2</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span> -C /home/elk</span><br></pre></td></tr></table></figure>
-<h2 id="2-1-配置elasticsearch-yml"><a href="#2-1-配置elasticsearch-yml" class="headerlink" title="2.1 配置elasticsearch.yml"></a>2.1 配置elasticsearch.yml</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@elk</span>-node1 src]<span class="comment"># cat /etc/elasticsearch/elasticsearch.yml | grep -v “#”</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">cluster<span class="selector-class">.name</span>: elk                                              #自定义集群名，相同集群内的节点设置相同的集群名</span><br><span class="line"></span><br><span class="line">node<span class="selector-class">.name</span>: elk-node1                                           #自定义节点名，建议统一采用节点hostname</span><br><span class="line"></span><br><span class="line">path<span class="selector-class">.data</span>: /var/lib/elasticsearch                              #data存储路径，可不取消注释，默认即此路径</span><br><span class="line"></span><br><span class="line">path<span class="selector-class">.logs</span>: /var/log/elasticsearch                              #log存储路径，可不取消注释，默认即此路径</span><br><span class="line"></span><br><span class="line">network<span class="selector-class">.host</span>: <span class="number">0.0</span>.<span class="number">0.0</span>                                          #es监听地址，采用”<span class="number">0.0</span>.<span class="number">0.0</span>”，允许所有设备访问</span><br><span class="line"></span><br><span class="line">http<span class="selector-class">.port</span>: <span class="number">9200</span>                                                #es监听端口，可不取消注释，默认即此端口</span><br><span class="line"></span><br><span class="line">discovery<span class="selector-class">.zen</span><span class="selector-class">.ping</span><span class="selector-class">.unicast</span><span class="selector-class">.hosts</span>: [<span class="string">"elk-node1"</span>, <span class="string">"elk-node2"</span>]   #集群节点发现列表，也可采用ip的形式</span><br><span class="line"></span><br><span class="line">discovery<span class="selector-class">.zen</span><span class="selector-class">.minimum_master_nodes</span>: <span class="number">2</span>                          #集群可做master的最小节点数</span><br><span class="line"></span><br><span class="line">#以下两项设置es5.x版本的head插件可以访问es</span><br><span class="line"></span><br><span class="line">http<span class="selector-class">.cors</span><span class="selector-class">.enabled</span>: true                                        #开启跨域访问支持，默认为false</span><br><span class="line"></span><br><span class="line">http<span class="selector-class">.cors</span><span class="selector-class">.allow-origin</span>: <span class="string">"*"</span>                                    #跨域访问允许的域名地址，使用正则表达式</span><br></pre></td></tr></table></figure>
-<h2 id="2-2-配置head插件"><a href="#2-2-配置head插件" class="headerlink" title="2.2 配置head插件"></a>2.2 配置head插件</h2><h3 id="2-2-1-下载并配置nodejs"><a href="#2-2-1-下载并配置nodejs" class="headerlink" title="2.2.1 下载并配置nodejs"></a>2.2.1 下载并配置nodejs</h3><p>nodejs官网：<a href="https://nodejs.org/en/" target="_blank" rel="noopener">https://nodejs.org/en/</a> </p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@elk</span>-node1 ~]<span class="comment"># cd /home/elk</span></span><br><span class="line">[root<span class="variable">@elk</span>-node1 elk]<span class="comment"># wget https://nodejs.org/dist/v6.9.5/node-v6.9.5-linux-x64.tar.xz</span></span><br><span class="line">[root<span class="variable">@elk</span>-node1 elk]<span class="comment"># xz -d node-v6.10.2-linux-x64.tar.xz</span></span><br><span class="line">[root<span class="variable">@elk</span>-node1 elk]<span class="comment"># tar -xvf node-v6.10.2-linux-x64.tar -C /usr/local/</span></span><br><span class="line">[root<span class="variable">@elk</span>-node1 ~]<span class="comment"># ln -s /usr/local/node-v6.10.2-linux-x64/bin/node /usr/bin/node</span></span><br><span class="line">[root<span class="variable">@elk</span>-node1 ~]<span class="comment"># ln -s /usr/local/node-v6.10.2-linux-x64/bin/npm /usr/bin/npm</span></span><br><span class="line">[root<span class="variable">@elk</span>-node1 ~]<span class="comment"># node -v</span></span><br><span class="line">v6.<span class="number">10.2</span></span><br><span class="line">[root<span class="variable">@elk</span>-node1 ~]<span class="comment"># npm -v</span></span><br><span class="line"><span class="number">3.10</span>.<span class="number">10</span></span><br></pre></td></tr></table></figure>
-<h3 id="2-2-2-安装head插件"><a href="#2-2-2-安装head插件" class="headerlink" title="2.2.2 安装head插件"></a>2.2.2 安装head插件</h3><p>安装grunt</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@elk-node1 ~]# npm install -g grunt-cli</span><br><span class="line">[root@elk-node1 ~]# ln -s <span class="regexp">/usr/</span>local<span class="regexp">/node-v6.10.2-linux-x64/</span>lib<span class="regexp">/node_modules/g</span>runt-cli<span class="regexp">/bin/g</span>runt <span class="regexp">/usr/</span>bin<span class="regexp">/grunt</span></span><br></pre></td></tr></table></figure>
-<p><img src="2.jpg" alt="2"></p>
-<blockquote>
-<p>#<code>grunt</code>是一个方便的构建工具，可以进行打包压缩、测试、执行等等的工作，5.x里的<code>head插件</code>就是通过<code>grunt</code>启动的；</p>
-<p>#”<code>-g</code>”参数代表全局安装，一般安装到<code>nodejs</code>的”<code>lib/node_modules</code>”目录下；不带参数”<code>-g</code>”，则是本地安装，一般安装到运行<code>npm</code>命令时所在的目录，这里就需要安装到<code>head插件目录</code>；</p>
-<p>#为<code>grunt</code>命令建软链接，方便全局执行，或加入环境变量；；</p>
-<p>#如果镜像速度不理想，可提前切到国内的镜像，在安装<code>grunt-cli</code>前执行：<code>npm config set registry https://registry.npm.taobao.org</code>。</p>
-</blockquote>
-<h3 id="2-2-3-下载并配置head"><a href="#2-2-3-下载并配置head" class="headerlink" title="2.2.3 下载并配置head"></a>2.2.3 下载并配置head</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@elk</span>-node1 ~]<span class="comment"># cd /home/elk/elasticsearch</span></span><br><span class="line">[root<span class="variable">@elk</span>-node1 elasticsearch]<span class="comment"># git clone git://github.com/mobz/elasticsearch-head.git</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>#配置<code>elasticsearch.yml</code>文件允许<code>head</code>插件跨域访问<code>es</code>，请见上述章节。<br><img src="3.png" alt="enter description here"></p>
-</blockquote>
-<h3 id="2-2-4-安装head"><a href="#2-2-4-安装head" class="headerlink" title="2.2.4 安装head"></a>2.2.4 安装head</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@elk</span>-node1 ~]<span class="comment"># cd /var/lib/elasticsearch/elasticsearch-head/</span></span><br><span class="line">[root<span class="variable">@elk</span>-node1 elasticsearch]<span class="comment"># npm install</span></span><br></pre></td></tr></table></figure>
-<p><img src="4.jpg" alt="4"></p>
-<p><img src="5.jpg" alt="5"><br><strong># 安装完成后可能有一些报错，不影响使用，报错原因未知，本人对nodejs不了解，github上有相近的问题，但并未解决。解决方法如下：</strong></p>
-<p>(1) 查看报错信息”Error: Cannot find module ‘/var/lib/elasticsearch/elasticsearch-head/node_modules/phantomjs-prebuilt/install.js’”，未找到” phantomjs-prebuilt/install.js”文件；</p>
-<p>(2) 采取比较土的办法，将完整的”phantomjs-prebuilt/”目录上传到相应位置，重新执行”npm install”，无报错。<br><img src="6.jpg" alt="6"></p>
-<p><strong># 同时有3个警告信息，忽略即可，其中“npm WARN <a href="mailto:elasticsearch-head@0.0.0" target="_blank" rel="noopener">elasticsearch-head@0.0.0</a> license should be a valid SPDX license expression”警告信息可做如下处理：</strong><br><a href="http://www.itdadao.com/articles/c15a1031952p0.html" target="_blank" rel="noopener">http://www.itdadao.com/articles/c15a1031952p0.html</a></p>
-<p>即修改”<code>./elasticsearch-head</code>”目录下“<code>package.json</code>”文件第<code>17行</code>的””<code>Apache2</code>“ “为”<code>Apache-2.0</code>“，涉及到开源软件与其他合作类软件的使用声明。</p>
-<p><strong># 如果没有全局安装<code>grunt</code>二进制程序，可在”<code>elasticsearch-head</code>”目录下执行”<code>npm install grunt --save</code>“或” <code>npm install grunt-cli</code>“。</strong></p>
-<h3 id="2-2-5-配置app-js和Guuntfile-js"><a href="#2-2-5-配置app-js和Guuntfile-js" class="headerlink" title="2.2.5 配置app.js和Guuntfile.js"></a>2.2.5 配置app.js和Guuntfile.js</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@elk</span>-node1 ~]<span class="comment"># cd /home/elk/elasticsearch-5.3.2/elasticsearch-head/</span></span><br><span class="line">[root<span class="variable">@elk</span>-node1 elasticsearch-head]<span class="comment"># cd _site/</span></span><br><span class="line">[root<span class="variable">@elk</span>-node1 _site]<span class="comment"># cp app.js app.js.bak</span></span><br><span class="line">[root<span class="variable">@elk</span>-node1 _site]<span class="comment"># vim app.js</span></span><br></pre></td></tr></table></figure>
-<p><img src="7.jpg" alt="7"><br><strong>#在<code>4328行</code>将原”<code>http://localhost:9200</code>“修改为”<code>http://172.20.20.29:9200</code>“，否则head插件不能获取节点状态信息。</strong></p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@elk</span>-node1 ~]<span class="comment"># cd /home/elk/elasticsearch-5.3.2/elasticsearch-head/</span></span><br><span class="line">[root<span class="variable">@elk</span>-node1 elasticsearch-head]<span class="comment"># cp Gruntfile.js Gruntfile.js.bak</span></span><br><span class="line">[root<span class="variable">@elk</span>-node1 elasticsearch-head]<span class="comment"># vim Gruntfile.js</span></span><br></pre></td></tr></table></figure>
-<p><img src="8.png" alt="8"></p>
-<p>#在93行新增”hostname: 0.0.0.0’, “，确保能被访问。</p>
-<h2 id="2-3-启动并验证"><a href="#2-3-启动并验证" class="headerlink" title="2.3 启动并验证"></a>2.3 启动并验证</h2><ul>
-<li>创建elk用户</li>
-<li>使用<code>elk用户</code>启动<code>elasticsearch</code></li>
-</ul>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">su</span> - elk -c <span class="string">"/home/elk/elasticsearch-5.3.2/bin/elasticsearch &amp;"</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>启动head</li>
-</ul>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /home/elk/elasticsearch<span class="number">-5.3</span><span class="number">.2</span>/elasticsearch-head/</span><br><span class="line">grunt server &amp;</span><br></pre></td></tr></table></figure>
-<p><img src="9.png" alt="9"></p>
-<p>#启动head插件，需要到head目录下</p>
-<ol>
-<li><p>访问<a href="https://172.20.20.29:9200" target="_blank" rel="noopener">https://172.20.20.29:9200</a><br><img src="10.png" alt="10"></p>
-</li>
-<li><p>访问<a href="https://172.20.20.29:9100" target="_blank" rel="noopener">https://172.20.20.29:9100</a><br><img src="11.png" alt="11"></p>
-</li>
-</ol>
-<h1 id="3-Logstash部署"><a href="#3-Logstash部署" class="headerlink" title="3 Logstash部署"></a>3 Logstash部署</h1><h2 id="3-1-下载logstash"><a href="#3-1-下载logstash" class="headerlink" title="3.1 下载logstash"></a>3.1 下载logstash</h2><p>下载logstash-5.3.2</p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf logstash<span class="number">-5.3</span><span class="number">.2</span> -C /home/elk</span><br></pre></td></tr></table></figure>
-<h2 id="3-2-配置logstahs"><a href="#3-2-配置logstahs" class="headerlink" title="3.2 配置logstahs"></a>3.2 配置logstahs</h2><h3 id="3-2-1-配置文件"><a href="#3-2-1-配置文件" class="headerlink" title="3.2.1 配置文件"></a>3.2.1 配置文件</h3><p>默认配置文件： /home/elk/logstash-5.3.2/config/logstash.yml</p>
-<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@elk-node1 ~]<span class="comment"># cd /etc/logstash/</span></span><br><span class="line">[root@elk-node1 logstash]<span class="comment"># cat logstash.yml | grep -v "#"</span></span><br><span class="line">path.<span class="symbol">data:</span> /var/<span class="class"><span class="keyword">lib</span>/<span class="title">logstash</span></span></span><br><span class="line">path.<span class="symbol">config:</span> /etc/logstash/conf.d</span><br><span class="line">path.<span class="symbol">logs:</span> /var/log/logstash</span><br></pre></td></tr></table></figure>
-<p>*#其中默认配置已经明确数据，日志，logstash pipeline实例文件的存储位置，保持默认即可；</p>
-<p>#其中“http.host”参数指定数据输入主机，默认为localhost；“http.port”参数指定数据输入端口，默认为9600～9700（每实例占用1个），此验证暂时不做变更*</p>
-<h3 id="3-2-2-pipeline文件"><a href="#3-2-2-pipeline文件" class="headerlink" title="3.2.2 pipeline文件"></a>3.2.2 pipeline文件</h3><p>根据默认配置，pipeline实例文件默认应放置于/home/elk/logstash-5.3.2/config/目录，此时目录下无实例文件，可根据实际情况新建实例，以处理本机log信息为例，如下：</p>
-<figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@elk-node1 config]<span class="comment"># vim messages.conf</span></span><br><span class="line"><span class="keyword">input</span> &#123;</span><br><span class="line">    file &#123;</span><br><span class="line">        <span class="attr">path</span> =&gt; <span class="string">"/var/log/messages"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">output</span> &#123;</span><br><span class="line">    elasticsearch &#123;</span><br><span class="line">        <span class="attr">hosts</span> =&gt; [<span class="string">"172.20.20.29:9200"</span>,<span class="string">"172..20.20.29:9200"</span>]</span><br><span class="line">        <span class="attr">index</span> =&gt; <span class="string">"messages-%&#123;+YYYY.MM.dd&#125;"</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">stdout</span> &#123;</span><br><span class="line"><span class="comment"># codec =&gt; rubydebug</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">[root@elk-node1 conf.d]<span class="comment"># cd ..</span></span><br><span class="line">[root@elk-node1 logstash]<span class="comment"># chown -R logstash:logstash conf.d/</span></span><br><span class="line">[root@elk-node1 ~]<span class="comment"># chmod 644 /var/log/messages</span></span><br></pre></td></tr></table></figure>
-<p>*#pipeline</p>
-<p>#pipeline实例文件以”input”，”output”，”filter”等区域组成，前两者为必选项；</p>
-<p>#”input”与”output”利用插件进行数据输入与输出，如这里”file”即输入插件，“elasticseach”与“stdout”即输出插件；</p>
-<p>#在各插件内再具体定义行为，如”input”定义了数据源，“elasticseach”定义了输出节点与数据输出的索引与格式；</p>
-<p>#“codec =&gt; rubydebug”会产生大量的debug文件至message（也可重定向到其他位置），此处注释掉；</p>
-<p>#请注意权限，这里message常规权限是400，logstash无法读取，如果无法调用，在logstash的启动日志中会有相应的记录。*</p>
-<h2 id="3-3-启动并验证"><a href="#3-3-启动并验证" class="headerlink" title="3.3 启动并验证"></a>3.3 启动并验证</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@elk-node1 ~]# <span class="regexp">/home/</span>elk<span class="regexp">/logstash-5.3.2/</span>bin<span class="regexp">/logstash -f /</span>home<span class="regexp">/elk/</span>logstash-<span class="number">5.3</span>.<span class="number">2</span><span class="regexp">/conf.d/m</span>essages.conf &amp;</span><br></pre></td></tr></table></figure>
-<p>&amp; 是在后台启动</p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@elk</span>-node1 ~]<span class="comment"># netstat -tunlp</span></span><br></pre></td></tr></table></figure>
-<p><img src="12.jpg" alt="12"></p>
-<p>浏览器访问<a href="http://172.20.20.29:9100" target="_blank" rel="noopener">http://172.20.20.29:9100</a></p>
-<p><img src="13.jpg" alt="13"></p>
-<h1 id="4-Kibana部署"><a href="#4-Kibana部署" class="headerlink" title="4 Kibana部署"></a>4 Kibana部署</h1><h2 id="4-1-解压下载的kibana"><a href="#4-1-解压下载的kibana" class="headerlink" title="4.1 解压下载的kibana"></a>4.1 解压下载的kibana</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf kibana-<span class="number">5.3</span>.<span class="number">2</span>-linux-x86_64<span class="selector-class">.tar</span><span class="selector-class">.gz</span> -C /home/elk</span><br></pre></td></tr></table></figure>
-<h2 id="4-2-配置kibana"><a href="#4-2-配置kibana" class="headerlink" title="4.2 配置kibana"></a>4.2 配置kibana</h2><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="symbol">@elk</span>-node1 ~]<span class="meta"># cd /home/elk/kibana-5.3.2-linux-x86_64/config</span></span><br><span class="line">[root<span class="symbol">@elk</span>-node1 kibana]<span class="meta"># vim kibana.yml</span></span><br><span class="line">[root<span class="symbol">@elk</span>-node1 kibana]<span class="meta"># cat /etc/kibana/kibana.yml | grep -v <span class="string">"^$"</span> | grep -v <span class="string">"#"</span></span></span><br><span class="line">server.port: <span class="number">5601</span>                                   <span class="meta">#默认即5601</span></span><br><span class="line">server.host: <span class="string">"0.0.0.0"</span>                              <span class="meta">#允许被访问</span></span><br><span class="line">elasticsearch.url: <span class="string">"http://172.20.20.29:9200"</span>        <span class="meta">#es地址与端口</span></span><br></pre></td></tr></table></figure>
-<h2 id="4-3-启动并验证"><a href="#4-3-启动并验证" class="headerlink" title="4.3 启动并验证"></a>4.3 启动并验证</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/home/elk/kibana<span class="number">-5.3</span><span class="number">.2</span>-linux-x86_64/bin/kibana &amp;</span><br></pre></td></tr></table></figure>
-<p>&amp; 在后台启动</p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -tunlp | grep <span class="number">5601</span></span><br></pre></td></tr></table></figure>
-<p><img src="14,jpg" alt="14"></p>
-<h2 id="4-4-kibana展示"><a href="#4-4-kibana展示" class="headerlink" title="4.4 kibana展示"></a>4.4 kibana展示</h2><p>浏览器访问：<a href="http://172.20.20.29:5601" target="_blank" rel="noopener">http://172.20.20.29:5601</a><br><img src="15.jpg" alt="15"></p>
-<p>需要在“<code>Index name or pattern</code>”处创建索引名，<code>elassticsearch</code>中并没有以”<code>logstash-*</code>”命名的索引，则不能创建，新建索引对应<code>logstash</code>的<code>pipeline</code>输出插件定义的”<code>index</code>”，即”<code>messages-*</code>”，如下：<br><img src="16.jpg" alt="16"></p>
-<p>在“<code>Index name or pattern</code>”处填写入正确的索引名字，”<code>@timestamp</code>”会自动填充，点击”<code>create</code>”创建，见到如下界面即索引创建完成；<br><img src="17.jpg" alt="17"></p>
-<p>在“<code>Discover</code>”页面，可以搜索与浏览<code>Elasticsearch</code>中的数据，默认搜索的是最近<code>15分钟</code>的数据，可以自定义选择时间。<br><img src="18.jpg" alt="18"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/Liferay-drbd双机热备部署/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/07/Liferay-drbd双机热备部署/" itemprop="url">Liferay+drbd双机热备部署</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-07T15:42:19+08:00">
-                2018-09-07
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T15:55:10+08:00">
-                2018-09-07
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.7k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  8
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="1-主节点配置"><a href="#1-主节点配置" class="headerlink" title="1 主节点配置"></a>1 主节点配置</h1><h2 id="1-1-添加硬盘"><a href="#1-1-添加硬盘" class="headerlink" title="1.1 添加硬盘"></a>1.1 添加硬盘</h2><p>为主服务器添加一块硬盘50G。</p>
-<h2 id="1-2-创建分区"><a href="#1-2-创建分区" class="headerlink" title="1.2 创建分区"></a>1.2 创建分区</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">fdisk</span> /dev/sdb</span><br></pre></td></tr></table></figure>
-<p>为新硬盘创建分区<code>sdb1</code>,大小<code>50G</code>.分区格式<code>lvm</code></p>
-<h2 id="1-3-创建物理卷"><a href="#1-3-创建物理卷" class="headerlink" title="1.3 创建物理卷"></a>1.3 创建物理卷</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">pvcreate</span> /dev/sdb1</span><br></pre></td></tr></table></figure>
-<h2 id="1-4-将物理卷添加入卷组"><a href="#1-4-将物理卷添加入卷组" class="headerlink" title="1.4 将物理卷添加入卷组"></a>1.4 将物理卷添加入卷组</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">vgextend</span> vg_cosliferay /dev/sdb1</span><br></pre></td></tr></table></figure>
-<p>卷组名通过<code>vgdisplay</code>查看。<code>vg_cosliferay</code>是卷组名。</p>
-<h2 id="1-5-创建逻辑卷"><a href="#1-5-创建逻辑卷" class="headerlink" title="1.5 创建逻辑卷"></a>1.5 创建逻辑卷</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lvcreate -L <span class="number">50</span>G -n drbdlv vg_cosliferay</span><br></pre></td></tr></table></figure>
-<p>创建大小为<code>50G</code>，名字为<code>drbdlv</code>的逻辑卷。</p>
-<h2 id="1-6-安装drbd"><a href="#1-6-安装drbd" class="headerlink" title="1.6 安装drbd"></a>1.6 安装drbd</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">yum</span> -y install drbd84-utils kmod-drbd84</span><br></pre></td></tr></table></figure>
-<h3 id="1-6-1-配置global-common-conf"><a href="#1-6-1-配置global-common-conf" class="headerlink" title="1.6.1 配置global_common.conf"></a>1.6.1 配置global_common.conf</h3><p>编辑全局配置：</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vi</span>  /etc/drbd.d/global_common.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
-<p>确保文件中包含有下内容：</p>
-<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">global </span>&#123;  </span><br><span class="line"></span><br><span class="line">    usage-count yes;  </span><br><span class="line">  &#125;  </span><br><span class="line"></span><br><span class="line">  <span class="class">common </span>&#123;  </span><br><span class="line">    <span class="class">net </span>&#123;  </span><br><span class="line"></span><br><span class="line">      protocol C;  <span class="meta"># 使用协议C.表示收到远程主机的写入确认后,则认为写入完成.</span></span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>当然，还可以有其它配置，这是最基本的。</p>
-<h3 id="1-6-2-配置r0资源："><a href="#1-6-2-配置r0资源：" class="headerlink" title="1.6.2 配置r0资源："></a>1.6.2 配置r0资源：</h3><p><strong>创建r0资源</strong>：</p>
-<blockquote>
-<p>注：r0可以随便命名。</p>
-</blockquote>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vi</span>  /etc/drbd.d/r0.<span class="keyword">res</span></span><br></pre></td></tr></table></figure>
-<p>写入文件内容：</p>
-<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">resource r0&#123; </span><br><span class="line"></span><br><span class="line">        on masterNode&#123; </span><br><span class="line"></span><br><span class="line">                  device          /<span class="built_in">dev</span>/drbd1; #逻辑设备的路径 </span><br><span class="line"></span><br><span class="line">                  disk            /<span class="built_in">dev</span>/sda3;  #物理设备 </span><br><span class="line"></span><br><span class="line">                  address           <span class="number">192.168</span><span class="number">.58</span><span class="number">.128</span>:<span class="number">7788</span>; </span><br><span class="line"></span><br><span class="line">                  <span class="built_in">meta</span>-disk       internal; </span><br><span class="line"></span><br><span class="line">        &#125; </span><br><span class="line"></span><br><span class="line">        on backupNode&#123; </span><br><span class="line"></span><br><span class="line">                  device          /<span class="built_in">dev</span>/drbd1; </span><br><span class="line"></span><br><span class="line">                  disk            /<span class="built_in">dev</span>/sda3; </span><br><span class="line"></span><br><span class="line">                  address           <span class="number">192.168</span><span class="number">.58</span><span class="number">.129</span>:<span class="number">7788</span>; </span><br><span class="line"></span><br><span class="line">                  <span class="built_in">meta</span>-disk       internal; </span><br><span class="line"></span><br><span class="line">        &#125; </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>需要把上面用到的防火墙7788端口打开，这个端口是自定义的，如果嫌麻烦可以直接关掉防火墙。</p>
-<blockquote>
-<p>注：masterNode/ backupNode是主机名字，根据实际情况书写。</p>
-</blockquote>
-<p>说明：</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">device  是自定义的物理设备的逻辑路径</span><br><span class="line"></span><br><span class="line"><span class="keyword">disk </span>       是磁盘设备，或者是逻辑分区</span><br><span class="line"></span><br><span class="line"><span class="keyword">address </span>  是机器监听地址和端口</span><br><span class="line"></span><br><span class="line">meta-<span class="keyword">disk </span>  这个还没弄明白，看到的资料都是设为：internal（局域网）</span><br></pre></td></tr></table></figure>
-<h3 id="1-6-3-建立resource"><a href="#1-6-3-建立resource" class="headerlink" title="1.6.3 建立resource"></a>1.6.3 建立resource</h3><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">modprobe drbd                               <span class="comment">//载入 drbd 模块  </span></span><br><span class="line"></span><br><span class="line">lsmod | <span class="keyword">grep</span> drbd                                            <span class="comment">//确认 drbd 模块是否载入</span></span><br></pre></td></tr></table></figure>
-<p><img src="1.png" alt="1"></p>
-<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">dd </span><span class="string">if=</span>/<span class="string">dev/</span><span class="string">zero </span><span class="string">of=</span>/<span class="string">dev/</span><span class="string">sda2 </span><span class="string">bs=</span><span class="string">1M </span><span class="string">count=</span><span class="string">100 </span>   //把一些资料塞到 <span class="string">sda3 </span>內 (否则 <span class="built_in">create-md</span> 时会报错)  </span><br><span class="line"></span><br><span class="line"><span class="string">drbdadm </span><span class="built_in">create-md</span> <span class="string">r0 </span>                                    //建立 <span class="string">drbd </span><span class="string">resource </span> </span><br><span class="line"></span><br><span class="line"><span class="string">drbdadm </span><span class="string">up </span><span class="string">r0 </span>                   //   <span class="comment">#启用资源</span></span><br></pre></td></tr></table></figure>
-<h1 id="2-备节点配置"><a href="#2-备节点配置" class="headerlink" title="2 备节点配置"></a>2 备节点配置</h1><p>把以上主节点的操作在备节点上操作一次，操作过程完全一样。</p>
-<h2 id="2-1-设置Primary-Node"><a href="#2-1-设置Primary-Node" class="headerlink" title="2.1 设置Primary Node"></a>2.1 设置Primary Node</h2><p>将<code>masterNode</code>设为主服务器(<code>primary node</code>)，在<code>masterNode</code>上执行：</p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@backupNode</span> /]<span class="comment"># drbdadm primary --force r0</span></span><br></pre></td></tr></table></figure>
-<p><strong>查看drbd状态：</strong></p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[root@backupNode /]</span># <span class="selector-tag">cat</span> /<span class="selector-tag">proc</span>/<span class="selector-tag">drbd</span>  </span><br><span class="line"></span><br><span class="line"><span class="selector-tag">version</span>: <span class="selector-tag">8</span><span class="selector-class">.4</span><span class="selector-class">.1</span> (<span class="attribute">api</span>:<span class="number">1</span>/<span class="attribute">proto</span>:<span class="number">86</span>-<span class="number">100</span>)  </span><br><span class="line"></span><br><span class="line"> <span class="selector-tag">GIT-hash</span>: <span class="selector-tag">91b4c048c1a0e06777b5f65d312b38d47abaea80</span> <span class="selector-tag">build</span> <span class="selector-tag">by</span> <span class="selector-tag">root</span>@<span class="selector-tag">masterNode</span>, <span class="selector-tag">2012-05-27</span> <span class="selector-tag">18</span><span class="selector-pseudo">:34</span><span class="selector-pseudo">:27</span>  </span><br><span class="line"></span><br><span class="line">       <span class="selector-tag">1</span>: <span class="selector-tag">cs</span><span class="selector-pseudo">:Connected</span> <span class="selector-tag">ro</span><span class="selector-pseudo">:Primary</span>/<span class="selector-tag">Secondary</span> <span class="selector-tag">ds</span><span class="selector-pseudo">:UpToDate</span>/<span class="selector-tag">UpToDate</span> <span class="selector-tag">C</span> <span class="selector-tag">r-----</span>  </span><br><span class="line"></span><br><span class="line">     <span class="selector-tag">ns</span><span class="selector-pseudo">:4</span> <span class="selector-tag">nr</span><span class="selector-pseudo">:9504584</span> <span class="selector-tag">dw</span><span class="selector-pseudo">:9504588</span> <span class="selector-tag">dr</span><span class="selector-pseudo">:1017</span> <span class="selector-tag">al</span><span class="selector-pseudo">:1</span> <span class="selector-tag">bm</span><span class="selector-pseudo">:576</span> <span class="selector-tag">lo</span><span class="selector-pseudo">:0</span> <span class="selector-tag">pe</span><span class="selector-pseudo">:0</span> <span class="selector-tag">ua</span><span class="selector-pseudo">:0</span> <span class="selector-tag">ap</span><span class="selector-pseudo">:0</span> <span class="selector-tag">ep</span><span class="selector-pseudo">:1</span> <span class="selector-tag">wo</span><span class="selector-pseudo">:b</span> <span class="selector-tag">oos</span><span class="selector-pseudo">:0</span></span><br></pre></td></tr></table></figure>
-<p> 已经变成了主服务器。</p>
-<h2 id="2-2-创建DRBD文件系统"><a href="#2-2-创建DRBD文件系统" class="headerlink" title="2.2 创建DRBD文件系统"></a>2.2 创建DRBD文件系统</h2><p>上面已经完成了<code>/dev/drbd1</code>的初始化，现在来把<code>/dev/drbd1</code>格式化成<code>ext4</code>格式的文件系统,在<code>masterNode</code>上执行：</p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> [root<span class="variable">@masterNode</span> /]<span class="comment"># mkfs.ext3 /dev/drbd1</span></span><br></pre></td></tr></table></figure>
-<h1 id="3-安装配置keepalived"><a href="#3-安装配置keepalived" class="headerlink" title="3 安装配置keepalived"></a>3 安装配置keepalived</h1><h2 id="3-1-YUM安装keepalived"><a href="#3-1-YUM安装keepalived" class="headerlink" title="3.1 YUM安装keepalived"></a>3.1 YUM安装keepalived</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@drbd1</span> rc3.d]<span class="comment"># yum install -y keepalived</span></span><br></pre></td></tr></table></figure>
-<h2 id="3-2-配置keepalived-conf"><a href="#3-2-配置keepalived-conf" class="headerlink" title="3.2 配置keepalived.conf"></a>3.2 配置keepalived.conf</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="meta">@drbd</span>1 <span class="regexp">/]# vi /</span>etc<span class="regexp">/keepalived/</span>keepalived.conf</span><br></pre></td></tr></table></figure>
-<h3 id="3-2-1-主服务器配置"><a href="#3-2-1-主服务器配置" class="headerlink" title="3.2.1 主服务器配置"></a>3.2.1 主服务器配置</h3><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line"></span><br><span class="line">   notification_email &#123;</span><br><span class="line"></span><br><span class="line">     acassen@firewall.loc</span><br><span class="line"></span><br><span class="line">     failover@firewall.loc</span><br><span class="line"></span><br><span class="line">     sysadmin@firewall.loc</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   notification_email_from Alexandre.Cassen@firewall.loc</span><br><span class="line"></span><br><span class="line">   smtp_server <span class="number">192.168</span><span class="number">.200</span><span class="number">.1</span></span><br><span class="line"></span><br><span class="line">   smtp_connect_timeout <span class="number">30</span></span><br><span class="line"></span><br><span class="line">   router_id LVS_DEVEL</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;          <span class="comment">//定义vrrp实例</span></span><br><span class="line"></span><br><span class="line">    <span class="section">state</span> MASTER              <span class="comment">//主节点 ，备用节点为BACKUP             </span></span><br><span class="line"></span><br><span class="line">    interface enp2s0          <span class="comment">//绑定的网卡</span></span><br><span class="line"></span><br><span class="line">    virtual_router_id <span class="number">51</span>     <span class="comment">//ID,默认就行 .同一实例下virtual_router_id必须相同</span></span><br><span class="line"></span><br><span class="line">    priority <span class="number">100</span>             <span class="comment">//优先级，备用节点设置为比100小的值</span></span><br><span class="line"></span><br><span class="line">    advert_int <span class="number">1</span>             <span class="comment">//MASTER与BACKUP负载均衡器之间同步检查的时间间隔，单位是秒</span></span><br><span class="line"></span><br><span class="line">    authentication &#123;</span><br><span class="line"></span><br><span class="line">        auth_type PASS       <span class="comment">//验证类型和密码 </span></span><br><span class="line"></span><br><span class="line">        auth_pass <span class="number">1111</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line"></span><br><span class="line">        <span class="number">172.20</span><span class="number">.20</span><span class="number">.237</span>                  <span class="comment">//设置虚拟IP地址，可以多个</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3-2-2-备服务器配置"><a href="#3-2-2-备服务器配置" class="headerlink" title="3.2.2 备服务器配置"></a>3.2.2 备服务器配置</h3><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line"></span><br><span class="line">   notification_email &#123;</span><br><span class="line"></span><br><span class="line">     acassen@firewall.loc</span><br><span class="line"></span><br><span class="line">     failover@firewall.loc</span><br><span class="line"></span><br><span class="line">     sysadmin@firewall.loc</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   notification_email_from Alexandre.Cassen@firewall.loc</span><br><span class="line"></span><br><span class="line">   smtp_server <span class="number">192.168</span><span class="number">.200</span><span class="number">.1</span></span><br><span class="line"></span><br><span class="line">   smtp_connect_timeout <span class="number">30</span></span><br><span class="line"></span><br><span class="line">   router_id LVS_DEVEL</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;          <span class="comment">//定义vrrp实例</span></span><br><span class="line"></span><br><span class="line">    <span class="section">state</span> BACKUP             <span class="comment">//备节点 ，主用节点为MASTER             </span></span><br><span class="line"></span><br><span class="line">    interface ens192          <span class="comment">//绑定的网卡</span></span><br><span class="line"></span><br><span class="line">    virtual_router_id <span class="number">51</span>     <span class="comment">//ID,默认就行 .同一实例下virtual_router_id必须相同</span></span><br><span class="line"></span><br><span class="line">    priority <span class="number">50</span>             <span class="comment">//优先级，备用节点设置为比100小的值</span></span><br><span class="line"></span><br><span class="line">    advert_int <span class="number">1</span>             <span class="comment">//MASTER与BACKUP负载均衡器之间同步检查的时间间隔，单位是秒</span></span><br><span class="line"></span><br><span class="line">    authentication &#123;</span><br><span class="line"></span><br><span class="line">        auth_type PASS       <span class="comment">//验证类型和密码 </span></span><br><span class="line"></span><br><span class="line">        auth_pass <span class="number">1111</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line"></span><br><span class="line">        <span class="number">172.20</span><span class="number">.20</span><span class="number">.237</span>                  <span class="comment">//设置虚拟IP地址，可以多个</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="3-3-启动服务"><a href="#3-3-启动服务" class="headerlink" title="3.3 启动服务"></a>3.3 启动服务</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@drbd1</span> /]<span class="comment"># systemctl start keepalived</span></span><br></pre></td></tr></table></figure>
-<h1 id="4-问题"><a href="#4-问题" class="headerlink" title="4 问题"></a>4 问题</h1><p><code>Liferay</code>配置<code>drbd</code>双击热备中，在备机启动程序时，遇到以下问题。问题根本原因是原主机是32位系统安装32位程序，在备机64位系统运行32位程序没有运行库而报错。</p>
-<h2 id="4-1-问题1："><a href="#4-1-问题1：" class="headerlink" title="4.1 问题1："></a>4.1 问题1：</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">09</span>:<span class="number">55</span>:<span class="number">50</span>][root@liferay-backup opt]<span class="comment">#   /opt/liferay-6.2-7/ctlscript.sh start</span></span><br><span class="line"></span><br><span class="line">[<span class="number">09</span>:<span class="number">55</span>:<span class="number">50</span>]<span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql/</span>bin<span class="regexp">/my_print_defaults:   /</span>opt<span class="regexp">/liferay-6.2-7/my</span>sql<span class="regexp">/bin/my</span>_print_defaults.bin:   <span class="regexp">/lib/</span>ld-linux.so.<span class="number">2</span>: bad ELF interpreter: 没有那个文件或目录</span><br><span class="line"></span><br><span class="line">[<span class="number">09</span>:<span class="number">55</span>:<span class="number">50</span>]<span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql/</span>bin<span class="regexp">/my_print_defaults:行12: /</span>opt<span class="regexp">/liferay-6.2-7/my</span>sql<span class="regexp">/bin/my</span>_print_defaults.bin: 成功</span><br><span class="line"></span><br><span class="line">[<span class="number">09</span>:<span class="number">55</span>:<span class="number">50</span>]<span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql/</span>bin<span class="regexp">/my_print_defaults:   /</span>opt<span class="regexp">/liferay-6.2-7/my</span>sql<span class="regexp">/bin/my</span>_print_defaults.bin: <span class="regexp">/lib/</span>ld-linux.so.<span class="number">2</span>: bad   ELF interpreter: 没有那个文件或目录</span><br><span class="line"></span><br><span class="line">[<span class="number">09</span>:<span class="number">55</span>:<span class="number">50</span>]<span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql/</span>bin<span class="regexp">/my_print_defaults:行12: /</span>opt<span class="regexp">/liferay-6.2-7/my</span>sql<span class="regexp">/bin/my</span>_print_defaults.bin: 成功</span><br><span class="line"></span><br><span class="line">[<span class="number">09</span>:<span class="number">55</span>:<span class="number">50</span>]<span class="number">161221</span> <span class="number">09</span>:<span class="number">55</span>:<span class="number">53</span> mysqld_safe   Logging to <span class="string">'/opt/liferay-6.2-7/mysql/data/mysqld.log'</span>.</span><br><span class="line"></span><br><span class="line">[<span class="number">09</span>:<span class="number">55</span>:<span class="number">50</span>]<span class="number">161221</span> <span class="number">09</span>:<span class="number">55</span>:<span class="number">53</span> mysqld_safe   Starting mysqld daemon with databases from <span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql/</span>data</span><br><span class="line"></span><br><span class="line">[<span class="number">09</span>:<span class="number">55</span>:<span class="number">50</span>]<span class="number">161221</span> <span class="number">09</span>:<span class="number">55</span>:<span class="number">53</span> mysqld_safe   mysqld from pid file <span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql/</span>data<span class="regexp">/mysqld.pid ended</span></span><br></pre></td></tr></table></figure>
-<p><strong>解决办法：</strong></p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@liferay</span>-backup opt]<span class="comment">#  yum install   glibc.i686</span></span><br></pre></td></tr></table></figure>
-<p>安装后<strong>又报错</strong>：</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@liferay-backup data]<span class="comment">#   /opt/liferay-6.2-7/ctlscript.sh start</span></span><br><span class="line"></span><br><span class="line">[<span class="number">10</span>:<span class="number">30</span>:<span class="number">47</span>]libgcc_s.so.<span class="number">1</span> must be installed   <span class="keyword">for</span> pthread_cancel to work</span><br><span class="line"></span><br><span class="line">[<span class="number">10</span>:<span class="number">30</span>:<span class="number">47</span>]libgcc_s.so.<span class="number">1</span> must be installed   <span class="keyword">for</span> pthread_cancel to work</span><br><span class="line"></span><br><span class="line">[<span class="number">10</span>:<span class="number">30</span>:<span class="number">47</span>]<span class="number">161221</span> <span class="number">10</span>:<span class="number">30</span>:<span class="number">50</span> mysqld_safe   Logging to <span class="string">'/opt/liferay-6.2-7/mysql/data/mysqld.log'</span>.</span><br><span class="line"></span><br><span class="line">[<span class="number">10</span>:<span class="number">30</span>:<span class="number">47</span>]<span class="number">161221</span> <span class="number">10</span>:<span class="number">30</span>:<span class="number">50</span> mysqld_safe   Starting mysqld daemon with databases from <span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql/</span>data</span><br><span class="line"></span><br><span class="line">[<span class="number">10</span>:<span class="number">30</span>:<span class="number">48</span>]libgcc_s.so.<span class="number">1</span>   must be installed <span class="keyword">for</span> pthread_cancel to work</span><br><span class="line"></span><br><span class="line">[<span class="number">10</span>:<span class="number">30</span>:<span class="number">48</span>]<span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql/</span>bin<span class="regexp">/mysqld_safe:   行 165: 19283 已放弃               (吐核)LD_LIBRARY_PATH=/</span>opt<span class="regexp">/liferay-6.2-7/my</span>sql<span class="regexp">/lib\:/</span>opt<span class="regexp">/liferay-6.2-7/my</span>sql<span class="regexp">/lib\:/</span>opt<span class="regexp">/liferay-6.2-7/</span>sqlite<span class="regexp">/lib\:/</span>opt<span class="regexp">/liferay-6.2-7/</span>apache2<span class="regexp">/lib\:/</span>opt<span class="regexp">/liferay-6.2-7/</span>common<span class="regexp">/lib\:   nohup /</span>opt<span class="regexp">/liferay-6.2-7/my</span>sql<span class="regexp">/bin/my</span>sqld   --defaults-file=<span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql/my</span>.cnf   --basedir=<span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql --datadir=/</span>opt<span class="regexp">/liferay-6.2-7/my</span>sql<span class="regexp">/data   --plugin-dir=/</span>opt<span class="regexp">/liferay-6.2-7/my</span>sql<span class="regexp">/lib/</span>plugin --user=mysql   --lower-case-table-names=<span class="number">1</span>   --log-error=<span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql/</span>data<span class="regexp">/mysqld.log   --pid-file=/</span>opt<span class="regexp">/liferay-6.2-7/my</span>sql<span class="regexp">/data/my</span>sqld.pid   --socket=<span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql/</span>tmp<span class="regexp">/mysql.sock --port=3306 &lt; /</span>dev<span class="regexp">/null   &gt;&gt; /</span>opt<span class="regexp">/liferay-6.2-7/my</span>sql<span class="regexp">/data/my</span>sqld.log <span class="number">2</span>&gt;&amp;<span class="number">1</span></span><br><span class="line"></span><br><span class="line">[<span class="number">10</span>:<span class="number">30</span>:<span class="number">48</span>]<span class="number">161221</span> <span class="number">10</span>:<span class="number">30</span>:<span class="number">51</span> mysqld_safe   mysqld from pid file <span class="regexp">/opt/</span>liferay-<span class="number">6.2</span>-<span class="number">7</span><span class="regexp">/mysql/</span>data<span class="regexp">/mysqld.pid ended</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>没有安装32位运行库</p>
-</blockquote>
-<p>直接安装<code>yum install glibc.i686</code>无法成功，系统已安装64位运行库，无法在安装。需要</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Linux的有些软件需要32位运行库才能运行，如Dr.com客户端等</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">yum在线安装： sudo yum <span class="keyword">install</span>   xulrunner.i686</span><br><span class="line"></span><br><span class="line">或者： sudo yum <span class="keyword">install</span>   ia32-libs.i686</span><br><span class="line"></span><br><span class="line">ubuntu下： sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> ia32-libs</span><br></pre></td></tr></table></figure>
-<p>最终没有采用此方法，使用的方法为本博客内的<br><strong><a href="https://kxinter.github.io/kxinter.gitub.io/2018/09/04/rsync-sersync%E5%AE%9E%E6%97%B6%E5%8F%8C%E5%90%91%E5%90%8C%E6%AD%A5/">Rsync+sersync实时双向同步</a></strong></p>
-<p>参考资料1：<a href="http://blog.csdn.net/tmy257/article/details/41013985" target="_blank" rel="noopener">http://blog.csdn.net/tmy257/article/details/41013985</a></p>
-<p>参考资料2：<a href="http://blog.csdn.net/attagain/article/details/17026433" target="_blank" rel="noopener">http://blog.csdn.net/attagain/article/details/17026433</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/bitnami删除页面右下角Manage图标/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/07/bitnami删除页面右下角Manage图标/" itemprop="url">bitnami删除页面右下角Manage图标</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-07T15:38:02+08:00">
-                2018-09-07
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T15:40:48+08:00">
-                2018-09-07
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  85
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Bitnami-info-page"><a href="#Bitnami-info-page" class="headerlink" title="Bitnami info page"></a>Bitnami info page</h1><p><img src="1.png" alt="1"></p>
-<p><img src="2.png" alt="2"><br><strong>How to remove the banner(如何删除旗帜)</strong></p>
-<p>如果你想删除的旗帜，你只需要使用工具<code>bnconfig</code>,执行下面命令。</p>
-<p><strong>Linux and OS X Systems</strong></p>
-<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="string">/opt/bitnami/apps/</span>软件目录<span class="string">/bnconfig</span> <span class="params">--disable_banner</span> 1</span><br></pre></td></tr></table></figure>
-<p>然后重启APache:</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /<span class="keyword">opt</span>/bitnami/ctlscript.<span class="keyword">sh</span> restart apache</span><br></pre></td></tr></table></figure>
-<p><strong>Windows Systems</strong></p>
-<p>进入算计路径：:</p>
-<p><code>cd apps\</code>软件目录</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bnconfig.exe </span>--<span class="keyword">disable_banner </span><span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/bitnami软件修改URL方法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/07/bitnami软件修改URL方法/" itemprop="url">bitnami软件修改URL方法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-07T15:33:16+08:00">
-                2018-09-07
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T15:37:39+08:00">
-                2018-09-07
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  318
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="1-更改首页页面"><a href="#1-更改首页页面" class="headerlink" title="1 更改首页页面"></a>1 更改首页页面</h1><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">install/apache2/<span class="keyword">conf</span>/bitnami/bitnami.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
-<p>修改<code>bitnami.con</code>文件，更改首页页面。</p>
-<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;VirtualHost _default_:80&gt;</span><br><span class="line">  DocumentRoot "/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/apache2/htdocs"</span><br><span class="line">  &lt;Directory "/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/apache2/htdocs"&gt;</span><br><span class="line">   改为</span><br><span class="line">&lt;VirtualHost _default_:80&gt;</span><br><span class="line">  DocumentRoot "/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/apps/mediawiki/htdocs"</span><br><span class="line">  &lt;Directory "/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/apps/mediawiki/htdocs"&gt;</span><br></pre></td></tr></table></figure>
-<h1 id="2-更改应用访问地址后缀"><a href="#2-更改应用访问地址后缀" class="headerlink" title="2 更改应用访问地址后缀"></a>2 更改应用访问地址后缀</h1><p>例如：<a href="http://172.20.20.37/moodle" target="_blank" rel="noopener">http://172.20.20.37/moodle</a>   改为<a href="http://172.20.20.37" target="_blank" rel="noopener">http://172.20.20.37</a> </p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Install/apps/moodle/<span class="keyword">conf</span>/httpd-prefix.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
-<p>修改<code>httpd-prefix.conf</code>文件，更改应用页面更目录</p>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Alias /moodle/ "C:<span class="tag">\<span class="name">Bitnami</span></span><span class="tag">\<span class="name">moodle</span></span>-2.8.5-1/apps/moodle/htdocs/login/"</span><br><span class="line">Alias /moodle "C:<span class="tag">\<span class="name">Bitnami</span></span><span class="tag">\<span class="name">moodle</span></span>-2.8.5-1/apps/moodle/htdocs/login/"</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">改为</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">DocumentRoot "C:<span class="tag">\<span class="name">Bitnami</span></span><span class="tag">\<span class="name">moodle</span></span>-2.8.5-1/apps/moodle/htdocs/login"   </span><br><span class="line">#Alias /moodle/ "C:<span class="tag">\<span class="name">Bitnami</span></span><span class="tag">\<span class="name">moodle</span></span>-2.8.5-1/apps/moodle/htdocs/login/"</span><br><span class="line">#Alias /moodle "C:<span class="tag">\<span class="name">Bitnami</span></span><span class="tag">\<span class="name">moodle</span></span>-2.8.5-1/apps/moodle/htdocs/login/"</span><br></pre></td></tr></table></figure>
-<h1 id="3-更改应用根目录。"><a href="#3-更改应用根目录。" class="headerlink" title="3 更改应用根目录。"></a>3 更改应用根目录。</h1><p>一般情况下，只需修改<code>bitnami.con</code>文件就可以达到URL后缀显示的问题，个别情况下需要修改<code>apps</code>下的<code>httpd-prefix.conf</code>文件。</p>
-<p>还可以修改后缀名称。</p>
-<p>例如：<a href="http://172.20.20.21/moodle" target="_blank" rel="noopener">http://172.20.20.21/moodle</a>     改为 <a href="http://172.20.20.21/mmkk" target="_blank" rel="noopener">http://172.20.20.21/mmkk</a> </p>
-<p>也是修改<code>httpd-prefix.conf</code>文件。</p>
-<h1 id="4-修改端口号：参考上面80位置"><a href="#4-修改端口号：参考上面80位置" class="headerlink" title="4 修改端口号：参考上面80位置"></a>4 修改端口号：参考上面80位置</h1><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">install/apache2/<span class="keyword">conf</span>/bitnami/bitnami.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
-<p>如果还不行，同时修改apache配置文件端口号。</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">install/apache2/<span class="keyword">conf</span>/httpd.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2962,7 +2971,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">78</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2984,7 +2993,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/kxinter.gitub.io/tags/index.html">
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -3147,7 +3156,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">75k</span>
+    <span title="Site words total count">78.6k</span>
   
 </div>
 
