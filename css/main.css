@@ -745,9 +745,8 @@ pre .javascript .function {
   position: relative;
   padding: 15px;
   margin-bottom: 20px;
-  border: initial;
-  border-left: 3px solid #eee;
-  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-left-width: 5px;
   border-radius: 3px;
 }
 .post-body .note h2,
@@ -787,7 +786,6 @@ pre .javascript .function {
   left: 15px;
 }
 .post-body .note.default {
-  background-color: #f7f7f7;
   border-left-color: #777;
 }
 .post-body .note.default h2,
@@ -802,7 +800,6 @@ pre .javascript .function {
   color: #777;
 }
 .post-body .note.primary {
-  background-color: #f5f0fa;
   border-left-color: #6f42c1;
 }
 .post-body .note.primary h2,
@@ -817,7 +814,6 @@ pre .javascript .function {
   color: #6f42c1;
 }
 .post-body .note.info {
-  background-color: #eef7fa;
   border-left-color: #428bca;
 }
 .post-body .note.info h2,
@@ -832,7 +828,6 @@ pre .javascript .function {
   color: #428bca;
 }
 .post-body .note.success {
-  background-color: #eff8f0;
   border-left-color: #5cb85c;
 }
 .post-body .note.success h2,
@@ -847,7 +842,6 @@ pre .javascript .function {
   color: #5cb85c;
 }
 .post-body .note.warning {
-  background-color: #fdf8ea;
   border-left-color: #f0ad4e;
 }
 .post-body .note.warning h2,
@@ -862,7 +856,6 @@ pre .javascript .function {
   color: #f0ad4e;
 }
 .post-body .note.danger {
-  background-color: #fcf1f2;
   border-left-color: #d9534f;
 }
 .post-body .note.danger h2,
@@ -2146,7 +2139,7 @@ img:hover {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #39ffff;
+  background: #abbef5;
 }
 .links-of-blogroll {
   font-size: 13px;
