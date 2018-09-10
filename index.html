@@ -332,6 +332,288 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/10/Centos7部署vpn服务器-PPTP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/10/Centos7部署vpn服务器-PPTP/" itemprop="url">Centos7部署vpn服务器_PPTP</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-10T11:59:09+08:00">
+                2018-09-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-10T12:15:41+08:00">
+                2018-09-10
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.9k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-环境"><a href="#1-环境" class="headerlink" title="1 环境"></a>1 环境</h1><p>系统：centos 7.2 1511</p>
+<h1 id="2-详细步骤"><a href="#2-详细步骤" class="headerlink" title="2 详细步骤"></a>2 详细步骤</h1><h2 id="2-1-验证内核是否加载了MPPE模块："><a href="#2-1-验证内核是否加载了MPPE模块：" class="headerlink" title="2.1 验证内核是否加载了MPPE模块："></a>2.1 验证内核是否加载了MPPE模块：</h2><p>内核的<code>MPPE</code>模块用于支持<code>Microsoft Point-to-Point Encryption</code>。Windows自带的VPN客户端就是使用这种加密方式，主流的<code>Linux Desktop</code>也都有<code>MPPE</code>支持。其实到了我们这个内核版本，默认就已经加载了<code>MPPE</code>，只需要使用下面命令验证一下，显示<code>MPPE ok</code>即可：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">modprobe ppp-compress-<span class="number">18</span> &amp;&amp; <span class="keyword">echo</span> MPPE <span class="keyword">is</span> ok</span><br></pre></td></tr></table></figure>
+<h2 id="2-2-安装所需的软件包："><a href="#2-2-安装所需的软件包：" class="headerlink" title="2.2 安装所需的软件包："></a>2.2 安装所需的软件包：</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">yum</span> install –y ppp pptpd iptables</span><br></pre></td></tr></table></figure>
+<h2 id="2-3-修改ppp配置文件"><a href="#2-3-修改ppp配置文件" class="headerlink" title="2.3 修改ppp配置文件"></a>2.3 修改ppp配置文件</h2><p>配置<code>ppp</code>需要编辑它的两个配置文件，一个是<code>option</code>（选项）文件，一个是<code>用户账户</code>文件。首先编辑option文件：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/ppp/options.pptpd</span><br><span class="line"></span><br><span class="line">ms-dns <span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span>                  #去掉“＃”，设置ＤＮＳ</span><br><span class="line"></span><br><span class="line">ms-dns <span class="number">8.8</span><span class="number">.4</span><span class="number">.4</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">vi</span> /etc/ppp/chap-secrets</span><br></pre></td></tr></table></figure>
+<p>这个文件非常简单，其中用明文存储VPN客户的用户名、服务名称（<code>option.pptpd</code>文件<code>name pptpd</code>   vpn的服务器名字）、密码和IP地址范围，每行一个账户：</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">user<span class="symbol">name1</span>         pptpd    passwd<span class="number">1</span>    *</span><br><span class="line"></span><br><span class="line">user<span class="symbol">name2</span>         pptpd    passwd<span class="number">2</span>    *</span><br></pre></td></tr></table></figure>
+<p>其中第一第三列分别是用户名和密码；第二列应该和上面的文件<code>/etc/ppp/options.pptpd</code>中<code>name</code>后指定的服务名称一致；最后一列限制客户端IP地址，星号表示没有限制。</p>
+<h2 id="2-4-修改pptpd配置文件"><a href="#2-4-修改pptpd配置文件" class="headerlink" title="2.4 修改pptpd配置文件"></a>2.4 修改pptpd配置文件</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/pptpd.conf</span><br><span class="line"></span><br><span class="line">option /etc/ppp/options.pptpd</span><br><span class="line"></span><br><span class="line">logwtmp</span><br><span class="line"></span><br><span class="line">localip <span class="number">192.168</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"></span><br><span class="line">remoteip <span class="number">192.168</span><span class="number">.0</span><span class="number">.207</span><span class="number">-217</span></span><br></pre></td></tr></table></figure>
+<p>其中<code>option</code>选项指定使用<code>/etc/ppp/options.pptpd</code>中的配置；<code>logwtmp</code>表示使用<code>WTMP日志</code>。</p>
+<p>后面两行是比较重要的两行。VPN可以这样理解，Linux客户端使用一个虚拟网络设备<code>ppp0</code>（Windows客户端也可以理解成VPN虚拟网卡），连接到服务器的虚拟网络设备<code>ppp0</code>上，这样客户端就加入了服务器端<code>ppp0</code>所在的网络。<code>localip</code>就是可以分配给服务器端<code>ppp0</code>的IP地址，<code>remoteip</code>则是将要分配给客户端<code>ppp0</code>（或者虚拟网卡）的。</p>
+<p>这两项都可以是多个IP，一般<code>localip</code>设置一个<code>IP</code>就行了，<code>remoteip</code>则视客户端数目，分配一段IP。其中<code>remoteip</code>的<code>IP段</code>需要和<code>localip</code>的<code>IP段</code>一致。</p>
+<p><code>localip</code>和<code>remoteip</code>所处的<code>IP段</code>可以随意些指定，但其范围内不要包含实际网卡<code>eth0</code>的IP地址。一般情况下，使用上面配置文件中的配置就好使了，你需要做的只是把<code>192.168.0.207-217</code>这个IP区间修改成你喜欢的<code>192.168.0.a-b</code>，其中<code>1&lt;a&lt;b&lt;255</code>。</p>
+<h2 id="2-5-打开内核的IP转发功能："><a href="#2-5-打开内核的IP转发功能：" class="headerlink" title="2.5 打开内核的IP转发功能："></a>2.5 打开内核的IP转发功能：</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysctl.conf</span><br><span class="line"></span><br><span class="line">找到其中的行：</span><br><span class="line"></span><br><span class="line">net<span class="selector-class">.ipv4</span><span class="selector-class">.ip_forward</span> = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>修改为：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net<span class="selector-class">.ipv4</span><span class="selector-class">.ip_forward</span> = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>然后执行下面命令使上述修改生效：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sysctl</span> –p</span><br></pre></td></tr></table></figure>
+<h2 id="2-6-配置iptables防火墙放行和转发规则："><a href="#2-6-配置iptables防火墙放行和转发规则：" class="headerlink" title="2.6 配置iptables防火墙放行和转发规则："></a>2.6 配置iptables防火墙放行和转发规则：</h2><p>最后，还需要配置防火墙。这里配置防火墙有三个目的：一是设置默认丢弃规则，保护服务器的安全；二是放行我们允许的数据包，提供服务；三是通过配置nat表的POSTROUTING链，增加NAT使得VPN客户端可以通过服务器访问互联网。总之我们的原则就是，只放行我们需要的服务，其他统统拒绝。</p>
+<p>首先介绍跟PPTP VPN相关的几项：</p>
+<ul>
+<li><p>允许GRE(Generic Route Encapsulation)协议，PPTP使用GRE协议封装PPP数据包，然后封装成IP报文</p>
+</li>
+<li><p>放行1723端口的PPTP服务</p>
+</li>
+<li><p>放行状态为RELATED,ESTABLISHED的入站数据包（正常提供服务的机器上防火墙应该都已经配置了这一项）</p>
+</li>
+<li><p>放行VPN虚拟网络设备所在的192.168.0.0/24网段与服务器网卡eth0之间的数据包转发</p>
+</li>
+<li><p>为从VPN网段192.168.0.0/24转往网卡eth0的出站数据包做NAT</p>
+</li>
+</ul>
+<p>如果你其他的防火墙规则已经配置好无需改动，只需要增加上述相关VPN相关的规则，那么执行下面几条命令即可（第三条一般不用执行，除非你原来的防火墙连这个规则都没允许，但是多执行一遍也无妨）：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -p gre -j ACCEPT</span><br><span class="line"></span><br><span class="line">iptables -A INPUT -p tcp -m tcp --dport <span class="number">1723</span> -j ACCEPT</span><br><span class="line"></span><br><span class="line">iptables -A INPUT -m <span class="section">state</span> --<span class="section">state</span> RELATED,ESTABLISHED -j ACCEPT</span><br><span class="line"></span><br><span class="line">iptables -A FORWARD -s <span class="number">192.168</span><span class="number">.0</span><span class="number">.0</span>/<span class="number">24</span> -o eth0 -j ACCEPT</span><br><span class="line"></span><br><span class="line">iptables -A FORWARD -d <span class="number">192.168</span><span class="number">.0</span><span class="number">.0</span>/<span class="number">24</span> -i eth0 -j ACCEPT</span><br><span class="line"></span><br><span class="line">iptables -t nat -A POSTROUTING -s <span class="number">192.168</span><span class="number">.0</span><span class="number">.0</span>/<span class="number">24</span> -o eth0 -j MASQUERADE</span><br></pre></td></tr></table></figure>
+<h1 id="3-问题总结"><a href="#3-问题总结" class="headerlink" title="3 问题总结"></a>3 问题总结</h1><p>使用centos 6.5部署vpn pptp</p>
+<p>遇到连接错误，总是连接不上</p>
+<h2 id="3-1-日志错误1："><a href="#3-1-日志错误1：" class="headerlink" title="3.1 日志错误1："></a>3.1 日志错误1：</h2><pre><code>[root@localhost log]#vi /var/log/messages 
+Jun 13 14:00:25 localhost pptpd[9248]: CTRL: Client 101.69.242.170 control connection started
+Jun 13 14:00:25 localhost pptpd[9248]: CTRL: Starting call (launching pppd, opening GRE)
+Jun 13 14:00:25 localhost pppd[9249]: **Warning: can&apos;t open options file /root/.ppprc: Permission denied**
+Jun 13 14:00:25 localhost pppd[9249]: The remote system is required to authenticate itself
+Jun 13 14:00:25 localhost pppd[9249]: but I couldn&apos;t find any suitable secret (password) for it to use to do so.
+Jun 13 14:00:25 localhost pppd[9249]: (None of the available passwords would let it use an IP address.)
+Jun 13 14:00:25 localhost pptpd[9248]: GRE: read(fd=6,buffer=6124a0,len=8196) from PTY failed: status = -1 error = Input/output error, usually caused by unexpected termination of pppd, check option syntax and pppd logs
+Jun 13 14:00:25 localhost pptpd[9248]: CTRL: PTY read or GRE write failed (pty,gre)=(6,7)
+Jun 13 14:00:25 localhost pptpd[9248]: CTRL: Client 101.69.242.170 control connection finished
+</code></pre><p>相关配置文件</p>
+<p>[root@localhost ~]# more /etc/pptpd.conf |grep -v ^#<br>option /etc/ppp/options.pptpd<br>debug /var/log/pptpd.log<br>localip 10.10.1.20<br>remoteip 10.10.1.30-254<br>[root@localhost ~]# more /etc/ppp/options.pptpd|grep -v ^#<br>name pptpd<br>refuse-pap<br>refuse-chap<br>refuse-mschap<br>require-mschap-v2<br>require-mppe-128<br>ms-dns 221.228.255.1<br>ms-dns 223.6.6.6<br>proxyarp<br>lock<br>nobsdcomp<br>novj<br>novjccomp<br>nologfd</p>
+<p>我使用的centos 6.5 64bit ，相关安装包如下：<br>[root@localhost ~]# rpm -qa |grep “ppp*”<br>libreport-plugin-rhtsupport-2.0.9-19.el6.centos.x86_64<br>device-mapper-event-libs-1.02.79-8.el6.x86_64<br>ppl-0.10.2-11.el6.x86_64<br>pptpd-1.4.0-3.el6.x86_64<br>abrt-addon-ccpp-2.0.8-21.el6.centos.x86_64<br>device-mapper-1.02.79-8.el6.x86_64<br>device-mapper-event-1.02.79-8.el6.x86_64<br>tcp_wrappers-7.6-57.el6.x86_64<br>cloog-ppl-0.15.7-1.2.el6.x86_64<br>snappy-1.1.0-1.el6.x86_64<br>kernel_ppp_mppe-1.0.2-3dkms.noarch<br>pptp-1.7.2-8.1.el6.x86_64<br>device-mapper-libs-1.02.79-8.el6.x86_64<br>tcp_wrappers-libs-7.6-57.el6.x86_64<br>cpp-4.4.7-4.el6.x86_64<br>device-mapper-persistent-data-0.2.8-2.el6.x86_64<br>ppp-2.4.5-5.el6.x86_64</p>
+<p>现在不知道问题出在什么地方，麻烦各位帮忙看看，谢谢！！！</p>
+<p>已经解决，修改配置<br>options.pptpd把<br>require-mschap-v2<br>require-mppe-128<br>这两行注释掉即可。如下图：</p>
+<p>这里是关闭加密，跳过加密。此方法修改过没有用处。</p>
+<p>错误2：<br>[root@webserver ~]# sysctl -p</p>
+<p>net.ipv4.ip_forward = 1</p>
+<p>net.ipv4.conf.default.rp_filter = 1</p>
+<p>net.ipv4.conf.default.accept_source_route = 0</p>
+<p>kernel.sysrq = 0</p>
+<p>kernel.core_uses_pid = 1</p>
+<p>net.ipv4.tcp_syncookies = 1</p>
+<p>error: “net.bridge.bridge-nf-call-ip6tables” is an unknown key</p>
+<p>error: “net.bridge.bridge-nf-call-iptables” is an unknown key</p>
+<p>error: “net.bridge.bridge-nf-call-arptables” is an unknown key</p>
+<p>kernel.msgmnb = 65536</p>
+<p>kernel.msgmax = 65536</p>
+<p>kernel.shmmax = 68719476736</p>
+<p>kernel.shmall = 4294967296</p>
+<p>You have mail in /var/spool/mail/root</p>
+<p>版本没错但是发现转发有错</p>
+<p>加载模块然后重启解决</p>
+<p>[root@webserver ~]# modprobe bridge</p>
+<p>[root@webserver ~]# lsmod | grep bridge</p>
+<p>bridge                 79078  0 </p>
+<p>stp                     2218  1 bridge</p>
+<p>llc                     5546  2 bridge,stp</p>
+<p>[root@webserver ~]# service pptpd restart</p>
+<p>Shutting down pptpd:                                       [  OK  ]</p>
+<p>Starting pptpd:                                            [  OK  ]</p>
+<p>Warning: a pptpd restart does not terminate existing </p>
+<p>connections, so new connections may be assigned the same IP </p>
+<p>address and cause unexpected results.  Use restart-kill to </p>
+<p>destroy existing connections during a restart.</p>
+<p>此处是重新加载bridge模块，重新加载了，没有作用，后来实验，发现是否重新加载，都不影响vpn使用,最终就没管他，不知道是否有影响。</p>
+<p>最终如何解决的，其实也没有做什么修改，就是重新yum remove –y ppp<em> pptp</em> 后，重新yum install –y ppp<em> pptp</em> iptables* 后，多次重启，和重设置vpn帐号，又可以用了，I don’t know why.</p>
+<p>最终解决方案：</p>
+<p>后来发现一个问题，当客户端开启防火墙的时候就能连接，当关闭防火墙的时候就无法连接报错。I don’t know why.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/双机热备Heartbeat-drbd/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2495,249 +2777,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/Mediawiki安装及LDAP认证问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/07/Mediawiki安装及LDAP认证问题/" itemprop="url">Mediawiki安装及LDAP认证问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-07T14:41:01+08:00">
-                2018-09-07
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T14:59:48+08:00">
-                2018-09-07
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.3k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  6
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="1-环境"><a href="#1-环境" class="headerlink" title="1 环境"></a>1 环境</h1><p>安装环境：CentOS-7-x86_64-DVD-1511</p>
-<p>Mediawiki: bitnami-mediawiki-1.26.2-2-linux-x64-installer.run</p>
-<p>LDAP扩展插件：LdapAuthentication-REL1_26-70ab129.tar.gz</p>
-<h1 id="2-安装mediawiki"><a href="#2-安装mediawiki" class="headerlink" title="2 安装mediawiki"></a>2 安装mediawiki</h1><p>首先安装<code>bitnami-mediawiki-1.26.2-2-linux-x64-installer.run</code></p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#chmod   <span class="number">755</span> bitnami-mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span>-linux-x64-installer.run   <span class="comment">//赋予读写权限</span></span><br><span class="line"></span><br><span class="line">#./bitnami-mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span>-linux-x64-installer.run           <span class="comment">//执行安装</span></span><br></pre></td></tr></table></figure>
-<p><strong>安装到最后出现mysql数据库错误</strong>：</p>
-<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Error: </span>Error running /opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/mysql/scripts/myscript.sh</span><br><span class="line"></span><br><span class="line">/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/mysql ****: FATAL ERROR: please install the following</span><br><span class="line"></span><br><span class="line">Perl modules before executing scripts/mysql_install_db:</span><br><span class="line"></span><br><span class="line">Data::Dumper</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">ERROR </span>2002 (HY000): Can't connect to local MySQL server through socket</span><br><span class="line"></span><br><span class="line">'/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/mysql/tmp/mysql.sock' (2)</span><br><span class="line"></span><br><span class="line"><span class="keyword">ERROR </span>2002 (HY000): Can't connect to local MySQL server through socket</span><br><span class="line"></span><br><span class="line">'/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/mysql/tmp/mysql.sock' (2)</span><br><span class="line"></span><br><span class="line"><span class="keyword">ERROR </span>2002 (HY000): Can't connect to local MySQL server through socket</span><br><span class="line"></span><br><span class="line">'/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/mysql/tmp/mysql.sock' (2)</span><br></pre></td></tr></table></figure>
-<p>（根据提示，发现系统缺少Dumper模块）</p>
-<p>根据提示安装Data-Dumper.x86_64</p>
-<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr"># yum install perl-Data-Dumper.x86</span>_<span class="number">64</span>          <span class="comment">//安装插件模块。</span></span><br></pre></td></tr></table></figure>
-<p>……………</p>
-<p>OK,  Mediawiki安装成功。</p>
-<h1 id="3-开启AD域用户认证登录"><a href="#3-开启AD域用户认证登录" class="headerlink" title="3 开启AD域用户认证登录"></a>3 开启AD域用户认证登录</h1><p>Ldap认证需要php支持ldap,需要安装ldap支持模块（<code>php-ldap</code>），及开启<code>php</code>的<code>ldap</code>功能(修改<code>php.ini</code>文件)。</p>
-<pre><code>&gt; 备注：不安装php-ldap，LdapAuthentication插件不工作
-</code></pre><p>1、  安装php-ldap模块：</p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@localhost</span> mediawiki]<span class="comment"># yum   install php-ldap</span></span><br></pre></td></tr></table></figure>
-<p> 2、 开启<code>ldap</code>功能<br>即修改<code>php.ini</code>文件，将<code>extension=php_ldap.dll</code>前的分号去掉。</p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost mediawiki]# vi   /opt/mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span>/php/etc/php.ini</span><br></pre></td></tr></table></figure>
-<p><img src="1.png" alt="enter description here"></p>
-<p>3、下载<code>LdapAuthentication</code>插件：<code>LdapAuthentication-REL1_26-70ab129.tar.gz</code></p>
-<p>解压插件到extensions目录：</p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># tar -xzf   LdapAuthentication-REL1_26<span class="number">-70</span>ab129.tar.gz   /opt/mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span>/apps/mediawiki/htdocs/extensions/</span><br></pre></td></tr></table></figure>
-<p>4、编辑<code>LocalSettings.php</code>配置文件<br><img src="2.png" alt="enter description here"></p>
-<p>在<code>LocalSettings.php</code> 末尾添加如下内容：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require_once</span>(<span class="string">"extensions/LdapAuthentication/LdapAuthentication.php"</span>);</span><br><span class="line"></span><br><span class="line">$wgAuth= <span class="keyword">new</span> LdapAuthenticationPlugin(); <span class="comment">## 这两行激活插件</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$wgLDAPDomainNames = <span class="keyword">array</span>( <span class="string">"dealeasy"</span>   );    <span class="comment">//域名简写</span></span><br><span class="line"></span><br><span class="line">$wgLDAPServerNames = <span class="keyword">array</span>(   <span class="string">"dealeasy"</span>=&gt;<span class="string">"172.20.20.10"</span> );     <span class="comment">//域控域名或者ip</span></span><br><span class="line"></span><br><span class="line">$wgLDAPSearchStrings = <span class="keyword">array</span>(   <span class="string">"dealeasy"</span>=&gt;<span class="string">"USER-NAME@dealeasy"</span> );     <span class="comment">//USER-NAME 不要修改它,默认用户名替代位置，特定字符</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$wgLDAPBaseDNs = <span class="keyword">array</span>(   <span class="string">"dealeasy"</span>=&gt;<span class="string">"dc=dealeasy,dc=local"</span>);</span><br><span class="line"></span><br><span class="line">$wgLDAPSearchAttributes = <span class="keyword">array</span>(   <span class="string">"dealeasy"</span>=&gt;<span class="string">"sAMAccountName"</span>);    <span class="comment">//加上这两句就可以把DC上的用户名都同步过来了</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$wgLDAPUseLocal = <span class="keyword">false</span>;       是否使用本地用户,ture代表使用，这里写入不使用</span><br><span class="line"></span><br><span class="line">$wgLDAPUpdateLDAP = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">$wgLDAPMailPassword = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$wgMinimalPasswordLength = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">$wgLDAPEncryptionType =   <span class="keyword">array</span>(<span class="string">"dealeasy"</span>=&gt;<span class="string">"clear"</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$wgShowSQLErrors = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">$wgDebugDumpSql = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">$wgShowDBErrorBacktrace = <span class="keyword">true</span>;          <span class="comment">//这三行网上找到，因ldap用户登录出现数据库查询错误，添加这三行后，在出现错误时可以在页面上显示错误信息</span></span><br></pre></td></tr></table></figure>
-<p><img src="3.png" alt="enter description here"></p>
-<p>Ok, <code>LocalSettings.php</code>编辑完成。</p>
-<p>下面就可以直接使用域用户登录了。</p>
-<h1 id="4-Database错误"><a href="#4-Database错误" class="headerlink" title="4 Database错误"></a>4 Database错误</h1><p><img src="4.png" alt="enter description here"></p>
-<p>报错（前面<code>LocalSettings.php</code>添加后三行才能看到报错详情）：</p>
-<p><strong>Database error</strong><br><img src="5.png" alt="enter description here"><br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">A database <span class="keyword">query</span> <span class="keyword">error</span> has occurred. This may indicate a bug <span class="keyword">in</span> the software.</span><br><span class="line"></span><br><span class="line">（翻译：数据库错误　　　　一个数据库查询错误发生。这可能表明软件中的缺陷。）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">Query</span>:</span><br><span class="line"></span><br><span class="line">SELECT domain FROM `ldap_domains` WHERE user_id = '4' LIMIT 1</span><br><span class="line"></span><br><span class="line">Function: LdapAuthenticationPlugin::loadDomain</span><br><span class="line"></span><br><span class="line"><span class="keyword">Error</span>: 1146 <span class="keyword">Table</span> 'bitnami_mediawiki.ldap_domains' doesn't exist (localhost:3306)</span><br><span class="line"></span><br><span class="line">Backtrace:</span><br><span class="line"></span><br><span class="line">#0 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/<span class="keyword">db</span>/Database.php(1076): DatabaseBase-&gt;reportQueryError('<span class="keyword">Table</span> 'bitnami_...', 1146, 'SELECT  domain ...', 'LdapAuthenticat...', false)</span><br><span class="line"></span><br><span class="line">#1 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/<span class="keyword">db</span>/Database.php(1600): DatabaseBase-&gt;<span class="keyword">query</span>('SELECT  domain ...', 'LdapAuthenticat...')</span><br><span class="line"></span><br><span class="line">#2 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/<span class="keyword">db</span>/Database.php(1689): DatabaseBase-&gt;select('ldap_domains', Array, Array, 'LdapAuthenticat...', Array, Array)</span><br><span class="line"></span><br><span class="line">#3 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/extensions/LdapAuthentication/LdapAuthentication.php(2041): DatabaseBase-&gt;selectRow('ldap_domains', Array, Array, 'LdapAuthenticat...')</span><br><span class="line"></span><br><span class="line">#4 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/extensions/LdapAuthentication/LdapAuthentication.php(2060): LdapAuthenticationPlugin::loadDomain(Object(User))</span><br><span class="line"></span><br><span class="line">#5 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/extensions/LdapAuthentication/LdapAuthentication.php(1237): LdapAuthenticationPlugin::saveDomain(Object(User), 'dealeasy')</span><br><span class="line"></span><br><span class="line">#6 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/specials/SpecialUserlogin.php(830): LdapAuthenticationPlugin-&gt;updateUser(Object(User))</span><br><span class="line"></span><br><span class="line">#7 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/specials/SpecialUserlogin.php(958): LoginForm-&gt;authenticateUserData()</span><br><span class="line"></span><br><span class="line">#8 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/specials/SpecialUserlogin.php(341): LoginForm-&gt;processLogin()</span><br><span class="line"></span><br><span class="line">#9 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/specialpage/SpecialPage.php(384): LoginForm-&gt;execute(NULL)</span><br><span class="line"></span><br><span class="line">#10 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/specialpage/SpecialPageFactory.php(553): SpecialPage-&gt;<span class="keyword">run</span>(NULL)</span><br><span class="line"></span><br><span class="line">#11 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/MediaWiki.php(281): SpecialPageFactory::executePath(Object(Title), Object(RequestContext))</span><br><span class="line"></span><br><span class="line">#12 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/MediaWiki.php(714): MediaWiki-&gt;performRequest()</span><br><span class="line"></span><br><span class="line">#13 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/MediaWiki.php(508): MediaWiki-&gt;main()</span><br><span class="line"></span><br><span class="line">#14 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/index.php(41): MediaWiki-&gt;<span class="keyword">run</span>()</span><br><span class="line"></span><br><span class="line">#15 &#123;main&#125;</span><br></pre></td></tr></table></figure></p>
-<p>最终，通过报错信息<code>Error: 1146 Table &#39;bitnami_mediawiki.ldap_domains&#39; doesn&#39;t exist (localhost:3306)</code>，发现不存在<code>ldap_domains</code>表，即<code>bitnami_mediawiki</code>不存在这个表，后来尝试在<code>phpmyAdmin</code>上为<code>bitnami_mediawiki</code>创建<code>ldap_domains</code>表，并在表内创建<code>user_id</code>和<code>domain</code>列，问题解决。</p>
-<blockquote>
-<p>备注：根据多次实验和页面错误提示，才确认建立<code>user_id</code>和<code>domain</code>列</p>
-</blockquote>
-<h1 id="5-备份"><a href="#5-备份" class="headerlink" title="5 备份"></a>5 备份</h1><p>备份数据库、配置文件、附件目录<code>images</code>、插件目录<code>extensions</code></p>
-<h2 id="5-1-备份脚本"><a href="#5-1-备份脚本" class="headerlink" title="5.1 备份脚本"></a>5.1 备份脚本</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Now=$(date   +<span class="string">"%Y%m%d%H"</span>)</span><br><span class="line"></span><br><span class="line">File=bitnami_mediawiki-$Now.sql</span><br><span class="line"></span><br><span class="line">echo   **********start$Now************    &gt;&gt;    <span class="regexp">/mnt/</span>mediawiki-bak<span class="regexp">/log/</span>$Now.log</span><br><span class="line"></span><br><span class="line"><span class="regexp">/opt/</span>mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span><span class="regexp">/mysql/</span>bin<span class="regexp">/mysqldump   -uroot -pDe123456 bitnami_mediawiki &gt; /</span>mnt<span class="regexp">/mediawiki-bak/</span>$File</span><br><span class="line"></span><br><span class="line">echo   **********cp LocalSettings.php********** &gt;&gt;  <span class="regexp">/mnt/</span>mediawiki-bak<span class="regexp">/log/</span>$Now.log</span><br><span class="line"></span><br><span class="line">rsync   -avzrtopgL  --progress    <span class="regexp">/opt/</span>mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span><span class="regexp">/apps/</span>mediawiki<span class="regexp">/htdocs/</span>LocalSettings.php   <span class="regexp">/mnt/</span>mediawiki-bak/LocalSettings.php</span><br><span class="line"></span><br><span class="line">echo   *********cp images ******** &gt;&gt;    <span class="regexp">/mnt/</span>mediawiki-bak<span class="regexp">/log/</span>$Now.log</span><br><span class="line"></span><br><span class="line">rsync   -avzrtopgL  --progress   <span class="regexp">/opt/</span>mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span><span class="regexp">/apps/</span>mediawiki<span class="regexp">/htdocs/</span>images <span class="regexp">/mnt/</span>mediawiki-bak/</span><br><span class="line"></span><br><span class="line">echo   ********cp extensions ********* &gt;&gt;    <span class="regexp">/mnt/</span>mediawiki-bak<span class="regexp">/log/</span>$Now.log</span><br><span class="line"></span><br><span class="line">rsync   -avzrtopgL  --progress   <span class="regexp">/opt/</span>mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span><span class="regexp">/apps/</span>mediawiki<span class="regexp">/htdocs/</span>extensions <span class="regexp">/mnt/</span>mediawiki-bak<span class="regexp">/   &gt;&gt; /</span>mnt<span class="regexp">/mediawiki-bak/</span>log/$Now.log</span><br><span class="line"></span><br><span class="line">echo   ********end$Now********* &gt;&gt; <span class="regexp">/mnt/</span>mediawiki-bak<span class="regexp">/log/</span>$Now.log</span><br></pre></td></tr></table></figure>
-<h1 id="6-安装包及插件等"><a href="#6-安装包及插件等" class="headerlink" title="6 安装包及插件等"></a>6 安装包及插件等</h1><p><img src="LdapAuthentication-REL1_26-70ab129.tar.gz" alt="LdapAuthentication-REL1_26-70ab129.tar.gz"></p>
-<p><img src="LdapAuthentication-REL1_26-70ab129.tar.gz" alt="LdapAuthentication-REL1_26-70ab129.tar.gz"></p>
-<p><img src="MsUpload-REL1_26-47cfb25.tar.gz" alt="MsUpload-REL1_26-47cfb25.tar.gz"></p>
-<p><img src="SyntaxHighlight_GeSHi-REL1_26-a15f02e.tar.gz" alt="SyntaxHighlight_GeSHi-REL1_26-a15f02e.tar.gz"></p>
-<p><img src="WikiEditor-REL1_26-72db6c7.tar.gz" alt="WikiEditor-REL1_26-72db6c7.tar.gz"></p>
-<p>安装包：<code>bitnami_mediawiki</code>（自己下载）</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/kxinter.gitub.io/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/kxinter.gitub.io/page/7/">7</a><a class="extend next" rel="next" href="/kxinter.gitub.io/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/kxinter.gitub.io/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/kxinter.gitub.io/page/8/">8</a><a class="extend next" rel="next" href="/kxinter.gitub.io/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2790,7 +2834,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2812,7 +2856,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/kxinter.gitub.io/tags/index.html">
-                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2971,7 +3015,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">69.2k</span>
+    <span title="Site words total count">71.1k</span>
   
 </div>
 
