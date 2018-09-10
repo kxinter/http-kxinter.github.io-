@@ -332,6 +332,373 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/双机热备Heartbeat-drbd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/07/双机热备Heartbeat-drbd/" itemprop="url">双机热备Heartbeat+drbd</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-07T17:51:13+08:00">
+                2018-09-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-10T11:52:16+08:00">
+                2018-09-10
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  21
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-环境"><a href="#1-环境" class="headerlink" title="1 环境"></a>1 环境</h1><p>系统：Centos7.2 1151</p>
+<p>软件：drbd84-utils-8.9.5-1.el7.elrepo.x86_64</p>
+<p>主服务器：172.20.20.66</p>
+<p>备服务器：172.20.20.35</p>
+<p>虚拟IP（virtual_ip）：172.20.20.237</p>
+<p>修改主服务器名称：masterNode  </p>
+<p>修改备服务器名称： backupNode</p>
+<p>主备服务器添加下方地址到/etc/hosts文件：</p>
+<p><code>172.20.20.66  masterNode</code></p>
+<p><code>172.20.20.35  backupNode</code></p>
+<h1 id="2-简单说明"><a href="#2-简单说明" class="headerlink" title="2 简单说明"></a>2 简单说明</h1><p>主备服务器分别创建一个分区，挂载到新创建的目录drbd中，通过drbd目录完成数据同步。</p>
+<p>只有主服务器挂载目录，备服务器不用挂载。</p>
+<p>备服务器要挂载目录，需要先把主服务器设置成<code>secondary（备机）</code>，备服务器设置成<code>primary（主机）</code>，然后挂载到目录。</p>
+<h1 id="3-添加硬盘并挂载"><a href="#3-添加硬盘并挂载" class="headerlink" title="3 添加硬盘并挂载"></a>3 添加硬盘并挂载</h1><h2 id="3-1-查询硬盘信息"><a href="#3-1-查询硬盘信息" class="headerlink" title="3.1 查询硬盘信息"></a>3.1 查询硬盘信息</h2><p><strong>（如果使用的是新加硬盘，可以在最下方看到硬盘信息，例子使用本地空闲空间）</strong></p>
+<p><strong>例如：</strong>    </p>
+<p>  <img src="1.png" alt="1">                               </p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@bogon</span> /]<span class="comment"># fdisk -l</span></span><br></pre></td></tr></table></figure>
+<p><img src="2.png" alt="2"></p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@bogon</span> /]<span class="comment"># df –h</span></span><br></pre></td></tr></table></figure>
+<p><img src="3.png" alt="3"></p>
+<h2 id="3-2-Fdisk创建分区"><a href="#3-2-Fdisk创建分区" class="headerlink" title="3.2 Fdisk创建分区"></a>3.2 Fdisk创建分区</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@bogon</span> /]<span class="comment"># fdisk /dev/sda</span></span><br></pre></td></tr></table></figure>
+<p><img src="4.png" alt="4"></p>
+<blockquote>
+<p><strong>注：下图设置分区格式可以省略，后面会进行格式化。</strong></p>
+</blockquote>
+<p><img src="5.png" alt="5"></p>
+<h2 id="3-3-查看硬盘信息"><a href="#3-3-查看硬盘信息" class="headerlink" title="3.3 查看硬盘信息"></a>3.3 查看硬盘信息</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@bogon</span> /]<span class="comment"># fdisk –l</span></span><br></pre></td></tr></table></figure>
+<p><img src="6.png" alt="6"></p>
+<h2 id="3-4-Partprobe刷新分区表（注：最好每做一步遇到找不到问题都刷新一下）"><a href="#3-4-Partprobe刷新分区表（注：最好每做一步遇到找不到问题都刷新一下）" class="headerlink" title="3.4 Partprobe刷新分区表（注：最好每做一步遇到找不到问题都刷新一下）"></a>3.4 Partprobe刷新分区表（注：最好每做一步遇到找不到问题都刷新一下）</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@bogon</span> /]<span class="comment"># partprobe</span></span><br></pre></td></tr></table></figure>
+<h1 id="4-安装配置drbd"><a href="#4-安装配置drbd" class="headerlink" title="4 安装配置drbd"></a>4 安装配置drbd</h1><h2 id="4-1-YUM安装drbd"><a href="#4-1-YUM安装drbd" class="headerlink" title="4.1 YUM安装drbd"></a>4.1 YUM安装drbd</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="meta">@localhost</span> mapper]# rpm --<span class="keyword">import</span> http:<span class="comment">//elrepo.org/RPM-GPG-KEY-elrepo.org</span></span><br><span class="line"></span><br><span class="line">[root<span class="meta">@localhost</span> mapper]# rpm -<span class="type">Uvh</span> http:<span class="comment">//www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm</span></span><br><span class="line"></span><br><span class="line">[root<span class="meta">@localhost</span> mapper]# yum -y install drbd84-utils kmod-drbd84</span><br></pre></td></tr></table></figure>
+<h3 id="4-1-1-问题1"><a href="#4-1-1-问题1" class="headerlink" title="4.1.1 问题1"></a>4.1.1 问题1</h3><p>二次安装存在YUM安装失败，需要源码安装，源码安装包在<a href="http://oss.linbit.com/drbd/" target="_blank" rel="noopener">http://oss.linbit.com/drbd/</a> 下载。</p>
+<p>Rpm包在<a href="https://pkgs.org/centos-7/elrepo-x86_64/kmod-drbd84-8.4.6-1.el7.elrepo.x86_64.rpm.html" target="_blank" rel="noopener">https://pkgs.org/centos-7/elrepo-x86_64/kmod-drbd84-8.4.6-1.el7.elrepo.x86_64.rpm.html</a></p>
+<p><a href="https://pkgs.org/centos-7/elrepo-x86_64/drbd84-utils-8.9.5-1.el7.elrepo.x86_64.rpm/download/" target="_blank" rel="noopener">https://pkgs.org/centos-7/elrepo-x86_64/drbd84-utils-8.9.5-1.el7.elrepo.x86_64.rpm/download/</a>   下载。</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="title">@drbd2</span> home]# rpm -Uvh   http://elrepo.org/linux/elrepo/el<span class="number">7</span>/<span class="keyword">x</span><span class="number">86</span>_<span class="number">64</span>/RPMS/drbd<span class="number">84</span>-utils<span class="number">-8.9</span>.<span class="number">5</span><span class="number">-1</span>.el<span class="number">7</span>.elrepo.<span class="keyword">x</span><span class="number">86</span>_<span class="number">64</span>.rpm   [root<span class="title">@htest2</span> home]# rpm -Uvh http://elrepo.org/linux/elrepo/el<span class="number">7</span>/<span class="keyword">x</span><span class="number">86</span>_<span class="number">64</span>/RPMS/kmod-drbd<span class="number">84</span><span class="number">-8.4</span>.<span class="number">6</span><span class="number">-1</span>.el<span class="number">7</span>.elrepo.<span class="keyword">x</span><span class="number">86</span>_<span class="number">64</span>.rpm</span><br></pre></td></tr></table></figure>
+<h2 id="4-2-配置global-common-conf"><a href="#4-2-配置global-common-conf" class="headerlink" title="4.2 配置global_common.conf"></a>4.2 配置global_common.conf</h2><p><strong>编辑全局配置：</strong></p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vi</span>  /etc/drbd.d/global_common.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
+<p>确保文件中包含有下内容：</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">global </span>&#123;  </span><br><span class="line"></span><br><span class="line">    usage-count yes;  </span><br><span class="line"></span><br><span class="line"> &#125;  </span><br><span class="line"></span><br><span class="line"><span class="class">common </span>&#123;  </span><br><span class="line"></span><br><span class="line">    <span class="class">net </span>&#123;  </span><br><span class="line"></span><br><span class="line">    protocol C;  <span class="meta"># 使用协议C.表示收到远程主机的写入确认后,则认为写入完成.</span></span><br><span class="line"></span><br><span class="line">   &#125;  </span><br><span class="line"></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>当然，还可以有其它配置，这是最基本的。</p>
+<h2 id="4-3-配置r0资源："><a href="#4-3-配置r0资源：" class="headerlink" title="4.3 配置r0资源："></a>4.3 配置r0资源：</h2><p><strong>创建r0资源：</strong></p>
+<blockquote>
+<p>注：r0可以随便命名。</p>
+</blockquote>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vi</span>  /etc/drbd.d/r0.<span class="keyword">res</span></span><br></pre></td></tr></table></figure>
+<p>写入文件内容：</p>
+<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">resource   r0&#123; </span><br><span class="line"></span><br><span class="line">        on masterNode&#123; </span><br><span class="line"></span><br><span class="line">                device          /<span class="built_in">dev</span>/drbd1; #逻辑设备的路径 </span><br><span class="line"></span><br><span class="line">                disk            /<span class="built_in">dev</span>/sda3;  #物理设备 </span><br><span class="line"></span><br><span class="line">                address         <span class="number">192.168</span><span class="number">.58</span><span class="number">.128</span>:<span class="number">7788</span>; </span><br><span class="line"></span><br><span class="line">                <span class="built_in">meta</span>-disk       internal; </span><br><span class="line"></span><br><span class="line">        &#125;   </span><br><span class="line"></span><br><span class="line">        on backupNode&#123; </span><br><span class="line"></span><br><span class="line">                device          /<span class="built_in">dev</span>/drbd1; </span><br><span class="line"></span><br><span class="line">                disk            /<span class="built_in">dev</span>/sda3; </span><br><span class="line"></span><br><span class="line">                address         <span class="number">192.168</span><span class="number">.58</span><span class="number">.129</span>:<span class="number">7788</span>; </span><br><span class="line"></span><br><span class="line">                <span class="built_in">meta</span>-disk       internal; </span><br><span class="line"></span><br><span class="line">        &#125;   </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要把上面用到的防火墙7788端口打开，这个端口是自定义的，如果嫌麻烦可以直接关掉防火墙。</p>
+<blockquote>
+<p>注：<code>masterNode/ backupNode</code>是主机名字，根据实际情况书写。</p>
+</blockquote>
+<p>说明：</p>
+<p><code>device</code>  是自定义的物理设备的逻辑路径</p>
+<p><code>disk</code>        是磁盘设备，或者是逻辑分区</p>
+<p><code>address</code>   是机器监听地址和端口</p>
+<p><code>meta-disk</code>   这个还没弄明白，看到的资料都是设为：internal（局域网）</p>
+<h2 id="4-4-建立resource"><a href="#4-4-建立resource" class="headerlink" title="4.4 建立resource"></a>4.4 建立resource</h2><figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">modprobe </span><span class="string">drbd </span>              //载入 <span class="string">drbd </span>模块  </span><br><span class="line"></span><br><span class="line"><span class="string">lsmod </span>| <span class="string">grep </span><span class="string">drbd </span>           //确认 <span class="string">drbd </span>模块是否载入</span><br></pre></td></tr></table></figure>
+<p><img src="7.png" alt="7"></p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">dd </span><span class="string">if=</span>/<span class="string">dev/</span><span class="string">zero </span><span class="string">of=</span>/<span class="string">dev/</span><span class="string">sda2 </span><span class="string">bs=</span><span class="string">1M </span><span class="string">count=</span><span class="string">100 </span>   //把一些资料塞到 <span class="string">sda3 </span>內 (否则 <span class="built_in">create-md</span> 时会报错)  </span><br><span class="line"></span><br><span class="line"><span class="string">drbdadm </span><span class="built_in">create-md</span> <span class="string">r0 </span>                //建立 <span class="string">drbd </span><span class="string">resource </span> </span><br><span class="line"></span><br><span class="line"><span class="string">drbdadm </span><span class="string">up </span><span class="string">r0 </span>                   //   <span class="comment">#启用资源</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-4-1-我遇到的问题1："><a href="#4-4-1-我遇到的问题1：" class="headerlink" title="4.4.1 我遇到的问题1："></a>4.4.1 我遇到的问题1：</h3><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@backupNode /]<span class="comment"># drbdadm up r0  </span></span><br><span class="line"></span><br><span class="line"><span class="number">1</span>: Failure: (<span class="number">104</span>) Can <span class="keyword">not</span> <span class="keyword">open</span> backing device.  </span><br><span class="line"></span><br><span class="line">Command <span class="string">'drbdsetup attach 1 /dev/sda2 /dev/sda3 internal'</span> terminated with <span class="keyword">exit</span> code</span><br></pre></td></tr></table></figure>
+<p>原因是我之前已经挂在了/dev/sda3，需要先卸载/dev/sda3设备，解决办法:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">umount</span> /dev/sda2</span><br></pre></td></tr></table></figure>
+<p>问题解决.</p>
+<h3 id="4-4-2-我遇到的问题2："><a href="#4-4-2-我遇到的问题2：" class="headerlink" title="4.4.2 我遇到的问题2："></a>4.4.2 我遇到的问题2：</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@backupNode</span> /]<span class="comment"># drbdadm create-md r0  </span></span><br><span class="line"></span><br><span class="line">‘r<span class="number">0</span>‘ <span class="keyword">not</span> <span class="keyword">defined</span> <span class="keyword">in</span> your config (<span class="keyword">for</span> this host).</span><br></pre></td></tr></table></figure>
+<p>   原因是drbd.conf配置文件计算机名和本机的计算机名不一致。</p>
+<p>   修改配置文件计算机名。<br>   问题解决。</p>
+<h3 id="4-4-3-我遇到的问题3："><a href="#4-4-3-我遇到的问题3：" class="headerlink" title="4.4.3 我遇到的问题3："></a>4.4.3 我遇到的问题3：</h3><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@htest2 drbd.d]<span class="comment"># drbdadm create-md r0</span></span><br><span class="line"></span><br><span class="line">drbd.d/r0.res:<span class="number">3</span>: no minor <span class="keyword">given</span> nor device <span class="built_in">name</span> <span class="keyword">contains</span> a minor <span class="built_in">number</span></span><br><span class="line"></span><br><span class="line">drbd.d/r0.res:<span class="number">9</span>: no minor <span class="keyword">given</span> nor device <span class="built_in">name</span> <span class="keyword">contains</span> a minor <span class="built_in">number</span></span><br></pre></td></tr></table></figure>
+<p><code>r0.res</code>中<code>drbd</code>资源必须含有数字，猜测与分区模块有重名。</p>
+<p><img src="8.png" alt="8"></p>
+<p><img src="9.png" alt="9"></p>
+<p>问题解决。</p>
+<h3 id="4-4-4-我遇到的问题4"><a href="#4-4-4-我遇到的问题4" class="headerlink" title="4.4.4 我遇到的问题4"></a>4.4.4 我遇到的问题4</h3><p>在centos 6.4上部署时，yum安装完成后加载模块报错。</p>
+<figure class="highlight monkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">正确安装drbd模块后，使用modprobe进行加载</span><br><span class="line"><span class="meta"># modprobe drbd</span></span><br><span class="line">FATAL: <span class="keyword">Module</span> drbd <span class="keyword">not</span> found.</span><br><span class="line">出现如上错误</span><br></pre></td></tr></table></figure>
+<p>原因：这是因为系统默认的内核并不支持此模块，所以需要更新内核<br>更新内核的方法：<br>可以用 yum install kernel* 方式来更新。<br>如果你要节约点时间的话可以只更新一下的几个包：<br>            kernel-devel<br>            kernel<br>            kernel-headers</p>
+<p>更新后，记得要重新启动操作系统！！！</p>
+<p><strong>&gt; 注：以上每一步骤，都需要在主备服务器上进行配置设置。</strong></p>
+<h2 id="4-5-设置Primary-Node"><a href="#4-5-设置Primary-Node" class="headerlink" title="4.5 设置Primary Node"></a>4.5 设置Primary Node</h2><p>将<code>masterNode</code>设为主服务器(<code>primary node</code>)，在<code>masterNode</code>上执行：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@backupNode</span> /]<span class="comment"># drbdadm primary --force r0</span></span><br></pre></td></tr></table></figure>
+<p><strong>查看drbd状态：</strong></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[root@backupNode /]</span># <span class="selector-tag">cat</span> /<span class="selector-tag">proc</span>/<span class="selector-tag">drbd</span>  </span><br><span class="line"></span><br><span class="line"><span class="selector-tag">version</span>: <span class="selector-tag">8</span><span class="selector-class">.4</span><span class="selector-class">.1</span> (<span class="attribute">api</span>:<span class="number">1</span>/<span class="attribute">proto</span>:<span class="number">86</span>-<span class="number">100</span>)  </span><br><span class="line"></span><br><span class="line"> <span class="selector-tag">GIT-hash</span>: <span class="selector-tag">91b4c048c1a0e06777b5f65d312b38d47abaea80</span> <span class="selector-tag">build</span> <span class="selector-tag">by</span> <span class="selector-tag">root</span>@<span class="selector-tag">masterNode</span>, <span class="selector-tag">2012-05-27</span> <span class="selector-tag">18</span><span class="selector-pseudo">:34</span><span class="selector-pseudo">:27</span>  </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="selector-tag">1</span>: <span class="selector-tag">cs</span><span class="selector-pseudo">:Connected</span> <span class="selector-tag">ro</span><span class="selector-pseudo">:Primary</span>/<span class="selector-tag">Secondary</span> <span class="selector-tag">ds</span><span class="selector-pseudo">:UpToDate</span>/<span class="selector-tag">UpToDate</span> <span class="selector-tag">C</span> <span class="selector-tag">r-----</span>  </span><br><span class="line"></span><br><span class="line">    <span class="selector-tag">ns</span><span class="selector-pseudo">:4</span> <span class="selector-tag">nr</span><span class="selector-pseudo">:9504584</span> <span class="selector-tag">dw</span><span class="selector-pseudo">:9504588</span> <span class="selector-tag">dr</span><span class="selector-pseudo">:1017</span> <span class="selector-tag">al</span><span class="selector-pseudo">:1</span> <span class="selector-tag">bm</span><span class="selector-pseudo">:576</span> <span class="selector-tag">lo</span><span class="selector-pseudo">:0</span> <span class="selector-tag">pe</span><span class="selector-pseudo">:0</span> <span class="selector-tag">ua</span><span class="selector-pseudo">:0</span> <span class="selector-tag">ap</span><span class="selector-pseudo">:0</span> <span class="selector-tag">ep</span><span class="selector-pseudo">:1</span> <span class="selector-tag">wo</span><span class="selector-pseudo">:b</span> <span class="selector-tag">oos</span><span class="selector-pseudo">:0</span></span><br></pre></td></tr></table></figure>
+<p>已经变成了主服务器。</p>
+<h2 id="4-6-创建DRBD文件系统"><a href="#4-6-创建DRBD文件系统" class="headerlink" title="4.6 创建DRBD文件系统"></a>4.6 创建DRBD文件系统</h2><p>上面已经完成了/dev/drbd1的初始化，现在来把/dev/drbd1格式化成ext4格式的文件系统,在masterNode上执行：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@masterNode</span> /]<span class="comment"># mkfs.ext3 /dev/drbd1</span></span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">mke<span class="number">2f</span>s <span class="number">1</span>.<span class="number">41</span>.<span class="number">12</span> (<span class="number">17</span>-May-2010)  </span><br><span class="line"></span><br><span class="line">文件系统标签=  </span><br><span class="line"></span><br><span class="line">操作系统:Linux  </span><br><span class="line"></span><br><span class="line">块大小=<span class="number">4096</span> (log=<span class="number">2</span>)  </span><br><span class="line"></span><br><span class="line"> 分块大小=<span class="number">4096</span> (log=<span class="number">2</span>)  </span><br><span class="line"></span><br><span class="line">Stride=<span class="number">0</span> <span class="keyword">blocks, </span>Stripe width=<span class="number">0</span> <span class="keyword">blocks </span> </span><br><span class="line"></span><br><span class="line"><span class="number">589824</span> inodes, <span class="number">2358959</span> <span class="keyword">blocks </span> </span><br><span class="line"></span><br><span class="line"><span class="number">117947</span> <span class="keyword">blocks </span>(<span class="number">5</span>.<span class="number">00</span>%) reserved for the super user  </span><br><span class="line"></span><br><span class="line">第一个数据块=<span class="number">0</span>  </span><br><span class="line"></span><br><span class="line">Maximum filesystem <span class="keyword">blocks=2415919104 </span> </span><br><span class="line"></span><br><span class="line"> <span class="number">72</span> <span class="keyword">block </span>groups  </span><br><span class="line"></span><br><span class="line"><span class="number">32768</span> <span class="keyword">blocks </span>per group, <span class="number">32768</span> fragments per group  </span><br><span class="line"></span><br><span class="line"> <span class="number">8192</span> inodes per group  </span><br><span class="line"></span><br><span class="line">Superblock <span class="keyword">backups </span>stored on <span class="keyword">blocks: </span> </span><br><span class="line"></span><br><span class="line">        <span class="number">32768</span>, <span class="number">98304</span>, <span class="number">163840</span>, <span class="number">229376</span>, <span class="number">294912</span>, <span class="number">819200</span>, <span class="number">884736</span>, <span class="number">1605632</span>  </span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"> 正在写入inode表: 完成  </span><br><span class="line"></span><br><span class="line">Creating <span class="keyword">journal </span>(<span class="number">32768</span> <span class="keyword">blocks): </span>完成  </span><br><span class="line"></span><br><span class="line">Writing superblocks <span class="keyword">and </span>filesystem accounting information: 完成  </span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line">This filesystem will <span class="keyword">be </span>automatically checked every <span class="number">21</span> mounts <span class="keyword">or </span> </span><br><span class="line"></span><br><span class="line"> <span class="number">180</span> days, whichever comes first.  Use tune<span class="number">2f</span>s -c <span class="keyword">or </span>-i to override.</span><br></pre></td></tr></table></figure>
+<p>然后，将<code>/dev/drbd1</code>挂载到之前创建好的<code>/drbd</code>目录：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="meta">@masterNode</span> <span class="regexp">/]# mount /</span>dev<span class="regexp">/drbd1 /</span>drbd</span><br></pre></td></tr></table></figure>
+<p>现在只要把数据写入<code>/drbd</code>目录，<code>drbd</code>即会立刻把数据同步到<code>backupNode</code>的<code>/dev/sda2</code>分区上了。</p>
+<h2 id="4-7-DRBD同步测试"><a href="#4-7-DRBD同步测试" class="headerlink" title="4.7 DRBD同步测试"></a>4.7 DRBD同步测试</h2><p>1、首先，在主服务器上先将设备卸载，同时将主服务器降为备用服务器：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@masterNode</span> /]<span class="comment"># umount /dev/drbd1  </span></span><br><span class="line"></span><br><span class="line">[root<span class="variable">@masterNode</span> /]<span class="comment"># drbdadm secondary r0</span></span><br></pre></td></tr></table></figure>
+<p>2、然后，登录备用服务器，将备用服务器升为主服务器，同时挂载drbd1设备到 /drbd目录：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> [root@masterNode /]<span class="comment"># ssh backup </span></span><br><span class="line"></span><br><span class="line">Last login: Sun May <span class="number">27</span> <span class="number">19</span>:<span class="number">57</span>:<span class="number">17</span> <span class="number">2012</span> <span class="keyword">from</span> masternode  </span><br><span class="line"></span><br><span class="line">[root@backupNode ~]<span class="comment"># drbdadm primary r0  </span></span><br><span class="line"></span><br><span class="line">[root@backupNode ~]<span class="comment"># mount /dev/drbd1 /drbd/</span></span><br></pre></td></tr></table></figure>
+<p>3、最后，进入<code>/drbd</code>目录，就可以看到之前在另外一台机器上放入的数据了，如果没有看到，说明同步失败！</p>
+<h2 id="4-8-设置开机启动"><a href="#4-8-设置开机启动" class="headerlink" title="4.8 设置开机启动"></a>4.8 设置开机启动</h2><blockquote>
+<p>注：设置DRBD开机启动，需要手动设置主备级别，找到方法后补充。</p>
+</blockquote>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@drbd2</span> rc.d]<span class="comment"># systemctl enable drbd</span></span><br></pre></td></tr></table></figure>
+<h1 id="5-安装配置keepalived"><a href="#5-安装配置keepalived" class="headerlink" title="5 安装配置keepalived"></a>5 安装配置keepalived</h1><p>(使用Heartbeat代替，只做了解，功能和heartbeat一样，Heartbeat自带drbd检测脚本)</p>
+<h1 id="5-1-YUM安装keepalived"><a href="#5-1-YUM安装keepalived" class="headerlink" title="5.1 YUM安装keepalived"></a>5.1 YUM安装keepalived</h1><p>Centos 7 自带 keepalived，可以直接YUM安装。</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@drbd1</span> rc3.d]<span class="comment"># yum install -y keepalived</span></span><br></pre></td></tr></table></figure>
+<h1 id="5-2-配置keepalived-conf"><a href="#5-2-配置keepalived-conf" class="headerlink" title="5.2 配置keepalived.conf"></a>5.2 配置keepalived.conf</h1><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="meta">@drbd</span>1 <span class="regexp">/]# vi /</span>etc<span class="regexp">/keepalived/</span>keepalived.conf</span><br></pre></td></tr></table></figure>
+<h3 id="5-2-1-主服务器配置"><a href="#5-2-1-主服务器配置" class="headerlink" title="5.2.1 主服务器配置"></a>5.2.1 主服务器配置</h3><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line"></span><br><span class="line">   notification_email &#123;</span><br><span class="line"></span><br><span class="line">     acassen@firewall.loc</span><br><span class="line"></span><br><span class="line">     failover@firewall.loc</span><br><span class="line"></span><br><span class="line">     sysadmin@firewall.loc</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   notification_email_from Alexandre.Cassen@firewall.loc</span><br><span class="line"></span><br><span class="line">   smtp_server <span class="number">192.168</span><span class="number">.200</span><span class="number">.1</span></span><br><span class="line"></span><br><span class="line">   smtp_connect_timeout <span class="number">30</span></span><br><span class="line"></span><br><span class="line">   router_id LVS_DEVEL</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;          <span class="comment">//定义vrrp实例</span></span><br><span class="line"></span><br><span class="line">    <span class="section">state</span> MASTER              <span class="comment">//主节点 ，备用节点为BACKUP             </span></span><br><span class="line"></span><br><span class="line">    interface enp2s0          <span class="comment">//绑定的网卡</span></span><br><span class="line"></span><br><span class="line">    virtual_router_id <span class="number">51</span>     <span class="comment">//ID,默认就行 .同一实例下virtual_router_id必须相同</span></span><br><span class="line"></span><br><span class="line">    priority <span class="number">100</span>             <span class="comment">//优先级，备用节点设置为比100小的值</span></span><br><span class="line"></span><br><span class="line">    advert_int <span class="number">1</span>             <span class="comment">//MASTER与BACKUP负载均衡器之间同步检查的时间间隔，单位是秒</span></span><br><span class="line"></span><br><span class="line">    authentication &#123;</span><br><span class="line"></span><br><span class="line">        auth_type PASS       <span class="comment">//验证类型和密码 </span></span><br><span class="line"></span><br><span class="line">        auth_pass <span class="number">1111</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line"></span><br><span class="line">        <span class="number">172.20</span><span class="number">.20</span><span class="number">.237</span>                  <span class="comment">//设置虚拟IP地址，可以多个</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5-2-2-备服务器配置"><a href="#5-2-2-备服务器配置" class="headerlink" title="5.2.2 备服务器配置"></a>5.2.2 备服务器配置</h3><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line"></span><br><span class="line">   notification_email &#123;</span><br><span class="line"></span><br><span class="line">     acassen@firewall.loc</span><br><span class="line"></span><br><span class="line">     failover@firewall.loc</span><br><span class="line"></span><br><span class="line">     sysadmin@firewall.loc</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   notification_email_from Alexandre.Cassen@firewall.loc</span><br><span class="line"></span><br><span class="line">   smtp_server <span class="number">192.168</span><span class="number">.200</span><span class="number">.1</span></span><br><span class="line"></span><br><span class="line">   smtp_connect_timeout <span class="number">30</span></span><br><span class="line"></span><br><span class="line">   router_id LVS_DEVEL</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;          <span class="comment">//定义vrrp实例</span></span><br><span class="line"></span><br><span class="line">    <span class="section">state</span> BACKUP             <span class="comment">//备节点 ，主用节点为MASTER             </span></span><br><span class="line"></span><br><span class="line">    interface ens192          <span class="comment">//绑定的网卡</span></span><br><span class="line"></span><br><span class="line">    virtual_router_id <span class="number">51</span>     <span class="comment">//ID,默认就行 .同一实例下virtual_router_id必须相同</span></span><br><span class="line"></span><br><span class="line">    priority <span class="number">50</span>             <span class="comment">//优先级，备用节点设置为比100小的值</span></span><br><span class="line"></span><br><span class="line">    advert_int <span class="number">1</span>             <span class="comment">//MASTER与BACKUP负载均衡器之间同步检查的时间间隔，单位是秒</span></span><br><span class="line"></span><br><span class="line">    authentication &#123;</span><br><span class="line"></span><br><span class="line">        auth_type PASS       <span class="comment">//验证类型和密码 </span></span><br><span class="line"></span><br><span class="line">        auth_pass <span class="number">1111</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line"></span><br><span class="line">        <span class="number">172.20</span><span class="number">.20</span><span class="number">.237</span>                  <span class="comment">//设置虚拟IP地址，可以多个</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="5-3-启动服务"><a href="#5-3-启动服务" class="headerlink" title="5.3 启动服务"></a>5.3 启动服务</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@drbd1</span> /]<span class="comment"># systemctl start keepalived</span></span><br></pre></td></tr></table></figure>
+<h2 id="5-4-查看网卡信息"><a href="#5-4-查看网卡信息" class="headerlink" title="5.4 查看网卡信息"></a>5.4 查看网卡信息</h2><p>   当启动<code>keepalived</code>后，查看网卡信息，主服务器会显示挂载虚拟IP<code>172.20.20.237</code>成功，备服务器没有挂载虚拟IP，如果主备服务器同时显示挂载虚拟Ip,则属于脑裂故障，需要继续调试。如果主服务器<code>keepalived</code>程序挂掉后，备用服务器会自动升级为主服务器，并挂载虚拟ip，主服务器恢复后恢复主从关系。</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@drbd1</span> /]<span class="comment"># ip a</span></span><br></pre></td></tr></table></figure>
+<p><img src="10.png" alt="10"></p>
+<p><img src="11.png" alt="11"></p>
+<h2 id="5-5-验证测试"><a href="#5-5-验证测试" class="headerlink" title="5.5 验证测试"></a>5.5 验证测试</h2><p> 1、在主服务器上新建一个网页，内容为 <code>172.20.20.66</code></p>
+<p> 2、在备用服务器上新建一个网页，内容为 <code>172.20.20.35</code></p>
+<p> 3、启动主备服务器的<code>http</code>服务和<code>Keepalived</code>服务</p>
+<p> 4、通过浏览数，输入虚拟IP地址 <code>172.20.20.237</code></p>
+<pre><code>页面显示为 `172.20.20.66`
+</code></pre><p>5、关闭主服务器的<code>Keepalived</code>服务，通过浏览器输入IP地址<code>172.20.20.237</code></p>
+<pre><code>页面显示为 `172.20.20.35`
+</code></pre><p>6、再次启动主服务器的<code>Keepalived</code>服务，通过浏览器输入IP地址<code>172.20.20.237</code></p>
+<pre><code>页面显示为 `172.20.20.66`
+</code></pre><h2 id="5-6-设置开机启动服务"><a href="#5-6-设置开机启动服务" class="headerlink" title="5.6 设置开机启动服务"></a>5.6 设置开机启动服务</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@drbd2</span> rc.d]<span class="comment"># systemctl enable keepalived</span></span><br></pre></td></tr></table></figure>
+<h1 id="6-安装配置heartbeat"><a href="#6-安装配置heartbeat" class="headerlink" title="6 安装配置heartbeat"></a>6 安装配置heartbeat</h1><h2 id="6-1-创建用户和组"><a href="#6-1-创建用户和组" class="headerlink" title="6.1 创建用户和组"></a>6.1 创建用户和组</h2><p>先创建用户和组，否则glue安装报错。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> groupadd -g 200 haclient              <span class="comment">#创建GID为200的用户组</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> useradd -g haclient -u 200 -s /bin/<span class="literal">false</span> -M   hacluster        <span class="comment">#创建用户（具体什么意思没懂）</span></span></span><br></pre></td></tr></table></figure>
+<p>YUM安装所需组件</p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># yum install -y libtool libtool-ltdl-devel   glib2-devel libxml2-devel libxml2 bzip2-devel e2fsprogs-devel libuuid-devel   libxslt-devel asciidoc docbook-style-xsl libnet</span></span><br></pre></td></tr></table></figure>
+<h2 id="6-2-安装glue"><a href="#6-2-安装glue" class="headerlink" title="6.2 安装glue"></a>6.2 安装glue</h2><p>源码安装heartbeat之前首先得源码安装glue。</p>
+<p>下载glue：<a href="http://www.linux-ha.org/wiki/Download" target="_blank" rel="noopener">http://www.linux-ha.org/wiki/Download</a><br>    进入源码目录安装：<strong>./autogen.sh</strong><br>    生成配置文件：<strong>./configure</strong><br>    编译安装：<strong>make &amp;&amp; make install</strong></p>
+<p><strong>./autogen.sh安装报错及解决办法</strong></p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">报错信息：</span><br><span class="line"></span><br><span class="line">You must have autoconf installed <span class="built_in">to</span> compile <span class="keyword">the</span> cluster-glue package.</span><br><span class="line"></span><br><span class="line">Download <span class="keyword">the</span> appropriate package <span class="keyword">for</span> your <span class="keyword">system</span>,</span><br><span class="line"></span><br><span class="line"><span class="keyword">or</span> <span class="built_in">get</span> <span class="keyword">the</span> source tarball <span class="keyword">at</span>: <span class="keyword">ftp</span>://<span class="keyword">ftp</span>.gnu.org/pub/gnu/autoconf/</span><br></pre></td></tr></table></figure>
+<p><img src="12.png" alt="12"></p>
+<p><strong>解决办法：</strong></p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">yum install    libtool</span></span><br></pre></td></tr></table></figure>
+<h2 id="6-3-安装agents"><a href="#6-3-安装agents" class="headerlink" title="6.3 安装agents"></a>6.3 安装agents</h2><p>不安装agents的话，在安装Heartbeat时会报错，具体什么错误忘记记录了。</p>
+<p>下载<a href="http://www.linux-ha.org/wiki/Download" target="_blank" rel="noopener">http://www.linux-ha.org/wiki/Download</a></p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">./autogen.<span class="keyword">sh</span></span><br><span class="line"></span><br><span class="line">./configure</span><br><span class="line"></span><br><span class="line"><span class="keyword">make</span> &amp;&amp; <span class="keyword">make</span> install</span><br></pre></td></tr></table></figure>
+<h2 id="6-4-安装heartbeat："><a href="#6-4-安装heartbeat：" class="headerlink" title="6.4 安装heartbeat："></a>6.4 安装heartbeat：</h2><blockquote>
+<p>安装glue/agents/heartbeat,编译安装路径最好默认，自定义的话有报错。</p>
+</blockquote>
+<pre><code>下载heartbeat：http://www.linux-ha.org/wiki/Downloads
+
+进入源码目录生成配置文件：`./ConfigureMe configure --disable-swig --disable-snmp-subagent`
+</code></pre><p>编译安装：<code>make &amp;&amp; make install</code></p>
+<p><strong>没有按照上述操作可能遇到的错误：</strong></p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">libtoolize: putting   libltdl files <span class="keyword">in</span> `libltdl<span class="comment">'.</span></span><br><span class="line">  </span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">libtoolize:   `COPYING.<span class="keyword">LIB</span><span class="comment">' not found in `/usr/share/libtool/libltdl</span></span><br><span class="line"></span><br><span class="line">./bootstrap   exiting due <span class="keyword">to</span> <span class="keyword">error</span> (sorry!).</span><br></pre></td></tr></table></figure>
+<p>解决办法：</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">yum   install libtool-ltdl-devel</span></span><br></pre></td></tr></table></figure>
+<h2 id="6-5-同步时间"><a href="#6-5-同步时间" class="headerlink" title="6.5 同步时间"></a>6.5 同步时间</h2><p>同步两台节点的时间</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> rm -rf /etc/localtime</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> \cp -f /usr/share/zoneinfo/Asia/Shanghai   /etc/localtime</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> yum install -y ntp</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> ntpdate -d cn.pool.ntp.org</span></span><br></pre></td></tr></table></figure>
+<h2 id="6-6-配置主节点heartbeat"><a href="#6-6-配置主节点heartbeat" class="headerlink" title="6.6 配置主节点heartbeat"></a>6.6 配置主节点heartbeat</h2><p>总共有三个文件需要配置:<br><code>ha.cf</code> 监控配置文件<br><code>haresources</code> 资源管理文件<br><code>authkeys</code> 心跳线连接加密文件</p>
+<p>配置文件位置 <code>/usr/share/doc/heartbeat/</code></p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># <span class="keyword">cp</span> <span class="keyword">ha</span>.<span class="keyword">cf</span> haresources authkeys /etc/<span class="keyword">ha</span>.d/    #拷贝配置文件到/etc/<span class="keyword">ha</span>.d</span><br></pre></td></tr></table></figure>
+<h3 id="6-6-1-修改ha-cf"><a href="#6-6-1-修改ha-cf" class="headerlink" title="6.6.1 修改ha.cf"></a>6.6.1 修改ha.cf</h3><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">debugfile /var/log/ha-debug      #用于记录 heartbeat 的调试信息</span><br><span class="line"></span><br><span class="line">logfile /var/log/ha-log                  #指名heartbeat的日志存放位置。</span><br><span class="line"></span><br><span class="line">logfacility   local0                           #如果未定义上述的日志文件,那么日志信息将送往local0(对应的#/var/log/messages),如果这 <span class="number">3</span> 个日志文件都未定义,那么 heartbeat 默认情况下 将在/var/log 下建立 ha-debug 和 ha-log 来记录 相应的日志信息。 </span><br><span class="line"></span><br><span class="line">#bcast eth1                                     #指明心跳使用以太网广播方式，并且是在eth1接口上进行 广播。（实际操作中没有指明。）</span><br><span class="line"></span><br><span class="line">keepalive <span class="number">2</span>                                    #发送心跳报文的间隔,默认单位为秒,如果你毫秒为单位, 那么需要在后面跟 ms 单位,如 <span class="number">1500</span>ms 即代表 <span class="number">1.5</span>s </span><br><span class="line">  deadtime   <span class="number">30</span>                                  #指定若备用节点在<span class="number">30</span>秒内没有收到主节点的心跳信 号，则立即接管主节点的服务资源。 </span><br><span class="line"></span><br><span class="line">warntime <span class="number">10</span>                                  #指定心跳延迟的时间为<span class="number">10</span>秒。当<span class="number">10</span>秒钟内备份节点不能接收到主节点的心跳信号时，就会往日志中写入一 个警告日志，但此时不会切换服务。发出最后的心跳 警告 信息的间隔。</span><br><span class="line">  initdead <span class="number">120</span>                                   #在某些系统上，系统启动或重启之后需要经过一段时间 网络才能正常工作，该选项用于解决这种情况产生 的时 间间隔。取值至少为deadtime的两倍。  </span><br><span class="line">  udpport <span class="number">694</span>                                  #设置广播/单播通信使用的端口，<span class="number">694</span>为默认使用的端口号 </span><br><span class="line"></span><br><span class="line">ucast eth0 <span class="number">192.168</span><span class="number">.60</span><span class="number">.132</span>          #采用网卡eth0的udp单播来组织心跳，后面跟的</span><br><span class="line">  IP地址应为双机对方的IP地址。  对方IP</span><br><span class="line"></span><br><span class="line">auto_failback off                           #用来定义当主节点恢复后，是否将服务自动切回。如果不想启用，请设置为off，默认为on。heartbeat的两台主机分别为主节点和备份节点。主节点在正常情况下占用资源并运行所有的服务，遇到故障时把资源交给备份节点并由备份节点运行服务。在该选项设为on的情况下，一旦主节点恢复运行，则自动获取资源并取代备份节点；如果该选项设置为off，那么当主节点恢复后，将变为备份节点，而原来的备份节点成为主节点。根据实际情况，不能开启，选择off</span><br><span class="line"></span><br><span class="line">node drbd1                                  #主节点主机名，可以通过命令<span class="string">"uanme   -n"</span>查看。  </span><br><span class="line">  node drbd2                                 #备用节点主机名。  </span><br><span class="line"></span><br><span class="line">#ping <span class="number">192.168</span><span class="number">.60</span><span class="number">.1</span>                         #选择ping的节点，ping节点选择的越好，HA集群就 越强壮，可以选择固定的路由器作为ping节点，或者 应用服务器但是 最好不要选择集群中的成员作为ping 节点，ping节点 仅仅用来测试网络连接。如果指定了多个ping节点如ping   <span class="number">192.168</span><span class="number">.0</span><span class="number">.1</span> <span class="number">192.168</span><span class="number">.0</span><span class="number">.2</span>那么只有当能ping通所有ping节点 时才认为网络是连通的，否则则认为不连通.实际中我没有开通检测。</span><br><span class="line"></span><br><span class="line">respawn hacluster /usr/libexec/heartbeat/ipfail #该选项是可选配置， 意思 是以 hacluster 这 个用户身份运行/usr/lib/heartbeat/ ipfail 这个 插件 respawn列出与heartbeat一起启动和关闭的 进 程，该进程一般是和heartbeat集成的插件，这些 进程遇到故障可以自动重新启动。最常用的进程是 ipfail，此进程用于检测和处理网络故障，需要配合 ping或者ping_group语句,其中指定的ping node 来检测网络的连通性。在v2版本中，ipfail和crm有 冲突，不能同时使用，如果启用crm的情况下，可以 使用pingd插件代替ipfail</span><br><span class="line"></span><br><span class="line">apiauth ipfail gid=haclient uid=hacluster   #指定对客户端 api 的访问控制,缺省为不可 访问，这里指定了 有权限访问 ipfail用户和组。(使用前边创建的用户和组)</span><br><span class="line"></span><br><span class="line">#apiauth <span class="section">default</span>  gid=haclient </span><br><span class="line">  （实际中没有开启此项设置，因为创建的用户和组就是默认用户和组的名字）当配置了默认用户组时，其他所有api授权命令失效且该用户组中的成员可以访问任何api库</span><br><span class="line"></span><br><span class="line">如果不在ha.cf文件指定api库的访问权限，则默认的访问权限如下</span><br><span class="line"></span><br><span class="line">service   <span class="section">default</span> apiauthipfailuid=haclusterccmgid=haclientpinggid=haclientcl_statusgid=haclientlha-snmpagentuid=rootcrmuid=hacluster</span><br></pre></td></tr></table></figure>
+<h3 id="6-6-2-修改haresources"><a href="#6-6-2-修改haresources" class="headerlink" title="6.6.2 修改haresources"></a>6.6.2 修改haresources</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">drbd1 <span class="symbol">IPaddr:</span><span class="symbol">:</span><span class="number">192.168</span>.<span class="number">84.132</span>/<span class="number">24</span>/eno16777736   <span class="symbol">drbddisk:</span><span class="symbol">:r0</span> <span class="symbol">Filesystem:</span><span class="symbol">:/dev/drbd1</span><span class="symbol">:</span><span class="symbol">:/drbd</span></span><br><span class="line"></span><br><span class="line">drbd1是主节点主机名，主备配置文件都一样。</span><br><span class="line"></span><br><span class="line">解说：node1   <span class="symbol">IPaddr:</span><span class="symbol">:</span><span class="number">192.168</span>.<span class="number">60.200</span>/<span class="number">24</span>/eth<span class="number">0</span>/    <span class="symbol">Filesystem:</span><span class="symbol">:/dev/sdb5</span><span class="symbol">:</span><span class="symbol">:/webdata</span><span class="symbol">:</span><span class="symbol">:ext3</span>  httpd cp.sh <span class="symbol">db2:</span><span class="symbol">:db2inst1</span> 其中，node1是HA集群的主节点，IPaddr为heartbeat自带的一个执行脚步，Heartbeat首先将执行/etc/ha.d/resource.d/IPaddr   <span class="number">192.168</span>.<span class="number">60.200</span>/<span class="number">24</span> start的操作，也就是虚拟出一个子网掩码为<span class="number">255.255</span>.<span class="number">255.0</span>，IP为<span class="number">192.168</span>.<span class="number">60.200</span>的地址。此IP为Heartbeat对外提供服务的网络地址，同时指定此IP使用的网络接口为eth<span class="number">0</span>。接着，Heartbeat将执行共享磁盘分区的挂载操作，<span class="string">"Filesystem::/dev/sdb5::/webdata::ext3"</span>相当于在命令行下执行mount操作，即<span class="string">"mount -t ext3 /dev/sdb5   /webdata"</span>，然后启动httpd，接下列执行cp.sh这个脚本文件之后以db2inst1的身份启动db2。</span><br><span class="line"></span><br><span class="line">其中cp.sh必须放置在/etc/ha.d/resource.d/或/etc/init.d/目录中。</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注意主节点和备份节点中资源文件haresources要完全一样。</strong></p>
+</blockquote>
+<h3 id="6-6-3-修改authkeys"><a href="#6-6-3-修改authkeys" class="headerlink" title="6.6.3 修改authkeys"></a>6.6.3 修改authkeys</h3><blockquote>
+<p><strong>此配置文件必须设置权限为600（固定的）</strong></p>
+</blockquote>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Chmod <span class="number">600</span> /etc/ha.d/authkeys</span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">auth <span class="number">1</span>  </span><br><span class="line">  <span class="number">1</span> crc  </span><br><span class="line">  #<span class="number">2</span> sha1 sha1_any_password  </span><br><span class="line">  #<span class="number">3</span> md5 md5_any_password </span><br><span class="line"></span><br><span class="line">authkeys文件用于设定Heartbeat的认证方式，共有<span class="number">3</span>种可用的认证方式，即crc、md5和sha1。<span class="number">3</span>种认证方式的安全性依次提高，但是占用的系统资源也依次增加。如果Heartbeat集群运行在安全的网络上，可以使用crc方式；如果HA每个节点的硬件配置很高，建议使用sha1，这种认证方式安全级别最高；如果是处于网络安全和系统资源之间，可以使用md5认证方式。这里我们使用crc认证方式.</span><br><span class="line"></span><br><span class="line">需要说明的一点是：无论auth后面指定的是什么数字，在下一行必须作为关键字再次出现，例如指定了<span class="string">"auth   6"</span>，下面一定要有一行<span class="string">"6 认证类型"</span>。</span><br><span class="line">  最后确保这个文件的权限是<span class="number">600</span>（即-rw-------）。</span><br></pre></td></tr></table></figure>
+<h3 id="6-6-4-对配置文件进行软链接"><a href="#6-6-4-对配置文件进行软链接" class="headerlink" title="6.6.4 对配置文件进行软链接"></a>6.6.4 对配置文件进行软链接</h3><p>在<code>/usr/etc/ha.d/</code>目录创建软链接，在部署中通过查看日志文件发现是通过此目录运行软件的，具体没搞明白，网上说拷贝的<code>/etc/ha.d</code>目录就行了，不知道为什么，为了省事，干脆创建软链接，这样就没问题了。此功能好用。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ln</span> -<span class="keyword">sv</span> /etc/<span class="keyword">ha</span>.d/shellfuncs /usr/etc/<span class="keyword">ha</span>.d/shellfuncs</span><br><span class="line"></span><br><span class="line"><span class="keyword">ln</span> -<span class="keyword">sv</span> /etc/<span class="keyword">ha</span>.d/<span class="keyword">ha</span>.<span class="keyword">cf</span> /usr/etc/<span class="keyword">ha</span>.d/<span class="keyword">ha</span>.<span class="keyword">cf</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ln</span> -<span class="keyword">sv</span> /etc/<span class="keyword">ha</span>.d/authkeys /usr/etc/<span class="keyword">ha</span>.d/authkeys</span><br><span class="line"></span><br><span class="line"><span class="keyword">ln</span> -<span class="keyword">sv</span> /etc/<span class="keyword">ha</span>.d/resource.d /usr/etc/<span class="keyword">ha</span>.d/resource.d</span><br><span class="line"></span><br><span class="line"><span class="keyword">ln</span> -<span class="keyword">sv</span> /etc/<span class="keyword">ha</span>.d/haresources   /usr/etc/<span class="keyword">ha</span>.d/haresources</span><br><span class="line"></span><br><span class="line"><span class="keyword">ln</span> -<span class="keyword">sv</span> /etc/<span class="keyword">ha</span>.d/harc /usr/etc/<span class="keyword">ha</span>.d/harc</span><br><span class="line"></span><br><span class="line"><span class="keyword">ln</span> -<span class="keyword">sv</span> /etc/<span class="keyword">ha</span>.d/rc.d /usr/etc/<span class="keyword">ha</span>.d/rc.d</span><br></pre></td></tr></table></figure>
+<p>复制ocf文件，如果没有，启动的时候会报错</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">ocf</span>/<span class="title">lib</span>/<span class="title">heartbeat</span>/<span class="title">ocf</span>-<span class="title">binaries</span> /<span class="title">usr</span>/<span class="title">lib</span>/<span class="title">ocf</span>/<span class="title">resource</span>.<span class="title">d</span>/<span class="title">heartbeat</span>/.<span class="title">ocf</span>-<span class="title">binaries</span></span></span><br><span class="line"></span><br><span class="line">cp /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">ocf</span>/<span class="title">lib</span>/<span class="title">heartbeat</span>/<span class="title">ocf</span>-<span class="title">directories</span> /<span class="title">usr</span>/<span class="title">lib</span>/<span class="title">ocf</span>/<span class="title">resource</span>.<span class="title">d</span>/<span class="title">heartbeat</span>/.<span class="title">ocf</span>-<span class="title">directories</span></span></span><br><span class="line"></span><br><span class="line">cp /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">ocf</span>/<span class="title">lib</span>/<span class="title">heartbeat</span>/<span class="title">ocf</span>-<span class="title">returncodes</span> /<span class="title">usr</span>/<span class="title">lib</span>/<span class="title">ocf</span>/<span class="title">resource</span>.<span class="title">d</span>/<span class="title">heartbeat</span>/.<span class="title">ocf</span>-<span class="title">returncodes</span></span></span><br><span class="line"></span><br><span class="line">cp /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">ocf</span>/<span class="title">lib</span>/<span class="title">heartbeat</span>/<span class="title">ocf</span>-<span class="title">shellfuncs</span> /<span class="title">usr</span>/<span class="title">lib</span>/<span class="title">ocf</span>/<span class="title">resource</span>.<span class="title">d</span>/<span class="title">heartbeat</span>/.<span class="title">ocf</span>-<span class="title">shellfuncs</span></span></span><br></pre></td></tr></table></figure>
+<p>这一块没有用到，发现默认情况下目录里面就存在这些文件，此处作为参考。</p>
+<p>备用节点配置文件和主节点配置文件基本一样，只有一个地方有区别。就是</p>
+<p><code>ucast eth0 192.168.60.132</code>   <strong>IP地址是对方的IP</strong></p>
+<h1 id="7-启动程序顺序"><a href="#7-启动程序顺序" class="headerlink" title="7 启动程序顺序"></a>7 启动程序顺序</h1><p>第一步：启动主备节点drbd服务</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@drbd1</span> ha.d]<span class="comment"># drbdadm up r0</span></span><br></pre></td></tr></table></figure>
+<p>第二步：设置升级主节点为primary，并挂载到目录</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@drbd1</span> ha.d]<span class="comment"># drbdadm primary r0</span></span><br><span class="line"></span><br><span class="line">[root<span class="variable">@drbd1</span> ha.d]<span class="comment"># mount /dev/drbd1 /drbd/</span></span><br></pre></td></tr></table></figure>
+<p>第三步：启动主备节点Heartbeat服务</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@drbd1</span> ha.d]<span class="comment"># service heartbeat start</span></span><br></pre></td></tr></table></figure>
+<p>等待主备节点连接并配置完成，可以通过<code>ip a</code> 命令查看虚拟ip是否生效。以下环境部署完成。在进行主节点维护中，恢复的话必须手动操作，避免出错。</p>
+<h1 id="8-附件"><a href="#8-附件" class="headerlink" title="8 附件"></a>8 附件</h1><p>链接: <a href="http://pan.baidu.com/s/1mibp7Uo" target="_blank" rel="noopener">http://pan.baidu.com/s/1mibp7Uo</a>   密码: y99z </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/Liferay服务器迁移-32位迁移至64位/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2366,228 +2733,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/Mediawiki优化/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/07/Mediawiki优化/" itemprop="url">Mediawiki优化</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-07T14:29:55+08:00">
-                2018-09-07
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T14:42:40+08:00">
-                2018-09-07
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  570
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="1-修改URL后缀"><a href="#1-修改URL后缀" class="headerlink" title="1 修改URL后缀"></a>1 修改URL后缀</h1><p>修改网址显示（<code>http://172.20.20.21/mediawiki/首页</code>改为<code>http://172.20.20.21/首页</code>）</p>
-<ul>
-<li>修改/opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/ LocalSettings.php文件</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">wgArticlePath = <span class="string">"/mediawiki/<span class="variable">$1</span>"</span>;</span></span><br><span class="line"></span><br><span class="line">改为</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash">wgArticlePath = <span class="string">"/<span class="variable">$1</span>"</span>;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>再修改/opt/mediawiki-1.26.2-2/apache2/conf/bitnami/bitnami.conf</li>
-</ul>
-<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;VirtualHost _default_:80&gt;</span><br><span class="line"></span><br><span class="line">DocumentRoot "/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/apache2/htdocs"</span><br><span class="line"></span><br><span class="line">&lt;Directory "/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/apache2/htdocs"&gt;</span><br><span class="line"></span><br><span class="line">改为</span><br><span class="line"></span><br><span class="line">&lt;VirtualHost _default_:80&gt;</span><br><span class="line"></span><br><span class="line">DocumentRoot "/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/apps/mediawiki/htdocs"</span><br><span class="line"></span><br><span class="line">&lt;Directory "/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/apps/mediawiki/htdocs"&gt;</span><br></pre></td></tr></table></figure>
-<h1 id="2-修改网站LOGO"><a href="#2-修改网站LOGO" class="headerlink" title="2 修改网站LOGO"></a>2 修改网站LOGO</h1><h2 id="2-1-右上角logo"><a href="#2-1-右上角logo" class="headerlink" title="2.1 右上角logo"></a>2.1 右上角logo</h2><p><strong>方法一</strong>,替换图片文件。</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/opt/</span>mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span><span class="regexp">/apps/</span>mediawiki<span class="regexp">/htdocs/</span>resources<span class="regexp">/assets/</span>wiki.png</span><br></pre></td></tr></table></figure>
-<p><strong>方法二</strong>，修改<code>LocalSettings.php</code>文件，重新指定LOGO路径</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">wgLogo             = <span class="string">"<span class="variable">$wgScriptPath</span>/resources/assets/huahe.png"</span>;</span></span><br></pre></td></tr></table></figure>
-<h2 id="2-2-左下角"><a href="#2-2-左下角" class="headerlink" title="2.2 左下角"></a>2.2 左下角</h2><p>在配置文件LocalSettings.php中加入如下行即<code>unset($wgFooterIcons[&#39;poweredby&#39;]);</code></p>
-<h1 id="3-修改目录悬浮加自动隐藏"><a href="#3-修改目录悬浮加自动隐藏" class="headerlink" title="3 修改目录悬浮加自动隐藏"></a>3 修改目录悬浮加自动隐藏</h1><p>让目录悬浮起来，并且在不用时让它自动折叠起来，方便阅读和其他操作。自动折叠通过CSS的hover选择器实现，当鼠标移动到目录上时，目录框自动变大。</p>
-<p>代码</p>
-<p>先进入到下面页面（也许你需要将localhost替换成其他的）：</p>
-<p><a href="http://localhost/mediawiki/index.php/MediaWiki:Common.css" target="_blank" rel="noopener">http://localhost/mediawiki/index.php/MediaWiki:Common.css</a></p>
-<p>在此页你可以设置全局的css样式，在这里加入如下：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#toc</span>&#123;</span><br><span class="line"> <span class="attribute">display</span>: block;</span><br><span class="line"> <span class="attribute">position</span>: fixed;</span><br><span class="line"> <span class="attribute">top</span>: <span class="number">100px</span>;</span><br><span class="line"> <span class="attribute">right</span>: <span class="number">0px</span>;</span><br><span class="line"> <span class="attribute">min-width</span>: <span class="number">100px</span>;</span><br><span class="line"> <span class="attribute">max-width</span>: <span class="number">350px</span>;</span><br><span class="line"> <span class="attribute">max-height</span>: <span class="number">20px</span>;</span><br><span class="line"> <span class="attribute">overflow-y</span>: scroll;</span><br><span class="line"> <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#aaa</span>;</span><br><span class="line"> <span class="attribute">border-radius</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">1px</span> <span class="number">1px</span>;</span><br><span class="line"> <span class="attribute">-moz-border-radius</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">1px</span> <span class="number">1px</span>;</span><br><span class="line"> <span class="attribute">background</span>: <span class="built_in">rgba</span>(249,249,249,0.75);</span><br><span class="line"> <span class="attribute">padding</span>: <span class="number">12px</span>;</span><br><span class="line"> <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">1px</span> <span class="number">8px</span> #;</span><br><span class="line"> <span class="attribute">-webkit-box-shadow</span>: <span class="number">0</span> <span class="number">1px</span> <span class="number">8px</span> #;</span><br><span class="line"> <span class="attribute">-moz-box-shadow</span>: <span class="number">0</span> <span class="number">1px</span> <span class="number">8px</span> #;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="selector-id">#toc</span><span class="selector-pseudo">:hover</span>&#123;</span><br><span class="line"> <span class="attribute">display</span>: block;</span><br><span class="line"> <span class="attribute">position</span>: fixed;</span><br><span class="line"> <span class="attribute">top</span>: <span class="number">100px</span>;</span><br><span class="line"> <span class="attribute">right</span>: <span class="number">0px</span>;</span><br><span class="line"> <span class="attribute">min-width</span>: <span class="number">100px</span>;</span><br><span class="line"> <span class="attribute">max-width</span>: <span class="number">350px</span>;</span><br><span class="line"> <span class="attribute">max-height</span>: <span class="number">500px</span>;</span><br><span class="line"> <span class="attribute">overflow-y</span>: scroll;</span><br><span class="line"> <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#aaa</span>;</span><br><span class="line"> <span class="attribute">border-radius</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">1px</span> <span class="number">1px</span>;</span><br><span class="line"> <span class="attribute">-moz-border-radius</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">1px</span> <span class="number">1px</span>;</span><br><span class="line"> <span class="attribute">background</span>: <span class="built_in">rgba</span>(249,249,249,0.75);</span><br><span class="line"> <span class="attribute">padding</span>: <span class="number">12px</span>;</span><br><span class="line"> <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">1px</span> <span class="number">8px</span> #;</span><br><span class="line"> <span class="attribute">-webkit-box-shadow</span>: <span class="number">0</span> <span class="number">1px</span> <span class="number">8px</span> #;</span><br><span class="line"> <span class="attribute">-moz-box-shadow</span>: <span class="number">0</span> <span class="number">1px</span> <span class="number">8px</span> #;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="selector-tag">body</span> &#123; <span class="attribute">overflow-x</span>: hidden;&#125;</span><br></pre></td></tr></table></figure>
-<p>保存，清除浏览器缓存，看看如何！</p>
-<p>简直炫酷！。</p>
-<p><strong>关键点解释</strong></p>
-<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">top</span>: <span class="number">100px</span>;　　目录框到顶部距离</span><br><span class="line"></span><br><span class="line"><span class="attribute">right</span>: <span class="number">0px</span>;　　   目录框到右边框距离</span><br><span class="line"></span><br><span class="line"><span class="attribute">min-width</span>: <span class="number">100px</span>;　　目录框最小宽度</span><br><span class="line"></span><br><span class="line"><span class="attribute">max-width</span>: <span class="number">350px</span>;　　目录框最大宽度</span><br><span class="line"></span><br><span class="line"><span class="attribute">max-height</span>: <span class="number">500px</span>;　　目录框最大高度</span><br><span class="line"></span><br><span class="line"><span class="attribute">background</span>: rgba(<span class="number">249</span>,<span class="number">249</span>,<span class="number">249</span>,<span class="number">0.75</span>);　　背景色和透明度</span><br></pre></td></tr></table></figure>
-<p>MediaWiki版本</p>
-<p>1.20.2</p>
-<p>参考<br><a href="http://blog.klniu.com/post/mediawiki-floating-directory-and-scroll/" target="_blank" rel="noopener">http://blog.klniu.com/post/mediawiki-floating-directory-and-scroll/</a> </p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2645,7 +2790,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-count">70</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2667,7 +2812,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/kxinter.gitub.io/tags/index.html">
-                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-count">61</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2826,7 +2971,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">64.2k</span>
+    <span title="Site words total count">69.2k</span>
   
 </div>
 
