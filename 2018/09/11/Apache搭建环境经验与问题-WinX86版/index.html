@@ -129,7 +129,7 @@
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/11/Apache搭建环境经验与问题-WinX86版/4.png">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/11/Apache搭建环境经验与问题-WinX86版/5.png">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/11/Apache搭建环境经验与问题-WinX86版/6.png">
-<meta property="og:updated_time" content="2018-09-11T02:28:36.376Z">
+<meta property="og:updated_time" content="2018-09-11T08:57:33.313Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Apache搭建环境经验与问题-WinX86版">
 <meta name="twitter:description" content="1 搭建环境：OS: server 2008 Enterprise sp1（X86） ,   VMware-workstation-full-9.0.2-1031769下搭建 2 软件版本(X86)：1)  VC11(VSU_4\vcredist_x86.exe)   http://www.microsoft.com/en-us/download/details.aspx?id=30679 2)">
@@ -387,7 +387,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-11T10:28:36+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-11T16:57:33+08:00">
                 2018-09-11
               </time>
             
@@ -442,7 +442,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  900
+                  903
                 </span>
               
 
@@ -482,10 +482,10 @@
         <h1 id="1-搭建环境："><a href="#1-搭建环境：" class="headerlink" title="1 搭建环境："></a>1 搭建环境：</h1><p>OS: server 2008 Enterprise sp1（X86） ,   VMware-workstation-full-9.0.2-1031769下搭建</p>
 <h1 id="2-软件版本-X86-："><a href="#2-软件版本-X86-：" class="headerlink" title="2 软件版本(X86)："></a>2 软件版本(X86)：</h1><p>1)  VC11(VSU_4\vcredist_x86.exe)<br>   <a href="http://www.microsoft.com/en-us/download/details.aspx?id=30679" target="_blank" rel="noopener">http://www.microsoft.com/en-us/download/details.aspx?id=30679</a></p>
 <p>2)  apache 2.4.10 (httpd-2.4.10-win32-VC11)<br>   <a href="http://www.apachelounge.com/download/" target="_blank" rel="noopener">http://www.apachelounge.com/download/</a> </p>
-<div class="note info"><p><br>注意：apache版本并不是越新越好，不同版本apache对系统要求不一样(旧版本支持XP 、2003，新版本不支持XP、2003)<br></p></div>
+<div class="note info"><p><br>注意<br>apache版本并不是越新越好，不同版本apache对系统要求不一样(旧版本支持XP 、2003，新版本不支持XP、2003)<br></p></div>
 
 <p>3)  PHP5.6.12(php-5.6.12-win32-VC11-X86) Thread safe版本<br>   <a href="http://windows.php.net/download/" target="_blank" rel="noopener">http://windows.php.net/download/</a></p>
-<div class="note info"><p><br>注意： 搭建PHP与apache使用安全线程（Thread safe）搭建PHP与iis使用非安全线程版（NO Thread safe）<br></p></div>
+<div class="note info"><p>注意<br>搭建PHP与apache使用安全线程（Thread safe）搭建PHP与iis使用非安全线程版（NO Thread safe）<br></p></div>
 
 
 <p>4)  mysql5.6.26(mysql-5.6.26-win32.zip”免安装版”)</p>
@@ -493,13 +493,13 @@
 <h1 id="3-apache安装"><a href="#3-apache安装" class="headerlink" title="3 apache安装"></a>3 apache安装</h1><p>在安装中，apache修改<code>httpd.conf</code>文件正常，未有出错，注意”<code>\</code>”要改成“<code>/</code>”,结尾新增加语句注意有<code>空格</code>，按教程走没有任何错误问题。</p>
 <h2 id="3-1-出现问题1："><a href="#3-1-出现问题1：" class="headerlink" title="3.1 出现问题1："></a>3.1 出现问题1：</h2><p>在<code>CMD窗口</code>启动安装<code>apache</code>（如下图启动路径内的安装执行文件），出现</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Installing the Apache2. 2 service</span><br><span class="line"></span><br><span class="line">The Apache2. 2<span class="built_in"> service </span>is successfully installed</span><br><span class="line"></span><br><span class="line"> testing httpd.conf<span class="built_in">..</span><span class="built_in">..</span>.</span><br><span class="line"></span><br><span class="line"> Errors reported here must be corrected before the<span class="built_in"> service </span>can be started.</span><br></pre></td></tr></table></figure>
-<div class="note danger"><p><br>Errors reported here must be corrected before the service can be started结尾，并不是错误，而是提示：如果这行下边出现错误提示则解决错误后再启动！（当时以为是出错了）<br></p></div>
+<div class="note danger"><p><br>错误<br>Errors reported here must be corrected before the service can be started结尾，并不是错误，而是提示：如果这行下边出现错误提示则解决错误后再启动！（当时以为是出错了）<br></p></div>
 
 <p><img src="1.png" alt="1"></p>
 <p>服务安装成功后在系统服务里面会有<code>apache服务</code>，如图<br><img src="2.png" alt="2"></p>
 <p>此时服务是未启动状态，可以右键启动，也可以去目录找到<code>ApacheMonitor.exe</code>打开执行<br><img src="3.png" alt="3"></p>
 <p>双击<code>ApacheMonitor.exe</code><br><img src="4.png" alt="4"></p>
-<div class="note danger"><p><br>点击start,出现弹窗错误， the requested operation has failed<br></p></div><br>无法启动apache服务，后来是通过在cmd命令窗口执行<code>netsh winsock reset</code>命令重启后恢复正常。方法具体内容见结尾<br><br>重启后打开apache,点击start按钮正常开启，如下图，图标变绿<br><br><img src="5.png" alt="5"><br><br># 4 问题<br><div class="note info"><p><br>解决Apache无法启动解决 the requested operation has failed错误，方法页面<br></p></div>
+<div class="note danger"><p><br>点击start出现弹窗错误<br>the requested operation has failed</p></div><br>无法启动apache服务，后来是通过在cmd命令窗口执行<code>netsh winsock reset</code>命令重启后恢复正常。方法具体内容见结尾<br><br>重启后打开apache,点击start按钮正常开启，如下图，图标变绿<br><br><img src="5.png" alt="5"><br><br># 4 问题<br><div class="note info"><p><br>错误<br>解决Apache无法启动解决 the requested operation has failed错误，方法页面<br></p></div>
 
 <p>APACHE启动出现<code>the requested operation has failed</code>，别复制其他地方的答案啊，情况不一样，<code>NETSTAT</code>和<code>httpd.exe -w -n &quot;Apache&quot; -k start</code>都不好使了，<code>80</code>端口好象也没问题，<code>2.2</code>版本选的也是对的，还有其他什么可能么，系统启动起来的时候就提示有一个服务启动错误应该就是APACHE的</p>
 <p><strong>补充：</strong><br><img src="6.png" alt="6"></p>

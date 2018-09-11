@@ -123,7 +123,7 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="清除日志脚本Docker12345678910111213#!/bin/shecho &quot;==================== start clean docker containers logs ==========================&quot; logs=$(find /var/lib/docker/containers/ -name *-json.log) for log in $lo">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-11T08:49:11.504Z">
+<meta property="og:updated_time" content="2018-09-11T08:59:42.233Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker清除日志脚本">
 <meta name="twitter:description" content="清除日志脚本Docker12345678910111213#!/bin/shecho &quot;==================== start clean docker containers logs ==========================&quot; logs=$(find /var/lib/docker/containers/ -name *-json.log) for log in $lo">
@@ -380,7 +380,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-11T16:49:11+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-11T16:59:42+08:00">
                 2018-09-11
               </time>
             
@@ -473,6 +473,7 @@
 
       
         <figure class="highlight bash"><figcaption><span>清除日志脚本Docker</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"==================== start clean docker containers logs =========================="</span></span><br><span class="line"> </span><br><span class="line">logs=$(find /var/lib/docker/containers/ -name *-json.log)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> <span class="built_in">log</span> <span class="keyword">in</span> <span class="variable">$logs</span></span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">                <span class="built_in">echo</span> <span class="string">"clean logs : <span class="variable">$log</span>"</span></span><br><span class="line">                cat /dev/null &gt; <span class="variable">$log</span></span><br><span class="line">        <span class="keyword">done</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"==================== end clean docker containers logs   =========================="</span></span><br></pre></td></tr></table></figure>
+
       
     </div>
     
