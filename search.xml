@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Docker清除日志脚本]]></title>
+    <url>%2Fkxinter.gitub.io%2F2018%2F09%2F11%2FDocker%E6%B8%85%E9%99%A4%E6%97%A5%E5%BF%97%E8%84%9A%E6%9C%AC%2F</url>
+    <content type="text"><![CDATA[清除日志脚本Docker12345678910111213#!/bin/shecho "==================== start clean docker containers logs ==========================" logs=$(find /var/lib/docker/containers/ -name *-json.log) for log in $logs do echo "clean logs : $log" cat /dev/null &gt; $log done echo "==================== end clean docker containers logs =========================="]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>基础运维</tag>
+        <tag>运维开发</tag>
+        <tag>shell</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Apache搭建环境经验与问题-WinX86版]]></title>
     <url>%2Fkxinter.gitub.io%2F2018%2F09%2F11%2FApache%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83%E7%BB%8F%E9%AA%8C%E4%B8%8E%E9%97%AE%E9%A2%98-WinX86%E7%89%88%2F</url>
     <content type="text"><![CDATA[1 搭建环境：OS: server 2008 Enterprise sp1（X86） , VMware-workstation-full-9.0.2-1031769下搭建 2 软件版本(X86)：1) VC11(VSU_4\vcredist_x86.exe) http://www.microsoft.com/en-us/download/details.aspx?id=30679 2) apache 2.4.10 (httpd-2.4.10-win32-VC11) http://www.apachelounge.com/download/ 注意：apache版本并不是越新越好，不同版本apache对系统要求不一样(旧版本支持XP 、2003，新版本不支持XP、2003) 3) PHP5.6.12(php-5.6.12-win32-VC11-X86) Thread safe版本 http://windows.php.net/download/ 注意： 搭建PHP与apache使用安全线程（Thread safe）搭建PHP与iis使用非安全线程版（NO Thread safe） 4) mysql5.6.26(mysql-5.6.26-win32.zip”免安装版”) http://dev.mysql.com/downloads/mysql/ 3 apache安装在安装中，apache修改httpd.conf文件正常，未有出错，注意”\”要改成“/”,结尾新增加语句注意有空格，按教程走没有任何错误问题。 3.1 出现问题1：在CMD窗口启动安装apache（如下图启动路径内的安装执行文件），出现 1234567Installing the Apache2. 2 serviceThe Apache2. 2 service is successfully installed testing httpd.conf..... Errors reported here must be corrected before the service can be started. Errors reported here must be corrected before the service can be started结尾，并不是错误，而是提示：如果这行下边出现错误提示则解决错误后再启动！（当时以为是出错了） 服务安装成功后在系统服务里面会有apache服务，如图 此时服务是未启动状态，可以右键启动，也可以去目录找到ApacheMonitor.exe打开执行 双击ApacheMonitor.exe 点击start,出现弹窗错误， the requested operation has failed无法启动apache服务，后来是通过在cmd命令窗口执行netsh winsock reset命令重启后恢复正常。方法具体内容见结尾重启后打开apache,点击start按钮正常开启，如下图，图标变绿# 4 问题解决Apache无法启动解决 the requested operation has failed错误，方法页面 APACHE启动出现the requested operation has failed，别复制其他地方的答案啊，情况不一样，NETSTAT和httpd.exe -w -n &quot;Apache&quot; -k start都不好使了，80端口好象也没问题，2.2版本选的也是对的，还有其他什么可能么，系统启动起来的时候就提示有一个服务启动错误应该就是APACHE的 补充： httpd.exe -w -n &quot;Apache&quot; -k start提示的是没有服务，但是服务开不了啊 4.1 解决问题：原因一：80端口占用例如IIS，另外就是迅雷。我的apache服务器就是被迅雷害得无法启用！ 原因二：软件冲突装了某些软件会使apache无法启动如Dr.com你打开网络连接-&gt;TcpIp属性-&gt;高级-&gt;WINS标签 把netbios的lmhosts对勾去掉，禁用tcp/ip的netbios. 然后再启动应该就可以了。 原因三：httpd.conf配置错误如果apache的配置文件httpd.conf搞错了，在windows里启动它，会提示the requested operation has failed，这是比较郁闷的事，因为查错要看个半天。其实可以用命令行模式启动apache，并带上参数，apache会提示你哪句有误，然后就可以针对性的解决，命令如下： httpd.exe -w -n &quot;Apache2&quot; -k start 还有一种情况：即使你这次启动了，下次你都有可能启动失败在运行里输入：netsh winsock reset （本人通过这个命令解决问题）一会儿cmd会提示你重启，不用理会，现在APACHE已经可以启动了。其实就是一个winsock的修复 5 附件链接: http://pan.baidu.com/s/1bo3HYIN 密码: 11ky]]></content>
@@ -822,9 +835,9 @@
       </categories>
       <tags>
         <tag>私有仓库</tag>
+        <tag>部署</tag>
         <tag>npm</tag>
         <tag>cnpmjs</tag>
-        <tag>部署</tag>
       </tags>
   </entry>
   <entry>
@@ -895,9 +908,9 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>部署</tag>
         <tag>vsftp</tag>
         <tag>ftp</tag>
+        <tag>部署</tag>
       </tags>
   </entry>
   <entry>

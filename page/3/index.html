@@ -10,6 +10,8 @@
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
 <meta name="theme-color" content="#222">
 <!--添加文章加密-->
 <script>
@@ -132,7 +134,7 @@
     root: '/kxinter.gitub.io/',
     scheme: 'Muse',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -318,6 +320,244 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/09/07/Mediawiki安装及LDAP认证问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kxinter.gitub.io/2018/09/07/Mediawiki安装及LDAP认证问题/" itemprop="url">Mediawiki安装及LDAP认证问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-07T14:41:01+08:00">
+                2018-09-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T14:59:48+08:00">
+                2018-09-07
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-环境"><a href="#1-环境" class="headerlink" title="1 环境"></a>1 环境</h1><p>安装环境：CentOS-7-x86_64-DVD-1511</p>
+<p>Mediawiki: bitnami-mediawiki-1.26.2-2-linux-x64-installer.run</p>
+<p>LDAP扩展插件：LdapAuthentication-REL1_26-70ab129.tar.gz</p>
+<h1 id="2-安装mediawiki"><a href="#2-安装mediawiki" class="headerlink" title="2 安装mediawiki"></a>2 安装mediawiki</h1><p>首先安装<code>bitnami-mediawiki-1.26.2-2-linux-x64-installer.run</code></p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#chmod   <span class="number">755</span> bitnami-mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span>-linux-x64-installer.run   <span class="comment">//赋予读写权限</span></span><br><span class="line"></span><br><span class="line">#./bitnami-mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span>-linux-x64-installer.run           <span class="comment">//执行安装</span></span><br></pre></td></tr></table></figure>
+<p><strong>安装到最后出现mysql数据库错误</strong>：</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Error: </span>Error running /opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/mysql/scripts/myscript.sh</span><br><span class="line"></span><br><span class="line">/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/mysql ****: FATAL ERROR: please install the following</span><br><span class="line"></span><br><span class="line">Perl modules before executing scripts/mysql_install_db:</span><br><span class="line"></span><br><span class="line">Data::Dumper</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">ERROR </span>2002 (HY000): Can't connect to local MySQL server through socket</span><br><span class="line"></span><br><span class="line">'/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/mysql/tmp/mysql.sock' (2)</span><br><span class="line"></span><br><span class="line"><span class="keyword">ERROR </span>2002 (HY000): Can't connect to local MySQL server through socket</span><br><span class="line"></span><br><span class="line">'/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/mysql/tmp/mysql.sock' (2)</span><br><span class="line"></span><br><span class="line"><span class="keyword">ERROR </span>2002 (HY000): Can't connect to local MySQL server through socket</span><br><span class="line"></span><br><span class="line">'/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/mysql/tmp/mysql.sock' (2)</span><br></pre></td></tr></table></figure>
+<p>（根据提示，发现系统缺少Dumper模块）</p>
+<p>根据提示安装Data-Dumper.x86_64</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr"># yum install perl-Data-Dumper.x86</span>_<span class="number">64</span>          <span class="comment">//安装插件模块。</span></span><br></pre></td></tr></table></figure>
+<p>……………</p>
+<p>OK,  Mediawiki安装成功。</p>
+<h1 id="3-开启AD域用户认证登录"><a href="#3-开启AD域用户认证登录" class="headerlink" title="3 开启AD域用户认证登录"></a>3 开启AD域用户认证登录</h1><p>Ldap认证需要php支持ldap,需要安装ldap支持模块（<code>php-ldap</code>），及开启<code>php</code>的<code>ldap</code>功能(修改<code>php.ini</code>文件)。</p>
+<pre><code>&gt; 备注：不安装php-ldap，LdapAuthentication插件不工作
+</code></pre><p>1、  安装php-ldap模块：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@localhost</span> mediawiki]<span class="comment"># yum   install php-ldap</span></span><br></pre></td></tr></table></figure>
+<p> 2、 开启<code>ldap</code>功能<br>即修改<code>php.ini</code>文件，将<code>extension=php_ldap.dll</code>前的分号去掉。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost mediawiki]# vi   /opt/mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span>/php/etc/php.ini</span><br></pre></td></tr></table></figure>
+<p><img src="1.png" alt="enter description here"></p>
+<p>3、下载<code>LdapAuthentication</code>插件：<code>LdapAuthentication-REL1_26-70ab129.tar.gz</code></p>
+<p>解压插件到extensions目录：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># tar -xzf   LdapAuthentication-REL1_26<span class="number">-70</span>ab129.tar.gz   /opt/mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span>/apps/mediawiki/htdocs/extensions/</span><br></pre></td></tr></table></figure>
+<p>4、编辑<code>LocalSettings.php</code>配置文件<br><img src="2.png" alt="enter description here"></p>
+<p>在<code>LocalSettings.php</code> 末尾添加如下内容：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require_once</span>(<span class="string">"extensions/LdapAuthentication/LdapAuthentication.php"</span>);</span><br><span class="line"></span><br><span class="line">$wgAuth= <span class="keyword">new</span> LdapAuthenticationPlugin(); <span class="comment">## 这两行激活插件</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$wgLDAPDomainNames = <span class="keyword">array</span>( <span class="string">"dealeasy"</span>   );    <span class="comment">//域名简写</span></span><br><span class="line"></span><br><span class="line">$wgLDAPServerNames = <span class="keyword">array</span>(   <span class="string">"dealeasy"</span>=&gt;<span class="string">"172.20.20.10"</span> );     <span class="comment">//域控域名或者ip</span></span><br><span class="line"></span><br><span class="line">$wgLDAPSearchStrings = <span class="keyword">array</span>(   <span class="string">"dealeasy"</span>=&gt;<span class="string">"USER-NAME@dealeasy"</span> );     <span class="comment">//USER-NAME 不要修改它,默认用户名替代位置，特定字符</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$wgLDAPBaseDNs = <span class="keyword">array</span>(   <span class="string">"dealeasy"</span>=&gt;<span class="string">"dc=dealeasy,dc=local"</span>);</span><br><span class="line"></span><br><span class="line">$wgLDAPSearchAttributes = <span class="keyword">array</span>(   <span class="string">"dealeasy"</span>=&gt;<span class="string">"sAMAccountName"</span>);    <span class="comment">//加上这两句就可以把DC上的用户名都同步过来了</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$wgLDAPUseLocal = <span class="keyword">false</span>;       是否使用本地用户,ture代表使用，这里写入不使用</span><br><span class="line"></span><br><span class="line">$wgLDAPUpdateLDAP = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">$wgLDAPMailPassword = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$wgMinimalPasswordLength = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">$wgLDAPEncryptionType =   <span class="keyword">array</span>(<span class="string">"dealeasy"</span>=&gt;<span class="string">"clear"</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$wgShowSQLErrors = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">$wgDebugDumpSql = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">$wgShowDBErrorBacktrace = <span class="keyword">true</span>;          <span class="comment">//这三行网上找到，因ldap用户登录出现数据库查询错误，添加这三行后，在出现错误时可以在页面上显示错误信息</span></span><br></pre></td></tr></table></figure>
+<p><img src="3.png" alt="enter description here"></p>
+<p>Ok, <code>LocalSettings.php</code>编辑完成。</p>
+<p>下面就可以直接使用域用户登录了。</p>
+<h1 id="4-Database错误"><a href="#4-Database错误" class="headerlink" title="4 Database错误"></a>4 Database错误</h1><p><img src="4.png" alt="enter description here"></p>
+<p>报错（前面<code>LocalSettings.php</code>添加后三行才能看到报错详情）：</p>
+<p><strong>Database error</strong><br><img src="5.png" alt="enter description here"><br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">A database <span class="keyword">query</span> <span class="keyword">error</span> has occurred. This may indicate a bug <span class="keyword">in</span> the software.</span><br><span class="line"></span><br><span class="line">（翻译：数据库错误　　　　一个数据库查询错误发生。这可能表明软件中的缺陷。）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">Query</span>:</span><br><span class="line"></span><br><span class="line">SELECT domain FROM `ldap_domains` WHERE user_id = '4' LIMIT 1</span><br><span class="line"></span><br><span class="line">Function: LdapAuthenticationPlugin::loadDomain</span><br><span class="line"></span><br><span class="line"><span class="keyword">Error</span>: 1146 <span class="keyword">Table</span> 'bitnami_mediawiki.ldap_domains' doesn't exist (localhost:3306)</span><br><span class="line"></span><br><span class="line">Backtrace:</span><br><span class="line"></span><br><span class="line">#0 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/<span class="keyword">db</span>/Database.php(1076): DatabaseBase-&gt;reportQueryError('<span class="keyword">Table</span> 'bitnami_...', 1146, 'SELECT  domain ...', 'LdapAuthenticat...', false)</span><br><span class="line"></span><br><span class="line">#1 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/<span class="keyword">db</span>/Database.php(1600): DatabaseBase-&gt;<span class="keyword">query</span>('SELECT  domain ...', 'LdapAuthenticat...')</span><br><span class="line"></span><br><span class="line">#2 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/<span class="keyword">db</span>/Database.php(1689): DatabaseBase-&gt;select('ldap_domains', Array, Array, 'LdapAuthenticat...', Array, Array)</span><br><span class="line"></span><br><span class="line">#3 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/extensions/LdapAuthentication/LdapAuthentication.php(2041): DatabaseBase-&gt;selectRow('ldap_domains', Array, Array, 'LdapAuthenticat...')</span><br><span class="line"></span><br><span class="line">#4 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/extensions/LdapAuthentication/LdapAuthentication.php(2060): LdapAuthenticationPlugin::loadDomain(Object(User))</span><br><span class="line"></span><br><span class="line">#5 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/extensions/LdapAuthentication/LdapAuthentication.php(1237): LdapAuthenticationPlugin::saveDomain(Object(User), 'dealeasy')</span><br><span class="line"></span><br><span class="line">#6 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/specials/SpecialUserlogin.php(830): LdapAuthenticationPlugin-&gt;updateUser(Object(User))</span><br><span class="line"></span><br><span class="line">#7 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/specials/SpecialUserlogin.php(958): LoginForm-&gt;authenticateUserData()</span><br><span class="line"></span><br><span class="line">#8 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/specials/SpecialUserlogin.php(341): LoginForm-&gt;processLogin()</span><br><span class="line"></span><br><span class="line">#9 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/specialpage/SpecialPage.php(384): LoginForm-&gt;execute(NULL)</span><br><span class="line"></span><br><span class="line">#10 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/specialpage/SpecialPageFactory.php(553): SpecialPage-&gt;<span class="keyword">run</span>(NULL)</span><br><span class="line"></span><br><span class="line">#11 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/MediaWiki.php(281): SpecialPageFactory::executePath(Object(Title), Object(RequestContext))</span><br><span class="line"></span><br><span class="line">#12 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/MediaWiki.php(714): MediaWiki-&gt;performRequest()</span><br><span class="line"></span><br><span class="line">#13 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/includes/MediaWiki.php(508): MediaWiki-&gt;main()</span><br><span class="line"></span><br><span class="line">#14 /opt/mediawiki-1.26.2-2/apps/mediawiki/htdocs/index.php(41): MediaWiki-&gt;<span class="keyword">run</span>()</span><br><span class="line"></span><br><span class="line">#15 &#123;main&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最终，通过报错信息<code>Error: 1146 Table &#39;bitnami_mediawiki.ldap_domains&#39; doesn&#39;t exist (localhost:3306)</code>，发现不存在<code>ldap_domains</code>表，即<code>bitnami_mediawiki</code>不存在这个表，后来尝试在<code>phpmyAdmin</code>上为<code>bitnami_mediawiki</code>创建<code>ldap_domains</code>表，并在表内创建<code>user_id</code>和<code>domain</code>列，问题解决。</p>
+<blockquote>
+<p>备注：根据多次实验和页面错误提示，才确认建立<code>user_id</code>和<code>domain</code>列</p>
+</blockquote>
+<h1 id="5-备份"><a href="#5-备份" class="headerlink" title="5 备份"></a>5 备份</h1><p>备份数据库、配置文件、附件目录<code>images</code>、插件目录<code>extensions</code></p>
+<h2 id="5-1-备份脚本"><a href="#5-1-备份脚本" class="headerlink" title="5.1 备份脚本"></a>5.1 备份脚本</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Now=$(date   +<span class="string">"%Y%m%d%H"</span>)</span><br><span class="line"></span><br><span class="line">File=bitnami_mediawiki-$Now.sql</span><br><span class="line"></span><br><span class="line">echo   **********start$Now************    &gt;&gt;    <span class="regexp">/mnt/</span>mediawiki-bak<span class="regexp">/log/</span>$Now.log</span><br><span class="line"></span><br><span class="line"><span class="regexp">/opt/</span>mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span><span class="regexp">/mysql/</span>bin<span class="regexp">/mysqldump   -uroot -pDe123456 bitnami_mediawiki &gt; /</span>mnt<span class="regexp">/mediawiki-bak/</span>$File</span><br><span class="line"></span><br><span class="line">echo   **********cp LocalSettings.php********** &gt;&gt;  <span class="regexp">/mnt/</span>mediawiki-bak<span class="regexp">/log/</span>$Now.log</span><br><span class="line"></span><br><span class="line">rsync   -avzrtopgL  --progress    <span class="regexp">/opt/</span>mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span><span class="regexp">/apps/</span>mediawiki<span class="regexp">/htdocs/</span>LocalSettings.php   <span class="regexp">/mnt/</span>mediawiki-bak/LocalSettings.php</span><br><span class="line"></span><br><span class="line">echo   *********cp images ******** &gt;&gt;    <span class="regexp">/mnt/</span>mediawiki-bak<span class="regexp">/log/</span>$Now.log</span><br><span class="line"></span><br><span class="line">rsync   -avzrtopgL  --progress   <span class="regexp">/opt/</span>mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span><span class="regexp">/apps/</span>mediawiki<span class="regexp">/htdocs/</span>images <span class="regexp">/mnt/</span>mediawiki-bak/</span><br><span class="line"></span><br><span class="line">echo   ********cp extensions ********* &gt;&gt;    <span class="regexp">/mnt/</span>mediawiki-bak<span class="regexp">/log/</span>$Now.log</span><br><span class="line"></span><br><span class="line">rsync   -avzrtopgL  --progress   <span class="regexp">/opt/</span>mediawiki<span class="number">-1.26</span><span class="number">.2</span><span class="number">-2</span><span class="regexp">/apps/</span>mediawiki<span class="regexp">/htdocs/</span>extensions <span class="regexp">/mnt/</span>mediawiki-bak<span class="regexp">/   &gt;&gt; /</span>mnt<span class="regexp">/mediawiki-bak/</span>log/$Now.log</span><br><span class="line"></span><br><span class="line">echo   ********end$Now********* &gt;&gt; <span class="regexp">/mnt/</span>mediawiki-bak<span class="regexp">/log/</span>$Now.log</span><br></pre></td></tr></table></figure>
+<h1 id="6-安装包及插件等"><a href="#6-安装包及插件等" class="headerlink" title="6 安装包及插件等"></a>6 安装包及插件等</h1><p><img src="LdapAuthentication-REL1_26-70ab129.tar.gz" alt="LdapAuthentication-REL1_26-70ab129.tar.gz"></p>
+<p><img src="LdapAuthentication-REL1_26-70ab129.tar.gz" alt="LdapAuthentication-REL1_26-70ab129.tar.gz"></p>
+<p><img src="MsUpload-REL1_26-47cfb25.tar.gz" alt="MsUpload-REL1_26-47cfb25.tar.gz"></p>
+<p><img src="SyntaxHighlight_GeSHi-REL1_26-a15f02e.tar.gz" alt="SyntaxHighlight_GeSHi-REL1_26-a15f02e.tar.gz"></p>
+<p><img src="WikiEditor-REL1_26-72db6c7.tar.gz" alt="WikiEditor-REL1_26-72db6c7.tar.gz"></p>
+<p>安装包：<code>bitnami_mediawiki</code>（自己下载）</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2216,211 +2456,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/kxinter.gitub.io/kxinter.gitub.io/2018/08/31/Mysql命令示例/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kxinter.gitub.io/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/kxinter.gitub.io/2018/08/31/Mysql命令示例/" itemprop="url">Mysql命令示例</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-31T17:46:20+08:00">
-                2018-08-31
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-05T17:53:19+08:00">
-                2018-09-05
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/kxinter.gitub.io/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  860
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1-创建数据库"><a href="#1-创建数据库" class="headerlink" title="1 创建数据库"></a>1 创建数据库</h1><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Mysql&gt;<span class="keyword">create</span> <span class="keyword">database</span> 库名;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/kxinter.gitub.io/2018/08/31/Mysql命令示例/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/kxinter.gitub.io/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/kxinter.gitub.io/">1</a><a class="page-number" href="/kxinter.gitub.io/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/kxinter.gitub.io/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/kxinter.gitub.io/page/8/">8</a><a class="extend next" rel="next" href="/kxinter.gitub.io/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/kxinter.gitub.io/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/kxinter.gitub.io/">1</a><a class="page-number" href="/kxinter.gitub.io/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/kxinter.gitub.io/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/kxinter.gitub.io/page/9/">9</a><a class="extend next" rel="next" href="/kxinter.gitub.io/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2473,7 +2513,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">80</span>
+                  <span class="site-state-item-count">81</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2495,7 +2535,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/kxinter.gitub.io/tags/index.html">
-                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-count">72</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2658,7 +2698,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">80k</span>
+    <span title="Site words total count">80.1k</span>
   
 </div>
 
