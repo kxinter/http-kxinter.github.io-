@@ -835,9 +835,9 @@
       </categories>
       <tags>
         <tag>私有仓库</tag>
-        <tag>部署</tag>
         <tag>npm</tag>
         <tag>cnpmjs</tag>
+        <tag>部署</tag>
       </tags>
   </entry>
   <entry>
@@ -908,9 +908,9 @@
         <category>Linux</category>
       </categories>
       <tags>
+        <tag>部署</tag>
         <tag>vsftp</tag>
         <tag>ftp</tag>
-        <tag>部署</tag>
       </tags>
   </entry>
   <entry>
