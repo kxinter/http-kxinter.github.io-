@@ -1,11 +1,7 @@
-# 说明
-**在命令行上创建一个新的存储库**
 
+## 在命令行上创建一个新的存储库
 
-----------
-
-
-``` dockerfile
+``` shell?linenums
 echo "# test" >> README.md
 git init
 git add README.md
@@ -14,12 +10,9 @@ git remote add origin https://github.com/kxinter/test.git
 git push -u origin master
 ```
 
-**从命令行推送现有存储库**
+## 从命令行推送现有存储库
 
-
-----------
-
-``` maxima
+``` shell?linenums
 git remote add origin https://github.com/kxinter/test.git
 git push -u origin master
 ```
