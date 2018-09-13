@@ -130,18 +130,18 @@
 
 
 
-<meta name="description" content="1 更改首页页面1install/apache2/conf/bitnami/bitnami.conf 修改bitnami.con文件，更改首页页面。 1234567&amp;lt;VirtualHost _default_:80&amp;gt;  DocumentRoot &quot;/opt/mediawiki-1.26.2-2/apache2/htdocs&quot;  &amp;lt;Directory &quot;/opt/mediawiki">
+<meta name="description" content="1 更改首页页面">
 <meta name="keywords" content="bitnami">
 <meta property="og:type" content="article">
 <meta property="og:title" content="bitnami软件修改URL方法">
 <meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/07/bitnami软件修改URL方法/index.html">
 <meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="1 更改首页页面1install/apache2/conf/bitnami/bitnami.conf 修改bitnami.con文件，更改首页页面。 1234567&amp;lt;VirtualHost _default_:80&amp;gt;  DocumentRoot &quot;/opt/mediawiki-1.26.2-2/apache2/htdocs&quot;  &amp;lt;Directory &quot;/opt/mediawiki">
+<meta property="og:description" content="1 更改首页页面">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-07T07:37:39.106Z">
+<meta property="og:updated_time" content="2018-09-13T02:32:34.477Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="bitnami软件修改URL方法">
-<meta name="twitter:description" content="1 更改首页页面1install/apache2/conf/bitnami/bitnami.conf 修改bitnami.con文件，更改首页页面。 1234567&amp;lt;VirtualHost _default_:80&amp;gt;  DocumentRoot &quot;/opt/mediawiki-1.26.2-2/apache2/htdocs&quot;  &amp;lt;Directory &quot;/opt/mediawiki">
+<meta name="twitter:description" content="1 更改首页页面">
 
 
 
@@ -395,8 +395,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T15:37:39+08:00">
-                2018-09-07
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-13T10:32:34+08:00">
+                2018-09-13
               </time>
             
           </span>
@@ -487,7 +487,8 @@
       
 
       
-        <h1 id="1-更改首页页面"><a href="#1-更改首页页面" class="headerlink" title="1 更改首页页面"></a>1 更改首页页面</h1><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">install/apache2/<span class="keyword">conf</span>/bitnami/bitnami.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
+        <h1 id="1-更改首页页面"><a href="#1-更改首页页面" class="headerlink" title="1 更改首页页面"></a>1 更改首页页面</h1><a id="more"></a>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">install/apache2/<span class="keyword">conf</span>/bitnami/bitnami.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
 <p>修改<code>bitnami.con</code>文件，更改首页页面。</p>
 <figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;VirtualHost _default_:80&gt;</span><br><span class="line">  DocumentRoot "/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/apache2/htdocs"</span><br><span class="line">  &lt;Directory "/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/apache2/htdocs"&gt;</span><br><span class="line">   改为</span><br><span class="line">&lt;VirtualHost _default_:80&gt;</span><br><span class="line">  DocumentRoot "/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/apps/mediawiki/htdocs"</span><br><span class="line">  &lt;Directory "/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/apps/mediawiki/htdocs"&gt;</span><br></pre></td></tr></table></figure>
 <h1 id="2-更改应用访问地址后缀"><a href="#2-更改应用访问地址后缀" class="headerlink" title="2 更改应用访问地址后缀"></a>2 更改应用访问地址后缀</h1><p>例如：<a href="http://172.20.20.37/moodle" target="_blank" rel="noopener">http://172.20.20.37/moodle</a>   改为<a href="http://172.20.20.37" target="_blank" rel="noopener">http://172.20.20.37</a> </p>
@@ -530,7 +531,7 @@
   <p><span>本文标题:</span><a href="/kxinter.gitub.io/2018/09/07/bitnami软件修改URL方法/">bitnami软件修改URL方法</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2018年09月07日 - 15:09</p>
-  <p><span>最后更新:</span>2018年09月07日 - 15:09</p>
+  <p><span>最后更新:</span>2018年09月13日 - 10:09</p>
   <p><span>原始链接:</span><a href="/kxinter.gitub.io/2018/09/07/bitnami软件修改URL方法/" title="bitnami软件修改URL方法">https://kxinter.github.io/kxinter.gitub.io/2018/09/07/bitnami软件修改URL方法/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/kxinter.gitub.io/2018/09/07/bitnami软件修改URL方法/"  aria-label="复制成功！"></i></span>
   </p>
@@ -707,7 +708,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -908,7 +909,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">80.1k</span>
+    <span title="Site words total count">80.3k</span>
   
 </div>
 
@@ -1431,9 +1432,9 @@ show_date_time();
 
   
 
-<!--动态背景>  <-->
+<!--动态背景>
  <script type="text/javascript" src="/kxinter.gitub.io/lib/canvas-nest/canvas-nest.min.js"></script> 
-
+  <-->
  </body>
 </html>
 <script type="text/javascript" src="/kxinter.gitub.io/js/src/love.js"></script>

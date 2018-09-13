@@ -130,18 +130,18 @@
 
 
 
-<meta name="description" content="一、nginx+tomcat后端为tomcat,nginx代理报504超时错误。">
+<meta name="description" content="一、nginx+tomcat">
 <meta name="keywords" content="nginx,tomcat">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nginx反向代理报504超时错误">
 <meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/Nginx反向代理报504超时错误/index.html">
 <meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="一、nginx+tomcat后端为tomcat,nginx代理报504超时错误。">
+<meta property="og:description" content="一、nginx+tomcat">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-27T08:15:10.864Z">
+<meta property="og:updated_time" content="2018-09-13T02:35:57.871Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx反向代理报504超时错误">
-<meta name="twitter:description" content="一、nginx+tomcat后端为tomcat,nginx代理报504超时错误。">
+<meta name="twitter:description" content="一、nginx+tomcat">
 
 
 
@@ -395,8 +395,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-27T16:15:10+08:00">
-                2018-08-27
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-13T10:35:57+08:00">
+                2018-09-13
               </time>
             
           </span>
@@ -450,7 +450,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  505
+                  506
                 </span>
               
 
@@ -487,7 +487,9 @@
       
 
       
-        <h1 id="一、nginx-tomcat"><a href="#一、nginx-tomcat" class="headerlink" title="一、nginx+tomcat"></a>一、nginx+tomcat</h1><p>后端为tomcat,nginx代理报504超时错误。<br><a id="more"></a><br><strong>问题描述：</strong></p>
+        <h1 id="一、nginx-tomcat"><a href="#一、nginx-tomcat" class="headerlink" title="一、nginx+tomcat"></a>一、nginx+tomcat</h1><a id="more"></a>
+<p>后端为tomcat,nginx代理报504超时错误。</p>
+<p><strong>问题描述：</strong></p>
 <p>#错误</p>
 <figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.198.17.123</span> - - <span class="string">[06/Jul/2018:01:48:57 +0000]</span> <span class="string">"<span class="keyword">POST</span> /mapbj3/getticket HTTP/1.1"</span> <span class="number">504</span> <span class="number">537</span> <span class="string">"https://XXXXXXXXXX.com/walkcode3/index.html?openId=oB6UW0cF3Z_dnYXnz4tG4OFt7Rt0"</span> <span class="string">"Mozilla/5.0 (Linux; Android 8.1; PACM00 Build/O11019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/53.0.2785.143 Crosswalk/24.53.595.0 XWEB/155 MMWEBSDK/19 Mobile Safari/537.36 MicroMessenger/6.6.6.1300(0x26060638) NetType/WIFI Language/zh_CN MicroMessenger/6.6.6.1300(0x26060638) NetType/WIFI Language/zh_CN miniProgram"</span> <span class="string">"-"</span></span><br><span class="line"><span class="number">2018</span>/<span class="number">07</span>/<span class="number">06</span> <span class="number">01</span>:<span class="number">48</span>:<span class="number">57</span> <span class="string">[error]</span> <span class="number">6</span>#<span class="number">6</span>: *<span class="number">2573</span> upstream timed out (<span class="number">110</span>: Connection timed out) while connecting to upstream, client: <span class="number">1.198.17.123</span>, server: , request: <span class="string">"<span class="keyword">POST</span> /mapbj3/getticket HTTP/1.1"</span>, upstream: <span class="string">"http://123.149.236.180:8022/mapbj3//getticket"</span>, host: <span class="string">"XXXXXXXX.com"</span>, referrer: <span class="string">"https://XXXXXXX.com/walkcode3/index.html?openId=oB6UW0cF3Z_dnYXnz4tG4OFt7Rt0"</span></span><br></pre></td></tr></table></figure>
 <p>1、项目本地访问没问题，通过nginx访问报504错误；</p>
@@ -677,7 +679,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -878,7 +880,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">80.1k</span>
+    <span title="Site words total count">80.3k</span>
   
 </div>
 
@@ -1401,9 +1403,9 @@ show_date_time();
 
   
 
-<!--动态背景>  <-->
+<!--动态背景>
  <script type="text/javascript" src="/kxinter.gitub.io/lib/canvas-nest/canvas-nest.min.js"></script> 
-
+  <-->
  </body>
 </html>
 <script type="text/javascript" src="/kxinter.gitub.io/js/src/love.js"></script>

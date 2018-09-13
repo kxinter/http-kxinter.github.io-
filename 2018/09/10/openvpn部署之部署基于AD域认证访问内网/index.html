@@ -130,20 +130,20 @@
 
 
 
-<meta name="description" content="1 安装环境Centos6.5 openvpn2.3.11 2 步骤2.1 添加fedora的yum源1rpm -ivh http://mirrors.ustc.edu.cn/fedora/epel/6/x86_64/epel-release-6-8.noarch.rpm 2.2 安装openvpn1234567yum install openvpn -yyum -y install openss">
+<meta name="description" content="1 安装环境">
 <meta name="keywords" content="openvpn,vpn">
 <meta property="og:type" content="article">
 <meta property="og:title" content="openvpn部署之部署基于AD域认证访问内网">
 <meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/10/openvpn部署之部署基于AD域认证访问内网/index.html">
 <meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="1 安装环境Centos6.5 openvpn2.3.11 2 步骤2.1 添加fedora的yum源1rpm -ivh http://mirrors.ustc.edu.cn/fedora/epel/6/x86_64/epel-release-6-8.noarch.rpm 2.2 安装openvpn1234567yum install openvpn -yyum -y install openss">
+<meta property="og:description" content="1 安装环境">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/10/openvpn部署之部署基于AD域认证访问内网/1.png">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/10/openvpn部署之部署基于AD域认证访问内网/2.png">
-<meta property="og:updated_time" content="2018-09-12T06:45:24.279Z">
+<meta property="og:updated_time" content="2018-09-13T02:32:08.604Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="openvpn部署之部署基于AD域认证访问内网">
-<meta name="twitter:description" content="1 安装环境Centos6.5 openvpn2.3.11 2 步骤2.1 添加fedora的yum源1rpm -ivh http://mirrors.ustc.edu.cn/fedora/epel/6/x86_64/epel-release-6-8.noarch.rpm 2.2 安装openvpn1234567yum install openvpn -yyum -y install openss">
+<meta name="twitter:description" content="1 安装环境">
 <meta name="twitter:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/10/openvpn部署之部署基于AD域认证访问内网/1.png">
 
 
@@ -398,8 +398,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-12T14:45:24+08:00">
-                2018-09-12
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-13T10:32:08+08:00">
+                2018-09-13
               </time>
             
           </span>
@@ -490,7 +490,8 @@
       
 
       
-        <h1 id="1-安装环境"><a href="#1-安装环境" class="headerlink" title="1 安装环境"></a>1 安装环境</h1><p>Centos6.5</p>
+        <h1 id="1-安装环境"><a href="#1-安装环境" class="headerlink" title="1 安装环境"></a>1 安装环境</h1><a id="more"></a>
+<p>Centos6.5</p>
 <p>openvpn2.3.11</p>
 <h1 id="2-步骤"><a href="#2-步骤" class="headerlink" title="2 步骤"></a>2 步骤</h1><h2 id="2-1-添加fedora的yum源"><a href="#2-1-添加fedora的yum源" class="headerlink" title="2.1 添加fedora的yum源"></a>2.1 添加fedora的yum源</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh http:<span class="regexp">//mi</span>rrors.ustc.edu.cn<span class="regexp">/fedora/</span>epel<span class="regexp">/6/</span>x86_64<span class="regexp">/epel-release-6-8.noarch.rpm</span></span><br></pre></td></tr></table></figure>
 <h2 id="2-2-安装openvpn"><a href="#2-2-安装openvpn" class="headerlink" title="2.2 安装openvpn"></a>2.2 安装openvpn</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> openvpn -y</span><br><span class="line"></span><br><span class="line">yum -y <span class="keyword">install</span> openssl openssl-devel -y </span><br><span class="line"></span><br><span class="line">yum -y <span class="keyword">install</span> lzo lzo-devel  -y </span><br><span class="line"></span><br><span class="line">yum <span class="keyword">install</span> -y libgcrypt libgpg-<span class="keyword">error</span> libgcrypt-devel</span><br></pre></td></tr></table></figure>
@@ -565,7 +566,7 @@
   <p><span>本文标题:</span><a href="/kxinter.gitub.io/2018/09/10/openvpn部署之部署基于AD域认证访问内网/">openvpn部署之部署基于AD域认证访问内网</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2018年09月10日 - 14:09</p>
-  <p><span>最后更新:</span>2018年09月12日 - 14:09</p>
+  <p><span>最后更新:</span>2018年09月13日 - 10:09</p>
   <p><span>原始链接:</span><a href="/kxinter.gitub.io/2018/09/10/openvpn部署之部署基于AD域认证访问内网/" title="openvpn部署之部署基于AD域认证访问内网">https://kxinter.github.io/kxinter.gitub.io/2018/09/10/openvpn部署之部署基于AD域认证访问内网/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/kxinter.gitub.io/2018/09/10/openvpn部署之部署基于AD域认证访问内网/"  aria-label="复制成功！"></i></span>
   </p>
@@ -744,7 +745,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -945,7 +946,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">80.1k</span>
+    <span title="Site words total count">80.3k</span>
   
 </div>
 
@@ -1468,9 +1469,9 @@ show_date_time();
 
   
 
-<!--动态背景>  <-->
+<!--动态背景>
  <script type="text/javascript" src="/kxinter.gitub.io/lib/canvas-nest/canvas-nest.min.js"></script> 
-
+  <-->
  </body>
 </html>
 <script type="text/javascript" src="/kxinter.gitub.io/js/src/love.js"></script>

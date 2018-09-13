@@ -130,13 +130,13 @@
 
 
 
-<meta name="description" content="一、安装前的准备1、关闭防火墙或者开端口权限。一般是firewalld或者iptables。12$ systemctl stop firewalld$ systemctl disable firewalld">
+<meta name="description" content="一、安装前的准备">
 <meta name="keywords" content="部署,vsftp,ftp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vsftp部署">
 <meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/vsftp部署/index.html">
 <meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="一、安装前的准备1、关闭防火墙或者开端口权限。一般是firewalld或者iptables。12$ systemctl stop firewalld$ systemctl disable firewalld">
+<meta property="og:description" content="一、安装前的准备">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/vsftp部署/1.png">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/vsftp部署/2.png">
@@ -149,10 +149,10 @@
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/vsftp部署/9.png">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/vsftp部署/10.png">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/vsftp部署/11.png">
-<meta property="og:updated_time" content="2018-08-27T08:16:03.043Z">
+<meta property="og:updated_time" content="2018-09-13T02:35:30.780Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vsftp部署">
-<meta name="twitter:description" content="一、安装前的准备1、关闭防火墙或者开端口权限。一般是firewalld或者iptables。12$ systemctl stop firewalld$ systemctl disable firewalld">
+<meta name="twitter:description" content="一、安装前的准备">
 <meta name="twitter:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/16/vsftp部署/1.png">
 
 
@@ -407,8 +407,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-27T16:16:03+08:00">
-                2018-08-27
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-13T10:35:30+08:00">
+                2018-09-13
               </time>
             
           </span>
@@ -499,8 +499,9 @@
       
 
       
-        <h1 id="一、安装前的准备"><a href="#一、安装前的准备" class="headerlink" title="一、安装前的准备"></a>一、安装前的准备</h1><h2 id="1、关闭防火墙或者开端口权限。一般是firewalld或者iptables。"><a href="#1、关闭防火墙或者开端口权限。一般是firewalld或者iptables。" class="headerlink" title="1、关闭防火墙或者开端口权限。一般是firewalld或者iptables。"></a>1、关闭防火墙或者开端口权限。一般是firewalld或者iptables。</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl stop firewalld</span><br><span class="line">$ systemctl <span class="built_in">disable</span> firewalld</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
+        <h1 id="一、安装前的准备"><a href="#一、安装前的准备" class="headerlink" title="一、安装前的准备"></a>一、安装前的准备</h1><a id="more"></a>
+<h2 id="1、关闭防火墙或者开端口权限。一般是firewalld或者iptables。"><a href="#1、关闭防火墙或者开端口权限。一般是firewalld或者iptables。" class="headerlink" title="1、关闭防火墙或者开端口权限。一般是firewalld或者iptables。"></a>1、关闭防火墙或者开端口权限。一般是firewalld或者iptables。</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl stop firewalld</span><br><span class="line">$ systemctl <span class="built_in">disable</span> firewalld</span><br></pre></td></tr></table></figure>
+<!--more-->
 <p>防火墙配置</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">如果开启防火墙，请开放<span class="number">21</span>端口，被动模式下设置最大和最小端口范围，并在防火墙开放端口范围。</span><br><span class="line"></span><br><span class="line">修改vsftpd.conf文件，添加</span><br><span class="line"></span><br><span class="line">pasv_min_port=<span class="number">8022</span>          <span class="comment">#最小端口</span></span><br><span class="line">pasv_max_port=<span class="number">8030</span>         <span class="comment">#最大端口</span></span><br><span class="line">pasv_promiscuous=YES      <span class="comment">#开启pasv（被动模式）</span></span><br><span class="line"></span><br><span class="line">放开<span class="number">21</span>端口：firewall-<span class="keyword">cmd</span><span class="bash"> –zone=public –add-port=21/tcp –permanent</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">放开8022-8030端口：firewall-cmd –zone=public –add-port=8022-8030/tcp –permanent</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">重新加载防火墙：firewall-cmd –reload</span></span><br><span class="line"><span class="bash">可能用到的命令：</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">永久开放 ftp 服務：firewall-cmd –add-service=ftp –permanent (关闭ftp服务：firewall-cmd –remove-service=ftp –permanent) （验证不起作用）</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">systemctl start firewalld 启动防火墙服务</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">firewall-cmd –add-service=ftp 暂时开放ftp服务</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">firewall-cmd –add-service=ftp –permanent永久开放ftp服務</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">firewall-cmd –remove-service=ftp –permanent永久关闭ftp服務</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">systemctl restart firewalld 重启firewalld服务</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">firewall-cmd –reload 重载配置文件</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">firewall-cmd –query-service ftp查看服务的启动状态</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">firewall-cmd –list-all    显示防火墙应用列表</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">firewall-cmd –add-port=8001/tcp    添加自定义的开放端口</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">iptables -L -n | grep 21 查看设定是否生效</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">firewall-cmd –state 检测防火墙状态</span></span><br></pre></td></tr></table></figure>
 <h2 id="2、关闭sellinux"><a href="#2、关闭sellinux" class="headerlink" title="2、关闭sellinux"></a>2、关闭sellinux</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 临时关闭</span></span><br><span class="line">$ setenforce 0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 永久关闭</span></span><br><span class="line">$ vi /etc/selinux/config</span><br><span class="line">修改</span><br><span class="line">SELINUX=disabled</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看是否关闭</span></span><br><span class="line">$ getenforce</span><br></pre></td></tr></table></figure>
@@ -736,7 +737,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -937,7 +938,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">80.1k</span>
+    <span title="Site words total count">80.3k</span>
   
 </div>
 
@@ -1460,9 +1461,9 @@ show_date_time();
 
   
 
-<!--动态背景>  <-->
+<!--动态背景>
  <script type="text/javascript" src="/kxinter.gitub.io/lib/canvas-nest/canvas-nest.min.js"></script> 
-
+  <-->
  </body>
 </html>
 <script type="text/javascript" src="/kxinter.gitub.io/js/src/love.js"></script>

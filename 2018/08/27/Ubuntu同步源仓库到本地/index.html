@@ -130,18 +130,18 @@
 
 
 
-<meta name="description" content="1 步骤1.1 安装apt-mirror1sudo apt-get install apt-mirro">
+<meta name="description" content="1 步骤">
 <meta name="keywords" content="基础运维,私有仓库,ubuntu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ubuntu同步源仓库到本地">
 <meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/27/Ubuntu同步源仓库到本地/index.html">
 <meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="1 步骤1.1 安装apt-mirror1sudo apt-get install apt-mirro">
+<meta property="og:description" content="1 步骤">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-05T09:55:29.188Z">
+<meta property="og:updated_time" content="2018-09-13T02:31:11.351Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ubuntu同步源仓库到本地">
-<meta name="twitter:description" content="1 步骤1.1 安装apt-mirror1sudo apt-get install apt-mirro">
+<meta name="twitter:description" content="1 步骤">
 
 
 
@@ -395,8 +395,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-05T17:55:29+08:00">
-                2018-09-05
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-13T10:31:11+08:00">
+                2018-09-13
               </time>
             
           </span>
@@ -487,8 +487,8 @@
       
 
       
-        <h1 id="1-步骤"><a href="#1-步骤" class="headerlink" title="1 步骤"></a>1 步骤</h1><h2 id="1-1-安装apt-mirror"><a href="#1-1-安装apt-mirror" class="headerlink" title="1.1 安装apt-mirror"></a>1.1 安装apt-mirror</h2><figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> install apt-mirro</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
+        <h1 id="1-步骤"><a href="#1-步骤" class="headerlink" title="1 步骤"></a>1 步骤</h1><a id="more"></a>
+<h2 id="1-1-安装apt-mirror"><a href="#1-1-安装apt-mirror" class="headerlink" title="1.1 安装apt-mirror"></a>1.1 安装apt-mirror</h2><figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> install apt-mirro</span><br></pre></td></tr></table></figure>
 <h2 id="1-2-创建下载目录"><a href="#1-2-创建下载目录" class="headerlink" title="1.2 创建下载目录"></a>1.2 创建下载目录</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#路径自定义</span></span><br><span class="line"><span class="keyword">...</span>/ubuntu</span><br><span class="line"><span class="keyword">...</span>/ubuntu/mirror</span><br><span class="line"><span class="keyword">...</span>/ubuntu/skel</span><br><span class="line"><span class="keyword">...</span>/ubuntu/var</span><br></pre></td></tr></table></figure>
 <h2 id="1-3-修改配置文件"><a href="#1-3-修改配置文件" class="headerlink" title="1.3 修改配置文件"></a>1.3 修改配置文件</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="keyword">vi</span> /etc/apt/mirror.<span class="keyword">list</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">############# config ##################</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="string">set </span><span class="string">base_path </span>   /<span class="string">home/</span><span class="string">packages/</span><span class="string">ubuntu</span></span><br><span class="line"><span class="string">#</span></span><br><span class="line"><span class="string">set </span><span class="string">mirror_path </span> $<span class="string">base_path/</span><span class="string">mirror</span></span><br><span class="line"><span class="string">set </span><span class="string">skel_path </span>   $<span class="string">base_path/</span><span class="string">skel</span></span><br><span class="line"><span class="string">set </span><span class="string">var_path </span>    $<span class="string">base_path/</span><span class="string">var</span></span><br><span class="line"><span class="string">set </span><span class="string">cleanscript </span>$<span class="string">var_path/</span><span class="string">clean.</span><span class="string">sh</span></span><br><span class="line"><span class="string">set </span><span class="string">nthreads </span>    <span class="string">20</span></span><br><span class="line"><span class="string">set </span><span class="string">_tilde </span>0</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">############# end config ##############</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#deb http://archive.ubuntu.com/ubuntu trusty main restricted universe multiverse</span></span><br><span class="line"><span class="comment">#deb http://archive.ubuntu.com/ubuntu trusty-security main restricted universe multiverse</span></span><br><span class="line"><span class="comment">#deb http://archive.ubuntu.com/ubuntu trusty-updates main restricted universe multiverse</span></span><br><span class="line"><span class="comment">#deb http://archive.ubuntu.com/ubuntu trusty-proposed main restricted universe multiverse</span></span><br><span class="line"><span class="comment">#deb http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe multiverse</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#deb-src http://archive.ubuntu.com/ubuntu trusty main restricted universe multiverse</span></span><br><span class="line"><span class="comment">#deb-src http://archive.ubuntu.com/ubuntu trusty-security main restricted universe multiverse</span></span><br><span class="line"><span class="comment">#deb-src http://archive.ubuntu.com/ubuntu trusty-updates main restricted universe multiverse</span></span><br><span class="line"><span class="comment">#deb-src http://archive.ubuntu.com/ubuntu trusty-proposed main restricted universe multiverse</span></span><br><span class="line"><span class="comment">#deb-src http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe multiverse</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#clean http://archive.ubuntu.com/ubuntu</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#自定义</span></span><br><span class="line"><span class="comment">#参考以下配置文件：</span></span><br><span class="line"><span class="comment">#清空原有的配置文件，直接使用以下配置文件即可</span></span><br><span class="line"></span><br><span class="line"><span class="comment">############# config ##################</span></span><br><span class="line"><span class="comment"># 以下注释的内容都是默认配置，如果需要自定义，取消注释修改即可</span></span><br><span class="line"><span class="comment">#set base_path /var/spool/apt-mirror</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 镜像文件下载地址</span></span><br><span class="line"><span class="comment"># set mirror_path $base_path/mirror</span></span><br><span class="line"><span class="comment"># 临时索引下载文件目录，也就是存放软件仓库的dists目录下的文件（默认即可）</span></span><br><span class="line"><span class="comment"># set skel_path $base_path/skel</span></span><br><span class="line"><span class="comment"># 配置日志（默认即可）</span></span><br><span class="line"><span class="comment"># set var_path $base_path/var</span></span><br><span class="line"><span class="comment"># clean脚本位置</span></span><br><span class="line"><span class="comment"># set cleanscript $var_path/clean.sh</span></span><br><span class="line"><span class="comment"># 架构配置，i386/amd64，默认的话会下载跟本机相同的架构的源</span></span><br><span class="line"><span class="comment">#set defaultarch amd64</span></span><br><span class="line"><span class="comment"># set postmirror_script $var_path/postmirror.sh</span></span><br><span class="line"><span class="comment"># set run_postmirror 0</span></span><br><span class="line"><span class="comment"># 下载线程数</span></span><br><span class="line"><span class="comment">#set nthreads 20</span></span><br><span class="line"><span class="comment">#set _tilde 0</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">############# end config ##############</span></span><br><span class="line"><span class="comment"># Ali yun（这里没有添加deb-src的源）</span></span><br><span class="line"><span class="comment">#我们把常用的软件同步过来就够用了</span></span><br><span class="line"><span class="string">deb </span><span class="string">http:</span>//<span class="string">mirrors.</span><span class="string">aliyun.</span><span class="string">com/</span><span class="string">ubuntu/</span> <span class="string">trusty </span><span class="string">main </span><span class="string">restricted </span><span class="string">universe </span><span class="string">multiverse</span></span><br><span class="line"><span class="string">deb </span><span class="string">http:</span>//<span class="string">mirrors.</span><span class="string">aliyun.</span><span class="string">com/</span><span class="string">ubuntu/</span> <span class="string">trusty-security </span><span class="string">main </span><span class="string">restricted </span><span class="string">universe </span><span class="string">multiverse</span></span><br><span class="line"><span class="string">deb </span><span class="string">http:</span>//<span class="string">mirrors.</span><span class="string">aliyun.</span><span class="string">com/</span><span class="string">ubuntu/</span> <span class="string">trusty-updates </span><span class="string">main </span><span class="string">restricted </span><span class="string">universe </span><span class="string">multiverse</span></span><br><span class="line"><span class="string">deb </span><span class="string">http:</span>//<span class="string">mirrors.</span><span class="string">aliyun.</span><span class="string">com/</span><span class="string">ubuntu/</span> <span class="string">trusty-proposed </span><span class="string">main </span><span class="string">restricted </span><span class="string">universe </span><span class="string">multiverse</span></span><br><span class="line"><span class="string">deb </span><span class="string">http:</span>//<span class="string">mirrors.</span><span class="string">aliyun.</span><span class="string">com/</span><span class="string">ubuntu/</span> <span class="string">trusty-backports </span><span class="string">main </span><span class="string">restricted </span><span class="string">universe </span><span class="string">multiverse</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">#</span>当某些软件包在服务器端进行了升级，或者服务器端不再需要这些软件包时，我们使用了 <span class="string">apt-mirror与</span>服务器同步后，会在本地的$<span class="string">var_path/</span>下生成一个<span class="string">clean.</span><span class="string">sh的</span>脚本，列出了遗留在本地的旧版本和无用的软件包，你可 以手动运行这个脚本来删除遗留在本地的且不需要用的软件包</span><br><span class="line"><span class="string">clean </span><span class="string">http:</span>//<span class="string">mirrors.</span><span class="string">aliyun.</span><span class="string">com/</span><span class="string">ubuntu</span></span><br></pre></td></tr></table></figure>
@@ -528,7 +528,7 @@
   <p><span>本文标题:</span><a href="/kxinter.gitub.io/2018/08/27/Ubuntu同步源仓库到本地/">Ubuntu同步源仓库到本地</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2018年08月27日 - 16:08</p>
-  <p><span>最后更新:</span>2018年09月05日 - 17:09</p>
+  <p><span>最后更新:</span>2018年09月13日 - 10:09</p>
   <p><span>原始链接:</span><a href="/kxinter.gitub.io/2018/08/27/Ubuntu同步源仓库到本地/" title="Ubuntu同步源仓库到本地">https://kxinter.github.io/kxinter.gitub.io/2018/08/27/Ubuntu同步源仓库到本地/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/kxinter.gitub.io/2018/08/27/Ubuntu同步源仓库到本地/"  aria-label="复制成功！"></i></span>
   </p>
@@ -709,7 +709,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -910,7 +910,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">80.1k</span>
+    <span title="Site words total count">80.3k</span>
   
 </div>
 
@@ -1433,9 +1433,9 @@ show_date_time();
 
   
 
-<!--动态背景>  <-->
+<!--动态背景>
  <script type="text/javascript" src="/kxinter.gitub.io/lib/canvas-nest/canvas-nest.min.js"></script> 
-
+  <-->
  </body>
 </html>
 <script type="text/javascript" src="/kxinter.gitub.io/js/src/love.js"></script>

@@ -130,18 +130,18 @@
 
 
 
-<meta name="description" content="1 本地源的制作1.1 安装所需软件包1sudo apt-get install  dpkg-dev">
+<meta name="description" content="1 本地源的制作">
 <meta name="keywords" content="基础运维,私有仓库,部署,ubuntu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ubuntu部署本地源仓库">
 <meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/27/Ubuntu部署本地源仓库/index.html">
 <meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="1 本地源的制作1.1 安装所需软件包1sudo apt-get install  dpkg-dev">
+<meta property="og:description" content="1 本地源的制作">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-05T09:55:16.918Z">
+<meta property="og:updated_time" content="2018-09-13T02:31:05.463Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ubuntu部署本地源仓库">
-<meta name="twitter:description" content="1 本地源的制作1.1 安装所需软件包1sudo apt-get install  dpkg-dev">
+<meta name="twitter:description" content="1 本地源的制作">
 
 
 
@@ -395,8 +395,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-05T17:55:16+08:00">
-                2018-09-05
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-13T10:31:05+08:00">
+                2018-09-13
               </time>
             
           </span>
@@ -487,8 +487,8 @@
       
 
       
-        <h1 id="1-本地源的制作"><a href="#1-本地源的制作" class="headerlink" title="1 本地源的制作"></a>1 本地源的制作</h1><h2 id="1-1-安装所需软件包"><a href="#1-1-安装所需软件包" class="headerlink" title="1.1 安装所需软件包"></a>1.1 安装所需软件包</h2><figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install  dpkg-<span class="built_in">dev</span></span><br></pre></td></tr></table></figure>
-<a id="more"></a>
+        <h1 id="1-本地源的制作"><a href="#1-本地源的制作" class="headerlink" title="1 本地源的制作"></a>1 本地源的制作</h1><a id="more"></a>
+<h2 id="1-1-安装所需软件包"><a href="#1-1-安装所需软件包" class="headerlink" title="1.1 安装所需软件包"></a>1.1 安装所需软件包</h2><figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install  dpkg-<span class="built_in">dev</span></span><br></pre></td></tr></table></figure>
 <h2 id="1-2-打包deb软件包"><a href="#1-2-打包deb软件包" class="headerlink" title="1.2 打包deb软件包"></a>1.2 打包deb软件包</h2><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#加上-d参数，只下载安装包，不安装及解压。</span></span><br><span class="line">sudo apt-<span class="keyword">get</span>  install -d nginx</span><br></pre></td></tr></table></figure>
 <p>将/var/cache/apt/archives/下的所有deb文件拷到/home/packages/下的Natty目录中：/home/packages/Natty，拷贝前建议执行一下:</p>
 <figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#autoclean - 删除已下载的旧包文件</span></span><br><span class="line">sudo apt-<span class="keyword">get</span> autoclean</span><br></pre></td></tr></table></figure>
@@ -544,7 +544,7 @@
   <p><span>本文标题:</span><a href="/kxinter.gitub.io/2018/08/27/Ubuntu部署本地源仓库/">Ubuntu部署本地源仓库</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2018年08月27日 - 17:08</p>
-  <p><span>最后更新:</span>2018年09月05日 - 17:09</p>
+  <p><span>最后更新:</span>2018年09月13日 - 10:09</p>
   <p><span>原始链接:</span><a href="/kxinter.gitub.io/2018/08/27/Ubuntu部署本地源仓库/" title="Ubuntu部署本地源仓库">https://kxinter.github.io/kxinter.gitub.io/2018/08/27/Ubuntu部署本地源仓库/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/kxinter.gitub.io/2018/08/27/Ubuntu部署本地源仓库/"  aria-label="复制成功！"></i></span>
   </p>
@@ -727,7 +727,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -928,7 +928,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">80.1k</span>
+    <span title="Site words total count">80.3k</span>
   
 </div>
 
@@ -1451,9 +1451,9 @@ show_date_time();
 
   
 
-<!--动态背景>  <-->
+<!--动态背景>
  <script type="text/javascript" src="/kxinter.gitub.io/lib/canvas-nest/canvas-nest.min.js"></script> 
-
+  <-->
  </body>
 </html>
 <script type="text/javascript" src="/kxinter.gitub.io/js/src/love.js"></script>

@@ -130,18 +130,18 @@
 
 
 
-<meta name="description" content="有时虚拟机创建后发现虚拟机规格太小，满足不了业务需求。于是需要在线拉伸虚拟机的规格。  1、用admin用户登录dashboard，创建满足需求的虚拟机规格">
+<meta name="description" content="有时虚拟机创建后发现虚拟机规格太小，满足不了业务需求。于是需要在线拉伸虚拟机的规格。">
 <meta name="keywords" content="openstack">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Openstack调整实例大小_冷迁移">
 <meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/28/Openstack调整实例大小-冷迁移/index.html">
 <meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="有时虚拟机创建后发现虚拟机规格太小，满足不了业务需求。于是需要在线拉伸虚拟机的规格。  1、用admin用户登录dashboard，创建满足需求的虚拟机规格">
+<meta property="og:description" content="有时虚拟机创建后发现虚拟机规格太小，满足不了业务需求。于是需要在线拉伸虚拟机的规格。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-28T08:36:08.889Z">
+<meta property="og:updated_time" content="2018-09-13T02:34:09.545Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Openstack调整实例大小_冷迁移">
-<meta name="twitter:description" content="有时虚拟机创建后发现虚拟机规格太小，满足不了业务需求。于是需要在线拉伸虚拟机的规格。  1、用admin用户登录dashboard，创建满足需求的虚拟机规格">
+<meta name="twitter:description" content="有时虚拟机创建后发现虚拟机规格太小，满足不了业务需求。于是需要在线拉伸虚拟机的规格。">
 
 
 
@@ -395,8 +395,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-28T16:36:08+08:00">
-                2018-08-28
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-13T10:34:09+08:00">
+                2018-09-13
               </time>
             
           </span>
@@ -488,9 +488,9 @@
 
       
         <blockquote>
-<p>有时虚拟机创建后发现虚拟机规格太小，满足不了业务需求。于是需要在线拉伸虚拟机的规格。</p>
+<p>有时虚拟机创建后发现虚拟机规格太小，满足不了业务需求。于是需要在线拉伸虚拟机的规格。<br><a id="more"></a><br>1、用admin用户登录dashboard，创建满足需求的虚拟机规格</p>
 </blockquote>
-<p>1、用admin用户登录dashboard，创建满足需求的虚拟机规格<br><a id="more"></a><br>2、输入适当的参数</p>
+<p>2、输入适当的参数</p>
 <p>3、修改controller和各个computer节点的nova.cnf文件，打开下面两个参数</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">allow_resize_to_same_host</span>=<span class="literal">True</span> </span><br><span class="line"><span class="attr">scheduler_default_filters</span>=RetryFilter,AvailabilityZoneFilter,RamFilter,ComputeFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter,ServerGroupAntiAffinityFilter,ServerGroupAffinityFilter</span><br></pre></td></tr></table></figure>
 <p>4、重启控制节点nova服务</p>
@@ -666,7 +666,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -851,7 +851,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">80.1k</span>
+    <span title="Site words total count">80.3k</span>
   
 </div>
 
@@ -1374,9 +1374,9 @@ show_date_time();
 
   
 
-<!--动态背景>  <-->
+<!--动态背景>
  <script type="text/javascript" src="/kxinter.gitub.io/lib/canvas-nest/canvas-nest.min.js"></script> 
-
+  <-->
  </body>
 </html>
 <script type="text/javascript" src="/kxinter.gitub.io/js/src/love.js"></script>

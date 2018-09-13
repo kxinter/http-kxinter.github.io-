@@ -130,13 +130,13 @@
 
 
 
-<meta name="description" content="1 环境要求将所有的服务器的日志都集中保存在一台rsyslog日志服务器中，mysql作为数据库，loganalyzer将服务器的日志数据进行分析展现，evtsys是windows服务器提交日志的客户端软件。 实验环境如下：    节点 OS IP 网络     rsyslog Server Centos6.4 192.168.200.106 单网卡   Linux Client Centos6.">
+<meta name="description" content="1 环境要求">
 <meta name="keywords" content="log,rsyslog">
 <meta property="og:type" content="article">
 <meta property="og:title" content="rsyslog+loganalyzer+evtsys搭建日志服务器">
 <meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/07/rsyslog-loganalyzer-evtsys搭建日志服务器/index.html">
 <meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="1 环境要求将所有的服务器的日志都集中保存在一台rsyslog日志服务器中，mysql作为数据库，loganalyzer将服务器的日志数据进行分析展现，evtsys是windows服务器提交日志的客户端软件。 实验环境如下：    节点 OS IP 网络     rsyslog Server Centos6.4 192.168.200.106 单网卡   Linux Client Centos6.">
+<meta property="og:description" content="1 环境要求">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/07/rsyslog-loganalyzer-evtsys搭建日志服务器/1.png">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/07/rsyslog-loganalyzer-evtsys搭建日志服务器/2.png">
@@ -149,10 +149,10 @@
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/07/rsyslog-loganalyzer-evtsys搭建日志服务器/9.png">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/07/rsyslog-loganalyzer-evtsys搭建日志服务器/10.png">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/07/rsyslog-loganalyzer-evtsys搭建日志服务器/11.png">
-<meta property="og:updated_time" content="2018-09-07T07:25:48.898Z">
+<meta property="og:updated_time" content="2018-09-13T02:32:31.086Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="rsyslog+loganalyzer+evtsys搭建日志服务器">
-<meta name="twitter:description" content="1 环境要求将所有的服务器的日志都集中保存在一台rsyslog日志服务器中，mysql作为数据库，loganalyzer将服务器的日志数据进行分析展现，evtsys是windows服务器提交日志的客户端软件。 实验环境如下：    节点 OS IP 网络     rsyslog Server Centos6.4 192.168.200.106 单网卡   Linux Client Centos6.">
+<meta name="twitter:description" content="1 环境要求">
 <meta name="twitter:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/07/rsyslog-loganalyzer-evtsys搭建日志服务器/1.png">
 
 
@@ -407,8 +407,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T15:25:48+08:00">
-                2018-09-07
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-13T10:32:31+08:00">
+                2018-09-13
               </time>
             
           </span>
@@ -499,7 +499,8 @@
       
 
       
-        <h1 id="1-环境要求"><a href="#1-环境要求" class="headerlink" title="1 环境要求"></a>1 环境要求</h1><p>将所有的服务器的日志都集中保存在一台rsyslog日志服务器中，mysql作为数据库，loganalyzer将服务器的日志数据进行分析展现，evtsys是windows服务器提交日志的客户端软件。</p>
+        <h1 id="1-环境要求"><a href="#1-环境要求" class="headerlink" title="1 环境要求"></a>1 环境要求</h1><a id="more"></a>
+<p>将所有的服务器的日志都集中保存在一台rsyslog日志服务器中，mysql作为数据库，loganalyzer将服务器的日志数据进行分析展现，evtsys是windows服务器提交日志的客户端软件。</p>
 <p>实验环境如下：</p>
 <table>
 <thead>
@@ -531,7 +532,7 @@
 </tr>
 </tbody>
 </table>
-<a id="more"></a>
+<!--more-->
 <h1 id="2-rsyslog-loganalyzer日志服务器的部署"><a href="#2-rsyslog-loganalyzer日志服务器的部署" class="headerlink" title="2 rsyslog+loganalyzer日志服务器的部署"></a>2 rsyslog+loganalyzer日志服务器的部署</h1><h2 id="2-1-配置rsyslog日志服务器"><a href="#2-1-配置rsyslog日志服务器" class="headerlink" title="2.1 配置rsyslog日志服务器"></a>2.1 配置rsyslog日志服务器</h2><p>因为<code>rsyslog</code>要把日志存到<code>mysql</code>中，所以要有<code>mysql</code>服务器，还要有<code>rsyslog</code>配置文件加载。</p>
 <h3 id="2-1-1-连接mysql的模块"><a href="#2-1-1-连接mysql的模块" class="headerlink" title="2.1.1 连接mysql的模块"></a>2.1.1 连接mysql的模块</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[iyunv<span class="variable">@rsyslog</span> ~]<span class="comment"># yum -y install rsyslog mysql-server   rsyslog-mysql</span></span><br></pre></td></tr></table></figure>
 <h3 id="2-1-2-配置数据库"><a href="#2-1-2-配置数据库" class="headerlink" title="2.1.2 配置数据库"></a>2.1.2 配置数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">[iyunv@rsyslog ~]#   rpm -ql rsyslog-mysql            #首先查看rsyslog-mysql安装生成了那些文件</span><br><span class="line">/lib64/rsyslog/ommysql.so</span><br><span class="line">/usr/share/doc/rsyslog-mysql-5.8.10</span><br><span class="line">/usr/share/doc/rsyslog-mysql-5.8.10/createDB.sql   #此sql文件就是需要导入到数据库中的数据文件</span><br><span class="line">#</span><br><span class="line">[iyunv@rsyslog ~]# service mysqld start               #启动mysqld服务</span><br><span class="line">[iyunv@rsyslog ~]# mysql                              #连接mysql</span><br><span class="line">Welcome to the MySQL monitor.  Commands <span class="keyword">end</span> <span class="keyword">with</span> ; or g.</span><br><span class="line">Your MySQL connection id is 2</span><br><span class="line">Server version: 5.1.73 Source distribution</span><br><span class="line">Copyright (c) 2000, 2013, Oracle and/or its affiliates. All rights reserved.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type '<span class="keyword">help</span>;' or 'h' for help. <span class="keyword">Type</span> <span class="string">'c'</span> <span class="keyword">to</span> <span class="keyword">clear</span> the <span class="keyword">current</span> <span class="keyword">input</span> statement.</span><br><span class="line"></span><br><span class="line">mysql&gt;</span><br><span class="line">mysql&gt;</span><br><span class="line">mysql&gt; <span class="keyword">show</span> <span class="keyword">databases</span>;</span><br><span class="line">+<span class="comment">--------------------+</span></span><br><span class="line">| Database           |</span><br><span class="line">+<span class="comment">--------------------+</span></span><br><span class="line">| information_schema |</span><br><span class="line">| mysql              |</span><br><span class="line">| test               |</span><br><span class="line">+<span class="comment">--------------------+</span></span><br><span class="line">3 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)  #此时，只有<span class="number">3</span>个库</span><br><span class="line">#</span><br><span class="line">mysql&gt; source /usr/share/doc/rsyslog-mysql-5.8.10/createDB.sql;     #导入rsyslog的数据文件</span><br><span class="line">mysql&gt; show databases;</span><br><span class="line">+<span class="comment">--------------------+</span></span><br><span class="line">| Database           |</span><br><span class="line">+<span class="comment">--------------------+</span></span><br><span class="line">| information_schema |</span><br><span class="line">| Syslog             |</span><br><span class="line">| mysql              |</span><br><span class="line">| test               |</span><br><span class="line">+<span class="comment">--------------------+</span></span><br><span class="line">4 rows in <span class="keyword">set</span> (<span class="number">0.01</span> sec)</span><br><span class="line">mysql&gt; use Syslog;                #Syslog即是记录日志文件的数据库</span><br><span class="line">Reading table information for completion of table and column names</span><br><span class="line">You can turn off this feature to get a quicker startup with -A</span><br><span class="line">Database changed</span><br><span class="line">mysql&gt; show tables;</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| Tables_in_Syslog       |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">| SystemEvents           |</span><br><span class="line">| SystemEventsProperties |</span><br><span class="line">+<span class="comment">------------------------+</span></span><br><span class="line">2 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line">#</span><br><span class="line">#接下来，即是为rsyslog服务器授权。此处一定是rsyslog服务器的IP</span><br><span class="line">#如果写成各服务器的IP，那就错了</span><br><span class="line">mysql&gt; <span class="keyword">grant</span> all <span class="keyword">on</span> Syslog.* <span class="keyword">to</span> <span class="string">'syslogroot'</span>@<span class="string">'127.0.0.1'</span> <span class="keyword">identified</span> <span class="keyword">by</span>   <span class="string">'syslogpass'</span>;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line">mysql&gt; grant all on Syslog.* to 'syslogroot'@'192.168.200.106' identified   by 'syslogpass';</span><br><span class="line">Query OK, 0 rows affected (0.04 sec)</span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line">mysql&gt; q</span><br><span class="line">Bye</span><br></pre></td></tr></table></figure>
@@ -593,7 +594,7 @@
   <p><span>本文标题:</span><a href="/kxinter.gitub.io/2018/09/07/rsyslog-loganalyzer-evtsys搭建日志服务器/">rsyslog+loganalyzer+evtsys搭建日志服务器</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2018年09月07日 - 15:09</p>
-  <p><span>最后更新:</span>2018年09月07日 - 15:09</p>
+  <p><span>最后更新:</span>2018年09月13日 - 10:09</p>
   <p><span>原始链接:</span><a href="/kxinter.gitub.io/2018/09/07/rsyslog-loganalyzer-evtsys搭建日志服务器/" title="rsyslog+loganalyzer+evtsys搭建日志服务器">https://kxinter.github.io/kxinter.gitub.io/2018/09/07/rsyslog-loganalyzer-evtsys搭建日志服务器/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/kxinter.gitub.io/2018/09/07/rsyslog-loganalyzer-evtsys搭建日志服务器/"  aria-label="复制成功！"></i></span>
   </p>
@@ -772,7 +773,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -973,7 +974,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">80.1k</span>
+    <span title="Site words total count">80.3k</span>
   
 </div>
 
@@ -1496,9 +1497,9 @@ show_date_time();
 
   
 
-<!--动态背景>  <-->
+<!--动态背景>
  <script type="text/javascript" src="/kxinter.gitub.io/lib/canvas-nest/canvas-nest.min.js"></script> 
-
+  <-->
  </body>
 </html>
 <script type="text/javascript" src="/kxinter.gitub.io/js/src/love.js"></script>

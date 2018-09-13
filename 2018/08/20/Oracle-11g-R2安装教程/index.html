@@ -130,13 +130,13 @@
 
 
 
-<meta name="description" content="一、安装Oracle前准备1.创建运行oracle数据库的系统用户和用户组">
+<meta name="description" content="一、安装Oracle前准备">
 <meta name="keywords" content="部署,oracle">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Oracle-11g-R2安装教程">
 <meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/20/Oracle-11g-R2安装教程/index.html">
 <meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="一、安装Oracle前准备1.创建运行oracle数据库的系统用户和用户组">
+<meta property="og:description" content="一、安装Oracle前准备">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/20/Oracle-11g-R2安装教程/1.png">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/20/Oracle-11g-R2安装教程/2.png">
@@ -152,10 +152,10 @@
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/20/Oracle-11g-R2安装教程/14.png">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/20/Oracle-11g-R2安装教程/15.png">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/20/Oracle-11g-R2安装教程/16.png">
-<meta property="og:updated_time" content="2018-08-27T08:15:41.382Z">
+<meta property="og:updated_time" content="2018-09-13T02:35:39.203Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Oracle-11g-R2安装教程">
-<meta name="twitter:description" content="一、安装Oracle前准备1.创建运行oracle数据库的系统用户和用户组">
+<meta name="twitter:description" content="一、安装Oracle前准备">
 <meta name="twitter:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/20/Oracle-11g-R2安装教程/1.png">
 
 
@@ -410,8 +410,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-27T16:15:41+08:00">
-                2018-08-27
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-13T10:35:39+08:00">
+                2018-09-13
               </time>
             
           </span>
@@ -502,8 +502,8 @@
       
 
       
-        <h1 id="一、安装Oracle前准备"><a href="#一、安装Oracle前准备" class="headerlink" title="一、安装Oracle前准备"></a>一、安装Oracle前准备</h1><h2 id="1-创建运行oracle数据库的系统用户和用户组"><a href="#1-创建运行oracle数据库的系统用户和用户组" class="headerlink" title="1.创建运行oracle数据库的系统用户和用户组"></a>1.创建运行oracle数据库的系统用户和用户组</h2><a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[sonny@localhost ~]$ su root　　<span class="comment">#切换到root</span></span><br><span class="line">Password: </span><br><span class="line">[root@localhost sonny]<span class="comment"># groupadd oinstall　　#创建用户组oinstall</span></span><br><span class="line">[root@localhost sonny]<span class="comment"># groupadd dba　　#创建用户组dba</span></span><br><span class="line">[root@localhost sonny]<span class="comment"># useradd -g oinstall -g dba -m oracle　　#创建oracle用户，并加入到oinstall和dba用户组</span></span><br><span class="line">[root@localhost sonny]<span class="comment"># passwd oracle　　#设置用户oracle的登陆密码，不设置密码，在CentOS的图形登陆界面没法登陆</span></span><br><span class="line">Changing password <span class="keyword">for</span> user oracle.</span><br><span class="line">New password: 　　<span class="comment"># 密码</span></span><br><span class="line">BAD PASSWORD: The password is shorter than 8 characters</span><br><span class="line">Retype new password: 　　<span class="comment"># 确认密码</span></span><br><span class="line">passwd: all authentication tokens updated successfully.</span><br><span class="line">[root@localhost sonny]<span class="comment"># id oracle # 查看新建的oracle用户</span></span><br><span class="line">uid=1001(oracle) gid=1002(dba) groups=1002(dba)</span><br><span class="line">[root@localhost sonny]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+        <h1 id="一、安装Oracle前准备"><a href="#一、安装Oracle前准备" class="headerlink" title="一、安装Oracle前准备"></a>一、安装Oracle前准备</h1><a id="more"></a>
+<h2 id="1-创建运行oracle数据库的系统用户和用户组"><a href="#1-创建运行oracle数据库的系统用户和用户组" class="headerlink" title="1.创建运行oracle数据库的系统用户和用户组"></a>1.创建运行oracle数据库的系统用户和用户组</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[sonny@localhost ~]$ su root　　<span class="comment">#切换到root</span></span><br><span class="line">Password: </span><br><span class="line">[root@localhost sonny]<span class="comment"># groupadd oinstall　　#创建用户组oinstall</span></span><br><span class="line">[root@localhost sonny]<span class="comment"># groupadd dba　　#创建用户组dba</span></span><br><span class="line">[root@localhost sonny]<span class="comment"># useradd -g oinstall -g dba -m oracle　　#创建oracle用户，并加入到oinstall和dba用户组</span></span><br><span class="line">[root@localhost sonny]<span class="comment"># passwd oracle　　#设置用户oracle的登陆密码，不设置密码，在CentOS的图形登陆界面没法登陆</span></span><br><span class="line">Changing password <span class="keyword">for</span> user oracle.</span><br><span class="line">New password: 　　<span class="comment"># 密码</span></span><br><span class="line">BAD PASSWORD: The password is shorter than 8 characters</span><br><span class="line">Retype new password: 　　<span class="comment"># 确认密码</span></span><br><span class="line">passwd: all authentication tokens updated successfully.</span><br><span class="line">[root@localhost sonny]<span class="comment"># id oracle # 查看新建的oracle用户</span></span><br><span class="line">uid=1001(oracle) gid=1002(dba) groups=1002(dba)</span><br><span class="line">[root@localhost sonny]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
 <h2 id="2-创建oracle数据库安装目录"><a href="#2-创建oracle数据库安装目录" class="headerlink" title="2.创建oracle数据库安装目录"></a>2.创建oracle数据库安装目录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[sonny@localhost ~]$ su root</span><br><span class="line">Password: </span><br><span class="line">[root@localhost sonny]<span class="comment"># mkdir -p /data/oracle　　#oracle数据库安装目录</span></span><br><span class="line">[root@localhost sonny]<span class="comment"># mkdir -p /data/oraInventory　　#oracle数据库配置文件目录</span></span><br><span class="line">[root@localhost sonny]<span class="comment"># mkdir -p /data/database　　#oracle数据库软件包解压目录</span></span><br><span class="line">[root@localhost sonny]<span class="comment"># cd /data</span></span><br><span class="line">[root@localhost data]<span class="comment"># ls　　#创建完毕检查一下（强迫症）</span></span><br><span class="line">database  oracle  oraInventory</span><br><span class="line">[root@localhost data]<span class="comment"># chown -R oracle:oinstall /data/oracle　　#设置目录所有者为oinstall用户组的oracle用户</span></span><br><span class="line">[root@localhost data]<span class="comment"># chown -R oracle:oinstall /data/oraInventory</span></span><br><span class="line">[root@localhost data]<span class="comment"># chown -R oracle:oinstall /data/database</span></span><br><span class="line">[root@localhost data]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
 <h2 id="3-修改OS系统标识"><a href="#3-修改OS系统标识" class="headerlink" title="3.修改OS系统标识"></a>3.修改OS系统标识</h2><p>oracle默认不支持CentOS系统安装，Oracle Database 11g Release 2 的 OS要求参考： <a href="https://docs.oracle.com/cd/E11882_01/install.112/e47689/pre_install.htm#LADBI1106" target="_blank" rel="noopener">https://docs.oracle.com/cd/E11882_01/install.112/e47689/pre_install.htm#LADBI1106</a></p>
 <p>我安装是64位数据库，On Linux x86-64：Red Hat Enterprise Linux 7  （RHEL 7）</p>
@@ -727,7 +727,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -928,7 +928,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">80.1k</span>
+    <span title="Site words total count">80.3k</span>
   
 </div>
 
@@ -1451,9 +1451,9 @@ show_date_time();
 
   
 
-<!--动态背景>  <-->
+<!--动态背景>
  <script type="text/javascript" src="/kxinter.gitub.io/lib/canvas-nest/canvas-nest.min.js"></script> 
-
+  <-->
  </body>
 </html>
 <script type="text/javascript" src="/kxinter.gitub.io/js/src/love.js"></script>

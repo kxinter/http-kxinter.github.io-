@@ -130,21 +130,21 @@
 
 
 
-<meta name="description" content="说明：xfs格式分区无法无损缩减分区，可无损扩大分区。  一：环境概览：">
+<meta name="description" content="说明：xfs格式分区无法无损缩减分区，可无损扩大分区。">
 <meta name="keywords" content="基础运维,分区">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux调整目录分区大小，linux调整home目录大小，linux调整root目录大小(xfs格式&#x2F;LVM)">
 <meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/30/linux调整目录分区大小，linux调整home目录大小，linux调整root目录大小-xfs格式-LVM/index.html">
 <meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="说明：xfs格式分区无法无损缩减分区，可无损扩大分区。  一：环境概览：">
+<meta property="og:description" content="说明：xfs格式分区无法无损缩减分区，可无损扩大分区。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/30/linux调整目录分区大小，linux调整home目录大小，linux调整root目录大小-xfs格式-LVM/1.png">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/30/linux调整目录分区大小，linux调整home目录大小，linux调整root目录大小-xfs格式-LVM/2.png">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/30/linux调整目录分区大小，linux调整home目录大小，linux调整root目录大小-xfs格式-LVM/3.png">
-<meta property="og:updated_time" content="2018-08-30T08:41:34.454Z">
+<meta property="og:updated_time" content="2018-09-13T02:28:05.847Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux调整目录分区大小，linux调整home目录大小，linux调整root目录大小(xfs格式&#x2F;LVM)">
-<meta name="twitter:description" content="说明：xfs格式分区无法无损缩减分区，可无损扩大分区。  一：环境概览：">
+<meta name="twitter:description" content="说明：xfs格式分区无法无损缩减分区，可无损扩大分区。">
 <meta name="twitter:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/08/30/linux调整目录分区大小，linux调整home目录大小，linux调整root目录大小-xfs格式-LVM/1.png">
 
 
@@ -399,8 +399,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-30T16:41:34+08:00">
-                2018-08-30
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-13T10:28:05+08:00">
+                2018-09-13
               </time>
             
           </span>
@@ -492,9 +492,9 @@
 
       
         <blockquote>
-<p>说明：xfs格式分区无法无损缩减分区，可无损扩大分区。</p>
+<p>说明：xfs格式分区无法无损缩减分区，可无损扩大分区。<br><a id="more"></a></p>
 </blockquote>
-<h1 id="一：环境概览："><a href="#一：环境概览：" class="headerlink" title="一：环境概览："></a>一：环境概览：</h1><p><img src="1.png" alt="enter description here"><br><img src="2.png" alt="enter description here"><br><a id="more"></a></p>
+<h1 id="一：环境概览："><a href="#一：环境概览：" class="headerlink" title="一：环境概览："></a>一：环境概览：</h1><p><img src="1.png" alt="enter description here"><br><img src="2.png" alt="enter description here"><br><!--more--></p>
 <h1 id="二、操作步骤："><a href="#二、操作步骤：" class="headerlink" title="二、操作步骤："></a>二、操作步骤：</h1><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.终止占用 /home 进程	 </span></span><br><span class="line">fuser -m -v -i -k <span class="string">/home</span> </span><br><span class="line"><span class="comment"># 2.备份/home </span></span><br><span class="line">cp -r  <span class="string">/home/</span>  homebak/ </span><br><span class="line"><span class="comment"># 3.卸载 /home	 </span></span><br><span class="line">umount <span class="string">/home</span>	 </span><br><span class="line"><span class="comment"># 4.删除/home所在的lv </span></span><br><span class="line">lvremove <span class="string">/dev/mapper/centos-home</span> </span><br><span class="line"><span class="comment"># 5.扩展/root所在的lv，增加100G </span></span><br><span class="line">lvextend -L +100G <span class="string">/dev/mapper/centos-root</span> </span><br><span class="line"><span class="comment"># 6.扩展/root文件系统	 </span></span><br><span class="line">xfs_growfs <span class="string">/dev/mapper/centos-root</span> </span><br><span class="line"><span class="comment"># 7.重新创建home lv </span></span><br><span class="line">lvcreate -L 40G -n home centos </span><br><span class="line"><span class="comment"># 8.创建文件系统 </span></span><br><span class="line">mkfs.xfs <span class="string">/dev/centos/home</span> </span><br><span class="line"><span class="comment"># 9.挂载 </span></span><br><span class="line">mount <span class="string">/dev/centos/home</span> <span class="string">/home</span> </span><br><span class="line"><span class="comment"># 10.还原 /home 相关文件以及对应目录权限</span></span><br></pre></td></tr></table></figure>
 <p>三、执行结果：</p>
 <p><img src="3.png" alt="enter description here"></p>
@@ -679,7 +679,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -880,7 +880,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">80.1k</span>
+    <span title="Site words total count">80.3k</span>
   
 </div>
 
@@ -1403,9 +1403,9 @@ show_date_time();
 
   
 
-<!--动态背景>  <-->
+<!--动态背景>
  <script type="text/javascript" src="/kxinter.gitub.io/lib/canvas-nest/canvas-nest.min.js"></script> 
-
+  <-->
  </body>
 </html>
 <script type="text/javascript" src="/kxinter.gitub.io/js/src/love.js"></script>

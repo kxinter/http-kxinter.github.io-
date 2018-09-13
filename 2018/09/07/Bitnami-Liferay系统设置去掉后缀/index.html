@@ -130,19 +130,19 @@
 
 
 
-<meta name="description" content="1 修改配置文件执行以下操作： 12345mv /opt/liferay-6.2-7/apache-tomcat/webapps/ROOT/ /opt/liferay-6.2-7/apache-tomcat/webapps/ROOT.backupmv /opt/liferay-6.2-7/apache-tomcat/webapps/liferay /opt/liferay-6.2-7/apache">
+<meta name="description" content="1 修改配置文件">
 <meta name="keywords" content="liferay,bitnami">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Bitnami_Liferay系统设置去掉后缀">
 <meta property="og:url" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/07/Bitnami-Liferay系统设置去掉后缀/index.html">
 <meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="1 修改配置文件执行以下操作： 12345mv /opt/liferay-6.2-7/apache-tomcat/webapps/ROOT/ /opt/liferay-6.2-7/apache-tomcat/webapps/ROOT.backupmv /opt/liferay-6.2-7/apache-tomcat/webapps/liferay /opt/liferay-6.2-7/apache">
+<meta property="og:description" content="1 修改配置文件">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/07/Bitnami-Liferay系统设置去掉后缀/1.png">
-<meta property="og:updated_time" content="2018-09-07T07:41:36.079Z">
+<meta property="og:updated_time" content="2018-09-13T02:32:47.022Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Bitnami_Liferay系统设置去掉后缀">
-<meta name="twitter:description" content="1 修改配置文件执行以下操作： 12345mv /opt/liferay-6.2-7/apache-tomcat/webapps/ROOT/ /opt/liferay-6.2-7/apache-tomcat/webapps/ROOT.backupmv /opt/liferay-6.2-7/apache-tomcat/webapps/liferay /opt/liferay-6.2-7/apache">
+<meta name="twitter:description" content="1 修改配置文件">
 <meta name="twitter:image" content="https://kxinter.github.io/kxinter.gitub.io/2018/09/07/Bitnami-Liferay系统设置去掉后缀/1.png">
 
 
@@ -397,8 +397,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-07T15:41:36+08:00">
-                2018-09-07
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-13T10:32:47+08:00">
+                2018-09-13
               </time>
             
           </span>
@@ -489,7 +489,8 @@
       
 
       
-        <h1 id="1-修改配置文件"><a href="#1-修改配置文件" class="headerlink" title="1 修改配置文件"></a>1 修改配置文件</h1><p>执行以下操作：</p>
+        <h1 id="1-修改配置文件"><a href="#1-修改配置文件" class="headerlink" title="1 修改配置文件"></a>1 修改配置文件</h1><a id="more"></a>
+<p>执行以下操作：</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mv <span class="regexp">/opt/</span>liferay<span class="number">-6.2</span><span class="number">-7</span><span class="regexp">/apache-tomcat/</span>webapps<span class="regexp">/ROOT/</span> <span class="regexp">/opt/</span>liferay<span class="number">-6.2</span><span class="number">-7</span><span class="regexp">/apache-tomcat/</span>webapps/ROOT.backup</span><br><span class="line"></span><br><span class="line">mv <span class="regexp">/opt/</span>liferay<span class="number">-6.2</span><span class="number">-7</span><span class="regexp">/apache-tomcat/</span>webapps<span class="regexp">/liferay /</span>opt<span class="regexp">/liferay-6.2-7/</span>apache-tomcat<span class="regexp">/webapps/</span>ROOT</span><br><span class="line"></span><br><span class="line">sed -i <span class="string">'s/portal.ctx/#portal.ctx/g'</span>  <span class="regexp">/opt/</span>liferay<span class="number">-6.2</span><span class="number">-7</span><span class="regexp">/apache-tomcat/</span>webapps<span class="regexp">/ROOT/</span>WEB-INF<span class="regexp">/classes/</span>portal-ext.properties</span><br></pre></td></tr></table></figure>
 <p>打开<code>/opt/liferay-6.2-7/apps/liferay/conf/httpd-app.conf</code>文件做如下修改：</p>
 <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">将<span class="params">&lt;Location /liferay&gt;</span></span><br><span class="line"></span><br><span class="line">  ProxyPass ajp:<span class="comment">//localhost:8009/liferay</span></span><br><span class="line"></span><br><span class="line">  <span class="params">&lt;IfModule pagespeed_module&gt;</span></span><br><span class="line"></span><br><span class="line">      ModPagespeedDisallow <span class="string">"*"</span></span><br><span class="line"></span><br><span class="line">  <span class="params">&lt;/IfModule&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="params">&lt;/Location&gt;</span></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">改为：</span><br><span class="line"></span><br><span class="line"><span class="params">&lt;Location /&gt;</span></span><br><span class="line"></span><br><span class="line">  ProxyPass ajp:<span class="comment">//localhost:8009/</span></span><br><span class="line"></span><br><span class="line">  <span class="params">&lt;IfModule pagespeed_module&gt;</span></span><br><span class="line"></span><br><span class="line">      ModPagespeedDisallow <span class="string">"*"</span></span><br><span class="line"></span><br><span class="line">  <span class="params">&lt;/IfModule&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="params">&lt;/Location&gt;</span></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">并且在最后加上：</span><br><span class="line"></span><br><span class="line"><span class="meta"># App url redirect</span></span><br><span class="line"></span><br><span class="line">RewriteEngine On</span><br><span class="line"></span><br><span class="line">RedirectMatch ^/$ /</span><br></pre></td></tr></table></figure>
@@ -530,7 +531,7 @@
   <p><span>本文标题:</span><a href="/kxinter.gitub.io/2018/09/07/Bitnami-Liferay系统设置去掉后缀/">Bitnami_Liferay系统设置去掉后缀</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2018年09月07日 - 14:09</p>
-  <p><span>最后更新:</span>2018年09月07日 - 15:09</p>
+  <p><span>最后更新:</span>2018年09月13日 - 10:09</p>
   <p><span>原始链接:</span><a href="/kxinter.gitub.io/2018/09/07/Bitnami-Liferay系统设置去掉后缀/" title="Bitnami_Liferay系统设置去掉后缀">https://kxinter.github.io/kxinter.gitub.io/2018/09/07/Bitnami-Liferay系统设置去掉后缀/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/kxinter.gitub.io/2018/09/07/Bitnami-Liferay系统设置去掉后缀/"  aria-label="复制成功！"></i></span>
   </p>
@@ -709,7 +710,7 @@
               
                 <a href="/kxinter.gitub.io/archives/">
               
-                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -910,7 +911,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">80.1k</span>
+    <span title="Site words total count">80.3k</span>
   
 </div>
 
@@ -1433,9 +1434,9 @@ show_date_time();
 
   
 
-<!--动态背景>  <-->
+<!--动态背景>
  <script type="text/javascript" src="/kxinter.gitub.io/lib/canvas-nest/canvas-nest.min.js"></script> 
-
+  <-->
  </body>
 </html>
 <script type="text/javascript" src="/kxinter.gitub.io/js/src/love.js"></script>
