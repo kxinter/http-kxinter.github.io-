@@ -1,25 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[jenkins报错总结]]></title>
-    <url>%2Fkxinter.gitub.io%2F2018%2F09%2F13%2Fjenkins%E6%8A%A5%E9%94%99%E6%B1%87%E6%80%BB%2F</url>
-    <content type="text"><![CDATA[1 Exception when publishing, exception message [Exec timed out or was interrupted after XXX ms问题说明:我在使用Jenkins进行远程部署时，任务突然中断，直接报如下错误。 123 123 123 Exception when publishing, exception message [Exec timed out or was interrupted after 120,001 ms note danger, note danger, note dangernote danger, note danger, note dangernote danger, note danger, note danger note without icon note dangernote dangernote danger Content (md partial supported) note danger, note danger, note danger]]></content>
+    <title><![CDATA[jenkins报错]]></title>
+    <url>%2Fkxinter.gitub.io%2F2018%2F09%2F13%2Fjenkins%E6%8A%A5%E9%94%99%2F</url>
+    <content type="text"><![CDATA[1 ERROR: Exception when publishing, exception message [Exec timed out or was interrupted after XXX ms]我在使用Jenkins进行远程部署时,执行的命令突然中断，包如下错误：ERROR: Exception when publishing, exception message [Exec timed out or was interrupted after 12,001 ms] 解决办法： 参考资料：https://blog.csdn.net/u013066244/article/details/52788407]]></content>
       <categories>
         <category>Linux</category>
       </categories>
       <tags>
         <tag>jenkins</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Docker自动登陆脚本]]></title>
-    <url>%2Fkxinter.gitub.io%2F2018%2F09%2F13%2FDocker%E8%87%AA%E5%8A%A8%E7%99%BB%E9%99%86%E8%84%9A%E6%9C%AC%2F</url>
-    <content type="text"><![CDATA[1 安装expect命令 1yum install expect -y 2 示例脚本1234567#! /usr/bin/expectset timexout 2 # 设置超时时间2秒expect "Username" # 匹配Usernamesend "admin\r" # 匹配成功后输入用户admin, \r 意思是回车expect "password" # 匹配字符passwordsend "admin123\r" # 匹配成功后输入admin123并回车interact]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>shell</tag>
       </tags>
   </entry>
   <entry>
@@ -857,9 +846,9 @@
       </categories>
       <tags>
         <tag>私有仓库</tag>
+        <tag>部署</tag>
         <tag>npm</tag>
         <tag>cnpmjs</tag>
-        <tag>部署</tag>
       </tags>
   </entry>
   <entry>
@@ -930,9 +919,9 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>部署</tag>
         <tag>vsftp</tag>
         <tag>ftp</tag>
+        <tag>部署</tag>
       </tags>
   </entry>
   <entry>
