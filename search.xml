@@ -12,6 +12,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Docker自动登陆脚本]]></title>
+    <url>%2Fkxinter.gitub.io%2F2018%2F09%2F13%2FDocker%E8%87%AA%E5%8A%A8%E7%99%BB%E9%99%86%E8%84%9A%E6%9C%AC%2F</url>
+    <content type="text"><![CDATA[安装expect命令1yum install expect -y 示例脚本 docker自动登陆脚本12345678#！/usr/bin/expectset timeout 2 # 超时时间2sspawn docker login 192.168.0.200:5000 # 要执行的命令expect "Username" # 匹配字符Usernamesend "user\r" # 键入用户user \r 回车expect "password" # 匹配passwordsend "pass\r" # 键入密码pass \r 回车interact]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>shell</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Docker清除日志脚本]]></title>
     <url>%2Fkxinter.gitub.io%2F2018%2F09%2F11%2FDocker%E6%B8%85%E9%99%A4%E6%97%A5%E5%BF%97%E8%84%9A%E6%9C%AC%2F</url>
     <content type="text"><![CDATA[清除日志脚本Docker12345678910111213#!/bin/shecho "==================== start clean docker containers logs ==========================" logs=$(find /var/lib/docker/containers/ -name *-json.log) for log in $logs do echo "clean logs : $log" cat /dev/null &gt; $log done echo "==================== end clean docker containers logs =========================="]]></content>
