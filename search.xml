@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Linux常用系统性能诊断工具]]></title>
+    <url>%2Fkxinter.gitub.io%2F2018%2F09%2F14%2FLinux%E5%B8%B8%E7%94%A8%E7%B3%BB%E7%BB%9F%E6%80%A7%E8%83%BD%E8%AF%8A%E6%96%AD%E5%B7%A5%E5%85%B7%2F</url>
+    <content type="text"><![CDATA[简介：Linux下的系统性能诊断工具特别的多，不容易记住，例如：top、iotop、tiptop、slabtop、iostat、mpstat、vmstat、dstat、pidstat、netstat、iptraf、nicstat、ss、sar、free、strace、ltrace、ftrace、dtrace、blktrace、perf、stap、ktap、ebpf、lttng等等，如果有一张图宏观的标注出来，更加的方便记忆！]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>运维工具</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[jenkins报错]]></title>
     <url>%2Fkxinter.gitub.io%2F2018%2F09%2F13%2Fjenkins%E6%8A%A5%E9%94%99%2F</url>
     <content type="text"><![CDATA[1 ERROR: Exception when publishing, exception message [Exec timed out or was interrupted after XXX ms] 我在使用Jenkins进行远程部署时,执行的命令突然中断，包如下错误：ERROR: Exception when publishing, exception message [Exec timed out or was interrupted after 12,001 ms] 解决办法： 参考资料：https://blog.csdn.net/u013066244/article/details/52788407]]></content>
@@ -411,8 +422,8 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>tomcat</tag>
         <tag>zabbix</tag>
+        <tag>tomcat</tag>
         <tag>jmx</tag>
       </tags>
   </entry>
@@ -547,7 +558,6 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>基础运维</tag>
         <tag>分区</tag>
       </tags>
   </entry>
@@ -673,8 +683,8 @@
         <category>Docker</category>
       </categories>
       <tags>
-        <tag>基础运维</tag>
         <tag>docker</tag>
+        <tag>基础运维</tag>
       </tags>
   </entry>
   <entry>
@@ -746,7 +756,6 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>部署</tag>
         <tag>ssl</tag>
       </tags>
   </entry>
@@ -758,8 +767,6 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>基础运维</tag>
-        <tag>运维工具</tag>
         <tag>nginx</tag>
       </tags>
   </entry>
@@ -785,8 +792,8 @@
       </categories>
       <tags>
         <tag>基础运维</tag>
-        <tag>tomcat</tag>
         <tag>运维开发</tag>
+        <tag>tomcat</tag>
       </tags>
   </entry>
   <entry>
@@ -844,7 +851,6 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>部署</tag>
         <tag>oracle</tag>
       </tags>
   </entry>
@@ -857,7 +863,6 @@
       </categories>
       <tags>
         <tag>私有仓库</tag>
-        <tag>部署</tag>
         <tag>npm</tag>
         <tag>cnpmjs</tag>
       </tags>
@@ -906,7 +911,6 @@
       </categories>
       <tags>
         <tag>nginx</tag>
-        <tag>tomcat</tag>
       </tags>
   </entry>
   <entry>
@@ -917,8 +921,8 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>部署</tag>
         <tag>yapi</tag>
+        <tag>部署</tag>
         <tag>api</tag>
       </tags>
   </entry>
@@ -931,8 +935,6 @@
       </categories>
       <tags>
         <tag>vsftp</tag>
-        <tag>ftp</tag>
-        <tag>部署</tag>
       </tags>
   </entry>
   <entry>
@@ -967,8 +969,8 @@
         <category>Windows</category>
       </categories>
       <tags>
-        <tag>基础运维</tag>
         <tag>小知识</tag>
+        <tag>基础运维</tag>
         <tag>bat</tag>
         <tag>运维开发</tag>
       </tags>
@@ -981,8 +983,8 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>基础运维</tag>
         <tag>小知识</tag>
+        <tag>基础运维</tag>
         <tag>运维工具</tag>
       </tags>
   </entry>
@@ -994,7 +996,6 @@
         <category>Docker</category>
       </categories>
       <tags>
-        <tag>基础运维</tag>
         <tag>小知识</tag>
         <tag>docker</tag>
       </tags>
