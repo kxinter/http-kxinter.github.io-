@@ -625,10 +625,8 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>基础运维</tag>
         <tag>私有仓库</tag>
         <tag>部署</tag>
-        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
@@ -887,7 +885,6 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>驱动</tag>
         <tag>显卡</tag>
       </tags>
   </entry>
