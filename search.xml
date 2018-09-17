@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Linux常用系统性能诊断工具]]></title>
     <url>%2Fkxinter.gitub.io%2F2018%2F09%2F14%2FLinux%E5%B8%B8%E7%94%A8%E7%B3%BB%E7%BB%9F%E6%80%A7%E8%83%BD%E8%AF%8A%E6%96%AD%E5%B7%A5%E5%85%B7%2F</url>
-    <content type="text"><![CDATA[简介：Linux下的系统性能诊断工具特别的多，不容易记住，例如：top、iotop、tiptop、slabtop、iostat、mpstat、vmstat、dstat、pidstat、netstat、iptraf、nicstat、ss、sar、free、strace、ltrace、ftrace、dtrace、blktrace、perf、stap、ktap、ebpf、lttng等等，如果有一张图宏观的标注出来，更加的方便记忆！]]></content>
+    <content type="text"><![CDATA[简介：Linux下的系统性能诊断工具特别的多，例如：top、iotop、tiptop、slabtop、iostat、mpstat、vmstat、dstat、pidstat、netstat、iptraf、nicstat、ss、sar、free、strace、ltrace、ftrace、dtrace、blktrace、perf、stap、ktap、ebpf、lttng等等，下面一张图宏观的标注出来，更加的方便记忆！]]></content>
       <categories>
         <category>Linux</category>
       </categories>
