@@ -66,9 +66,9 @@
         <category>Linux</category>
       </categories>
       <tags>
+        <tag>keepalived</tag>
         <tag>rsync</tag>
         <tag>liferay</tag>
-        <tag>keepalive</tag>
         <tag>同步</tag>
       </tags>
   </entry>
