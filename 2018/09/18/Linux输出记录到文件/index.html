@@ -138,7 +138,7 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="1 如何把命令运行的结果保存到文件当中">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-18T09:20:49.297Z">
+<meta property="og:updated_time" content="2018-09-18T09:34:08.347Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux输出记录到文件">
 <meta name="twitter:description" content="1 如何把命令运行的结果保存到文件当中">
@@ -395,7 +395,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-18T17:20:49+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-18T17:34:08+08:00">
                 2018-09-18
               </time>
             
@@ -450,7 +450,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1k
+                  1.1k
                 </span>
               
 
@@ -502,31 +502,19 @@
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">　　lhd 17738 0.1 3.2 152028 33328 ? Sl 18:30 0:03 /usr/bin/konsole</span><br><span class="line">　　lhd 17740 0.0 0.1 6372 1720 pts/1 Ss 18:30 0:00 \_ /bin/bash</span><br><span class="line">　　lhd 17900 0.0 0.0 5344 628 pts/1 S 19:01 0:00 | \_ script</span><br><span class="line">　　lhd 17901 0.0 0.0 5348 464 pts/1 S 19:01 0:00 | \_ script</span><br><span class="line">　　lhd 17902 0.5 0.1 6372 1688 pts/2 Ss 19:01 0:00 | \_ bash -i</span><br></pre></td></tr></table></figure>
 <p>　　3. 查看<code>typescript</code>的内容，可以看到它同时记录下了<code>script</code>的启动和结束时间</p>
 <h1 id="4-用script录制并播放session的内容"><a href="#4-用script录制并播放session的内容" class="headerlink" title="4 用script录制并播放session的内容"></a>4 用script录制并播放session的内容</h1><p>　　我们可以用 <code>script</code>把整个终端会话的所有操作和输出录制下来，然后再用<code>scriptreplay</code>进行播放。<br>  <div class="note info"><p>如果录制时记录下来了操作时的时间数据，那么播放时和操作时的使用时间完全相同。</p></div>
-　　**这个很有用吧，比如：我们可以把安装软件时编译的过程记录下来，然后给别人进行演示**
-　　**看例子:**
+**这个很有用吧，比如：我们可以把安装软件时编译的过程记录下来，然后给别人进行演示**
+**看例子:**
 
 undefined
 
-　　说明: `-t 2>example.time` `-t`是把时间数据输出到标准错误(`standard error`)，所以我们使用 `2>example.time` 把数据转向到 `example.time`这个文件当中
-　　如何播放所记录的内容?
-
-## 4.1 安装scriptreplay
-
-　　**下载**
-　　
-
-undefined
-
-　　**解压**
-　　
-
-undefined
-
-　　之后复制文件到系统的命令目录中即可
-
-undefined
-
-<div class="note info"><p>备注: <code>fedora 10</code>的<code>util-linux-ng-2.14.1-3.2.fc10.i386.rpm</code>此包中已包含 <code>scriptreplay</code>,已无需另行安装</p></div></p>
+<div class="note info"><p>说明: <code>-t 2&gt;example.time</code> <code>-t</code>是把时间数据输出到标准错误(<code>standard error</code>)，所以我们使用 <code>2&gt;example.time</code> 把数据转向到 <code>example.time</code>这个文件当中如何播放所记录的内容?</p></div></p>
+<h2 id="4-1-安装scriptreplay"><a href="#4-1-安装scriptreplay" class="headerlink" title="4.1 安装scriptreplay"></a>4.1 安装scriptreplay</h2><p><strong>下载</strong>　</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget linux<span class="regexp">/utils/</span>util-linux<span class="regexp">/util-linux-2.12r.tar.bz2"&gt;ftp:/</span><span class="regexp">/ftp.kernel.org/</span>pub<span class="regexp">/linux/</span>utils<span class="regexp">/util-linux/</span>util-linux<span class="number">-2.12</span>r.tar.bz2</span><br></pre></td></tr></table></figure>
+<p><strong>解压</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">tar</span> <span class="selector-tag">-jxvf</span> <span class="selector-tag">util-linux-2</span><span class="selector-class">.12r</span><span class="selector-class">.tar</span><span class="selector-class">.bz2</span></span><br></pre></td></tr></table></figure>
+<p>之后复制文件到系统的命令目录中即可</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">　　[root<span class="variable">@hongdi</span> 下载]<span class="comment"># cp util-linux-2.12r/misc-utils/scriptreplay.pl /usr/bin/scriptreplay</span></span><br><span class="line">　　[root<span class="variable">@hongdi</span> 下载]<span class="comment"># chmod 755 /usr/bin/scriptreplay</span></span><br></pre></td></tr></table></figure>
+<div class="note info"><p>备注: <code>fedora 10</code>的<code>util-linux-ng-2.14.1-3.2.fc10.i386.rpm</code>此包中已包含 <code>scriptreplay</code>,已无需另行安装</p></div>
 <h2 id="4-2-播放所录制的session内容"><a href="#4-2-播放所录制的session内容" class="headerlink" title="4.2 播放所录制的session内容"></a>4.2 播放所录制的session内容</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">　　[lhd<span class="variable">@hongdi</span> ~]<span class="variable">$ </span>scriptreplay example1.time example1.txt</span><br><span class="line">　　[lhd<span class="variable">@hongdi</span> ~]<span class="variable">$ </span>ls</span><br><span class="line">　　<span class="number">1</span>.gtkrc-<span class="number">2.0</span> c.tar jeffray_lee<span class="variable">@hotmail</span>.com pass</span><br><span class="line">　　[lhd<span class="variable">@hongdi</span> ~]<span class="variable">$ </span>abcd</span><br><span class="line">　　<span class="symbol">bash:</span> <span class="symbol">abcd:</span> command <span class="keyword">not</span> found</span><br><span class="line"></span><br><span class="line">　　[lhd<span class="variable">@hongdi</span> ~]<span class="variable">$ </span>exit</span><br></pre></td></tr></table></figure>
 <p>转载：<a href="http://www.eetop.cn/blog/html/03/6503-25123.html" target="_blank" rel="noopener">http://www.eetop.cn/blog/html/03/6503-25123.html</a></p>
 
@@ -869,7 +857,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-如何把命令运行的结果保存到文件当中"><span class="nav-text">1 如何把命令运行的结果保存到文件当中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-如何能在输出信息的同时把信息记录到文件中"><span class="nav-text">2 如何能在输出信息的同时把信息记录到文件中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-多个命令的输出都需要记录，可以用script"><span class="nav-text">3 多个命令的输出都需要记录，可以用script</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-用script录制并播放session的内容"><span class="nav-text">4 用script录制并播放session的内容</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-播放所录制的session内容"><span class="nav-text">4.2 播放所录制的session内容</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-如何把命令运行的结果保存到文件当中"><span class="nav-text">1 如何把命令运行的结果保存到文件当中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-如何能在输出信息的同时把信息记录到文件中"><span class="nav-text">2 如何能在输出信息的同时把信息记录到文件中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-多个命令的输出都需要记录，可以用script"><span class="nav-text">3 多个命令的输出都需要记录，可以用script</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-用script录制并播放session的内容"><span class="nav-text">4 用script录制并播放session的内容</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-安装scriptreplay"><span class="nav-text">4.1 安装scriptreplay</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-播放所录制的session内容"><span class="nav-text">4.2 播放所录制的session内容</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -903,7 +891,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">81.3k</span>
+    <span title="Site words total count">81.4k</span>
   
 </div>
 
