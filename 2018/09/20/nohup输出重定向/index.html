@@ -138,7 +138,7 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="Linux shell中有三种输入输出，分别为标准输入，标准输出，错误输出，分别对应0，1，2。我们可以直接通过输出重定向&amp;gt;（或&amp;gt;&amp;gt;，表示追加）将某种输出重定向到其他地方，如设备，文件，比如: 123ls &amp;gt; ls.log  #标准输出重定向ls 2&amp;gt; ls.log #标准错误重定向ls &amp;gt; /dev/null #重定向到null设备，相当于直接忽略输出 但是，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-20T02:39:26.058Z">
+<meta property="og:updated_time" content="2018-09-20T02:44:36.865Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nohup输出重定向">
 <meta name="twitter:description" content="Linux shell中有三种输入输出，分别为标准输入，标准输出，错误输出，分别对应0，1，2。我们可以直接通过输出重定向&amp;gt;（或&amp;gt;&amp;gt;，表示追加）将某种输出重定向到其他地方，如设备，文件，比如: 123ls &amp;gt; ls.log  #标准输出重定向ls 2&amp;gt; ls.log #标准错误重定向ls &amp;gt; /dev/null #重定向到null设备，相当于直接忽略输出 但是，">
@@ -395,7 +395,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-20T10:39:26+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-20T10:44:36+08:00">
                 2018-09-20
               </time>
             
@@ -487,7 +487,7 @@
       
 
       
-        <p><code>Linux shell</code>中有三种输入输出，分别为标准输入，标准输出，错误输出，分别对应<code>0</code>，<code>1</code>，<code>2</code>。我们可以直接通过输出重定向<code>&gt;</code>（或<code>&gt;&gt;</code>，表示追加）将某种输出重定向到其他地方，如设备，文件，比如:</p>
+        <p><code>Linux shell</code>中有三种输入输出，分别为<strong>标准输入</strong>，<strong>标准输出</strong>，<strong>错误输出</strong>，分别对应<code>0</code>，<code>1</code>，<code>2</code>。我们可以直接通过输出重定向<code>&gt;</code>（或<code>&gt;&gt;</code>，表示追加）将某种输出重定向到其他地方，如设备，文件，比如:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ls &gt; ls.log  <span class="comment">#标准输出重定向</span></span><br><span class="line">ls 2&gt; ls.log <span class="comment">#标准错误重定向</span></span><br><span class="line">ls &gt; /dev/null <span class="comment">#重定向到null设备，相当于直接忽略输出</span></span><br></pre></td></tr></table></figure>
 <p>但是，有时候，我们想把标准输出以及错误输出一起重定向某个文件，这是可以通过 <code>2&gt;&amp;1</code> 实现，也可以通过两个同时重定向到某个文件</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ls &gt;ls.log 2&gt;&amp;1           //标准输出重定向到ls.log,而错误又重定向到标准输出，这两个位置不可换</span><br><span class="line">ls 2&gt;&gt;ls.log 1&gt;&gt;ls.log</span><br></pre></td></tr></table></figure>
