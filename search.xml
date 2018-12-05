@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[mount挂载共享文件夹报错]]></title>
+    <url>%2F2018%2F12%2F05%2Fmount%E6%8C%82%E8%BD%BD%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9%E6%8A%A5%E9%94%99%2F</url>
+    <content type="text"><![CDATA[mount挂载报错1 失败: 关键字已过期 原因：账号密码过期，更换账号或设置密码永不过期。]]></content>
+      <categories>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>小知识</tag>
+        <tag>基础运维</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[nohup输出重定向]]></title>
     <url>%2F2018%2F09%2F20%2Fnohup%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91%2F</url>
     <content type="text"><![CDATA[Linux shell中有三种输入输出，分别为标准输入，标准输出，错误输出，分别对应0，1，2。我们可以直接通过输出重定向&gt;（或&gt;&gt;，表示追加）将某种输出重定向到其他地方，如设备，文件，比如: 123ls &gt; ls.log #标准输出重定向ls 2&gt; ls.log #标准错误重定向ls &gt; /dev/null #重定向到null设备，相当于直接忽略输出 但是，有时候，我们想把标准输出以及错误输出一起重定向某个文件，这是可以通过 2&gt;&amp;1 实现，也可以通过两个同时重定向到某个文件 12ls &gt;ls.log 2&gt;&amp;1 //标准输出重定向到ls.log,而错误又重定向到标准输出，这两个位置不可换ls 2&gt;&gt;ls.log 1&gt;&gt;ls.log 转载：http://mblog.sigma.me/2011/08/15/linux-output-redirect.html]]></content>
