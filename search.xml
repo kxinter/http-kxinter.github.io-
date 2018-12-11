@@ -111,8 +111,8 @@
       </categories>
       <tags>
         <tag>keepalived</tag>
-        <tag>liferay</tag>
         <tag>rsync</tag>
+        <tag>liferay</tag>
         <tag>同步</tag>
       </tags>
   </entry>
@@ -462,8 +462,8 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>zabbix</tag>
         <tag>tomcat</tag>
+        <tag>zabbix</tag>
         <tag>jmx</tag>
       </tags>
   </entry>
