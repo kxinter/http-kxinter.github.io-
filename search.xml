@@ -462,8 +462,8 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>tomcat</tag>
         <tag>zabbix</tag>
+        <tag>tomcat</tag>
         <tag>jmx</tag>
       </tags>
   </entry>
