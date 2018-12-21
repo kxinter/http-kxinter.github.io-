@@ -25,8 +25,8 @@
         <category>Windows</category>
       </categories>
       <tags>
-        <tag>基础运维</tag>
         <tag>小知识</tag>
+        <tag>基础运维</tag>
       </tags>
   </entry>
   <entry>
@@ -116,8 +116,8 @@
       </categories>
       <tags>
         <tag>keepalived</tag>
-        <tag>liferay</tag>
         <tag>rsync</tag>
+        <tag>liferay</tag>
         <tag>同步</tag>
       </tags>
   </entry>
@@ -467,8 +467,8 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>tomcat</tag>
         <tag>zabbix</tag>
+        <tag>tomcat</tag>
         <tag>jmx</tag>
       </tags>
   </entry>
@@ -1005,8 +1005,8 @@
         <category>Windows</category>
       </categories>
       <tags>
-        <tag>基础运维</tag>
         <tag>小知识</tag>
+        <tag>基础运维</tag>
         <tag>bat</tag>
         <tag>运维开发</tag>
       </tags>
@@ -1019,8 +1019,8 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>基础运维</tag>
         <tag>小知识</tag>
+        <tag>基础运维</tag>
         <tag>运维工具</tag>
       </tags>
   </entry>
