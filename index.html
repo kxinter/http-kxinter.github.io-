@@ -351,6 +351,228 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2019/03/01/postgresql部署/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/01/postgresql部署/" itemprop="url">postgresql部署</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-01T16:12:25+08:00">
+                2019-03-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-01T16:31:18+08:00">
+                2019-03-01
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-Postgres部署手册"><a href="#1-Postgres部署手册" class="headerlink" title="1 Postgres部署手册"></a>1 Postgres部署手册</h1><h2 id="1-1-安装"><a href="#1-1-安装" class="headerlink" title="1.1 安装"></a>1.1 安装</h2><h3 id="1-1-1安装软件库"><a href="#1-1-1安装软件库" class="headerlink" title="1.1.1安装软件库"></a>1.1.1安装软件库</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm</span><br><span class="line">yum install epel-release               <span class="comment">#安装postgis时提示部分依赖无法安装</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-1-2-安装软件"><a href="#1-1-2-安装软件" class="headerlink" title="1.1.2 安装软件"></a>1.1.2 安装软件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install postgresql10 &amp;&amp; yum install postgresql10-server</span><br></pre></td></tr></table></figure>
+<h3 id="1-1-3-初始化及开机启动"><a href="#1-1-3-初始化及开机启动" class="headerlink" title="1.1.3 初始化及开机启动"></a>1.1.3 初始化及开机启动</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/usr/pgsql-10/bin/postgresql-10-setup initdb</span><br><span class="line">systemctl <span class="built_in">enable</span> postgresql-10</span><br><span class="line">systemctl start postgresql-10</span><br></pre></td></tr></table></figure>
+<h3 id="1-1-4-设置postgres密码"><a href="#1-1-4-设置postgres密码" class="headerlink" title="1.1.4 设置postgres密码"></a>1.1.4 设置postgres密码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Sudo –u postgres psql</span><br><span class="line">postgres=<span class="comment"># ALTER USER postgres WITH PASSWORD 'zhjx123'</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-1-5-开启远程访问"><a href="#1-1-5-开启远程访问" class="headerlink" title="1.1.5 开启远程访问"></a>1.1.5 开启远程访问</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vim /var/lib/pgsql/10/data/postgresql.conf </span><br><span class="line"><span class="comment"># 修改#listen_addresses = 'localhost' 为 listen_addresses='*' 当然，此处‘*’也可以改为任何你想开放的服务器IP</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">vim /var/lib/pgsql/10/data/pg_hba.conf</span><br><span class="line">   修改如下内容，信任指定服务器连接</span><br><span class="line"><span class="comment"># IPv4 local connections:</span></span><br><span class="line">host    all            all      192.168.0.0/23（需要连接的服务器IP）  md5</span><br></pre></td></tr></table></figure>
+<h2 id="1-2-安装postgis插件（补充）"><a href="#1-2-安装postgis插件（补充）" class="headerlink" title="1.2 安装postgis插件（补充）"></a>1.2 安装postgis插件（补充）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install postgis25_10</span><br></pre></td></tr></table></figure>
+<h1 id="2-greenplum部署手册"><a href="#2-greenplum部署手册" class="headerlink" title="2    greenplum部署手册"></a>2    greenplum部署手册</h1><h2 id="2-1修改Linux内核参数"><a href="#2-1修改Linux内核参数" class="headerlink" title="2.1修改Linux内核参数"></a>2.1修改Linux内核参数</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vi /etc/sysctl.conf</span></span><br><span class="line"></span><br><span class="line">net.ipv4.ip_forward = 0</span><br><span class="line">net.ipv4.conf.default.accept_source_route = 0</span><br><span class="line">kernel.sysrq = 1</span><br><span class="line">kernel.core_uses_pid = 1</span><br><span class="line">net.ipv4.tcp_syncookies = 1</span><br><span class="line">kernel.msgmnb = 65536</span><br><span class="line">kernel.msgmax = 65536</span><br><span class="line">kernel.sem = 250 64000 100 512</span><br><span class="line">kernel.shmmax = 500000000</span><br><span class="line">kernel.shmmni = 4096</span><br><span class="line">kernel.shmall = 4000000000</span><br><span class="line">net.ipv4.tcp_tw_recycle = 1</span><br><span class="line">net.ipv4.tcp_max_syn_backlog = 4096</span><br><span class="line">net.core.netdev_max_backlog = 10000</span><br><span class="line">vm.overcommit_memory = 2</span><br><span class="line">net.ipv4.conf.all.arp_filter = 1</span><br></pre></td></tr></table></figure>
+<h2 id="2-2-修改Linux最大限制"><a href="#2-2-修改Linux最大限制" class="headerlink" title="2.2 修改Linux最大限制"></a>2.2 修改Linux最大限制</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vi /etc/security/limits.conf</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#greenplum configs</span></span><br><span class="line">* soft nofile 65536</span><br><span class="line">* hard nofile 65536</span><br><span class="line">* soft nproc 131072 </span><br><span class="line">* hard nproc 131072</span><br></pre></td></tr></table></figure>
+<h2 id="2-3-关闭selinux"><a href="#2-3-关闭selinux" class="headerlink" title="2.3 关闭selinux"></a>2.3 关闭selinux</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vim /etc/selinux/conf</span></span><br><span class="line">修改如下：</span><br><span class="line">SELINUX=disabled</span><br><span class="line"></span><br><span class="line"><span class="comment"># setenforce 0   # 临时关闭，重启恢复。</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-4-greenplum安装"><a href="#2-4-greenplum安装" class="headerlink" title="2.4 greenplum安装"></a>2.4 greenplum安装</h2><h3 id="2-4-1-创建数据库用户"><a href="#2-4-1-创建数据库用户" class="headerlink" title="2.4.1 创建数据库用户"></a>2.4.1 创建数据库用户</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> groupadd -g 530 gpadmin</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> useradd -g 530 -u530 -m -d /home/gpadmin -s /bin/bash gpadmin</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> passwd gpadmin</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-4-2-修改hosts"><a href="#2-4-2-修改hosts" class="headerlink" title="2.4.2 修改hosts"></a>2.4.2 修改hosts</h3><p>设置集群解析</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vim /etc/hosts</span></span><br><span class="line">192.168.0.174 mdw sdw</span><br></pre></td></tr></table></figure>
+<h3 id="2-4-3-下载安装包"><a href="#2-4-3-下载安装包" class="headerlink" title="2.4.3 下载安装包"></a>2.4.3 下载安装包</h3><p>官网<a href="https://network.pivotal.io/products/pivotal-gpdb#/releases/1683" target="_blank" rel="noopener">https://network.pivotal.io/products/pivotal-gpdb#/releases/1683</a><br> <img src="1.png" alt="1"><br> <img src="2.png" alt="2"></p>
+<h3 id="2-4-3-赋权及安装"><a href="#2-4-3-赋权及安装" class="headerlink" title="2.4.3 赋权及安装"></a>2.4.3 赋权及安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> unzip greenplum-db-5.9.0-rhel7-x86_64.zip</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> chmod +x greenplum-db-5.9.0-rhel7-x86_64.bin</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ./ greenplum-db-5.9.0-rhel7-x86_64.bin</span></span><br><span class="line">一路yes,安装完成</span><br></pre></td></tr></table></figure>
+<p>默认目录/usr/loca/greenplum-db</p>
+<h3 id="2-4-4-设置gpadmin用户环境"><a href="#2-4-4-设置gpadmin用户环境" class="headerlink" title="2.4.4 设置gpadmin用户环境"></a>2.4.4 设置gpadmin用户环境</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> /home/gpadmin</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> vi .bashrc</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> vi .bash_profile</span></span><br><span class="line"></span><br><span class="line">.bashrc和.bash_profile最后都添加下面两行</span><br><span class="line">source /usr/local/greenplum-db/greenplum_path.sh</span><br><span class="line">export MASTER_DATA_DIRECTORY=/home/gpadmin/gpdata/gpmaster/gpseg-1</span><br><span class="line">export PGPORT=5433   # 应为本机有postsql，端口占用，所以使用5433端口</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">export</span> PGDATABASE=testDB</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-4-4-准备节点服务器信息文件"><a href="#2-4-4-准备节点服务器信息文件" class="headerlink" title="2.4.4 准备节点服务器信息文件"></a>2.4.4 准备节点服务器信息文件</h3><p>后面的批量安装会用到这两个文件，如果all_host和all_segment内容一样，可以只创建一个文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@mdw ~]# cd /home/gp</span><br><span class="line">[root@mdw~ ]# touch all_host</span><br><span class="line">[root@mdw ~]# touch all_segment</span><br><span class="line">all_host和all_segment内容：</span><br><span class="line">mdw</span><br><span class="line">sdw</span><br></pre></td></tr></table></figure>
+<h3 id="2-4-5-建立节点服务器间的信任"><a href="#2-4-5-建立节点服务器间的信任" class="headerlink" title="2.4.5 建立节点服务器间的信任"></a>2.4.5 建立节点服务器间的信任</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpssh-exkeys -f /opt/gpinit/all_host</span><br></pre></td></tr></table></figure>
+<h3 id="2-4-6-批量安装"><a href="#2-4-6-批量安装" class="headerlink" title="2.4.6 批量安装"></a>2.4.6 批量安装</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpseginstall -f /home/gpadmin/all_host -u gpadmin -<span class="selector-tag">p</span> gpadmin</span><br></pre></td></tr></table></figure>
+<h3 id="2-4-7-检查批量安装情况"><a href="#2-4-7-检查批量安装情况" class="headerlink" title="2.4.7 检查批量安装情况"></a>2.4.7 检查批量安装情况</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpssh -f /usr/<span class="built_in">local</span>/greenplum-db/all_host -e ls -l <span class="variable">$GPHOME</span> <span class="comment">#检查安装情况</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-4-8-创建存储目录"><a href="#2-4-8-创建存储目录" class="headerlink" title="2.4.8 创建存储目录"></a>2.4.8 创建存储目录</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">[gpadmin@mdw conf]$ gpssh -f /home/gpadmin/all_host</span><br><span class="line">=&gt; mkdir gpdata</span><br><span class="line">[sdw3]</span><br><span class="line">[ mdw]</span><br><span class="line">[sdw2]</span><br><span class="line">[sdw1]</span><br><span class="line">=&gt; cd gpdata</span><br><span class="line">[sdw3]</span><br><span class="line">[ mdw]</span><br><span class="line">[sdw2]</span><br><span class="line">[sdw1]</span><br><span class="line">=&gt; mkdir gpmaster gpdatap1 gpdatap2 gpdatam1 gpdatam2</span><br><span class="line">[sdw3]</span><br><span class="line">[ mdw]</span><br><span class="line">[sdw2]</span><br><span class="line">[sdw1]</span><br><span class="line">=&gt; ll</span><br><span class="line">[sdw3] 总用量 20</span><br><span class="line">[sdw3] drwxrwxr-x 2 gpadmin gpadmin 4096 7月  18 19:46 gpdatam1</span><br><span class="line">[sdw3] drwxrwxr-x 2 gpadmin gpadmin 4096 7月  18 19:46 gpdatam2</span><br><span class="line">[sdw3] drwxrwxr-x 2 gpadmin gpadmin 4096 7月  18 19:46 gpdatap1</span><br><span class="line">[sdw3] drwxrwxr-x 2 gpadmin gpadmin 4096 7月  18 19:46 gpdatap2</span><br><span class="line">[sdw3] drwxrwxr-x 2 gpadmin gpadmin 4096 7月  18 19:46 gpmaster</span><br><span class="line">[ mdw] 总用量 20</span><br><span class="line">[ mdw] drwxrwxr-x 2 gpadmin gpadmin 4096 7月  18 19:46 gpdatam1</span><br><span class="line">[ mdw] drwxrwxr-x 2 gpadmin gpadmin 4096 7月  18 19:46 gpdatam2</span><br><span class="line">[ mdw] drwxrwxr-x 2 gpadmin gpadmin 4096 7月  18 19:46 gpdatap1</span><br><span class="line">[ mdw] drwxrwxr-x 2 gpadmin gpadmin 4096 7月  18 19:46 gpdatap2</span><br><span class="line">[ mdw] drwxrwxr-x 2 gpadmin gpadmin 4096 7月  18 19:46 gpmaster</span><br><span class="line">[sdw2] 总用量 20</span><br><span class="line">[sdw2] drwxrwxr-x 2 gpadmin gpadmin 4096 7月  18 19:46 gpdatam1</span><br><span class="line">[sdw2] drwxrwxr-x 2 gpadmin gpadmin 4096 7月  18 19:46 gpdatam2</span><br><span class="line">[sdw2] drwxrwxr-x 2 gpadmin gpadmin 4096 7月  18 19:46 gpdatap1</span><br><span class="line">[sdw2] drwxrwxr-x 2 gpadmin gpadmin 4096 7月  18 19:46 gpdatap2</span><br><span class="line">[sdw2] drwxrwxr-x 2 gpadmin gpadmin 4096 7月  18 19:46 gpmaster</span><br><span class="line">[sdw1] 总用量 20</span><br><span class="line">[sdw1] drwxrwxr-x 2 gpadmin gpadmin 4096 7月  18 19:46 gpdatam1</span><br><span class="line">[sdw1] drwxrwxr-x 2 gpadmin gpadmin 4096 7月  18 19:46 gpdatam2</span><br><span class="line">[sdw1] drwxrwxr-x 2 gpadmin gpadmin 4096 7月  18 19:46 gpdatap1</span><br><span class="line">[sdw1] drwxrwxr-x 2 gpadmin gpadmin 4096 7月  18 19:46 gpdatap2</span><br><span class="line">[sdw1] drwxrwxr-x 2 gpadmin gpadmin 4096 7月  18 19:46 gpmaster</span><br><span class="line">=&gt; exit</span><br></pre></td></tr></table></figure>
+<h3 id="2-4-9-配置-bash-profile环境变量"><a href="#2-4-9-配置-bash-profile环境变量" class="headerlink" title="2.4.9 配置.bash_profile环境变量"></a>2.4.9 配置.bash_profile环境变量</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[gpadmin@mdw ~]$ vim /home/gpadmin/.bash_profile</span><br><span class="line"></span><br><span class="line">source /opt/greenplum/greenplum-db/greenplum_path.sh</span><br><span class="line">export MASTER_DATA_DIRECTORY=/home/gpadmin/gpdata/gpmaster/gpseg-1</span><br><span class="line">export PGPORT=5433</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">export</span> PGDATABASE=testDB</span></span><br><span class="line">[gpadmin@mdw ~]$ source .bash_profile(让环境变量生效)</span><br></pre></td></tr></table></figure>
+<h3 id="2-4-10-创建初始化配置文件"><a href="#2-4-10-创建初始化配置文件" class="headerlink" title="2.4.10 创建初始化配置文件"></a>2.4.10 创建初始化配置文件</h3><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[gpadmin@mdw ~]$ vim /home/gpadmin/gpinitsystem_config</span><br><span class="line">ARRAY_NAME=<span class="string">"Greenplum"</span></span><br><span class="line">SEG_PREFIX=gpseg</span><br><span class="line">PORT_BASE=33000</span><br><span class="line">declare -a DATA_DIRECTORY=(/home/gpadmin/gpdata/gpdatap1  /home/gpadmin/gpdata/gpdatap2)</span><br><span class="line">MASTER_HOSTNAME=mdw</span><br><span class="line">MASTER_DIRECTORY=/home/gpadmin/gpdata/gpmaster</span><br><span class="line">MASTER_PORT=5433</span><br><span class="line">TRUSTED_SHELL=/usr/bin/ssh</span><br><span class="line">MIRROR_PORT_BASE=43000</span><br><span class="line">REPLICATION_PORT_BASE=34000</span><br><span class="line">MIRROR_REPLICATION_PORT_BASE=44000</span><br><span class="line">declare -a MIRROR_DATA_DIRECTORY=(/home/gpadmin/gpdata/gpdatam1 /home/gpadmin/gpdata/gpdatam2)</span><br><span class="line">MACHINE_LIST_FILE=/home/gpadmin/seg_hosts</span><br></pre></td></tr></table></figure>
+<h3 id="2-4-11-初始化数据库"><a href="#2-4-11-初始化数据库" class="headerlink" title="2.4.11 初始化数据库"></a>2.4.11 初始化数据库</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[gpadmin<span class="variable">@mdw</span> ~]<span class="variable">$ </span>gpinitsystem -c /home/gpadmin/gpinitsystem_config -s mdw</span><br></pre></td></tr></table></figure>
+<h3 id="2-4-12-启动-关闭-状态"><a href="#2-4-12-启动-关闭-状态" class="headerlink" title="2.4.12 启动/关闭/状态"></a>2.4.12 启动/关闭/状态</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Gpadmin用户执行命令gpstart<span class="regexp">/gpstop/</span>gpstate</span><br></pre></td></tr></table></figure>
+<h1 id="3-安装postgis插件"><a href="#3-安装postgis插件" class="headerlink" title="3    安装postgis插件"></a>3    安装postgis插件</h1><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">gppkg</span> <span class="selector-tag">-i</span> <span class="selector-tag">postgis-2</span><span class="selector-class">.1</span><span class="selector-class">.5</span>+<span class="selector-tag">pivotal</span><span class="selector-class">.1-gp5-rhel7-x86_64</span><span class="selector-class">.gppkg</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2019/01/21/vsftp示例1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2351,207 +2573,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2018/09/11/Docker清除日志脚本/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/11/Docker清除日志脚本/" itemprop="url">Docker清除日志脚本</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-11T16:34:28+08:00">
-                2018-09-11
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-17T11:50:10+08:00">
-                2018-09-17
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  44
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight bash"><figcaption><span>清除日志脚本Docker</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"==================== start clean docker containers logs =========================="</span></span><br><span class="line"> </span><br><span class="line">logs=$(find /var/lib/docker/containers/ -name *-json.log)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> <span class="built_in">log</span> <span class="keyword">in</span> <span class="variable">$logs</span></span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">                <span class="built_in">echo</span> <span class="string">"clean logs : <span class="variable">$log</span>"</span></span><br><span class="line">                cat /dev/null &gt; <span class="variable">$log</span></span><br><span class="line">        <span class="keyword">done</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"==================== end clean docker containers logs   =========================="</span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2604,7 +2630,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">91</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2626,7 +2652,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2801,7 +2827,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">91.7k</span>
+    <span title="Site words total count">92.9k</span>
   
 </div>
 

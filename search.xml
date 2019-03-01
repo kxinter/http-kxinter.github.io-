@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[postgresql部署]]></title>
+    <url>%2F2019%2F03%2F01%2Fpostgresql%E9%83%A8%E7%BD%B2%2F</url>
+    <content type="text"><![CDATA[1 Postgres部署手册1.1 安装1.1.1安装软件库12yum install https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpmyum install epel-release #安装postgis时提示部分依赖无法安装 1.1.2 安装软件1yum install postgresql10 &amp;&amp; yum install postgresql10-server 1.1.3 初始化及开机启动123/usr/pgsql-10/bin/postgresql-10-setup initdbsystemctl enable postgresql-10systemctl start postgresql-10 1.1.4 设置postgres密码12Sudo –u postgres psqlpostgres=# ALTER USER postgres WITH PASSWORD 'zhjx123' 1.1.5 开启远程访问12345678vim /var/lib/pgsql/10/data/postgresql.conf # 修改#listen_addresses = 'localhost' 为 listen_addresses='*' 当然，此处‘*’也可以改为任何你想开放的服务器IPvim /var/lib/pgsql/10/data/pg_hba.conf 修改如下内容，信任指定服务器连接# IPv4 local connections:host all all 192.168.0.0/23（需要连接的服务器IP） md5 1.2 安装postgis插件（补充）1yum install postgis25_10 2 greenplum部署手册2.1修改Linux内核参数123456789101112131415161718# vi /etc/sysctl.confnet.ipv4.ip_forward = 0net.ipv4.conf.default.accept_source_route = 0kernel.sysrq = 1kernel.core_uses_pid = 1net.ipv4.tcp_syncookies = 1kernel.msgmnb = 65536kernel.msgmax = 65536kernel.sem = 250 64000 100 512kernel.shmmax = 500000000kernel.shmmni = 4096kernel.shmall = 4000000000net.ipv4.tcp_tw_recycle = 1net.ipv4.tcp_max_syn_backlog = 4096net.core.netdev_max_backlog = 10000vm.overcommit_memory = 2net.ipv4.conf.all.arp_filter = 1 2.2 修改Linux最大限制1234567# vi /etc/security/limits.conf#greenplum configs* soft nofile 65536* hard nofile 65536* soft nproc 131072 * hard nproc 131072 2.3 关闭selinux12345# vim /etc/selinux/conf修改如下：SELINUX=disabled# setenforce 0 # 临时关闭，重启恢复。 2.4 greenplum安装2.4.1 创建数据库用户123# groupadd -g 530 gpadmin# useradd -g 530 -u530 -m -d /home/gpadmin -s /bin/bash gpadmin# passwd gpadmin 2.4.2 修改hosts设置集群解析 12# vim /etc/hosts192.168.0.174 mdw sdw 2.4.3 下载安装包官网https://network.pivotal.io/products/pivotal-gpdb#/releases/1683 2.4.3 赋权及安装1234# unzip greenplum-db-5.9.0-rhel7-x86_64.zip# chmod +x greenplum-db-5.9.0-rhel7-x86_64.bin# ./ greenplum-db-5.9.0-rhel7-x86_64.bin一路yes,安装完成 默认目录/usr/loca/greenplum-db 2.4.4 设置gpadmin用户环境12345678910# cd /home/gpadmin# vi .bashrc# vi .bash_profile.bashrc和.bash_profile最后都添加下面两行source /usr/local/greenplum-db/greenplum_path.shexport MASTER_DATA_DIRECTORY=/home/gpadmin/gpdata/gpmaster/gpseg-1export PGPORT=5433 # 应为本机有postsql，端口占用，所以使用5433端口#export PGDATABASE=testDB 2.4.4 准备节点服务器信息文件后面的批量安装会用到这两个文件，如果all_host和all_segment内容一样，可以只创建一个文件 123456[root@mdw ~]# cd /home/gp[root@mdw~ ]# touch all_host[root@mdw ~]# touch all_segmentall_host和all_segment内容：mdwsdw 2.4.5 建立节点服务器间的信任1gpssh-exkeys -f /opt/gpinit/all_host 2.4.6 批量安装1gpseginstall -f /home/gpadmin/all_host -u gpadmin -p gpadmin 2.4.7 检查批量安装情况1gpssh -f /usr/local/greenplum-db/all_host -e ls -l $GPHOME #检查安装情况 2.4.8 创建存储目录123456789101112131415161718192021222324252627282930313233343536373839404142[gpadmin@mdw conf]$ gpssh -f /home/gpadmin/all_host=&gt; mkdir gpdata[sdw3][ mdw][sdw2][sdw1]=&gt; cd gpdata[sdw3][ mdw][sdw2][sdw1]=&gt; mkdir gpmaster gpdatap1 gpdatap2 gpdatam1 gpdatam2[sdw3][ mdw][sdw2][sdw1]=&gt; ll[sdw3] 总用量 20[sdw3] drwxrwxr-x 2 gpadmin gpadmin 4096 7月 18 19:46 gpdatam1[sdw3] drwxrwxr-x 2 gpadmin gpadmin 4096 7月 18 19:46 gpdatam2[sdw3] drwxrwxr-x 2 gpadmin gpadmin 4096 7月 18 19:46 gpdatap1[sdw3] drwxrwxr-x 2 gpadmin gpadmin 4096 7月 18 19:46 gpdatap2[sdw3] drwxrwxr-x 2 gpadmin gpadmin 4096 7月 18 19:46 gpmaster[ mdw] 总用量 20[ mdw] drwxrwxr-x 2 gpadmin gpadmin 4096 7月 18 19:46 gpdatam1[ mdw] drwxrwxr-x 2 gpadmin gpadmin 4096 7月 18 19:46 gpdatam2[ mdw] drwxrwxr-x 2 gpadmin gpadmin 4096 7月 18 19:46 gpdatap1[ mdw] drwxrwxr-x 2 gpadmin gpadmin 4096 7月 18 19:46 gpdatap2[ mdw] drwxrwxr-x 2 gpadmin gpadmin 4096 7月 18 19:46 gpmaster[sdw2] 总用量 20[sdw2] drwxrwxr-x 2 gpadmin gpadmin 4096 7月 18 19:46 gpdatam1[sdw2] drwxrwxr-x 2 gpadmin gpadmin 4096 7月 18 19:46 gpdatam2[sdw2] drwxrwxr-x 2 gpadmin gpadmin 4096 7月 18 19:46 gpdatap1[sdw2] drwxrwxr-x 2 gpadmin gpadmin 4096 7月 18 19:46 gpdatap2[sdw2] drwxrwxr-x 2 gpadmin gpadmin 4096 7月 18 19:46 gpmaster[sdw1] 总用量 20[sdw1] drwxrwxr-x 2 gpadmin gpadmin 4096 7月 18 19:46 gpdatam1[sdw1] drwxrwxr-x 2 gpadmin gpadmin 4096 7月 18 19:46 gpdatam2[sdw1] drwxrwxr-x 2 gpadmin gpadmin 4096 7月 18 19:46 gpdatap1[sdw1] drwxrwxr-x 2 gpadmin gpadmin 4096 7月 18 19:46 gpdatap2[sdw1] drwxrwxr-x 2 gpadmin gpadmin 4096 7月 18 19:46 gpmaster=&gt; exit 2.4.9 配置.bash_profile环境变量1234567[gpadmin@mdw ~]$ vim /home/gpadmin/.bash_profilesource /opt/greenplum/greenplum-db/greenplum_path.shexport MASTER_DATA_DIRECTORY=/home/gpadmin/gpdata/gpmaster/gpseg-1export PGPORT=5433# export PGDATABASE=testDB[gpadmin@mdw ~]$ source .bash_profile(让环境变量生效) 2.4.10 创建初始化配置文件1234567891011121314[gpadmin@mdw ~]$ vim /home/gpadmin/gpinitsystem_configARRAY_NAME="Greenplum"SEG_PREFIX=gpsegPORT_BASE=33000declare -a DATA_DIRECTORY=(/home/gpadmin/gpdata/gpdatap1 /home/gpadmin/gpdata/gpdatap2)MASTER_HOSTNAME=mdwMASTER_DIRECTORY=/home/gpadmin/gpdata/gpmasterMASTER_PORT=5433TRUSTED_SHELL=/usr/bin/sshMIRROR_PORT_BASE=43000REPLICATION_PORT_BASE=34000MIRROR_REPLICATION_PORT_BASE=44000declare -a MIRROR_DATA_DIRECTORY=(/home/gpadmin/gpdata/gpdatam1 /home/gpadmin/gpdata/gpdatam2)MACHINE_LIST_FILE=/home/gpadmin/seg_hosts 2.4.11 初始化数据库1[gpadmin@mdw ~]$ gpinitsystem -c /home/gpadmin/gpinitsystem_config -s mdw 2.4.12 启动/关闭/状态1Gpadmin用户执行命令gpstart/gpstop/gpstate 3 安装postgis插件1gppkg -i postgis-2.1.5+pivotal.1-gp5-rhel7-x86_64.gppkg]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>部署</tag>
+        <tag>postgresql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[vsftp示例1]]></title>
     <url>%2F2019%2F01%2F21%2Fvsftp%E7%A4%BA%E4%BE%8B1%2F</url>
     <content type="text"><![CDATA[1 部署要求在阿里云服务器上部署FTP.服务要求：FTP用户A、B可互相访问，A对B有写权限，B对A只有读权限。 2 步骤2.1 安装vsftpd1yum install -y vsftpd 2.2 修改配置文件1234567891011121314vim /etc/vsftpd/vsftpd.conf配置如下：anonymous_enable=NOchroot_local_user=YESchroot_list_enable=NOchroot_list_file=/etc/vsftpd/chroot_listlocal_root=/home/vsftpdallow_writeable_chroot=YESpasv_enable=YESpasv_min_port=8022pasv_max_port=8030pasv_promiscuous=YES 2.3 创建FTP根目录1mkdir -p /home/vsftpd 2.4 创建系统用户12useradd ftpsg -d /home/vsftpd/ftpsguseradd ftpxc -d /home/vsftpd/ftpxc -g ftpsg 警告：1、创建用户必须赋予登陆权限，不可使用useradd vsftpd -d /home/vsftpd -s /bin/false 禁用登陆；2、两个用户在一个用户组里面，后面分配权限更安全。 2.5 修改目录权限12chmod 770 /home/ftpsgchmod 750 /home/ftpxc 信息：通过设置目录权限，达到限制用户权限的目的。ftpxc用户可读写ftpsg目录，ftpsg用户可读不可写ftpxc目录，其他用户无法访问2个目录。备注：同时设置r-x权限，才可以访问目录。 3 FTP客户端访问使用FileZilla客户端访问FTP服务器，出现如下问题 状态: 连接建立，等待欢迎消息…状态: 已登录状态: 读取目录列表…状态: 服务器发回了不可路由的地址。使用服务器地址代替 编辑-设置注释：因阿里云服务器事vps环境，访问FTP服务器，服务器返回的是内网地址，客户端无法连接；使用主动模式，可以直接通过互联网地址访问FTP。 4 参考资料重要!!!讲解一个重要配置组合。vsftp 实现不同用户不同权限配置]]></content>
@@ -42,8 +54,8 @@
         <category>Windows</category>
       </categories>
       <tags>
-        <tag>小知识</tag>
         <tag>基础运维</tag>
+        <tag>小知识</tag>
       </tags>
   </entry>
   <entry>
@@ -1022,8 +1034,8 @@
         <category>Windows</category>
       </categories>
       <tags>
-        <tag>小知识</tag>
         <tag>基础运维</tag>
+        <tag>小知识</tag>
         <tag>bat</tag>
         <tag>运维开发</tag>
       </tags>
@@ -1036,8 +1048,8 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>小知识</tag>
         <tag>基础运维</tag>
+        <tag>小知识</tag>
         <tag>运维工具</tag>
       </tags>
   </entry>
