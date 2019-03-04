@@ -37,7 +37,7 @@
   <entry>
     <title><![CDATA[Linux环境SVN钉钉通知]]></title>
     <url>%2F2018%2F12%2F11%2FLinux%E7%8E%AF%E5%A2%83SVN%E9%92%89%E9%92%89%E9%80%9A%E7%9F%A5%2F</url>
-    <content type="text"><![CDATA[1 参考资料https://www.cnblogs.com/jianxuanbing/p/6835765.html 2 步骤 2.1 修改pre-commit1234567891011#"!/bin/shREPOS="$1"TXN="$2"SVNLOOK=/usr/bin/svnlook # 同pre-commit.tmpl文件中的SVNLOOKLOGMSG=`$SVNLOOK log -t "$TXN" "$REPOS" | grep "[a-zA-Z0-9]" | wc -c`if [ "$LOGMSG" -lt 10 ];then echo "提交失败： 注释不能低于10个字符" 1&gt;&amp;2 exit 1fi 2.2 修改post-commit12345678910111213141516#!/bin/sh# 设置默认字符集，否则post信息到钉钉时中文乱码export LANG=en_US.UTF-8# svn中变量1为仓库路径，2为提交版本号REPOS="$1"REV="$2"time=$(date +%F/%T)# 下方svnlook命令获取相应的结果AUTHOR=$(/usr/bin/svnlook author -r $&#123;REV&#125; $&#123;REPOS&#125;)CHANGEDDIRS=$(/usr/bin/svnlook dirs-changed $REPOS)MESSAGE=$(/usr/bin/svnlook log -r $REV $REPOS)CONTENT=提交时间：$&#123;time&#125;\\n提交版本：$&#123;REV&#125;\\n作者：$&#123;AUTHOR&#125;\\n提交备注：$&#123;MESSAGE&#125;\\n修改目录：$CHANGEDDIRScd /home//usr/local/jdk1.8.0_152/bin/java Request 92bfa50db10658ee1c37f9ab6b7a000e14ce94a901002170762e472af3754fbf $CONTENT 备注： 脚本需要设置LANG变量为UTF8,否则中文乱码 CONTENT变量赋值种的:为中文书写方式，输出的消息存在空格的效果。 Request为java请求文件编译后的class文件，下面讲解 效果对比： 3 配置Java请求文件由于钉钉提供的接口是https协议，curl需要支持https，因此通过java代码发起Post请求，打包成可运行的class文件，然后用post-commit调用，传入信息即可。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960package com.wolf.util;import java.io.BufferedReader;import java.io.IOException;import java.io.InputStreamReader;import java.io.OutputStream;import java.net.URL;import javax.net.ssl.HttpsURLConnection;public class Request &#123; public static void main(String[] args) throws Exception &#123; String token = args[0]; String content = args[1]; content = "&#123;\"msgtype\": \"text\",\"text\": &#123;\"content\": \""+content+"\"&#125;&#125;"; httpsRequest("https://oapi.dingtalk.com/robot/send?access_token="+token, "POST", content); System.out.println("OK"); System.exit(0); &#125; /** * 发送https请求 */ public static String httpsRequest(String requestUrl, String requestMethod, String outputStr) throws Exception &#123; HttpsURLConnection conn = null; BufferedReader bufferedReader = null; try &#123; URL url = new URL(requestUrl); conn = (HttpsURLConnection) url.openConnection(); conn.setDoOutput(true); conn.setDoInput(true); conn.setUseCaches(false); conn.setRequestMethod(requestMethod); conn.setRequestProperty("content-type", "application/json"); if (null != outputStr) &#123; OutputStream outputStream = conn.getOutputStream(); outputStream.write(outputStr.getBytes("utf-8")); outputStream.close(); &#125; bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8")); String str = null; StringBuffer buffer = new StringBuffer(); while ((str = bufferedReader.readLine()) != null) &#123; buffer.append(str); &#125; return buffer.toString(); &#125; catch (Exception e) &#123; throw e; &#125; finally &#123; if (conn != null) &#123; conn.disconnect(); &#125; if (bufferedReader != null) &#123; try &#123; bufferedReader.close(); &#125; catch (IOException e) &#123; &#125; &#125; &#125; &#125;&#125; 备注：将上面代码使用eclipse工具导出为java文件，然后javac Request.java命令生成class文件，java Request命令执行class文件。 3 问题汇总3.1 乱码问题参考上面讲述，及解决方法 3.2 消息：后空格问题参考上面代码：使用中文写法。]]></content>
+    <content type="text"><![CDATA[1 参考资料https://www.cnblogs.com/jianxuanbing/p/6835765.html 2 步骤 2.1 修改pre-commit1234567891011#"!/bin/shREPOS="$1"TXN="$2"SVNLOOK=/usr/bin/svnlook # 同pre-commit.tmpl文件中的SVNLOOKLOGMSG=`$SVNLOOK log -t "$TXN" "$REPOS" | grep "[a-zA-Z0-9]" | wc -c`if [ "$LOGMSG" -lt 10 ];then echo "提交失败： 注释不能低于10个字符" 1&gt;&amp;2 exit 1fi 2.2 修改post-commit12345678910111213141516#!/bin/sh# 设置默认字符集，否则post信息到钉钉时中文乱码export LANG=en_US.UTF-8# svn中变量1为仓库路径，2为提交版本号REPOS="$1"REV="$2"time=$(date +%F/%T)# 下方svnlook命令获取相应的结果AUTHOR=$(/usr/bin/svnlook author -r $&#123;REV&#125; $&#123;REPOS&#125;)CHANGEDDIRS=$(/usr/bin/svnlook dirs-changed $REPOS)MESSAGE=$(/usr/bin/svnlook log -r $REV $REPOS)CONTENT=提交时间：$&#123;time&#125;\\n提交版本：$&#123;REV&#125;\\n作者：$&#123;AUTHOR&#125;\\n提交备注：$&#123;MESSAGE&#125;\\n修改目录：$CHANGEDDIRScd /home//usr/local/jdk1.8.0_152/bin/java Request 92bfa50db10658ee1c37f9ab6b7a000e14ce94a901002170762e472af3754fbf $CONTENT 备注： 脚本需要设置LANG变量为UTF8,否则中文乱码 CONTENT变量赋值种的:为中文书写方式，输出的消息存在空格的效果。 Request为java请求文件编译后的class文件，下面讲解 效果对比： 3 配置Java请求文件由于钉钉提供的接口是https协议，curl需要支持https，因此通过java代码发起Post请求，打包成可运行的class文件，然后用post-commit调用，传入信息即可。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960package com.wolf.util;import java.io.BufferedReader;import java.io.IOException;import java.io.InputStreamReader;import java.io.OutputStream;import java.net.URL;import javax.net.ssl.HttpsURLConnection;public class Request &#123; public static void main(String[] args) throws Exception &#123; String token = args[0]; String content = args[1]; content = "&#123;\"msgtype\": \"text\",\"text\": &#123;\"content\": \""+content+"\"&#125;&#125;"; httpsRequest("https://oapi.dingtalk.com/robot/send?access_token="+token, "POST", content); System.out.println("OK"); System.exit(0); &#125; /** * 发送https请求 */ public static String httpsRequest(String requestUrl, String requestMethod, String outputStr) throws Exception &#123; HttpsURLConnection conn = null; BufferedReader bufferedReader = null; try &#123; URL url = new URL(requestUrl); conn = (HttpsURLConnection) url.openConnection(); conn.setDoOutput(true); conn.setDoInput(true); conn.setUseCaches(false); conn.setRequestMethod(requestMethod); conn.setRequestProperty("content-type", "application/json"); if (null != outputStr) &#123; OutputStream outputStream = conn.getOutputStream(); outputStream.write(outputStr.getBytes("utf-8")); outputStream.close(); &#125; bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8")); String str = null; StringBuffer buffer = new StringBuffer(); while ((str = bufferedReader.readLine()) != null) &#123; buffer.append(str); &#125; return buffer.toString(); &#125; catch (Exception e) &#123; throw e; &#125; finally &#123; if (conn != null) &#123; conn.disconnect(); &#125; if (bufferedReader != null) &#123; try &#123; bufferedReader.close(); &#125; catch (IOException e) &#123; &#125; &#125; &#125; &#125;&#125; 备注：将上面代码使用eclipse工具导出为java文件，然后javac Request.java命令生成class文件，java Request命令执行class文件。 3 问题汇总3.1 乱码问题参考上面讲述，及解决方法 3.2 消息：后空格问题参考上面代码：使用中文写法。 4 附件]]></content>
       <categories>
         <category>Linux</category>
       </categories>
@@ -54,8 +54,8 @@
         <category>Windows</category>
       </categories>
       <tags>
-        <tag>基础运维</tag>
         <tag>小知识</tag>
+        <tag>基础运维</tag>
       </tags>
   </entry>
   <entry>
@@ -358,8 +358,8 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>wiki</tag>
         <tag>Mediawiki</tag>
+        <tag>wiki</tag>
       </tags>
   </entry>
   <entry>
@@ -370,8 +370,8 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>mediawiki</tag>
         <tag>wiki</tag>
+        <tag>mediawiki</tag>
       </tags>
   </entry>
   <entry>
@@ -1034,8 +1034,8 @@
         <category>Windows</category>
       </categories>
       <tags>
-        <tag>基础运维</tag>
         <tag>小知识</tag>
+        <tag>基础运维</tag>
         <tag>bat</tag>
         <tag>运维开发</tag>
       </tags>
@@ -1048,8 +1048,8 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>基础运维</tag>
         <tag>小知识</tag>
+        <tag>基础运维</tag>
         <tag>运维工具</tag>
       </tags>
   </entry>
