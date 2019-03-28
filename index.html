@@ -351,6 +351,215 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2019/03/28/Linux下run包制作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/28/Linux下run包制作/" itemprop="url">Linux下run包制作</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T16:13:16+08:00">
+                2019-03-28
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-28T16:32:06+08:00">
+                2019-03-28
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  566
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-Run软件包介绍"><a href="#1-Run软件包介绍" class="headerlink" title="1 Run软件包介绍"></a>1 Run软件包介绍</h1><p>run 程序安装包实质上是一个安装脚本加要安装的程序，如下所示：</p>
+<p>|—————–——|<br>|                        |<br>|     安装脚本       |<br>|                        |<br>|—————–——|<br>|                        |<br>|      程序            |<br>|                        |<br>|—————–——|</p>
+<p>这样整个 run 安装包结构就一目了然了，实际上因为实际需要结构多少有点变动但这个无关紧要，只需要明白原理就行了。<br><strong>安装文件的优点：</strong></p>
+<p>（1）只有一个包文件；</p>
+<p>（2）可以直接运行在 Linux上，因为它是 sh（它的前半部分是sh）；</p>
+<p>（3）在 sh 中可以包含需要用户接收的协议信息，而且提示用户接收，如果用户不接收，安装退出。</p>
+<h1 id="2-制作run安装包"><a href="#2-制作run安装包" class="headerlink" title="2 制作run安装包"></a>2 制作run安装包</h1><h2 id="2-1-压缩环境包"><a href="#2-1-压缩环境包" class="headerlink" title="2.1 压缩环境包"></a>2.1 压缩环境包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zcvf app.tar.gz app/</span><br></pre></td></tr></table></figure>
+<h2 id="2-2-制作安装脚本"><a href="#2-2-制作安装脚本" class="headerlink" title="2.2 制作安装脚本"></a>2.2 制作安装脚本</h2><p>install.sh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line">lines=13                <span class="comment">#这个值是指这个脚本的行数加 1，这个脚本共有 7 行</span></span><br><span class="line">tail -n +<span class="variable">$lines</span> <span class="variable">$0</span> &gt; /tmp/app.tar.gz       </span><br><span class="line"><span class="comment"># $0 表示脚本本身，这个命令用来把从 $lines 开始的内容写入一个 /tmp 目录的 scan.tar.gz 文件里。</span></span><br><span class="line">tar zxvf /tmp/app.tar.gz</span><br><span class="line">cp -pR app /opt/</span><br><span class="line">rm -rf app/</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"********************************************************************************************************************"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"*****Install Success  **********************************************************************************************"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"*****Installation path: /opt/app  **********************************************************************************"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"*****Explain: Modify the start.sh configuration parameter, and then execute the start.sh script startup program.****"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"********************************************************************************************************************"</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></table></figure>
+<h1 id="3-生成run文件"><a href="#3-生成run文件" class="headerlink" title="3 生成run文件"></a>3 生成run文件</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat install.sh app.tar.gz &gt; app.run</span><br></pre></td></tr></table></figure>
+<p>这样就得到了 app.run 文件，它的结构如下：<br>|—————–———| 第1行<br>|                            |<br>|         install.sh         |<br>|                              | 第7行<br>|—————–———|<br>|       app.tar.gz       | 第8行<br>|                               |<br>|—————–———| 结尾</p>
+<p>可通过<code>vi/vim app.run</code> 查看脚本内容</p>
+<p>在运行 apprun 时，运行到第 7 行的 exit 0 ，脚本就会自动退出了，不会去运行第 8 行以下的二进制数据（即 app.tar.gz 文件），这样 shell 就不会因为识别不了二进制数据而出错了。这里我们巧妙地使用了 tail 命令，把第 7 行以下的数据重新生成了一个app.tar.gz文件，然后再执行安装。运行超级简单，使用 sh app.run 或赋予可执行权限然后直接执行 ./app.run 就可以安装了。</p>
+<p>run 安装包制作较小的程序包是很好的选择，但是它也有缺点，做逻辑比较复杂的安装包，写的安装脚本将会很麻烦，因此此时还是用其他的安装包更好。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2019/03/28/Postgresql-Postgis解压版安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -537,7 +746,7 @@
 <p>-W, –password 强制提示输入口令</p>
 <p>如果 -d, -D, -r, -R, -s, -S 和 ROLENAME 一个都没有指定,将使用交互式提示</p>
 <p>你.</p>
-<p>臭虫报告至 <a href="mailto:&#x70;&#x67;&#x73;&#x71;&#x6c;&#45;&#98;&#117;&#x67;&#x73;&#x40;&#x70;&#x6f;&#115;&#x74;&#x67;&#114;&#101;&#x73;&#113;&#108;&#46;&#111;&#x72;&#103;" target="_blank" rel="noopener">&#x70;&#x67;&#x73;&#x71;&#x6c;&#45;&#98;&#117;&#x67;&#x73;&#x40;&#x70;&#x6f;&#115;&#x74;&#x67;&#114;&#101;&#x73;&#113;&#108;&#46;&#111;&#x72;&#103;</a>.</p>
+<p>臭虫报告至 <a href="mailto:&#112;&#103;&#x73;&#113;&#x6c;&#x2d;&#98;&#117;&#x67;&#115;&#x40;&#x70;&#x6f;&#115;&#x74;&#103;&#114;&#101;&#115;&#x71;&#108;&#46;&#111;&#114;&#x67;" target="_blank" rel="noopener">&#112;&#103;&#x73;&#113;&#x6c;&#x2d;&#98;&#117;&#x67;&#115;&#x40;&#x70;&#x6f;&#115;&#x74;&#103;&#114;&#101;&#115;&#x71;&#108;&#46;&#111;&#114;&#x67;</a>.</p>
 <p>例子1:&gt;createuser -P -d -U postgres dan</p>
 <p>解释:-P(大写)说的是为新用户指定口令;-d说的该角色是否可以创建数据库;-U(大写)当前的操作是哪个用户发出的;最后的dan是新用户的名字。</p>
 <p>补充：</p>
@@ -2442,206 +2651,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2018/09/13/jenkins报错/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/13/jenkins报错/" itemprop="url">jenkins报错</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-13T15:07:15+08:00">
-                2018-09-13
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-13T15:22:26+08:00">
-                2018-09-13
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  74
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1-ERROR-Exception-when-publishing-exception-message-Exec-timed-out-or-was-interrupted-after-XXX-ms"><a href="#1-ERROR-Exception-when-publishing-exception-message-Exec-timed-out-or-was-interrupted-after-XXX-ms" class="headerlink" title="1 ERROR: Exception when publishing, exception message [Exec timed out or was interrupted after XXX ms]"></a>1 ERROR: Exception when publishing, exception message [Exec timed out or was interrupted after XXX ms]</h1>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/13/jenkins报错/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2699,7 +2708,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">92</span>
+                  <span class="site-state-item-count">93</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2721,7 +2730,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2896,7 +2905,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">93.9k</span>
+    <span title="Site words total count">94.4k</span>
   
 </div>
 
