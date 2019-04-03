@@ -138,7 +138,7 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="1 批处理|多服务多窗口">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-05T09:53:31.290Z">
+<meta property="og:updated_time" content="2019-04-03T02:59:43.883Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="批处理文件小技巧">
 <meta name="twitter:description" content="1 批处理|多服务多窗口">
@@ -397,8 +397,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-05T17:53:31+08:00">
-                2018-09-05
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-03T10:59:43+08:00">
+                2019-04-03
               </time>
             
           </span>
@@ -452,7 +452,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k
+                  1.4k
                 </span>
               
 
@@ -468,7 +468,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5
+                  6
                 </span>
               
             </div>
@@ -512,7 +512,14 @@
 </blockquote>
 <figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">NET USE Z: <span class="symbol">\\</span>172.0.0.22<span class="symbol">\b</span>ackup "Password" /User:"Administrator"</span><br><span class="line">echo ****#####start备份#####**** &gt;&gt;F:<span class="symbol">\s</span>hell<span class="symbol">\d</span>ay1.log</span><br><span class="line">xcopy d:<span class="symbol">\u</span>sr<span class="symbol">\s</span>ap<span class="symbol">\*</span>.* z:<span class="symbol">\s</span>ap<span class="symbol">\D</span> /E /H /R /Y /I /d &gt;&gt;F:<span class="symbol">\s</span>hell<span class="symbol">\d</span>ay1.log</span><br><span class="line">echo <span class="variable">%date%</span>."success backup d sap" &gt;&gt;F:<span class="symbol">\s</span>hell<span class="symbol">\d</span>ay1.log</span><br><span class="line">move /Y H:<span class="symbol">\b</span>ackup<span class="symbol">\*</span>.* z:<span class="symbol">\s</span>ap<span class="symbol">\d</span>atabase &gt;&gt;F:<span class="symbol">\s</span>hell<span class="symbol">\d</span>ay1.log</span><br><span class="line">echo <span class="variable">%date%</span>."success move databackup files" &gt;&gt;F:<span class="symbol">\s</span>hell<span class="symbol">\d</span>ay1.log</span><br></pre></td></tr></table></figure>
 <p>就是在脚本开始，添加连接到驱动器的命令，脚本执行时不知道为什么没有默认确定连接账户密码。</p>
+<h1 id="5-在cmd-bat脚本中获取当前脚本文件所在目录"><a href="#5-在cmd-bat脚本中获取当前脚本文件所在目录" class="headerlink" title="5 在cmd/bat脚本中获取当前脚本文件所在目录"></a>5 在cmd/bat脚本中获取当前脚本文件所在目录</h1><p>在xp、2000、2003等系统中都可以正常双击运行。在win7/Win10系统中双击运行时，会以普通用户身份运行，此时所获取的文件路径的确是当前路径，而不是C:\Windows\System32。但是运行到安装netpay_Service.exe -install 的系统服务时，普通用户显然权限是不够的。</p>
+<pre><code>于是在InstllSvc_En.cmd右键选择“以管理员身份运行”，此时又会出问题，win7/win10可能出于安全问题考虑，此时获得的目录是C:\Windows\System32，于是提示netpay_Service.exe命令无效或程序文件不存在，执行出错。
 
+此时在脚本开始尝试加入命令cd %cd%，来获取当前路径，实验得知，这行语句在xp等系统中有效，但是在win7/win10中依然无效。得到的目录依然是C:\Windows\System32。
+</code></pre><p>   百度一下才知道要使用cd /d %~dp0命令来获取脚本所在的目录。在脚本最开始添加cd /d %~dp0即可，如下：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /d %~dp0</span><br><span class="line">netpay_Service.exe -install</span><br><span class="line">netpay_Monitor.exe -install</span><br></pre></td></tr></table></figure>
+<pre><code>在Windows XP~Windows 10系统上运行此脚本，确认都没有问题。
+</code></pre>
       
     </div>
     
@@ -541,7 +548,7 @@
   <p><span>本文标题:</span><a href="/2018/08/16/批处理文件小技巧/">批处理文件小技巧</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2018年08月16日 - 13:08</p>
-  <p><span>最后更新:</span>2018年09月05日 - 17:09</p>
+  <p><span>最后更新:</span>2019年04月03日 - 10:04</p>
   <p><span>原始链接:</span><a href="/2018/08/16/批处理文件小技巧/" title="批处理文件小技巧">https://kxinter.github.io/blog/2018/08/16/批处理文件小技巧/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/blog/2018/08/16/批处理文件小技巧/"  aria-label="复制成功！"></i></span>
   </p>
@@ -903,7 +910,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-批处理-多服务多窗口"><span class="nav-text">1 批处理|多服务多窗口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-批处理-choice的使用示例"><span class="nav-text">2 批处理|choice的使用示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-批处理-脚本设置环境变量"><span class="nav-text">3 批处理|脚本设置环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-批处理-局域网备份"><span class="nav-text">4 批处理|局域网备份</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-环境"><span class="nav-text">4.1 环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-问题说明"><span class="nav-text">4.2 问题说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-问题解决"><span class="nav-text">4.3 问题解决</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-1-参考资料"><span class="nav-text">4.3.1 参考资料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-2-处理方法"><span class="nav-text">4.3.2 处理方法</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-批处理-多服务多窗口"><span class="nav-text">1 批处理|多服务多窗口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-批处理-choice的使用示例"><span class="nav-text">2 批处理|choice的使用示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-批处理-脚本设置环境变量"><span class="nav-text">3 批处理|脚本设置环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-批处理-局域网备份"><span class="nav-text">4 批处理|局域网备份</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-环境"><span class="nav-text">4.1 环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-问题说明"><span class="nav-text">4.2 问题说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-问题解决"><span class="nav-text">4.3 问题解决</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-1-参考资料"><span class="nav-text">4.3.1 参考资料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-2-处理方法"><span class="nav-text">4.3.2 处理方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-在cmd-bat脚本中获取当前脚本文件所在目录"><span class="nav-text">5 在cmd/bat脚本中获取当前脚本文件所在目录</span></a></li></ol></div>
             
 
           </div>
@@ -937,7 +944,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">94.4k</span>
+    <span title="Site words total count">94.7k</span>
   
 </div>
 
