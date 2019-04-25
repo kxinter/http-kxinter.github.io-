@@ -146,7 +146,7 @@
 <meta property="og:image" content="https://kxinter.github.io/blog/2019/04/25/mysql优化/6.png">
 <meta property="og:image" content="https://kxinter.github.io/blog/2019/04/25/mysql优化/8.png">
 <meta property="og:image" content="https://kxinter.github.io/blog/2019/04/25/mysql优化/7.png">
-<meta property="og:updated_time" content="2019-04-25T08:49:41.096Z">
+<meta property="og:updated_time" content="2019-04-25T09:05:37.755Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql优化">
 <meta name="twitter:description" content="1 缓存优化之QueryCache从 MySQL4开始，出现了QueryCache查询缓存，如果使用了QueryCache，当查询接收到一个和之前同样的查询，服务器将会从查询缓存种检索结果，而不是再次分析和执行上次的查询。这样就大大提高了性能，节省时间，非常有用。 打开查询缓存，是通过几个步骤来设置的，例如：虽然你设置Mysql允许查询缓存，但是如果你设置的查询缓存大小为了0，这和没有允许没什么区">
@@ -406,7 +406,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-04-25T16:49:41+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-25T17:05:37+08:00">
                 2019-04-25
               </time>
             
@@ -472,7 +472,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.3k
+                  2.4k
                 </span>
               
 
@@ -556,7 +556,7 @@
 <p>如果该表未被缓存，则会将当前的表添加进缓存并进行查询。在执行缓存操作前，<code>table_cache</code>参数用于限制缓存表的最大数目；如果当前已经缓存的表未达到<code>table_cache</code>数目，则会将新表添加进去，若已经达到此值，MySQL将根据缓存表的最后查询时间，查询率，等规则释放之前的缓存。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">global</span> <span class="keyword">status</span> <span class="keyword">like</span> <span class="string">'open%_tables'</span>;</span><br></pre></td></tr></table></figure>
 <p><img src="7.png" alt="7"><br>来查看这两个参数的值。其中<code>Open_tables</code>是当前正在打开表的数量，<code>Opened_tables</code>是所有已经打开表的数量。</p>
-<h1 id="参考地址："><a href="#参考地址：" class="headerlink" title="参考地址："></a>参考地址：</h1><p><a href="https://blog.csdn.net/qq_40460909/article/details/81236624" target="_blank" rel="noopener">enter description here</a><br><a href="https://blog.csdn.net/z13615480737/article/details/82621116" target="_blank" rel="noopener">enter description here</a><br><a href="https://www.cnblogs.com/onlysun/p/4513029.html" target="_blank" rel="noopener">enter description here</a></p>
+<h1 id="参考地址："><a href="#参考地址：" class="headerlink" title="参考地址："></a>参考地址：</h1><p><a href="https://blog.csdn.net/qq_40460909/article/details/81236624" target="_blank" rel="noopener">https://blog.csdn.net/qq_40460909/article/details/81236624</a><br><a href="https://blog.csdn.net/z13615480737/article/details/82621116" target="_blank" rel="noopener">https://blog.csdn.net/z13615480737/article/details/82621116</a><br><a href="https://www.cnblogs.com/onlysun/p/4513029.html" target="_blank" rel="noopener">https://www.cnblogs.com/onlysun/p/4513029.html</a></p>
 
       
     </div>
@@ -586,7 +586,7 @@
   <p><span>本文标题:</span><a href="/2019/04/25/mysql优化/">mysql优化</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2019年04月25日 - 11:04</p>
-  <p><span>最后更新:</span>2019年04月25日 - 16:04</p>
+  <p><span>最后更新:</span>2019年04月25日 - 17:04</p>
   <p><span>原始链接:</span><a href="/2019/04/25/mysql优化/" title="mysql优化">https://kxinter.github.io/blog/2019/04/25/mysql优化/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/blog/2019/04/25/mysql优化/"  aria-label="复制成功！"></i></span>
   </p>
@@ -976,7 +976,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">97.1k</span>
+    <span title="Site words total count">97.2k</span>
   
 </div>
 
