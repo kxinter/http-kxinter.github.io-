@@ -130,13 +130,13 @@
 
 
 
-<meta name="description" content="1 缓存优化之QueryCache从 MySQL4开始，出现了QueryCache查询缓存，如果使用了QueryCache，当查询接收到一个和之前同样的查询，服务器将会从查询缓存种检索结果，而不是再次分析和执行上次的查询。这样就大大提高了性能，节省时间，非常有用。 打开查询缓存，是通过几个步骤来设置的，例如：虽然你设置Mysql允许查询缓存，但是如果你设置的查询缓存大小为了0，这和没有允许没什么区">
+<meta name="description" content="1 缓存优化之QueryCache">
 <meta name="keywords" content="mysql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mysql优化">
 <meta property="og:url" content="https://kxinter.github.io/blog/2019/04/25/mysql优化/index.html">
 <meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="1 缓存优化之QueryCache从 MySQL4开始，出现了QueryCache查询缓存，如果使用了QueryCache，当查询接收到一个和之前同样的查询，服务器将会从查询缓存种检索结果，而不是再次分析和执行上次的查询。这样就大大提高了性能，节省时间，非常有用。 打开查询缓存，是通过几个步骤来设置的，例如：虽然你设置Mysql允许查询缓存，但是如果你设置的查询缓存大小为了0，这和没有允许没什么区">
+<meta property="og:description" content="1 缓存优化之QueryCache">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://kxinter.github.io/blog/2019/04/25/mysql优化/1.png">
 <meta property="og:image" content="https://kxinter.github.io/blog/2019/04/25/mysql优化/2.png">
@@ -146,10 +146,10 @@
 <meta property="og:image" content="https://kxinter.github.io/blog/2019/04/25/mysql优化/6.png">
 <meta property="og:image" content="https://kxinter.github.io/blog/2019/04/25/mysql优化/8.png">
 <meta property="og:image" content="https://kxinter.github.io/blog/2019/04/25/mysql优化/7.png">
-<meta property="og:updated_time" content="2019-04-25T09:05:37.755Z">
+<meta property="og:updated_time" content="2019-04-26T08:53:20.241Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql优化">
-<meta name="twitter:description" content="1 缓存优化之QueryCache从 MySQL4开始，出现了QueryCache查询缓存，如果使用了QueryCache，当查询接收到一个和之前同样的查询，服务器将会从查询缓存种检索结果，而不是再次分析和执行上次的查询。这样就大大提高了性能，节省时间，非常有用。 打开查询缓存，是通过几个步骤来设置的，例如：虽然你设置Mysql允许查询缓存，但是如果你设置的查询缓存大小为了0，这和没有允许没什么区">
+<meta name="twitter:description" content="1 缓存优化之QueryCache">
 <meta name="twitter:image" content="https://kxinter.github.io/blog/2019/04/25/mysql优化/1.png">
 
 
@@ -406,8 +406,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-04-25T17:05:37+08:00">
-                2019-04-25
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-26T16:53:20+08:00">
+                2019-04-26
               </time>
             
           </span>
@@ -509,7 +509,8 @@
       
 
       
-        <h1 id="1-缓存优化之QueryCache"><a href="#1-缓存优化之QueryCache" class="headerlink" title="1 缓存优化之QueryCache"></a>1 缓存优化之QueryCache</h1><p>从 MySQL4开始，出现了<code>QueryCache</code>查询缓存，如果使用了<code>QueryCache</code>，当查询接收到一个和之前同样的查询，服务器将会从查询缓存种检索结果，而不是再次分析和执行上次的查询。这样就大大提高了性能，节省时间，非常有用。</p>
+        <h1 id="1-缓存优化之QueryCache"><a href="#1-缓存优化之QueryCache" class="headerlink" title="1 缓存优化之QueryCache"></a>1 缓存优化之QueryCache</h1><a id="more"></a>
+<p>从 MySQL4开始，出现了<code>QueryCache</code>查询缓存，如果使用了<code>QueryCache</code>，当查询接收到一个和之前同样的查询，服务器将会从查询缓存种检索结果，而不是再次分析和执行上次的查询。这样就大大提高了性能，节省时间，非常有用。</p>
 <p>打开查询缓存，是通过几个步骤来设置的，例如：虽然你设置Mysql允许查询缓存，但是如果你设置的查询缓存大小为了<code>0</code>，这和没有允许没什么区别。所以必须是几个步骤的设置才能真正打开查询缓存这个功能。</p>
 <h2 id="1-1-查询开启状态"><a href="#1-1-查询开启状态" class="headerlink" title="1.1  查询开启状态"></a>1.1  查询开启状态</h2><p> 一般，我们会把 <code>query_cache_type</code> 设置为 <code>ON</code>,默认情况下应该是<code>ON</code>(其实5.6默认是OFF)</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select @@query_cache_type;              # 查询开启状态</span><br></pre></td></tr></table></figure>
@@ -586,7 +587,7 @@
   <p><span>本文标题:</span><a href="/2019/04/25/mysql优化/">mysql优化</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2019年04月25日 - 11:04</p>
-  <p><span>最后更新:</span>2019年04月25日 - 17:04</p>
+  <p><span>最后更新:</span>2019年04月26日 - 16:04</p>
   <p><span>原始链接:</span><a href="/2019/04/25/mysql优化/" title="mysql优化">https://kxinter.github.io/blog/2019/04/25/mysql优化/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/blog/2019/04/25/mysql优化/"  aria-label="复制成功！"></i></span>
   </p>

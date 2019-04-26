@@ -130,13 +130,13 @@
 
 
 
-<meta name="description" content="1 常用配置详解1.1 目录结构 /bin：脚本文件目录。 /common/lib：存放所有web项目都可以访问的公共jar包（使用Common类加载器加载）。 /conf：存放配置文件，最重要的是server.xml。 /logs：存放日志文件。 /server/webapps：来管理Tomcat-web服务用的。仅对TOMCAT可见，对所有的WEB APP都不可见（使用Catalina类加载器">
+<meta name="description" content="1 常用配置详解">
 <meta name="keywords" content="tomcat">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Tomcat优化">
 <meta property="og:url" content="https://kxinter.github.io/blog/2018/12/21/tomcat优化/index.html">
 <meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="1 常用配置详解1.1 目录结构 /bin：脚本文件目录。 /common/lib：存放所有web项目都可以访问的公共jar包（使用Common类加载器加载）。 /conf：存放配置文件，最重要的是server.xml。 /logs：存放日志文件。 /server/webapps：来管理Tomcat-web服务用的。仅对TOMCAT可见，对所有的WEB APP都不可见（使用Catalina类加载器">
+<meta property="og:description" content="1 常用配置详解">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://kxinter.github.io/blog/2018/12/21/tomcat优化/1.png">
 <meta property="og:image" content="https://kxinter.github.io/blog/2018/12/21/tomcat优化/2.png">
@@ -147,10 +147,10 @@
 <meta property="og:image" content="https://kxinter.github.io/blog/2018/12/21/tomcat优化/7.png">
 <meta property="og:image" content="https://kxinter.github.io/blog/2018/12/21/tomcat优化/8.png">
 <meta property="og:image" content="https://kxinter.github.io/blog/2018/12/21/tomcat优化/9.png">
-<meta property="og:updated_time" content="2019-01-21T06:31:40.057Z">
+<meta property="og:updated_time" content="2019-04-26T08:54:43.383Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tomcat优化">
-<meta name="twitter:description" content="1 常用配置详解1.1 目录结构 /bin：脚本文件目录。 /common/lib：存放所有web项目都可以访问的公共jar包（使用Common类加载器加载）。 /conf：存放配置文件，最重要的是server.xml。 /logs：存放日志文件。 /server/webapps：来管理Tomcat-web服务用的。仅对TOMCAT可见，对所有的WEB APP都不可见（使用Catalina类加载器">
+<meta name="twitter:description" content="1 常用配置详解">
 <meta name="twitter:image" content="https://kxinter.github.io/blog/2018/12/21/tomcat优化/1.png">
 
 
@@ -407,8 +407,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-21T14:31:40+08:00">
-                2019-01-21
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-26T16:54:43+08:00">
+                2019-04-26
               </time>
             
           </span>
@@ -499,7 +499,8 @@
       
 
       
-        <h1 id="1-常用配置详解"><a href="#1-常用配置详解" class="headerlink" title="1 常用配置详解"></a>1 常用配置详解</h1><h2 id="1-1-目录结构"><a href="#1-1-目录结构" class="headerlink" title="1.1 目录结构"></a>1.1 目录结构</h2><p> <strong>/bin</strong>：脚本文件目录。<br> <strong>/common/lib</strong>：存放所有web项目都可以访问的公共jar包（使用Common类加载器加载）。<br> <strong>/conf</strong>：存放配置文件，最重要的是server.xml。<br> <strong>/logs</strong>：存放日志文件。<br> <strong>/server/webapps</strong>：来管理Tomcat-web服务用的。仅对TOMCAT可见，对所有的WEB APP都不可见（使用Catalina类加载器加载）。<br> <strong>/shared/lib</strong>：仅对所有WEB APP可见，对TOMCAT不可见（使用Shared类加载器加载）。<br> <strong>/temp</strong>：Tomcat运行时候存放临时文件用的。<br> <strong>/webapps</strong>：web应用发布目录。<br> <strong>/work</strong>：Tomcat把各种由jsp生成的servlet文件放在这个目录下。删除后，启动时会自动创建。</p>
+        <h1 id="1-常用配置详解"><a href="#1-常用配置详解" class="headerlink" title="1 常用配置详解"></a>1 常用配置详解</h1><a id="more"></a>
+<h2 id="1-1-目录结构"><a href="#1-1-目录结构" class="headerlink" title="1.1 目录结构"></a>1.1 目录结构</h2><p> <strong>/bin</strong>：脚本文件目录。<br> <strong>/common/lib</strong>：存放所有web项目都可以访问的公共jar包（使用Common类加载器加载）。<br> <strong>/conf</strong>：存放配置文件，最重要的是server.xml。<br> <strong>/logs</strong>：存放日志文件。<br> <strong>/server/webapps</strong>：来管理Tomcat-web服务用的。仅对TOMCAT可见，对所有的WEB APP都不可见（使用Catalina类加载器加载）。<br> <strong>/shared/lib</strong>：仅对所有WEB APP可见，对TOMCAT不可见（使用Shared类加载器加载）。<br> <strong>/temp</strong>：Tomcat运行时候存放临时文件用的。<br> <strong>/webapps</strong>：web应用发布目录。<br> <strong>/work</strong>：Tomcat把各种由jsp生成的servlet文件放在这个目录下。删除后，启动时会自动创建。</p>
 <h2 id="1-2-配置文件"><a href="#1-2-配置文件" class="headerlink" title="1.2 配置文件"></a>1.2 配置文件</h2><p> <code>server.xml</code>：主要的配置文件。<br> <code>web.xml</code>：缺省的web app配置，WEB-INF/web.xml会覆盖该配置。<br> <code>context.xml</code>：不清楚跟server.xml里面的context是否有关系。</p>
 <p> <strong>server.xml配置</strong><br> ==<strong><em>server标签</em></strong>==<br> <code>port</code>：指定一个端口，这个端口负责监听关闭tomcat的请求。<br> <code>shutdown</code>：指定向端口发送的命令字符串。</p>
 <p> ==<strong><em>service标签</em></strong>==<br> <code>name</code>：指定service的名字。</p>
@@ -733,7 +734,7 @@
   <p><span>本文标题:</span><a href="/2018/12/21/tomcat优化/">Tomcat优化</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2018年12月21日 - 10:12</p>
-  <p><span>最后更新:</span>2019年01月21日 - 14:01</p>
+  <p><span>最后更新:</span>2019年04月26日 - 16:04</p>
   <p><span>原始链接:</span><a href="/2018/12/21/tomcat优化/" title="Tomcat优化">https://kxinter.github.io/blog/2018/12/21/tomcat优化/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/blog/2018/12/21/tomcat优化/"  aria-label="复制成功！"></i></span>
   </p>
