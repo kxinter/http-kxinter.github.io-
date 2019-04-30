@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<!--添加顶部进度条-->
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+<!--end-->
+<meta name="theme-color" content="#222">
+<!--添加文章加密-->
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="fonts.useso.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon1.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon1.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon1.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="mysql," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1、MyISAM：默认表类型，它是基于传统的ISAM类型，ISAM是Indexed Sequential Access Method (有索引的顺序访问方法) 的缩写，它是存储记录和文件的标准方法。不是事务安全的，而且不支持外键，如果执行大量的select，insert MyISAM比较适合。 2、InnoDB：支持事务安全的引擎，支持外键、行锁、事务是他的最大特点。如果有大量的update和in">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MyISAM与InnoDB两者之间区别与选择">
+<meta property="og:url" content="https://kxinter.github.io/blog/2019/04/28/MyISAM与InnoDB两者之间区别与选择/index.html">
+<meta property="og:site_name" content="Operation随笔">
+<meta property="og:description" content="1、MyISAM：默认表类型，它是基于传统的ISAM类型，ISAM是Indexed Sequential Access Method (有索引的顺序访问方法) 的缩写，它是存储记录和文件的标准方法。不是事务安全的，而且不支持外键，如果执行大量的select，insert MyISAM比较适合。 2、InnoDB：支持事务安全的引擎，支持外键、行锁、事务是他的最大特点。如果有大量的update和in">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://kxinter.github.io/blog/2019/04/28/MyISAM与InnoDB两者之间区别与选择/1.jpg">
+<meta property="og:updated_time" content="2019-04-28T08:42:41.968Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MyISAM与InnoDB两者之间区别与选择">
+<meta name="twitter:description" content="1、MyISAM：默认表类型，它是基于传统的ISAM类型，ISAM是Indexed Sequential Access Method (有索引的顺序访问方法) 的缩写，它是存储记录和文件的标准方法。不是事务安全的，而且不支持外键，如果执行大量的select，insert MyISAM比较适合。 2、InnoDB：支持事务安全的引擎，支持外键、行锁、事务是他的最大特点。如果有大量的update和in">
+<meta name="twitter:image" content="https://kxinter.github.io/blog/2019/04/28/MyISAM与InnoDB两者之间区别与选择/1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kxinter.github.io/blog/2019/04/28/MyISAM与InnoDB两者之间区别与选择/"/>
+
+
+
+
+
+  <title>MyISAM与InnoDB两者之间区别与选择 | Operation随笔</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<!--添加左上角github图标-->
+	<a href="https://github.com/kxinter" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
+    <!--添加右上角gitee图标
+	<a href="https://gitee.com/kxinter"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://www.jianguoyun.com/c/tblv2/COmIGhjhtNMGIgsv56CB5LqRLmpwZygC/q9YvhedkGsc/l" alt="Fork me on GitHub"></a>
+    -->
+	<header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Operation随笔</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2019/04/28/MyISAM与InnoDB两者之间区别与选择/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MyISAM与InnoDB两者之间区别与选择</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-28T12:32:28+08:00">
+                2019-04-28
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-28T16:42:41+08:00">
+                2019-04-28
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/Windows/" itemprop="url" rel="index">
+                    <span itemprop="name">Windows</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_value_page_pv"></span>次阅读
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  20
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>1、<code>MyISAM</code>：默认表类型，它是基于传统的ISAM类型，ISAM是Indexed Sequential Access Method (有索引的顺序访问方法) 的缩写，它是存储记录和文件的标准方法。不是事务安全的，而且不支持外键，如果执行大量的select，insert MyISAM比较适合。</p>
+<p>2、<code>InnoDB</code>：支持事务安全的引擎，支持外键、行锁、事务是他的最大特点。如果有大量的update和insert，建议使用InnoDB，特别是针对多个并发和QPS较高的情况。</p>
+<h1 id="一、表锁差异"><a href="#一、表锁差异" class="headerlink" title="一、表锁差异"></a>一、表锁差异</h1><h2 id="MyISAM"><a href="#MyISAM" class="headerlink" title="MyISAM:"></a><strong><em>MyISAM:</em></strong></h2><p><code>myisam</code>只支持表级锁，用户在操作<code>myisam</code>表时，<code>select，update，delete，insert</code>语句都会给表自动加锁，如果加锁以后的表满足insert并发的情况下，可以在表的尾部插入新的数据。也可以通过<code>lock table</code>命令来锁表，这样操作主要是可以模仿事务，但是消耗非常大，一般只在实验演示中使用。</p>
+<h2 id="InnoDB-："><a href="#InnoDB-：" class="headerlink" title="InnoDB ："></a><strong><em>InnoDB ：</em></strong></h2><p><code>Innodb</code>支持事务和行级锁，是<code>innodb</code>的最大特色。</p>
+<p>事务的ACID属性：<code>atomicity,consistent,isolation,durable</code>。</p>
+<p>并发事务带来的几个问题：更新丢失，脏读，不可重复读，幻读。</p>
+<p>事务隔离级别：未提交读(Read uncommitted)，已提交读(Read committed)，可重复读(Repeatable read)，可序列化(Serializable)</p>
+<h2 id="四种隔离级别的比较"><a href="#四种隔离级别的比较" class="headerlink" title="四种隔离级别的比较"></a><strong><em>四种隔离级别的比较</em></strong></h2><p><img src="1.jpg" alt="1"><br>查看mysql的默认事务隔离级别“<code>show global variables like ‘tx_isolation’;</code>”</p>
+<p>Innodb的行锁模式有以下几种：<strong>共享锁，排他锁，意向共享锁(表锁)，意向排他锁(表锁)，间隙锁</strong>。</p>
+<div class="note info"><p>注意：当语句没有使用索引，innodb不能确定操作的行，这个时候就使用的意向锁，也就是表锁</p></div>
+<h2 id="关于死锁："><a href="#关于死锁：" class="headerlink" title="关于死锁："></a><strong><em>关于死锁：</em></strong></h2><p>什么是死锁？当两个事务都需要获得对方持有的排他锁才能完成事务，这样就导致了循环锁等待，也就是常见的死锁类型。</p>
+<p>解决死锁的方法：</p>
+<p>1、  数据库参数</p>
+<p>2、  应用中尽量约定程序读取表的顺序一样</p>
+<p>3、  应用中处理一个表时，尽量对处理的顺序排序</p>
+<p>4、  调整事务隔离级别（避免两个事务同时操作一行不存在的数据，容易发生死锁）</p>
+<h1 id="二、数据库文件差异"><a href="#二、数据库文件差异" class="headerlink" title="二、数据库文件差异"></a>二、数据库文件差异</h1><h2 id="MyISAM-："><a href="#MyISAM-：" class="headerlink" title="MyISAM ："></a><strong><em>MyISAM ：</em></strong></h2><p><code>myisam</code>属于堆表</p>
+<p><code>myisam</code>在磁盘存储上有三个文件，每个文件名以表名开头，扩展名指出文件类型。</p>
+<p><code>.frm</code>用于存储表的定义</p>
+<p><code>.MYD</code>用于存放数据</p>
+<p><code>.MYI</code> 用于存放表索引</p>
+<p><code>myisam</code>表还支持三种不同的存储格式：</p>
+<p>静态表(默认，但是注意数据末尾不能有空格，会被去掉)</p>
+<p>动态表</p>
+<p>压缩表</p>
+<h2 id="InnoDB-：-1"><a href="#InnoDB-：-1" class="headerlink" title="InnoDB ："></a><strong><em>InnoDB ：</em></strong></h2><p><code>innodb</code>属于索引组织表</p>
+<p><code>innodb</code>有两种存储方式，共享表空间存储和多表空间存储</p>
+<p>两种存储方式的表结构和<code>myisam</code>一样，以表名开头，扩展名是<code>.frm</code>。</p>
+<p>如果使用共享表空间，那么所有表的数据文件和索引文件都保存在一个表空间里，一个表空间可以有多个文件，通过<code>innodb_data_file_path</code>和<code>innodb_data_home_dir</code>参数设置共享表空间的位置和名字，一般共享表空间的名字叫<code>ibdata1-n</code>。</p>
+<p>如果使用多表空间，那么每个表都有一个表空间文件用于存储每个表的数据和索引，文件名以表名开头，以<code>.ibd</code>为扩展名。</p>
+<h1 id="三、索引差异"><a href="#三、索引差异" class="headerlink" title="三、索引差异"></a>三、索引差异</h1><h2 id="1、关于自动增长"><a href="#1、关于自动增长" class="headerlink" title="1、关于自动增长"></a>1、关于自动增长</h2><p>myisam引擎的自动增长列必须是索引，如果是组合索引，自动增长可以不是第一列，他可以根据前面几列进行排序后递增。</p>
+<p>innodb引擎的自动增长咧必须是索引，如果是组合索引也必须是组合索引的第一列。</p>
+<h2 id="2、关于主键"><a href="#2、关于主键" class="headerlink" title="2、关于主键"></a>2、关于主键</h2><p>myisam允许没有任何索引和主键的表存在，</p>
+<p>myisam的索引都是保存行的地址。</p>
+<p>innodb引擎如果没有设定主键或者非空唯一索引，就会自动生成一个6字节的主键(用户不可见)</p>
+<p>innodb的数据是主索引的一部分，附加索引保存的是主索引的值。</p>
+<h2 id="3、关于count-函数"><a href="#3、关于count-函数" class="headerlink" title="3、关于count()函数"></a>3、关于count()函数</h2><p><code>myisam</code>保存有表的总行数，如果<code>select count(*) from table;</code>会直接取出出该值</p>
+<p><code>innodb</code>没有保存表的总行数，如果使用<code>select count(*) from table；</code>就会遍历整个表，消耗相当大，但是在加了<code>wehre</code> 条件后，<code>myisam</code>和<code>innodb</code>处理的方式都一样。</p>
+<h2 id="4、全文索引"><a href="#4、全文索引" class="headerlink" title="4、全文索引"></a>4、全文索引</h2><p><code>myisam</code>支持<code>FULLTEXT</code>类型的全文索引</p>
+<p><code>innodb</code>不支持<code>FULLTEXT</code>类型的全文索引，但是<code>innodb</code>可以使用<code>sphinx插件</code>支持全文索引，并且效果更好。（<code>sphinx</code>  是一个开源软件，提供多种语言的API接口，可以优化mysql的各种查询）</p>
+<h2 id="5、delete-from-table"><a href="#5、delete-from-table" class="headerlink" title="5、delete from table"></a>5、delete from table</h2><p>使用这条命令时，<code>innodb</code>不会从新建立表，而是一条一条的删除数据，在<code>innodb</code>上如果要清空保存有大量数据的表，最 好不要使用这个命令。(推荐使用<code>truncate table</code>，不过需要用户有<code>drop</code>此表的权限)</p>
+<h2 id="6、索引保存位置"><a href="#6、索引保存位置" class="headerlink" title="6、索引保存位置"></a>6、索引保存位置</h2><p><code>myisam</code>的索引以<code>表名+.MYI</code>文件分别保存。</p>
+<p><code>innodb</code>的索引和数据一起保存在表空间里。</p>
+<h1 id="四、开发的注意事项"><a href="#四、开发的注意事项" class="headerlink" title="四、开发的注意事项"></a>四、开发的注意事项</h1><ol>
+<li><p>可以用<code>show create table tablename</code> 命令看表的引擎类型。</p>
+</li>
+<li><p>对不支持事务的表做<code>start/commit</code>操作没有任何效果，在执行<code>commit</code>前已经提交。</p>
+</li>
+<li><p>可以执行以下命令来切换非事务表到事务（数据不会丢失），<code>innodb</code>表比<code>myisam</code>表更安全：<code>alter table tablename type=innodb;</code>或者使用 <code>alter table tablename engine = innodb;</code></p>
+</li>
+<li><p>默认<code>innodb</code>是开启自动提交的，如果你按照<code>myisam</code>的使用方法来编写代码页不会存在错误，只是性能会很低。如何在编写代码时候提高数据库性能呢？</p>
+<p>a、尽量将多个语句绑到一个事务中，进行提交，避免多次提交导致的数据库开销。</p>
+<p>b、在一个事务获得排他锁或者意向排他锁以后，如果后面还有需要处理的sql语句，在这两条或者多条sql语句之间程序应尽量少的进行逻辑运算和处理，减少锁的时间。</p>
+<p>c、尽量避免死锁</p>
+<p>d、sql语句如果有<code>where</code>子句一定要使用索引，尽量避免获取意向排他锁。</p>
+<p>f、针对我们自己的数据库环境，日志系统是直插入，不修改的，所以我们使用混合引擎方式，<code>ZION_LOG_DB</code>照旧使用<code>myisam</code>存储引擎，只有<code>ZION_GAME_DB，ZION_LOGIN_DB，DAUM_BILLING</code>使用<code>Innodb</code>引擎。</p>
+</li>
+</ol>
+<h1 id="五、究竟该怎么选择"><a href="#五、究竟该怎么选择" class="headerlink" title="五、究竟该怎么选择"></a>五、究竟该怎么选择</h1><div class="note info"><p><strong>下面先让我们回答一些问题：</strong>   </p>
+<p>◆ 你的数据库有外键吗？   </p>
+<p>◆ 你需要事务支持吗？   </p>
+<p>◆ 你需要全文索引吗？   </p>
+<p>◆ 你经常使用什么样的查询模式？   </p>
+<p>◆ 你的数据有多大？   </p></div>
+<p><code>myisam</code>只有索引缓存<br><code>innodb</code>不分索引文件数据文件<code>innodb buffer</code><br><code>myisam</code>只能管理索引，在索引数据大于分配的资源时，会由操作系统来<code>cache</code>；数据文件依赖于操作系统的<code>cache</code>。<code>innodb</code>不管是索引还是数据，都是自己来管理  </p>
+<p>思考上面这些问题可以让你找到合适的方向，但那并不是绝对的。如果你需要事务处理或是外键，那么<code>InnoDB</code>可能是比较好的方式。如果你需要全文索引，那么通常来说 <code>MyISAM</code>是好的选择，因为这是系统内建的，然而，我们其实并不会经常地去测试两百万行记录。所以，就算是慢一点，我们可以通过使用<code>Sphinx</code>从<code>InnoDB</code>中获得全文索引。  </p>
+<p>数据的大小，是一个影响你选择什么样存储引擎的重要因素，大尺寸的数据集趋向于选择<code>InnoDB</code>方式，因为其支持事务处理和故障恢复。数据库的在小决定了故障恢复的时间长短，<code>InnoDB</code>可以利用事务日志进行数据恢复，这会比较快。而<code>MyISAM</code>可能会需要几个小时甚至几天来干这些事，<code>InnoDB</code>只需要几分钟。  </p>
+<p>操作数据库表的习惯可能也会是一个对性能影响很大的因素。比如： <code>COUNT()</code> 在 <code>MyISAM</code>表中会非常快，而在<code>InnoDB</code>表下可能会很痛苦。而主键查询则在<code>InnoDB</code>下会相当相当的快，但需要小心的是如果我们的主键太长了也会导致性能问题。大批的<code>inserts</code>语句在 <code>MyISAM</code>下会快一些，但是<code>updates</code> 在<code>InnoDB</code>下会更快一些——尤其在并发量大的时候。  </p>
+<p>所以，到底你检使用哪一个呢？根据经验来看，如果是一些小型的应用或项目，那么<code>MyISAM</code> 也许会更适合。当然，在大型的环境下使用<code>MyISAM</code> 也会有很大成功的时候，但却不总是这样的。如果你正在计划使用一个超大数据量的项目，而且需要事务处理或外键支持，那么你真的应该直接使用<code>InnoDB</code>方式。但需要记住<code>InnoDB</code> 的表需要更多的内存和存储，转换100GB 的<code>MyISAM</code>表到<code>InnoDB</code> 表可能会让你有非常坏的体验。  </p>
+<p>对于支持事务的<code>InnoDB</code>类型的表，影响速度的主要原因是<code>AUTOCOMMIT</code>默认设置是打开的，而且程序没有显式调用<code>BEGIN</code> 开始事务，导致每插入一条都自动<code>Commit</code>，严重影响了速度。可以在执行sql前调用<code>begin</code>，多条sql形成一个事务（即使<code>autocommit</code>打开也可以），将大大提高性能。  </p>
+<h2 id="InnoDB"><a href="#InnoDB" class="headerlink" title="InnoDB"></a><strong>InnoDB</strong></h2><p><code>InnoDB</code> 给 MySQL 提供了具有事务(<code>commit</code>)、回滚(<code>rollback</code>)和崩溃修复能力 (<code>crash recovery capabilities</code>)的事务安全(<code>transaction-safe (ACID compliant)</code>)型表。<code>InnoDB</code>提供了行锁(<code>locking on row level</code>)，提供与 <code>Oracle</code> 类型一致的不加锁读取(<code>non- locking read in SELECTs</code>)。这些特性均提高了多用户并发操作的性能表现。在<code>InnoDB</code>表中不需要扩大锁定 (<code>lock escalation</code>)，因为<code>InnoDB</code>的列锁定(<code>row level locks</code>)适宜非常小的空间。 <code>InnoDB</code> 是 MySQL 上第一个提供外键约束(<code>FOREIGN KEY constraints</code>)的表引擎。  </p>
+<p><code>InnoDB</code> 的设计目标是处理大容量数据库系统，它的 CPU 利用率是其它基于磁盘的关系数据库引擎所不能比的。在技术上，InnoDB 是一套放在 MySQL 后台的完整数据库系统，InnoDB 在主内存中建立其专用的缓冲池用于高速缓冲数据和索引。 InnoDB 把数据和索引存放在表空间里，可能包含多个文件，这与其它的不一样，举例来说，在 MyISAM 中，表被存放在单独的文件中。InnoDB 表的大小只受限于操作系统的文件大小，一般为 2 GB。<br>InnoDB所有的表都保存在同一个数据文件<code>ibdata1</code> 中（也可能是多个文件，或者是独立的表空间文件）,相对来说比较不好备份，免费的方案可以是拷贝数据文件、备份 binlog，或者用 mysqldump。  </p>
+<h2 id="MyISAM-1"><a href="#MyISAM-1" class="headerlink" title="MyISAM"></a><strong>MyISAM</strong></h2><p><code>MyISAM</code> 是MySQL缺省存贮引擎 .<br>每张<code>MyISAM</code>表被存放在三个文件 。<code>frm</code> 文件存放表格定义。 数据文件是<code>MYD (MYData)</code>。 索引文件是 <code>MYI (MYIndex)</code> 引伸。<br>因为<code>MyISAM</code>相对简单所以在效率上要优于<code>InnoDB</code>..小型应用使用<code>MyISAM</code>是不错的选择.<br><code>MyISAM</code>表是保存成文件的形式,在跨平台的数据转移中使用<code>MyISAM</code>存储会省去不少的麻烦   </p>
+<h2 id="以下是一些细节和具体实现的差别："><a href="#以下是一些细节和具体实现的差别：" class="headerlink" title="以下是一些细节和具体实现的差别："></a><strong>以下是一些细节和具体实现的差别：</strong></h2><ol>
+<li><code>InnoDB</code>不支持<code>FULLTEXT</code>类型的索引。   </li>
+<li><code>InnoDB</code>中不保存表的具体行数，也就是说，执行select count(<em>) from table时，InnoDB要扫描一遍整个表来计算有多少行，但是MyISAM只要简单的读出保存好的行数即可。注意的是，当count(</em>)语句包含 where条件时，两种表的操作是一样的。  </li>
+<li>对于<code>AUTO_INCREMENT</code>类型的字段，<code>InnoDB</code>中必须包含只有该字段的索引，但是在<code>MyISAM表</code>中，可以和其他字段一起建立联合索引。   </li>
+<li><code>DELETE FROM table</code>时，<code>InnoDB</code>不会重新建立表，而是一行一行的删除。   </li>
+<li><code>LOAD TABLE FROM MASTER</code>操作对<code>InnoDB</code>是不起作用的，解决方法是首先把<code>InnoDB</code>表改成<code>MyISAM</code>表，导入数据后再改成<code>InnoDB</code>表，但是对于使用的额外的<code>InnoDB</code>特性（例如外键）的表不适用。  </li>
+</ol>
+<p>另外，<code>InnoDB</code>表的行锁也不是绝对的，如果在执行一个SQL语句时MySQL不能确定要扫描的范围，InnoDB表同样会锁全表，例如<code>update table set num=1 where name like &quot;%aaa%&quot;;</code>  </p>
+<p>任何一种表都不是万能的，只用恰当的针对业务类型来选择合适的表类型，才能最大的发挥MySQL的性能优势。   </p>
+<h1 id="六、重复地总结一遍"><a href="#六、重复地总结一遍" class="headerlink" title="六、重复地总结一遍"></a>六、重复地总结一遍</h1><ol>
+<li><p><code>MyISAM</code>不支持事务，<code>InnoDB</code>是事务类型的存储引擎，当我们的表需要用到事务支持的时候，那肯定是不能选择<code>MyISAM</code>了。</p>
+</li>
+<li><p><code>MyISAM</code>只支持表级锁，<code>BDB</code>支持页级锁和表级锁默认为页级锁，而<code>InnoDB</code>支持行级锁和表级锁默认为行级锁</p>
+</li>
+</ol>
+<p><strong>表级锁：</strong>直接锁定整张表，在锁定期间，其他进程无法对该表进行写操作，如果设置的是写锁，那么其他进程读也不允许</p>
+<p><code>MyISAM</code>是表级锁定的存储引擎，它不会出现死锁问题</p>
+<p><strong><em>对于<code>write</code>，表锁定原理如下：</em></strong></p>
+<p>如果表上没有锁，在其上面放置一个写锁，否则，把锁定请求放在写锁队列中。</p>
+<p><strong><em>对于<code>read</code>，表锁定原理如下 ：</em></strong></p>
+<p>如果表上没有写锁定，那么把一个读锁放在其上面，否则把锁请求放在读锁定队列中</p>
+<p>当一个锁定被释放时，表可被写锁定队列中的线程得到，然后才是读锁定队列中的线程。这意味着，如果你在一个表上有许多更新，那么你的SELECT语句将等到所有的写锁定线程执行完。</p>
+<p><strong>行级锁：</strong>只对指定的行进行锁定，其他进程还是可以对表中的其他行进行操作的。</p>
+<p>行级锁是<code>Mysql</code>粒度最小的一种锁，它能大大的减少数据库操作的冲突，但是粒度越小实现成本也越大。</p>
+<p>行级锁可能会导致“死锁”，那到底是怎么导致的呢，分析原因：Mysql行级锁并不是直接锁记录，而是锁索引。索引分为主键索引和非主键索引两种，如果一条sql语句操作了主键索引，那么Mysql就会锁定这个主键索引，如果sql语句操作的是非主键索引，那么Mysql会先锁定这个非主键索引，再去锁定主键索引。</p>
+<p>在<code>UPDATE</code> 和 <code>DELETE</code>操作时Mysql不仅会锁定所有<code>WHERE</code> 条件扫描过得索引，还会锁定相邻的键值。</p>
+<p><strong><em>“死锁”举例分析：</em></strong></p>
+<p>表Test：（ID,STATE,TIME）  主键索引：ID  非主键索引：STATE</p>
+<p>当执行”<code>UPDATE  STATE =1011 WHERE STATE=1000</code>“  语句的时候会锁定STATE索引，由于STATE 是非主键索引,所以Mysql还会去请求锁定ID索引</p>
+<p>当另一个SQL语句与语句1几乎同时执行时：“UPDATE STATE=1010 WHERE ID=1”  对于语句2 Mysql会先锁定ID索引，由于语句2操作了STATE字段，所以Mysql还会请求锁定STATE索引。这时。彼此锁定着对方需要的索引，又都在等待对方释放锁定。所以出现了”死锁”的情况。</p>
+<p><strong><em>行级锁的优点：</em></strong></p>
+<p>有许多线程访问不同的行时，只存在少量的冲突。</p>
+<p>回滚时只有少量的更改</p>
+<p>可以长时间锁定单一的行</p>
+<p><strong><em>行级锁缺点：</em></strong></p>
+<p>相对于页级锁和表级锁来说占用了更多的内存</p>
+<p>当表的大部分行在使用时，比页级锁和表级锁慢，因为你必须获得更多的锁</p>
+<p>当在大部分数据上经常使用GROUP BY操作，肯定会比表级锁和页级锁慢。</p>
+<p>页级锁：表级锁速度快，但是冲突多；行级锁速度慢，但冲突少；页级锁就是他俩折中的，一次锁定相邻的一组记录。</p>
+<ol start="3">
+<li><p><code>MyISAM</code>引擎不支持外键，<code>InnoDB</code>支持外键</p>
+</li>
+<li><p><code>MyISAM</code>引擎的表在大量高并发的读写下会经常出现表损坏的情况</p>
+</li>
+</ol>
+<p>我们以前做的项目就遇到这个问题，表的<code>INSERT</code> 和 <code>UPDATE</code>操作很频繁，原来用的<code>MyISAM</code>引擎，导致表隔三差五就损坏，后来更换成了<code>InnoDB</code>引擎。</p>
+<p><strong><em>其他容易导致表损坏原因：</em></strong></p>
+<ul>
+<li><p>服务器突然断电导致数据文件损坏，强制关机（mysqld未关闭情况下）导致表损坏</p>
+</li>
+<li><p>mysqld进程在写入操作的时候被杀掉</p>
+</li>
+<li><p>磁盘故障</p>
+</li>
+</ul>
+<p><strong><em>表损坏常见症状：</em></strong></p>
+<ul>
+<li><p>查询表不能返回数据或返回部分数据</p>
+</li>
+<li><p>打开表失败： <code>Can’t open file: ‘×××.MYI’ (errno: 145)</code> 。</p>
+</li>
+</ul>
+<p>Error: Table ‘p’ is marked as crashed and should be repaired 。</p>
+<p>Incorrect key file for table: ‘…’. Try to repair it</p>
+<p><strong><em>Mysql表的恢复：</em></strong></p>
+<p>对于<code>MyISAM</code>表的恢复：</p>
+<p>可以使用Mysql自带的<code>myisamchk</code>工具： <code>myisamchk -r tablename</code>  或者 <code>myisamchk -o tablename</code>（比前面的更保险） 对表进行修复</p>
+<ol start="5">
+<li>对于<code>count()</code>查询来说<code>MyISAM</code>更有优势</li>
+</ol>
+<p>因为<code>MyISAM</code>存储了表中的行数记录，执行<code>SELECT COUNT()</code> 的时候可以直接获取到结果，而<code>InnoDB</code>需要扫描全部数据后得到结果。</p>
+<p>但是注意一点：对于带有<code>WHERE</code> 条件的<code>SELECT COUNT()</code>语句两种引擎的表执行过程是一样的，都需要扫描全部数据后得到结果</p>
+<ol start="6">
+<li><p><code>InnoDB</code>是为处理巨大数据量时的最大性能设计，它的CPU效率可能是任何其它基于磁盘的关系数据库引擎所不能匹敌的。</p>
+</li>
+<li><p><code>MyISAM</code>支持全文索引（<code>FULLTEXT</code>），<code>InnoDB</code>不支持</p>
+</li>
+<li><p><code>MyISAM</code>引擎的表的查询、更新、插入的效率要比<code>InnoDB</code>高</p>
+</li>
+</ol>
+<p><em>网上截取了前辈们测试结论：</em> </p>
+<p>测试方法：连续提交10个query， 表记录总数：38万 ， 时间单位 s</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">引擎类型                    MyISAM                InnoDB              性能相差</span><br><span class="line"> </span><br><span class="line">count                      0.0008357             3.0163                3609</span><br><span class="line"> </span><br><span class="line">查询主键                    0.005708              0.1574                27.57</span><br><span class="line"> </span><br><span class="line">查询非主键                   24.01               80.37                3.348</span><br><span class="line"> </span><br><span class="line">更新主键                    0.008124              0.8183                100.7</span><br><span class="line"> </span><br><span class="line">更新非主键                   0.004141             0.02625              6.338</span><br><span class="line"> </span><br><span class="line">插入                       0.004188             0.3694                88.21</span><br></pre></td></tr></table></figure>
+<p>   (1)  加了索引以后，对于<code>MyISAM</code>查询可以加快：<code>4 206.09733</code>倍，对InnoDB查询加快<code>510.72921</code>倍，同时对<code>MyISAM</code>更新速度减慢为原来的<code>1/2</code>，<code>InnoDB</code>的更新速度减慢为原来的<code>1/30</code>。要看情况决定是否要加索引，比如不查询的<code>log</code>表，不要做任何的索引。</p>
+<p>   (2)  如果你的数据量是百万级别的，并且没有任何的事务处理，那么用<code>MyISAM</code>是性能最好的选择。</p>
+<p>   (3）<code>InnoDB</code>表的大小更加的大，用<code>MyISAM</code>可省很多的硬盘空间。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">在我们测试的这个38w的表中，表占用空间的情况如下：</span><br><span class="line">    引擎类型                    MyISAM              InnoDB</span><br><span class="line">    数据                      53,924 KB          58,976 KB</span><br><span class="line">    索引                      13,640 KB          21,072 KB</span><br><span class="line">    占用总空间                  67,564 KB          80,048 KB</span><br><span class="line">  </span><br><span class="line">另外一个176W万记录的表， 表占用空间的情况如下：</span><br><span class="line"> </span><br><span class="line">    引擎类型                MyIsam            InnorDB</span><br><span class="line">    数据                  56,166 KB          90,736 KB</span><br><span class="line">    索引                  67,103 KB          88,848 KB</span><br><span class="line">    占用总空间              123,269 KB        179,584 KB</span><br></pre></td></tr></table></figure>
+<h1 id="七、性能对比"><a href="#七、性能对比" class="headerlink" title="七、性能对比"></a>七、性能对比</h1><p>测试的版本是<code>mysql  Ver 14.14 Distrib 5.1.49, for debian-linux-gnu (i686)</code>，使用的是<code>Innodb plugin 1.0.8</code>（官方称比<code>built-in</code>版本性能更好）和默认的<code>MyISAM</code>。</p>
+<p>测试机器是笔记本，配置如下：<em>Intel 酷睿2双核 P8600，4G DDR3 1066内存，320G硬盘5400转。</em></p>
+<p><strong>测试一：</strong>数据插入性能测试，这里我分别对<code>innodb_flush_log_at_trx_commit</code>参数打开和关闭都测了了一下，每次测试都是运行<code>40s</code>，表中数字都是实际插入条数。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line">                                  MyISAM                 Innodb (打开)      Innodb(关闭)</span><br><span class="line"></span><br><span class="line">单线程，逐个插入         120000           60000              60000</span><br><span class="line"></span><br><span class="line">4线程，逐个插入          40000*4          20000*4            40000*4</span><br><span class="line"></span><br><span class="line">单线程，批量100条/次插入  3600*100           800*100            3000*100</span><br><span class="line"></span><br><span class="line">单线程，批量200条/次插入  1800*200           400*200            1600*200</span><br></pre></td></tr></table></figure>
+<p>可以发现批量插入的性能远高于单条插入，但是一次批量的大小对性能影响不大。每条记录是否都刷新日志的参数对<code>innodb</code>性能的影响巨大。总体上来说，<code>MyISAM</code>性能更优一点。这里有一点需要注意，在插入测试过程中，我对系统资源进行了监控，发现<code>MyISAM</code>对系统资源占用很低，但是<code>Innodb</code>对磁盘占用却很高，应该是对事务控制多了很多需要记录的日志。</p>
+<p><strong>测试二：</strong>数据读取性能测试。每次随机读取1000条记录，反复进行读取。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line">                                                 MyISAM        Innodb</span><br><span class="line"></span><br><span class="line">单线程，200次读取       5.7s        16.7s</span><br><span class="line"></span><br><span class="line">4线程，200次读取        12s         40.8s</span><br></pre></td></tr></table></figure>
+<p>可以看出<code>MyISAM</code>的读取性能非常恐怖，性能差距在3倍的样子。</p>
+<p>以上两个测试发现<code>MyISAM</code>在无事务的需求下几乎完胜，但是要知道它是表锁，<code>Innodb</code>是行锁，那么在并发读写同时存在的情况下，那结果会是怎么样呢？！</p>
+<p><strong>测试三：</strong>两个线程并发写入，2个线程并发读取。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line">                                                 MyISAM                                 Innodb</span><br><span class="line"></span><br><span class="line">逐个插入             写入40s：10000*2 读取200次*2：14s                写入40s：60000*2 读取200次*2：50s</span><br><span class="line"></span><br><span class="line">批量100条/次插入        写入40s：1000*100*2 读取200次*2：10s              写入40s：1500*100*2 读取200次*2：50s</span><br></pre></td></tr></table></figure>
+<p>这下立刻显示出<code>Innodb</code>在并发情况下强劲的性能，几乎没有什么性能衰减。而<code>MyISAM</code>单条插入速度变得非常慢，批量插入也下降了<code>40%</code>性能。</p>
+<p>总结一下，在写多读少的应用中还是<code>Innodb</code>插入性能更稳定，在并发情况下也能基本，如果是对读取速度要求比较快的应用还是选<code>MyISAM</code>。</p>
+<p>转自于：<a href="http://blog.csdn.net/wjtlht928/article/details/46641865" target="_blank" rel="noopener">http://blog.csdn.net/wjtlht928/article/details/46641865</a></p>
+
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+        
+      </div>
+	  
+	  <div>
+        
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/04/28/MyISAM与InnoDB两者之间区别与选择/">MyISAM与InnoDB两者之间区别与选择</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
+  <p><span>发布时间:</span>2019年04月28日 - 12:04</p>
+  <p><span>最后更新:</span>2019年04月28日 - 16:04</p>
+  <p><span>原始链接:</span><a href="/2019/04/28/MyISAM与InnoDB两者之间区别与选择/" title="MyISAM与InnoDB两者之间区别与选择">https://kxinter.github.io/blog/2019/04/28/MyISAM与InnoDB两者之间区别与选择/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/blog/2019/04/28/MyISAM与InnoDB两者之间区别与选择/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+	});
+    });  
+</script>
+
+        
+      </div>
+	
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="OperationMAN 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="OperationMAN 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag"><i class="fa fa-tag"></i> mysql</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/28/MySQL自带的性能压力测试工具mysqlslap/" rel="next" title="MySQL自带的性能压力测试工具mysqlslap">
+                <i class="fa fa-chevron-left"></i> MySQL自带的性能压力测试工具mysqlslap
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTUxNS8xNjA0Mg"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+			<!--设置点击头像链接到首页-->
+			<a href="/">
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.jpeg"
+                alt="OperationMAN" />
+			</a>
+            
+              <p class="site-author-name" itemprop="name">OperationMAN</p>
+              <p class="site-description motion-element" itemprop="description">日常运维文档整理。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">97</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:kxhuanzi@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/kxinter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://gitee.com/kxinter" target="_blank" title="码云">
+                      
+                        <i class="fa fa-fw fa-code"></i>码云</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://kxinter.gitee.io" target="_blank" title="blog">
+                      
+                        <i class="fa fa-fw fa-book"></i>blog</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://medoc.000webhostapp.com" target="_blank" title="随手笔记">
+                      
+                        <i class="fa fa-fw fa-wordpress"></i>随手笔记</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://man.linuxde.net/" target="_blank" title="Linux命令大全">
+                      
+                        <i class="fa fa-fw fa-linux"></i>Linux命令大全</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://linux.vbird.org" target="_blank" title="鸟哥的私房菜">
+                      
+                        <i class="fa fa-fw fa-linux"></i>鸟哥的私房菜</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.runoob.com/" target="_blank" title="RUNOOB.com">
+                      
+                        <i class="fa fa-fw fa-linux"></i>RUNOOB.com</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.chenshake.com/" target="_blank" title="陈沙克日志">
+                      
+                        <i class="fa fa-fw fa-cloud"></i>陈沙克日志</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://bitnami.com/" target="_blank" title="Bitnami">
+                      
+                        <i class="fa fa-fw fa-bold"></i>Bitnami</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://fontawesome.com/icons?d=gallery" target="_blank" title="Font Awesome">
+                      
+                        <i class="fa fa-fw fa-font-awesome"></i>Font Awesome</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.000webhost.com/cpanel-login?from=panel#" target="_blank" title="Statistics">
+                      
+                        <i class="fa fa-fw fa-server"></i>Statistics</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://shenzekun.cn/hexo%E7%9A%84next%E4%B8%BB%E9%A2%98%E4%B8%AA%E6%80%A7%E5%8C%96%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.html" title="Next优化" target="_blank">Next优化</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" title="Next深度优化" target="_blank">Next深度优化</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://livere.com/" title="来必力" target="_blank">来必力</a>
+                  </li>
+                
+              </ul>
+			<div id="days"></div>
+<script>
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("05/27/2017 15:13:14");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行"+daysold+"天"+hrsold+"小时"+minsold+"分"+seconds+"秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+</script>
+  
+            </div>
+          
+
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、表锁差异"><span class="nav-text">一、表锁差异</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MyISAM"><span class="nav-text">MyISAM:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#InnoDB-："><span class="nav-text">InnoDB ：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四种隔离级别的比较"><span class="nav-text">四种隔离级别的比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于死锁："><span class="nav-text">关于死锁：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、数据库文件差异"><span class="nav-text">二、数据库文件差异</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MyISAM-："><span class="nav-text">MyISAM ：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#InnoDB-：-1"><span class="nav-text">InnoDB ：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、索引差异"><span class="nav-text">三、索引差异</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、关于自动增长"><span class="nav-text">1、关于自动增长</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、关于主键"><span class="nav-text">2、关于主键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、关于count-函数"><span class="nav-text">3、关于count()函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、全文索引"><span class="nav-text">4、全文索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、delete-from-table"><span class="nav-text">5、delete from table</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、索引保存位置"><span class="nav-text">6、索引保存位置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、开发的注意事项"><span class="nav-text">四、开发的注意事项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、究竟该怎么选择"><span class="nav-text">五、究竟该怎么选择</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#InnoDB"><span class="nav-text">InnoDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MyISAM-1"><span class="nav-text">MyISAM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以下是一些细节和具体实现的差别："><span class="nav-text">以下是一些细节和具体实现的差别：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六、重复地总结一遍"><span class="nav-text">六、重复地总结一遍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#七、性能对比"><span class="nav-text">七、性能对比</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OperationMAN</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">103.7k</span>
+  
+</div>
+
+
+
+<!--修改页面底部主题名字和网站软件名字-->
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<!--动态背景>
+ <script type="text/javascript" src="/kxinter.gitub.io/lib/canvas-nest/canvas-nest.min.js"></script> 
+  <-->
+ </body>
+</html>
+<script type="text/javascript" src="/kxinter.gitub.io/js/src/love.js"></script>
