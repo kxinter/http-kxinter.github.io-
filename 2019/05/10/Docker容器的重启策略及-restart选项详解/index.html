@@ -138,7 +138,7 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="创建容器时没有添加参数  –restart=always ，导致的后果是：当 Docker 重启时，容器未能自动启动。 现在要添加该参数怎么办呢，方法有二：">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-10T04:01:42.481Z">
+<meta property="og:updated_time" content="2019-05-10T04:09:47.974Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker容器的重启策略及--restart选项详解">
 <meta name="twitter:description" content="创建容器时没有添加参数  –restart=always ，导致的后果是：当 Docker 重启时，容器未能自动启动。 现在要添加该参数怎么办呢，方法有二：">
@@ -397,7 +397,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-10T12:01:42+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-10T12:09:47+08:00">
                 2019-05-10
               </time>
             
@@ -491,41 +491,30 @@
       
         <p>创建容器时没有添加参数  –restart=always ，导致的后果是：当 Docker 重启时，容器未能自动启动。</p>
 <p>现在要添加该参数怎么办呢，方法有二：<br><a id="more"></a></p>
-<h1 id="1-重启策略及–restart选项详解"><a href="#1-重启策略及–restart选项详解" class="headerlink" title="1 重启策略及–restart选项详解"></a>1 重启策略及–restart选项详解</h1><ol>
-<li>Docker容器的重启策略</li>
-</ol>
-<p>Docker容器的重启策略是面向生产环境的一个启动策略，在开发过程中可以忽略该策略。</p>
+<h1 id="1-重启策略及–restart选项详解"><a href="#1-重启策略及–restart选项详解" class="headerlink" title="1 重启策略及–restart选项详解"></a>1 重启策略及–restart选项详解</h1><h2 id="1-Docker容器的重启策略"><a href="#1-Docker容器的重启策略" class="headerlink" title="1. Docker容器的重启策略"></a>1. Docker容器的重启策略</h2><p>Docker容器的重启策略是面向生产环境的一个启动策略，在开发过程中可以忽略该策略。</p>
 <p>Docker容器的重启都是由Docker守护进程完成的，因此与守护进程息息相关。</p>
-<p>&lt;%note info %&gt;<strong>Docker容器的重启策略如下：</strong></p>
+<p><strong>Docker容器的重启策略如下：</strong></p>
 <ul>
 <li><code>no</code>，默认策略，在容器退出时不重启容器</li>
 <li><code>on-failure</code>，在容器非正常退出时（退出状态非0），才会重启容器<ul>
 <li><code>on-failure:3</code>，在容器非正常退出时重启容器，最多重启3次</li>
 </ul>
 </li>
-<li><p><code>always</code>，在容器退出时总是重启容器</p>
-</li>
-<li><p><code>unless-stopped</code>，在容器退出时总是重启容器，但是不考虑在Docker守护进程启动时就已经停止了的容器<br>&lt;%endnote%&gt;</p>
-</li>
+<li><code>always</code>，在容器退出时总是重启容</li>
+<li><code>unless-stopped</code>，在容器退出时总是重启容器，但是不考虑在Docker守护进程启动时就已经停止了的容器</li>
 </ul>
-<ol start="2">
-<li>Docker容器的退出状态码<br>&lt;%note info %&gt;<strong><code>docker run</code>的退出状态码如下：</strong></li>
-</ol>
+<h2 id="2-Docker容器的退出状态码"><a href="#2-Docker容器的退出状态码" class="headerlink" title="2. Docker容器的退出状态码"></a>2. Docker容器的退出状态码</h2><p><strong><code>docker run</code>的退出状态码如下：</strong></p>
 <ul>
-<li><p><code>0</code>，表示正常退出</p>
-</li>
-<li><p><code>非0</code>，表示异常退出（退出状态码采用chroot标准）</p>
-<ul>
+<li><code>0</code>，表示正常退出</li>
+<li><code>非0</code>，表示异常退出（退出状态码采用chroot标准）<ul>
 <li>125，Docker守护进程本身的错误</li>
 <li>126，容器启动后，要执行的默认命令无法调用</li>
 <li>127，容器启动后，要执行的默认命令不存在</li>
-<li>其他命令状态码，容器启动后正常执行命令，退出命令时该命令的返回状态码作为容器的退出状态码<br>&lt;%endnote%&gt;<ol start="3">
-<li>docker run的–restart选项<br>通过<code>--restart</code>选项，可以设置容器的重启策略，以决定在容器退出时Docker守护进程是否重启刚刚退出的容器。<br><code>--restart</code>选项通常只用于<code>detached模式</code>的容器。</li>
-</ol>
-</li>
+<li>其他命令状态码，容器启动后正常执行命令，退出命令时该命令的返回状态码作为容器的退出状态码</li>
 </ul>
 </li>
 </ul>
+<h2 id="3-docker-run的–restart选项"><a href="#3-docker-run的–restart选项" class="headerlink" title="3. docker run的–restart选项"></a>3. docker run的–restart选项</h2><p>通过<code>--restart</code>选项，可以设置容器的重启策略，以决定在容器退出时Docker守护进程是否重启刚刚退出的容器。<br><code>--restart</code>选项通常只用于<code>detached模式</code>的容器。</p>
 <p><code>--restart</code>选项不能与<code>--rm</code>选项同时使用。显然，<code>-restart</code>选项适用于<code>detached模式</code>的容器，而<code>--rm</code>选项适用于<code>foreground</code>模式的容器。</p>
 <p>在<code>docker ps</code>查看容器时，对于使用了<code>--restart</code>选项的容器，其可能的状态只有<code>Up</code>或<code>Restarting</code>两种状态。</p>
 <p><strong>示例：</strong></p>
@@ -812,7 +801,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -980,7 +969,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-重启策略及–restart选项详解"><span class="nav-text">1 重启策略及–restart选项详解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2、Docker-命令修改"><span class="nav-text">2、Docker 命令修改</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3、直接改配置文件"><span class="nav-text">3、直接改配置文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-修改docker容器的挂载路径"><span class="nav-text">4 修改docker容器的挂载路径</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-修改docker默认的存储位置"><span class="nav-text">5 修改docker默认的存储位置</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-重启策略及–restart选项详解"><span class="nav-text">1 重启策略及–restart选项详解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Docker容器的重启策略"><span class="nav-text">1. Docker容器的重启策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Docker容器的退出状态码"><span class="nav-text">2. Docker容器的退出状态码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-docker-run的–restart选项"><span class="nav-text">3. docker run的–restart选项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2、Docker-命令修改"><span class="nav-text">2、Docker 命令修改</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3、直接改配置文件"><span class="nav-text">3、直接改配置文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-修改docker容器的挂载路径"><span class="nav-text">4 修改docker容器的挂载路径</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-修改docker默认的存储位置"><span class="nav-text">5 修改docker默认的存储位置</span></a></li></ol></div>
             
 
           </div>
