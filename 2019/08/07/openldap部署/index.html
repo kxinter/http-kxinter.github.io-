@@ -130,13 +130,13 @@
 
 
 
-<meta name="description" content="1    安装环境OS: Centos 7.5OpenLDAP: 2.4.44Phpldapadmin: 1.2.3主1：192.168.0.130主2：192.168.0.10 2    安装OpenLDAP（主1）2.1 Yum命令安装1yum -y install openldap compat-openldap openldap-clients openldap-servers openl">
+<meta name="description" content="1    安装环境OS: Centos 7.5OpenLDAP: 2.4.44Phpldapadmin: 1.2.3主1：192.168.0.130主2：192.168.0.10">
 <meta name="keywords" content="openldap">
 <meta property="og:type" content="article">
 <meta property="og:title" content="openldap部署">
 <meta property="og:url" content="https://kxinter.github.io/blog/2019/08/07/openldap部署/index.html">
 <meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="1    安装环境OS: Centos 7.5OpenLDAP: 2.4.44Phpldapadmin: 1.2.3主1：192.168.0.130主2：192.168.0.10 2    安装OpenLDAP（主1）2.1 Yum命令安装1yum -y install openldap compat-openldap openldap-clients openldap-servers openl">
+<meta property="og:description" content="1    安装环境OS: Centos 7.5OpenLDAP: 2.4.44Phpldapadmin: 1.2.3主1：192.168.0.130主2：192.168.0.10">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://kxinter.github.io/blog/2019/08/07/openldap部署/1.png">
 <meta property="og:image" content="https://kxinter.github.io/blog/2019/08/07/openldap部署/2.png">
@@ -159,10 +159,10 @@
 <meta property="og:image" content="https://kxinter.github.io/blog/2019/08/07/openldap部署/19.png">
 <meta property="og:image" content="https://kxinter.github.io/blog/2019/08/07/openldap部署/20.png">
 <meta property="og:image" content="https://kxinter.github.io/blog/2019/08/07/openldap部署/21.png">
-<meta property="og:updated_time" content="2019-08-07T07:43:47.610Z">
+<meta property="og:updated_time" content="2019-08-07T09:26:55.092Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="openldap部署">
-<meta name="twitter:description" content="1    安装环境OS: Centos 7.5OpenLDAP: 2.4.44Phpldapadmin: 1.2.3主1：192.168.0.130主2：192.168.0.10 2    安装OpenLDAP（主1）2.1 Yum命令安装1yum -y install openldap compat-openldap openldap-clients openldap-servers openl">
+<meta name="twitter:description" content="1    安装环境OS: Centos 7.5OpenLDAP: 2.4.44Phpldapadmin: 1.2.3主1：192.168.0.130主2：192.168.0.10">
 <meta name="twitter:image" content="https://kxinter.github.io/blog/2019/08/07/openldap部署/1.png">
 
 
@@ -419,7 +419,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-07T15:43:47+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-08-07T17:26:55+08:00">
                 2019-08-07
               </time>
             
@@ -511,7 +511,7 @@
       
 
       
-        <h1 id="1-安装环境"><a href="#1-安装环境" class="headerlink" title="1    安装环境"></a>1    安装环境</h1><p>OS: Centos 7.5<br>OpenLDAP: 2.4.44<br>Phpldapadmin: 1.2.3<br>主1：192.168.0.130<br>主2：192.168.0.10</p>
+        <h1 id="1-安装环境"><a href="#1-安装环境" class="headerlink" title="1    安装环境"></a>1    安装环境</h1><p>OS: Centos 7.5<br>OpenLDAP: 2.4.44<br>Phpldapadmin: 1.2.3<br>主1：192.168.0.130<br>主2：192.168.0.10<br><a id="more"></a></p>
 <h1 id="2-安装OpenLDAP（主1）"><a href="#2-安装OpenLDAP（主1）" class="headerlink" title="2    安装OpenLDAP（主1）"></a>2    安装OpenLDAP（主1）</h1><h2 id="2-1-Yum命令安装"><a href="#2-1-Yum命令安装" class="headerlink" title="2.1 Yum命令安装"></a>2.1 Yum命令安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install openldap compat-openldap openldap-clients openldap-servers openldap-devel</span><br></pre></td></tr></table></figure>
 <h2 id="2-2-安装包说明"><a href="#2-2-安装包说明" class="headerlink" title="2.2 安装包说明"></a>2.2 安装包说明</h2><p><img src="1.png" alt="1"></p>
 <h2 id="2-3-配置方式"><a href="#2-3-配置方式" class="headerlink" title="2.3 配置方式"></a>2.3 配置方式</h2><div class="note info"><p><strong>说明</strong><br>这里就是重点中的重点了，从<code>openldap2.4.23</code>版本开始，所有配置说句都保存在<code>slapd.d</code>目录下的<code>cn=config</code>文件夹内，不再使用<code>slapd.conf</code>作为配置文件。配置文件的后缀为<code>ldif</code>，且每个配置文件都是通过命令自动生成的，任意打开一个配置文件，在开头都会有一行注释，说明此为自动生成的文件，请勿编辑，使用<code>ldapmodify</code>命令进行修改  <code># AUTO-GENERATED FILE - DO NOT EDIT!! Use ldapmodify</code>.</p>
@@ -613,7 +613,7 @@
   <p><span>本文标题:</span><a href="/2019/08/07/openldap部署/">openldap部署</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2019年08月07日 - 14:08</p>
-  <p><span>最后更新:</span>2019年08月07日 - 15:08</p>
+  <p><span>最后更新:</span>2019年08月07日 - 17:08</p>
   <p><span>原始链接:</span><a href="/2019/08/07/openldap部署/" title="openldap部署">https://kxinter.github.io/blog/2019/08/07/openldap部署/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/blog/2019/08/07/openldap部署/"  aria-label="复制成功！"></i></span>
   </p>
