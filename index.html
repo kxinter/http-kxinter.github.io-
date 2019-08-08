@@ -351,6 +351,423 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2019/08/08/zabbix钉钉通知/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/08/zabbix钉钉通知/" itemprop="url">zabbix钉钉通知(插件版)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-08T10:18:03+08:00">
+                2019-08-08
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-08-08T10:58:20+08:00">
+                2019-08-08
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  618
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-安装插件"><a href="#1-安装插件" class="headerlink" title="1 安装插件"></a>1 安装插件</h1><p>下载插件<code>webhook-zabbix-robot-64</code>到<code>/usr/lib/zabbix/alertscripts/</code>路径</p>
+<h1 id="2-创建报警媒介类型"><a href="#2-创建报警媒介类型" class="headerlink" title="2 创建报警媒介类型"></a>2 创建<code>报警媒介类型</code></h1><div class="note info"><p>脚本名称：插件或脚本的名字<br>脚本参数：<br>-webhook=<a href="https://oapi.dingtalk.com/robot/send?access_token=92bfa50db10658ee1c37f9ab6b7a000e14ce94a901002170762e472af3754fbf" target="_blank" rel="noopener">https://oapi.dingtalk.com/robot/send?access_token=92bfa50db10658ee1c37f9ab6b7a000e14ce94a901002170762e472af3754fbf</a><br>-msg={ALERT.MESSAGE}<br>-url=<a href="http://192.168.0.10/zabbix/" target="_blank" rel="noopener">http://192.168.0.10/zabbix/</a><br>-log=/tmp/dingding.log</p></div>
+<p><img src="1.jpg" alt="1"></p>
+<h1 id="3-配置用户告警"><a href="#3-配置用户告警" class="headerlink" title="3 配置用户告警"></a>3 配置用户告警</h1><h2 id="3-1-配置告警媒介"><a href="#3-1-配置告警媒介" class="headerlink" title="3.1 配置告警媒介"></a>3.1 配置告警媒介</h2><p>添加告警媒介，使用户可接收告警信息，及设置接收信息重要性<br><img src="2.jpg" alt="2"></p>
+<h2 id="3-2-配置权限"><a href="#3-2-配置权限" class="headerlink" title="3.2 配置权限"></a>3.2 配置权限</h2><p>用户只接收有权限的主机告警<br><img src="3.jpg" alt="3"></p>
+<h1 id="4-创建动作"><a href="#4-创建动作" class="headerlink" title="4 创建动作"></a>4 创建<code>动作</code></h1><ul>
+<li>触发条件<br><img src="4.jpg" alt="4"></li>
+<li>操作<br><strong>消息内容：</strong></li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span> <span class="meta">?&gt;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="name">root</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">from</span>&gt;</span>&#123;HOST.NAME&#125;<span class="tag">&lt;/<span class="name">from</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">time</span>&gt;</span>&#123;EVENT.DATE&#125; &#123;EVENT.TIME&#125;<span class="tag">&lt;/<span class="name">time</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">level</span>&gt;</span>&#123;TRIGGER.SEVERITY&#125;<span class="tag">&lt;/<span class="name">level</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>&#123;TRIGGER.NAME&#125;<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">key</span>&gt;</span>&#123;TRIGGER.KEY1&#125;<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>&#123;ITEM.VALUE&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">now</span>&gt;</span>&#123;ITEM.LASTVALUE&#125;<span class="tag">&lt;/<span class="name">now</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>&#123;EVENT.ID&#125;<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ip</span>&gt;</span>&#123;HOST.IP&#125;<span class="tag">&lt;/<span class="name">ip</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.0.10/zabbix<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">age</span>&gt;</span>&#123;EVENT.AGE&#125;<span class="tag">&lt;/<span class="name">age</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">status</span>&gt;</span>&#123;EVENT.STATUS&#125;<span class="tag">&lt;/<span class="name">status</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">acknowledgement</span>&gt;</span> &#123;EVENT.ACK.STATUS&#125; <span class="tag">&lt;/<span class="name">acknowledgement</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">acknowledgementhistory</span>&gt;</span> &#123;EVENT.ACK.HISTORY&#125;<span class="tag">&lt;/<span class="name">acknowledgementhistory</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p> <img src="5.jpg" alt="5"></p>
+<ul>
+<li>恢复操作<br><strong>消息内容：</strong></li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span> <span class="meta">?&gt;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="name">root</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">from</span>&gt;</span>&#123;HOST.NAME&#125;<span class="tag">&lt;/<span class="name">from</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">time</span>&gt;</span>&#123;EVENT.DATE&#125; &#123;EVENT.TIME&#125;<span class="tag">&lt;/<span class="name">time</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">level</span>&gt;</span>&#123;TRIGGER.SEVERITY&#125;<span class="tag">&lt;/<span class="name">level</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>&#123;TRIGGER.NAME&#125;<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">key</span>&gt;</span>&#123;TRIGGER.KEY1&#125;<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>&#123;ITEM.VALUE&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">now</span>&gt;</span>&#123;ITEM.LASTVALUE&#125;<span class="tag">&lt;/<span class="name">now</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>&#123;EVENT.ID&#125;<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ip</span>&gt;</span>&#123;HOST.IP&#125;<span class="tag">&lt;/<span class="name">ip</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">color</span>&gt;</span>FF4A954A<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.0.10/zabbix<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">age</span>&gt;</span>&#123;EVENT.AGE&#125;<span class="tag">&lt;/<span class="name">age</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">recoveryTime</span>&gt;</span>&#123;EVENT.RECOVERY.DATE&#125; &#123;EVENT.RECOVERY.TIME&#125;<span class="tag">&lt;/<span class="name">recoveryTime</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">status</span>&gt;</span>OK<span class="tag">&lt;/<span class="name">status</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="6.jpg" alt="6"></p>
+<ul>
+<li>告警确认或更新</li>
+</ul>
+<p><strong>消息内容：</strong><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">报警确认：&#123;HOST.NAME&#125;</span><br><span class="line">------------</span><br><span class="line">确认人：&#123;USER.FULLNAME&#125; </span><br><span class="line">时间：&#123;ACK.DATE&#125; &#123;ACK.TIME&#125; </span><br><span class="line">确认信息如下：</span><br><span class="line">"&#123;ACK.MESSAGE&#125;"</span><br><span class="line">问题服务器IP：&#123;HOSTNAME1&#125;</span><br><span class="line">问题ID：&#123;EVENT.ID&#125;</span><br><span class="line">当前的问题是： &#123;TRIGGER.NAME&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="7.jpg" alt="7"><br><div class="note info"><p><strong>备注</strong><br>这个告警使用的使python脚本，非通过插件，可观察上图<code>仅送到</code>信息，本文结尾上传插件和脚本，同时添加告警媒介python版<br><img src="8.jpg" alt="8"><br>脚本参数：<br>{ALERT.MESSAGE}<br>{ALERT.SENDTO}<br>{ALERT.SUBJECT}</p></div></p>
+<h1 id="5-附件"><a href="#5-附件" class="headerlink" title="5 附件"></a>5 附件</h1><p>=<a href="dingding.py">dingding.py</a><br>=<a href="webhook-zabbix-robot-64">webhook-zabbix-robot-64</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2019/08/08/zabbix监控项自定义/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/08/zabbix监控项自定义/" itemprop="url">zabbix监控项自定义</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-08T09:24:19+08:00">
+                2019-08-08
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-08-08T10:16:05+08:00">
+                2019-08-08
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  323
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="1-防火墙状态监控"><a href="#1-防火墙状态监控" class="headerlink" title="1 防火墙状态监控"></a>1 防火墙状态监控</h1><h2 id="1-1-在被监控主机配置监控脚本"><a href="#1-1-在被监控主机配置监控脚本" class="headerlink" title="1.1 在被监控主机配置监控脚本"></a>1.1 在被监控主机配置监控脚本</h2>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/08/zabbix监控项自定义/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2019/08/07/jenkins安装及配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1940,411 +2357,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2019/03/01/postgresql部署/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/01/postgresql部署/" itemprop="url">postgresql部署</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-01T16:12:25+08:00">
-                2019-03-01
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-04-26T16:54:15+08:00">
-                2019-04-26
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.1k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  6
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1-Postgres部署手册"><a href="#1-Postgres部署手册" class="headerlink" title="1 Postgres部署手册"></a>1 Postgres部署手册</h1><h2 id="1-1-安装"><a href="#1-1-安装" class="headerlink" title="1.1 安装"></a>1.1 安装</h2>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/01/postgresql部署/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2019/01/21/vsftp示例1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/21/vsftp示例1/" itemprop="url">vsftp示例1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-21T11:08:17+08:00">
-                2019-01-21
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-04-26T16:54:24+08:00">
-                2019-04-26
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  415
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1-部署要求"><a href="#1-部署要求" class="headerlink" title="1 部署要求"></a>1 部署要求</h1><p>在<strong>阿里云</strong>服务器上部署FTP.<br>服务要求：FTP用户A、B可互相访问，A对B有写权限，B对A只有读权限。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/21/vsftp示例1/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2397,7 +2414,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">101</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2594,7 +2611,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">110k</span>
+    <span title="Site words total count">110.9k</span>
   
 </div>
 
