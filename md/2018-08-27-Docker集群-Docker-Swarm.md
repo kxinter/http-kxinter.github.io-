@@ -1,0 +1,582 @@
+---
+title: Docker集群-Docker_Swarm
+tags:
+  - swarm
+  - docker
+categories:
+  - Docker
+date: 2018-08-27 11:52:53
+---
+
+# 1 安装 Swarm
+<!--more-->
+## 1.1 下载镜像
+
+``` shell
+$ docker pull swarm
+```
+
+可以使用下面的命令来查看 Swarm 版本，验证是否成功下载 Swarm 镜像。
+
+``` lsl
+$ docker run --rm swarm -v
+swarm version 1.2.2 (34e3da3)
+```
+
+## 1.2 配置节点
+
+Docker 主机在加入 Swarm 集群前，需要进行一些简单配置，添加 Docker daemon 的网络监听。
+
+例如，在启动 Docker daemon 的时候通过 -H 参数：
+
+``` elixir
+$ sudo docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock
+```
+
+> 注：Docker 1.8.0 版本之前不支持 daemon 命令，可以用 -d 代替。
+
+如果是通过服务方式启动，则需要修改服务的配置文件。
+
+以 Ubuntu 14.04 为例，配置文件为 `/etc/default/docker`（其他版本的 Linux 上略有不同）。
+
+在文件的最后添加：
+
+``` makefile
+DOCKER_OPTS="$DOCKER_OPTS -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock"
+```
+
+## 1.3 启动集群
+
+Docker 集群管理需要使用服务发现（Service Discover）功能，Swarm 支持以下的几种方式：DockerHub、本地文件、etcd、consul、zookeeper 和手动指定节点 IP 地址信息等。
+
+除了手动指定外，这些方法原理上都是通过维护一套数据库机制，来管理集群中注册节点的 Docker daemon 的访问信息。
+
+本地配置集群推荐使用 consul 作为服务发现后端。利用社区提供的 Docker 镜像，整个过程只需要三步即可完成。
+
+### 1.3.1 启动 Consul 服务后端
+
+启动 consul 服务容器，映射到主机的 8500 端口。
+
+``` shell
+$ docker run -d -p 8500:8500 --name=consul progrium/consul -server -bootstrap
+```
+
+获取到本地主机的地址作为 consul 的服务地址：<consul_ip>:8500。
+
+### 1.3.2 启动管理节点
+
+首先，启动一个主管理节点，映射到主机的 4000 端口，并获取所在主机地址为 <manager0_ip>。其中 4000 端口是 Swarm 管理器的默认监听端口，用户也可以指定映射为其它端口。
+
+``` groovy
+$ docker run -d -p 4000:4000 swarm manage -H :4000 --replication --advertise <manager0_ip>:4000 consul://<consul_ip>:8500
+```
+
+为了提高高可用性，用户也可以启动从管理节点。假定获取所在主机地址为 <manager1_ip>。
+
+``` groovy
+$ docker run -d swarm manage -H :4000 --replication --advertise <manager1_ip>:4000 consul://<consul_ip>:8500
+```
+
+### 1.3.3 启动工作节点
+
+需要在每个工作节点上启动 agent 服务。
+
+获取节点的主机地址为 <node_ip>，并指定前面获取到的 consul 服务地址。
+
+``` vim
+$ docker run -d swarm join --advertise=<node_ip>:2375 consul://<consul_ip>:8500
+```
+
+节点启动后，用户可以指定 Docker 服务地址为 <manager0_ip>:4000> 来测试各种 Docker 命令，可以看到整个 Swarm 集群就像一个虚拟的 Docker 主机一样正常工作。
+
+由于 Swarm 实际上是通过 agent 调用了本地的 Docker daemon 来运行容器，当 Swarm 集群服务出现故障时，无法接受新的请求，但已经运行起来的容器将不会受到影响。
+
+# 2 使用 Swarm
+
+前面演示了基于 consul 服务发现后端来配置一个本地 Swarm 集群。其中，consul 也可以被替换为 etcd、zookeeper 等。
+
+另外一个更方便的方式是直接使用 DockerHub 提供的免费服务发现后端。
+
+下面使用这种方式来演示 Swarm 的主要操作，包括：
+
+ - create：创建一个集群； 
+ - list：列出集群中的节点； 
+ - manage：管理一个集群； 
+ - join：让节点加入到某个集群。
+
+> 注意，使用 DockerHub 的服务发现后端，需要各个节点能通过公网访问到 DockerHub 的服务接口。
+
+## 2.1 创建集群 id
+
+在任意一台安装了 Swarm 的机器上执行 swarm create 命令来在 DockerHub 服务上进行注册。
+
+Swarm 会通过服务发现后端（此处为 DockerHub 提供）来获取一个唯一的由数字和字母组成的 token，用来标识要管理的集群。
+
+``` dockerfile
+$ docker run --rm swarm create
+946d65606f7c2f49766e4dddac5b4365
+```
+
+> 注意返回的字符串，这是集群的唯一 id，加入集群的各个节点将需要这个信息。
+
+## 2.2 配置集群节点
+
+在所有要加入集群的普通节点上面执行 swarm join 命令，表示把这台机器加入指定集群当中。
+
+例如某台机器 IP 地址为 192.168.0.2，将其加入我们刚创建的 946d65606f7c2f49766e4dddac5b4365 集群，则可以通过：
+
+``` stata
+$ docker run --rm swarm join --addr=192.168.0.2:2375 token://946d65606f7c2f49766e4dddac5b4365
+time="2015-12-09T08:59:43Z" level=info msg="Registering on the discovery service every 20s..." addr="192.168.0.2:2375" discovery="token://946d65606f7c2f49766e4dddac5b4365"
+```
+
+> 注：其中 --addr 指定的 IP 地址信息将被发送给服务发现后端，用以区分集群不同的节点。manager
+> 服务必须要通过这个地址可以访问到该节点。
+
+通过控制台可以看到，上述命令执行后，默认每隔 20 秒（可以通过 --heartbeat 选项指定），会输出一条心跳信息。对于发现服务后端来说，默认如果超过 60 秒（可以通过 --ttl 选项指定）没有收到心跳信息，则将节点从列表中删除。
+
+如果不希望看到输出日志信息，则可以用 -d 选项替换 --rm 选项，让服务后台执行。
+
+执行 swarm join 命令实际上是通过 agent 把自己的信息注册到发现服务上，因此，此时对于后端的发现服务来说，已经可以看到有若干节点注册上来了。那么，如何管理和使用这些节点呢，这就得需要 Swarm 的 manager 服务了。
+
+## 2.3 配置管理节点
+
+配置管理节点需要通过 swarm manage 命令，该命令将启动 manager 服务，默认监听到 2375 端口，所有对集群的管理可以通过该服务接口进行。
+
+读者可能注意到，manager 服务默认监听的端口跟 Docker 服务监听端口是一样的，这是为了兼容其它基于 Docker 的服务，可以无缝地切换到 Swarm 平台上来。
+
+仍然在节点 `192.168.0.2` 进行操作。由于我们是采用 Docker 容器形式启动 manager 服务，本地的 2375端口已经被 Docker Daemon 占用。我们将 manager 服务监听端口映射到本地一个空闲的 12375 端口。
+
+``` dockerfile
+$ docker run -d -p 12375:2375 swarm manage token://946d65606f7c2f49766e4dddac5b4365
+1e1ca8c4117b6b7271efc693f9685b4e907d8dc95324350392b21e94b3cffd18
+```
+
+可以通过 `docker ps` 命令来查看启动的 swarm manager 服务容器。
+
+``` x86asm
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                     NAMES
+1e1ca8c4117b        swarm               "/swarm manage token:"   11 seconds ago      Up 10 seconds       0.0.0.0:12375->2375/tcp   jovial_rosalind
+```
+
+命令如果执行成功会返回刚启动的 Swarm 容器的 ID，此时一个简单的 Swarm 集群就已经搭建起来了，包括一个普通节点和一个管理节点。
+
+## 2.4 查看集群节点列表
+
+集群启动成功以后，用户可以在任何一台节点上使用 `swarm list` 命令查看集群中的节点列表。例如
+
+``` stata
+$ docker run --rm swarm list token://946d65606f7c2f49766e4dddac5b4365
+192.168.0.2:2375
+```
+
+显示正是之前用 `swarm join` 命令加入集群的节点的地址。
+
+我们在另外一台节点 `192.168.0.3` 上同样使用 `swarm join` 命令新加入一个节点：
+
+``` stata
+$ docker run --rm swarm join --addr=192.168.0.3:2375 token://946d65606f7c2f49766e4dddac5b4365
+time="2015-12-10T02:05:34Z" level=info msg="Registering on the discovery service every 20s..." addr="192.168.0.3:2375" discovery="token://946d65606f7c2f49766e4dddac5b4365"
+...
+```
+
+再次使用 swarm list 命令查看集群中的节点列表信息，可以看到新加入的节点：
+
+``` stata
+$ docker run --rm swarm list token://946d65606f7c2f49766e4dddac5b4365
+192.168.0.3:2375
+192.168.0.2:2375
+```
+
+## 2.5 使用集群服务
+
+那么，怎么使用 Swarm 提供的服务呢？
+
+实际上，所有 Docker 客户端可以继续使用，只要指定使用 Swarm manager 服务的监听地址即可。
+
+例如，manager 服务监听的地址为 `192.168.0.2:12375`，则可以通过指定 `-H 192.168.0.2:12375` 选项来继续使用 Docker 客户端，执行任意 Docker 命令，例如 `ps、info、run` 等等。
+
+在任意节点上使用 docker run 来启动若干容器，例如
+
+``` x86asm
+$docker -H 192.168.0.2:12375:12375 run -d ubuntu ping 127.0.0.1
+4c9bccbf86fb6e2243da58c1b15e9378fac362783a663426bbe7058eea84de46
+```
+
+使用 ps 命令查看集群中正在运行的容器。
+
+``` x86asm
+$ docker -H 192.168.0.2:12375 ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                         NAMES
+4c9bccbf86fb        ubuntu              "ping 127.0.0.1"         About a minute ago   Up About a minute                       clever_wright
+730061a3801a        registry:latest     "docker-registry"        2 minutes ago        Up 2 minutes         192.168.0.2:5000->5000/tcp   Host-1/registry_registry_1
+72d99f24a06f        redis:3.0           "/entrypoint.sh redis"   2 minutes ago        Up 2 minutes         6379/tcp                      Host-1/registry_redis_1,Host-1/registry_registry_1/redis,Host-1/registry_registry_1/redis_1,Host-1/registry_registry_1/registry_redis_1
+```
+
+输出结果中显示目前集群中正在运行的容器（注意不包括 Swarm manager 服务容器），可以在不同节点上使用 docker ps 查看本地容器，发现这些容器实际上可能运行在集群中多个节点上（被 Swarm 调度策略进行分配）。
+
+使用 info 查看所有节点的信息。
+
+``` yaml
+$ docker -H 192.168.0.2:12375 info
+Containers: 18
+Images: 36
+Role: primary
+Strategy: spread
+Filters: health, port, dependency, affinity, constraint
+Nodes: 2
+ Host-1: 192.168.0.2:2375
+  └ Containers: 15
+  └ Reserved CPUs: 0 / 4
+  └ Reserved Memory: 1 GiB / 4.053 GiB
+  └ Labels: executiondriver=native-0.2, kernelversion=3.16.0-43-generic, operatingsystem=Ubuntu 14.04.3 LTS, storagedriver=aufs
+ Host-2: 192.168.0.3:2375
+  └ Containers: 3
+  └ Reserved CPUs: 0 / 8
+  └ Reserved Memory: 0 B / 16.46 GiB
+  └ Labels: executiondriver=native-0.2, kernelversion=3.16.0-30-generic, operatingsystem=Ubuntu 14.04.3 LTS, storagedriver=aufs
+CPUs: 12
+Total Memory: 20.51 GiB
+Name: 1e1ca8c4117b
+```
+
+结果输出显示这个集群目前只有两个节点，地址分别是 `192.168.0.2` 和 `192.168.0.3`。
+
+类似的，也可以通过 Compose 模板来启动多个服务。不过请注意，要想让服务分布到多个 Swarm 节点上，需要采用版本 2 的写法。
+
+## 2.6 使用网络
+
+Swarm 为了支持跨主机的网络，默认采用了 overlay 网络类型，实现上通过 vxlan 来构建联通整个 Swarm 集群的网络。
+
+首先，在集群中所有节点上，添加配置 Docker daemon 选项：
+
+``` xml
+--cluster-store=<DISCOVERY_HOST:PORT> --cluster-advertise=<DOCKER_DAEMON_HOST:PORT>
+```
+
+以 consul 服务为例，可能类似：
+
+``` jboss-cli
+--cluster-store=consul://<consul 服务地址>:8500 --cluster-advertise=192.168.0.3:2375
+```
+
+之后重启 Docker 服务。
+
+首先，创建一个网络。
+
+``` x86asm
+$ docker -H 192.168.0.2:12375 network create swarm_network
+```
+
+查看网络，将看到一个 overlay 类型的网络。
+
+``` x86asm
+$ docker -H 192.168.0.2:12375 network ls
+NETWORK ID          NAME                DRIVER
+6edf2d16ec97        swarm_network       overlay
+```
+
+此时，所有添加到这个网络上的容器将自动被分配到集群中的节点上，并且彼此联通。
+
+# 3 使用其它服务发现后端
+
+Swarm 目前可以支持多种服务发现后端，这些后端功能上都是一致的，即维护属于某个集群的节点的信息。不同方案并无优劣之分，在实际使用时候，可以结合自身需求和环境限制进行选择，甚至自己定制其它方案。
+
+使用中可以通过不同的路径来选择特定的服务发现后端机制。
+
+ -` token://<token>`：使用 DockerHub 提供的服务，适用于可以访问公网情况；
+ - `file://path/to/file`：使用本地文件，需要手动管理； 
+ - `consul://<ip>/<path>`：使用 consul服务，私有环境推荐； 
+ - `etcd://<ip1>,<ip2>/<path>`：使用 etcd 服务，私有环境推荐；
+ - `zk://<ip1>,<ip2>/<path>`：使用 zookeeper 服务，私有环境推荐；
+ - `[nodes://]<ip1>,<ip2>`：手动指定集群中节点的地址，方便进行服务测试。
+
+## 3.1 使用文件
+
+使用本地文件的方式十分简单，就是讲所有属于某个集群的节点的 Docker daemon 信息写入一个文件中，然后让 manager 从这个文件中直接读取相关信息。
+
+首先，在 Swarm 管理节点（192.168.0.2）上新建一个文件，把要加入集群的机器的 Docker daemon 信息写入文件：
+
+``` x86asm
+$ tee /tmp/cluster_info <<-'EOF'
+192.168.0.2:2375
+192.168.0.3:2375
+EOF
+```
+
+然后，本地执行 swarm manage 命令，并指定服务发现机制为本地文件，注意因为是容器方式运行 manager，需要将本地文件挂载到容器内。
+
+``` groovy
+$ docker run -d -p 12375:2375 -v /tmp/cluster_info:/tmp/cluster_info swarm manage file:///tmp/cluster_info
+```
+
+接下来就可以通过使用 Swarm 服务来进行管理了，例如使用 info 查看所有节点的信息。
+
+``` yaml
+$ docker -H 192.168.0.2:12375 info
+Containers: 18
+Images: 36
+Role: primary
+Strategy: spread
+Filters: health, port, dependency, affinity, constraint
+Nodes: 2
+ Host-1: 192.168.0.2:2375
+  └ Containers: 15
+  └ Reserved CPUs: 0 / 4
+  └ Reserved Memory: 1 GiB / 4.053 GiB
+  └ Labels: executiondriver=native-0.2, kernelversion=3.16.0-43-generic, operatingsystem=Ubuntu 14.04.3 LTS, storagedriver=aufs
+ Host-2: 192.168.0.3:2375
+  └ Containers: 3
+  └ Reserved CPUs: 0 / 8
+  └ Reserved Memory: 0 B / 16.46 GiB
+  └ Labels: executiondriver=native-0.2, kernelversion=3.16.0-30-generic, operatingsystem=Ubuntu 14.04.3 LTS, storagedriver=aufs
+CPUs: 12
+Total Memory: 20.51 GiB
+Name: e71eb5f1d48b
+```
+
+## 3.2 其它发现服务后端
+
+其它服务发现后端的使用方法，也是大同小异，不同之处在于使用 Swarm 命令时指定的路径格式不同。
+
+例如，对于前面介绍的 consul 服务后端来说。
+
+快速部署一个 consul 服务的命令为：
+
+``` shell
+$ docker run -d -p 8500:8500 --name=consul progrium/consul -server -bootstrap
+```
+
+之后创建 Swarm 的管理服务，指定使用 consul 服务，管理端口监听在本地的 4000 端口。
+
+``` groovy
+$ docker run -d -p 4000:4000 swarm manage -H :4000 --replication --advertise <manager_ip>:4000 consul://<consul_ip>:8500
+```
+
+Swarm 节点注册时候命令格式类似于：
+
+``` xml
+$ swarm join --advertise=<node_ip:2375> consul://<consul_addr>/<optional path prefix>
+```
+
+对于 etcd 服务后端来说，节点注册时候命令格式类似于：
+
+``` xml
+$ swarm join --addr=<node_addr:2375> etcd://<etcd_addr1>,<etcd_addr2>/<optional path prefix>
+```
+
+启动管理服务时候，格式类似于：
+
+``` xml
+$ swarm manage -H tcp://<manager_ip>:4000 etcd://<etcd_addr1>,<etcd_addr2>/<optional path prefix>
+```
+
+## 3.3 地址和端口的范围匹配
+
+对于基于文件，以及手动指定节点信息两种服务发现后端机制来说，其中地址和端口域可以支持指定一个范围，以一次性指定多个地址。 例如：
+
+ - `192.168.0.[2:10]:2375` 代表 `192.168.0.2:2375` -- `192.168.0.10:2375` 一共 9 个地址；
+ - `192.168.0.2:[2:9]375` 代表 `192.168.0.2:2375` -- `192.168.0.2:9375` 一共 8 个地址。
+
+# 4 Swarm 中的调度器
+
+调度是集群十分重要的功能，Swarm 目前支持三种调度策略：`spread、binpack 和 random`。
+
+在执行`swarm manage`命令启动管理服务的时候，可以通过` --strategy` 参数指定调度策略，默认的是 `spread`。
+
+简单来说，这三种调度策略的优化目标如下：
+
+ - `spread`：如果节点配置相同，选择一个正在运行的容器数量最少的那个节点，即尽量平摊容器到各个节点；
+ - `binpack`：跟 `spread` 相反，尽可能的把所有的容器放在一台节点上面运行，即尽量少用节点，避免容器碎片化。
+ - `random`：直接随机分配，不考虑集群中节点的状态，方便进行测试使用。
+
+## 4.1 spread 调度策略
+
+仍然以之前创建好的集群为例，来演示下 spread 策略的行为。
+
+在 `192.168.0.2` 节点启动管理服务，管理 token://946d65606f7c2f49766e4dddac5b4365 的集群。
+
+``` llvm
+$ docker run -d -p 12375:2375 swarm manage  --strategy "spread" token://946d65606f7c2f49766e4dddac5b4365
+c6f25e6e6abbe45c8bcf75ac674f2b64d5f31a5c6070d64ba954a0309b197930
+```
+
+列出集群中节点。
+
+``` stata
+$ docker run --rm swarm list token://946d65606f7c2f49766e4dddac5b4365
+192.168.0.3:2375
+192.168.0.2:2375
+```
+
+此时，两个节点上除了 swarm 外都没有运行其它容器。
+
+启动一个 ubuntu 容器。
+
+``` x86asm
+$ docker -H 192.168.0.2:12375 run -d ubuntu:14.04 ping 127.0.0.1
+bac3dfda5306181140fc959969d738549d607bc598390f57bdd432d86f16f069
+```
+
+查看发现它实际上被调度到了 192.168.0.3 节点（当节点配置相同时候，初始节点随机选择）。
+
+再次启动一个 ubuntu 容器。
+
+``` x86asm
+$ docker -H 192.168.0.2:12375 run -d ubuntu:14.04 ping 127.0.0.1
+8247067ba3a31e0cb692a8373405f95920a10389ce3c2a07091408281695281c
+```
+
+查看它的位置，发现被调度到了另外一个节点：192.168.0.2 节点。
+
+``` x86asm
+$ docker -H 192.168.0.2:12375 ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                         NAMES
+8247067ba3a3        ubuntu:14.04        "ping 127.0.0.1"         1 minutes ago       Up 1 minutes                            Host-2/sick_galileo
+bac3dfda5306        ubuntu:14.04        "ping 127.0.0.1"         2 minutes ago       Up 2 minutes                            Host-3/compassionate_ritchie
+```
+
+当节点配置不同的时候，spread会更愿意分配到配置较高的节点上。
+
+## 4.2 binpack 调度策略
+
+现在来看看 `binpack` 策略下的情况。
+
+直接启动若干 ubuntu 容器，并查看它们的位置。
+
+``` x86asm
+$ docker -H 192.168.0.2:12375 run -d ubuntu:14.04 ping 127.0.0.1
+$ docker -H 192.168.0.2:12375 ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                         NAMES
+4c4f45eba866        ubuntu:14.04        "ping 127.0.0.1"         3 minutes ago       Up 3 minutes                            Host-3/hopeful_brown
+5e650541233c        ubuntu:14.04        "ping 127.0.0.1"         3 minutes ago       Up 3 minutes                            Host-3/pensive_wright
+99c5a092530a        ubuntu:14.04        "ping 127.0.0.1"         3 minutes ago       Up 3 minutes                            Host-3/naughty_engelbart
+4ab392c26eb2        ubuntu:14.04        "ping 127.0.0.1"         3 minutes ago       Up 3 minutes                            Host-3/thirsty_mclean
+```
+
+可以看到，所有的容器都是分布在同一个节点（192.168.0.3）上运行的。
+
+# 5 Swarm 中的过滤器
+
+Swarm 的调度器可以按照指定调度策略自动分配容器到节点。但有些时候希望能对这些分配加以干预。比如说，让 IO 敏感的容器分配到安装了 SSD 的节点上；让计算敏感的容器分配到 CPU 核数多的机器上；让网络敏感的容器分配到高带宽的机房；让某些容器尽量放同一个节点……。
+
+这可以通过过滤器（filter）来实现，目前支持 `Constraint、Affinity、Port、Dependency、Health`等五种过滤器。
+
+## 5.1 Constraint 过滤器
+
+Constraint 过滤器是绑定到节点的键值对，相当于给节点添加标签。
+
+可在启动 Docker 服务的时候指定，例如指定某个节点颜色为 red。
+
+``` elixir
+$ sudo docker daemon --label color=red -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock
+```
+
+同样的，可以写在 Docker 服务的配置文件里面（以 Ubuntu 14.04 为例，是 /etc/default/docker）。
+
+``` makefile
+DOCKER_OPTS="--label color=red -H 0.0.0.0:2375 -H unix:///var/run/docker.sock"
+```
+
+使用 Swarm 启动容器的时候，采用 -e constarint:key=value 的形式，可以过滤选择出匹配条件的节点。
+
+例如，我们将 `192.168.0.2` 节点打上红色标签，`192.168.0.3` 节点打上绿色标签。
+
+然后，分别启动两个容器，指定使用过滤器分别为红色和绿色。
+
+``` dockerfile
+$ docker -H 192.168.0.2:12375 run -d -e constraint:color==red ubuntu:14.04 ping 127.0.0.1
+252ffb48e64e9858c72241f5eedf6a3e4571b1ad926faf091db3e26672370f64
+$ docker -H 192.168.0.2:12375 run -d -e constraint:color==green ubuntu:14.04 ping 127.0.0.1
+3d6f8d7af8583416b17061d038545240c9e5c3be7067935d3ef2fbddce4b8136
+```
+
+> 注：指定标签中间是两个等号
+
+查看它们将被分配到指定节点上。
+
+``` x86asm
+$ docker -H 192.168.0.2:12375 ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                         NAMES
+252ffb48e64e        ubuntu:14.04        "ping 127.0.0.1"         1 minutes ago       Up 1 minutes                            Host-2/sick_galileo
+3d6f8d7af858        ubuntu:14.04        "ping 127.0.0.1"         2 minutes ago       Up 2 minutes                            Host-3/compassionate_ritchie
+```
+
+另外，Docker 内置了一些常见的过滤器，包括 `node、storagedriver、executiondriver、kernelversion、operatingsystem` 等。这些值可以通过 docker info 命令查看。
+
+例如，目前集群中各个节点的信息为：
+
+``` yaml
+$ docker -H 192.168.0.2:12375 info
+Containers: 5
+Images: 39
+Role: primary
+Strategy: spread
+Filters: health, port, dependency, affinity, constraint
+Nodes: 2
+ Host-2: 192.168.0.2:2375
+  └ Containers: 4
+  └ Reserved CPUs: 0 / 4
+  └ Reserved Memory: 1 GiB / 4.053 GiB
+  └ Labels: color=red, executiondriver=native-0.2, kernelversion=3.16.0-43-generic, operatingsystem=Ubuntu 14.04.3 LTS, storagedriver=aufs
+ Host-3: 192.168.0.3:2375
+  └ Containers: 1
+  └ Reserved CPUs: 0 / 8
+  └ Reserved Memory: 0 B / 16.46 GiB
+  └ Labels: color=green, executiondriver=native-0.2, kernelversion=3.16.0-30-generic, operatingsystem=Ubuntu 14.04.3 LTS, storagedriver=aufs
+CPUs: 12
+Total Memory: 20.51 GiB
+Name: 946d65606f7c
+```
+
+## 5.2 Affinity 过滤器
+
+Affinity 过滤器允许用户在启动一个容器的时候，让它分配到某个已有容器的节点上。
+
+例如，下面我们将启动一个 nginx 容器，让它分配到已经运行某个 ubuntu 容器的节点上。
+
+在 Constraint 过滤器的示例中，我们分别启动了两个 ubuntu 容器 `sick_galileo` 和 `compassionate_ritchie`，分别在 Host-2 和 Host-3 上。
+
+现在启动一个 nginx 容器，让它跟容器 `sick_galileo` 放在一起，都放到 Host-2 节点上。可以通过 `-e affinity:container==<name or id>` 参数来实现。
+
+``` shell
+$ docker -H 192.168.0.2:12375 run -d -e affinity:container==sick_galileo nginx
+```
+
+然后启动一个 redis 容器，让它跟容器 `compassionate_ritchie` 放在一起，都放到 Host-3 节点上。
+
+``` shell
+$ docker -H 192.168.0.2:12375 run -d -e affinity:container==compassionate_ritchie redis
+```
+
+查看所有容器运行情况。
+
+``` x86asm
+$ docker -H 192.168.0.2:12375 ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                         NAMES
+0a32f15aa8ee        redis               "/entrypoint.sh redis"   2 seconds ago       Up 1 seconds        6379/tcp                  Host-3/awesome_darwin
+d2b9a53e67d5        nginx               "nginx -g 'daemon off"   29 seconds ago      Up 28 seconds       80/tcp, 443/tcp               Host-2/fervent_wilson
+252ffb48e64e        ubuntu:14.04        "ping 127.0.0.1"         2 minutes ago       Up 2 minutes                            Host-2/sick_galileo
+3d6f8d7af858        ubuntu:14.04        "ping 127.0.0.1"         3 minutes ago       Up 3 minutes                            Host-3/compassionate_ritchie
+```
+
+## 5.3 其它过滤器
+
+其它过滤器的使用方法也是大同小异，例如通过 `affinity:image==<name or id>` 来选择拥有指定镜像的节点；通过 `-e affinity:label_name==value` 来选择拥有指定标签的容器所允许的节点。
+
+此外，当容器端口需要映射到宿主机指定端口号的时候，Swarm 也会自动分配容器到指定宿主机端口可用的节点。
+
+当不同容器之间存在数据卷或链接依赖的时候，Swarm 会分配这些容器到同一个节点上。
+
+# 6 本章小结
+	
+本章笔者介绍了 Docker Swarm 的安装、使用和主要功能。
+
+通过使用 Swarm，用户可以将若干 Docker 主机节点组成的集群当作一个大的虚拟 Docker 主机使用。并且，原先基于单机的 Docker 应用，可以无缝的迁移到 Swarm 上来。
+
+实现这些功能的前提是服务自动发现能力。在现代分布式系统中，服务的自动发现、注册、更新等能力将成为系统的基本保障和重要基础。
+
+在生产环境中，Swarm 的管理节点和发现服务后端要采用高可用性上的保护，可以采用集群模式。
+
+值得一提的是，Swarm V2 功能已经被无缝嵌入到了 Docker 1.12+ 版本中，用户今后可以直接使用 Docker 命令来完成相关功能的配置，这将使得集群功能的管理更加简便。
