@@ -138,15 +138,15 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="一、 说明">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/08/22/Docker集群WEB管理工具Shipyard/1.png">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/08/22/Docker集群WEB管理工具Shipyard/2.png">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/08/22/Docker集群WEB管理工具Shipyard/3.png">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/08/22/Docker集群WEB管理工具Shipyard/4.png">
-<meta property="og:updated_time" content="2018-09-14T01:57:38.336Z">
+<meta property="og:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/Docker集群WEB管理工具Shipyard/1571816128407.png">
+<meta property="og:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/Docker集群WEB管理工具Shipyard/1571816145028.png">
+<meta property="og:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/Docker集群WEB管理工具Shipyard/1571816154932.png">
+<meta property="og:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/Docker集群WEB管理工具Shipyard/1571816168540.png">
+<meta property="og:updated_time" content="2019-10-23T07:36:19.046Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker集群WEB管理工具Shipyard">
 <meta name="twitter:description" content="一、 说明">
-<meta name="twitter:image" content="https://kxinter.github.io/blog/2018/08/22/Docker集群WEB管理工具Shipyard/1.png">
+<meta name="twitter:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/Docker集群WEB管理工具Shipyard/1571816128407.png">
 
 
 
@@ -402,8 +402,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-14T09:57:38+08:00">
-                2018-09-14
+              <time title="更新于" itemprop="dateModified" datetime="2019-10-23T15:36:19+08:00">
+                2019-10-23
               </time>
             
           </span>
@@ -505,9 +505,9 @@
 <h2 id="1、master节点执行一件部署命令"><a href="#1、master节点执行一件部署命令" class="headerlink" title="1、master节点执行一件部署命令"></a>1、master节点执行一件部署命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 正常直接从官方拉取脚本执行就行了，命令如下</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> curl -s https://shipyard-project.com/deploy | bash -s</span></span><br><span class="line"></span><br><span class="line">[root@master ~]# curl -s https://shipyard-project.com/deploy | bash -s</span><br><span class="line">Deploying Shipyard</span><br><span class="line"><span class="meta"> -&gt;</span><span class="bash"> Starting Database</span></span><br><span class="line">Unable to find image 'rethinkdb:latest' locally</span><br><span class="line">Trying to pull repository xxx.mirror.aliyuncs.com/rethinkdb ...</span><br><span class="line">Pulling repository xxx.mirror.aliyuncs.com/rethinkdb</span><br><span class="line">Trying to pull repository docker.io/library/rethinkdb ...</span><br><span class="line">latest: Pulling from docker.io/library/rethinkdb</span><br><span class="line">Digest: sha256:29640c7d5015832c40305ad5dcc5d0996ce79b87f7e32d2fd99c9d65ad9414d4</span><br><span class="line"><span class="meta"> -&gt;</span><span class="bash"> Starting Discovery</span></span><br><span class="line"><span class="meta"> -&gt;</span><span class="bash"> Starting Cert Volume</span></span><br><span class="line"><span class="meta"> -&gt;</span><span class="bash"> Starting Proxy</span></span><br><span class="line"><span class="meta"> -&gt;</span><span class="bash"> Starting Swarm Manager</span></span><br><span class="line"><span class="meta"> -&gt;</span><span class="bash"> Starting Swarm Agent</span></span><br><span class="line"><span class="meta"> -&gt;</span><span class="bash"> Starting Controller</span></span><br><span class="line">Waiting for Shipyard on 192.168.1.44:8080</span><br><span class="line"> </span><br><span class="line">Shipyard available at http://192.168.1.44:8080</span><br><span class="line">Username: admin Password: shipyard</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者下载脚本后本地执行，命令如下</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sh deploy</span></span><br></pre></td></tr></table></figure>
 <p>执行脚本的时候会自动下载相关镜像，也可以事先下载镜像文件</p>
 <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@<span class="keyword">master</span> <span class="title">~]# docker</span> pull alpine</span><br><span class="line">[root@<span class="keyword">master</span> <span class="title">~]# docker</span> pull library/rethinkdb</span><br><span class="line">[root@<span class="keyword">master</span> <span class="title">~]# docker</span> pull microbox/etcd</span><br><span class="line">[root@<span class="keyword">master</span> <span class="title">~]# docker</span> pull shipyard/docker-proxy</span><br><span class="line">[root@<span class="keyword">master</span> <span class="title">~]# docker</span> pull swarm</span><br><span class="line">[root@<span class="keyword">master</span> <span class="title">~]# docker</span> pull shipyard/shipyard</span><br></pre></td></tr></table></figure>
-<p>通过访问<a href="http://IP：8080登录shipyard,默认帐号密码：admin" target="_blank" rel="noopener">http://IP：8080登录shipyard,默认帐号密码：admin</a>   shipyard<br><img src="1.png" alt="enter description here"></p>
+<p>通过访问<a href="http://IP：8080登录shipyard,默认帐号密码：admin" target="_blank" rel="noopener">http://IP：8080登录shipyard,默认帐号密码：admin</a>   shipyard<br><img src="https://www.github.com/kxinter/images/raw/master/2019/10/23/Docker集群WEB管理工具Shipyard/1571816128407.png" alt="图1"></p>
 <h2 id="2、分别在node节点执行如下命令，添加节点到shipyard"><a href="#2、分别在node节点执行如下命令，添加节点到shipyard" class="headerlink" title="2、分别在node节点执行如下命令，添加节点到shipyard"></a>2、分别在node节点执行如下命令，添加节点到shipyard</h2><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 部署机就是master节点</span></span><br><span class="line">$ curl -sSL https://shipyard-project.com/deploy | <span class="attr">ACTION=</span><span class="keyword">node</span> <span class="title">DISCOVERY</span>=etcd://<span class="tag">&lt;shipyard部署机ip&gt;</span> bash -s</span><br><span class="line"><span class="comment"># 或者通过本地脚本执行命令</span></span><br><span class="line">$ cat deploy | <span class="attr">ACTION=</span><span class="keyword">node</span> <span class="title">DISCOVERY</span>=etcd://<span class="tag">&lt;shipyard部署机ip&gt;</span> bash -s</span><br></pre></td></tr></table></figure>
-<p><img src="2.png" alt="enter description here"><br><img src="3.png" alt="enter description here"><br><img src="4.png" alt="enter description here"></p>
+<p><img src="https://www.github.com/kxinter/images/raw/master/2019/10/23/Docker集群WEB管理工具Shipyard/1571816145028.png" alt="图2"><br><img src="https://www.github.com/kxinter/images/raw/master/2019/10/23/Docker集群WEB管理工具Shipyard/1571816154932.png" alt="图3"><br><img src="https://www.github.com/kxinter/images/raw/master/2019/10/23/Docker集群WEB管理工具Shipyard/1571816168540.png" alt="图4"></p>
 <h1 id="四、问题总结"><a href="#四、问题总结" class="headerlink" title="四、问题总结"></a>四、问题总结</h1><h2 id="注意项目1："><a href="#注意项目1：" class="headerlink" title="注意项目1："></a>注意项目1：</h2><p>—————————————————————————————————————<br>上面安装shipyard的脚本是英文版的，其实还有中文版的脚本，下面两种都可以使用：（两个地址都失效）</p>
 <p>1）安装shipyard</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> curl -sSL http://dockerclub.net/public/script/deploy | bash -s ==&gt; 中文版</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> curl -sSL https://shipyard-project.com/deploy | bash -s ==&gt; 英文版</span></span><br></pre></td></tr></table></figure>
@@ -557,7 +557,7 @@
   <p><span>本文标题:</span><a href="/2018/08/22/Docker集群WEB管理工具Shipyard/">Docker集群WEB管理工具Shipyard</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2018年08月22日 - 17:08</p>
-  <p><span>最后更新:</span>2018年09月14日 - 09:09</p>
+  <p><span>最后更新:</span>2019年10月23日 - 15:10</p>
   <p><span>原始链接:</span><a href="/2018/08/22/Docker集群WEB管理工具Shipyard/" title="Docker集群WEB管理工具Shipyard">https://kxinter.github.io/blog/2018/08/22/Docker集群WEB管理工具Shipyard/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/blog/2018/08/22/Docker集群WEB管理工具Shipyard/"  aria-label="复制成功！"></i></span>
   </p>
@@ -949,7 +949,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">114.3k</span>
+    <span title="Site words total count">114.4k</span>
   
 </div>
 

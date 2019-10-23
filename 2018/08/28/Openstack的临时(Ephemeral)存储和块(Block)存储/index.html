@@ -138,12 +138,12 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="转载：http://www.aboutyun.com/thread-8114-1-1.html">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/08/28/Openstack的临时(Ephemeral)存储和块(Block)存储/1.jpg">
-<meta property="og:updated_time" content="2018-09-17T03:27:45.690Z">
+<meta property="og:image" content="https://markdown.xiaoshujiang.com/img/spinner.gif">
+<meta property="og:updated_time" content="2019-10-23T07:49:30.091Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Openstack的临时(Ephemeral)存储和块(Block)存储">
 <meta name="twitter:description" content="转载：http://www.aboutyun.com/thread-8114-1-1.html">
-<meta name="twitter:image" content="https://kxinter.github.io/blog/2018/08/28/Openstack的临时(Ephemeral)存储和块(Block)存储/1.jpg">
+<meta name="twitter:image" content="https://markdown.xiaoshujiang.com/img/spinner.gif">
 
 
 
@@ -399,8 +399,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-17T11:27:45+08:00">
-                2018-09-17
+              <time title="更新于" itemprop="dateModified" datetime="2019-10-23T15:49:30+08:00">
+                2019-10-23
               </time>
             
           </span>
@@ -498,7 +498,7 @@
 <h2 id="1-5-块存储"><a href="#1-5-块存储" class="headerlink" title="1.5 块存储"></a>1.5 块存储</h2><p>目前Openstack的块存储由Cinder提供，其后端支持很多类型的存储设备，比如多个厂商不同型号的阵列设备，或者是Ceph, Glusterfs, Sheepdog之类的分布式存储系统。基于块存储，可以为用户提供：<br>高可靠的存储（基于阵列的RAID, 或者是分布式存储的多副本机制；甚至还可以充分利用设备的备份，远程复制能力）</p>
 <p>共享存储 （意味着可以支持HA, 虚拟机迁移等等）</p>
 <h2 id="1-6-临时存储的妙用"><a href="#1-6-临时存储的妙用" class="headerlink" title="1.6 临时存储的妙用"></a>1.6 临时存储的妙用</h2><p>这么看来，临时存储岂不是几乎没什么作用了，那为什么还需要提供这个服务呢？其实原因非常简单： 这个服务便宜，而且便宜到令人发指的地步，比如AWS的Ephemeral Storage, 就是免费的。用户可以用它来做不少有意思的事情，比如：<br>无状态虚拟机，为系统提供Cache服务<br>为虚拟机操作系统提供交换分区，或者用来存放其它类型的临时文件<br>改进EBS的性能，比如买4个EBS盘，再配置2个免费的Ephermal盘，组建一个RAID 10系统</p>
-<h2 id="1-7-总结"><a href="#1-7-总结" class="headerlink" title="1.7 总结"></a>1.7 总结</h2><p>对于云服务提供商，不管采用什么样的后端技术，为用户提供7个9甚至更高可靠性的EBS服务，成本是巨大的，如果使用阵列，其价格本来就昂贵；如果使用分布式存储，起码要3个副本，再考虑到定期备份，快照，跨地域容灾，成本一样很高。现在的SATA, SAS盘便宜而且量又足，很容易造成在本地主机上空闲，所以干脆直接送给用户，由他们去玩，而且对于玩的好的用户，还真能对业务有不少帮助。<br><strong>最后再附上Openstack官方文档对几种存储的对比：</strong><br><img src="1.jpg" alt="enter description here"></p>
+<h2 id="1-7-总结"><a href="#1-7-总结" class="headerlink" title="1.7 总结"></a>1.7 总结</h2><p>对于云服务提供商，不管采用什么样的后端技术，为用户提供7个9甚至更高可靠性的EBS服务，成本是巨大的，如果使用阵列，其价格本来就昂贵；如果使用分布式存储，起码要3个副本，再考虑到定期备份，快照，跨地域容灾，成本一样很高。现在的SATA, SAS盘便宜而且量又足，很容易造成在本地主机上空闲，所以干脆直接送给用户，由他们去玩，而且对于玩的好的用户，还真能对业务有不少帮助。<br><strong>最后再附上Openstack官方文档对几种存储的对比：</strong><br><img src="https://markdown.xiaoshujiang.com/img/spinner.gif" alt="图1" title="[[[1571816966965]]]"></p>
 
       
     </div>
@@ -889,7 +889,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">114.3k</span>
+    <span title="Site words total count">114.4k</span>
   
 </div>
 

@@ -138,15 +138,15 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="1 错误1：">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/09/07/ELK部署过程中问题总结/1.png">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/09/07/ELK部署过程中问题总结/2.png">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/09/07/ELK部署过程中问题总结/3.png">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/09/07/ELK部署过程中问题总结/4.png">
-<meta property="og:updated_time" content="2018-09-17T03:51:56.734Z">
+<meta property="og:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/ELK部署过程中问题总结/1571819360344.png">
+<meta property="og:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/ELK部署过程中问题总结/1571819368271.png">
+<meta property="og:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/ELK部署过程中问题总结/1571819375593.png">
+<meta property="og:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/ELK部署过程中问题总结/1571819384227.png">
+<meta property="og:updated_time" content="2019-10-23T08:31:59.731Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ELK部署过程中问题总结">
 <meta name="twitter:description" content="1 错误1：">
-<meta name="twitter:image" content="https://kxinter.github.io/blog/2018/09/07/ELK部署过程中问题总结/1.png">
+<meta name="twitter:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/ELK部署过程中问题总结/1571819360344.png">
 
 
 
@@ -402,8 +402,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-17T11:51:56+08:00">
-                2018-09-17
+              <time title="更新于" itemprop="dateModified" datetime="2019-10-23T16:31:59+08:00">
+                2019-10-23
               </time>
             
           </span>
@@ -495,17 +495,17 @@
 
       
         <h1 id="1-错误1："><a href="#1-错误1：" class="headerlink" title="1 错误1："></a>1 错误1：</h1><a id="more"></a>
-<p>启动<code>elasticsearch-5.3.0</code>报错<br><img src="1.png" alt="1"></p>
+<p>启动<code>elasticsearch-5.3.0</code>报错<br><img src="https://www.github.com/kxinter/images/raw/master/2019/10/23/ELK部署过程中问题总结/1571819360344.png" alt="图1"></p>
 <p>不能使用root用户启动。新建用户elk，用户组elk.</p>
-<h1 id="2-错误2："><a href="#2-错误2：" class="headerlink" title="2 错误2："></a>2 错误2：</h1><p>使用elk启动报错<br><img src="2.png" alt="2"></p>
+<h1 id="2-错误2："><a href="#2-错误2：" class="headerlink" title="2 错误2："></a>2 错误2：</h1><p>使用elk启动报错<br><img src="https://www.github.com/kxinter/images/raw/master/2019/10/23/ELK部署过程中问题总结/1571819368271.png" alt="图2"></p>
 <p>改变<code>elasticsearch</code>文件夹所有者到当前用户</p>
 <h1 id="3-错误3："><a href="#3-错误3：" class="headerlink" title="3 错误3："></a>3 错误3：</h1><p>修改<code>network-name : 0.0.0.0</code>,后报错</p>
-<p> <img src="3.png" alt="3"></p>
+<p><img src="https://www.github.com/kxinter/images/raw/master/2019/10/23/ELK部署过程中问题总结/1571819375593.png" alt="图3"></p>
 <blockquote>
 <p>注意： es启动要求提高一些系统参数配置，否则会报错</p>
 </blockquote>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span>. 增大vm.max_map_count到至少<span class="number">262144</span></span><br><span class="line"></span><br><span class="line">$ sudo vim  /etc/sysctl.conf</span><br><span class="line"></span><br><span class="line">添加  vm.max_map_count=<span class="number">262144</span></span><br><span class="line"></span><br><span class="line">$ sudo sysctl -p</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">b</span>. 增大文件句柄数至少 <span class="number">65536</span>  ulimit -a查看</span><br><span class="line"></span><br><span class="line">$ sudo vim /etc/security/limits.conf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">* soft nofile 65536</span><br><span class="line"></span><br><span class="line">* hard nofile 65536</span><br></pre></td></tr></table></figure>
-<h1 id="4-错误4："><a href="#4-错误4：" class="headerlink" title="4 错误4："></a>4 错误4：</h1><p>启动<code>elasticsearch</code>报错<br><img src="4.png" alt="4"></p>
+<h1 id="4-错误4："><a href="#4-错误4：" class="headerlink" title="4 错误4："></a>4 错误4：</h1><p>启动<code>elasticsearch</code>报错<br><img src="https://www.github.com/kxinter/images/raw/master/2019/10/23/ELK部署过程中问题总结/1571819384227.png" alt="图4"></p>
 <p>elasticsearch-head</p>
 <p>·         不能放在<code>elasticsearch</code>的<code>plugins</code>、<code>modules</code> 目录下</p>
 <p>·         不能使用 <code>elasticsearch-plugin install</code></p>
@@ -539,7 +539,7 @@
   <p><span>本文标题:</span><a href="/2018/09/07/ELK部署过程中问题总结/">ELK部署过程中问题总结</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2018年09月07日 - 15:09</p>
-  <p><span>最后更新:</span>2018年09月17日 - 11:09</p>
+  <p><span>最后更新:</span>2019年10月23日 - 16:10</p>
   <p><span>原始链接:</span><a href="/2018/09/07/ELK部署过程中问题总结/" title="ELK部署过程中问题总结">https://kxinter.github.io/blog/2018/09/07/ELK部署过程中问题总结/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/blog/2018/09/07/ELK部署过程中问题总结/"  aria-label="复制成功！"></i></span>
   </p>
@@ -929,7 +929,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">114.3k</span>
+    <span title="Site words total count">114.4k</span>
   
 </div>
 

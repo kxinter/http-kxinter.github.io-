@@ -138,14 +138,14 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="说明：xfs格式分区无法无损缩减分区，可无损扩大分区。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/08/30/linux调整目录分区大小，linux调整home目录大小，linux调整root目录大小-xfs格式-LVM/1.png">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/08/30/linux调整目录分区大小，linux调整home目录大小，linux调整root目录大小-xfs格式-LVM/2.png">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/08/30/linux调整目录分区大小，linux调整home目录大小，linux调整root目录大小-xfs格式-LVM/3.png">
-<meta property="og:updated_time" content="2018-09-13T02:28:05.847Z">
+<meta property="og:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/linux调整目录分区大小，linux调整home目录大小，linux调整root目录大小(xfs格式_LVM">
+<meta property="og:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/linux调整目录分区大小，linux调整home目录大小，linux调整root目录大小(xfs格式_LVM">
+<meta property="og:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/linux调整目录分区大小，linux调整home目录大小，linux调整root目录大小(xfs格式_LVM">
+<meta property="og:updated_time" content="2019-10-23T07:56:00.855Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux调整目录分区大小，linux调整home目录大小，linux调整root目录大小(xfs格式&#x2F;LVM)">
 <meta name="twitter:description" content="说明：xfs格式分区无法无损缩减分区，可无损扩大分区。">
-<meta name="twitter:image" content="https://kxinter.github.io/blog/2018/08/30/linux调整目录分区大小，linux调整home目录大小，linux调整root目录大小-xfs格式-LVM/1.png">
+<meta name="twitter:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/linux调整目录分区大小，linux调整home目录大小，linux调整root目录大小(xfs格式_LVM">
 
 
 
@@ -401,8 +401,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-13T10:28:05+08:00">
-                2018-09-13
+              <time title="更新于" itemprop="dateModified" datetime="2019-10-23T15:56:00+08:00">
+                2019-10-23
               </time>
             
           </span>
@@ -456,7 +456,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  181
+                  187
                 </span>
               
 
@@ -496,10 +496,10 @@
         <blockquote>
 <p>说明：xfs格式分区无法无损缩减分区，可无损扩大分区。<br><a id="more"></a></p>
 </blockquote>
-<h1 id="一：环境概览："><a href="#一：环境概览：" class="headerlink" title="一：环境概览："></a>一：环境概览：</h1><p><img src="1.png" alt="enter description here"><br><img src="2.png" alt="enter description here"><br><!--more--></p>
+<h1 id="一：环境概览："><a href="#一：环境概览：" class="headerlink" title="一：环境概览："></a>一：环境概览：</h1><p><img src="https://www.github.com/kxinter/images/raw/master/2019/10/23/linux调整目录分区大小，linux调整home目录大小，linux调整root目录大小(xfs格式_LVM" alt="图1">/1571817332831.png)<br><img src="https://www.github.com/kxinter/images/raw/master/2019/10/23/linux调整目录分区大小，linux调整home目录大小，linux调整root目录大小(xfs格式_LVM" alt="图2">/1571817343568.png)<br><!--more--></p>
 <h1 id="二、操作步骤："><a href="#二、操作步骤：" class="headerlink" title="二、操作步骤："></a>二、操作步骤：</h1><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.终止占用 /home 进程	 </span></span><br><span class="line">fuser -m -v -i -k <span class="string">/home</span> </span><br><span class="line"><span class="comment"># 2.备份/home </span></span><br><span class="line">cp -r  <span class="string">/home/</span>  homebak/ </span><br><span class="line"><span class="comment"># 3.卸载 /home	 </span></span><br><span class="line">umount <span class="string">/home</span>	 </span><br><span class="line"><span class="comment"># 4.删除/home所在的lv </span></span><br><span class="line">lvremove <span class="string">/dev/mapper/centos-home</span> </span><br><span class="line"><span class="comment"># 5.扩展/root所在的lv，增加100G </span></span><br><span class="line">lvextend -L +100G <span class="string">/dev/mapper/centos-root</span> </span><br><span class="line"><span class="comment"># 6.扩展/root文件系统	 </span></span><br><span class="line">xfs_growfs <span class="string">/dev/mapper/centos-root</span> </span><br><span class="line"><span class="comment"># 7.重新创建home lv </span></span><br><span class="line">lvcreate -L 40G -n home centos </span><br><span class="line"><span class="comment"># 8.创建文件系统 </span></span><br><span class="line">mkfs.xfs <span class="string">/dev/centos/home</span> </span><br><span class="line"><span class="comment"># 9.挂载 </span></span><br><span class="line">mount <span class="string">/dev/centos/home</span> <span class="string">/home</span> </span><br><span class="line"><span class="comment"># 10.还原 /home 相关文件以及对应目录权限</span></span><br></pre></td></tr></table></figure>
 <p>三、执行结果：</p>
-<p><img src="3.png" alt="enter description here"></p>
+<p><img src="https://www.github.com/kxinter/images/raw/master/2019/10/23/linux调整目录分区大小，linux调整home目录大小，linux调整root目录大小(xfs格式_LVM" alt="图3">/1571817356365.png)</p>
 <h1 id="四、实测成功："><a href="#四、实测成功：" class="headerlink" title="四、实测成功："></a>四、实测成功：</h1><p>依旧教程扩容xfs，测试成功！</p>
 <p>转载：<a href="https://www.cplusplus.me/2717.html" target="_blank" rel="noopener">https://www.cplusplus.me/2717.html</a></p>
 
@@ -894,7 +894,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">114.3k</span>
+    <span title="Site words total count">114.4k</span>
   
 </div>
 

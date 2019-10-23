@@ -138,12 +138,12 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="1 主节点配置">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/09/07/Liferay-drbd双机热备部署/1.png">
-<meta property="og:updated_time" content="2018-09-13T02:32:56.557Z">
+<meta property="og:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/Liferay+drbd双机热备部署/1571819555627.png">
+<meta property="og:updated_time" content="2019-10-23T08:32:40.954Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Liferay+drbd双机热备部署">
 <meta name="twitter:description" content="1 主节点配置">
-<meta name="twitter:image" content="https://kxinter.github.io/blog/2018/09/07/Liferay-drbd双机热备部署/1.png">
+<meta name="twitter:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/Liferay+drbd双机热备部署/1571819555627.png">
 
 
 
@@ -399,8 +399,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-13T10:32:56+08:00">
-                2018-09-13
+              <time title="更新于" itemprop="dateModified" datetime="2019-10-23T16:32:40+08:00">
+                2019-10-23
               </time>
             
           </span>
@@ -520,7 +520,7 @@
 <p>说明：</p>
 <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">device  是自定义的物理设备的逻辑路径</span><br><span class="line"></span><br><span class="line"><span class="keyword">disk </span>       是磁盘设备，或者是逻辑分区</span><br><span class="line"></span><br><span class="line"><span class="keyword">address </span>  是机器监听地址和端口</span><br><span class="line"></span><br><span class="line">meta-<span class="keyword">disk </span>  这个还没弄明白，看到的资料都是设为：internal（局域网）</span><br></pre></td></tr></table></figure>
 <h3 id="1-6-3-建立resource"><a href="#1-6-3-建立resource" class="headerlink" title="1.6.3 建立resource"></a>1.6.3 建立resource</h3><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">modprobe drbd                               <span class="comment">//载入 drbd 模块  </span></span><br><span class="line"></span><br><span class="line">lsmod | <span class="keyword">grep</span> drbd                                            <span class="comment">//确认 drbd 模块是否载入</span></span><br></pre></td></tr></table></figure>
-<p><img src="1.png" alt="1"></p>
+<p><img src="https://www.github.com/kxinter/images/raw/master/2019/10/23/Liferay+drbd双机热备部署/1571819555627.png" alt="图1"></p>
 <figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">dd </span><span class="string">if=</span>/<span class="string">dev/</span><span class="string">zero </span><span class="string">of=</span>/<span class="string">dev/</span><span class="string">sda2 </span><span class="string">bs=</span><span class="string">1M </span><span class="string">count=</span><span class="string">100 </span>   //把一些资料塞到 <span class="string">sda3 </span>內 (否则 <span class="built_in">create-md</span> 时会报错)  </span><br><span class="line"></span><br><span class="line"><span class="string">drbdadm </span><span class="built_in">create-md</span> <span class="string">r0 </span>                                    //建立 <span class="string">drbd </span><span class="string">resource </span> </span><br><span class="line"></span><br><span class="line"><span class="string">drbdadm </span><span class="string">up </span><span class="string">r0 </span>                   //   <span class="comment">#启用资源</span></span><br></pre></td></tr></table></figure>
 <h1 id="2-备节点配置"><a href="#2-备节点配置" class="headerlink" title="2 备节点配置"></a>2 备节点配置</h1><p>把以上主节点的操作在备节点上操作一次，操作过程完全一样。</p>
 <h2 id="2-1-设置Primary-Node"><a href="#2-1-设置Primary-Node" class="headerlink" title="2.1 设置Primary Node"></a>2.1 设置Primary Node</h2><p>将<code>masterNode</code>设为主服务器(<code>primary node</code>)，在<code>masterNode</code>上执行：</p>
@@ -578,7 +578,7 @@
   <p><span>本文标题:</span><a href="/2018/09/07/Liferay-drbd双机热备部署/">Liferay+drbd双机热备部署</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2018年09月07日 - 15:09</p>
-  <p><span>最后更新:</span>2018年09月13日 - 10:09</p>
+  <p><span>最后更新:</span>2019年10月23日 - 16:10</p>
   <p><span>原始链接:</span><a href="/2018/09/07/Liferay-drbd双机热备部署/" title="Liferay+drbd双机热备部署">https://kxinter.github.io/blog/2018/09/07/Liferay-drbd双机热备部署/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/blog/2018/09/07/Liferay-drbd双机热备部署/"  aria-label="复制成功！"></i></span>
   </p>
@@ -972,7 +972,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">114.3k</span>
+    <span title="Site words total count">114.4k</span>
   
 </div>
 
