@@ -138,7 +138,7 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="1 磁盘占用">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-17T03:39:17.850Z">
+<meta property="og:updated_time" content="2019-11-07T06:29:15.777Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Centos7缩减home目录扩展根目录（xfs分区格式）">
 <meta name="twitter:description" content="1 磁盘占用">
@@ -397,8 +397,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-17T11:39:17+08:00">
-                2018-09-17
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-07T14:29:15+08:00">
+                2019-11-07
               </time>
             
           </span>
@@ -452,7 +452,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  407
+                  406
                 </span>
               
 
@@ -501,7 +501,7 @@
 <p>ext与xfs格式分区收缩分区命令不同，lvextend -L+19.8G /dev/VolGroup00/LogVol00<br>分区命令后，执行相应收缩命令后扩展的容量才能正常使用</p>
 </blockquote>
 <p><strong>xfs格式</strong><br>如果分区格式为xfs，扩展使用  要用xfs_growfs命令而不是resize2fs命令收缩分区，</p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@rac2</span> ~]<span class="comment"># xfs_growfs -p /dev/VolGroup00/LogVol00</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@rac2</span> ~]<span class="comment"># xfs_growfs  /dev/VolGroup00/LogVol00</span></span><br></pre></td></tr></table></figure>
 <p>执行以上命令后，<code>df  -h</code>命令查看才会显示扩容成功。</p>
 <p><strong>ext2、ext3、ext4格式（补充）</strong><br>Ext2、ext3、ext4等使用resize2fs收缩分区，xfs使用xfs-growfs命令收缩分区。详情找度娘。</p>
 <p>例如:</p>

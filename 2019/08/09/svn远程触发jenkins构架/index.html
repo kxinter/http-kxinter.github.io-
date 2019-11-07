@@ -138,12 +138,12 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="1 jenkins 配置在jenkins平台上配置job，开启远程触发构建">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/svn远程触发jenkins构建/1571821028753.png">
-<meta property="og:updated_time" content="2019-10-23T08:57:13.738Z">
+<meta property="og:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/svn远程触发jenkins构建/1571821028753.png">
+<meta property="og:updated_time" content="2019-11-07T06:18:35.625Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="svn远程触发jenkins构建">
 <meta name="twitter:description" content="1 jenkins 配置在jenkins平台上配置job，开启远程触发构建">
-<meta name="twitter:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/svn远程触发jenkins构建/1571821028753.png">
+<meta name="twitter:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/svn远程触发jenkins构建/1571821028753.png">
 
 
 
@@ -399,8 +399,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-10-23T16:57:13+08:00">
-                2019-10-23
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-07T14:18:35+08:00">
+                2019-11-07
               </time>
             
           </span>
@@ -491,7 +491,7 @@
       
 
       
-        <h1 id="1-jenkins-配置"><a href="#1-jenkins-配置" class="headerlink" title="1 jenkins 配置"></a>1 jenkins 配置</h1><p>在jenkins平台上配置job，开启<code>远程触发构建</code><br><a id="more"></a><br><img src="https://www.github.com/kxinter/images/raw/master/2019/10/23/svn远程触发jenkins构建/1571821028753.png" alt="图1"></p>
+        <h1 id="1-jenkins-配置"><a href="#1-jenkins-配置" class="headerlink" title="1 jenkins 配置"></a>1 jenkins 配置</h1><p>在jenkins平台上配置job，开启<code>远程触发构建</code><br><a id="more"></a><br><img src="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/svn远程触发jenkins构建/1571821028753.png" alt="图1"></p>
 <h1 id="2-svn配置仓库触发"><a href="#2-svn配置仓库触发" class="headerlink" title="2 svn配置仓库触发"></a>2 svn配置仓库触发</h1><p>在仓库/hook/目录创建post-commit文件，写入脚本</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"><span class="comment"># 设置默认字符集，否则post信息到钉钉时中文乱码</span></span><br><span class="line"><span class="built_in">export</span> LANG=en_US.UTF-8</span><br><span class="line"></span><br><span class="line"><span class="comment"># svn中变量1为仓库路径，2为提交版本号</span></span><br><span class="line">REPOS=<span class="string">"<span class="variable">$1</span>"</span></span><br><span class="line">REV=<span class="string">"<span class="variable">$2</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 下方svnlook命令获取相应的结果</span></span><br><span class="line"><span class="comment">#mailer.py commit "$REPOS" "$REV" /path/to/mailer.conf</span></span><br><span class="line">time=$(date +%F/%T)</span><br><span class="line">AUTHOR=$(/usr/bin/svnlook author -r <span class="variable">$&#123;REV&#125;</span> <span class="variable">$&#123;REPOS&#125;</span>)</span><br><span class="line">CHANGEDDIRS=$(/usr/bin/svnlook <span class="built_in">dirs</span>-changed <span class="variable">$REPOS</span>)</span><br><span class="line">MESSAGE=$(/usr/bin/svnlook <span class="built_in">log</span> -r <span class="variable">$REV</span> <span class="variable">$REPOS</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置CONTENT的结果</span></span><br><span class="line">CONTENT=提交时间：<span class="variable">$&#123;time&#125;</span>\\n提交版本：<span class="variable">$&#123;REV&#125;</span>\\n作者：<span class="variable">$&#123;AUTHOR&#125;</span>\\n提交备注：<span class="variable">$&#123;MESSAGE&#125;</span>\\n修改目录：<span class="variable">$&#123;CHANGEDDIRS&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入程序目录执行命令，发送提交结果到钉钉群</span></span><br><span class="line"><span class="built_in">cd</span> /home/</span><br><span class="line">/usr/bin/java Request 130883d5c8dc420d8deaa5cdabe2c95adf9b780dbxxxxxxxxxxxxxx <span class="variable">$CONTENT</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 上面都是发送svn更新到钉钉通知的设置，与发送触发到jenkins无关，下方配置jenkins触发</span></span><br><span class="line"><span class="comment"># jenkins触发命令</span></span><br><span class="line">curl -u svnjenkins:svnjenkins http://192.168.0.120/jenkins/job/PU2017001_%E6%B4%9E%E8%A7%81_CI.CD_1.222/build?token=dongjian</span><br></pre></td></tr></table></figure>
 <div class="note info"><p><strong>命令格式</strong><br><code>svnjenkins:svnjenkins</code>   # jenkins用户及密码<br><code>http://192.168.0.120/jenkins/</code>    # jenkins访问url<br><code>job/PU2017001_%E6%B4%9E%E8%A7%81_CI.CD_1.222/build?token=</code>  # job地址，看图一绿色框内地址<br><code>dongjian</code>   # token的值，jenkins设置的token名字</p></div>
@@ -525,7 +525,7 @@
   <p><span>本文标题:</span><a href="/2019/08/09/svn远程触发jenkins构架/">svn远程触发jenkins构建</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2019年08月09日 - 16:08</p>
-  <p><span>最后更新:</span>2019年10月23日 - 16:10</p>
+  <p><span>最后更新:</span>2019年11月07日 - 14:11</p>
   <p><span>原始链接:</span><a href="/2019/08/09/svn远程触发jenkins构架/" title="svn远程触发jenkins构建">https://kxinter.github.io/blog/2019/08/09/svn远程触发jenkins构架/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/blog/2019/08/09/svn远程触发jenkins构架/"  aria-label="复制成功！"></i></span>
   </p>

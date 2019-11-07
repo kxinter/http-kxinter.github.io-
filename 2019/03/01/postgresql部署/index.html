@@ -138,13 +138,13 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="1 Postgres部署手册1.1 安装">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/postgresql部署/1571821790562.png">
-<meta property="og:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/postgresql部署/1571821798083.png">
-<meta property="og:updated_time" content="2019-10-23T09:10:07.174Z">
+<meta property="og:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/postgresql部署/1571821790562.png">
+<meta property="og:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/postgresql部署/1571821798083.png">
+<meta property="og:updated_time" content="2019-11-07T06:20:24.441Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="postgresql部署">
 <meta name="twitter:description" content="1 Postgres部署手册1.1 安装">
-<meta name="twitter:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/postgresql部署/1571821790562.png">
+<meta name="twitter:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/postgresql部署/1571821790562.png">
 
 
 
@@ -400,8 +400,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-10-23T17:10:07+08:00">
-                2019-10-23
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-07T14:20:24+08:00">
+                2019-11-07
               </time>
             
           </span>
@@ -505,7 +505,7 @@
 <h2 id="2-4-greenplum安装"><a href="#2-4-greenplum安装" class="headerlink" title="2.4 greenplum安装"></a>2.4 greenplum安装</h2><h3 id="2-4-1-创建数据库用户"><a href="#2-4-1-创建数据库用户" class="headerlink" title="2.4.1 创建数据库用户"></a>2.4.1 创建数据库用户</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> groupadd -g 530 gpadmin</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> useradd -g 530 -u530 -m -d /home/gpadmin -s /bin/bash gpadmin</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> passwd gpadmin</span></span><br></pre></td></tr></table></figure>
 <h3 id="2-4-2-修改hosts"><a href="#2-4-2-修改hosts" class="headerlink" title="2.4.2 修改hosts"></a>2.4.2 修改hosts</h3><p>设置集群解析</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vim /etc/hosts</span></span><br><span class="line">192.168.0.174 mdw sdw</span><br></pre></td></tr></table></figure>
-<h3 id="2-4-3-下载安装包"><a href="#2-4-3-下载安装包" class="headerlink" title="2.4.3 下载安装包"></a>2.4.3 下载安装包</h3><p>官网<a href="https://network.pivotal.io/products/pivotal-gpdb#/releases/1683" target="_blank" rel="noopener">https://network.pivotal.io/products/pivotal-gpdb#/releases/1683</a><br><img src="https://www.github.com/kxinter/images/raw/master/2019/10/23/postgresql部署/1571821790562.png" alt="图1"><br><img src="https://www.github.com/kxinter/images/raw/master/2019/10/23/postgresql部署/1571821798083.png" alt="图2"></p>
+<h3 id="2-4-3-下载安装包"><a href="#2-4-3-下载安装包" class="headerlink" title="2.4.3 下载安装包"></a>2.4.3 下载安装包</h3><p>官网<a href="https://network.pivotal.io/products/pivotal-gpdb#/releases/1683" target="_blank" rel="noopener">https://network.pivotal.io/products/pivotal-gpdb#/releases/1683</a><br><img src="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/postgresql部署/1571821790562.png" alt="图1"><br><img src="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/postgresql部署/1571821798083.png" alt="图2"></p>
 <h3 id="2-4-3-赋权及安装"><a href="#2-4-3-赋权及安装" class="headerlink" title="2.4.3 赋权及安装"></a>2.4.3 赋权及安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> unzip greenplum-db-5.9.0-rhel7-x86_64.zip</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> chmod +x greenplum-db-5.9.0-rhel7-x86_64.bin</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ./ greenplum-db-5.9.0-rhel7-x86_64.bin</span></span><br><span class="line">一路yes,安装完成</span><br></pre></td></tr></table></figure>
 <p>默认目录/usr/loca/greenplum-db</p>
 <h3 id="2-4-4-设置gpadmin用户环境"><a href="#2-4-4-设置gpadmin用户环境" class="headerlink" title="2.4.4 设置gpadmin用户环境"></a>2.4.4 设置gpadmin用户环境</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> /home/gpadmin</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> vi .bashrc</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> vi .bash_profile</span></span><br><span class="line"></span><br><span class="line">.bashrc和.bash_profile最后都添加下面两行</span><br><span class="line">source /usr/local/greenplum-db/greenplum_path.sh</span><br><span class="line">export MASTER_DATA_DIRECTORY=/home/gpadmin/gpdata/gpmaster/gpseg-1</span><br><span class="line">export PGPORT=5433   # 应为本机有postsql，端口占用，所以使用5433端口</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">export</span> PGDATABASE=testDB</span></span><br></pre></td></tr></table></figure>
@@ -549,7 +549,7 @@
   <p><span>本文标题:</span><a href="/2019/03/01/postgresql部署/">postgresql部署</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2019年03月01日 - 16:03</p>
-  <p><span>最后更新:</span>2019年10月23日 - 17:10</p>
+  <p><span>最后更新:</span>2019年11月07日 - 14:11</p>
   <p><span>原始链接:</span><a href="/2019/03/01/postgresql部署/" title="postgresql部署">https://kxinter.github.io/blog/2019/03/01/postgresql部署/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/blog/2019/03/01/postgresql部署/"  aria-label="复制成功！"></i></span>
   </p>

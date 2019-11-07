@@ -138,12 +138,12 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="1 说明">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/Openvpn基于LDAP认证下进行包过滤（控制访问权限）/1571817616292.png">
-<meta property="og:updated_time" content="2019-10-23T08:00:22.503Z">
+<meta property="og:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/Openvpn基于LDAP认证下进行包过滤（控制访问权限）/1571817616292.png">
+<meta property="og:updated_time" content="2019-11-07T06:25:25.337Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Openvpn基于LDAP认证下进行包过滤（控制访问权限）">
 <meta name="twitter:description" content="1 说明">
-<meta name="twitter:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/Openvpn基于LDAP认证下进行包过滤（控制访问权限）/1571817616292.png">
+<meta name="twitter:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/Openvpn基于LDAP认证下进行包过滤（控制访问权限）/1571817616292.png">
 
 
 
@@ -399,8 +399,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-10-23T16:00:22+08:00">
-                2019-10-23
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-07T14:25:25+08:00">
+                2019-11-07
               </time>
             
           </span>
@@ -513,7 +513,7 @@
 <blockquote>
 <p>注意事项：</p>
 <p>创建过滤文件时，允许访问的地址写到上面，禁止访问的地址写在后面。如果先禁止访问网段，在允许访问网段IP地址，依然受限。</p>
-<p>例如：<br><img src="https://www.github.com/kxinter/images/raw/master/2019/10/23/Openvpn基于LDAP认证下进行包过滤（控制访问权限）/1571817616292.png" alt="图1"></p>
+<p>例如：<br><img src="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/Openvpn基于LDAP认证下进行包过滤（控制访问权限）/1571817616292.png" alt="图1"></p>
 </blockquote>
 <h2 id="3-4-创建客户端连接脚本"><a href="#3-4-创建客户端连接脚本" class="headerlink" title="3.4 创建客户端连接脚本"></a>3.4 创建客户端连接脚本</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> /etc/openvpn</span><br><span class="line"></span><br><span class="line"><span class="keyword">vim</span> client-connect.<span class="keyword">sh</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># /etc/openvpn/client-connect.sh: sample client-connect script using pf rule files</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># rules template file</span></span><br><span class="line">template=<span class="string">"/etc:wq/openvpn/ccd/<span class="variable">$&#123;common_name&#125;</span>.pf"</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># create the file OpenVPN wants with the rules for this client</span></span><br><span class="line"><span class="keyword">if</span> [ -f <span class="string">"<span class="variable">$template</span>"</span> ] &amp;&amp; [ ! -z <span class="string">"<span class="variable">$pf_file</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">  cp -- <span class="string">"<span class="variable">$template</span>"</span> <span class="string">"<span class="variable">$pf_file</span>"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="comment"># if anything is not as expected, fail</span></span><br><span class="line">  <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>

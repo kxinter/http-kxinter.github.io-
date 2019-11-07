@@ -138,12 +138,12 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="1 本地YUM源">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/Centos搭建私有仓库/1571816878058.png">
-<meta property="og:updated_time" content="2019-10-23T07:48:02.018Z">
+<meta property="og:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/Centos搭建私有仓库/1571816878058.png">
+<meta property="og:updated_time" content="2019-11-07T06:31:18.593Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Centos搭建私有仓库">
 <meta name="twitter:description" content="1 本地YUM源">
-<meta name="twitter:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/Centos搭建私有仓库/1571816878058.png">
+<meta name="twitter:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/Centos搭建私有仓库/1571816878058.png">
 
 
 
@@ -399,8 +399,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-10-23T15:48:02+08:00">
-                2019-10-23
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-07T14:31:18+08:00">
+                2019-11-07
               </time>
             
           </span>
@@ -545,7 +545,7 @@
 <h2 id="3-7-使用局域网yum"><a href="#3-7-使用局域网yum" class="headerlink" title="3.7 使用局域网yum"></a>3.7 使用局域网yum</h2><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">yum install httpd</span></span><br></pre></td></tr></table></figure>
 <h1 id="4-注意事项："><a href="#4-注意事项：" class="headerlink" title="4 注意事项："></a>4 注意事项：</h1><p>1、YUM源服务器每次添加rpm包到yum-custom目录，都需要重新运行<code>#createrepo /yum/yum-custom/</code>命令（YUM源服务器运行），同时局域网电脑重新建立缓存<code>#yum clean all</code> 和<code>#yum makecache</code>，否则无法发现新加安装包。</p>
 <p>2、YUM源在<code>/yum/yum-custom</code>下可创建自定义目录，可根据rpm包进行分类，便于本地YUM源管理，同上，有任何改变，必须重新运行事项1命令。</p>
-<p>3、局域网主机安装rpm的时候<strong>出现报错</strong><br><img src="https://www.github.com/kxinter/images/raw/master/2019/10/23/Centos搭建私有仓库/1571816878058.png" alt="图1"></p>
+<p>3、局域网主机安装rpm的时候<strong>出现报错</strong><br><img src="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/Centos搭建私有仓库/1571816878058.png" alt="图1"></p>
 <p>原因：使用</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">createrepo -u -d  /yum/yum-custom/</span><br></pre></td></tr></table></figure>
 <p>创建repo，</p>
@@ -583,7 +583,7 @@
   <p><span>本文标题:</span><a href="/2018/08/28/Centos搭建私有仓库/">Centos搭建私有仓库</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2018年08月28日 - 16:08</p>
-  <p><span>最后更新:</span>2019年10月23日 - 15:10</p>
+  <p><span>最后更新:</span>2019年11月07日 - 14:11</p>
   <p><span>原始链接:</span><a href="/2018/08/28/Centos搭建私有仓库/" title="Centos搭建私有仓库">https://kxinter.github.io/blog/2018/08/28/Centos搭建私有仓库/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/blog/2018/08/28/Centos搭建私有仓库/"  aria-label="复制成功！"></i></span>
   </p>

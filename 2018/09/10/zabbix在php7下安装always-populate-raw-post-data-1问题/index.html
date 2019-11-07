@@ -136,11 +136,11 @@
 <meta property="og:url" content="https://kxinter.github.io/blog/2018/09/10/zabbix在php7下安装always-populate-raw-post-data-1问题/index.html">
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/zabbix在php7下安装always-populate-raw-post-data=-1问题/1571822024467.png">
-<meta property="og:updated_time" content="2019-10-23T09:13:49.797Z">
+<meta property="og:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/zabbix在php7下安装always-populate-raw-post-data=-1问题/1571822024467.png">
+<meta property="og:updated_time" content="2019-11-07T06:22:25.593Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="zabbix在php7下安装always-populate-raw-post-data=-1问题">
-<meta name="twitter:image" content="https://www.github.com/kxinter/images/raw/master/2019/10/23/zabbix在php7下安装always-populate-raw-post-data=-1问题/1571822024467.png">
+<meta name="twitter:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/zabbix在php7下安装always-populate-raw-post-data=-1问题/1571822024467.png">
 
 
 
@@ -396,8 +396,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-10-23T17:13:49+08:00">
-                2019-10-23
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-07T14:22:25+08:00">
+                2019-11-07
               </time>
             
           </span>
@@ -488,7 +488,7 @@
       
 
       
-        <p><img src="https://www.github.com/kxinter/images/raw/master/2019/10/23/zabbix在php7下安装always-populate-raw-post-data=-1问题/1571822024467.png" alt="图1"><br><a id="more"></a><br>LNMP 平台 php7 ，<code>zabbix 安装</code>可能会出现的问题<code>always-populate-raw-post-data = -1</code>，解决方案：</p>
+        <p><img src="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/zabbix在php7下安装always-populate-raw-post-data=-1问题/1571822024467.png" alt="图1"><br><a id="more"></a><br>LNMP 平台 php7 ，<code>zabbix 安装</code>可能会出现的问题<code>always-populate-raw-post-data = -1</code>，解决方案：</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim <span class="regexp">/目录/</span>zabbix<span class="regexp">/include/</span>classes<span class="regexp">/setup/</span>CFrontendSetup.php</span><br></pre></td></tr></table></figure>
 <p>找到下面代码、关于<code>always-populate-raw-post-data</code>;<br>添加 </p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$current = <span class="number">-1</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">checkPhpAlwaysPopulateRawPostData</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                $current = ini_get(<span class="string">'always_populate_raw_post_data'</span>);</span><br><span class="line">                $current = <span class="number">-1</span>;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">array</span>(</span><br><span class="line">                        <span class="string">'name'</span> =&gt; _(<span class="string">'PHP always_populate_raw_post_data'</span>),</span><br><span class="line">                        <span class="string">'current'</span> =&gt; ($current != <span class="number">-1</span>) ? _(<span class="string">'on'</span>) : _(<span class="string">'off'</span>),</span><br><span class="line">                        <span class="string">'required'</span> =&gt; _(<span class="string">'off'</span>),</span><br><span class="line">                        <span class="string">'result'</span> =&gt; ($current != <span class="number">-1</span>) ? <span class="keyword">self</span>::CHECK_FATAL : <span class="keyword">self</span>::CHECK_OK,</span><br><span class="line">                        <span class="string">'error'</span> =&gt; _(<span class="string">'PHP always_populate_raw_post_data must be set to -1.'</span>)</span><br><span class="line">                );</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
@@ -522,7 +522,7 @@
   <p><span>本文标题:</span><a href="/2018/09/10/zabbix在php7下安装always-populate-raw-post-data-1问题/">zabbix在php7下安装always-populate-raw-post-data=-1问题</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2018年09月10日 - 16:09</p>
-  <p><span>最后更新:</span>2019年10月23日 - 17:10</p>
+  <p><span>最后更新:</span>2019年11月07日 - 14:11</p>
   <p><span>原始链接:</span><a href="/2018/09/10/zabbix在php7下安装always-populate-raw-post-data-1问题/" title="zabbix在php7下安装always-populate-raw-post-data=-1问题">https://kxinter.github.io/blog/2018/09/10/zabbix在php7下安装always-populate-raw-post-data-1问题/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/blog/2018/09/10/zabbix在php7下安装always-populate-raw-post-data-1问题/"  aria-label="复制成功！"></i></span>
   </p>
