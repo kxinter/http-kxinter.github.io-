@@ -138,20 +138,20 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="1 常用配置详解">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/12/21/tomcat优化/1.png">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/12/21/tomcat优化/2.png">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/12/21/tomcat优化/3.png">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/12/21/tomcat优化/4.png">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/12/21/tomcat优化/5.png">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/12/21/tomcat优化/6.png">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/12/21/tomcat优化/7.png">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/12/21/tomcat优化/8.png">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/12/21/tomcat优化/9.png">
-<meta property="og:updated_time" content="2019-04-26T08:54:43.383Z">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Tomcat优化/1.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Tomcat优化/2.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Tomcat优化/3.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Tomcat优化/4.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Tomcat优化/5.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Tomcat优化/6.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Tomcat优化/7.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Tomcat优化/8.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Tomcat优化/9.png">
+<meta property="og:updated_time" content="2019-11-07T08:05:58.983Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tomcat优化">
 <meta name="twitter:description" content="1 常用配置详解">
-<meta name="twitter:image" content="https://kxinter.github.io/blog/2018/12/21/tomcat优化/1.png">
+<meta name="twitter:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Tomcat优化/1.png">
 
 
 
@@ -407,8 +407,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-04-26T16:54:43+08:00">
-                2019-04-26
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-07T16:05:58+08:00">
+                2019-11-07
               </time>
             
           </span>
@@ -690,17 +690,17 @@
 <p>　　③、tomcat 8.0 32位百度云下载地址：<a href="http://pan.baidu.com/s/1o8G28rS" target="_blank" rel="noopener">http://pan.baidu.com/s/1o8G28rS</a> 密码：k11n</p>
 <h3 id="3-5-2-启动并部署-Tomcat-服务器"><a href="#3-5-2-启动并部署-Tomcat-服务器" class="headerlink" title="3.5.2 启动并部署 Tomcat 服务器"></a>3.5.2 启动并部署 Tomcat 服务器</h3><p>　　①、解压 tomcat 安装包到一个非中文目录下<br>　　②、配置环境变量。JAVA_HOME(指向 JDK 安装的根目录)<br>　　③、双击 apache-tomcat-6.0.16\bin 目录下的 startup.bat，启动服务器(如果一闪而过，那就是没有配置 JAVA_HOME 的环境变量)<br>　　④、在浏览器中输入 <a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a></p>
 <p>注意：Tomcat 启动不了的时候注意配置 JAVA_HOME:C:\Program Files\Java\jdk1.6.0_43这是安装 JDK的根目录</p>
-<h3 id="3-5-3-Tomcat-的目录结构"><a href="#3-5-3-Tomcat-的目录结构" class="headerlink" title="3.5.3 Tomcat 的目录结构"></a>3.5.3 Tomcat 的目录结构</h3><p><img src="1.png" alt="1"></p>
-<h3 id="3-5-4-部署项目的第一种方法（项目直接放入-webapps-目录中）"><a href="#3-5-4-部署项目的第一种方法（项目直接放入-webapps-目录中）" class="headerlink" title="3.5.4 部署项目的第一种方法（项目直接放入 webapps 目录中）"></a>3.5.4 部署项目的第一种方法（项目直接放入 webapps 目录中）</h3><p>1、将编写并编译好的web项目(注意要是编译好的，如果是 eclipse，可以将项目打成 war 包放入)，放入到 webapps 中<br><img src="2.png" alt="2"><br>2、启动tomcat服务器（双击 apache-tomcat-6.0.16\bin 目录下的 startup.bat，启动服务器）<br><img src="3.png" alt="3"><br>3、在浏览器输入：<a href="http://localhost:8080/项目名/访问的文件名" target="_blank" rel="noopener">http://localhost:8080/项目名/访问的文件名</a><br><img src="4.png" alt="enter description here"></p>
+<h3 id="3-5-3-Tomcat-的目录结构"><a href="#3-5-3-Tomcat-的目录结构" class="headerlink" title="3.5.3 Tomcat 的目录结构"></a>3.5.3 Tomcat 的目录结构</h3><p><img src="https://gitee.com/kxinter/images/raw/master/2019/11/7/Tomcat优化/1.png" alt="1"></p>
+<h3 id="3-5-4-部署项目的第一种方法（项目直接放入-webapps-目录中）"><a href="#3-5-4-部署项目的第一种方法（项目直接放入-webapps-目录中）" class="headerlink" title="3.5.4 部署项目的第一种方法（项目直接放入 webapps 目录中）"></a>3.5.4 部署项目的第一种方法（项目直接放入 webapps 目录中）</h3><p>1、将编写并编译好的web项目(注意要是编译好的，如果是 eclipse，可以将项目打成 war 包放入)，放入到 webapps 中<br><img src="https://gitee.com/kxinter/images/raw/master/2019/11/7/Tomcat优化/2.png" alt="2"><br>2、启动tomcat服务器（双击 apache-tomcat-6.0.16\bin 目录下的 startup.bat，启动服务器）<br><img src="https://gitee.com/kxinter/images/raw/master/2019/11/7/Tomcat优化/3.png" alt="3"><br>3、在浏览器输入：<a href="http://localhost:8080/项目名/访问的文件名" target="_blank" rel="noopener">http://localhost:8080/项目名/访问的文件名</a><br><img src="https://gitee.com/kxinter/images/raw/master/2019/11/7/Tomcat优化/4.png" alt="4"></p>
 <h3 id="3-5-5-部署项目的第二种方法（修改-conf-server-xml-文件-）"><a href="#3-5-5-部署项目的第二种方法（修改-conf-server-xml-文件-）" class="headerlink" title="3.5.5 部署项目的第二种方法（修改 conf/server.xml 文件 ）"></a>3.5.5 部署项目的第二种方法（修改 conf/server.xml 文件 ）</h3><p>①、打开tomcat下conf/server.xml，在<host> </host>标签之间输入项目配置信息</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Context</span> <span class="attr">path</span>=<span class="string">"/WebProject"</span> <span class="attr">docBase</span>=<span class="string">"D:/WebProject"</span> <span class="attr">reloadable</span>=<span class="string">"true"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 <p>　　<code>path</code>:浏览器访问时的路径名</p>
 <p>　　<code>docBase</code>:web项目的WebRoot所在的路径，注意是WebRoot的路径，不是项目的路径。其实也就是编译后的项目</p>
 <p>　　<code>reloadble</code>:设定项目有改动时，tomcat是否重新加载该项目</p>
-<p>②、双击 startup.bat，启动 tomcat 服务器，然后在浏览器输入访问的项目名称路径<br><img src="5.png" alt="5"><br>注意：如果你配置的 path=”/xx”,那么访问的时候就是这样：<br><img src="6.png" alt="6"></p>
-<h3 id="3-5-6-部署项目的第三种方法（apache-tomcat-7-0-52-conf-Catalina-localhost-）"><a href="#3-5-6-部署项目的第三种方法（apache-tomcat-7-0-52-conf-Catalina-localhost-）" class="headerlink" title="3.5.6 部署项目的第三种方法（apache-tomcat-7.0.52\conf\Catalina\localhost ）"></a>3.5.6 部署项目的第三种方法（apache-tomcat-7.0.52\conf\Catalina\localhost ）</h3><p>①、进入到 apache-tomcat-7.0.52\conf\Catalina\localhost 目录，新建一个 项目名.xml 文件<br><img src="7.png" alt="7"><br>②、在 那个新建的 xml 文件中，增加下面配置语句（和上面的是一样的,但是不需要 path 配置，加上也没什么用）</p>
+<p>②、双击 startup.bat，启动 tomcat 服务器，然后在浏览器输入访问的项目名称路径<br><img src="https://gitee.com/kxinter/images/raw/master/2019/11/7/Tomcat优化/5.png" alt="5"><br>注意：如果你配置的 path=”/xx”,那么访问的时候就是这样：<br><img src="https://gitee.com/kxinter/images/raw/master/2019/11/7/Tomcat优化/6.png" alt="6"></p>
+<h3 id="3-5-6-部署项目的第三种方法（apache-tomcat-7-0-52-conf-Catalina-localhost-）"><a href="#3-5-6-部署项目的第三种方法（apache-tomcat-7-0-52-conf-Catalina-localhost-）" class="headerlink" title="3.5.6 部署项目的第三种方法（apache-tomcat-7.0.52\conf\Catalina\localhost ）"></a>3.5.6 部署项目的第三种方法（apache-tomcat-7.0.52\conf\Catalina\localhost ）</h3><p>①、进入到 apache-tomcat-7.0.52\conf\Catalina\localhost 目录，新建一个 项目名.xml 文件<br><img src="https://gitee.com/kxinter/images/raw/master/2019/11/7/Tomcat优化/7.png" alt="7"><br>②、在 那个新建的 xml 文件中，增加下面配置语句（和上面的是一样的,但是不需要 path 配置，加上也没什么用）</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Context</span>  <span class="attr">docBase</span>=<span class="string">"D:/WebProject"</span> <span class="attr">reloadable</span>=<span class="string">"true"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<p><img src="8.png" alt="8"><br>③、在浏览器输入路径：localhost:8080/xml文件名/访问的文件名<br><img src="9.png" alt="9"><br><strong>总结：</strong></p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2019/11/7/Tomcat优化/8.png" alt="8"><br>③、在浏览器输入路径：localhost:8080/xml文件名/访问的文件名<br><img src="https://gitee.com/kxinter/images/raw/master/2019/11/7/Tomcat优化/9.png" alt="9"><br><strong>总结：</strong></p>
 <p>①、第一种方法比较普通，但是我们需要将编译好的项目重新 copy 到 webapps 目录下，多出了两步操作</p>
 <p>②、第二种方法直接在 server.xml 文件中配置，但是从 tomcat5.0版本开始后，server.xml 文件作为 tomcat 启动的主要配置文件，一旦 tomcat 启动后，便不会再读取这个文件，因此无法再 tomcat 服务启动后发布 web 项目</p>
 <p>③、第三种方法是最好的，每个项目分开配置，tomcat 将以\conf\Catalina\localhost 目录下的 xml 文件的文件名作为 web 应用的上下文路径，而不再理会 <context>中配置的 path 路径，因此在配置的时候，可以不写 path。</context></p>
@@ -734,7 +734,7 @@
   <p><span>本文标题:</span><a href="/2018/12/21/tomcat优化/">Tomcat优化</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2018年12月21日 - 10:12</p>
-  <p><span>最后更新:</span>2019年04月26日 - 16:04</p>
+  <p><span>最后更新:</span>2019年11月07日 - 16:11</p>
   <p><span>原始链接:</span><a href="/2018/12/21/tomcat优化/" title="Tomcat优化">https://kxinter.github.io/blog/2018/12/21/tomcat优化/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/blog/2018/12/21/tomcat优化/"  aria-label="复制成功！"></i></span>
   </p>

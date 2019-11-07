@@ -119,7 +119,7 @@
 
 
 
-  <meta name="keywords" content="keepalived,rsync,liferay,同步," />
+  <meta name="keywords" content="keepalived,liferay,rsync,同步," />
 
 
 
@@ -131,28 +131,28 @@
 
 
 <meta name="description" content="1 环境">
-<meta name="keywords" content="keepalived,rsync,liferay,同步">
+<meta name="keywords" content="keepalived,liferay,rsync,同步">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Liferay+keepalive+sersync+rsync主从同步">
 <meta property="og:url" content="https://kxinter.github.io/blog/2018/09/11/Liferay-keepalive-sersync-rsync主从同步/index.html">
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="1 环境">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/09/11/Liferay-keepalive-sersync-rsync主从同步/1.png">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/09/11/Liferay-keepalive-sersync-rsync主从同步/2.png">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/09/11/Liferay-keepalive-sersync-rsync主从同步/3.png">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/09/11/Liferay-keepalive-sersync-rsync主从同步/4.png">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/09/11/Liferay-keepalive-sersync-rsync主从同步/5.png">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/09/11/Liferay-keepalive-sersync-rsync主从同步/6.png">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/09/11/Liferay-keepalive-sersync-rsync主从同步/7.png">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/09/11/Liferay-keepalive-sersync-rsync主从同步/8.png">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/09/11/Liferay-keepalive-sersync-rsync主从同步/9.png">
-<meta property="og:image" content="https://kxinter.github.io/blog/2018/09/11/Liferay-keepalive-sersync-rsync主从同步/10.png">
-<meta property="og:updated_time" content="2018-09-17T03:42:16.929Z">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Liferay+keepalive+sersync+rsync主从同步/1.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Liferay+keepalive+sersync+rsync主从同步/2.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Liferay+keepalive+sersync+rsync主从同步/3.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Liferay+keepalive+sersync+rsync主从同步/4.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Liferay+keepalive+sersync+rsync主从同步/5.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Liferay+keepalive+sersync+rsync主从同步/6.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Liferay+keepalive+sersync+rsync主从同步/7.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Liferay+keepalive+sersync+rsync主从同步/8.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Liferay+keepalive+sersync+rsync主从同步/9.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Liferay+keepalive+sersync+rsync主从同步/10.png">
+<meta property="og:updated_time" content="2019-11-07T08:08:17.790Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Liferay+keepalive+sersync+rsync主从同步">
 <meta name="twitter:description" content="1 环境">
-<meta name="twitter:image" content="https://kxinter.github.io/blog/2018/09/11/Liferay-keepalive-sersync-rsync主从同步/1.png">
+<meta name="twitter:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Liferay+keepalive+sersync+rsync主从同步/1.png">
 
 
 
@@ -408,8 +408,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-17T11:42:16+08:00">
-                2018-09-17
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-07T16:08:17+08:00">
+                2019-11-07
               </time>
             
           </span>
@@ -538,42 +538,42 @@
 <h1 id="3-安装keepalive"><a href="#3-安装keepalive" class="headerlink" title="3 安装keepalive"></a>3 安装keepalive</h1><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Yum install keepalive</span></span><br></pre></td></tr></table></figure>
 <h2 id="3-1-编辑配置文件"><a href="#3-1-编辑配置文件" class="headerlink" title="3.1 编辑配置文件"></a>3.1 编辑配置文件</h2><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Yum install keepalive</span></span><br></pre></td></tr></table></figure>
 <p><strong>Liferay-a:</strong></p>
-<p><img src="1.png" alt="1"></p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2019/11/7/Liferay+keepalive+sersync+rsync主从同步/1.png" alt="1"></p>
 <p><strong>Liferay-b:</strong></p>
-<p><img src="2.png" alt="2"></p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2019/11/7/Liferay+keepalive+sersync+rsync主从同步/2.png" alt="2"></p>
 <p>启动keepalive，建立虚拟IP，主服务器当机，从服务器获得Ip.</p>
 <h1 id="4-mysql主从同步"><a href="#4-mysql主从同步" class="headerlink" title="4 mysql主从同步"></a>4 mysql主从同步</h1><p>下载<code>mysql-5.5.42-linux2.6-x86_64.tar.gz</code></p>
 <p>解压到<code>/usr/local</code>,重命名为<code>mysql</code></p>
 <h2 id="4-1-编辑配置文件"><a href="#4-1-编辑配置文件" class="headerlink" title="4.1 编辑配置文件"></a>4.1 编辑配置文件</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Vi</span> /etc/my.cnf</span><br></pre></td></tr></table></figure>
-<p><strong>Liferay-a:</strong><br><img src="3.png" alt="3"></p>
-<p><strong>Liferay-b</strong><br><img src="4.png" alt="4"></p>
+<p><strong>Liferay-a:</strong><br><img src="https://gitee.com/kxinter/images/raw/master/2019/11/7/Liferay+keepalive+sersync+rsync主从同步/3.png" alt="3"></p>
+<p><strong>Liferay-b</strong><br><img src="https://gitee.com/kxinter/images/raw/master/2019/11/7/Liferay+keepalive+sersync+rsync主从同步/4.png" alt="4"></p>
 <h2 id="4-2-建立mysql主从同步"><a href="#4-2-建立mysql主从同步" class="headerlink" title="4.2 建立mysql主从同步"></a>4.2 建立mysql主从同步</h2><ol>
 <li>查看<code>liferay-a</code>(主服务器)，查看<code>mysql</code>（主）信息，并建立同步帐号：</li>
 </ol>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; GRANT ALL PRIVILEGES ON bitnami_liferay.* TO 'tongbu'@'%' IDENTIFIED BY 'De123456' WITH GRANT OPTION;</span><br></pre></td></tr></table></figure>
-<p><img src="5.png" alt="5"></p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2019/11/7/Liferay+keepalive+sersync+rsync主从同步/5.png" alt="5"></p>
 <ol start="2">
 <li>进入<code>liferay-b</code>（从服务器），在<code>mysql</code>中输入命令，建立连接</li>
 </ol>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; CHANGE MASTER TO MASTER_HOST='172.20.20.59',  MASTER_USER='tongbu', MASTER_PASSWORD='De123456', MASTER_LOG_FILE='mysql-bin.000022',MASTER_LOG_POS=151424110;</span><br></pre></td></tr></table></figure>
 <p>输入命令，查看备服务器信息</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW SLAVE STATUS\G</span><br></pre></td></tr></table></figure>
-<p><img src="6.png" alt="6"></p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2019/11/7/Liferay+keepalive+sersync+rsync主从同步/6.png" alt="6"></p>
 <h2 id=""><a href="#" class="headerlink" title=" "></a> </h2><p>通过<code>mysql</code>命令恢复<code>bitnami_liferay</code>数据库备份到<code>lifreay-a</code>(主服务器)，自动实时同步数据到从服务器。</p>
 <h1 id="5-目录同步"><a href="#5-目录同步" class="headerlink" title="5 目录同步"></a>5 目录同步</h1><h2 id="5-1-安装rsync-liferay-b"><a href="#5-1-安装rsync-liferay-b" class="headerlink" title="5.1 安装rsync(liferay-b)"></a>5.1 安装rsync(liferay-b)</h2><p>只需在<code>liferay-b</code>服务器上安装<code>rsync</code>。</p>
 <p><code>Liferay-b</code>作为<code>rsync</code>服务器，<code>lifray-a</code>作为客户端，实时同步目录数据到<code>liferay-b</code></p>
 <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Yum install rsync</span></span><br></pre></td></tr></table></figure>
 <h3 id="5-1-1-编辑配置文件"><a href="#5-1-1-编辑配置文件" class="headerlink" title="5.1.1 编辑配置文件"></a>5.1.1 编辑配置文件</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vi</span> /etc/rsyncd.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
 <p><strong>liferay-b:</strong></p>
-<p><img src="7.png" alt="7"></p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2019/11/7/Liferay+keepalive+sersync+rsync主从同步/7.png" alt="7"></p>
 <h3 id="5-1-2-新建rsyncd-pass1密码文件在-etc-目录"><a href="#5-1-2-新建rsyncd-pass1密码文件在-etc-目录" class="headerlink" title="5.1.2 新建rsyncd.pass1密码文件在/etc/目录"></a>5.1.2 新建rsyncd.pass1密码文件在/etc/目录</h3><p><strong>文件格式</strong>  <code>帐号:密码</code></p>
-<p><strong>设置文件权限为600（必须）</strong><br><img src="8.png" alt="8"></p>
+<p><strong>设置文件权限为600（必须）</strong><br><img src="https://gitee.com/kxinter/images/raw/master/2019/11/7/Liferay+keepalive+sersync+rsync主从同步/8.png" alt="8"></p>
 <h2 id="5-2-安装sersync（liferay-a）"><a href="#5-2-安装sersync（liferay-a）" class="headerlink" title="5.2 安装sersync（liferay-a）"></a>5.2 安装sersync（liferay-a）</h2><p><code>Liferay-a</code>安装实时同步工具<code>sersync2.5.4_64bit_binary_stable_final.tar.gz</code></p>
 <p>下载<code>sersync2.5.4_64bit_binary_stable_final.tar.gz</code></p>
 <p>解压到<code>/usr/local</code></p>
 <h3 id="5-2-1-编辑confxml-xml"><a href="#5-2-1-编辑confxml-xml" class="headerlink" title="5.2.1 编辑confxml.xml"></a>5.2.1 编辑confxml.xml</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">vi</span> <span class="selector-tag">confxml</span><span class="selector-class">.xml</span></span><br></pre></td></tr></table></figure>
-<p><img src="9.png" alt="9"></p>
-<h3 id="5-2-2-在-etc-目录创建密码文件rsyncd-pass1"><a href="#5-2-2-在-etc-目录创建密码文件rsyncd-pass1" class="headerlink" title="5.2.2 在/etc/目录创建密码文件rsyncd.pass1"></a>5.2.2 在/etc/目录创建密码文件rsyncd.pass1</h3><p>文件格式只填写密码（注意和同步服务器的密码文件内的密码一样）<br><img src="10.png" alt="10"></p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2019/11/7/Liferay+keepalive+sersync+rsync主从同步/9.png" alt="9"></p>
+<h3 id="5-2-2-在-etc-目录创建密码文件rsyncd-pass1"><a href="#5-2-2-在-etc-目录创建密码文件rsyncd-pass1" class="headerlink" title="5.2.2 在/etc/目录创建密码文件rsyncd.pass1"></a>5.2.2 在/etc/目录创建密码文件rsyncd.pass1</h3><p>文件格式只填写密码（注意和同步服务器的密码文件内的密码一样）<br><img src="https://gitee.com/kxinter/images/raw/master/2019/11/7/Liferay+keepalive+sersync+rsync主从同步/10.png" alt="10"></p>
 <h3 id="5-2-3-启动sersync，开启实时同步"><a href="#5-2-3-启动sersync，开启实时同步" class="headerlink" title="5.2.3 启动sersync，开启实时同步"></a>5.2.3 启动sersync，开启实时同步</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/usr/</span>local<span class="regexp">/sersync/</span>sersync2 -d -r -o <span class="regexp">/usr/</span>local<span class="regexp">/sersync/</span>confxml.xml</span><br></pre></td></tr></table></figure>
 
       
@@ -604,7 +604,7 @@
   <p><span>本文标题:</span><a href="/2018/09/11/Liferay-keepalive-sersync-rsync主从同步/">Liferay+keepalive+sersync+rsync主从同步</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2018年09月11日 - 09:09</p>
-  <p><span>最后更新:</span>2018年09月17日 - 11:09</p>
+  <p><span>最后更新:</span>2019年11月07日 - 16:11</p>
   <p><span>原始链接:</span><a href="/2018/09/11/Liferay-keepalive-sersync-rsync主从同步/" title="Liferay+keepalive+sersync+rsync主从同步">https://kxinter.github.io/blog/2018/09/11/Liferay-keepalive-sersync-rsync主从同步/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/blog/2018/09/11/Liferay-keepalive-sersync-rsync主从同步/"  aria-label="复制成功！"></i></span>
   </p>
@@ -669,9 +669,9 @@
           
             <a href="/tags/keepalived/" rel="tag"><i class="fa fa-tag"></i> keepalived</a>
           
-            <a href="/tags/rsync/" rel="tag"><i class="fa fa-tag"></i> rsync</a>
-          
             <a href="/tags/liferay/" rel="tag"><i class="fa fa-tag"></i> liferay</a>
+          
+            <a href="/tags/rsync/" rel="tag"><i class="fa fa-tag"></i> rsync</a>
           
             <a href="/tags/同步/" rel="tag"><i class="fa fa-tag"></i> 同步</a>
           
