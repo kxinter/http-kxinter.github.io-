@@ -119,7 +119,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="redis," />
 
 
 
@@ -130,16 +130,22 @@
 
 
 
-<meta name="description" content="日常运维文档整理。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Operation随笔">
-<meta property="og:url" content="https://kxinter.github.io/blog/tags/部署/index.html">
+<meta name="description" content="一 主机 二 安装redis1yum install redis 三 配置主从 master节点  1234567vim redis.conf# 开启所有地址连接（根据实际情况配置）bind 0.0.0.0# redis添加认证密码test123 （可不设置，如果设置各节点密码保持一致）requirepass test123# 连接master节点密码 （如果设置认证密码，配置该项）mastera">
+<meta name="keywords" content="redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis高可用集群配置">
+<meta property="og:url" content="https://kxinter.github.io/blog/2020/07/01/redis高可用集群配置/index.html">
 <meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="日常运维文档整理。">
+<meta property="og:description" content="一 主机 二 安装redis1yum install redis 三 配置主从 master节点  1234567vim redis.conf# 开启所有地址连接（根据实际情况配置）bind 0.0.0.0# redis添加认证密码test123 （可不设置，如果设置各节点密码保持一致）requirepass test123# 连接master节点密码 （如果设置认证密码，配置该项）mastera">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://kxinter.github.io/blog/2020/07/01/redis高可用集群配置/attachments/1593571649400.table.html">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2020/7/1/redis高可用集群配置/1593568525790.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2020/7/1/redis高可用集群配置/1593568580963.png">
+<meta property="og:updated_time" content="2020-07-01T02:48:49.770Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Operation随笔">
-<meta name="twitter:description" content="日常运维文档整理。">
+<meta name="twitter:title" content="redis高可用集群配置">
+<meta name="twitter:description" content="一 主机 二 安装redis1yum install redis 三 配置主从 master节点  1234567vim redis.conf# 开启所有地址连接（根据实际情况配置）bind 0.0.0.0# redis添加认证密码test123 （可不设置，如果设置各节点密码保持一致）requirepass test123# 连接master节点密码 （如果设置认证密码，配置该项）mastera">
+<meta name="twitter:image" content="https://kxinter.github.io/blog/2020/07/01/redis高可用集群配置/attachments/1593571649400.table.html">
 
 
 
@@ -169,13 +175,13 @@
 
 
 
-  <link rel="canonical" href="https://kxinter.github.io/blog/tags/部署/"/>
+  <link rel="canonical" href="https://kxinter.github.io/blog/2020/07/01/redis高可用集群配置/"/>
 
 
 
 
 
-  <title>标签: 部署 | Operation随笔</title>
+  <title>redis高可用集群配置 | Operation随笔</title>
   
 
 
@@ -194,7 +200,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 	<!--添加左上角github图标-->
 	<a href="https://github.com/kxinter" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
@@ -336,310 +342,317 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block tag">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>部署<small>标签</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2020/07/01/redis高可用集群配置/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/03/01/postgresql部署/" itemprop="url">
-              
-                <span itemprop="name">postgresql部署</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">redis高可用集群配置</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-03-01T16:12:25+08:00"
-              content="2019-03-01" >
-          03-01
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-01T09:49:42+08:00">
+                2020-07-01
+              </time>
+            
 
-    </header>
-  </article>
+            
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-07-01T10:48:49+08:00">
+                2020-07-01
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_value_page_pv"></span>次阅读
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  499
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/09/10/Openkm部署/" itemprop="url">
-              
-                <span itemprop="name">Openkm部署</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-10T17:29:43+08:00"
-              content="2018-09-10" >
-          09-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/09/10/OTRS部署及优化过程/" itemprop="url">
-              
-                <span itemprop="name">OTRS部署及优化过程</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-10T16:58:06+08:00"
-              content="2018-09-10" >
-          09-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/09/10/Centos7部署vpn服务器-PPTP/" itemprop="url">
-              
-                <span itemprop="name">Centos7部署vpn服务器_PPTP</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-10T11:59:09+08:00"
-              content="2018-09-10" >
-          09-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/09/07/双机热备Heartbeat-drbd/" itemprop="url">
-              
-                <span itemprop="name">双机热备Heartbeat+drbd</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-07T17:51:13+08:00"
-              content="2018-09-07" >
-          09-07
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/09/07/ELK部署/" itemprop="url">
-              
-                <span itemprop="name">ELK部署</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-07T15:59:21+08:00"
-              content="2018-09-07" >
-          09-07
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/09/05/JIRA6-3-6部署及破解/" itemprop="url">
-              
-                <span itemprop="name">JIRA6.3.6部署及破解</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-05T09:42:00+08:00"
-              content="2018-09-05" >
-          09-05
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/08/30/openvpn-squid搭建通过http代理访问openvpn服务器/" itemprop="url">
-              
-                <span itemprop="name">openvpn+squid搭建通过http代理访问openvpn服务器</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-30T16:57:08+08:00"
-              content="2018-08-30" >
-          08-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/08/30/centos7安装redis/" itemprop="url">
-              
-                <span itemprop="name">centos7安装redis</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-30T16:45:26+08:00"
-              content="2018-08-30" >
-          08-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/08/30/centos7搭建sock5代理/" itemprop="url">
-              
-                <span itemprop="name">centos7搭建sock5代理</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-30T11:50:35+08:00"
-              content="2018-08-30" >
-          08-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <h1 id="一-主机"><a href="#一-主机" class="headerlink" title="一 主机"></a>一 主机</h1><p><img src="./attachments/1593571649400.table.html" alt="表格"></p>
+<h1 id="二-安装redis"><a href="#二-安装redis" class="headerlink" title="二 安装redis"></a>二 安装redis</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install redis</span><br></pre></td></tr></table></figure>
+<h1 id="三-配置主从"><a href="#三-配置主从" class="headerlink" title="三 配置主从"></a>三 配置主从</h1><ul>
+<li>master节点</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vim redis.conf</span><br><span class="line"><span class="comment"># 开启所有地址连接（根据实际情况配置）</span></span><br><span class="line"><span class="built_in">bind</span> 0.0.0.0</span><br><span class="line"><span class="comment"># redis添加认证密码test123 （可不设置，如果设置各节点密码保持一致）</span></span><br><span class="line">requirepass test123</span><br><span class="line"><span class="comment"># 连接master节点密码 （如果设置认证密码，配置该项）</span></span><br><span class="line">masterauth test123</span><br></pre></td></tr></table></figure>
+<ul>
+<li>slave节点</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim redis.conf</span><br><span class="line"><span class="comment"># 开启所有地址连接（根据实际情况配置）</span></span><br><span class="line"><span class="built_in">bind</span> 0.0.0.0</span><br><span class="line"><span class="comment"># redis添加认证密码test123 （可不设置，如果设置各节点密码保持一致）</span></span><br><span class="line">requirepass test123</span><br><span class="line"><span class="comment"># 配置为从节点(配置为集群从节点只需这一句)</span></span><br><span class="line">slaveof 192.168.0.56 6379</span><br><span class="line"><span class="comment"># 连接master节点密码 （如果设置认证密码，配置该项）</span></span><br><span class="line">masterauth test123</span><br></pre></td></tr></table></figure>
+<h2 id="检查主从节点"><a href="#检查主从节点" class="headerlink" title="检查主从节点"></a>检查主从节点</h2><ul>
+<li>master节点</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">master节点redis信息</span><br><span class="line">[root@test2 ~]<span class="comment"># systemctl start redis</span></span><br><span class="line">[root@test2 ~]<span class="comment"># redis-cli</span></span><br><span class="line">127.0.0.1:6379&gt; AUTH test123</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; info replication</span><br><span class="line"><span class="comment"># Replication</span></span><br><span class="line">role:master</span><br><span class="line">connected_slaves:0</span><br><span class="line">master_repl_offset:0</span><br><span class="line">repl_backlog_active:0</span><br><span class="line">repl_backlog_size:1048576</span><br><span class="line">repl_backlog_first_byte_offset:0</span><br><span class="line">repl_backlog_histlen:0</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>slave节点</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">slave节点redis信息</span><br><span class="line">[root@test3 etc]<span class="comment"># systemctl start redis</span></span><br><span class="line">[root@test3 etc]<span class="comment"># redis-cli</span></span><br><span class="line">127.0.0.1:6379&gt; AUTH test123</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; info replication</span><br><span class="line"><span class="comment"># Replication</span></span><br><span class="line">role:slave</span><br><span class="line">master_host:192.168.0.56</span><br><span class="line">master_port:6379</span><br><span class="line">master_link_status:up</span><br><span class="line">master_last_io_seconds_ago:0</span><br><span class="line">master_sync_in_progress:0</span><br><span class="line">slave_repl_offset:15</span><br><span class="line">slave_priority:100</span><br><span class="line">slave_read_only:1</span><br><span class="line">connected_slaves:0</span><br><span class="line">master_repl_offset:0</span><br><span class="line">repl_backlog_active:0</span><br><span class="line">repl_backlog_size:1048576</span><br><span class="line">repl_backlog_first_byte_offset:0</span><br><span class="line">repl_backlog_histlen:0</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>添加键值测试同步</li>
+</ul>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2020/7/1/redis高可用集群配置/1593568525790.png" alt="1"></p>
+<h1 id="四-配置redis哨兵（Sentinel）实现高可用"><a href="#四-配置redis哨兵（Sentinel）实现高可用" class="headerlink" title="四 配置redis哨兵（Sentinel）实现高可用"></a>四 配置redis哨兵（Sentinel）实现高可用</h1><p>redis-sentinel是redis自带的功能，安装redis服务自带该服务。启动服务方式：systemctl start redis-sentinel.service</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim redis-sentinel.conf</span><br><span class="line"><span class="comment"># 允许所有地址连接sentinel</span></span><br><span class="line"><span class="built_in">bind</span> 0.0.0.0</span><br><span class="line"><span class="comment"># 侦测master节点，1表示当有一个sentinel服务发现master宕机后开始切换master节点</span></span><br><span class="line">sentinel monitor mymaster 192.168.0.56 6379 1</span><br><span class="line"><span class="comment"># 连接master节点的密钥</span></span><br><span class="line">sentinel auth-pass mymaster test123</span><br><span class="line"><span class="comment"># 5秒内master没有响应，就认为SDOWN （可不添加）</span></span><br><span class="line">sentinel down-after-milliseconds mymaster 5000</span><br></pre></td></tr></table></figure>
+<h1 id="五-redis客户端连接集群"><a href="#五-redis客户端连接集群" class="headerlink" title="五 redis客户端连接集群"></a>五 redis客户端连接集群</h1><div class="note success"><p><strong>redisk客户端连接方式</strong><br>redis客户端连接redis集群，连接的不是redis服务器的地址，而是Sentinel服务的地址和端口,当master节点故障时，Sentinel会自动设置slave为master并连接到master，就实现了redis的高可用</p></div>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2020/7/1/redis高可用集群配置/1593568580963.png" alt="2"></p>
 
       
     </div>
+    
+    
+    
+	
+	  <div>
+        
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+        
+      </div>
+	  
+	  <div>
+        
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2020/07/01/redis高可用集群配置/">redis高可用集群配置</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
+  <p><span>发布时间:</span>2020年07月01日 - 09:07</p>
+  <p><span>最后更新:</span>2020年07月01日 - 10:07</p>
+  <p><span>原始链接:</span><a href="/2020/07/01/redis高可用集群配置/" title="redis高可用集群配置">https://kxinter.github.io/blog/2020/07/01/redis高可用集群配置/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/blog/2020/07/01/redis高可用集群配置/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+	});
+    });  
+</script>
 
+        
+      </div>
+	
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="OperationMAN 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="OperationMAN 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/redis/" rel="tag"><i class="fa fa-tag"></i> redis</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/01/greenplum部署-单机版/" rel="next" title="greenplum部署-单机版">
+                <i class="fa fa-chevron-left"></i> greenplum部署-单机版
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/tags/部署/page/2/">2</a><a class="extend next" rel="next" href="/tags/部署/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -647,6 +660,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTUxNS8xNjA0Mg"></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -667,8 +689,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -860,6 +891,22 @@ show_date_time();
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-主机"><span class="nav-text">一 主机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-安装redis"><span class="nav-text">二 安装redis</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三-配置主从"><span class="nav-text">三 配置主从</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#检查主从节点"><span class="nav-text">检查主从节点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四-配置redis哨兵（Sentinel）实现高可用"><span class="nav-text">四 配置redis哨兵（Sentinel）实现高可用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五-redis客户端连接集群"><span class="nav-text">五 redis客户端连接集群</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -1016,6 +1063,10 @@ show_date_time();
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -1044,6 +1095,17 @@ show_date_time();
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 

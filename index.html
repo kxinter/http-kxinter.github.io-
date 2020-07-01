@@ -351,7 +351,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2020/07/01/greenplum部署-单机版/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2020/07/01/redis高可用集群配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OperationMAN">
@@ -370,7 +370,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/07/01/greenplum部署-单机版/" itemprop="url">greenplum部署-单机版</a></h1>
+                <a class="post-title-link" href="/2020/07/01/redis高可用集群配置/" itemprop="url">redis高可用集群配置</a></h1>
         
 
         <div class="post-meta">
@@ -382,7 +382,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-01T09:27:42+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-01T09:49:42+08:00">
                 2020-07-01
               </time>
             
@@ -398,7 +398,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-07-01T09:46:17+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2020-07-01T10:48:49+08:00">
                 2020-07-01
               </time>
             
@@ -450,7 +450,228 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  665
+                  499
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="一-主机"><a href="#一-主机" class="headerlink" title="一 主机"></a>一 主机</h1><p><img src="./attachments/1593571649400.table.html" alt="表格"></p>
+<h1 id="二-安装redis"><a href="#二-安装redis" class="headerlink" title="二 安装redis"></a>二 安装redis</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install redis</span><br></pre></td></tr></table></figure>
+<h1 id="三-配置主从"><a href="#三-配置主从" class="headerlink" title="三 配置主从"></a>三 配置主从</h1><ul>
+<li>master节点</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vim redis.conf</span><br><span class="line"><span class="comment"># 开启所有地址连接（根据实际情况配置）</span></span><br><span class="line"><span class="built_in">bind</span> 0.0.0.0</span><br><span class="line"><span class="comment"># redis添加认证密码test123 （可不设置，如果设置各节点密码保持一致）</span></span><br><span class="line">requirepass test123</span><br><span class="line"><span class="comment"># 连接master节点密码 （如果设置认证密码，配置该项）</span></span><br><span class="line">masterauth test123</span><br></pre></td></tr></table></figure>
+<ul>
+<li>slave节点</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim redis.conf</span><br><span class="line"><span class="comment"># 开启所有地址连接（根据实际情况配置）</span></span><br><span class="line"><span class="built_in">bind</span> 0.0.0.0</span><br><span class="line"><span class="comment"># redis添加认证密码test123 （可不设置，如果设置各节点密码保持一致）</span></span><br><span class="line">requirepass test123</span><br><span class="line"><span class="comment"># 配置为从节点(配置为集群从节点只需这一句)</span></span><br><span class="line">slaveof 192.168.0.56 6379</span><br><span class="line"><span class="comment"># 连接master节点密码 （如果设置认证密码，配置该项）</span></span><br><span class="line">masterauth test123</span><br></pre></td></tr></table></figure>
+<h2 id="检查主从节点"><a href="#检查主从节点" class="headerlink" title="检查主从节点"></a>检查主从节点</h2><ul>
+<li>master节点</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">master节点redis信息</span><br><span class="line">[root@test2 ~]<span class="comment"># systemctl start redis</span></span><br><span class="line">[root@test2 ~]<span class="comment"># redis-cli</span></span><br><span class="line">127.0.0.1:6379&gt; AUTH test123</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; info replication</span><br><span class="line"><span class="comment"># Replication</span></span><br><span class="line">role:master</span><br><span class="line">connected_slaves:0</span><br><span class="line">master_repl_offset:0</span><br><span class="line">repl_backlog_active:0</span><br><span class="line">repl_backlog_size:1048576</span><br><span class="line">repl_backlog_first_byte_offset:0</span><br><span class="line">repl_backlog_histlen:0</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>slave节点</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">slave节点redis信息</span><br><span class="line">[root@test3 etc]<span class="comment"># systemctl start redis</span></span><br><span class="line">[root@test3 etc]<span class="comment"># redis-cli</span></span><br><span class="line">127.0.0.1:6379&gt; AUTH test123</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; info replication</span><br><span class="line"><span class="comment"># Replication</span></span><br><span class="line">role:slave</span><br><span class="line">master_host:192.168.0.56</span><br><span class="line">master_port:6379</span><br><span class="line">master_link_status:up</span><br><span class="line">master_last_io_seconds_ago:0</span><br><span class="line">master_sync_in_progress:0</span><br><span class="line">slave_repl_offset:15</span><br><span class="line">slave_priority:100</span><br><span class="line">slave_read_only:1</span><br><span class="line">connected_slaves:0</span><br><span class="line">master_repl_offset:0</span><br><span class="line">repl_backlog_active:0</span><br><span class="line">repl_backlog_size:1048576</span><br><span class="line">repl_backlog_first_byte_offset:0</span><br><span class="line">repl_backlog_histlen:0</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>添加键值测试同步</li>
+</ul>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2020/7/1/redis高可用集群配置/1593568525790.png" alt="1"></p>
+<h1 id="四-配置redis哨兵（Sentinel）实现高可用"><a href="#四-配置redis哨兵（Sentinel）实现高可用" class="headerlink" title="四 配置redis哨兵（Sentinel）实现高可用"></a>四 配置redis哨兵（Sentinel）实现高可用</h1><p>redis-sentinel是redis自带的功能，安装redis服务自带该服务。启动服务方式：systemctl start redis-sentinel.service</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim redis-sentinel.conf</span><br><span class="line"><span class="comment"># 允许所有地址连接sentinel</span></span><br><span class="line"><span class="built_in">bind</span> 0.0.0.0</span><br><span class="line"><span class="comment"># 侦测master节点，1表示当有一个sentinel服务发现master宕机后开始切换master节点</span></span><br><span class="line">sentinel monitor mymaster 192.168.0.56 6379 1</span><br><span class="line"><span class="comment"># 连接master节点的密钥</span></span><br><span class="line">sentinel auth-pass mymaster test123</span><br><span class="line"><span class="comment"># 5秒内master没有响应，就认为SDOWN （可不添加）</span></span><br><span class="line">sentinel down-after-milliseconds mymaster 5000</span><br></pre></td></tr></table></figure>
+<h1 id="五-redis客户端连接集群"><a href="#五-redis客户端连接集群" class="headerlink" title="五 redis客户端连接集群"></a>五 redis客户端连接集群</h1><div class="note success"><p><strong>redisk客户端连接方式</strong><br>redis客户端连接redis集群，连接的不是redis服务器的地址，而是Sentinel服务的地址和端口,当master节点故障时，Sentinel会自动设置slave为master并连接到master，就实现了redis的高可用</p></div>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2020/7/1/redis高可用集群配置/1593568580963.png" alt="2"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2020/07/01/greenplum部署-单机版/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/07/01/greenplum部署-单机版/" itemprop="url">greenplum部署-单机版</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-01T09:27:42+08:00">
+                2020-07-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-07-01T10:49:23+08:00">
+                2020-07-01
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  672
                 </span>
               
 
@@ -488,36 +709,14 @@
 
       
         
-          
-            <h1 id="1-修改Linux内核参数"><a href="#1-修改Linux内核参数" class="headerlink" title="1 修改Linux内核参数"></a>1 修改Linux内核参数</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vi /etc/sysctl.conf </span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">net.ipv4.ip_forward = 0</span><br><span class="line">net.ipv4.conf.default.accept_source_route = 0</span><br><span class="line">kernel.sysrq = 1 </span><br><span class="line">kernel.core_uses_pid = 1</span><br><span class="line">net.ipv4.tcp_syncookies = 1</span><br><span class="line">kernel.msgmnb = 65536</span><br><span class="line">kernel.msgmax = 65536</span><br><span class="line">kernel.sem = 250 64000 100 512</span><br><span class="line">kernel.shmmax = 500000000</span><br><span class="line">kernel.shmmni = 4096</span><br><span class="line">kernel.shmall = 4000000000 </span><br><span class="line">net.ipv4.tcp_tw_recycle = 1 </span><br><span class="line">net.ipv4.tcp_max_syn_backlog = 4096 </span><br><span class="line">net.core.netdev_max_backlog = 10000 </span><br><span class="line">vm.overcommit_memory = 2</span><br><span class="line">net.ipv4.conf.all.arp_filter = 1</span><br></pre></td></tr></table></figure>
-<h1 id="2-修改Linux最大限制"><a href="#2-修改Linux最大限制" class="headerlink" title="2 修改Linux最大限制"></a>2 修改Linux最大限制</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vi /etc/security/limits.conf </span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#greenplum configs</span></span><br><span class="line">* soft nofile 65536</span><br><span class="line">* hard nofile 65536</span><br><span class="line">* soft nproc 131072</span><br><span class="line">* hard nproc 131072</span><br></pre></td></tr></table></figure>
-<h1 id="3-关闭selinux"><a href="#3-关闭selinux" class="headerlink" title="3 关闭selinux"></a>3 关闭selinux</h1><h1 id="vim-etc-selinux-conf"><a href="#vim-etc-selinux-conf" class="headerlink" title="vim /etc/selinux/conf"></a>vim /etc/selinux/conf</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELINUX=disabled</span><br><span class="line"></span><br><span class="line"><span class="comment"># setenforce 0</span></span><br></pre></td></tr></table></figure>
-<h1 id="4-greenplum安装"><a href="#4-greenplum安装" class="headerlink" title="4 greenplum安装"></a>4 greenplum安装</h1><h2 id="4-1-创建数据库用户"><a href="#4-1-创建数据库用户" class="headerlink" title="4.1 创建数据库用户"></a>4.1 创建数据库用户</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">groupadd -g 530 gpadmin</span><br><span class="line">useradd -g 530 -u530 -m -d /home/gpadmin -s /bin/bash gpadmin</span><br><span class="line">passwd gpadmin</span><br><span class="line"> </span><br><span class="line"><span class="comment"># gpadmin用户密码gpadmin</span></span><br></pre></td></tr></table></figure>
-<h2 id="4-2-修改hosts"><a href="#4-2-修改hosts" class="headerlink" title="4.2 修改hosts"></a>4.2 修改hosts</h2><p>设置集群解析</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vim /etc/hosts</span></span><br><span class="line"> </span><br><span class="line">192.168.0.174 mdw</span><br></pre></td></tr></table></figure>
-<h2 id="4-3-修改主机名-mdw"><a href="#4-3-修改主机名-mdw" class="headerlink" title="4.3 修改主机名 mdw"></a>4.3 修改主机名 mdw</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostnamectl <span class="built_in">set</span>-hostname mdw</span><br></pre></td></tr></table></figure>
-<h2 id="4-4-下载安装包"><a href="#4-4-下载安装包" class="headerlink" title="4.4 下载安装包"></a>4.4 下载安装包</h2><p>下载合适的版本rpm包和postgis插件</p>
-<p>官网<a href="https://network.pivotal.io/products/pivotal-gpdb#/releases/1683" target="_blank" rel="noopener">https://network.pivotal.io/products/pivotal-gpdb#/releases/1683</a></p>
-<p><img src="https://gitee.com/kxinter/images/raw/master/2020/7/1/greenplum部署-单机版/1593567665642.png" alt="1"></p>
-<p><img src="https://gitee.com/kxinter/images/raw/master/2020/7/1/greenplum部署-单机版/1593567680961.png" alt="2"></p>
-<h2 id="4-5-rpm安装"><a href="#4-5-rpm安装" class="headerlink" title="4.5 rpm安装"></a>4.5 rpm安装</h2><p><img src="https://gitee.com/kxinter/images/raw/master/2020/7/1/greenplum部署-单机版/1593567699746.png" alt="3"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yum install greenplum-db-6.2.1-rhel7-x86_64.rpm</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 默认安装到/usr/local，授权给gpadmin</span></span><br><span class="line">chown -R gpadmin /usr/<span class="built_in">local</span>/greenplum*</span><br><span class="line">chgrp -R gpadmin /usr/<span class="built_in">local</span>/greenplum*</span><br></pre></td></tr></table></figure>
-<h2 id="4-6-创建instance需要的目录"><a href="#4-6-创建instance需要的目录" class="headerlink" title="4.6 创建instance需要的目录"></a>4.6 创建instance需要的目录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /home/gpdata/master</span><br><span class="line">mkdir -p /home/gpdata/gp1</span><br><span class="line">mkdir -p /home/gpdata/gp2</span><br><span class="line">mkdir -p /home/gpdata/gp3</span><br><span class="line">mkdir -p /home/gpdata/gp4</span><br><span class="line"><span class="comment"># 修改目录属主</span></span><br><span class="line">    chown -R gpadmin:gpadmin /home/gpdata</span><br><span class="line">    chown -R gpadmin:gpadmin /home/gpdata/master</span><br><span class="line">    chown -R gpadmin:gpadmin /home/gpdata/gp*</span><br></pre></td></tr></table></figure>
-<h2 id="4-7-切换用户gpadmin"><a href="#4-7-切换用户gpadmin" class="headerlink" title="4.7 切换用户gpadmin"></a>4.7 切换用户gpadmin</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su gpadmin</span><br></pre></td></tr></table></figure>
-<h2 id="4-8-修改gpadmin用户环境变量"><a href="#4-8-修改gpadmin用户环境变量" class="headerlink" title="4.8 修改gpadmin用户环境变量"></a>4.8 修改gpadmin用户环境变量</h2><p>修改/home/gpadmin/.bashrc 和 bash_profile 文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /usr/<span class="built_in">local</span>/greenplum-db-5.5.0/greenplum_path.sh      <span class="comment"># greenplum安装目录的变量（自带）</span></span><br><span class="line"><span class="built_in">export</span> MASTER_DATA_DIRECTORY=/home/gpadmin/master/gpseg-1      <span class="comment"># 数据目录</span></span><br><span class="line"><span class="built_in">export</span> PGPORT=5432                         <span class="comment"># 数据库端口，可不设置，如果变更端口设置</span></span><br><span class="line"><span class="built_in">export</span> PGUSER=gpadmin                       <span class="comment"># 数据库管理员用户</span></span><br><span class="line"><span class="built_in">export</span> PGDATABASE=gpdb                     <span class="comment"># 自动创建的数据库</span></span><br></pre></td></tr></table></figure>
-<h2 id="4-9-设置节点host"><a href="#4-9-设置节点host" class="headerlink" title="4.9 设置节点host"></a>4.9 设置节点host</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /home/gpadmin/all_hosts</span><br><span class="line">写入</span><br><span class="line">mdw</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加一行mdw（单机版只有一个host）</span></span><br></pre></td></tr></table></figure>
-<h2 id="4-10-配置用户SSH无密码登录，单机版也要设置"><a href="#4-10-配置用户SSH无密码登录，单机版也要设置" class="headerlink" title="4.10 配置用户SSH无密码登录，单机版也要设置"></a>4.10 配置用户SSH无密码登录，单机版也要设置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@gpmaster ~]<span class="comment"># su - gpadmin</span></span><br><span class="line"> </span><br><span class="line">[gpadmin@gpmaster .ssh]$ ssh-keygen -t rsa</span><br><span class="line"> </span><br><span class="line">[gpadmin@gpmaster .ssh]$ ssh mdw cat /home/gpadmin/.ssh/id_rsa.pub &gt;&gt; authorized_keys</span><br><span class="line"> </span><br><span class="line">[gpadmin@gpmaster .ssh]<span class="variable">$chmod</span> 600 authorized_keys</span><br></pre></td></tr></table></figure>
-<h2 id="4-11-权限互通"><a href="#4-11-权限互通" class="headerlink" title="4.11 权限互通"></a>4.11 权限互通</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpssh-exkeys -f all_hosts</span><br></pre></td></tr></table></figure>
-<h2 id="4-12-创建、编辑初始化文件"><a href="#4-12-创建、编辑初始化文件" class="headerlink" title="4.12 创建、编辑初始化文件"></a>4.12 创建、编辑初始化文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim initgp_config</span><br><span class="line">写入：</span><br><span class="line">SEG_PREFIX=gpseg</span><br><span class="line">PORT_BASE=33000</span><br><span class="line"><span class="built_in">declare</span> -a DATA_DIRECTORY=(/home/gpadmin/gp1 /home/gpadmin/gp2 /home/gpadmin/gp3 /home/gpadmin/gp4)</span><br><span class="line">MASTER_HOSTNAME=mdw</span><br><span class="line">MASTER_PORT=5432</span><br><span class="line">MASTER_DIRECTORY=/home/gpadmin/master             </span><br><span class="line">DATABASE_NAME=gpdb</span><br></pre></td></tr></table></figure>
-<h2 id="4-13-设置节点服务器"><a href="#4-13-设置节点服务器" class="headerlink" title="4.13 设置节点服务器"></a>4.13 设置节点服务器</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim seg_hosts</span><br><span class="line">写入：</span><br><span class="line">mdw</span><br><span class="line"><span class="comment"># 本例单机，只有mdw这一台</span></span><br></pre></td></tr></table></figure>
-<h2 id="4-14-初始化GP"><a href="#4-14-初始化GP" class="headerlink" title="4.14 初始化GP"></a>4.14 初始化GP</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpinitsystem -c initgp_config -h seg_hosts</span><br></pre></td></tr></table></figure>
-<h1 id="5-连接GP"><a href="#5-连接GP" class="headerlink" title="5 连接GP"></a>5 连接GP</h1><h2 id="5-1-psql登录修改密码（gpadmin用户操作）"><a href="#5-1-psql登录修改密码（gpadmin用户操作）" class="headerlink" title="5.1 psql登录修改密码（gpadmin用户操作）"></a>5.1 psql登录修改密码（gpadmin用户操作）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># su gpadmin</span></span><br><span class="line"><span class="comment"># psql</span></span><br><span class="line">修改数据库密码为zhjx123</span><br><span class="line">    alter role gpadmin with password <span class="string">'zhjx123'</span>;</span><br><span class="line">    \q</span><br></pre></td></tr></table></figure>
-<h2 id="5-2-远程连接配置"><a href="#5-2-远程连接配置" class="headerlink" title="5.2 远程连接配置"></a>5.2 远程连接配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vim /home/gpdata/master/gpseg-1/postgresql.conf</span><br><span class="line">修改：</span><br><span class="line"><span class="comment">#listen_addresses = '*'，去#注释</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">vim /home/gpdata/master/gpseg-1/pg_hba.conf</span><br><span class="line">添加：</span><br><span class="line">host     all         gpadmin         0.0.0.0/0               md5</span><br></pre></td></tr></table></figure>
-<h2 id="5-3-重新加载配置文件"><a href="#5-3-重新加载配置文件" class="headerlink" title="5.3 重新加载配置文件"></a>5.3 重新加载配置文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpstop -u</span><br></pre></td></tr></table></figure>
-<h2 id="5-4-其他命令"><a href="#5-4-其他命令" class="headerlink" title="5.4 其他命令"></a>5.4 其他命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">gpstart               <span class="comment"># 正常启动</span></span><br><span class="line">gpstop                <span class="comment"># 正常关闭</span></span><br><span class="line">gpstop -M fast           <span class="comment"># 快速关闭</span></span><br><span class="line">gpstop –r             <span class="comment"># 重启</span></span><br></pre></td></tr></table></figure>
-
-          
+          <h1 id="1-修改Linux内核参数"><a href="#1-修改Linux内核参数" class="headerlink" title="1 修改Linux内核参数"></a>1 修改Linux内核参数</h1>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/07/01/greenplum部署-单机版/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2144,206 +2343,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2019/08/09/yaml例子/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/09/yaml例子/" itemprop="url">yaml例子</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-09T11:54:51+08:00">
-                2019-08-09
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-11-07T14:53:43+08:00">
-                2019-11-07
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  612
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h1>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/08/09/yaml例子/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2401,7 +2400,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">111</span>
+                  <span class="site-state-item-count">112</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2598,7 +2597,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">122.2k</span>
+    <span title="Site words total count">122.7k</span>
   
 </div>
 
