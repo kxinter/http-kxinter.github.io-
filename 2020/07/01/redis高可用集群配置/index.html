@@ -130,22 +130,21 @@
 
 
 
-<meta name="description" content="一 主机 二 安装redis1yum install redis 三 配置主从 master节点  1234567vim redis.conf# 开启所有地址连接（根据实际情况配置）bind 0.0.0.0# redis添加认证密码test123 （可不设置，如果设置各节点密码保持一致）requirepass test123# 连接master节点密码 （如果设置认证密码，配置该项）mastera">
+<meta name="description" content="一 主机   角色 IP 服务     master 192.168.0.56 redis   slave 192.168.0.58">
 <meta name="keywords" content="redis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="redis高可用集群配置">
 <meta property="og:url" content="https://kxinter.github.io/blog/2020/07/01/redis高可用集群配置/index.html">
 <meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="一 主机 二 安装redis1yum install redis 三 配置主从 master节点  1234567vim redis.conf# 开启所有地址连接（根据实际情况配置）bind 0.0.0.0# redis添加认证密码test123 （可不设置，如果设置各节点密码保持一致）requirepass test123# 连接master节点密码 （如果设置认证密码，配置该项）mastera">
+<meta property="og:description" content="一 主机   角色 IP 服务     master 192.168.0.56 redis   slave 192.168.0.58">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://kxinter.github.io/blog/2020/07/01/redis高可用集群配置/attachments/1593571649400.table.html">
 <meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2020/7/1/redis高可用集群配置/1593568525790.png">
 <meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2020/7/1/redis高可用集群配置/1593568580963.png">
-<meta property="og:updated_time" content="2020-07-01T02:48:49.770Z">
+<meta property="og:updated_time" content="2020-07-01T02:59:16.099Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis高可用集群配置">
-<meta name="twitter:description" content="一 主机 二 安装redis1yum install redis 三 配置主从 master节点  1234567vim redis.conf# 开启所有地址连接（根据实际情况配置）bind 0.0.0.0# redis添加认证密码test123 （可不设置，如果设置各节点密码保持一致）requirepass test123# 连接master节点密码 （如果设置认证密码，配置该项）mastera">
-<meta name="twitter:image" content="https://kxinter.github.io/blog/2020/07/01/redis高可用集群配置/attachments/1593571649400.table.html">
+<meta name="twitter:description" content="一 主机   角色 IP 服务     master 192.168.0.56 redis   slave 192.168.0.58">
+<meta name="twitter:image" content="https://gitee.com/kxinter/images/raw/master/2020/7/1/redis高可用集群配置/1593568525790.png">
 
 
 
@@ -401,7 +400,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-07-01T10:48:49+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2020-07-01T10:59:16+08:00">
                 2020-07-01
               </time>
             
@@ -456,7 +455,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  499
+                  515
                 </span>
               
 
@@ -493,7 +492,27 @@
       
 
       
-        <h1 id="一-主机"><a href="#一-主机" class="headerlink" title="一 主机"></a>一 主机</h1><p><img src="./attachments/1593571649400.table.html" alt="表格"></p>
+        <h1 id="一-主机"><a href="#一-主机" class="headerlink" title="一 主机"></a>一 主机</h1><table>
+<thead>
+<tr>
+<th>角色</th>
+<th>IP</th>
+<th>服务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>master</td>
+<td>192.168.0.56</td>
+<td>redis</td>
+</tr>
+<tr>
+<td>slave</td>
+<td>192.168.0.58</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
 <h1 id="二-安装redis"><a href="#二-安装redis" class="headerlink" title="二 安装redis"></a>二 安装redis</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install redis</span><br></pre></td></tr></table></figure>
 <h1 id="三-配置主从"><a href="#三-配置主从" class="headerlink" title="三 配置主从"></a>三 配置主从</h1><ul>
 <li>master节点</li>
