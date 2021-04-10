@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<!--添加顶部进度条-->
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+<!--end-->
+<meta name="theme-color" content="#222">
+<!--添加文章加密-->
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="fonts.useso.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon1.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon1.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon1.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="openvpn,vpn," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1 安装环境">
+<meta name="keywords" content="openvpn,vpn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="openvpn部署之部署基于AD域认证访问内网">
+<meta property="og:url" content="https://kxinter.github.io/blog/2018/09/10/openvpn部署之部署基于AD域认证访问内网/index.html">
+<meta property="og:site_name" content="Operation随笔">
+<meta property="og:description" content="1 安装环境">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2020/3/10/openvpn部署之部署基于AD域认证访问内网/1583810965577.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2020/3/10/openvpn部署之部署基于AD域认证访问内网/1583811000201.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2020/3/10/openvpn部署之部署基于AD域认证访问内网/1583811014010.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2020/3/10/openvpn部署之部署基于AD域认证访问内网/1583811028939.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2020/3/10/openvpn部署之部署基于AD域认证访问内网/1583811422788.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2020/3/10/openvpn部署之部署基于AD域认证访问内网/1583811498005.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2020/3/10/openvpn部署之部署基于AD域认证访问内网/1583811543097.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2020/3/10/openvpn部署之部署基于AD域认证访问内网/1583811615404.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2020/3/10/openvpn部署之部署基于AD域认证访问内网/1583811834098.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2020/3/10/openvpn部署之部署基于AD域认证访问内网/1583811881190.png">
+<meta property="og:updated_time" content="2020-03-11T03:53:34.842Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="openvpn部署之部署基于AD域认证访问内网">
+<meta name="twitter:description" content="1 安装环境">
+<meta name="twitter:image" content="https://gitee.com/kxinter/images/raw/master/2020/3/10/openvpn部署之部署基于AD域认证访问内网/1583810965577.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kxinter.github.io/blog/2018/09/10/openvpn部署之部署基于AD域认证访问内网/"/>
+
+
+
+
+
+  <title>openvpn部署之部署基于AD域认证访问内网 | Operation随笔</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<!--添加左上角github图标-->
+	<a href="https://github.com/kxinter" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
+    <!--添加右上角gitee图标
+	<a href="https://gitee.com/kxinter"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://www.jianguoyun.com/c/tblv2/COmIGhjhtNMGIgsv56CB5LqRLmpwZygC/q9YvhedkGsc/l" alt="Fork me on GitHub"></a>
+    -->
+	<header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Operation随笔</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2018/09/10/openvpn部署之部署基于AD域认证访问内网/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">openvpn部署之部署基于AD域认证访问内网</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-10T14:34:59+08:00">
+                2018-09-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-03-11T11:53:34+08:00">
+                2020-03-11
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_value_page_pv"></span>次阅读
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  24
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-安装环境"><a href="#1-安装环境" class="headerlink" title="1 安装环境"></a>1 安装环境</h1><a id="more"></a>
+<p>Centos6.5</p>
+<p>openvpn2.3.11</p>
+<h1 id="2-步骤"><a href="#2-步骤" class="headerlink" title="2 步骤"></a>2 步骤</h1><h2 id="2-1-添加fedora的yum源"><a href="#2-1-添加fedora的yum源" class="headerlink" title="2.1 添加fedora的yum源"></a>2.1 添加fedora的yum源</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh http:<span class="regexp">//mi</span>rrors.ustc.edu.cn<span class="regexp">/fedora/</span>epel<span class="regexp">/6/</span>x86_64<span class="regexp">/epel-release-6-8.noarch.rpm</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-2-安装openvpn"><a href="#2-2-安装openvpn" class="headerlink" title="2.2 安装openvpn"></a>2.2 安装openvpn</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> openvpn -y</span><br><span class="line"></span><br><span class="line">yum -y <span class="keyword">install</span> openssl openssl-devel -y </span><br><span class="line"></span><br><span class="line">yum -y <span class="keyword">install</span> lzo lzo-devel  -y </span><br><span class="line"></span><br><span class="line">yum <span class="keyword">install</span> -y libgcrypt libgpg-<span class="keyword">error</span> libgcrypt-devel</span><br></pre></td></tr></table></figure>
+<h2 id="2-3-安装openvpn认证插件（LDAP认证使用）"><a href="#2-3-安装openvpn认证插件（LDAP认证使用）" class="headerlink" title="2.3 安装openvpn认证插件（LDAP认证使用）"></a>2.3 安装openvpn认证插件（LDAP认证使用）</h2><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install openvpn-auth-ldap -<span class="built_in">y</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-4-安装easy-rsa"><a href="#2-4-安装easy-rsa" class="headerlink" title="2.4 安装easy-rsa"></a>2.4 安装easy-rsa</h2><p>由于openvpn2.3之后，在openvpn里面剔除了easy-rsa文件，所以需要单独安装</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install easy-rsa</span><br><span class="line"> </span><br><span class="line">cp -rf <span class="regexp">/usr/</span>share<span class="regexp">/easy-rsa/</span><span class="number">3.0</span><span class="number">.6</span> <span class="regexp">/etc/</span>opevpn/easy-rsa</span><br></pre></td></tr></table></figure>
+<h2 id="2-5-生成openvpn的key及证书"><a href="#2-5-生成openvpn的key及证书" class="headerlink" title="2.5 生成openvpn的key及证书"></a>2.5 生成openvpn的key及证书</h2><p>修改<code>/opt/openvpn/etc/easy-rsa/2.0/vars</code>参数</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ vi vars</span><br><span class="line"><span class="keyword">export</span> KEY_COUNTRY=<span class="string">"CN"</span>                 国家</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> KEY_PROVINCE=<span class="string">"ZJ"</span>                省份</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> KEY_CITY=<span class="string">"NingBo"</span>                城市</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> KEY_ORG=<span class="string">"TEST-VPN"</span>               组织</span><br><span class="line"></span><br><span class="line">exportKEY_EMAIL=<span class="string">"81367070@qq.com"</span>             邮件</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> KEY_OU=<span class="string">"baidu"</span>                   单位</span><br></pre></td></tr></table></figure>
+<p>保存退出</p>
+<h3 id="2-5-1-创建服务器证书"><a href="#2-5-1-创建服务器证书" class="headerlink" title="2.5.1 创建服务器证书"></a>2.5.1 创建服务器证书</h3><p><code>./easyrsa clean-all</code>  初始化目录，清理历史证书</p>
+<p><code>./easyrsa build-ca</code>  创建ca证书,设置ca证书密码，必须记着密码，为服务起名<br> <img src="https://gitee.com/kxinter/images/raw/master/2020/3/10/openvpn部署之部署基于AD域认证访问内网/1583810965577.png" alt="1"><br><code>./easyrsa gen-req server nopass</code> 创建服务端证书，为server起名<br> <img src="https://gitee.com/kxinter/images/raw/master/2020/3/10/openvpn部署之部署基于AD域认证访问内网/1583811000201.png" alt="2"><br><code>./easyrsa sign server server</code>  签约服务端证书，输入上面ca证书的密码<br> <img src="https://gitee.com/kxinter/images/raw/master/2020/3/10/openvpn部署之部署基于AD域认证访问内网/1583811014010.png" alt="3"><br><code>./easyrsa gen-dh</code>  创建数据穿越密钥<br> <img src="https://gitee.com/kxinter/images/raw/master/2020/3/10/openvpn部署之部署基于AD域认证访问内网/1583811028939.png" alt="4"></p>
+<h3 id="2-5-2-创建客户端证书（使用客户端证书认证使用）"><a href="#2-5-2-创建客户端证书（使用客户端证书认证使用）" class="headerlink" title="2.5.2 创建客户端证书（使用客户端证书认证使用）"></a>2.5.2 创建客户端证书（使用客户端证书认证使用）</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/openvpn/client/</span><br><span class="line">cp -rf /usr/share/easy-rsa/3.06 /etc/opevpn/client/</span><br><span class="line">cd client/3.0.6</span><br></pre></td></tr></table></figure>
+<p><code>./easyrsa init-pki</code>  初始化目录<br> <img src="https://gitee.com/kxinter/images/raw/master/2020/3/10/openvpn部署之部署基于AD域认证访问内网/1583811422788.png" alt="5"><br><code>./easyrsa build-ca</code> 创建ca证书,记住密码，客户端登录要用<br> <img src="https://gitee.com/kxinter/images/raw/master/2020/3/10/openvpn部署之部署基于AD域认证访问内网/1583811498005.png" alt="6"><br><code>./easyrsa gen-req client1</code>    创建客户端证书，输入客户端ca证书密码，也是客户端登陆密码<br> <img src="https://gitee.com/kxinter/images/raw/master/2020/3/10/openvpn部署之部署基于AD域认证访问内网/1583811543097.png" alt="7"><br> <code>cd /etc/openvpn/easy-rsa/3.0.6</code><br><code>./easyrsa import-req   /etc/openvpn/client/ 3.0.6/pki/reqs/client1.req client1</code>  导入客户端证书<br> <img src="https://gitee.com/kxinter/images/raw/master/2020/3/10/openvpn部署之部署基于AD域认证访问内网/1583811615404.png" alt="8"></p>
+<h2 id="2-6-编辑openvpn服务端配置"><a href="#2-6-编辑openvpn服务端配置" class="headerlink" title="2.6 编辑openvpn服务端配置"></a>2.6 编辑openvpn服务端配置</h2><h3 id="2-6-1-拷贝配置文件"><a href="#2-6-1-拷贝配置文件" class="headerlink" title="2.6.1 拷贝配置文件"></a>2.6.1 拷贝配置文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/openpvn/easy-rsa/3.0.6/pki/</span><br><span class="line">cp ca.crt /etc/openvpn/server/</span><br><span class="line">cp private/server.key /etc/openvpn/server/</span><br><span class="line">cp issued/server.crt /etc/openvpn/server/</span><br><span class="line">cp dh.pem /etc/openvpn/server/</span><br><span class="line">cp ca.crt /etc/openvpn/client/</span><br><span class="line">cp issued/client1.crt /etc/openvpn/client/</span><br><span class="line">cp /etc/openvpn/client/client/easyrsa3/pki/private/client1.key /etc/openvpn/client/</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> cd /etc/openvpn/server</span><br><span class="line"><span class="meta">$</span><span class="bash"> ls</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2020/3/10/openvpn部署之部署基于AD域认证访问内网/1583811834098.png" alt="9"><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/openvpn/client</span><br><span class="line"><span class="meta">$</span><span class="bash"> ls</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2020/3/10/openvpn部署之部署基于AD域认证访问内网/1583811881190.png" alt="10"></p>
+<h3 id="2-6-2-配置服务端配置文件"><a href="#2-6-2-配置服务端配置文件" class="headerlink" title="2.6.2 配置服务端配置文件"></a>2.6.2 配置服务端配置文件</h3><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">cat</span> /etc/openvpn/server.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">port <span class="number">1194</span></span><br><span class="line">proto tcp</span><br><span class="line">dev tun</span><br><span class="line"><span class="meta"># 证书路径</span></span><br><span class="line">ca keys/ca.crt</span><br><span class="line">cert keys/server.crt</span><br><span class="line"><span class="built_in">key</span> keys/server.<span class="built_in">key</span>  <span class="meta"># This file should be kept secret</span></span><br><span class="line"><span class="meta"># 密钥路径</span></span><br><span class="line">dh keys/dh.pem</span><br><span class="line">server <span class="number">10.8</span><span class="number">.0</span><span class="number">.0</span> <span class="number">255.255</span><span class="number">.255</span><span class="number">.0</span>    <span class="comment">//客户端分配的ip地址</span></span><br><span class="line"><span class="keyword">push</span> <span class="string">"route 172.20.17.0 255.255.255.0"</span>  <span class="comment">//推送客户端的路由</span></span><br><span class="line"><span class="keyword">push</span> <span class="string">"route 172.20.18.0 255.255.255.0"</span></span><br><span class="line"><span class="keyword">push</span> <span class="string">"route 172.20.19.0 255.255.255.0"</span></span><br><span class="line"><span class="keyword">push</span> <span class="string">"route 172.20.20.0 255.255.255.0"</span></span><br><span class="line"><span class="keyword">push</span> <span class="string">"route 172.20.22.0 255.255.255.0"</span></span><br><span class="line"><span class="keyword">push</span> <span class="string">"redirect-gateway"</span>   <span class="comment">//修改客户端的网关，使其直接走vpn流量，不配置走客户端流量</span></span><br><span class="line">ifconfig-pool-persist ipp.txt    </span><br><span class="line">keepalive <span class="number">10</span> <span class="number">120</span></span><br><span class="line">comp-lzo                <span class="comment">//客户端和服务端保持一致</span></span><br><span class="line">persist-<span class="built_in">key</span></span><br><span class="line">persist-tun</span><br><span class="line">status openvpn-status.<span class="built_in">log</span>      <span class="comment">//登录日志</span></span><br><span class="line">verb <span class="number">3</span></span><br><span class="line"><span class="meta"># LDAP认证插件，使用时配置</span></span><br><span class="line">plugin /usr/lib64/openvpn/plugin/<span class="keyword">lib</span>/openvpn-auth-ldap.so <span class="string">"/etc/openvpn/auth/ldap.conf"</span> </span><br><span class="line"><span class="meta"># 禁用客户端证书认证</span></span><br><span class="line">client-cert-<span class="keyword">not</span>-required</span><br><span class="line">username-as-common-name </span><br><span class="line"><span class="built_in">log</span> /var/<span class="built_in">log</span>/openvpn.<span class="built_in">log</span></span><br></pre></td></tr></table></figure>
+<div class="note info"><p><strong>举例<code>server.conf</code>LDAP方式配置文件</strong></p></div>
+<figure class="highlight pf.conf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#################################################</span></span><br><span class="line"><span class="comment"># Sample OpenVPN 2.0 config file for            #</span></span><br><span class="line"><span class="comment"># multi-client server.                          #</span></span><br><span class="line"><span class="comment">#                                               #</span></span><br><span class="line"><span class="comment"># This file is for the server side              #</span></span><br><span class="line"><span class="comment"># of a many-clients &lt;-&gt; one-server              #</span></span><br><span class="line"><span class="comment"># OpenVPN configuration.                        #</span></span><br><span class="line"><span class="comment">#                                               #</span></span><br><span class="line"><span class="comment"># OpenVPN also supports                         #</span></span><br><span class="line"><span class="comment"># single-machine &lt;-&gt; single-machine             #</span></span><br><span class="line"><span class="comment"># configurations (See the Examples page         #</span></span><br><span class="line"><span class="comment"># on the web site for more info).               #</span></span><br><span class="line"><span class="comment">#                                               #</span></span><br><span class="line"><span class="comment"># This config should work on Windows            #</span></span><br><span class="line"><span class="comment"># or Linux/BSD systems.  Remember on            #</span></span><br><span class="line"><span class="comment"># Windows to quote pathnames and use            #</span></span><br><span class="line"><span class="comment"># double backslashes, e.g.:                     #</span></span><br><span class="line"><span class="comment"># "C:\\Program Files\\OpenVPN\\config\\foo.key" #</span></span><br><span class="line"><span class="comment">#                                               #</span></span><br><span class="line"><span class="comment"># Comments are preceded with '#' or ';'         #</span></span><br><span class="line"><span class="comment">#################################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Which local IP address should OpenVPN</span></span><br><span class="line"><span class="comment"># listen on? (optional)</span></span><br><span class="line">;local a.b.c.d</span><br><span class="line"><span class="comment"># Which TCP/UDP port should OpenVPN listen on?</span></span><br><span class="line"><span class="comment"># If you want to run multiple OpenVPN instances</span></span><br><span class="line"><span class="comment"># on the same machine, use a different port</span></span><br><span class="line"><span class="comment"># number for each one.  You will need to</span></span><br><span class="line"><span class="comment"># open up this port on your firewall.</span></span><br><span class="line"><span class="keyword">port</span> <span class="number">1194</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># TCP or UDP server?</span></span><br><span class="line"><span class="comment"># ;proto tcp</span></span><br><span class="line"><span class="comment"># proto udp</span></span><br><span class="line"><span class="keyword">proto</span> tcp</span><br><span class="line"></span><br><span class="line"><span class="comment"># "dev tun" will create a routed IP tunnel,</span></span><br><span class="line"><span class="comment"># "dev tap" will create an ethernet tunnel.</span></span><br><span class="line"><span class="comment"># Use "dev tap0" if you are ethernet bridging</span></span><br><span class="line"><span class="comment"># and have precreated a tap0 virtual interface</span></span><br><span class="line"><span class="comment"># and bridged it with your ethernet interface.</span></span><br><span class="line"><span class="comment"># If you want to control access policies</span></span><br><span class="line"><span class="comment"># over the VPN, you must create firewall</span></span><br><span class="line"><span class="comment"># rules for the the TUN/TAP interface.</span></span><br><span class="line"><span class="comment"># On non-Windows systems, you can give</span></span><br><span class="line"><span class="comment"># an explicit unit number, such as tun0.</span></span><br><span class="line"><span class="comment"># On Windows, use "dev-node" for this.</span></span><br><span class="line"><span class="comment"># On most systems, the VPN will not function</span></span><br><span class="line"><span class="comment"># unless you partially or fully disable</span></span><br><span class="line"><span class="comment"># the firewall for the TUN/TAP interface.</span></span><br><span class="line"><span class="comment"># ;dev tap</span></span><br><span class="line">dev tun</span><br><span class="line"></span><br><span class="line"><span class="comment"># Windows needs the TAP-Win32 adapter name</span></span><br><span class="line"><span class="comment"># from the Network Connections panel if you</span></span><br><span class="line"><span class="comment"># have more than one.  On XP SP2 or higher,</span></span><br><span class="line"><span class="comment"># you may need to selectively disable the</span></span><br><span class="line"><span class="comment"># Windows firewall for the TAP adapter.</span></span><br><span class="line"><span class="comment"># Non-Windows systems usually don't need this.</span></span><br><span class="line">;dev-node MyTap</span><br><span class="line"></span><br><span class="line"><span class="comment"># SSL/TLS root certificate (ca), certificate</span></span><br><span class="line"><span class="comment"># (cert), and private key (key).  Each client</span></span><br><span class="line"><span class="comment"># and the server must have their own cert and</span></span><br><span class="line"><span class="comment"># key file.  The server and all clients will</span></span><br><span class="line"><span class="comment"># use the same ca file.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># See the "easy-rsa" directory for a series</span></span><br><span class="line"><span class="comment"># of scripts for generating RSA certificates</span></span><br><span class="line"><span class="comment"># and private keys.  Remember to use</span></span><br><span class="line"><span class="comment"># a unique Common Name for the server</span></span><br><span class="line"><span class="comment"># and each of the client certificates.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Any X509 key management system can be used.</span></span><br><span class="line"><span class="comment"># OpenVPN can also use a PKCS #12 formatted key file</span></span><br><span class="line"><span class="comment"># (see "pkcs12" directive in man page).</span></span><br><span class="line"><span class="comment"># 证书路径</span></span><br><span class="line">ca /etc/openvpn/ca.crt </span><br><span class="line">cert /etc/openvpn/server.crt</span><br><span class="line">key /etc/openvpn/server.key  <span class="comment"># This file should be kept secret</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Diffie hellman parameters.</span></span><br><span class="line"><span class="comment"># Generate your own with:</span></span><br><span class="line"><span class="comment">#   openssl dhparam -out dh2048.pem 2048</span></span><br><span class="line"><span class="comment"># dh dh2048.pem</span></span><br><span class="line"><span class="comment"># 密钥路径</span></span><br><span class="line">dh /etc/openvpn/dh.pem</span><br><span class="line"></span><br><span class="line"><span class="comment"># Network topology</span></span><br><span class="line"><span class="comment"># Should be subnet (addressing via IP)</span></span><br><span class="line"><span class="comment"># unless Windows clients v2.0.9 and lower have to</span></span><br><span class="line"><span class="comment"># be supported (then net30, i.e. a /30 per client)</span></span><br><span class="line"><span class="comment"># Defaults to net30 (not recommended)</span></span><br><span class="line">;topology subnet</span><br><span class="line"></span><br><span class="line"><span class="comment"># Configure server mode and supply a VPN subnet</span></span><br><span class="line"><span class="comment"># for OpenVPN to draw client addresses from.</span></span><br><span class="line"><span class="comment"># The server will take 10.8.0.1 for itself,</span></span><br><span class="line"><span class="comment"># the rest will be made available to clients.</span></span><br><span class="line"><span class="comment"># Each client will be able to reach the server</span></span><br><span class="line"><span class="comment"># on 10.8.0.1. Comment this line out if you are</span></span><br><span class="line"><span class="comment"># ethernet bridging. See the man page for more info.</span></span><br><span class="line">server <span class="number">10.8</span>.<span class="number">0.0</span> <span class="number">255.255</span>.<span class="number">255.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Maintain a record of client &lt;-&gt; virtual IP address</span></span><br><span class="line"><span class="comment"># associations in this file.  If OpenVPN goes down or</span></span><br><span class="line"><span class="comment"># is restarted, reconnecting clients can be assigned</span></span><br><span class="line"><span class="comment"># the same virtual IP address from the pool that was</span></span><br><span class="line"><span class="comment"># previously assigned.</span></span><br><span class="line">ifconfig-pool-persist ipp.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Configure server mode for ethernet bridging.</span></span><br><span class="line"><span class="comment"># You must first use your OS's bridging capability</span></span><br><span class="line"><span class="comment"># to bridge the TAP interface with the ethernet</span></span><br><span class="line"><span class="comment"># NIC interface.  Then you must manually set the</span></span><br><span class="line"><span class="comment"># IP/netmask on the bridge interface, here we</span></span><br><span class="line"><span class="comment"># assume 10.8.0.4/255.255.255.0.  Finally we</span></span><br><span class="line"><span class="comment"># must set aside an IP range in this subnet</span></span><br><span class="line"><span class="comment"># (start=10.8.0.50 end=10.8.0.100) to allocate</span></span><br><span class="line"><span class="comment"># to connecting clients.  Leave this line commented</span></span><br><span class="line"><span class="comment"># out unless you are ethernet bridging.</span></span><br><span class="line">;server-bridge <span class="number">10.8</span>.<span class="number">0.4</span> <span class="number">255.255</span>.<span class="number">255.0</span> <span class="number">10.8</span>.<span class="number">0.50</span> <span class="number">10.8</span>.<span class="number">0.100</span></span><br><span class="line"><span class="comment"># Configure server mode for ethernet bridging</span></span><br><span class="line"><span class="comment"># using a DHCP-proxy, where clients talk</span></span><br><span class="line"><span class="comment"># to the OpenVPN server-side DHCP server</span></span><br><span class="line"><span class="comment"># to receive their IP address allocation</span></span><br><span class="line"><span class="comment"># and DNS server addresses.  You must first use</span></span><br><span class="line"><span class="comment"># your OS's bridging capability to bridge the TAP</span></span><br><span class="line"><span class="comment"># interface with the ethernet NIC interface.</span></span><br><span class="line"><span class="comment"># Note: this mode only works on clients (such as</span></span><br><span class="line"><span class="comment"># Windows), where the client-side TAP adapter is</span></span><br><span class="line"><span class="comment"># bound to a DHCP client.</span></span><br><span class="line">;server-bridge</span><br><span class="line"></span><br><span class="line"><span class="comment"># Push routes to the client to allow it</span></span><br><span class="line"><span class="comment"># to reach other private subnets behind</span></span><br><span class="line"><span class="comment"># the server.  Remember that these</span></span><br><span class="line"><span class="comment"># private subnets will also need</span></span><br><span class="line"><span class="comment"># to know to route the OpenVPN client</span></span><br><span class="line"><span class="comment"># address pool (10.8.0.0/255.255.255.0)</span></span><br><span class="line"><span class="comment"># back to the OpenVPN server.</span></span><br><span class="line">;push <span class="string">"route 192.168.10.0 255.255.255.0"</span></span><br><span class="line">;push <span class="string">"route 192.168.20.0 255.255.255.0"</span></span><br><span class="line"><span class="comment"># 发送路由</span></span><br><span class="line">push <span class="string">"route 192.168.0.0 255.255.0.0"</span></span><br><span class="line"><span class="comment"># To assign specific IP addresses to specific</span></span><br><span class="line"><span class="comment"># clients or if a connecting client has a private</span></span><br><span class="line"><span class="comment"># subnet behind it that should also have VPN access,</span></span><br><span class="line"><span class="comment"># use the subdirectory "ccd" for client-specific</span></span><br><span class="line"><span class="comment"># configuration files (see man page for more info).</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># EXAMPLE: Suppose the client</span></span><br><span class="line"><span class="comment"># having the certificate common name "Thelonious"</span></span><br><span class="line"><span class="comment"># also has a small subnet behind his connecting</span></span><br><span class="line"><span class="comment"># machine, such as 192.168.40.128/255.255.255.248.</span></span><br><span class="line"><span class="comment"># First, uncomment out these lines:</span></span><br><span class="line">;client-config-dir ccd</span><br><span class="line">;route <span class="number">192.168</span>.<span class="number">40.128</span> <span class="number">255.255</span>.<span class="number">255.248</span></span><br><span class="line"><span class="comment"># Then create a file ccd/Thelonious with this line:</span></span><br><span class="line"><span class="comment">#   iroute 192.168.40.128 255.255.255.248</span></span><br><span class="line"><span class="comment"># This will allow Thelonious' private subnet to</span></span><br><span class="line"><span class="comment"># access the VPN.  This example will only work</span></span><br><span class="line"><span class="comment"># if you are routing, not bridging, i.e. you are</span></span><br><span class="line"><span class="comment"># using "dev tun" and "server" directives.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># EXAMPLE: Suppose you want to give</span></span><br><span class="line"><span class="comment"># Thelonious a fixed VPN IP address of 10.9.0.1.</span></span><br><span class="line"><span class="comment"># First uncomment out these lines:</span></span><br><span class="line">;client-config-dir ccd</span><br><span class="line">;route <span class="number">10.9</span>.<span class="number">0.0</span> <span class="number">255.255</span>.<span class="number">255.252</span></span><br><span class="line"><span class="comment"># Then add this line to ccd/Thelonious:</span></span><br><span class="line"><span class="comment">#   ifconfig-push 10.9.0.1 10.9.0.2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Suppose that you want to enable different</span></span><br><span class="line"><span class="comment"># firewall access policies for different groups</span></span><br><span class="line"><span class="comment"># of clients.  There are two methods:</span></span><br><span class="line"><span class="comment"># (1) Run multiple OpenVPN daemons, one for each</span></span><br><span class="line"><span class="comment">#     group, and firewall the TUN/TAP interface</span></span><br><span class="line"><span class="comment">#     for each group/daemon appropriately.</span></span><br><span class="line"><span class="comment"># (2) (Advanced) Create a script to dynamically</span></span><br><span class="line"><span class="comment">#     modify the firewall in response to access</span></span><br><span class="line"><span class="comment">#     from different clients.  See man</span></span><br><span class="line"><span class="comment">#     page for more info on learn-address script.</span></span><br><span class="line">;learn-address ./script</span><br><span class="line"></span><br><span class="line"><span class="comment"># If enabled, this directive will configure</span></span><br><span class="line"><span class="comment"># all clients to redirect their default</span></span><br><span class="line"><span class="comment"># network gateway through the VPN, causing</span></span><br><span class="line"><span class="comment"># all IP traffic such as web browsing and</span></span><br><span class="line"><span class="comment"># and DNS lookups to go through the VPN</span></span><br><span class="line"><span class="comment"># (The OpenVPN server machine may need to NAT</span></span><br><span class="line"><span class="comment"># or bridge the TUN/TAP interface to the internet</span></span><br><span class="line"><span class="comment"># in order for this to work properly).</span></span><br><span class="line">;push <span class="string">"redirect-gateway def1 bypass-dhcp"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Certain Windows-specific network settings</span></span><br><span class="line"><span class="comment"># can be pushed to clients, such as DNS</span></span><br><span class="line"><span class="comment"># or WINS server addresses.  CAVEAT:</span></span><br><span class="line"><span class="comment"># http://openvpn.net/faq.html#dhcpcaveats</span></span><br><span class="line"><span class="comment"># The addresses below refer to the public</span></span><br><span class="line"><span class="comment"># DNS servers provided by opendns.com.</span></span><br><span class="line">;push <span class="string">"dhcp-option DNS 208.67.222.222"</span></span><br><span class="line">;push <span class="string">"dhcp-option DNS 208.67.220.220"</span></span><br><span class="line"><span class="comment"># 设置发送的DNS</span></span><br><span class="line">push <span class="string">"dhcp-option DNS 114.114.114.114"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Uncomment this directive to allow different</span></span><br><span class="line"><span class="comment"># clients to be able to "see" each other.</span></span><br><span class="line"><span class="comment"># By default, clients will only see the server.</span></span><br><span class="line"><span class="comment"># To force clients to only see the server, you</span></span><br><span class="line"><span class="comment"># will also need to appropriately firewall the</span></span><br><span class="line"><span class="comment"># server's TUN/TAP interface.</span></span><br><span class="line"><span class="comment"># 开启客户端互相访问</span></span><br><span class="line">client-to-client</span><br><span class="line"></span><br><span class="line"><span class="comment"># Uncomment this directive if multiple clients</span></span><br><span class="line"><span class="comment"># might connect with the same certificate/key</span></span><br><span class="line"><span class="comment"># files or common names.  This is recommended</span></span><br><span class="line"><span class="comment"># only for testing purposes.  For production use,</span></span><br><span class="line"><span class="comment"># each client should have its own certificate/key</span></span><br><span class="line"><span class="comment"># pair.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># IF YOU HAVE NOT GENERATED INDIVIDUAL</span></span><br><span class="line"><span class="comment"># CERTIFICATE/KEY PAIRS FOR EACH CLIENT,</span></span><br><span class="line"><span class="comment"># EACH HAVING ITS OWN UNIQUE "COMMON NAME",</span></span><br><span class="line"><span class="comment"># UNCOMMENT THIS LINE OUT.</span></span><br><span class="line">;duplicate-cn</span><br><span class="line"></span><br><span class="line"><span class="comment"># The keepalive directive causes ping-like</span></span><br><span class="line"><span class="comment"># messages to be sent back and forth over</span></span><br><span class="line"><span class="comment"># the link so that each side knows when</span></span><br><span class="line"><span class="comment"># the other side has gone down.</span></span><br><span class="line"><span class="comment"># Ping every 10 seconds, assume that remote</span></span><br><span class="line"><span class="comment"># peer is down if no ping received during</span></span><br><span class="line"><span class="comment"># a 120 second time period.</span></span><br><span class="line"><span class="comment"># 心跳侦测</span></span><br><span class="line">keepalive <span class="number">10</span> <span class="number">120</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># For extra security beyond that provided</span></span><br><span class="line"><span class="comment"># by SSL/TLS, create an "HMAC firewall"</span></span><br><span class="line"><span class="comment"># to help block DoS attacks and UDP port flooding.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Generate with:</span></span><br><span class="line"><span class="comment">#   openvpn --genkey --secret ta.key</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># The server and each client must have</span></span><br><span class="line"><span class="comment"># a copy of this key.</span></span><br><span class="line"><span class="comment"># The second parameter should be '0'</span></span><br><span class="line"><span class="comment"># on the server and '1' on the clients.</span></span><br><span class="line"><span class="comment"># tls-auth ta.key 0 # This file is secret</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Select a cryptographic cipher.</span></span><br><span class="line"><span class="comment"># This config item must be copied to</span></span><br><span class="line"><span class="comment"># the client config file as well.</span></span><br><span class="line"><span class="comment"># Note that v2.4 client/server will automatically</span></span><br><span class="line"><span class="comment"># negotiate AES-256-GCM in TLS mode.</span></span><br><span class="line"><span class="comment"># See also the ncp-cipher option in the manpage</span></span><br><span class="line"><span class="comment"># 加密方式</span></span><br><span class="line">cipher AES-<span class="number">256</span>-CBC</span><br><span class="line"></span><br><span class="line"><span class="comment"># Enable compression on the VPN link and push the</span></span><br><span class="line"><span class="comment"># option to the client (v2.4+ only, for earlier</span></span><br><span class="line"><span class="comment"># versions see below)</span></span><br><span class="line">;compress lz4-v2</span><br><span class="line">;push <span class="string">"compress lz4-v2"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># For compression compatible with older clients use comp-lzo</span></span><br><span class="line"><span class="comment"># If you enable it here, you must also</span></span><br><span class="line"><span class="comment"># enable it in the client config file.</span></span><br><span class="line"><span class="comment"># 和客户端保持一致</span></span><br><span class="line">comp-lzo</span><br><span class="line"></span><br><span class="line"><span class="comment"># The maximum number of concurrently connected</span></span><br><span class="line"><span class="comment"># clients we want to allow.</span></span><br><span class="line">;max-clients <span class="number">100</span></span><br><span class="line"><span class="comment"># 最大连接数</span></span><br><span class="line">max-clients <span class="number">100</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># It's a good idea to reduce the OpenVPN</span></span><br><span class="line"><span class="comment"># daemon's privileges after initialization.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># You can uncomment this out on</span></span><br><span class="line"><span class="comment"># non-Windows systems.</span></span><br><span class="line">;<span class="keyword">user</span> nobody</span><br><span class="line">;<span class="keyword">group</span> nobody</span><br><span class="line"></span><br><span class="line"><span class="comment"># The persist options will try to avoid</span></span><br><span class="line"><span class="comment"># accessing certain resources on restart</span></span><br><span class="line"><span class="comment"># that may no longer be accessible because</span></span><br><span class="line"><span class="comment"># of the privilege downgrade.</span></span><br><span class="line">persist-key</span><br><span class="line">persist-tun</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output a short status file showing</span></span><br><span class="line"><span class="comment"># current connections, truncated</span></span><br><span class="line"><span class="comment"># and rewritten every minute.</span></span><br><span class="line"><span class="comment"># 开启状态日志</span></span><br><span class="line">status openvpn-status.<span class="keyword">log</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># By default, log messages will go to the syslog (or</span></span><br><span class="line"><span class="comment"># on Windows, if running as a service, they will go to</span></span><br><span class="line"><span class="comment"># the "\Program Files\OpenVPN\log" directory).</span></span><br><span class="line"><span class="comment"># Use log or log-append to override this default.</span></span><br><span class="line"><span class="comment"># "log" will truncate the log file on OpenVPN startup,</span></span><br><span class="line"><span class="comment"># while "log-append" will append to it.  Use one</span></span><br><span class="line"><span class="comment"># or the other (but not both).</span></span><br><span class="line">;<span class="keyword">log</span>         openvpn.<span class="keyword">log</span></span><br><span class="line">;log-append  openvpn.<span class="keyword">log</span></span><br><span class="line"><span class="comment"># 日志路径</span></span><br><span class="line"><span class="keyword">log</span> /var/<span class="keyword">log</span>/openvpn.<span class="keyword">log</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set the appropriate level of log</span></span><br><span class="line"><span class="comment"># file verbosity.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 0 is silent, except for fatal errors</span></span><br><span class="line"><span class="comment"># 4 is reasonable for general usage</span></span><br><span class="line"><span class="comment"># 5 and 6 can help to debug connection problems</span></span><br><span class="line"><span class="comment"># 9 is extremely verbose</span></span><br><span class="line">verb <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Silence repeating messages.  At most 20</span></span><br><span class="line"><span class="comment"># sequential messages of the same message</span></span><br><span class="line"><span class="comment"># category will be output to the log.</span></span><br><span class="line">;mute <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Notify the client that when the server restarts so it</span></span><br><span class="line"><span class="comment"># can automatically reconnect.</span></span><br><span class="line"><span class="comment"># explicit-exit-notify 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># LDAP认证</span></span><br><span class="line">plugin /usr/lib64/openvpn/plugin/lib/openvpn-auth-ldap.so <span class="string">"/etc/openvpn/auth/ldap.conf"</span></span><br><span class="line"><span class="comment"># 关闭证书认证</span></span><br><span class="line">client-cert-not-required</span><br></pre></td></tr></table></figure>
+<h2 id="2-7-修改openvpn-ldap-auth的配置文件："><a href="#2-7-修改openvpn-ldap-auth的配置文件：" class="headerlink" title="2.7 修改openvpn-ldap-auth的配置文件："></a>2.7 修改openvpn-ldap-auth的配置文件：</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi <span class="regexp">/etc/</span>openvpn<span class="regexp">/auth/</span>ldap.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">&lt;LDAP&gt;</span></span><br><span class="line">    <span class="comment"># LDAP server URL</span></span><br><span class="line">    <span class="comment">#更改为AD服务器的ip</span></span><br><span class="line">    URL     ldap://172.20.20.10:389               </span><br><span class="line"> </span><br><span class="line">    <span class="comment"># Bind DN (If your LDAP server doesn't support anonymous binds)</span></span><br><span class="line">    <span class="comment"># BindDN        uid=Manager,ou=People,dc=example,dc=com</span></span><br><span class="line">    <span class="comment">#更改为域管理的dn,可以通过ldapsearch进行查询,-h的ip替换为服务器ip，-d换为管理员的dn，-b为基础的查询dn，*为所有</span></span><br><span class="line">    <span class="comment">#ldapsearch -LLL -x -h 172.16.76.238 -D "administrator@xx.com" -W -b "dc=xx,dc=com" "*"</span></span><br><span class="line">    BindDN      <span class="string">" cn=administrator,cn=users,dc=dealeasy,dc=local"</span> </span><br><span class="line"> </span><br><span class="line">    <span class="comment"># Bind Password</span></span><br><span class="line">    <span class="comment"># Password  SecretPassword</span></span><br><span class="line">    <span class="comment">#域管理员的密码</span></span><br><span class="line">    Password    passwd</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">    <span class="comment"># Network timeout (in seconds)</span></span><br><span class="line">    Timeout     15</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># Enable Start TLS</span></span><br><span class="line">    TLSEnable   no</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># Follow LDAP Referrals (anonymously)</span></span><br><span class="line">    FollowReferrals no</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># TLS CA Certificate File</span></span><br><span class="line">    <span class="comment">#TLSCACertFile  /usr/local/etc/ssl/ca.pem</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment"># TLS CA Certificate Directory</span></span><br><span class="line">    <span class="comment">#TLSCACertDir   /etc/ssl/certs</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment"># Client Certificate and key</span></span><br><span class="line">    <span class="comment"># If TLS client authentication is required</span></span><br><span class="line">    <span class="comment">#TLSCertFile    /usr/local/etc/ssl/client-cert.pem</span></span><br><span class="line">    <span class="comment">#TLSKeyFile /usr/local/etc/ssl/client-key.pem</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment"># Cipher Suite</span></span><br><span class="line">    <span class="comment"># The defaults are usually fine here</span></span><br><span class="line">    <span class="comment"># TLSCipherSuite    ALL:!ADH:@STRENGTH</span></span><br><span class="line"><span class="variable">&lt;/LDAP&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="variable">&lt;Authorization&gt;</span></span><br><span class="line">    <span class="comment"># Base DN</span></span><br><span class="line">    <span class="comment">#查询认证的基础dn</span></span><br><span class="line">    BaseDN      <span class="string">" ou=de,dc=dealeasy,dc=local"</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment"># User Search Filter</span></span><br><span class="line">    <span class="comment">#SearchFilter   "(&amp;(uid=%u)(accountStatus=active))"</span></span><br><span class="line">    <span class="comment">#其中sAMAccountName=%u的意思是把sAMAccountName的字段取值为用户名，后面“memberof=CN=myvpn,DC=xx,DC=com”指向要认证的vpn用户组，这样任何用户使用vpn，只要加入这个组就好了</span></span><br><span class="line">    SearchFilter    <span class="string">"( (&amp;(sAMAccountName=%u)(memberof=cn=myvpn,ou=vpn,ou=de,DC=dealeasy,DC=local"</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment"># Require Group Membership</span></span><br><span class="line">    RequireGroup    false</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># Add non-group members to a PF table (disabled)</span></span><br><span class="line">    <span class="comment">#PFTable    ips_vpn_users</span></span><br><span class="line"> </span><br><span class="line">    <span class="variable">&lt;Group&gt;</span></span><br><span class="line">        <span class="comment">#BaseDN     "ou=Groups,dc=example,dc=com"</span></span><br><span class="line">        <span class="comment">#SearchFilter   "(|(cn=developers)(cn=artists))"</span></span><br><span class="line">        <span class="comment">#MemberAttribute    uniqueMember</span></span><br><span class="line">        <span class="comment"># Add group members to a PF table (disabled)</span></span><br><span class="line">        <span class="comment">#PFTable    ips_vpn_eng</span></span><br><span class="line">        BaseDN      <span class="string">" ou=vpn,ou=de,dc=dealeasy,dc=local"</span></span><br><span class="line">        SearchFilter    <span class="string">" (cn=myvpn)"</span></span><br><span class="line">        MemberAttribute     <span class="string">"member"</span></span><br><span class="line">    <span class="variable">&lt;/Group&gt;</span></span><br><span class="line"><span class="variable">&lt;/Authorization&gt;</span></span><br></pre></td></tr></table></figure>
+<div class="note success"><p><strong>例子：openldap配置示例</strong><br>使用了上面安装的openvpn-auth-ldap认证插件<br>client-cert-not-required不再需要客户端证书，将改为使用OpenLDAP中的用户认证<br><strong>注意:上面的<code>ldap.conf</code>中<code>RequireGroup true</code>以及Group的配置实际我们期望是必须是LDAP中的名称为vpn的组下的用户才可以登录VPN。但根据这个ISSUE <a href="https://github.com/threerings/openvpn-auth-ldap/issues/7，当前2.0.3的openvpn-auth-ldap不支持。因此如果只想限制LDAP中某些用户可以使用VPN的话，只能设置`RequireGroup" target="_blank" rel="noopener">https://github.com/threerings/openvpn-auth-ldap/issues/7，当前2.0.3的openvpn-auth-ldap不支持。因此如果只想限制LDAP中某些用户可以使用VPN的话，只能设置`RequireGroup</a> false<code>，然后可以在</code>SearchFilter<code>中做一些文章，比如</code>(&amp;(uid=%u)(ou=vpn))`即只有用户的ou字段为vpn的才可以。</strong></p></div>
+<figure class="highlight pf.conf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">&lt;LDAP&gt;</span></span><br><span class="line">	<span class="comment"># LDAP server URL</span></span><br><span class="line">	URL		ldap://<span class="number">192.168</span>.<span class="number">0.129</span>:<span class="number">389</span></span><br><span class="line"></span><br><span class="line">	<span class="comment"># Bind DN (If your LDAP server doesn't support anonymous binds)</span></span><br><span class="line">	<span class="comment"># BindDN		uid=Manager,ou=People,dc=example,dc=com</span></span><br><span class="line">        BindDN      cn=admin,dc=zhjx,dc=com </span><br><span class="line">        Password *******</span><br><span class="line">	<span class="comment"># Bind Password</span></span><br><span class="line">	<span class="comment"># Password	SecretPassword</span></span><br><span class="line"></span><br><span class="line">	<span class="comment"># Network timeout (in seconds)</span></span><br><span class="line">	Timeout		<span class="number">15</span></span><br><span class="line"></span><br><span class="line">	<span class="comment"># Enable Start TLS</span></span><br><span class="line">	<span class="comment"># TLSEnable	yes</span></span><br><span class="line">        TLSEnable       no</span><br><span class="line"></span><br><span class="line">	<span class="comment"># Follow LDAP Referrals (anonymously)</span></span><br><span class="line">	<span class="comment"># FollowReferrals yes</span></span><br><span class="line">        FollowReferrals   no</span><br><span class="line"></span><br><span class="line">	<span class="comment"># TLS CA Certificate File</span></span><br><span class="line">	<span class="comment"># TLSCACertFile	/usr/local/etc/ssl/ca.pem</span></span><br><span class="line"></span><br><span class="line">	<span class="comment"># TLS CA Certificate Directory</span></span><br><span class="line">	<span class="comment"># TLSCACertDir	/etc/ssl/certs</span></span><br><span class="line"></span><br><span class="line">	<span class="comment"># Client Certificate and key</span></span><br><span class="line">	<span class="comment"># If TLS client authentication is required</span></span><br><span class="line">	<span class="comment">#TLSCertFile	/usr/local/etc/ssl/client-cert.pem</span></span><br><span class="line">	<span class="comment">#TLSKeyFile	/usr/local/etc/ssl/client-key.pem</span></span><br><span class="line"></span><br><span class="line">	<span class="comment"># Cipher Suite</span></span><br><span class="line">	<span class="comment"># The defaults are usually fine here</span></span><br><span class="line">	<span class="comment"># TLSCipherSuite	ALL:!ADH:@STRENGTH</span></span><br><span class="line">&lt;/LDAP&gt;</span><br><span class="line"></span><br><span class="line"><span class="variable">&lt;Authorization&gt;</span></span><br><span class="line">	<span class="comment"># Base DN</span></span><br><span class="line">	BaseDN		<span class="string">"ou=People,dc=zhjx,dc=com"</span></span><br><span class="line"></span><br><span class="line">	<span class="comment"># User Search Filter</span></span><br><span class="line">	<span class="comment"># SearchFilter	"(&amp;(uid=%u)(accountStatus=active))"</span></span><br><span class="line">        SearchFilter  <span class="string">"(uid=%u)"</span></span><br><span class="line"></span><br><span class="line">	<span class="comment"># Require Group Membership</span></span><br><span class="line">	 RequireGroup	false</span><br><span class="line">        <span class="comment">#RequireGroup    true</span></span><br><span class="line"></span><br><span class="line">	<span class="comment"># Add non-group members to a PF table (disabled)</span></span><br><span class="line">	<span class="comment">#PFTable	ips_vpn_users</span></span><br><span class="line"></span><br><span class="line">	<span class="variable">&lt;Group&gt;</span></span><br><span class="line">		BaseDN		<span class="string">"ou=Group,dc=zhjx,dc=com"</span></span><br><span class="line">		SearchFilter	<span class="string">"cn=openvpn"</span></span><br><span class="line">		MemberAttribute	memberUid</span><br><span class="line">		<span class="comment"># Add group members to a PF table (disabled)</span></span><br><span class="line">		<span class="comment">#PFTable	ips_vpn_eng</span></span><br><span class="line">	&lt;/Group&gt;</span><br><span class="line">&lt;/Authorization&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="2-8-拷贝-etc-openvpn-key目录下的ca-crt证书，以备客户端使用。"><a href="#2-8-拷贝-etc-openvpn-key目录下的ca-crt证书，以备客户端使用。" class="headerlink" title="2.8 拷贝/etc/openvpn/key目录下的ca.crt证书，以备客户端使用。"></a>2.8 拷贝/etc/openvpn/key目录下的ca.crt证书，以备客户端使用。</h2><div class="note info"><p>注：客户端使用ca.crt和客户端配置文件即可正常使用openvpn了</p></div>
+
+<h3 id="2-8-1-配置客户端配置文件"><a href="#2-8-1-配置客户端配置文件" class="headerlink" title="2.8.1 配置客户端配置文件"></a>2.8.1 配置客户端配置文件</h3><div class="note success"><p><strong>注意:</strong><br>客户端ca证书使用的是和服务端一样的ca证书，都是创建服务端证书用到的ca文件</p></div>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> vi client.ovpn</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">client</span><br><span class="line">dev tun</span><br><span class="line">proto tcp                  <span class="comment">//注意协议，跟服务器保持一致</span></span><br><span class="line">remote <span class="number">172.20</span><span class="number">.20</span><span class="number">.25</span> <span class="number">1194</span>     <span class="comment">//xx.xx.com替换为你的服务器ip</span></span><br><span class="line">resolv-retry infinite</span><br><span class="line">nobind</span><br><span class="line">persist-<span class="type">key</span></span><br><span class="line">persist-tun</span><br><span class="line">ca ca.crt</span><br><span class="line">auth-user-pass            <span class="comment">//客户端使用账户密码登陆的选项，用于客户端弹出认证用户的窗口</span></span><br><span class="line">comp-lzo</span><br><span class="line">verb <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<div class="note success"><p><strong>例子：openldap方式客户端配置示例，与上方server版示例对照</strong></p></div>
+<figure class="highlight pf.conf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##############################################</span></span><br><span class="line"><span class="comment"># Sample client-side OpenVPN 2.0 config file #</span></span><br><span class="line"><span class="comment"># for connecting to multi-client server.     #</span></span><br><span class="line"><span class="comment">#                                            #</span></span><br><span class="line"><span class="comment"># This configuration can be used by multiple #</span></span><br><span class="line"><span class="comment"># clients, however each client should have   #</span></span><br><span class="line"><span class="comment"># its own cert and key files.                #</span></span><br><span class="line"><span class="comment">#                                            #</span></span><br><span class="line"><span class="comment"># On Windows, you might want to rename this  #</span></span><br><span class="line"><span class="comment"># file so it has a .ovpn extension           #</span></span><br><span class="line"><span class="comment">##############################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Specify that we are a client and that we</span></span><br><span class="line"><span class="comment"># will be pulling certain config file directives</span></span><br><span class="line"><span class="comment"># from the server.</span></span><br><span class="line"><span class="comment"># 服务端类型</span></span><br><span class="line">client</span><br><span class="line"></span><br><span class="line"><span class="comment"># Use the same setting as you are using on</span></span><br><span class="line"><span class="comment"># the server.</span></span><br><span class="line"><span class="comment"># On most systems, the VPN will not function</span></span><br><span class="line"><span class="comment"># unless you partially or fully disable</span></span><br><span class="line"><span class="comment"># the firewall for the TUN/TAP interface.</span></span><br><span class="line"><span class="comment"># dev tap</span></span><br><span class="line"><span class="comment"># 与服务端一致</span></span><br><span class="line">dev tun</span><br><span class="line"></span><br><span class="line"><span class="comment"># Windows needs the TAP-Win32 adapter name</span></span><br><span class="line"><span class="comment"># from the Network Connections panel</span></span><br><span class="line"><span class="comment"># if you have more than one.  On XP SP2,</span></span><br><span class="line"><span class="comment"># you may need to disable the firewall</span></span><br><span class="line"><span class="comment"># for the TAP adapter.</span></span><br><span class="line"><span class="comment">#dev-node MyTap</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Are we connecting to a TCP or</span></span><br><span class="line"><span class="comment"># UDP server?  Use the same setting as</span></span><br><span class="line"><span class="comment"># on the server.</span></span><br><span class="line"><span class="comment"># 与服务端一致</span></span><br><span class="line"><span class="keyword">proto</span> tcp</span><br><span class="line"><span class="comment">#proto udp</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The hostname/IP and port of the server.</span></span><br><span class="line"><span class="comment"># You can have multiple remote entries</span></span><br><span class="line"><span class="comment"># to load balance between the servers.</span></span><br><span class="line"><span class="comment"># 连接地址与端口</span></span><br><span class="line">remote XXX.imwork.net <span class="number">1194</span></span><br><span class="line"><span class="comment">#remote my-server-2 1194</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Choose a random host from the remote</span></span><br><span class="line"><span class="comment"># list for load-balancing.  Otherwise</span></span><br><span class="line"><span class="comment"># try hosts in the order specified.</span></span><br><span class="line">;remote-random</span><br><span class="line"></span><br><span class="line"><span class="comment"># Keep trying indefinitely to resolve the</span></span><br><span class="line"><span class="comment"># host name of the OpenVPN server.  Very useful</span></span><br><span class="line"><span class="comment"># on machines which are not permanently connected</span></span><br><span class="line"><span class="comment"># to the internet such as laptops.</span></span><br><span class="line">resolv-retry infinite</span><br><span class="line"></span><br><span class="line"><span class="comment"># Most clients don't need to bind to</span></span><br><span class="line"><span class="comment"># a specific local port number.</span></span><br><span class="line">nobind</span><br><span class="line"></span><br><span class="line"><span class="comment"># Downgrade privileges after initialization (non-Windows only)</span></span><br><span class="line">;<span class="keyword">user</span> nobody</span><br><span class="line">;<span class="keyword">group</span> nobody</span><br><span class="line"></span><br><span class="line"><span class="comment"># Try to preserve some state across restarts.</span></span><br><span class="line">persist-key</span><br><span class="line">persist-tun</span><br><span class="line"></span><br><span class="line"><span class="comment"># If you are connecting through an</span></span><br><span class="line"><span class="comment"># HTTP proxy to reach the actual OpenVPN</span></span><br><span class="line"><span class="comment"># server, put the proxy server/IP and</span></span><br><span class="line"><span class="comment"># port number here.  See the man page</span></span><br><span class="line"><span class="comment"># if your proxy server requires</span></span><br><span class="line"><span class="comment"># authentication.</span></span><br><span class="line">;http-proxy-retry <span class="comment"># retry on connection failures</span></span><br><span class="line">;http-proxy [proxy server] [proxy <span class="keyword">port</span> <span class="comment">#]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Wireless networks often produce a lot</span></span><br><span class="line"><span class="comment"># of duplicate packets.  Set this flag</span></span><br><span class="line"><span class="comment"># to silence duplicate packet warnings.</span></span><br><span class="line">;mute-replay-warnings</span><br><span class="line"></span><br><span class="line"><span class="comment"># SSL/TLS parms.</span></span><br><span class="line"><span class="comment"># See the server config file for more</span></span><br><span class="line"><span class="comment"># description.  It's best to use</span></span><br><span class="line"><span class="comment"># a separate .crt/.key file pair</span></span><br><span class="line"><span class="comment"># for each client.  A single ca</span></span><br><span class="line"><span class="comment"># file can be used for all clients.</span></span><br><span class="line"><span class="comment"># ldap方式只使用ca证书</span></span><br><span class="line">ca ca.crt</span><br><span class="line"><span class="comment"># cert client.crt</span></span><br><span class="line"><span class="comment"># key client.key</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Verify server certificate by checking that the</span></span><br><span class="line"><span class="comment"># certicate has the correct key usage set.</span></span><br><span class="line"><span class="comment"># This is an important precaution to protect against</span></span><br><span class="line"><span class="comment"># a potential attack discussed here:</span></span><br><span class="line"><span class="comment">#  http://openvpn.net/howto.html#mitm</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># To use this feature, you will need to generate</span></span><br><span class="line"><span class="comment"># your server certificates with the keyUsage set to</span></span><br><span class="line"><span class="comment">#   digitalSignature, keyEncipherment</span></span><br><span class="line"><span class="comment"># and the extendedKeyUsage to</span></span><br><span class="line"><span class="comment">#   serverAuth</span></span><br><span class="line"><span class="comment"># EasyRSA can do this for you.</span></span><br><span class="line"><span class="comment"># remote-cert-tls server</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># If a tls-auth key is used on the server</span></span><br><span class="line"><span class="comment"># then every client must also have the key.</span></span><br><span class="line"><span class="comment">#tls-auth ta.key 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Select a cryptographic cipher.</span></span><br><span class="line"><span class="comment"># If the cipher option is used on the server</span></span><br><span class="line"><span class="comment"># then you must also specify it here.</span></span><br><span class="line"><span class="comment"># Note that v2.4 client/server will automatically</span></span><br><span class="line"><span class="comment"># negotiate AES-256-GCM in TLS mode.</span></span><br><span class="line"><span class="comment"># See also the ncp-cipher option in the manpage</span></span><br><span class="line"><span class="comment"># 与服务的保持一致</span></span><br><span class="line">cipher AES-<span class="number">256</span>-CBC</span><br><span class="line"></span><br><span class="line"><span class="comment"># Enable compression on the VPN link.</span></span><br><span class="line"><span class="comment"># Don't enable this unless it is also</span></span><br><span class="line"><span class="comment"># enabled in the server config file.</span></span><br><span class="line"><span class="comment"># 与服务的保持一致</span></span><br><span class="line">comp-lzo</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set log file verbosity.</span></span><br><span class="line">verb <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Silence repeating messages</span></span><br><span class="line">;mute <span class="number">20</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># auth-user-pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启账户密码认证</span></span><br><span class="line">ns-cert-type server</span><br><span class="line">auth-user-pass</span><br></pre></td></tr></table></figure>
+<h2 id="2-9-开启路由转发"><a href="#2-9-开启路由转发" class="headerlink" title="2.9 开启路由转发"></a>2.9 开启路由转发</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vi</span> /etc/sysctl.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>修改参数</p>
+</li>
+<li><p><code>net.ipv4.ip_forward = 1</code>（默认为<code>0</code>，修改成<code>1</code> 表示开启路由转发，如果默认是空内容，请自行加上-腾讯云貌似就是空的）</p>
+</li>
+</ol>
+<p>重启sysctl生效路由转发：</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sysctl -p</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-9-1-配置防火墙及路由转发策略："><a href="#2-9-1-配置防火墙及路由转发策略：" class="headerlink" title="2.9.1 配置防火墙及路由转发策略："></a>2.9.1 配置防火墙及路由转发策略：</h3><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A POSTROUTING -s <span class="number">10.8</span><span class="number">.0</span><span class="number">.0</span>/<span class="number">24</span> -o eth0 -j MASQUERADE        #做NAT转换</span><br><span class="line"></span><br><span class="line">iptables -A INPUT -p TCP --dport <span class="number">1194</span> -j ACCEPT                                         #OpenVPN服务端口，可自定义，不可冲突</span><br><span class="line"></span><br><span class="line">service iptables save</span><br><span class="line"></span><br><span class="line">service iptables restart</span><br></pre></td></tr></table></figure>
+<h2 id="2-10-开启-HTTP代理连接openvpn服务器"><a href="#2-10-开启-HTTP代理连接openvpn服务器" class="headerlink" title="2.10 开启 HTTP代理连接openvpn服务器"></a>2.10 开启 HTTP代理连接openvpn服务器</h2><p>通过此方法可以解决跨运营商连接中断及缓慢的问题，首先需要有一台三网HTTP代理服务器。公司使用的是景安的云服务器做HTTP代理。</p>
+<p>参考资料：<a href="http://www.365mini.com/page/18.htm" target="_blank" rel="noopener">http://www.365mini.com/page/18.htm</a></p>
+<p>1、 在景安云服务器部署代理软件<code>CCProxy</code>,并开启HTTP代理，端口<code>443</code>（可自定义）。</p>
+<p>2、 在客户端配置文件添加如下语句。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http-proxy <span class="number">122.114</span><span class="number">.100</span><span class="number">.229</span> <span class="number">443</span></span><br></pre></td></tr></table></figure>
+<p>配置完成。可以正常连接使用。</p>
+<h1 id="3-用到的文件下载："><a href="#3-用到的文件下载：" class="headerlink" title="3 用到的文件下载："></a>3 用到的文件下载：</h1><p>=<a href="./attachments/easy-rsa-master.zip">easy-rsa-master.zip</a><br>=<a href="./attachments/lzo-2.09.tar.gz">lzo-2.09.tar.gz</a><br>=<a href="./attachments/openvpn-2.3.11.tar.gz">openvpn-2.3.11.tar.gz</a><br>=<a href="./attachments/openvpn2.3.exe">openvpn2.3.exe</a><br>=<a href="./attachments/openvpn-auth-ldap-2.0.3-1.1.x86_64.rpm">openvpn-auth-ldap-2.0.3-1.1.x86_64.rpm</a><br>=<a href="./attachments/openvpn-auth-ldap-2.0.3-9.fc17.i686.rpm">openvpn-auth-ldap-2.0.3-9.fc17.i686.rpm</a><br>=<a href="./attachments/openvpn安装说明.docx">openvpn安装说明.docx</a></p>
+
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+        
+      </div>
+	  
+	  <div>
+        
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/09/10/openvpn部署之部署基于AD域认证访问内网/">openvpn部署之部署基于AD域认证访问内网</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
+  <p><span>发布时间:</span>2018年09月10日 - 14:09</p>
+  <p><span>最后更新:</span>2020年03月11日 - 11:03</p>
+  <p><span>原始链接:</span><a href="/2018/09/10/openvpn部署之部署基于AD域认证访问内网/" title="openvpn部署之部署基于AD域认证访问内网">https://kxinter.github.io/blog/2018/09/10/openvpn部署之部署基于AD域认证访问内网/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/blog/2018/09/10/openvpn部署之部署基于AD域认证访问内网/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+	});
+    });  
+</script>
+
+        
+      </div>
+	
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="OperationMAN 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="OperationMAN 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/openvpn/" rel="tag"><i class="fa fa-tag"></i> openvpn</a>
+          
+            <a href="/tags/vpn/" rel="tag"><i class="fa fa-tag"></i> vpn</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/10/Centos7部署vpn服务器-PPTP/" rel="next" title="Centos7部署vpn服务器_PPTP">
+                <i class="fa fa-chevron-left"></i> Centos7部署vpn服务器_PPTP
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/10/Windows2003域控迁移到Windows2008域控/" rel="prev" title="Windows2003域控迁移到Windows2008域控">
+                Windows2003域控迁移到Windows2008域控 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTUxNS8xNjA0Mg"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+			<!--设置点击头像链接到首页-->
+			<a href="/">
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.jpeg"
+                alt="OperationMAN" />
+			</a>
+            
+              <p class="site-author-name" itemprop="name">OperationMAN</p>
+              <p class="site-description motion-element" itemprop="description">日常运维文档整理。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">114</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:kxhuanzi@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/kxinter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://gitee.com/kxinter" target="_blank" title="码云">
+                      
+                        <i class="fa fa-fw fa-code"></i>码云</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://kxinter.gitee.io" target="_blank" title="blog">
+                      
+                        <i class="fa fa-fw fa-book"></i>blog</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://medoc.000webhostapp.com" target="_blank" title="随手笔记">
+                      
+                        <i class="fa fa-fw fa-wordpress"></i>随手笔记</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://man.linuxde.net/" target="_blank" title="Linux命令大全">
+                      
+                        <i class="fa fa-fw fa-linux"></i>Linux命令大全</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://linux.vbird.org" target="_blank" title="鸟哥的私房菜">
+                      
+                        <i class="fa fa-fw fa-linux"></i>鸟哥的私房菜</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.runoob.com/" target="_blank" title="RUNOOB.com">
+                      
+                        <i class="fa fa-fw fa-linux"></i>RUNOOB.com</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.chenshake.com/" target="_blank" title="陈沙克日志">
+                      
+                        <i class="fa fa-fw fa-cloud"></i>陈沙克日志</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://bitnami.com/" target="_blank" title="Bitnami">
+                      
+                        <i class="fa fa-fw fa-bold"></i>Bitnami</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://fontawesome.com/icons?d=gallery" target="_blank" title="Font Awesome">
+                      
+                        <i class="fa fa-fw fa-font-awesome"></i>Font Awesome</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.000webhost.com/cpanel-login?from=panel#" target="_blank" title="Statistics">
+                      
+                        <i class="fa fa-fw fa-server"></i>Statistics</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://shenzekun.cn/hexo%E7%9A%84next%E4%B8%BB%E9%A2%98%E4%B8%AA%E6%80%A7%E5%8C%96%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.html" title="Next优化" target="_blank">Next优化</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" title="Next深度优化" target="_blank">Next深度优化</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://livere.com/" title="来必力" target="_blank">来必力</a>
+                  </li>
+                
+              </ul>
+			<div id="days"></div>
+<script>
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("05/27/2017 15:13:14");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行"+daysold+"天"+hrsold+"小时"+minsold+"分"+seconds+"秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+</script>
+  
+            </div>
+          
+
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-安装环境"><span class="nav-text">1 安装环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-步骤"><span class="nav-text">2 步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-添加fedora的yum源"><span class="nav-text">2.1 添加fedora的yum源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-安装openvpn"><span class="nav-text">2.2 安装openvpn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-安装openvpn认证插件（LDAP认证使用）"><span class="nav-text">2.3 安装openvpn认证插件（LDAP认证使用）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-安装easy-rsa"><span class="nav-text">2.4 安装easy-rsa</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-生成openvpn的key及证书"><span class="nav-text">2.5 生成openvpn的key及证书</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-1-创建服务器证书"><span class="nav-text">2.5.1 创建服务器证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-2-创建客户端证书（使用客户端证书认证使用）"><span class="nav-text">2.5.2 创建客户端证书（使用客户端证书认证使用）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-编辑openvpn服务端配置"><span class="nav-text">2.6 编辑openvpn服务端配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-1-拷贝配置文件"><span class="nav-text">2.6.1 拷贝配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-2-配置服务端配置文件"><span class="nav-text">2.6.2 配置服务端配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7-修改openvpn-ldap-auth的配置文件："><span class="nav-text">2.7 修改openvpn-ldap-auth的配置文件：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-8-拷贝-etc-openvpn-key目录下的ca-crt证书，以备客户端使用。"><span class="nav-text">2.8 拷贝/etc/openvpn/key目录下的ca.crt证书，以备客户端使用。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8-1-配置客户端配置文件"><span class="nav-text">2.8.1 配置客户端配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-9-开启路由转发"><span class="nav-text">2.9 开启路由转发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-9-1-配置防火墙及路由转发策略："><span class="nav-text">2.9.1 配置防火墙及路由转发策略：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-10-开启-HTTP代理连接openvpn服务器"><span class="nav-text">2.10 开启 HTTP代理连接openvpn服务器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-用到的文件下载："><span class="nav-text">3 用到的文件下载：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OperationMAN</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">133.7k</span>
+  
+</div>
+
+
+
+<!--修改页面底部主题名字和网站软件名字-->
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<!--动态背景>
+ <script type="text/javascript" src="/kxinter.gitub.io/lib/canvas-nest/canvas-nest.min.js"></script> 
+  <-->
+ </body>
+</html>
+<script type="text/javascript" src="/kxinter.gitub.io/js/src/love.js"></script>

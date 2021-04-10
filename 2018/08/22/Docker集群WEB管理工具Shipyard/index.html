@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<!--添加顶部进度条-->
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+<!--end-->
+<meta name="theme-color" content="#222">
+<!--添加文章加密-->
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="fonts.useso.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon1.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon1.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon1.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="docker,shipyard," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、 说明">
+<meta name="keywords" content="docker,shipyard">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker集群WEB管理工具Shipyard">
+<meta property="og:url" content="https://kxinter.github.io/blog/2018/08/22/Docker集群WEB管理工具Shipyard/index.html">
+<meta property="og:site_name" content="Operation随笔">
+<meta property="og:description" content="一、 说明">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/Docker集群WEB管理工具Shipyard/1571816128407.png">
+<meta property="og:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/Docker集群WEB管理工具Shipyard/1571816145028.png">
+<meta property="og:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/Docker集群WEB管理工具Shipyard/1571816154932.png">
+<meta property="og:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/Docker集群WEB管理工具Shipyard/1571816168540.png">
+<meta property="og:updated_time" content="2019-11-07T06:32:52.274Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker集群WEB管理工具Shipyard">
+<meta name="twitter:description" content="一、 说明">
+<meta name="twitter:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/Docker集群WEB管理工具Shipyard/1571816128407.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kxinter.github.io/blog/2018/08/22/Docker集群WEB管理工具Shipyard/"/>
+
+
+
+
+
+  <title>Docker集群WEB管理工具Shipyard | Operation随笔</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<!--添加左上角github图标-->
+	<a href="https://github.com/kxinter" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
+    <!--添加右上角gitee图标
+	<a href="https://gitee.com/kxinter"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://www.jianguoyun.com/c/tblv2/COmIGhjhtNMGIgsv56CB5LqRLmpwZygC/q9YvhedkGsc/l" alt="Fork me on GitHub"></a>
+    -->
+	<header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Operation随笔</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2018/08/22/Docker集群WEB管理工具Shipyard/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Docker集群WEB管理工具Shipyard</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-22T17:00:58+08:00">
+                2018-08-22
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-07T14:32:52+08:00">
+                2019-11-07
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_value_page_pv"></span>次阅读
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一、-说明"><a href="#一、-说明" class="headerlink" title="一、 说明"></a>一、 说明</h1><a id="more"></a>
+<p>Shipyard部署总体较为简单，有一键部署脚本，只需执行相应命令就可以实现部署，但在部署中还是出现很多问题，主要是shipyard官方网站无法访问，无法使用官方一键脚本部署，使用网上找到的修改版，里面有部分内容有所缺失，现已修改。</p>
+<h1 id="二、环境"><a href="#二、环境" class="headerlink" title="二、环境"></a>二、环境</h1><p>centos:7.4</p>
+<p>master: 192.168.1.44</p>
+<p>node1: 192.168.1.12</p>
+<p>node2: 192.168.1.18</p>
+<p>docker version: docker-ce-18.03.0-ce</p>
+<h1 id="三、安装步骤"><a href="#三、安装步骤" class="headerlink" title="三、安装步骤"></a>三、安装步骤</h1><p>安装之前需要部署好docker环境</p>
+<h2 id="1、master节点执行一件部署命令"><a href="#1、master节点执行一件部署命令" class="headerlink" title="1、master节点执行一件部署命令"></a>1、master节点执行一件部署命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 正常直接从官方拉取脚本执行就行了，命令如下</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> curl -s https://shipyard-project.com/deploy | bash -s</span></span><br><span class="line"></span><br><span class="line">[root@master ~]# curl -s https://shipyard-project.com/deploy | bash -s</span><br><span class="line">Deploying Shipyard</span><br><span class="line"><span class="meta"> -&gt;</span><span class="bash"> Starting Database</span></span><br><span class="line">Unable to find image 'rethinkdb:latest' locally</span><br><span class="line">Trying to pull repository xxx.mirror.aliyuncs.com/rethinkdb ...</span><br><span class="line">Pulling repository xxx.mirror.aliyuncs.com/rethinkdb</span><br><span class="line">Trying to pull repository docker.io/library/rethinkdb ...</span><br><span class="line">latest: Pulling from docker.io/library/rethinkdb</span><br><span class="line">Digest: sha256:29640c7d5015832c40305ad5dcc5d0996ce79b87f7e32d2fd99c9d65ad9414d4</span><br><span class="line"><span class="meta"> -&gt;</span><span class="bash"> Starting Discovery</span></span><br><span class="line"><span class="meta"> -&gt;</span><span class="bash"> Starting Cert Volume</span></span><br><span class="line"><span class="meta"> -&gt;</span><span class="bash"> Starting Proxy</span></span><br><span class="line"><span class="meta"> -&gt;</span><span class="bash"> Starting Swarm Manager</span></span><br><span class="line"><span class="meta"> -&gt;</span><span class="bash"> Starting Swarm Agent</span></span><br><span class="line"><span class="meta"> -&gt;</span><span class="bash"> Starting Controller</span></span><br><span class="line">Waiting for Shipyard on 192.168.1.44:8080</span><br><span class="line"> </span><br><span class="line">Shipyard available at http://192.168.1.44:8080</span><br><span class="line">Username: admin Password: shipyard</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者下载脚本后本地执行，命令如下</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sh deploy</span></span><br></pre></td></tr></table></figure>
+<p>执行脚本的时候会自动下载相关镜像，也可以事先下载镜像文件</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@<span class="keyword">master</span> <span class="title">~]# docker</span> pull alpine</span><br><span class="line">[root@<span class="keyword">master</span> <span class="title">~]# docker</span> pull library/rethinkdb</span><br><span class="line">[root@<span class="keyword">master</span> <span class="title">~]# docker</span> pull microbox/etcd</span><br><span class="line">[root@<span class="keyword">master</span> <span class="title">~]# docker</span> pull shipyard/docker-proxy</span><br><span class="line">[root@<span class="keyword">master</span> <span class="title">~]# docker</span> pull swarm</span><br><span class="line">[root@<span class="keyword">master</span> <span class="title">~]# docker</span> pull shipyard/shipyard</span><br></pre></td></tr></table></figure>
+<p>通过访问<a href="http://IP：8080登录shipyard,默认帐号密码：admin" target="_blank" rel="noopener">http://IP：8080登录shipyard,默认帐号密码：admin</a>   shipyard<br><img src="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/Docker集群WEB管理工具Shipyard/1571816128407.png" alt="图1"></p>
+<h2 id="2、分别在node节点执行如下命令，添加节点到shipyard"><a href="#2、分别在node节点执行如下命令，添加节点到shipyard" class="headerlink" title="2、分别在node节点执行如下命令，添加节点到shipyard"></a>2、分别在node节点执行如下命令，添加节点到shipyard</h2><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 部署机就是master节点</span></span><br><span class="line">$ curl -sSL https://shipyard-project.com/deploy | <span class="attr">ACTION=</span><span class="keyword">node</span> <span class="title">DISCOVERY</span>=etcd://<span class="tag">&lt;shipyard部署机ip&gt;</span> bash -s</span><br><span class="line"><span class="comment"># 或者通过本地脚本执行命令</span></span><br><span class="line">$ cat deploy | <span class="attr">ACTION=</span><span class="keyword">node</span> <span class="title">DISCOVERY</span>=etcd://<span class="tag">&lt;shipyard部署机ip&gt;</span> bash -s</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/Docker集群WEB管理工具Shipyard/1571816145028.png" alt="图2"><br><img src="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/Docker集群WEB管理工具Shipyard/1571816154932.png" alt="图3"><br><img src="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/Docker集群WEB管理工具Shipyard/1571816168540.png" alt="图4"></p>
+<h1 id="四、问题总结"><a href="#四、问题总结" class="headerlink" title="四、问题总结"></a>四、问题总结</h1><h2 id="注意项目1："><a href="#注意项目1：" class="headerlink" title="注意项目1："></a>注意项目1：</h2><p>—————————————————————————————————————<br>上面安装shipyard的脚本是英文版的，其实还有中文版的脚本，下面两种都可以使用：（两个地址都失效）</p>
+<p>1）安装shipyard</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> curl -sSL http://dockerclub.net/public/script/deploy | bash -s ==&gt; 中文版</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> curl -sSL https://shipyard-project.com/deploy | bash -s ==&gt; 英文版</span></span><br></pre></td></tr></table></figure>
+<p>2）添加node节点</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> curl -sSL http://dockerclub.net/public/script/deploy | ACTION=node DISCOVERY=etcd://&lt;shipyard部署机ip&gt; bash -s ==&gt; 中文版</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> curl -sSL https://shipyard-project.com/deploy | ACTION=node DISCOVERY=etcd://&lt;shipyard部署机ip&gt; bash -s ==&gt; 英文版</span></span><br></pre></td></tr></table></figure>
+<p>3）删除shipyard（在节点机上执行，就会将节点从shipyard管理里踢出）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> curl http://dockerclub.net/public/script/deploy | ACTION=remove bash -s ==&gt; 中文版</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> curl -sSL https://shipyard-project.com/deploy | ACTION=remove bash -s ==&gt; 英文版</span></span><br></pre></td></tr></table></figure>
+<p>—————————————————————————————————————</p>
+<p>问题项目2：<br>—————————————————————————————————————</p>
+<p>1）安装shipyard前不需要部署swarm集群，一键包已包含集群建设</p>
+<p>2）部署后无法发现节点，容器页面报错，意思是到节点IP:3375端口无法建立连接，500错误；根据排查，发现所有节点swarm_manager容器都没有开启3375端口，于是在脚本里面修改</p>
+<p>容器启动命令，添加开启3375端口，具体看下方脚本；</p>
+<p>3）在shipyard web页面，master自身发现较慢，不知道什么原因</p>
+<p>4）中文版shipard创建容器的时候，设置端口映射但不生效，使用英文版没有问题，未发现问题原因</p>
+<p>5）shipyard只适合较小规模docker集群，功能上已跟不上现阶段的docker集群需求。</p>
+<p>—————————————————————————————————————</p>
+<h1 id="deploy脚本"><a href="#deploy脚本" class="headerlink" title="deploy脚本"></a>deploy脚本</h1><p>这个是中文版的脚本，和官方的区别就是修改了shipyard镜像文件，下方标注部分说明</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$1</span>"</span> != <span class="string">""</span> ] &amp;&amp; [ <span class="string">"<span class="variable">$1</span>"</span> = <span class="string">"-h"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Shipyard Deploy uses the following environment variables:"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"  ACTION: this is the action to use (deploy, upgrade, node, remove)"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"  DISCOVERY: discovery system used by Swarm (only if using 'node' action)"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"  IMAGE: this overrides the default Shipyard image"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"  PREFIX: prefix for container names"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"  SHIPYARD_ARGS: these are passed to the Shipyard controller container as controller args"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"  TLS_CERT_PATH: path to certs to enable TLS for Shipyard"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"  PORT: specify the listen port for the controller (default: 8080)"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"  IP: specify the address at which the controller or node will be available (default: eth0 ip)"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"  PROXY_PORT: port to run docker proxy (default: 2375)"</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -z <span class="string">"`which docker`"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"You must have the Docker CLI installed on your \$PATH"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"  See http://docs.docker.com for details"</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">ACTION=<span class="variable">$&#123;ACTION:-deploy&#125;</span></span><br><span class="line"><span class="comment">#官方IMAGE=$&#123;IMAGE:-shipyard/shipyard:latest&#125;</span></span><br><span class="line"><span class="comment">#备注官方shipyard:latest标签镜像似乎有问题，实际使用shipyard:master标签镜像</span></span><br><span class="line">IMAGE=<span class="variable">$&#123;IMAGE:-dockerclub/shipyard:latest&#125;</span></span><br><span class="line">PREFIX=<span class="variable">$&#123;PREFIX:-shipyard&#125;</span></span><br><span class="line">SHIPYARD_ARGS=<span class="variable">$&#123;SHIPYARD_ARGS:-""&#125;</span></span><br><span class="line">TLS_CERT_PATH=<span class="variable">$&#123;TLS_CERT_PATH:-&#125;</span></span><br><span class="line">CERT_PATH=<span class="string">"/etc/shipyard"</span></span><br><span class="line">PROXY_PORT=<span class="variable">$&#123;PROXY_PORT:-2375&#125;</span></span><br><span class="line">SWARM_PORT=3375</span><br><span class="line">SHIPYARD_PROTOCOL=http</span><br><span class="line">SHIPYARD_PORT=<span class="variable">$&#123;PORT:-8080&#125;</span></span><br><span class="line">SHIPYARD_IP=<span class="variable">$&#123;IP&#125;</span></span><br><span class="line">DISCOVERY_BACKEND=etcd</span><br><span class="line">DISCOVERY_PORT=4001</span><br><span class="line">DISCOVERY_PEER_PORT=7001</span><br><span class="line">ENABLE_TLS=0</span><br><span class="line">CERT_FINGERPRINT=<span class="string">""</span></span><br><span class="line">LOCAL_CA_CERT=<span class="string">""</span></span><br><span class="line">LOCAL_SSL_CERT=<span class="string">""</span></span><br><span class="line">LOCAL_SSL_KEY=<span class="string">""</span></span><br><span class="line">LOCAL_SSL_CLIENT_CERT=<span class="string">""</span></span><br><span class="line">LOCAL_SSL_CLIENT_KEY=<span class="string">""</span></span><br><span class="line">SSL_CA_CERT=<span class="string">""</span></span><br><span class="line">SSL_CERT=<span class="string">""</span></span><br><span class="line">SSL_KEY=<span class="string">""</span></span><br><span class="line">SSL_CLIENT_CERT=<span class="string">""</span></span><br><span class="line">SSL_CLIENT_KEY=<span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">show_cert_help</span></span>() &#123;</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"To use TLS in Shipyard, you must have existing certificates."</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"The certs must be named ca.pem, server.pem, server-key.pem, cert.pem and key.pem"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"If you need to generate certificates, see https://github.com/ehazlett/certm for examples."</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">check_certs</span></span>() &#123;</span><br><span class="line">    <span class="keyword">if</span> [ -z <span class="string">"<span class="variable">$TLS_CERT_PATH</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">return</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> [ ! -e <span class="variable">$TLS_CERT_PATH</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"Error: unable to find certificates in <span class="variable">$TLS_CERT_PATH</span>"</span></span><br><span class="line">        show_cert_help</span><br><span class="line">        <span class="built_in">exit</span> 1</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> [ <span class="string">"<span class="variable">$PROXY_PORT</span>"</span> = <span class="string">"2375"</span> ]; <span class="keyword">then</span></span><br><span class="line">        PROXY_PORT=2376</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    SWARM_PORT=3376</span><br><span class="line">    SHIPYARD_PROTOCOL=https</span><br><span class="line">    LOCAL_SSL_CA_CERT=<span class="string">"<span class="variable">$TLS_CERT_PATH</span>/ca.pem"</span></span><br><span class="line">    LOCAL_SSL_CERT=<span class="string">"<span class="variable">$TLS_CERT_PATH</span>/server.pem"</span></span><br><span class="line">    LOCAL_SSL_KEY=<span class="string">"<span class="variable">$TLS_CERT_PATH</span>/server-key.pem"</span></span><br><span class="line">    LOCAL_SSL_CLIENT_CERT=<span class="string">"<span class="variable">$TLS_CERT_PATH</span>/cert.pem"</span></span><br><span class="line">    LOCAL_SSL_CLIENT_KEY=<span class="string">"<span class="variable">$TLS_CERT_PATH</span>/key.pem"</span></span><br><span class="line">    SSL_CA_CERT=<span class="string">"<span class="variable">$CERT_PATH</span>/ca.pem"</span></span><br><span class="line">    SSL_CERT=<span class="string">"<span class="variable">$CERT_PATH</span>/server.pem"</span></span><br><span class="line">    SSL_KEY=<span class="string">"<span class="variable">$CERT_PATH</span>/server-key.pem"</span></span><br><span class="line">    SSL_CLIENT_CERT=<span class="string">"<span class="variable">$CERT_PATH</span>/cert.pem"</span></span><br><span class="line">    SSL_CLIENT_KEY=<span class="string">"<span class="variable">$CERT_PATH</span>/key.pem"</span></span><br><span class="line">    CERT_FINGERPRINT=$(openssl x509 -noout -<span class="keyword">in</span> <span class="variable">$LOCAL_SSL_CERT</span> -fingerprint -sha256 | awk -F= <span class="string">'&#123;print $2;&#125;'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> [ ! -e <span class="variable">$LOCAL_SSL_CA_CERT</span> ] || [ ! -e <span class="variable">$LOCAL_SSL_CERT</span> ] || [ ! -e <span class="variable">$LOCAL_SSL_KEY</span> ] || [ ! -e <span class="variable">$LOCAL_SSL_CLIENT_CERT</span> ] || [ ! -e <span class="variable">$LOCAL_SSL_CLIENT_KEY</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"Error: unable to find certificates"</span></span><br><span class="line">        show_cert_help</span><br><span class="line">        <span class="built_in">exit</span> 1</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    ENABLE_TLS=1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># container functions</span></span><br><span class="line"><span class="function"><span class="title">start_certs</span></span>() &#123;</span><br><span class="line">    ID=$(docker run \</span><br><span class="line">        -ti \</span><br><span class="line">        -d \</span><br><span class="line">        --restart=always \</span><br><span class="line">        --name <span class="variable">$PREFIX</span>-certs \</span><br><span class="line">        -v <span class="variable">$CERT_PATH</span> \</span><br><span class="line">        alpine \</span><br><span class="line">        sh)</span><br><span class="line">    <span class="keyword">if</span> [ <span class="variable">$ENABLE_TLS</span> = 1 ]; <span class="keyword">then</span></span><br><span class="line">        docker cp <span class="variable">$LOCAL_SSL_CA_CERT</span> <span class="variable">$PREFIX</span>-certs:<span class="variable">$SSL_CA_CERT</span></span><br><span class="line">        docker cp <span class="variable">$LOCAL_SSL_CERT</span> <span class="variable">$PREFIX</span>-certs:<span class="variable">$SSL_CERT</span></span><br><span class="line">        docker cp <span class="variable">$LOCAL_SSL_KEY</span> <span class="variable">$PREFIX</span>-certs:<span class="variable">$SSL_KEY</span></span><br><span class="line">        docker cp <span class="variable">$LOCAL_SSL_CLIENT_CERT</span> <span class="variable">$PREFIX</span>-certs:<span class="variable">$SSL_CLIENT_CERT</span></span><br><span class="line">        docker cp <span class="variable">$LOCAL_SSL_CLIENT_KEY</span> <span class="variable">$PREFIX</span>-certs:<span class="variable">$SSL_CLIENT_KEY</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">remove_certs</span></span>() &#123;</span><br><span class="line">    docker rm -fv <span class="variable">$PREFIX</span>-certs &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">get_ip</span></span>() &#123;</span><br><span class="line">    <span class="keyword">if</span> [ -z <span class="string">"<span class="variable">$SHIPYARD_IP</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        SHIPYARD_IP=`docker run --rm --net=host alpine ip route get 8.8.8.8 | awk <span class="string">'&#123; print $7;  &#125;'</span>`</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">start_discovery</span></span>() &#123;</span><br><span class="line">    get_ip</span><br><span class="line"></span><br><span class="line">    ID=$(docker run \</span><br><span class="line">        -ti \</span><br><span class="line">        -d \</span><br><span class="line">        -p 4001:4001 \</span><br><span class="line">        -p 7001:7001 \</span><br><span class="line">        --restart=always \</span><br><span class="line">        --name <span class="variable">$PREFIX</span>-discovery \</span><br><span class="line">        microbox/etcd:latest -addr <span class="variable">$SHIPYARD_IP</span>:<span class="variable">$DISCOVERY_PORT</span> -peer-addr <span class="variable">$SHIPYARD_IP</span>:<span class="variable">$DISCOVERY_PEER_PORT</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">remove_discovery</span></span>() &#123;</span><br><span class="line">    docker rm -fv <span class="variable">$PREFIX</span>-discovery &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">start_rethinkdb</span></span>() &#123;</span><br><span class="line">    ID=$(docker run \</span><br><span class="line">        -ti \</span><br><span class="line">        -d \</span><br><span class="line">        --restart=always \</span><br><span class="line">        --name <span class="variable">$PREFIX</span>-rethinkdb \</span><br><span class="line">        rethinkdb)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">remove_rethinkdb</span></span>() &#123;</span><br><span class="line">    docker rm -fv <span class="variable">$PREFIX</span>-rethinkdb &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">start_proxy</span></span>() &#123;</span><br><span class="line">    TLS_OPTS=<span class="string">""</span></span><br><span class="line">    <span class="keyword">if</span> [ <span class="variable">$ENABLE_TLS</span> = 1 ]; <span class="keyword">then</span></span><br><span class="line">        TLS_OPTS=<span class="string">"-e SSL_CA=<span class="variable">$SSL_CA_CERT</span> -e SSL_CERT=<span class="variable">$SSL_CERT</span> -e SSL_KEY=<span class="variable">$SSL_KEY</span> -e SSL_SKIP_VERIFY=1"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    <span class="comment"># Note: we add SSL_SKIP_VERIFY=1 to skip verification of the client</span></span><br><span class="line">    <span class="comment"># certificate in the proxy image.  this will pass it to swarm that</span></span><br><span class="line">    <span class="comment"># does verify.  this helps with performance and avoids certificate issues</span></span><br><span class="line">    <span class="comment"># when running through the proxy.  ultimately if the cert is invalid</span></span><br><span class="line">    <span class="comment"># swarm will fail to return.</span></span><br><span class="line">    ID=$(docker run \</span><br><span class="line">        -ti \</span><br><span class="line">        -d \</span><br><span class="line">        -p <span class="variable">$PROXY_PORT</span>:<span class="variable">$PROXY_PORT</span> \</span><br><span class="line">        --hostname=<span class="variable">$HOSTNAME</span> \</span><br><span class="line">        --restart=always \</span><br><span class="line">        --name <span class="variable">$PREFIX</span>-proxy \</span><br><span class="line">        -v /var/run/docker.sock:/var/run/docker.sock \</span><br><span class="line">        -e PORT=<span class="variable">$PROXY_PORT</span> \</span><br><span class="line">        --volumes-from=<span class="variable">$PREFIX</span>-certs <span class="variable">$TLS_OPTS</span>\</span><br><span class="line">        shipyard/docker-proxy:latest)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">remove_proxy</span></span>() &#123;</span><br><span class="line">    docker rm -fv <span class="variable">$PREFIX</span>-proxy &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">start_swarm_manager</span></span>() &#123;</span><br><span class="line">    get_ip</span><br><span class="line"></span><br><span class="line">    TLS_OPTS=<span class="string">""</span></span><br><span class="line">    <span class="keyword">if</span> [ <span class="variable">$ENABLE_TLS</span> = 1 ]; <span class="keyword">then</span></span><br><span class="line">        TLS_OPTS=<span class="string">"--tlsverify --tlscacert=<span class="variable">$SSL_CA_CERT</span> --tlscert=<span class="variable">$SSL_CERT</span> --tlskey=<span class="variable">$SSL_KEY</span>"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    EXTRA_RUN_OPTS=<span class="string">""</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> [ -z <span class="string">"<span class="variable">$DISCOVERY</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        DISCOVERY=<span class="string">"<span class="variable">$DISCOVERY_BACKEND</span>://discovery:<span class="variable">$DISCOVERY_PORT</span>"</span></span><br><span class="line">        EXTRA_RUN_OPTS=<span class="string">"--link <span class="variable">$PREFIX</span>-discovery:discovery"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    ID=$(docker run \</span><br><span class="line">        -ti \</span><br><span class="line">        -d \</span><br><span class="line"><span class="comment">#下面3375端口是我出现无法连接节点后自己添加的，问题是启动容器没有开放3375端口</span></span><br><span class="line">        -p 3375:3375 \</span><br><span class="line">        --restart=always \</span><br><span class="line">        --name <span class="variable">$PREFIX</span>-swarm-manager \</span><br><span class="line">        --volumes-from=<span class="variable">$PREFIX</span>-certs <span class="variable">$EXTRA_RUN_OPTS</span> \</span><br><span class="line">        swarm:latest \</span><br><span class="line">        m --replication --addr <span class="variable">$SHIPYARD_IP</span>:<span class="variable">$SWARM_PORT</span> --host tcp://0.0.0.0:<span class="variable">$SWARM_PORT</span> <span class="variable">$TLS_OPTS</span> <span class="variable">$DISCOVERY</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">remove_swarm_manager</span></span>() &#123;</span><br><span class="line">    docker rm -fv <span class="variable">$PREFIX</span>-swarm-manager &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">start_swarm_agent</span></span>() &#123;</span><br><span class="line">    get_ip</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> [ -z <span class="string">"<span class="variable">$DISCOVERY</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        DISCOVERY=<span class="string">"<span class="variable">$DISCOVERY_BACKEND</span>://discovery:<span class="variable">$DISCOVERY_PORT</span>"</span></span><br><span class="line">        EXTRA_RUN_OPTS=<span class="string">"--link <span class="variable">$PREFIX</span>-discovery:discovery"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    ID=$(docker run \</span><br><span class="line">        -ti \</span><br><span class="line">        -d \</span><br><span class="line">        --restart=always \</span><br><span class="line">        --name <span class="variable">$PREFIX</span>-swarm-agent <span class="variable">$EXTRA_RUN_OPTS</span> \</span><br><span class="line">        swarm:latest \</span><br><span class="line">        j --addr <span class="variable">$SHIPYARD_IP</span>:<span class="variable">$PROXY_PORT</span> <span class="variable">$DISCOVERY</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">remove_swarm_agent</span></span>() &#123;</span><br><span class="line">    docker rm -fv <span class="variable">$PREFIX</span>-swarm-agent &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">start_controller</span></span>() &#123;</span><br><span class="line">    <span class="comment">#-v $CERT_PATH:/etc/docker:ro \</span></span><br><span class="line">    TLS_OPTS=<span class="string">""</span></span><br><span class="line">    <span class="keyword">if</span> [ <span class="variable">$ENABLE_TLS</span> = 1 ]; <span class="keyword">then</span></span><br><span class="line">        TLS_OPTS=<span class="string">"--tls-ca-cert <span class="variable">$SSL_CA_CERT</span> --tls-cert=<span class="variable">$SSL_CERT</span> --tls-key=<span class="variable">$SSL_KEY</span> --shipyard-tls-ca-cert=<span class="variable">$SSL_CA_CERT</span> --shipyard-tls-cert=<span class="variable">$SSL_CERT</span> --shipyard-tls-key=<span class="variable">$SSL_KEY</span>"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    ID=$(docker run \</span><br><span class="line">        -ti \</span><br><span class="line">        -d \</span><br><span class="line">        --restart=always \</span><br><span class="line">        --name <span class="variable">$PREFIX</span>-controller \</span><br><span class="line">        --link <span class="variable">$PREFIX</span>-rethinkdb:rethinkdb \</span><br><span class="line">        --link <span class="variable">$PREFIX</span>-swarm-manager:swarm \</span><br><span class="line">        -p <span class="variable">$SHIPYARD_PORT</span>:<span class="variable">$SHIPYARD_PORT</span> \</span><br><span class="line">        --volumes-from=<span class="variable">$PREFIX</span>-certs \</span><br><span class="line">        <span class="variable">$IMAGE</span> \</span><br><span class="line">        --debug \</span><br><span class="line">        server \</span><br><span class="line">        --listen :<span class="variable">$SHIPYARD_PORT</span> \</span><br><span class="line">        -d tcp://swarm:<span class="variable">$SWARM_PORT</span> <span class="variable">$TLS_OPTS</span> <span class="variable">$SHIPYARD_ARGS</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">wait_for_available</span></span>() &#123;</span><br><span class="line">    <span class="built_in">set</span> +e </span><br><span class="line">    IP=<span class="variable">$1</span></span><br><span class="line">    PORT=<span class="variable">$2</span></span><br><span class="line">    <span class="built_in">echo</span> Waiting <span class="keyword">for</span> Shipyard on <span class="variable">$IP</span>:<span class="variable">$PORT</span></span><br><span class="line"></span><br><span class="line">    docker pull ehazlett/curl &gt; /dev/null 2&gt;&amp;1</span><br><span class="line"></span><br><span class="line">    TLS_OPTS=<span class="string">""</span></span><br><span class="line">    <span class="keyword">if</span> [ <span class="variable">$ENABLE_TLS</span> = 1 ]; <span class="keyword">then</span></span><br><span class="line">        TLS_OPTS=<span class="string">"-k"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    until $(docker run --rm ehazlett/curl --output /dev/null --connect-timeout 1 --silent --head --fail <span class="variable">$TLS_OPTS</span> <span class="variable">$SHIPYARD_PROTOCOL</span>://<span class="variable">$IP</span>:<span class="variable">$PORT</span>/ &gt; /dev/null 2&gt;&amp;1); <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">printf</span> <span class="string">'.'</span></span><br><span class="line">        sleep 1 </span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line">    <span class="built_in">printf</span> <span class="string">'\n'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">remove_controller</span></span>() &#123;</span><br><span class="line">    docker rm -fv <span class="variable">$PREFIX</span>-controller &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$ACTION</span>"</span> = <span class="string">"deploy"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">set</span> -e</span><br><span class="line"></span><br><span class="line">    check_certs</span><br><span class="line"></span><br><span class="line">    get_ip </span><br><span class="line"></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Deploying Shipyard"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Starting Database"</span></span><br><span class="line">    start_rethinkdb</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Starting Discovery"</span></span><br><span class="line">    start_discovery</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Starting Cert Volume"</span></span><br><span class="line">    start_certs</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Starting Proxy"</span></span><br><span class="line">    start_proxy</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Starting Swarm Manager"</span></span><br><span class="line">    start_swarm_manager</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Starting Swarm Agent"</span></span><br><span class="line">    start_swarm_agent</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Starting Controller"</span></span><br><span class="line">    start_controller</span><br><span class="line"></span><br><span class="line">    wait_for_available <span class="variable">$SHIPYARD_IP</span> <span class="variable">$SHIPYARD_PORT</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Shipyard available at <span class="variable">$SHIPYARD_PROTOCOL</span>://<span class="variable">$SHIPYARD_IP</span>:<span class="variable">$SHIPYARD_PORT</span>"</span></span><br><span class="line">    <span class="keyword">if</span> [ <span class="variable">$ENABLE_TLS</span> = 1 ] &amp;&amp; [ ! -z <span class="string">"<span class="variable">$CERT_FINGERPRINT</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"SSL SHA-256 Fingerprint: <span class="variable">$CERT_FINGERPRINT</span>"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Username: admin Password: shipyard"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">elif</span> [ <span class="string">"<span class="variable">$ACTION</span>"</span> = <span class="string">"node"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">set</span> -e</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> [ -z <span class="string">"<span class="variable">$DISCOVERY</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"You must set the DISCOVERY environment variable"</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"with the discovery system used with Swarm"</span></span><br><span class="line">        <span class="built_in">exit</span> 1</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    check_certs</span><br><span class="line"></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Adding Node"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Starting Cert Volume"</span></span><br><span class="line">    start_certs</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Starting Proxy"</span></span><br><span class="line">    start_proxy</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Starting Swarm Manager"</span></span><br><span class="line">    start_swarm_manager <span class="variable">$DISCOVERY</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Starting Swarm Agent"</span></span><br><span class="line">    start_swarm_agent</span><br><span class="line"></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Node added to Swarm: <span class="variable">$SHIPYARD_IP</span>"</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">elif</span> [ <span class="string">"<span class="variable">$ACTION</span>"</span> = <span class="string">"upgrade"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">set</span> -e</span><br><span class="line"></span><br><span class="line">    check_certs</span><br><span class="line"></span><br><span class="line">    get_ip</span><br><span class="line"></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Upgrading Shipyard"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Pulling <span class="variable">$IMAGE</span>"</span></span><br><span class="line">    docker pull <span class="variable">$IMAGE</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Upgrading Controller"</span></span><br><span class="line">    remove_controller</span><br><span class="line">    start_controller</span><br><span class="line"></span><br><span class="line">    wait_for_available <span class="variable">$SHIPYARD_IP</span> <span class="variable">$SHIPYARD_PORT</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Shipyard controller updated"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">elif</span> [ <span class="string">"<span class="variable">$ACTION</span>"</span> = <span class="string">"remove"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="comment"># ignore errors</span></span><br><span class="line">    <span class="built_in">set</span> +e</span><br><span class="line"></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Removing Shipyard"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Removing Database"</span></span><br><span class="line">    remove_rethinkdb</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Removing Discovery"</span></span><br><span class="line">    remove_discovery</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Removing Cert Volume"</span></span><br><span class="line">    remove_certs</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Removing Proxy"</span></span><br><span class="line">    remove_proxy</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Removing Swarm Agent"</span></span><br><span class="line">    remove_swarm_agent</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Removing Swarm Manager"</span></span><br><span class="line">    remove_swarm_manager</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">" -&gt; Removing Controller"</span></span><br><span class="line">    remove_controller</span><br><span class="line"></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Done"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Unknown action <span class="variable">$ACTION</span>"</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://www.cnblogs.com/kevingrace/p/6867820.html" target="_blank" rel="noopener">https://www.cnblogs.com/kevingrace/p/6867820.html</a></p>
+<p><a href="https://www.fcwys.cc/index.php/archives/145.html" target="_blank" rel="noopener">https://www.fcwys.cc/index.php/archives/145.html</a></p>
+
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+        
+      </div>
+	  
+	  <div>
+        
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/08/22/Docker集群WEB管理工具Shipyard/">Docker集群WEB管理工具Shipyard</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
+  <p><span>发布时间:</span>2018年08月22日 - 17:08</p>
+  <p><span>最后更新:</span>2019年11月07日 - 14:11</p>
+  <p><span>原始链接:</span><a href="/2018/08/22/Docker集群WEB管理工具Shipyard/" title="Docker集群WEB管理工具Shipyard">https://kxinter.github.io/blog/2018/08/22/Docker集群WEB管理工具Shipyard/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/blog/2018/08/22/Docker集群WEB管理工具Shipyard/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+	});
+    });  
+</script>
+
+        
+      </div>
+	
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="OperationMAN 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="OperationMAN 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/docker/" rel="tag"><i class="fa fa-tag"></i> docker</a>
+          
+            <a href="/tags/shipyard/" rel="tag"><i class="fa fa-tag"></i> shipyard</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/20/Oracle-11g-R2安装教程/" rel="next" title="Oracle-11g-R2安装教程">
+                <i class="fa fa-chevron-left"></i> Oracle-11g-R2安装教程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/23/jenkins邮件通知/" rel="prev" title="jenkins邮件通知">
+                jenkins邮件通知 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTUxNS8xNjA0Mg"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+			<!--设置点击头像链接到首页-->
+			<a href="/">
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.jpeg"
+                alt="OperationMAN" />
+			</a>
+            
+              <p class="site-author-name" itemprop="name">OperationMAN</p>
+              <p class="site-description motion-element" itemprop="description">日常运维文档整理。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">114</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:kxhuanzi@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/kxinter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://gitee.com/kxinter" target="_blank" title="码云">
+                      
+                        <i class="fa fa-fw fa-code"></i>码云</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://kxinter.gitee.io" target="_blank" title="blog">
+                      
+                        <i class="fa fa-fw fa-book"></i>blog</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://medoc.000webhostapp.com" target="_blank" title="随手笔记">
+                      
+                        <i class="fa fa-fw fa-wordpress"></i>随手笔记</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://man.linuxde.net/" target="_blank" title="Linux命令大全">
+                      
+                        <i class="fa fa-fw fa-linux"></i>Linux命令大全</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://linux.vbird.org" target="_blank" title="鸟哥的私房菜">
+                      
+                        <i class="fa fa-fw fa-linux"></i>鸟哥的私房菜</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.runoob.com/" target="_blank" title="RUNOOB.com">
+                      
+                        <i class="fa fa-fw fa-linux"></i>RUNOOB.com</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.chenshake.com/" target="_blank" title="陈沙克日志">
+                      
+                        <i class="fa fa-fw fa-cloud"></i>陈沙克日志</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://bitnami.com/" target="_blank" title="Bitnami">
+                      
+                        <i class="fa fa-fw fa-bold"></i>Bitnami</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://fontawesome.com/icons?d=gallery" target="_blank" title="Font Awesome">
+                      
+                        <i class="fa fa-fw fa-font-awesome"></i>Font Awesome</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.000webhost.com/cpanel-login?from=panel#" target="_blank" title="Statistics">
+                      
+                        <i class="fa fa-fw fa-server"></i>Statistics</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://shenzekun.cn/hexo%E7%9A%84next%E4%B8%BB%E9%A2%98%E4%B8%AA%E6%80%A7%E5%8C%96%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.html" title="Next优化" target="_blank">Next优化</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" title="Next深度优化" target="_blank">Next深度优化</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://livere.com/" title="来必力" target="_blank">来必力</a>
+                  </li>
+                
+              </ul>
+			<div id="days"></div>
+<script>
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("05/27/2017 15:13:14");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行"+daysold+"天"+hrsold+"小时"+minsold+"分"+seconds+"秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+</script>
+  
+            </div>
+          
+
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、-说明"><span class="nav-text">一、 说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、环境"><span class="nav-text">二、环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、安装步骤"><span class="nav-text">三、安装步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、master节点执行一件部署命令"><span class="nav-text">1、master节点执行一件部署命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、分别在node节点执行如下命令，添加节点到shipyard"><span class="nav-text">2、分别在node节点执行如下命令，添加节点到shipyard</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、问题总结"><span class="nav-text">四、问题总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#注意项目1："><span class="nav-text">注意项目1：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#deploy脚本"><span class="nav-text">deploy脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OperationMAN</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">133.7k</span>
+  
+</div>
+
+
+
+<!--修改页面底部主题名字和网站软件名字-->
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<!--动态背景>
+ <script type="text/javascript" src="/kxinter.gitub.io/lib/canvas-nest/canvas-nest.min.js"></script> 
+  <-->
+ </body>
+</html>
+<script type="text/javascript" src="/kxinter.gitub.io/js/src/love.js"></script>
