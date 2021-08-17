@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<!--添加顶部进度条-->
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+<!--end-->
+<meta name="theme-color" content="#222">
+<!--添加文章加密-->
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="fonts.useso.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon1.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon1.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon1.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="postgresql," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1 参考文档repmgr 官方文档：repmgr 5.3dev Documentation 其他文档：Configure PostgreSQL Replication With Repmgr_qq_38461429的博客-CSDN博客 2 环境   主机名 IP OS 角色 软件包     pg1 192.168.44.131 Centos 7 primary postgresql 11  and">
+<meta name="keywords" content="postgresql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="postgresql+repmgr高可用">
+<meta property="og:url" content="https://kxinter.github.io/blog/2021/08/17/postgresql-repmgr高可用/index.html">
+<meta property="og:site_name" content="Operation随笔">
+<meta property="og:description" content="1 参考文档repmgr 官方文档：repmgr 5.3dev Documentation 其他文档：Configure PostgreSQL Replication With Repmgr_qq_38461429的博客-CSDN博客 2 环境   主机名 IP OS 角色 软件包     pg1 192.168.44.131 Centos 7 primary postgresql 11  and">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-08-17T08:32:39.563Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="postgresql+repmgr高可用">
+<meta name="twitter:description" content="1 参考文档repmgr 官方文档：repmgr 5.3dev Documentation 其他文档：Configure PostgreSQL Replication With Repmgr_qq_38461429的博客-CSDN博客 2 环境   主机名 IP OS 角色 软件包     pg1 192.168.44.131 Centos 7 primary postgresql 11  and">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kxinter.github.io/blog/2021/08/17/postgresql-repmgr高可用/"/>
+
+
+
+
+
+  <title>postgresql+repmgr高可用 | Operation随笔</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<!--添加左上角github图标-->
+	<a href="https://github.com/kxinter" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
+    <!--添加右上角gitee图标
+	<a href="https://gitee.com/kxinter"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://www.jianguoyun.com/c/tblv2/COmIGhjhtNMGIgsv56CB5LqRLmpwZygC/q9YvhedkGsc/l" alt="Fork me on GitHub"></a>
+    -->
+	<header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Operation随笔</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2021/08/17/postgresql-repmgr高可用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">postgresql+repmgr高可用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-17T16:27:52+08:00">
+                2021-08-17
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-08-17T16:32:39+08:00">
+                2021-08-17
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_value_page_pv"></span>次阅读
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  28
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-参考文档"><a href="#1-参考文档" class="headerlink" title="1 参考文档"></a>1 参考文档</h1><p>repmgr 官方文档：<a href="https://repmgr.org/docs/current/index.html" target="_blank" rel="noopener">repmgr 5.3dev Documentation</a></p>
+<p>其他文档：<a href="https://blog.csdn.net/qq_38461429/article/details/107487092" target="_blank" rel="noopener">Configure PostgreSQL Replication With Repmgr_qq_38461429的博客-CSDN博客</a></p>
+<h1 id="2-环境"><a href="#2-环境" class="headerlink" title="2 环境"></a>2 环境</h1><table>
+<thead>
+<tr>
+<th>主机名</th>
+<th>IP</th>
+<th>OS</th>
+<th>角色</th>
+<th>软件包</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pg1</td>
+<td>192.168.44.131</td>
+<td>Centos 7</td>
+<td>primary</td>
+<td>postgresql 11  and repmgr</td>
+</tr>
+<tr>
+<td>pg2</td>
+<td>192.168.44.131</td>
+<td>Centos 7</td>
+<td>standby</td>
+<td>postgresql 11  and repmgr</td>
+</tr>
+<tr>
+<td>pg3</td>
+<td>192.168.44.135</td>
+<td>Centos 7</td>
+<td>standby</td>
+<td>postgresql 11  and repmgr</td>
+</tr>
+</tbody>
+</table>
+<div class="note default"><p><strong>备注</strong><br>以下安装方式均采用在线安装方式。</p></div>
+<h1 id="3-修改hosts"><a href="#3-修改hosts" class="headerlink" title="3 修改hosts"></a>3 修改hosts</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">192.168.44.131 pg1</span><br><span class="line">192.168.44.132 pg2</span><br><span class="line">192.168.44.135 pg3</span><br></pre></td></tr></table></figure>
+<h1 id="4-配置SSH免密登陆"><a href="#4-配置SSH免密登陆" class="headerlink" title="4 配置SSH免密登陆"></a>4 配置SSH免密登陆</h1><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr"># 生产密钥</span></span><br><span class="line"><span class="attr">ssh-keygen -t rsa</span></span><br><span class="line"><span class="attr"># 写入文件</span></span><br><span class="line"><span class="attr">cat id_rsa.pub &gt; authorized_keys</span></span><br><span class="line"><span class="attr"># 赋权 600</span></span><br><span class="line">chmod <span class="number">+600</span> authorized_keys</span><br><span class="line"><span class="attr"># 拷贝 pg2</span>\p<span class="name">g3</span> 密钥到一个authorized_keys文件</span><br><span class="line">ssh p<span class="name">g2</span> cat /root/.ssh/id_rsa.pub &gt;&gt; authorized_keys</span><br><span class="line">ssh p<span class="name">g3</span> cat /root/.ssh/id_rsa.pub &gt;&gt; authorized_keys</span><br><span class="line"><span class="attr"># 拷贝authorized_keys 到pg2</span>\p<span class="name">g3</span></span><br><span class="line">scp authorized_keys p<span class="name">g2</span>:/root/.ssh/</span><br><span class="line">scp authorized_keys p<span class="name">g3</span>:/root/.ssh/</span><br><span class="line"><span class="attr"># ssh pg1</span>\p<span class="name">g2</span>\p<span class="name">g3</span> 测试是否生效</span><br></pre></td></tr></table></figure>
+<div class="note info"><p><strong>注意</strong><br>后面postgresql安装后，也需要配置postgres用户的SSH免密登陆。</p></div>
+<h1 id="4-所有节点安装PG软件和postgis插件"><a href="#4-所有节点安装PG软件和postgis插件" class="headerlink" title="4 所有节点安装PG软件和postgis插件"></a>4 所有节点安装PG软件和postgis插件</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Install the repository RPM:</span></span><br><span class="line">sudo yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># Install PostgreSQL:</span></span><br><span class="line">sudo yum install -y postgresql11-server</span><br><span class="line"></span><br><span class="line"><span class="comment"># Install Postgis:</span></span><br><span class="line">sudo yum install -y postgis25_11</span><br><span class="line"></span><br><span class="line"><span class="comment"># Install rsync</span></span><br><span class="line">sudo yum install -y rsync</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>‎如果您希望‎‎repmgr‎‎复制位于 PostgreSQL 数据目录之外的配置文件和/或测试功能，您还需要在两个服务器之间建立无密码的 SSH 连接，并且应安装‎‎rsync。</p>
+</blockquote>
+<h1 id="5-所有节点安装repmgr"><a href="#5-所有节点安装repmgr" class="headerlink" title="5 所有节点安装repmgr"></a>5 所有节点安装repmgr</h1><p><a href="https://repmgr.org/docs/current/installation-packages.html#INSTALLATION-PACKAGES-REDHAT" target="_blank" rel="noopener">官方教程</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装源</span></span><br><span class="line">curl https://dl.2ndquadrant.com/default/release/get/11/rpm | sudo bash</span><br><span class="line"><span class="comment"># 检查源</span></span><br><span class="line">sudo yum repolist</span><br><span class="line"><span class="comment"># 安装repmgr11</span></span><br><span class="line">sudo yum install repmgr11</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加repmgr命令到环境变量</span></span><br><span class="line">vim /etc/profile</span><br><span class="line"></span><br><span class="line">PATH=/usr/pgsql-11/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+<h1 id="6-primary节点配置"><a href="#6-primary节点配置" class="headerlink" title="6 primary节点配置"></a>6 primary节点配置</h1><p><strong>初始化数据库</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Optionally initialize the database and enable automatic start:</span></span><br><span class="line"><span class="comment"># 初始化数据库</span></span><br><span class="line">sudo /usr/pgsql-11/bin/postgresql-11-setup initdb</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> postgresql-11</span><br><span class="line">sudo systemctl start postgresql-11</span><br></pre></td></tr></table></figure>
+<p><strong>修改配置<code>postgresql.conf</code></strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在文件末尾添加如下配置</span></span><br><span class="line"><span class="comment"># repmgr 配置</span></span><br><span class="line"><span class="comment"># walsender 进程的最大数量</span></span><br><span class="line">max_wal_senders = 10</span><br><span class="line"><span class="comment"># 复制槽的最大数量</span></span><br><span class="line">max_replication_slots = 10</span><br><span class="line">wal_level = <span class="string">'hot_standby'</span></span><br><span class="line">hot_standby = on</span><br><span class="line"><span class="comment"># Log配置</span></span><br><span class="line">archive_mode = on</span><br><span class="line">archive_command = <span class="string">'/bin/true'</span></span><br><span class="line">wal_log_hints = on</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>一般只需要在primary节点修改配置即可，我为了方便主从切换，其他从节点可能升级为主节点，就把从节点的配置同样进行了修改。</p>
+</blockquote>
+<p><strong>修改配置<code>pg_hba.conf</code></strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">local</span>   replication   repmgr                              trust</span><br><span class="line">host    replication   repmgr      127.0.0.1/32            trust</span><br><span class="line">host    replication   repmgr      192.168.44.0/24          trust</span><br><span class="line"></span><br><span class="line"><span class="built_in">local</span>   repmgr        repmgr                              trust</span><br><span class="line">host    repmgr        repmgr      127.0.0.1/32            trust</span><br><span class="line">host    repmgr        repmgr      192.168.44.0/24          trust</span><br></pre></td></tr></table></figure>
+<p><strong>创建repmgr用户和repmgr数据库</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 切换到postgres用户执行，root用户执行报错</span><br><span class="line">bash-4.2$ createuser <span class="comment">--superuser repmgr</span></span><br><span class="line">bash-4.2$ createdb <span class="comment">--owner=repmgr repmgr</span></span><br><span class="line">bash-4.2$ psql -c ”<span class="keyword">ALTER</span> <span class="keyword">USER</span> repmgr <span class="keyword">SET</span> search_path <span class="keyword">TO</span> repmgr, <span class="string">"$user"</span>, <span class="keyword">public</span>;“</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 登陆数据库后执行相关创建</span><br><span class="line"># psql</span><br><span class="line">postgres# create user repmgr superuser login;</span><br><span class="line"></span><br><span class="line">postgres# alter user  repmgr with password 'repmgr';</span><br><span class="line"></span><br><span class="line">postgres# create database repmgr;</span><br><span class="line"></span><br><span class="line">postgres# alter database repmgr owner to repmgr;</span><br><span class="line"></span><br><span class="line">postgres# ALTER USER repmgr SET search_path TO repmgr, "$user", public;</span><br></pre></td></tr></table></figure>
+<p>重启数据库</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart postgresql<span class="number">-11</span></span><br></pre></td></tr></table></figure>
+<h1 id="7-standby测试连接primary节点数据库"><a href="#7-standby测试连接primary节点数据库" class="headerlink" title="7 standby测试连接primary节点数据库"></a>7 standby测试连接primary节点数据库</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@pg2 ~]<span class="comment">#  psql 'host=pg1 user=repmgr dbname=repmgr connect_timeout=2'</span></span><br><span class="line">psql (11.12)</span><br><span class="line">输入 <span class="string">"help"</span> 来获取帮助信息.</span><br><span class="line"></span><br><span class="line">repmgr=<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<div class="note warning"><p><strong>注意</strong><br>standby节点不要初始化数据库，不用启动数据库，保证<code>/var/lib/pgsql/11/data/</code>目录为空</p></div>
+<h1 id="8-注册Primary节点"><a href="#8-注册Primary节点" class="headerlink" title="8 注册Primary节点"></a>8 注册Primary节点</h1><p><strong>修改配置<code>repmgr.conf</code></strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@pg1 ~]<span class="comment">#  vim /etc/rempgr/11/rempgr.conf</span></span><br><span class="line"><span class="comment"># 添加如下配置</span></span><br><span class="line">node_id=1</span><br><span class="line">node_name=<span class="string">'pg1'</span></span><br><span class="line">conninfo=<span class="string">'host=pg1 user=repmgr dbname=repmgr connect_timeout=2'</span></span><br><span class="line">data_directory=<span class="string">'/var/lib/pgsql/11/data'</span></span><br><span class="line"></span><br><span class="line">log_level=on</span><br><span class="line">log_facility=STDERR</span><br><span class="line">log_file=<span class="string">'/var/log/repmgr/repmgr.log'</span></span><br><span class="line">pg_bindir=<span class="string">'/usr/pgsql-11/bin'</span></span><br></pre></td></tr></table></figure>
+<p><strong>注册Primary节点</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@pg1 ~]<span class="comment"># su postgres</span></span><br><span class="line">bash-4.2$</span><br><span class="line">bash-4.2$ repmgr -f /etc/repmgr/11/repmgr.conf primary register</span><br><span class="line">INFO: connecting to primary database...</span><br><span class="line">NOTICE: attempting to install extension <span class="string">"repmgr"</span></span><br><span class="line">NOTICE: <span class="string">"repmgr"</span> extension successfully installed</span><br><span class="line">NOTICE: primary node record (ID: 1) registered</span><br></pre></td></tr></table></figure>
+<p><strong>验证集群状态</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bash-4.2$ repmgr -f /etc/repmgr/11/repmgr.conf cluster show</span><br><span class="line"> ID | Name | Role    | Status    | Upstream | Location | Priority | Timeline | Connection string</span><br><span class="line">----+------+---------+-----------+----------+----------+----------+----------+------------------------------------------------------</span><br><span class="line"> 1  | pg1  | primary | * running |          | default  | 100      | 1        | host=pg1 user=repmgr dbname=repmgr connect_timeout=2</span><br></pre></td></tr></table></figure>
+<p><strong>查看repmgr数据表中的信息</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">bash-4.2$ psql -U repmgr -d repmgr -h pg1</span><br><span class="line">psql (11.12)</span><br><span class="line">Type <span class="string">"help"</span> <span class="keyword">for</span> <span class="built_in">help</span>.</span><br><span class="line"></span><br><span class="line">repmgr=<span class="comment"># select * from repmgr.nodes;</span></span><br><span class="line"> node_id | upstream_node_id | active | node_name |  <span class="built_in">type</span>   | location | priority |                       conninfo                       | repluser | slot_name |        config_file</span><br><span class="line">---------+------------------+--------+-----------+---------+----------+----------+------------------------------------------------------+----------+-----------+----------------------------</span><br><span class="line">       1 |                  | t      | pg1       | primary | default  |      100 | host=pg1 user=repmgr dbname=repmgr connect_timeout=2 | repmgr   |           | /etc/repmgr/11/repmgr.conf</span><br><span class="line">(1 row)</span><br></pre></td></tr></table></figure>
+<h1 id="9-standby节点同步主节点数据"><a href="#9-standby节点同步主节点数据" class="headerlink" title="9 standby节点同步主节点数据"></a>9 standby节点同步主节点数据</h1><p><strong>配置repmbr.conf</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">node_id=2</span><br><span class="line">node_name=<span class="string">'pg2'</span></span><br><span class="line">conninfo=<span class="string">'host=pg2 user=repmgr dbname=repmgr connect_timeout=2'</span></span><br><span class="line">data_directory=<span class="string">'/var/lib/pgsql/11/data'</span></span><br></pre></td></tr></table></figure>
+<p><strong>‎使用<code>--dry-run</code>选项检查可克隆待机状态‎</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">bash-4.2$ repmgr -h pg1 -U repmgr -d repmgr -f /etc/repmgr/11/repmgr.conf standby <span class="built_in">clone</span> --dry-run</span><br><span class="line">NOTICE: destination directory <span class="string">"/var/lib/pgsql/11/data"</span> provided</span><br><span class="line">INFO: connecting to <span class="built_in">source</span> node</span><br><span class="line">DETAIL: connection string is: host=pg1 user=repmgr dbname=repmgr</span><br><span class="line">DETAIL: current installation size is 31 MB</span><br><span class="line">INFO: <span class="string">"repmgr"</span> extension is installed <span class="keyword">in</span> database <span class="string">"repmgr"</span></span><br><span class="line">INFO: replication slot usage not requested;  no replication slot will be <span class="built_in">set</span> up <span class="keyword">for</span> this standby</span><br><span class="line">INFO: parameter <span class="string">"max_wal_senders"</span> <span class="built_in">set</span> to 10</span><br><span class="line">NOTICE: checking <span class="keyword">for</span> available walsenders on the <span class="built_in">source</span> node (2 required)</span><br><span class="line">INFO: sufficient walsenders available on the <span class="built_in">source</span> node</span><br><span class="line">DETAIL: 2 required, 10 available</span><br><span class="line">NOTICE: checking replication connections can be made to the <span class="built_in">source</span> server (2 required)</span><br><span class="line">INFO: required number of replication connections could be made to the <span class="built_in">source</span> server</span><br><span class="line">DETAIL: 2 replication connections required</span><br><span class="line">WARNING: data checksums are not enabled and <span class="string">"wal_log_hints"</span> is <span class="string">"off"</span></span><br><span class="line">DETAIL: pg_rewind requires <span class="string">"wal_log_hints"</span> to be enabled</span><br><span class="line">NOTICE: standby will attach to upstream node 1</span><br><span class="line">HINT: consider using the -c/--fast-checkpoint option</span><br><span class="line">INFO: all prerequisites <span class="keyword">for</span> <span class="string">"standby clone"</span> are met</span><br></pre></td></tr></table></figure>
+<p><strong>‎如果没有报告任何问题，则可以同步到备用节点‎</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">bash-4.2$ repmgr -h pg1 -U repmgr -d repmgr -f /etc/repmgr/11/repmgr.conf standby <span class="built_in">clone</span></span><br><span class="line">NOTICE: destination directory <span class="string">"/var/lib/pgsql/11/data"</span> provided</span><br><span class="line">INFO: connecting to <span class="built_in">source</span> node</span><br><span class="line">DETAIL: connection string is: host=pg1 user=repmgr dbname=repmgr</span><br><span class="line">DETAIL: current installation size is 31 MB</span><br><span class="line">INFO: replication slot usage not requested;  no replication slot will be <span class="built_in">set</span> up <span class="keyword">for</span> this standby</span><br><span class="line">NOTICE: checking <span class="keyword">for</span> available walsenders on the <span class="built_in">source</span> node (2 required)</span><br><span class="line">NOTICE: checking replication connections can be made to the <span class="built_in">source</span> server (2 required)</span><br><span class="line">WARNING: data checksums are not enabled and <span class="string">"wal_log_hints"</span> is <span class="string">"off"</span></span><br><span class="line">DETAIL: pg_rewind requires <span class="string">"wal_log_hints"</span> to be enabled</span><br><span class="line">INFO: checking and correcting permissions on existing directory <span class="string">"/var/lib/pgsql/11/data"</span></span><br><span class="line">NOTICE: starting backup (using pg_basebackup)...</span><br><span class="line">HINT: this may take some time; consider using the -c/--fast-checkpoint option</span><br><span class="line">INFO: executing:</span><br><span class="line">  pg_basebackup -l <span class="string">"repmgr base backup"</span>  -D /var/lib/pgsql/11/data -h pg1 -p 5432 -U repmgr -X stream</span><br><span class="line">NOTICE: standby <span class="built_in">clone</span> (using pg_basebackup) complete</span><br><span class="line">NOTICE: you can now start your PostgreSQL server</span><br><span class="line">HINT: <span class="keyword">for</span> example: pg_ctl -D /var/lib/pgsql/11/data start</span><br><span class="line">HINT: after starting the server, you need to register this standby with <span class="string">"repmgr standby register"</span></span><br></pre></td></tr></table></figure>
+<p><strong>连接到主节点数据库查询</strong></p>
+<p>这表明先前克隆备用( <code>pg2</code>显示的字段 <code>application_name</code>)连接到主要的IP地址 <code>192.168.44.132</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@pg1 ~]<span class="comment"># su - postgres -c "psql -U repmgr -d repmgr -h pg1"</span></span><br><span class="line">psql (11.12)</span><br><span class="line">输入 <span class="string">"help"</span> 来获取帮助信息.</span><br><span class="line"></span><br><span class="line">repmgr=<span class="comment"># SELECT * FROM pg_stat_replication;</span></span><br><span class="line"> pid  | usesysid | usename | application_name |  client_addr   | client_hostname | client_port |         backend_start         | backend_xmin |   state   |  sent_lsn  | write_lsn  | flush_lsn  | replay_lsn | write_lag | flush_lag | r</span><br><span class="line">eplay_lag | sync_priority | sync_state</span><br><span class="line">------+----------+---------+------------------+----------------+-----------------+-------------+-------------------------------+--------------+-----------+------------+------------+------------+------------+-----------+-----------+--</span><br><span class="line">----------+---------------+------------</span><br><span class="line"> 1122 |    16384 | repmgr  | pg2              | 192.168.44.132 |                 |       43672 | 2021-08-11 14:20:09.038097+08 |              | streaming | 0/180001B0 | 0/180001B0 | 0/180001B0 | 0/180001B0 |           |           |</span><br><span class="line">          |             0 | async</span><br><span class="line">(1 行记录)</span><br></pre></td></tr></table></figure>
+<p><strong>连接从节点数据库查询</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">repmgr=<span class="comment"># SELECT * FROM pg_stat_wal_receiver;</span></span><br><span class="line">  pid  |  status   | receive_start_lsn | receive_start_tli | received_lsn | received_tli |      last_msg_send_time       |     last_msg_receipt_time     | latest_end_lsn |       latest_end_time        | slot_name | sender_host | send</span><br><span class="line">er_port |                                                                                                                  conninfo</span><br><span class="line"></span><br><span class="line">-------+-----------+-------------------+-------------------+--------------+--------------+-------------------------------+-------------------------------+----------------+------------------------------+-----------+-------------+-----</span><br><span class="line">--------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span><br><span class="line">-------------</span><br><span class="line"> 65103 | streaming | 0/18000000        |                 1 | 0/180001B0   |            1 | 2021-08-11 16:58:06.901487+08 | 2021-08-11 16:58:06.900314+08 | 0/180001B0     | 2021-08-11 14:25:17.92164+08 |           | pg1         |</span><br><span class="line">   5432 | user=repmgr passfile=/var/lib/pgsql/.pgpass connect_timeout=2 dbname=replication host=pg1 port=5432 application_name=pg2 fallback_application_name=walreceiver sslmode=prefer sslcompression=0 krbsrvname=postgres target_sessi</span><br><span class="line">on_attrs=any</span><br><span class="line">(1 行记录)</span><br></pre></td></tr></table></figure>
+<h1 id="10-注册standby"><a href="#10-注册standby" class="headerlink" title="10 注册standby"></a>10 注册standby</h1><p><strong>注册standby节点到集群</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">bash-4.2$ repmgr -f /etc/repmgr/11/repmgr.conf standby register</span><br><span class="line">INFO: connecting to <span class="built_in">local</span> node <span class="string">"pg2"</span> (ID: 2)</span><br><span class="line">INFO: connecting to primary database</span><br><span class="line">WARNING: --upstream-node-id not supplied, assuming upstream node is primary (node ID 1)</span><br><span class="line">INFO: standby registration complete</span><br><span class="line">NOTICE: standby node <span class="string">"pg2"</span> (ID: 2) successfully registered</span><br></pre></td></tr></table></figure>
+<p><strong>检查集群状态</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bash-4.2$ repmgr -f /etc/repmgr/11/repmgr.conf cluster show</span><br><span class="line"> ID | Name | Role    | Status    | Upstream | Location | Priority | Timeline | Connection string</span><br><span class="line">----+------+---------+-----------+----------+----------+----------+----------+------------------------------------------------------</span><br><span class="line"> 1  | pg1  | primary | * running |          | default  | 100      | 1        | host=pg1 user=repmgr dbname=repmgr connect_timeout=2</span><br><span class="line"> 2  | pg2  | standby |   running | pg1      | default  | 100      | 1        | host=pg2 user=repmgr dbname=repmgr connect_timeout=2</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>备注：standby节点默认为<code>只读模式</code>，切换为主节点后才能够写入数据。</p>
+</blockquote>
+<p>主从集群配置完成，暂时只能手动切换</p>
+<p>修改主节点的数据库数据，即可实时同步到从节点了。</p>
+<h1 id="11-主从切换-只适用于主从双节点"><a href="#11-主从切换-只适用于主从双节点" class="headerlink" title="11 主从切换(只适用于主从双节点)"></a>11 主从切换(只适用于主从双节点)</h1><div class="note info"><p><strong>备注</strong><br>主从节点切换，只适用于主从双节点集群；3个以上节点集群执行切换命令后原主节点会自动宕掉，需要手动对其进行故障恢复。参考第 12章节故障转移。</p></div>
+<h2 id="11-1-场景"><a href="#11-1-场景" class="headerlink" title="11.1 场景"></a>11.1 场景</h2><p>各节点正常运行情况下，手动切换主从节点。</p>
+<p>手动switchover，切换主从节点，提升从节点为主，主节点自动变为从节点</p>
+<h2 id="11-2-操作"><a href="#11-2-操作" class="headerlink" title="11.2 操作"></a>11.2 操作</h2><p><strong>查看集群状态</strong></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bash-4.2$ repmgr -f /etc/repmgr/11/repmgr.conf cluster show</span><br><span class="line"> ID | Name | Role    | Status    | Upstream | Location | Priority | Timeline |<span class="built_in"> Connection </span>string</span><br><span class="line">----+------+---------+-----------+----------+----------+----------+----------+------------------------------------------------------</span><br><span class="line"> 1  | pg1  | standby |   running | pg2      |<span class="built_in"> default </span> | 100      | 4        | <span class="attribute">host</span>=pg1 <span class="attribute">user</span>=repmgr <span class="attribute">dbname</span>=repmgr <span class="attribute">connect_timeout</span>=2</span><br><span class="line"> 2  | pg2  | primary | * running |          |<span class="built_in"> default </span> | 100      | 4        | <span class="attribute">host</span>=pg2 <span class="attribute">user</span>=repmgr <span class="attribute">dbname</span>=repmgr <span class="attribute">connect_timeout</span>=2</span><br></pre></td></tr></table></figure>
+<p><strong>在standby节点执行命令，升级为primary节点</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># repmgr standby switchover</span></span><br><span class="line">bash-4.2$ repmgr -f /etc/repmgr/11/repmgr.conf standby switchover</span><br><span class="line"><span class="comment"># 下为执行过程</span></span><br><span class="line">NOTICE: executing switchover on node <span class="string">"pg1"</span> (ID: 1)</span><br><span class="line">NOTICE: <span class="built_in">local</span> node <span class="string">"pg1"</span> (ID: 1) will be promoted to primary; current primary <span class="string">"pg2"</span> (ID: 2) will be demoted to standby</span><br><span class="line">NOTICE: stopping current primary node <span class="string">"pg2"</span> (ID: 2)</span><br><span class="line">NOTICE: issuing CHECKPOINT on node <span class="string">"pg2"</span> (ID: 2)</span><br><span class="line">DETAIL: executing server <span class="built_in">command</span> <span class="string">"/usr/pgsql-11/bin/pg_ctl  -D '/var/lib/pgsql/11/data' -W -m fast stop"</span></span><br><span class="line">INFO: checking <span class="keyword">for</span> primary shutdown; 1 of 60 attempts (<span class="string">"shutdown_check_timeout"</span>)</span><br><span class="line">INFO: checking <span class="keyword">for</span> primary shutdown; 2 of 60 attempts (<span class="string">"shutdown_check_timeout"</span>)</span><br><span class="line">NOTICE: current primary has been cleanly shut down at location 0/23000028</span><br><span class="line">NOTICE: promoting standby to primary</span><br><span class="line">DETAIL: promoting server <span class="string">"pg1"</span> (ID: 1) using <span class="string">"/usr/pgsql-11/bin/pg_ctl  -w -D '/var/lib/pgsql/11/data' promote"</span></span><br><span class="line">等待服务器进程加载 .... 完成</span><br><span class="line">服务器加载完毕</span><br><span class="line">NOTICE: waiting up to 60 seconds (parameter <span class="string">"promote_check_timeout"</span>) <span class="keyword">for</span> promotion to complete</span><br><span class="line">NOTICE: STANDBY PROMOTE successful</span><br><span class="line">DETAIL: server <span class="string">"pg1"</span> (ID: 1) was successfully promoted to primary</span><br><span class="line">INFO: <span class="built_in">local</span> node 2 can attach to rejoin target node 1</span><br><span class="line">DETAIL: <span class="built_in">local</span> node<span class="string">'s recovery point: 0/23000028; rejoin target node'</span>s fork point: 0/23000098</span><br><span class="line">NOTICE: setting node 2<span class="string">'s upstream to node 1</span></span><br><span class="line"><span class="string">WARNING: unable to ping "host=pg2 user=repmgr dbname=repmgr connect_timeout=2"</span></span><br><span class="line"><span class="string">DETAIL: PQping() returned "PQPING_NO_RESPONSE"</span></span><br><span class="line"><span class="string">NOTICE: starting server using "/usr/pgsql-11/bin/pg_ctl  -w -D '</span>/var/lib/pgsql/11/data<span class="string">' start"</span></span><br><span class="line"><span class="string">NOTICE: NODE REJOIN successful</span></span><br><span class="line"><span class="string">DETAIL: node 2 is now attached to node 1</span></span><br><span class="line"><span class="string">NOTICE: node  "pg1" (ID: 1) promoted to primary, node "pg2" (ID: 2) demoted to standby</span></span><br><span class="line"><span class="string">NOTICE: switchover was successful</span></span><br><span class="line"><span class="string">DETAIL: node "pg1" is now primary and node "pg2" is attached as standby</span></span><br><span class="line"><span class="string">NOTICE: STANDBY SWITCHOVER has completed successfully</span></span><br></pre></td></tr></table></figure>
+<p><strong>查看集群状态</strong></p>
+<p>可以看到standby节点已升级为primary节点，原primary节点自动降级为standby节点。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">bash-4.2$ repmgr -f /etc/repmgr/11/repmgr.conf cluster show</span><br><span class="line"> ID | Name | Role    | Status    | Upstream | Location | Priority | Timeline | Connection string</span><br><span class="line">----+------+---------+-----------+----------+----------+----------+----------+------------------------------------------------------</span><br><span class="line"> 1  | pg1  | primary | * running |          | default  | 100      | 5        | host=pg1 user=repmgr dbname=repmgr connect_timeout=2</span><br><span class="line"> 2  | pg2  | standby |   running | pg1      | default  | 100      | 4        | host=pg2 user=repmgr dbname=repmgr connect_timeout=2</span><br><span class="line">bash-4.2$</span><br></pre></td></tr></table></figure>
+<p><strong>其他standby节点指向新的primary节点</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash-4.2$ repmgr -f /etc/repmgr/11/repmgr.conf standby follow</span><br></pre></td></tr></table></figure>
+<h1 id="12-故障转移，手动切换"><a href="#12-故障转移，手动切换" class="headerlink" title="12 故障转移，手动切换"></a>12 故障转移，手动切换</h1><h2 id="12-1-场景"><a href="#12-1-场景" class="headerlink" title="12.1 场景"></a>12.1 场景</h2><p>主节点宕机，升级从节点为primary，恢复原primary节点，并降级为standby.</p>
+<h2 id="12-2-操作"><a href="#12-2-操作" class="headerlink" title="12.2 操作"></a>12.2 操作</h2><p><strong>查看集群状态</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">bash-4.2$ repmgr cluster show</span><br><span class="line"> ID | Name | Role    | Status    | Upstream | Location | Priority | Timeline | Connection string</span><br><span class="line">----+------+---------+-----------+----------+----------+----------+----------+------------------------------------------------------</span><br><span class="line"> 1  | pg1  | primary | * running |          | default  | 100      | 5        | host=pg1 user=repmgr dbname=repmgr connect_timeout=2</span><br><span class="line"> 2  | pg2  | standby |   running | pg1      | default  | 100      | 5        | host=pg2 user=repmgr dbname=repmgr connect_timeout=2</span><br><span class="line">bash-4.2$</span><br></pre></td></tr></table></figure>
+<p><strong>关闭主节点，模拟宕机</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop postgresql-11.service</span><br></pre></td></tr></table></figure>
+<p><strong>查看集群状态</strong></p>
+<p>pg1 已经掉线</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">bash-4.2$ repmgr cluster show</span><br><span class="line"> ID | Name | Role    | Status        | Upstream | Location | Priority | Timeline | Connection string</span><br><span class="line">----+------+---------+---------------+----------+----------+----------+----------+------------------------------------------------------</span><br><span class="line"> 1  | pg1  | primary | ? unreachable | ?        | default  | 100      |          | host=pg1 user=repmgr dbname=repmgr connect_timeout=2</span><br><span class="line"> 2  | pg2  | standby |   running     | ? pg1    | default  | 100      | 5        | host=pg2 user=repmgr dbname=repmgr connect_timeout=2</span><br><span class="line"></span><br><span class="line">WARNING: following issues were detected</span><br><span class="line">  - unable to connect to node <span class="string">"pg1"</span> (ID: 1)</span><br><span class="line">  - node <span class="string">"pg1"</span> (ID: 1) is registered as an active primary but is unreachable</span><br><span class="line">  - unable to connect to node <span class="string">"pg2"</span> (ID: 2)<span class="string">'s upstream node "pg1" (ID: 1)</span></span><br><span class="line"><span class="string">  - unable to determine if node "pg2" (ID: 2) is attached to its upstream node "pg1" (ID: 1)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">HINT: execute with --verbose option to see connection error messages</span></span><br><span class="line"><span class="string">bash-4.2$</span></span><br></pre></td></tr></table></figure>
+<p><strong>手动提升 pg2 节点为 primary节点</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">bash-4.2$ repmgr -f /etc/repmgr/11/repmgr.conf standby promote</span><br><span class="line">NOTICE: promoting standby to primary</span><br><span class="line">DETAIL: promoting server <span class="string">"pg2"</span> (ID: 2) using <span class="string">"/usr/pgsql-11/bin/pg_ctl  -w -D '/var/lib/pgsql/11/data' promote"</span></span><br><span class="line">could not change directory to <span class="string">"/root"</span>: 权限不够</span><br><span class="line">waiting <span class="keyword">for</span> server to promote.... <span class="keyword">done</span></span><br><span class="line">server promoted</span><br><span class="line">NOTICE: waiting up to 60 seconds (parameter <span class="string">"promote_check_timeout"</span>) <span class="keyword">for</span> promotion to complete</span><br><span class="line">NOTICE: STANDBY PROMOTE successful</span><br><span class="line">DETAIL: server <span class="string">"pg2"</span> (ID: 2) was successfully promoted to primary</span><br><span class="line">bash-4.2$</span><br></pre></td></tr></table></figure>
+<p><strong>查看集群状态</strong></p>
+<p>pg2 已经为primary节点</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">bash-4.2$ repmgr cluster show</span><br><span class="line"> ID | Name | Role    | Status    | Upstream | Location | Priority | Timeline | Connection string</span><br><span class="line">----+------+---------+-----------+----------+----------+----------+----------+------------------------------------------------------</span><br><span class="line"> 1  | pg1  | primary | - failed  | ?        | default  | 100      |          | host=pg1 user=repmgr dbname=repmgr connect_timeout=2</span><br><span class="line"> 2  | pg2  | primary | * running |          | default  | 100      | 6        | host=pg2 user=repmgr dbname=repmgr connect_timeout=2</span><br><span class="line"></span><br><span class="line">WARNING: following issues were detected</span><br><span class="line">  - unable to connect to node <span class="string">"pg1"</span> (ID: 1)</span><br><span class="line"></span><br><span class="line">HINT: execute with --verbose option to see connection error messages</span><br><span class="line">bash-4.2$</span><br></pre></td></tr></table></figure>
+<p><strong>集群其他standby节点重新指向新primary</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash-<span class="number">4.2</span>$ repmgr -f <span class="regexp">/etc/</span>repmgr<span class="regexp">/11/</span>repmgr.conf standby follow</span><br></pre></td></tr></table></figure>
+<p><strong>将宕机primary节点，降级为standby节点</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 清空宕机节点数据目录</span></span><br><span class="line">bash-4.2$ rm -rf /var/lib/pgsql/11/data/*</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新从新primary节点克隆备份服务器</span></span><br><span class="line">bash-4.2$ repmgr -h pg2 -U repmgr -d repmgr -f /etc/repmgr/11/repmgr.conf standby <span class="built_in">clone</span></span><br><span class="line">NOTICE: destination directory <span class="string">"/var/lib/pgsql/11/data"</span> provided</span><br><span class="line">INFO: connecting to <span class="built_in">source</span> node</span><br><span class="line">DETAIL: connection string is: host=pg2 user=repmgr dbname=repmgr</span><br><span class="line">DETAIL: current installation size is 75 MB</span><br><span class="line">INFO: replication slot usage not requested;  no replication slot will be <span class="built_in">set</span> up <span class="keyword">for</span> this standby</span><br><span class="line">NOTICE: checking <span class="keyword">for</span> available walsenders on the <span class="built_in">source</span> node (2 required)</span><br><span class="line">NOTICE: checking replication connections can be made to the <span class="built_in">source</span> server (2 required)</span><br><span class="line">INFO: checking and correcting permissions on existing directory <span class="string">"/var/lib/pgsql/11/data"</span></span><br><span class="line">NOTICE: starting backup (using pg_basebackup)...</span><br><span class="line">HINT: this may take some time; consider using the -c/--fast-checkpoint option</span><br><span class="line">INFO: executing:</span><br><span class="line">  /usr/pgsql-11/bin/pg_basebackup -l <span class="string">"repmgr base backup"</span>  -D /var/lib/pgsql/11/data -h pg2 -p 5432 -U repmgr -X stream</span><br><span class="line">NOTICE: standby <span class="built_in">clone</span> (using pg_basebackup) complete</span><br><span class="line">NOTICE: you can now start your PostgreSQL server</span><br><span class="line">HINT: <span class="keyword">for</span> example: pg_ctl -D /var/lib/pgsql/11/data start</span><br><span class="line">HINT: after starting the server, you need to re-register this standby with <span class="string">"repmgr standby register --force"</span> to update the existing node record</span><br><span class="line">bash-4.2$ </span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动数据库</span></span><br><span class="line">systemctl start postgresql-11.service</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注册standby 节点</span></span><br><span class="line">bash-4.2$ repmgr -f /etc/repmgr/11/repmgr.conf standby register --force</span><br><span class="line">INFO: connecting to <span class="built_in">local</span> node <span class="string">"pg1"</span> (ID: 1)</span><br><span class="line">INFO: connecting to primary database</span><br><span class="line">INFO: standby registration complete</span><br><span class="line">NOTICE: standby node <span class="string">"pg1"</span> (ID: 1) successfully registered</span><br><span class="line">bash-4.2$</span><br></pre></td></tr></table></figure>
+<p><strong>查看集群状态</strong></p>
+<p>原宕机节点已经降级为standby节点。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">bash-4.2$ repmgr cluster show</span><br><span class="line"> ID | Name | Role    | Status    | Upstream | Location | Priority | Timeline | Connection string</span><br><span class="line">----+------+---------+-----------+----------+----------+----------+----------+------------------------------------------------------</span><br><span class="line"> 1  | pg1  | standby |   running | pg2      | default  | 100      | 6        | host=pg1 user=repmgr dbname=repmgr connect_timeout=2</span><br><span class="line"> 2  | pg2  | primary | * running |          | default  | 100      | 6        | host=pg2 user=repmgr dbname=repmgr connect_timeout=2</span><br><span class="line">bash-4.2$</span><br></pre></td></tr></table></figure>
+<h2 id="12-3-补充"><a href="#12-3-补充" class="headerlink" title="12.3 补充"></a>12.3 补充</h2><p><a href="https://repmgr.org/docs/current/repmgr-command-reference.html" target="_blank" rel="noopener">官方文档</a></p>
+<p><strong>主节点注销</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">repmgr primary unregister -f /etc/repmgr/11/repmgr.conf --node-id=3</span><br></pre></td></tr></table></figure>
+<p><strong>从节点注销</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">repmgr standby unregister -f /etc/repmgr/11/repmgr.conf --node-id=3</span><br></pre></td></tr></table></figure>
+<h1 id="13-故障自动转移"><a href="#13-故障自动转移" class="headerlink" title="13 故障自动转移"></a>13 故障自动转移</h1><h2 id="13-1-编辑sudoers文件"><a href="#13-1-编辑sudoers文件" class="headerlink" title="13.1 编辑sudoers文件"></a>13.1 编辑sudoers文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sudoers</span><br><span class="line"></span><br><span class="line"><span class="comment"># postgres用户，所有sudo命令都不用密码</span></span><br><span class="line">postgres   ALL=(ALL) NOPASSWD: ALL</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line"><span class="comment"># postgres用户，特定sudo命令不需要密码</span></span><br><span class="line">Defaults:postgres !requiretty</span><br><span class="line">postgres ALL = NOPASSWD: /usr/bin/systemctl stop postgresql-11.service, /usr/bin/systemctl start postgresql-11.service, /usr/bin/systemctl restart postgresql-11.service, /usr/bin/systemctl reload postgresql-11.service, /usr/bin/systemctl start repmgr11.service, /usr/bin/systemctl stop repmgr11.service</span><br></pre></td></tr></table></figure>
+<div class="note danger"><p><strong>备注</strong>:</p>
+<p>修改sudoers文件是必须的，否则standby节点在自动切换接入新primary节点时候，会报错重启postgres命令失败。</p>
+<p>原因：postgres用户采用sudo 命令执行postgresql数据重启操作的时候需要密码验证，没有权限。</p></div>
+<h2 id="13-2-配置postgresql-conf（所有节点）"><a href="#13-2-配置postgresql-conf（所有节点）" class="headerlink" title="13.2  配置postgresql.conf（所有节点）"></a>13.2  配置postgresql.conf（所有节点）</h2><p>在文件内添加如下内容，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shared_preload_libraries = <span class="string">'repmgr'</span></span><br></pre></td></tr></table></figure>
+<h2 id="13-3-配置repmgr-conf文件（所有节点）"><a href="#13-3-配置repmgr-conf文件（所有节点）" class="headerlink" title="13.3 配置repmgr.conf文件（所有节点）"></a>13.3 配置repmgr.conf文件（所有节点）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 必须项</span></span><br><span class="line">failover=<span class="string">'automatic'</span></span><br><span class="line">promote_command=<span class="string">'/usr/pgsql-11/bin/repmgr standby promote -f /etc/repmgr/11/repmgr.conf --log-to-file'</span></span><br><span class="line">follow_command=<span class="string">'/usr/pgsql-11/bin/repmgr standby follow -f /etc/repmgr/11/repmgr.conf --log-to-file --upstream-node-id=%n'</span></span><br><span class="line"><span class="comment"># 可选项</span></span><br><span class="line"><span class="comment"># 注意：standby的priority值需要更改，因为默认是100，而primary使用的是默认值。这里设置standby的priority为60，其他standby的priority为40。另外，priority的值越大，成为primary的优先级就越高。</span></span><br><span class="line">priority=70</span><br><span class="line">connection_check_type=ping</span><br><span class="line">reconnect_attempts=6</span><br><span class="line">reconnect_interval=10</span><br><span class="line">monitoring_history=yes</span><br><span class="line">monitor_interval_secs=2</span><br><span class="line">standby_disconnect_on_failover=<span class="literal">true</span></span><br><span class="line">primary_visibility_consensus=<span class="literal">true</span></span><br><span class="line">log_status_interval=60</span><br><span class="line">service_start_command = <span class="string">'sudo /usr/bin/systemctl start postgresql-11.service'</span></span><br><span class="line">service_stop_command = <span class="string">'sudo /usr/bin/systemctl stop postgresql-11.service'</span></span><br><span class="line">service_restart_command = <span class="string">'sudo /usr/bin/systemctl restart postgresql-11.service'</span></span><br><span class="line">service_reload_command = <span class="string">'sudo /usr/bin/systemctl reload postgresql-11.service'</span></span><br><span class="line">repmgrd_service_start_command = <span class="string">'sudo /usr/bin/systemctl start repmgr11.service'</span></span><br><span class="line">repmgrd_service_stop_command = <span class="string">'sudo /usr/bin/systemctl stop repmgr11.service'</span></span><br></pre></td></tr></table></figure>
+<h2 id="13-3-启动repmgr服务（所有节点）"><a href="#13-3-启动repmgr服务（所有节点）" class="headerlink" title="13.3 启动repmgr服务（所有节点）"></a>13.3 启动repmgr服务（所有节点）</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">systemctl</span> <span class="selector-tag">start</span> <span class="selector-tag">repmgrd11</span><span class="selector-class">.service</span></span><br><span class="line"><span class="selector-tag">systemctl</span> <span class="selector-tag">enable</span> <span class="selector-tag">repmgrd11</span><span class="selector-class">.service</span></span><br></pre></td></tr></table></figure>
+<p><strong>启动完成后，可以在primary或者standby节点查询集群的events，如下：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@pg3 .ssh]<span class="comment">#  su - postgres -c "repmgr cluster event --event=repmgrd_start"</span></span><br><span class="line"> Node ID | Name | Event         | OK | Timestamp           | Details</span><br><span class="line">---------+------+---------------+----+---------------------+------------------------------------------------------</span><br><span class="line"> 3       | pg3  | repmgrd_start | t  | 2021-08-17 12:10:43 | monitoring connection to upstream node <span class="string">"pg1"</span> (ID: 1)</span><br><span class="line"> 2       | pg2  | repmgrd_start | t  | 2021-08-17 12:08:54 | monitoring connection to upstream node <span class="string">"pg1"</span> (ID: 1)</span><br><span class="line"> 1       | pg1  | repmgrd_start | t  | 2021-08-17 12:08:32 | monitoring cluster primary <span class="string">"pg1"</span> (ID: 1)</span><br></pre></td></tr></table></figure>
+<h2 id="13-4-故障模拟测试"><a href="#13-4-故障模拟测试" class="headerlink" title="13.4 故障模拟测试"></a>13.4 故障模拟测试</h2><h3 id="13-4-1停止pg1节点（primary）的postgresql服务"><a href="#13-4-1停止pg1节点（primary）的postgresql服务" class="headerlink" title="13.4.1停止pg1节点（primary）的postgresql服务"></a>13.4.1停止pg1节点（primary）的postgresql服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop postgresql-11.service</span><br></pre></td></tr></table></figure>
+<p>查看集群状态，gp1节点状态变为<code>unreachable</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">bash-4.2$ repmgr cluster show</span><br><span class="line"> ID | Name | Role    | Status        | Upstream | Location | Priority | Timeline | Connection string</span><br><span class="line">----+------+---------+---------------+----------+----------+----------+----------+------------------------------------------------------</span><br><span class="line"> 1  | pg1  | primary | ? unreachable | ?        | default  | 100      |          | host=pg1 user=repmgr dbname=repmgr connect_timeout=2</span><br><span class="line"> 2  | pg2  | standby |   running     | ? pg1    | default  | 70       | 10       | host=pg2 user=repmgr dbname=repmgr connect_timeout=2</span><br><span class="line"> 3  | pg3  | standby |   running     | ? pg1    | default  | 60       | 10       | host=pg3 user=repmgr dbname=repmgr connect_timeout=2</span><br><span class="line"></span><br><span class="line">WARNING: following issues were detected</span><br><span class="line">  - unable to connect to node <span class="string">"pg1"</span> (ID: 1)</span><br><span class="line">  - node <span class="string">"pg1"</span> (ID: 1) is registered as an active primary but is unreachable</span><br><span class="line">  - unable to connect to node <span class="string">"pg2"</span> (ID: 2)<span class="string">'s upstream node "pg1" (ID: 1)</span></span><br><span class="line"><span class="string">  - unable to determine if node "pg2" (ID: 2) is attached to its upstream node "pg1" (ID: 1)</span></span><br><span class="line"><span class="string">  - unable to connect to node "pg3" (ID: 3)'</span>s upstream node <span class="string">"pg1"</span> (ID: 1)</span><br><span class="line">  - unable to determine <span class="keyword">if</span> node <span class="string">"pg3"</span> (ID: 3) is attached to its upstream node <span class="string">"pg1"</span> (ID: 1)</span><br><span class="line"></span><br><span class="line">HINT: execute with --verbose option to see connection error messages</span><br></pre></td></tr></table></figure>
+<p>1分钟后，再次查看集群状态，pg2升级为primary,gp3自动连接到pg2,作为主节点。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">bash-4.2$ repmgr cluster show</span><br><span class="line"> ID | Name | Role    | Status    | Upstream | Location | Priority | Timeline | Connection string</span><br><span class="line">----+------+---------+-----------+----------+----------+----------+----------+------------------------------------------------------</span><br><span class="line"> 1  | pg1  | primary | - failed  | ?        | default  | 100      |          | host=pg1 user=repmgr dbname=repmgr connect_timeout=2</span><br><span class="line"> 2  | pg2  | primary | * running |          | default  | 70       | 11       | host=pg2 user=repmgr dbname=repmgr connect_timeout=2</span><br><span class="line"> 3  | pg3  | standby |   running | pg2      | default  | 60       | 10       | host=pg3 user=repmgr dbname=repmgr connect_timeout=2</span><br><span class="line"></span><br><span class="line">WARNING: following issues were detected</span><br><span class="line">  - unable to connect to node <span class="string">"pg1"</span> (ID: 1)</span><br><span class="line"></span><br><span class="line">HINT: execute with --verbose option to see connection error messages</span><br></pre></td></tr></table></figure>
+<h3 id="13-4-2-旧primary节点恢复"><a href="#13-4-2-旧primary节点恢复" class="headerlink" title="13.4.2 旧primary节点恢复"></a>13.4.2 旧primary节点恢复</h3><p>当旧primary故障恢复后，并不会自动转换为standby，而是以primary角色独自运行，这时就需要将其重新加入到集群中。如下：</p>
+<p><strong>关闭postgresql服务</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash-4.2$ repmgr node service --action=stop --checkpoint</span><br></pre></td></tr></table></figure>
+<p><strong>重新加入集群</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">bash-4.2$ repmgr -f /etc/repmgr/11/repmgr.conf -d <span class="string">"host=pg2 user=repmgr dbname=repmgr"</span> node rejoin --force-rewind</span><br><span class="line">NOTICE: pg_rewind execution required <span class="keyword">for</span> this node to attach to rejoin target node 2</span><br><span class="line">DETAIL: rejoin target server<span class="string">'s timeline 11 forked off current database system timeline 10 before current recovery point 0/39000028</span></span><br><span class="line"><span class="string">NOTICE: executing pg_rewind</span></span><br><span class="line"><span class="string">DETAIL: pg_rewind command is "/usr/pgsql-11/bin/pg_rewind -D '</span>/var/lib/pgsql/11/data<span class="string">' --source-server='</span>host=pg2 user=repmgr dbname=repmgr connect_timeout=2<span class="string">'"</span></span><br><span class="line"><span class="string">NOTICE: 0 files copied to /var/lib/pgsql/11/data</span></span><br><span class="line"><span class="string">NOTICE: setting node 1'</span>s upstream to node 2</span><br><span class="line">WARNING: unable to ping <span class="string">"host=pg1 user=repmgr dbname=repmgr connect_timeout=2"</span></span><br><span class="line">DETAIL: PQping() returned <span class="string">"PQPING_NO_RESPONSE"</span></span><br><span class="line">NOTICE: starting server using <span class="string">"sudo /usr/bin/systemctl start postgresql-11.service"</span></span><br><span class="line">NOTICE: NODE REJOIN successful</span><br><span class="line">DETAIL: node 1 is now attached to node 2</span><br></pre></td></tr></table></figure>
+<p><strong>查看集群状态</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">bash-4.2$ repmgr cluster show</span><br><span class="line"> ID | Name | Role    | Status    | Upstream | Location | Priority | Timeline | Connection string</span><br><span class="line">----+------+---------+-----------+----------+----------+----------+----------+------------------------------------------------------</span><br><span class="line"> 1  | pg1  | standby |   running | pg2      | default  | 100      | 10       | host=pg1 user=repmgr dbname=repmgr connect_timeout=2</span><br><span class="line"> 2  | pg2  | primary | * running |          | default  | 70       | 11       | host=pg2 user=repmgr dbname=repmgr connect_timeout=2</span><br><span class="line"> 3  | pg3  | standby |   running | pg2      | default  | 60       | 11       | host=pg3 user=repmgr dbname=repmgr connect_timeout=2</span><br></pre></td></tr></table></figure>
+<p>到此，postgres高可用自动故障转移方案成功，配合VIP服务，可实现自动故障转移及服务高可用。</p>
+<div class="note warning"><p><strong>备注</strong><br>如果不能重新加入，可以将旧primary强制(-F)转换为standby。或参考 13章节，手动清除，克隆，加入standby。</p>
+<p><code>repmgr -h pg2 -U repmgr -d repmgr -f /etc/repmgr/11/repmgr.conf standby clone -F</code></p>
+<p><code>systemctl start postgresql-12.service</code></p>
+<p><code>repmgr -f /etc/repmgr/11/repmgr.conf standby register -F</code></p></div>
+<h1 id="问题汇总"><a href="#问题汇总" class="headerlink" title="问题汇总"></a>问题汇总</h1><h2 id="错误1"><a href="#错误1" class="headerlink" title="错误1"></a>错误1</h2><p>从节点同步主节点时，报错连接失败</p>
+<blockquote>
+<p>bash-4.2$ repmgr -h pg1 -U repmgr -d repmgr -f /etc/repmgr/11/repmgr.conf standby clone –dry-run<br>NOTICE: destination directory “/var/lib/pgsql/11/data” provided<br>INFO: connecting to source node<br>DETAIL: connection string is: host=pg1 user=repmgr dbname=repmgr<br>DETAIL: current installation size is 31 MB<br>INFO: “repmgr” extension is installed in database “repmgr”<br>INFO: replication slot usage not requested;  no replication slot will be set up for this standby<br>INFO: parameter “max_wal_senders” set to 10<br>NOTICE: checking for available walsenders on the source node (2 required)<br>INFO: sufficient walsenders available on the source node<br>DETAIL: 2 required, 10 available<br>NOTICE: checking replication connections can be made to the source server (2 required)<br>ERROR: connection to database failed<br>DETAIL:<br><strong>致命错误:  没有来自主机 “192.168.44.132”, 用户”repmgr”, SSL 关闭的复制连接的pg_hba.conf记录</strong></p>
+<p>ERROR: connection to database failed<br>DETAIL:<br><strong>致命错误:  没有来自主机 “192.168.44.132”, 用户”repmgr”, SSL 关闭的复制连接的pg_hba.conf记录</strong></p>
+<p>ERROR: unable to establish necessary replication connections<br>HINT: check replication permissions on the source server</p>
+</blockquote>
+<p><strong>解决办法：</strong></p>
+<p>少加了 前三条授权，添加上后问题解决。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">local   replication   repmgr                              trust</span><br><span class="line">host    replication   repmgr      <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>/<span class="number">32</span>            trust</span><br><span class="line">host    replication   repmgr      <span class="number">192.168</span><span class="number">.44</span><span class="number">.0</span>/<span class="number">24</span>          trust</span><br><span class="line"></span><br><span class="line">local   repmgr        repmgr                              trust</span><br><span class="line">host    repmgr        repmgr      <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>/<span class="number">32</span>            trust</span><br><span class="line">host    repmgr        repmgr      <span class="number">192.168</span><span class="number">.44</span><span class="number">.0</span>/<span class="number">24</span>         trust</span><br></pre></td></tr></table></figure>
+<h2 id="错误2"><a href="#错误2" class="headerlink" title="错误2"></a>错误2</h2><p>同样同步时错误</p>
+<blockquote>
+<p>bash-4.2$ repmgr -h pg1 -U repmgr -d repmgr -f /etc/repmgr/11/repmgr.conf standby clone<br>NOTICE: destination directory “/var/lib/pgsql/11/data” provided<br>INFO: connecting to source node<br>DETAIL: connection string is: host=pg1 user=repmgr dbname=repmgr<br>DETAIL: current installation size is 31 MB<br>INFO: replication slot usage not requested;  no replication slot will be set up for this standby<br>NOTICE: checking for available walsenders on the source node (2 required)<br>NOTICE: checking replication connections can be made to the source server (2 required)<br>WARNING: data checksums are not enabled and “wal_log_hints” is “off”<br>DETAIL: pg_rewind requires “wal_log_hints” to be enabled<br>INFO: checking and correcting permissions on existing directory “/var/lib/pgsql/11/data”<br>NOTICE: starting backup (using pg_basebackup)…<br>HINT: this may take some time; consider using the -c/–fast-checkpoint option<br>INFO: executing:<br>pg_basebackup -l “repmgr base backup”  -D /var/lib/pgsql/11/data -h pg1 -p 5432 -U repmgr -X stream<br><strong>pg_basebackup: 无法得到来自服务器的预写日志终止位置: 错误:  无法打开文件 “./postgresql.conf.bak”: 权限不够</strong><br><strong>pg_basebackup: 删除数据目录 “/var/lib/pgsql/11/data” 的内容</strong><br>ERROR: unable to take a base backup of the source server<br>HINT: data directory (“/var/lib/pgsql/11/data”) may need to be cleaned up manually</p>
+</blockquote>
+<p><strong>原因：</strong></p>
+<p>1 数据库数据目录下存在非postgres用户权限的文件，postgresql.conf.bak权限是root权限，授权为postgres用户权限即可</p>
+<p>2 从节点的数据目录要保证为空。</p>
+<h2 id="错误3"><a href="#错误3" class="headerlink" title="错误3"></a>错误3</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># repmgr standby switchover 命令</span></span><br><span class="line">bash-4.2$ repmgr standby switchover -f /etc/repmgr/11/repmgr.conf</span><br><span class="line">NOTICE: checking switchover on node <span class="string">"pg2"</span> (ID: 2) <span class="keyword">in</span> --dry-run mode</span><br><span class="line">WARNING: unable to connect to remote host <span class="string">"pg1"</span> via SSH</span><br><span class="line">ERROR: unable to connect via SSH to host <span class="string">"pg1"</span>, user <span class="string">""</span></span><br></pre></td></tr></table></figure>
+<p><strong>解决办法：</strong></p>
+<p>创建postgres 用户免密SSH登陆。</p>
+<h2 id="错误4"><a href="#错误4" class="headerlink" title="错误4"></a>错误4</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bash-4.2$ repmgr standby switchover</span><br><span class="line">NOTICE: executing switchover on node <span class="string">"pg1"</span> (ID: 1)</span><br><span class="line">ERROR: unable to execute <span class="string">"repmgr"</span> on <span class="string">"pg2"</span></span><br><span class="line">HINT: check <span class="string">"pg_bindir"</span> is <span class="built_in">set</span> to the correct path <span class="keyword">in</span> <span class="string">"repmgr.conf"</span>; current value: (not <span class="built_in">set</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>解决办法：</strong></p>
+<p>修改<code>repmgr.conf</code>配置文件，增加 <code>pg_bindir</code>参数，设置postgresql的<code>bin</code>路径。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pg_bindir=<span class="string">'/usr/pgsql-11/bin'</span></span><br></pre></td></tr></table></figure>
+<h2 id="错误5"><a href="#错误5" class="headerlink" title="错误5"></a>错误5</h2><p>standby升级为primary节点后，其他低权重的standby连接新primary使出现postgresql重启错误。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[2021-08-17 14:24:08] [INFO] <span class="built_in">local</span> node 3 can attach to follow target node 2</span><br><span class="line">[2021-08-17 14:24:08] [DETAIL] <span class="built_in">local</span> node<span class="string">'s recovery point: 0/3802CD38; follow target node'</span>s fork point: 0/3802CD38</span><br><span class="line">[2021-08-17 14:24:08] [NOTICE] setting node 3<span class="string">'s upstream to node 2</span></span><br><span class="line"><span class="string">[2021-08-17 14:24:08] [NOTICE] restarting server using "sudo /usr/bin/systemctl restart postgresql-11.service"</span></span><br><span class="line"><span class="string">[2021-08-17 14:24:10] [ERROR] unable to restart server</span></span><br><span class="line"><span class="string">[2021-08-17 14:24:10] [NOTICE] STANDBY FOLLOW failed</span></span><br><span class="line"><span class="string">[2021-08-17 14:24:10] [ERROR] connection to database failed</span></span><br></pre></td></tr></table></figure>
+<p><strong>解决办法：配置postgres用户sudo命令免输入密码</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">vi <span class="regexp">/etc/</span>sudoers</span><br><span class="line"></span><br><span class="line"><span class="comment"># postgres用户，所有sudo命令都不用密码</span></span><br><span class="line">postgres   ALL=(ALL) NOPASSWD: ALL</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line"><span class="comment"># postgres用户，特定sudo命令不需要密码</span></span><br><span class="line">Defaults:postgres !requiretty</span><br><span class="line">postgres ALL = NOPASSWD: <span class="regexp">/usr/</span>bin<span class="regexp">/systemctl stop postgresql-11.service, /u</span>sr<span class="regexp">/bin/</span>systemctl start postgresql-<span class="number">11</span>.service, <span class="regexp">/usr/</span>bin<span class="regexp">/systemctl restart postgresql-11.service, /u</span>sr<span class="regexp">/bin/</span>systemctl reload postgresql-<span class="number">11</span>.service, <span class="regexp">/usr/</span>bin<span class="regexp">/systemctl start repmgr11.service, /u</span>sr<span class="regexp">/bin/</span>systemctl stop repmgr11.service</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+        
+      </div>
+	  
+	  <div>
+        
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2021/08/17/postgresql-repmgr高可用/">postgresql+repmgr高可用</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
+  <p><span>发布时间:</span>2021年08月17日 - 16:08</p>
+  <p><span>最后更新:</span>2021年08月17日 - 16:08</p>
+  <p><span>原始链接:</span><a href="/2021/08/17/postgresql-repmgr高可用/" title="postgresql+repmgr高可用">https://kxinter.github.io/blog/2021/08/17/postgresql-repmgr高可用/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/blog/2021/08/17/postgresql-repmgr高可用/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+	});
+    });  
+</script>
+
+        
+      </div>
+	
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="OperationMAN 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="OperationMAN 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/postgresql/" rel="tag"><i class="fa fa-tag"></i> postgresql</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/07/29/http1对比http2实测/" rel="next" title="http1对比http2实测">
+                <i class="fa fa-chevron-left"></i> http1对比http2实测
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTUxNS8xNjA0Mg"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+			<!--设置点击头像链接到首页-->
+			<a href="/">
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.jpeg"
+                alt="OperationMAN" />
+			</a>
+            
+              <p class="site-author-name" itemprop="name">OperationMAN</p>
+              <p class="site-description motion-element" itemprop="description">日常运维文档整理。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">123</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:kxhuanzi@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/kxinter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://gitee.com/kxinter" target="_blank" title="码云">
+                      
+                        <i class="fa fa-fw fa-code"></i>码云</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://kxinter.gitee.io" target="_blank" title="blog">
+                      
+                        <i class="fa fa-fw fa-book"></i>blog</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://medoc.000webhostapp.com" target="_blank" title="随手笔记">
+                      
+                        <i class="fa fa-fw fa-wordpress"></i>随手笔记</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://man.linuxde.net/" target="_blank" title="Linux命令大全">
+                      
+                        <i class="fa fa-fw fa-linux"></i>Linux命令大全</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://linux.vbird.org" target="_blank" title="鸟哥的私房菜">
+                      
+                        <i class="fa fa-fw fa-linux"></i>鸟哥的私房菜</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.runoob.com/" target="_blank" title="RUNOOB.com">
+                      
+                        <i class="fa fa-fw fa-linux"></i>RUNOOB.com</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.chenshake.com/" target="_blank" title="陈沙克日志">
+                      
+                        <i class="fa fa-fw fa-cloud"></i>陈沙克日志</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://bitnami.com/" target="_blank" title="Bitnami">
+                      
+                        <i class="fa fa-fw fa-bold"></i>Bitnami</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://fontawesome.com/icons?d=gallery" target="_blank" title="Font Awesome">
+                      
+                        <i class="fa fa-fw fa-font-awesome"></i>Font Awesome</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.000webhost.com/cpanel-login?from=panel#" target="_blank" title="Statistics">
+                      
+                        <i class="fa fa-fw fa-server"></i>Statistics</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://shenzekun.cn/hexo%E7%9A%84next%E4%B8%BB%E9%A2%98%E4%B8%AA%E6%80%A7%E5%8C%96%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.html" title="Next优化" target="_blank">Next优化</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" title="Next深度优化" target="_blank">Next深度优化</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://livere.com/" title="来必力" target="_blank">来必力</a>
+                  </li>
+                
+              </ul>
+			<div id="days"></div>
+<script>
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("05/27/2017 15:13:14");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行"+daysold+"天"+hrsold+"小时"+minsold+"分"+seconds+"秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+</script>
+  
+            </div>
+          
+
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-参考文档"><span class="nav-text">1 参考文档</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-环境"><span class="nav-text">2 环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-修改hosts"><span class="nav-text">3 修改hosts</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-配置SSH免密登陆"><span class="nav-text">4 配置SSH免密登陆</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-所有节点安装PG软件和postgis插件"><span class="nav-text">4 所有节点安装PG软件和postgis插件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-所有节点安装repmgr"><span class="nav-text">5 所有节点安装repmgr</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-primary节点配置"><span class="nav-text">6 primary节点配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-standby测试连接primary节点数据库"><span class="nav-text">7 standby测试连接primary节点数据库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-注册Primary节点"><span class="nav-text">8 注册Primary节点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-standby节点同步主节点数据"><span class="nav-text">9 standby节点同步主节点数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-注册standby"><span class="nav-text">10 注册standby</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11-主从切换-只适用于主从双节点"><span class="nav-text">11 主从切换(只适用于主从双节点)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#11-1-场景"><span class="nav-text">11.1 场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-2-操作"><span class="nav-text">11.2 操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-故障转移，手动切换"><span class="nav-text">12 故障转移，手动切换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#12-1-场景"><span class="nav-text">12.1 场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-2-操作"><span class="nav-text">12.2 操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-3-补充"><span class="nav-text">12.3 补充</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-故障自动转移"><span class="nav-text">13 故障自动转移</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#13-1-编辑sudoers文件"><span class="nav-text">13.1 编辑sudoers文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-2-配置postgresql-conf（所有节点）"><span class="nav-text">13.2  配置postgresql.conf（所有节点）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-3-配置repmgr-conf文件（所有节点）"><span class="nav-text">13.3 配置repmgr.conf文件（所有节点）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-3-启动repmgr服务（所有节点）"><span class="nav-text">13.3 启动repmgr服务（所有节点）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-4-故障模拟测试"><span class="nav-text">13.4 故障模拟测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#13-4-1停止pg1节点（primary）的postgresql服务"><span class="nav-text">13.4.1停止pg1节点（primary）的postgresql服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-4-2-旧primary节点恢复"><span class="nav-text">13.4.2 旧primary节点恢复</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题汇总"><span class="nav-text">问题汇总</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#错误1"><span class="nav-text">错误1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误2"><span class="nav-text">错误2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误3"><span class="nav-text">错误3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误4"><span class="nav-text">错误4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误5"><span class="nav-text">错误5</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OperationMAN</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">154.2k</span>
+  
+</div>
+
+
+
+<!--修改页面底部主题名字和网站软件名字-->
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<!--动态背景>
+ <script type="text/javascript" src="/kxinter.gitub.io/lib/canvas-nest/canvas-nest.min.js"></script> 
+  <-->
+ </body>
+</html>
+<script type="text/javascript" src="/kxinter.gitub.io/js/src/love.js"></script>
