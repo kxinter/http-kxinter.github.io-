@@ -351,6 +351,463 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2022/01/12/Postgresql设置密码复杂度校验/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/01/12/Postgresql设置密码复杂度校验/" itemprop="url">postgresql设置密码复杂度校验</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-12T14:01:03+08:00">
+                2022-01-12
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-01-12T23:04:54+08:00">
+                2022-01-12
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-postgresql设置密码复杂度校验"><a href="#1-postgresql设置密码复杂度校验" class="headerlink" title="1 postgresql设置密码复杂度校验"></a>1 postgresql设置密码复杂度校验</h1><h2 id="1-1-默认密码校验策略"><a href="#1-1-默认密码校验策略" class="headerlink" title="1.1 默认密码校验策略"></a>1.1 默认密码校验策略</h2><p>在PG中可以使用<code>passwordcheck.so</code>模块实现密码复杂度校验的功能，不过这个工具的默认要求很低，只可用于简单的密码复杂度校验，默认检查规则如下：</p>
+<ol>
+<li>密码长度大于8位</li>
+<li>密码不能与用户名相同</li>
+<li>密码必须包括字母和数字</li>
+</ol>
+<h3 id="1-1-1-passwordcheck密码校验"><a href="#1-1-1-passwordcheck密码校验" class="headerlink" title="1.1.1 passwordcheck密码校验"></a>1.1.1 passwordcheck密码校验</h3><p>安装完PostgreSQL之后，默认是没有开启密码复杂度，为了数据库安全以及应对等保测评等要求，有时我们需要设置密码复杂度。</p>
+<p>PostgreSQL支持通过动态库的方式扩展PG的功能，pg在使用这些功能时需要预加载相关的共享库。而密码复杂度可以通过预加载passwordcheck.so模块实现。</p>
+<p>有几种设置可用于将共享库预加载到服务器中，如下：</p>
+<ul>
+<li>local_preload_libraries (string)</li>
+<li>session_preload_libraries (string)</li>
+<li>shared_preload_libraries (string)</li>
+</ul>
+<p>下面介绍shared_preload_libraries (string)方式加载<code>passwordcheck.so</code>模块，此模块可以检查密码，如果密码太弱，他会拒绝连接；创建用户或修改用户密码时，强制限制密码的复杂度，限制密码不能重复使用例如密码长度，包含数字，字母，大小写，特殊字符等，同时排除暴力破解字典中的字符串。</p>
+<h3 id="1-1-2-shared-preload-libraries-方式启用passwordcheck-so模块"><a href="#1-1-2-shared-preload-libraries-方式启用passwordcheck-so模块" class="headerlink" title="1.1.2 shared_preload_libraries 方式启用passwordcheck.so模块"></a>1.1.2 shared_preload_libraries 方式启用passwordcheck.so模块</h3><p>在PG库的数据目录下（centos默认路径为：<code>/var/lib/pgsql/11/data</code>，windows默认路径为：<code>D:\PostgreSQL\11\data</code>）找到<code>postgresql.conf</code>文件，修改</p>
+<p>修改内容行为：<code>shared_preload_libraries = &#39;passwordcheck&#39;  # (change requires restart)。</code></p>
+<p>修改完成后重启服务服务生效（<code>systemctl restart postgresql-11</code>）。</p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/01/315861-20201127152459487-148259811.png" alt="image"><img src="https://gitee.com/kxinter/images/raw/master/2022/01/315861-20201127152500965-701180388.png" alt="image"></p>
+<h3 id="1-1-3-验证"><a href="#1-1-3-验证" class="headerlink" title="1.1.3 验证"></a>1.1.3 验证</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提示密码太短</span></span><br><span class="line">postgres=<span class="comment"># create role ttt with password '123123';</span></span><br><span class="line">ERROR:  password is too short</span><br><span class="line"></span><br><span class="line"><span class="comment"># 提示密码必须包含字母和非字母</span></span><br><span class="line">postgres=<span class="comment"># create role ttt with password '12345678';</span></span><br><span class="line">ERROR:  password must contain both letters and nonletters</span><br><span class="line"></span><br><span class="line">postgres=<span class="comment"># create role ttt with password 'qweqweqwe';</span></span><br><span class="line">ERROR:  password must contain both letters and nonletters</span><br><span class="line"></span><br><span class="line"><span class="comment">#  提示密码不能包含用户名</span></span><br><span class="line">postgres=<span class="comment"># create role tttt with password 'tttt123456';</span></span><br><span class="line">ERROR:  password must not contain user name</span><br></pre></td></tr></table></figure>
+<h2 id="1-2-增强密码校验策略"><a href="#1-2-增强密码校验策略" class="headerlink" title="1.2 增强密码校验策略"></a>1.2 增强密码校验策略</h2><p>通过修改源代码实现。本文记录如何通过修改源码<code>passwordcheck.c</code>达到增强复杂度检验的目的，修改后验证规则如下：</p>
+<ol>
+<li>密码长度大于8位</li>
+<li>密码不能与用户名相同</li>
+<li>密码必须包括字母</li>
+<li>密码必须包括数字</li>
+<li>密码必须包括特殊字符</li>
+</ol>
+<h3 id="1-2-1-步骤"><a href="#1-2-1-步骤" class="headerlink" title="1.2.1 步骤"></a>1.2.1 步骤</h3><h4 id="1-2-1-1-实验环境"><a href="#1-2-1-1-实验环境" class="headerlink" title="1.2.1.1 实验环境"></a>1.2.1.1 实验环境</h4><p>实验环境：CentOS7.6 + PG11.8 source code</p>
+<p>源码下载地址: <a href="https://www.postgresql.org/ftp/source/v11.8/postgresql-11.8.tar.gz" target="_blank" rel="noopener">https://www.postgresql.org/ftp/source/v11.8/postgresql-11.8.tar.gz</a></p>
+<p>源码安装文档：<a href="https://www.postgresql.org/docs/11/install-short.htm" target="_blank" rel="noopener">https://www.postgresql.org/docs/11/install-short.htm</a></p>
+<h4 id="1-2-1-2-使用方式"><a href="#1-2-1-2-使用方式" class="headerlink" title="1.2.1.2 使用方式"></a>1.2.1.2 使用方式</h4><ul>
+<li>替换目录 ../postgresql-11.4/contrib/passwordcheck 下的 passwordcheck.c</li>
+<li>编译安装 make &amp;&amp; make install</li>
+<li>postgresql配置文件内修改 (postgresql.conf)</li>
+<li>shared_preload_libraries = ‘passwordcheck’</li>
+<li>passwordcheck.level = ‘true’</li>
+</ul>
+<h4 id="1-2-1-3-效果"><a href="#1-2-1-3-效果" class="headerlink" title="1.2.1.3 效果"></a>1.2.1.3 效果</h4><p>当密码长度足够，不符合规则的时候，无法新建用户</p>
+<h4 id="1-2-1-4-源码修改"><a href="#1-2-1-4-源码修改" class="headerlink" title="1.2.1.4 源码修改"></a>1.2.1.4 源码修改</h4><p>将下载后的源码解压缩, 找到<code>postgresql-11.8/contrib/passwordcheck/passwordcheck.c</code>源文件，修改后保存退出。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*-------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"> * Luckyness</span></span><br><span class="line"><span class="comment"> * 20191202</span></span><br><span class="line"><span class="comment"> * 在源代码上修改自用，配置pg密码必须包含特殊字符</span></span><br><span class="line"><span class="comment"> * pg版本11.4</span></span><br><span class="line"><span class="comment"> * 使用方式：</span></span><br><span class="line"><span class="comment"> * 替换目录 ../postgresql-11.4/contrib/passwordcheck 下的 passwordcheck.c</span></span><br><span class="line"><span class="comment"> * 编译安装 make &amp;&amp; make install</span></span><br><span class="line"><span class="comment"> * postgresql配置文件内修改 (postgresql.conf)</span></span><br><span class="line"><span class="comment"> * shared_preload_libraries = 'passwordcheck'</span></span><br><span class="line"><span class="comment"> * passwordcheck.level = 'true'</span></span><br><span class="line"><span class="comment"> *-------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/*-------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * passwordcheck.c</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Copyright (c) 2009-2018, PostgreSQL Global Development Group</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Author: Laurenz Albe &lt;laurenz.albe@wien.gv.at&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * IDENTIFICATION</span></span><br><span class="line"><span class="comment"> *	  contrib/passwordcheck/passwordcheck.c</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *-------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"postgres.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ctype.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> USE_CRACKLIB</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;crack.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"commands/user.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"libpq/crypt.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"fmgr.h"</span></span></span><br><span class="line"><span class="comment">/* 引入扩展 */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"utils/guc.h"</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">PG_MODULE_MAGIC;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment"> * 配置文件内passwordcheck.level='true' 为需要特殊字符 </span></span><br><span class="line"><span class="comment"> * passwordcheck.level='false' 为只需要英文和数字</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">bool</span> passwordcheck_level = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* passwords shorter than this will be rejected */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MIN_PWD_LENGTH 8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">void</span> _PG_init(<span class="keyword">void</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * check_password</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * performs checks on an encrypted or unencrypted password</span></span><br><span class="line"><span class="comment"> * ereport's if not acceptable</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * username: name of role being created or changed</span></span><br><span class="line"><span class="comment"> * password: new password (possibly already encrypted)</span></span><br><span class="line"><span class="comment"> * password_type: PASSWORD_TYPE_* code, to indicate if the password is</span></span><br><span class="line"><span class="comment"> *			in plaintext or encrypted form.</span></span><br><span class="line"><span class="comment"> * validuntil_time: password expiration time, as a timestamptz Datum</span></span><br><span class="line"><span class="comment"> * validuntil_null: true if password expiration time is NULL</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * This sample implementation doesn't pay any attention to the password</span></span><br><span class="line"><span class="comment"> * expiration time, but you might wish to insist that it be non-null and</span></span><br><span class="line"><span class="comment"> * not too far in the future.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span></span><br><span class="line"></span><br><span class="line">check_password(<span class="keyword">const</span> <span class="keyword">char</span> *username,</span><br><span class="line">			   <span class="keyword">const</span> <span class="keyword">char</span> *shadow_pass,</span><br><span class="line">			   PasswordType password_type,</span><br><span class="line">			   Datum validuntil_time,</span><br><span class="line">			   <span class="keyword">bool</span> validuntil_null)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (password_type != PASSWORD_TYPE_PLAINTEXT)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">/*</span></span><br><span class="line"><span class="comment">		 * Unfortunately we cannot perform exhaustive checks on encrypted</span></span><br><span class="line"><span class="comment">		 * passwords - we are restricted to guessing. (Alternatively, we could</span></span><br><span class="line"><span class="comment">		 * insist on the password being presented non-encrypted, but that has</span></span><br><span class="line"><span class="comment">		 * its own security disadvantages.)</span></span><br><span class="line"><span class="comment">		 *</span></span><br><span class="line"><span class="comment">		 * We only check for username = password.</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">char</span>	   *logdetail;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (plain_crypt_verify(username, shadow_pass, username, &amp;logdetail) == STATUS_OK)</span><br><span class="line">			ereport(ERROR,</span><br><span class="line">					(errcode(ERRCODE_INVALID_PARAMETER_VALUE),</span><br><span class="line">					 errmsg(<span class="string">"password must not equal user name"</span>)));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">/*</span></span><br><span class="line"><span class="comment">		 * For unencrypted passwords we can perform better checks</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">const</span> <span class="keyword">char</span> *password = shadow_pass;</span><br><span class="line">		<span class="keyword">int</span>			pwdlen = <span class="built_in">strlen</span>(password);</span><br><span class="line">		<span class="keyword">int</span>			i;</span><br><span class="line">		<span class="comment">/*                 bool            pwd_has_letter,*/</span></span><br><span class="line">		<span class="keyword">bool</span>		</span><br><span class="line">					pwd_has_number,pwd_has_special,pwd_has_letter;</span><br><span class="line"></span><br><span class="line">		<span class="comment">/* enforce minimum length */</span></span><br><span class="line">		<span class="keyword">if</span> (pwdlen &lt; MIN_PWD_LENGTH)</span><br><span class="line">			ereport(ERROR,</span><br><span class="line">					(errcode(ERRCODE_INVALID_PARAMETER_VALUE),</span><br><span class="line">					 errmsg(<span class="string">"password is too short"</span>)));</span><br><span class="line"></span><br><span class="line">		<span class="comment">/* check if the password contains the username */</span></span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">strstr</span>(password, username))</span><br><span class="line">			ereport(ERROR,</span><br><span class="line">					(errcode(ERRCODE_INVALID_PARAMETER_VALUE),</span><br><span class="line">					 errmsg(<span class="string">"password must not contain user name"</span>)));</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>(passwordcheck_level)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">/* check if the password contains both letters and number and specialchar */</span></span><br><span class="line">			pwd_has_number = <span class="literal">false</span>;</span><br><span class="line">			pwd_has_special = <span class="literal">false</span>;</span><br><span class="line">			pwd_has_letter = <span class="literal">false</span>;</span><br><span class="line">			<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; pwdlen; i++)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (<span class="built_in">isalpha</span>((<span class="keyword">unsigned</span> <span class="keyword">char</span>) password[i]))</span><br><span class="line">					pwd_has_letter = <span class="literal">true</span>;</span><br><span class="line">				<span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">isdigit</span>((<span class="keyword">unsigned</span> <span class="keyword">char</span>) password[i]))</span><br><span class="line">					pwd_has_number = <span class="literal">true</span>;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					pwd_has_special = <span class="literal">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (!pwd_has_number || !pwd_has_letter || !pwd_has_special)</span><br><span class="line">				ereport(ERROR,</span><br><span class="line">						(errcode(ERRCODE_INVALID_PARAMETER_VALUE),</span><br><span class="line">						errmsg(<span class="string">"password must contain both letters and number and specialchar"</span>)));</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">/* check if the password contains both letters and non-letters */</span></span><br><span class="line">			pwd_has_letter = <span class="literal">false</span>;</span><br><span class="line">			pwd_has_number = <span class="literal">false</span>;</span><br><span class="line">			<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; pwdlen; i++)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (<span class="built_in">isalpha</span>((<span class="keyword">unsigned</span> <span class="keyword">char</span>) password[i]))</span><br><span class="line">					pwd_has_letter = <span class="literal">true</span>;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					pwd_has_number = <span class="literal">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (!pwd_has_letter || !pwd_has_number)</span><br><span class="line">				ereport(ERROR,</span><br><span class="line">						(errcode(ERRCODE_INVALID_PARAMETER_VALUE),</span><br><span class="line">						errmsg(<span class="string">"password must contain both letters and nonletters"</span>)));</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> USE_CRACKLIB</span></span><br><span class="line">		<span class="comment">/* call cracklib to check password */</span></span><br><span class="line">		<span class="keyword">if</span> (FascistCheck(password, CRACKLIB_DICTPATH))</span><br><span class="line">			ereport(ERROR,</span><br><span class="line">					(errcode(ERRCODE_INVALID_PARAMETER_VALUE),</span><br><span class="line">					 errmsg(<span class="string">"password is easily cracked"</span>)));</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* all checks passed, password is ok */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Module initialization function</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">_PG_init(<span class="keyword">void</span>)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">/* 密码级别参数 */</span></span><br><span class="line">	DefineCustomBoolVariable(</span><br><span class="line">		<span class="string">"passwordcheck.level"</span>,</span><br><span class="line">		gettext_noop(<span class="string">"passwordcheck_level true: Password must contain leter, number, special characters;false : Password must contain leter, special characters"</span>),</span><br><span class="line">		<span class="literal">NULL</span>,</span><br><span class="line">		&amp;passwordcheck_level,</span><br><span class="line">		<span class="literal">false</span>,</span><br><span class="line">		PGC_POSTMASTER,</span><br><span class="line">		GUC_SUPERUSER_ONLY,</span><br><span class="line">		<span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* activate password checks when the module is loaded */</span></span><br><span class="line">	check_password_hook = check_password;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-1-5-编译"><a href="#1-2-1-5-编译" class="headerlink" title="1.2.1.5 编译"></a>1.2.1.5 编译</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##编译安装pg server</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##进入源码解压目录, 执行</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span>  postgresql-11.8</span><br><span class="line"></span><br><span class="line">./configure--prefix=/u01/pgsql11.8 --without-zlib --without-readline   --&gt;&gt;&gt;&gt;指定安装目录为/u01/pgsql11.8, 处于演示目的,所以没有安装zlib和readline包。</span><br><span class="line"></span><br><span class="line">make</span><br><span class="line"></span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line"><span class="comment">##编译安装contrib,是一些第三方组织贡献出来的工具代码。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##进入源码解压目录执行</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span>   postgresql-11.8/contrib</span><br><span class="line"></span><br><span class="line">make</span><br><span class="line"></span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line"><span class="comment">##编译完成后，在postgresql-11.8/contrib/passwordcheck/目录下增加passwordcheck.so文件</span></span><br><span class="line"><span class="comment">##编译后的文件，可以迁移到同版本数据库内使用</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-2-2-验证"><a href="#1-2-2-验证" class="headerlink" title="1.2.2 验证"></a>1.2.2 验证</h3><p>首先开启passwordcheck验证, 修改参数文件postgresql.conf</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改如下</span></span><br><span class="line">shared_preload_libraries= <span class="string">'passwordcheck'</span></span><br><span class="line">passwordcheck.level=<span class="string">'true‘</span></span><br></pre></td></tr></table></figure>
+<p> 重启实例生效</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pg_ctl restart</span><br></pre></td></tr></table></figure>
+<p><strong>测试</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提示密码太短</span></span><br><span class="line">postgres=<span class="comment"># create role btest with login password '123';</span></span><br><span class="line">ERROR:  password is too short</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 提示必须同时包括字母、数字、特殊字符</span></span><br><span class="line">postgres=<span class="comment"># create role btest with login password '12345678';</span></span><br><span class="line">ERROR:  password must contain both letters and number and specialchar</span><br><span class="line"></span><br><span class="line">postgres=<span class="comment"># create role btest with login password 'qqqqqqqq';</span></span><br><span class="line">ERROR:  password must contain both letters and nonletters</span><br><span class="line"></span><br><span class="line">postgres=<span class="comment"># create role btest with login password '!!!!!!!!!!!!';</span></span><br><span class="line">ERROR:  password must contain both letters and nonletters</span><br><span class="line"></span><br><span class="line">postgres=<span class="comment"># create role btest with login password '12345678a';</span></span><br><span class="line">ERROR:  password must contain both letters and number and specialchar</span><br><span class="line"></span><br><span class="line">postgres=<span class="comment"># create role btest with login password '1234567!';</span></span><br><span class="line">ERROR:  password must contain both letters and nonletters</span><br><span class="line"></span><br><span class="line">postgres=<span class="comment"># create role btest with login password '12345678a!';</span></span><br><span class="line">CREATE ROLE</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改密码提示必须同时包含字母、数字和特殊字符</span></span><br><span class="line">postgres=<span class="comment"># alter role btest password '12345678!';</span></span><br><span class="line">ERROR:  password must contain both letters and number and specialchar</span><br><span class="line"></span><br><span class="line"><span class="comment"># 提示密码不能包含用户名</span></span><br><span class="line">postgres=<span class="comment"># alter role btest password '123456btest!';</span></span><br><span class="line">ERROR:  password must not contain user name</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-3-问题"><a href="#1-2-3-问题" class="headerlink" title="1.2.3 问题"></a>1.2.3 问题</h3><div class="note danger"><p><strong>警告</strong><br>这里还存在个问题，就是通过<code>\password</code>命令修改的话，可以输入不满足长度的密码，原因是使用<code>\password</code>时<code>passwordcheck</code>检查的是加密后的口令，官方文档提到过，检查<code>md5</code>加密后的口令是很困难的，所以当<code>passwordcheck</code>检查加密的口令时，只检查密码是否与用户名相同这一项，实际上是将用户名通过<code>md5</code>加密后与数据库中的<code>md5</code>密码做比较，如果相同，则报错口令不能与用户名相同。</p></div>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">postgres=#\password bert</span><br><span class="line"></span><br><span class="line">Enter new password:  <span class="comment">----&gt;&gt;&gt;&gt;&gt;可以输入小于8位的口令, 而不被阻. 但是输入的是与用户名相同的话可以被检测出来。</span></span><br><span class="line"></span><br><span class="line">Enter itagain:</span><br><span class="line"></span><br><span class="line">postgres=#</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">postgres=#\set ECHO_HIDDEN ON</span><br><span class="line"></span><br><span class="line">postgres=#\password bert</span><br><span class="line"></span><br><span class="line">Enter newpassword:</span><br><span class="line"></span><br><span class="line">Enter itagain:</span><br><span class="line"></span><br><span class="line">*********QUERY **********</span><br><span class="line"></span><br><span class="line">ALTERUSER bert PASSWORD 'md5efabd7549b98ddce9b14ba5e2e83eae1'</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="1-4-参考"><a href="#1-4-参考" class="headerlink" title="1.4 参考"></a>1.4 参考</h2><p><a href="https://www.modb.pro/db/171257" target="_blank" rel="noopener">https://www.modb.pro/db/171257</a></p>
+<p><a href="https://www.cnblogs.com/Luckyness/p/11996834.html" target="_blank" rel="noopener">https://www.cnblogs.com/Luckyness/p/11996834.html</a></p>
+<p><a href="https://github.com/Luckyness/passwordcheck/blob/master/passwordcheck.c" target="_blank" rel="noopener">https://github.com/Luckyness/passwordcheck/blob/master/passwordcheck.c</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2022/01/12/Postgresql开启日志审计/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/01/12/Postgresql开启日志审计/" itemprop="url">ubuntu20.04安装NVIDIA显卡驱动+CUDA</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-12T13:40:10+08:00">
+                2022-01-12
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-01-12T23:04:53+08:00">
+                2022-01-12
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  605
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="postgresql开启日志审计"><a href="#postgresql开启日志审计" class="headerlink" title="postgresql开启日志审计"></a>postgresql开启日志审计</h1><p><strong>1、审计清单说明</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">logging_collector   <span class="comment"># 是否开启日志收集开关，默认off，推荐on</span></span><br><span class="line"></span><br><span class="line">log_destination     -- 日志记录类型，默认是stderr，只记录错误输出，推荐csvlog，总共包含：`stderr, csvlog, syslog, and eventlog,`</span><br><span class="line"></span><br><span class="line">log_directory       <span class="comment"># 日志路径，默认是$PGDATA/pg_log, </span></span><br><span class="line"></span><br><span class="line">log_filename        <span class="comment"># 日志名称，默认是postgresql-%Y-%m-%d_%H%M%S.log</span></span><br><span class="line"></span><br><span class="line">log_file_mode       <span class="comment"># 日志文件类型，默认为0600</span></span><br><span class="line"></span><br><span class="line">log_truncate_on_rotation <span class="comment"># 默认为off，设置为on的话，文件内容覆盖方式：off后面附加，on：清空再加</span></span><br><span class="line"></span><br><span class="line">log_rotation_age    <span class="comment"># 保留单个文件的最大时长,默认是1d,也有1h,1min,1s</span></span><br><span class="line"></span><br><span class="line">log_rotation_size    <span class="comment"># 保留单个文件的最大尺寸，默认是10MB</span></span><br><span class="line"></span><br><span class="line">log_error_verbosity  <span class="comment"># 默认为default，verbose表示冗长的</span></span><br><span class="line"></span><br><span class="line">log_connections  <span class="comment"># 用户session登陆时是否写入日志，默认off，推荐为on</span></span><br><span class="line"></span><br><span class="line">log_disconnections <span class="comment"># 用户session退出时是否写入日志，默认off，推荐为on</span></span><br><span class="line"></span><br><span class="line">log_statement  --`记录用户登陆数据库后的各种操作`</span><br><span class="line"></span><br><span class="line">     1. none，即不记录</span><br><span class="line">     2. ddl(记录create,drop和alter)</span><br><span class="line">     3. mod(记录ddl+insert,delete,update和truncate)</span><br><span class="line">     4. all(mod+select)</span><br><span class="line"></span><br><span class="line">log_min_duration_statement = 2s        -- `记录超过2秒的SQL`</span><br><span class="line">log_checkpoints = on       <span class="comment"># 检查点和重启点被记录再服务器日志中。一些统计信息也被包括再日志消息中，包括写入缓冲区的数据和写他们呢所花的时间。这个参数智能在postgresql.conf文件中或在服务器命令行上设置。默认是关闭（off）</span></span><br><span class="line">log_lock_waits ＝ on       <span class="comment"># 如果一个会话等待某个类型的锁的时间超过deadlock_timeout的值，该参数决定是否在数据库日志中记录这个信息。</span></span><br><span class="line">deadlock_timeout ＝ 1s     <span class="comment"># 数据库的锁通常可以在pg_locks这个系统表里找，但这只是当前的锁表/行信息，如果你想看一天内有多少个超过死锁时间的锁发生，可以在日志里设置并查看，log_lock_waits 默认是off，可以设置开启。这个可以区分SQL慢是资源紧张还是锁等待的问题。</span></span><br></pre></td></tr></table></figure>
+<p><strong>2、推荐的设置参数</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">logging_collector = on</span><br><span class="line">log_destination = <span class="string">'csvlog'</span></span><br><span class="line">log_truncate_on_rotation = on</span><br><span class="line">log_connections = on</span><br><span class="line">log_disconnections = on</span><br><span class="line">log_error_verbosity = verbose</span><br><span class="line">log_statement = ddl</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这部分是postgresql.conf文件中没有的</span></span><br><span class="line">log_min_duration_statement = 60s    <span class="comment"># 记录超过60s的SQL</span></span><br><span class="line">log_checkpoints = on                  </span><br><span class="line">log_lock_waits ＝ on</span><br><span class="line">deadlock_timeout ＝ 1s</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看日志目录和日志文件名</span></span><br><span class="line">show log_directory;</span><br><span class="line">show log_filename;</span><br></pre></td></tr></table></figure>
+<p><strong>3、参数修改方法</strong></p>
+<p>直接修改配置文件</p>
+<p>postgresql.conf默认位于$PGDATA目录下。</p>
+<p>vim /usr/data/pgsql/data/postgresql.conf</p>
+<p>用超级用户运行：postgres=# SELECT pg_reload_conf();</p>
+<p>show命令可以查询当前状态</p>
+<p><strong>4、 参考文档</strong></p>
+<p><a href="http://t.zoukankan.com/tiandi-p-13568675.html" target="_blank" rel="noopener">http://t.zoukankan.com/tiandi-p-13568675.html</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2022/01/12/Elasticsearch导入导出数据-Elasticdump/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2189,407 +2646,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2021/06/18/gitlab-gitbook搭建WIKI/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/06/18/gitlab-gitbook搭建WIKI/" itemprop="url">gitlab_gitbook搭建WIKI</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-18T16:26:43+08:00">
-                2021-06-18
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2021-06-24T13:06:10+08:00">
-                2021-06-24
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.2k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  5
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1-环境"><a href="#1-环境" class="headerlink" title="1    环境"></a>1    环境</h1><p>OS： centos7.9<br>gitlab: gitlab-ce-10.0.0-ce<br>GitBook CLI version: 2.3.2<br>GitBook version: 3.2.3<br>Gitlab-runner  13.12.0<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/06/18/gitlab-gitbook搭建WIKI/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2021/04/19/hadoop集群部署2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/04/19/hadoop集群部署2/" itemprop="url">hadoop集群部署2-离线版</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-19T17:02:22+08:00">
-                2021-04-19
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2021-07-16T09:41:38+08:00">
-                2021-07-16
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.5k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  11
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1-环境"><a href="#1-环境" class="headerlink" title="1    环境"></a>1    环境</h1><h2 id="1-1-软件"><a href="#1-1-软件" class="headerlink" title="1.1    软件"></a>1.1    软件</h2><p>Centos7.9      //最低7.2版本   兼容 中标麒麟（服务器操作系统V7.0U6）</p>
-<p>Ambari 2.7.4    //支持HDP-3.1.5 和 HDF-3.2.0<br>Mysql 5.7      //只支持mysql5.7或者postgresql10.7/ 10.5/ 10. 2/ 9.6<br>JDK 1.80_77及以上版本<br>Chrome 57.0.2 / 56.0.2<br><a href="https://supportmatrix.hortonworks.com/" target="_blank" rel="noopener">https://supportmatrix.hortonworks.com/</a> (版本兼容查询)<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/04/19/hadoop集群部署2/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2647,7 +2703,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">126</span>
+                  <span class="site-state-item-count">128</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2669,7 +2725,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">92</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2844,7 +2900,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">157k</span>
+    <span title="Site words total count">159.6k</span>
   
 </div>
 
