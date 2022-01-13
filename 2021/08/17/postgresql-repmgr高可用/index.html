@@ -138,7 +138,7 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="1 参考文档repmgr 官方文档：repmgr 5.3dev Documentation 其他文档：Configure PostgreSQL Replication With Repmgr_qq_38461429的博客-CSDN博客 2 环境   主机名 IP OS 角色 软件包     pg1 192.168.44.131 Centos 7 primary postgresql 11  and">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-08-17T08:32:39.563Z">
+<meta property="og:updated_time" content="2022-01-13T05:36:58.487Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="postgresql+repmgr高可用">
 <meta name="twitter:description" content="1 参考文档repmgr 官方文档：repmgr 5.3dev Documentation 其他文档：Configure PostgreSQL Replication With Repmgr_qq_38461429的博客-CSDN博客 2 环境   主机名 IP OS 角色 软件包     pg1 192.168.44.131 Centos 7 primary postgresql 11  and">
@@ -397,8 +397,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2021-08-17T16:32:39+08:00">
-                2021-08-17
+              <time title="更新于" itemprop="dateModified" datetime="2022-01-13T13:36:58+08:00">
+                2022-01-13
               </time>
             
           </span>
@@ -526,6 +526,7 @@
 </tbody>
 </table>
 <div class="note default"><p><strong>备注</strong><br>以下安装方式均采用在线安装方式。</p></div>
+<a id="more"></a>
 <h1 id="3-修改hosts"><a href="#3-修改hosts" class="headerlink" title="3 修改hosts"></a>3 修改hosts</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">192.168.44.131 pg1</span><br><span class="line">192.168.44.132 pg2</span><br><span class="line">192.168.44.135 pg3</span><br></pre></td></tr></table></figure>
 <h1 id="4-配置SSH免密登陆"><a href="#4-配置SSH免密登陆" class="headerlink" title="4 配置SSH免密登陆"></a>4 配置SSH免密登陆</h1><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr"># 生产密钥</span></span><br><span class="line"><span class="attr">ssh-keygen -t rsa</span></span><br><span class="line"><span class="attr"># 写入文件</span></span><br><span class="line"><span class="attr">cat id_rsa.pub &gt; authorized_keys</span></span><br><span class="line"><span class="attr"># 赋权 600</span></span><br><span class="line">chmod <span class="number">+600</span> authorized_keys</span><br><span class="line"><span class="attr"># 拷贝 pg2</span>\p<span class="name">g3</span> 密钥到一个authorized_keys文件</span><br><span class="line">ssh p<span class="name">g2</span> cat /root/.ssh/id_rsa.pub &gt;&gt; authorized_keys</span><br><span class="line">ssh p<span class="name">g3</span> cat /root/.ssh/id_rsa.pub &gt;&gt; authorized_keys</span><br><span class="line"><span class="attr"># 拷贝authorized_keys 到pg2</span>\p<span class="name">g3</span></span><br><span class="line">scp authorized_keys p<span class="name">g2</span>:/root/.ssh/</span><br><span class="line">scp authorized_keys p<span class="name">g3</span>:/root/.ssh/</span><br><span class="line"><span class="attr"># ssh pg1</span>\p<span class="name">g2</span>\p<span class="name">g3</span> 测试是否生效</span><br></pre></td></tr></table></figure>
 <div class="note info"><p><strong>注意</strong><br>后面postgresql安装后，也需要配置postgres用户的SSH免密登陆。</p></div>
@@ -700,7 +701,7 @@
   <p><span>本文标题:</span><a href="/2021/08/17/postgresql-repmgr高可用/">postgresql+repmgr高可用</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2021年08月17日 - 16:08</p>
-  <p><span>最后更新:</span>2021年08月17日 - 16:08</p>
+  <p><span>最后更新:</span>2022年01月13日 - 13:01</p>
   <p><span>原始链接:</span><a href="/2021/08/17/postgresql-repmgr高可用/" title="postgresql+repmgr高可用">https://kxinter.github.io/blog/2021/08/17/postgresql-repmgr高可用/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/blog/2021/08/17/postgresql-repmgr高可用/"  aria-label="复制成功！"></i></span>
   </p>

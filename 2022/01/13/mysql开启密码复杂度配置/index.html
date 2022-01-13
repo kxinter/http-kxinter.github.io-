@@ -130,18 +130,18 @@
 
 
 
-<meta name="description" content="mysql开启密码复杂度配置mysql 5.6对密码的强度进行了加强，推出了 validate_password 插件。支持密码的强度要求。 mysql默认带validate_password 插件，直接装载插件即可。 1 装载plugin1mysql&amp;gt;&amp;gt;INSTALL PLUGIN validate_password SONAME &apos;validate_password.so&apos;; 2">
+<meta name="description" content="mysql开启密码复杂度配置mysql 5.6对密码的强度进行了加强，推出了 validate_password 插件。支持密码的强度要求。 mysql默认带validate_password 插件，直接装载插件即可。 1 装载plugin1mysql&amp;gt;&amp;gt;INSTALL PLUGIN validate_password SONAME &apos;validate_password.so&apos;;">
 <meta name="keywords" content="mysql,审计,密码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mysql开启密码复杂度配置">
 <meta property="og:url" content="https://kxinter.github.io/blog/2022/01/13/mysql开启密码复杂度配置/index.html">
 <meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="mysql开启密码复杂度配置mysql 5.6对密码的强度进行了加强，推出了 validate_password 插件。支持密码的强度要求。 mysql默认带validate_password 插件，直接装载插件即可。 1 装载plugin1mysql&amp;gt;&amp;gt;INSTALL PLUGIN validate_password SONAME &apos;validate_password.so&apos;; 2">
+<meta property="og:description" content="mysql开启密码复杂度配置mysql 5.6对密码的强度进行了加强，推出了 validate_password 插件。支持密码的强度要求。 mysql默认带validate_password 插件，直接装载插件即可。 1 装载plugin1mysql&amp;gt;&amp;gt;INSTALL PLUGIN validate_password SONAME &apos;validate_password.so&apos;;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2022-01-13T04:31:33.806Z">
+<meta property="og:updated_time" content="2022-01-13T05:36:09.474Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql开启密码复杂度配置">
-<meta name="twitter:description" content="mysql开启密码复杂度配置mysql 5.6对密码的强度进行了加强，推出了 validate_password 插件。支持密码的强度要求。 mysql默认带validate_password 插件，直接装载插件即可。 1 装载plugin1mysql&amp;gt;&amp;gt;INSTALL PLUGIN validate_password SONAME &apos;validate_password.so&apos;; 2">
+<meta name="twitter:description" content="mysql开启密码复杂度配置mysql 5.6对密码的强度进行了加强，推出了 validate_password 插件。支持密码的强度要求。 mysql默认带validate_password 插件，直接装载插件即可。 1 装载plugin1mysql&amp;gt;&amp;gt;INSTALL PLUGIN validate_password SONAME &apos;validate_password.so&apos;;">
 
 
 
@@ -397,7 +397,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-01-13T12:31:33+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2022-01-13T13:36:09+08:00">
                 2022-01-13
               </time>
             
@@ -492,6 +492,7 @@
         <h1 id="mysql开启密码复杂度配置"><a href="#mysql开启密码复杂度配置" class="headerlink" title="mysql开启密码复杂度配置"></a>mysql开启密码复杂度配置</h1><p>mysql 5.6对密码的强度进行了加强，推出了 validate_password 插件。支持密码的强度要求。</p>
 <p>mysql默认带validate_password 插件，直接装载插件即可。</p>
 <h2 id="1-装载plugin"><a href="#1-装载plugin" class="headerlink" title="1 装载plugin"></a>1 装载plugin</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;&gt;INSTALL PLUGIN validate_password SONAME 'validate_password.so';</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <h2 id="2-修改配置文件"><a href="#2-修改配置文件" class="headerlink" title="2 修改配置文件"></a>2 修改配置文件</h2><p>在配置文件中打开</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plugin-load=validate_password.so</span><br><span class="line">validate-password=FORCE_PLUS_PERMANENT</span><br><span class="line">validate_password_policy=2</span><br></pre></td></tr></table></figure>
 <h2 id="3-验证"><a href="#3-验证" class="headerlink" title="3 验证"></a>3 验证</h2><p>当建立用户密码时，如果不符合预设的规则，那么就不会通过：</p>
@@ -542,7 +543,7 @@
   <p><span>本文标题:</span><a href="/2022/01/13/mysql开启密码复杂度配置/">mysql开启密码复杂度配置</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2022年01月13日 - 12:01</p>
-  <p><span>最后更新:</span>2022年01月13日 - 12:01</p>
+  <p><span>最后更新:</span>2022年01月13日 - 13:01</p>
   <p><span>原始链接:</span><a href="/2022/01/13/mysql开启密码复杂度配置/" title="mysql开启密码复杂度配置">https://kxinter.github.io/blog/2022/01/13/mysql开启密码复杂度配置/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/blog/2022/01/13/mysql开启密码复杂度配置/"  aria-label="复制成功！"></i></span>
   </p>
