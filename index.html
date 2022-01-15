@@ -351,7 +351,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2022/01/13/mysql开启密码复杂度配置/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2022/01/14/Centos7系统安全审计/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OperationMAN">
@@ -370,7 +370,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2022/01/13/mysql开启密码复杂度配置/" itemprop="url">mysql开启密码复杂度配置</a></h1>
+                <a class="post-title-link" href="/2022/01/14/Centos7系统安全审计/" itemprop="url">未命名</a></h1>
         
 
         <div class="post-meta">
@@ -382,8 +382,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-13T12:07:03+08:00">
-                2022-01-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-14T17:07:01+08:00">
+                2022-01-14
               </time>
             
 
@@ -398,8 +398,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-01-13T13:36:09+08:00">
-                2022-01-13
+              <time title="更新于" itemprop="dateModified" datetime="2022-01-15T10:48:32+08:00">
+                2022-01-15
               </time>
             
           </span>
@@ -450,7 +450,276 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  538
+                  3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  14
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-Centos7审计配置"><a href="#1-Centos7审计配置" class="headerlink" title="1 Centos7审计配置"></a>1 Centos7审计配置</h1><p>通过<code>auditd</code>，系统审核允许系统管理员监视其系统这样他们就可以检测到未经授权的数据访问或修改。</p>
+<p>默认情况下，<code>auditd</code>将审核<code>SELinux AVC</code>拒绝、系统登录、帐户修改和身份验证事件。事件将记录到 <code>/var/log/audit/audit.log</code></p>
+<h1 id="2-audit使用"><a href="#2-audit使用" class="headerlink" title="2 audit使用"></a>2 audit使用</h1><h2 id="2-1-配置文件"><a href="#2-1-配置文件" class="headerlink" title="2.1 配置文件"></a>2.1 配置文件</h2><p><code>auditctl</code> : 即时控制审计守护进程的行为的工具，比如如添加规则等等</p>
+<p><code>aureport</code> : 查看和生成审计报告的工具</p>
+<p><code>ausearch</code> : 查找审计事件的工具</p>
+<p><code>auditspd</code> : 转发事件通知给其他应用程序，而不是写入到审计日志文件中</p>
+<p><code>autrace</code> : 一个用于跟踪进程的命令</p>
+<ul>
+<li>/etc/audit/auditd.conf</li>
+<li>/etc/audit/rules.d/audit.rules</li>
+<li>/etc/audit/audit.rules                                 #　根据/etc/audit/rules.d/audit.rules自动生成</li>
+</ul>
+<h3 id="2-1-1-auditd-conf"><a href="#2-1-1-auditd-conf" class="headerlink" title="2.1.1 auditd.conf"></a>2.1.1 auditd.conf</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 是否记录本地事件，如果设为no，只记录来自网络的事件</span></span><br><span class="line">local_events = yes</span><br><span class="line">write_logs = yes</span><br><span class="line"><span class="comment"># 日志文件</span></span><br><span class="line">log_file = /var/<span class="built_in">log</span>/audit/audit.log</span><br><span class="line">log_group = root</span><br><span class="line">log_format = RAW</span><br><span class="line"><span class="comment"># 日志文件刷新方式，可选的选项有：</span></span><br><span class="line"><span class="comment"># NONE：不做特别处理</span></span><br><span class="line"><span class="comment"># INCREMENTAL：用freq选项的值确定多长时间发生一次向磁盘的刷新</span></span><br><span class="line"><span class="comment"># DATA：审计数据和日志文件是同步的</span></span><br><span class="line"><span class="comment"># SYNC：写日志文件时，数据和元数据是同步的</span></span><br><span class="line">flush = INCREMENTAL_ASYNC</span><br><span class="line">freq = 50</span><br><span class="line"><span class="comment"># 日志文件最大8MB</span></span><br><span class="line">max_log_file = 8</span><br><span class="line"><span class="comment"># 日志文件数量</span></span><br><span class="line">num_logs = 5</span><br><span class="line"><span class="comment"># 进程优先级（-4），ps axl | grep auditd 可查</span></span><br><span class="line">priority_boost = 4</span><br><span class="line">disp_qos = lossy</span><br><span class="line">dispatcher = /sbin/audispd</span><br><span class="line">name_format = NONE</span><br><span class="line"><span class="comment">##name = mydomain</span></span><br><span class="line"><span class="comment"># 当log文件达到max_log_file设定大小后的动作。可选的动作有：</span></span><br><span class="line"><span class="comment"># IGNORE：忽略max_log_file设置的限制，继续写log文件</span></span><br><span class="line"><span class="comment"># SYSLOG：向syslog中写入一条warning</span></span><br><span class="line"><span class="comment"># SUSPEND：auditd不再写log文件，但是auditd继续运行</span></span><br><span class="line"><span class="comment"># ROTATE：分多个log文件，一个log文件达到上限后在创建一个新的不同名字的log文件</span></span><br><span class="line">max_log_file_action = ROTATE</span><br><span class="line"><span class="comment"># log_file文件所在的分区空闲空间少于这个设定的值时，触发相应的动作，单位是MB</span></span><br><span class="line">space_left = 75</span><br><span class="line"><span class="comment"># space_left设定被触发时的动作。可选动作有：</span></span><br><span class="line"><span class="comment"># IGNORE, SYSLOG, SUSPEND：与前面max_log_file_action相似</span></span><br><span class="line"><span class="comment"># SINGLE：audit进程会将系统模式变为单用户模式</span></span><br><span class="line"><span class="comment"># HALT：audit进程将会触发系统关机</span></span><br><span class="line">space_left_action = SYSLOG</span><br><span class="line">verify_email = yes</span><br><span class="line">action_mail_acct = root</span><br><span class="line">admin_space_left = 50</span><br><span class="line">admin_space_left_action = SUSPEND</span><br><span class="line"><span class="comment"># 磁盘满后触发的动作</span></span><br><span class="line">disk_full_action = SUSPEND</span><br><span class="line"><span class="comment"># 磁盘错误触发的动作</span></span><br><span class="line">disk_error_action = SUSPEND</span><br><span class="line">use_libwrap = yes</span><br><span class="line"><span class="comment">##tcp_listen_port = 60</span></span><br><span class="line">tcp_listen_queue = 5</span><br><span class="line">tcp_max_per_addr = 1</span><br><span class="line"><span class="comment">##tcp_client_ports = 1024-65535</span></span><br><span class="line">tcp_client_max_idle = 0</span><br><span class="line">enable_krb5 = no</span><br><span class="line">krb5_principal = auditd</span><br><span class="line"><span class="comment">##krb5_key_file = /etc/audit/audit.key</span></span><br><span class="line">distribute_network = no</span><br></pre></td></tr></table></figure>
+<h2 id="2-2-常用命令"><a href="#2-2-常用命令" class="headerlink" title="2.2 常用命令"></a>2.2 常用命令</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*查看规则*/</span></span><br><span class="line">auditctl -l</span><br><span class="line"></span><br><span class="line"><span class="comment">/*查看命令帮助*/</span></span><br><span class="line">auditctl -h</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">auditctl -w /data -p rwxa</span><br><span class="line"><span class="comment">/*监控/data目录</span></span><br><span class="line"><span class="comment">-w path : 指定要监控的路径</span></span><br><span class="line"><span class="comment">-p : 指定触发审计的文件/目录的访问权限</span></span><br><span class="line"><span class="comment">rwxa ： 指定的触发条件，r 读取权限，w 写入权限，x 执行权限，a 属性（attr）*/</span></span><br></pre></td></tr></table></figure>
+<p><strong>永久保存审计规则</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/audit/rules.d/audit.rules</span><br><span class="line">例如将-w /data/ -p rwxa加入到最后一行</span><br><span class="line">service auditd restart</span><br><span class="line">auditctl -l</span><br></pre></td></tr></table></figure>
+<h1 id="3-配置开机启动"><a href="#3-配置开机启动" class="headerlink" title="3 配置开机启动"></a>3 配置开机启动</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span>  auditd</span><br></pre></td></tr></table></figure>
+<h1 id="4-配置规则"><a href="#4-配置规则" class="headerlink" title="4 配置规则"></a>4 配置规则</h1><p>规则类型可分为：</p>
+<ol>
+<li><strong>控制规则</strong>：控制audit系统的规则；</li>
+<li><strong>文件系统规则</strong>：也可以认为是文件监控，可以监控一个特定文件或者一个路径。</li>
+<li><strong>系统调用规则</strong>：可以记录特定程序的系统调用。</li>
+</ol>
+<h2 id="4-1-控制规则"><a href="#4-1-控制规则" class="headerlink" title="4.1 控制规则"></a>4.1 控制规则</h2><p><code>-b</code> 设置在内核中audit缓冲空间的最大值。</p>
+<p><code>-f</code>  这个选项来决定内核如何处理<code>critical erros：0=silent 1=printk 2=panic</code>.默认值为1。</p>
+<p><code>-e</code> 设置使能标志，设置为0，为关闭了audit，设置为1，则开启audit；当设置为2时，表示锁定，一般在设置完其他规则后最后设置，防止其他人修改规则；任何修改规则的行为都会被拒绝，并且记录审计日志，只有当重启系统后，这个使能标志才可以被修改。</p>
+<h2 id="4-2-文件系统规则"><a href="#4-2-文件系统规则" class="headerlink" title="4.2 文件系统规则"></a>4.2 文件系统规则</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auditctl -w path -p permissions -k key_name</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>-w</code> : 目录或者文件路径</li>
+<li><code>-p</code>： 描述文件系统监视将触发的权限访问类型，r=读取，w=写入，x=执行，a=属性更改。</li>
+<li><code>-k</code>: 设置审核规则的筛选关键字</li>
+</ul>
+<h2 id="4-3-系统调用规则"><a href="#4-3-系统调用规则" class="headerlink" title="4.3 系统调用规则"></a>4.3 系统调用规则</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auditctl -a [list,action|action,list] -S [Syscall name or number|all] -F field=value -k key_name</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>-a</code>:   action和list 明确一个事件被记录。action可以为always或者never，list明确出对应的匹配过滤，list可以为：task,exit,user,exclude,filesystem。</li>
+<li><code>-S</code><strong>:</strong>   system_call 明确出系统调用的名字，几个系统调用可以写在一个规则里，如-S xxx -S xxx。系统调用的名字可以在/usr/include/asm/unistd_64.h文件中找到。</li>
+<li><code>-F</code>:   field=value 作为附加选项，修改规则以匹配特定架构、GroupID，ProcessID等的事件。具体有哪些字段，可以参考man linux <a href="https://linux.die.net/man/8/auditctl" target="_blank" rel="noopener">https://linux.die.net/man/8/auditctl</a></li>
+</ul>
+<h1 id="5-配置实例"><a href="#5-配置实例" class="headerlink" title="5 配置实例"></a>5 配置实例</h1><h2 id="5-1-记录系统的日期和时间的修改"><a href="#5-1-记录系统的日期和时间的修改" class="headerlink" title="5.1 记录系统的日期和时间的修改"></a>5.1 记录系统的日期和时间的修改</h2><p>vim   /etc/audit/rules.d/audit.rules</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S adjtimex -S settimeofday -k time-change</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S adjtimex -S settimeofday -S stime -k timechange</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S clock_settime -k time-change</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S clock_settime -k time-change</span><br><span class="line">-w /etc/localtime -p wa -k time-change</span><br></pre></td></tr></table></figure>
+<h2 id="5-2-记录用户和组的修改事件"><a href="#5-2-记录用户和组的修改事件" class="headerlink" title="5.2 记录用户和组的修改事件"></a>5.2 记录用户和组的修改事件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-w /etc/group -p wa -k identity</span><br><span class="line">-w /etc/passwd -p wa -k identity</span><br><span class="line">-w /etc/gshadow -p wa -k identity</span><br><span class="line">-w /etc/shadow -p wa -k identity</span><br><span class="line">-w /etc/security/opasswd -p wa -k identity</span><br></pre></td></tr></table></figure>
+<h2 id="5-3-记录网络环境修改时间"><a href="#5-3-记录网络环境修改时间" class="headerlink" title="5.3 记录网络环境修改时间"></a>5.3 记录网络环境修改时间</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S sethostname -S setdomainname -k system-locale</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S sethostname -S setdomainname -k system-locale</span><br><span class="line">-w /etc/issue -p wa -k system-locale</span><br><span class="line">-w /etc/issue.net -p wa -k system-locale</span><br><span class="line">-w /etc/hosts -p wa -k system-locale</span><br><span class="line">-w /etc/sysconfig/network -p wa -k system-locale</span><br><span class="line">-w /etc/sysconfig/network-scripts/ -p wa -k system-locale</span><br></pre></td></tr></table></figure>
+<h2 id="5-4-记录登录和登出事件"><a href="#5-4-记录登录和登出事件" class="headerlink" title="5.4 记录登录和登出事件"></a>5.4 记录登录和登出事件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-w /var/<span class="built_in">log</span>/lastlog -p wa -k logins</span><br><span class="line">-w /var/run/faillock/ -p wa -k logins</span><br></pre></td></tr></table></figure>
+<h2 id="5-5-记录会话启动事件"><a href="#5-5-记录会话启动事件" class="headerlink" title="5.5 记录会话启动事件"></a>5.5 记录会话启动事件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-w /var/run/utmp -p wa -k session</span><br><span class="line">-w /var/<span class="built_in">log</span>/wtmp -p wa -k logins</span><br><span class="line">-w /var/<span class="built_in">log</span>/btmp -p wa -k logins</span><br></pre></td></tr></table></figure>
+<p>文件<code>/var/run/utmp</code>跟踪当前登录的所有用户。所有审计记录都将用标识符“<code>session</code>”标记， 可以用<code>who</code>命令读取</p>
+<p><code>/var/log/wtmp</code>文件跟踪登录、注销、关机和重新启动事件。</p>
+<p>文件<code>/var/log/btmp</code>跟踪失败的登录尝试，可以通过输入命令 <code>‘/usr/bin/last-f /var/log/btmp’</code> 读取。所有审核记录都将被标记为标识符<code>“logins”</code></p>
+<h2 id="5-6-监视对文件权限、属性、所有权和组的更改"><a href="#5-6-监视对文件权限、属性、所有权和组的更改" class="headerlink" title="5.6 监视对文件权限、属性、所有权和组的更改"></a>5.6 监视对文件权限、属性、所有权和组的更改</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S chmod -S fchmod -S fchmodat -F auid&gt;=1000 -F auid!=4294967295 -k perm_mod</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S chmod -S fchmod -S fchmodat -F auid&gt;=1000 -F auid!=4294967295 -k perm_mod</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S chown -S fchown -S fchownat -S lchown -F auid&gt;=1000 -F auid!=4294967295 -k perm_mod</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S chown -S fchown -S fchownat -S lchown -F auid&gt;=1000 -F auid!=4294967295 -k perm_mod</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid&gt;=1000 -F auid!=4294967295 -k perm_mod</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid&gt;=1000 -F auid!=4294967295 -k perm_mod</span><br></pre></td></tr></table></figure>
+<p>在所有情况下，审核记录将只为非系统用户id（<code>auid&gt;=1000</code>）并将忽略守护进程事件（<code>auid=4294967295</code>）。</p>
+<p>所有审计记录用标识符“perm_mod”标记</p>
+<h2 id="5-7-记录未授权文件访问尝试"><a href="#5-7-记录未授权文件访问尝试" class="headerlink" title="5.7 记录未授权文件访问尝试"></a>5.7 记录未授权文件访问尝试</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F <span class="built_in">exit</span>=-EACCES -F auid&gt;=1000 -F auid!=4294967295 -k access</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F <span class="built_in">exit</span>=-EACCES -F auid&gt;=1000 -F auid!=4294967295 -k access</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F <span class="built_in">exit</span>=-EPERM -F auid&gt;=1000 -F auid!=4294967295 -k access</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F <span class="built_in">exit</span>=-EPERM -F auid&gt;=1000 -F auid!=4294967295 -k access</span><br></pre></td></tr></table></figure>
+<h2 id="5-8-确保收集使用特权命令"><a href="#5-8-确保收集使用特权命令" class="headerlink" title="5.8 确保收集使用特权命令"></a>5.8 确保收集使用特权命令</h2><p>监视特权程序（那些在执行时设置了setuid和/或setgid位的程序）以确定没有权限的用户是否正在运行这些命令。</p>
+<p><strong>通过下面命令</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> find / -xdev \( -perm -4000 -o -perm -2000 \) -<span class="built_in">type</span> f | awk</span><br><span class="line"><span class="string">'&#123;print \</span></span><br><span class="line"><span class="string">"-a always,exit -F path=" $1 " -F perm=x -F auid&gt;=1000 -F auid!=4294967295 \</span></span><br><span class="line"><span class="string">-k privileged" &#125;'</span></span><br></pre></td></tr></table></figure>
+<p><strong>得到记录</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/wall -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/chfn -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/chsh -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/chage -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/gpasswd -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/newgrp -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/mount -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/su -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/umount -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/sudo -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/write -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/crontab -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/ssh-agent -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/pkexec -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/passwd -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/sbin/unix_chkpwd -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/sbin/pam_timestamp_check -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/sbin/netreport -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/sbin/usernetctl -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/sbin/postdrop -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/sbin/postqueue -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/lib/polkit-1/polkit-agent-helper-1 -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/libexec/utempter/utempter -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/libexec/dbus-1/dbus-daemon-launch-helper -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/libexec/openssh/ssh-keysign -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br></pre></td></tr></table></figure>
+<h2 id="5-9-收集成功挂载磁盘事件"><a href="#5-9-收集成功挂载磁盘事件" class="headerlink" title="5.9 收集成功挂载磁盘事件"></a>5.9 收集成功挂载磁盘事件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S mount -F auid&gt;=1000 -F auid!=4294967295 -k mounts</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S mount -F auid&gt;=1000 -F auid!=4294967295 -k mount</span><br></pre></td></tr></table></figure>
+<p>在所有情况下，审核记录将只为非系统用户id（<code>auid&gt;=1000</code>）并将忽略守护进程事件（<code>auid=4294967295</code>）。</p>
+<p>所有审计记录用标识符“mount”和“mounts”标记</p>
+<h2 id="5-10-确保收集用户的文件删除事件"><a href="#5-10-确保收集用户的文件删除事件" class="headerlink" title="5.10 确保收集用户的文件删除事件"></a>5.10 确保收集用户的文件删除事件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S unlink -S unlinkat -S rename -S renameat -F auid&gt;=1000 -F auid!=4294967295 -k delete</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S unlink -S unlinkat -S rename -S renameat -F auid&gt;=1000 -F auid!=4294967295 -k delete</span><br></pre></td></tr></table></figure>
+<p>在所有情况下，审核记录将只为非系统用户id（<code>auid&gt;=1000</code>）并将忽略守护进程事件（<code>auid=4294967295</code>）。</p>
+<p>所有审计记录用标识符“delete”标记</p>
+<h2 id="5-11-确保收集对系统管理范围（sudoers）的更改"><a href="#5-11-确保收集对系统管理范围（sudoers）的更改" class="headerlink" title="5.11 确保收集对系统管理范围（sudoers）的更改"></a>5.11 确保收集对系统管理范围（sudoers）的更改</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-w /etc/sudoers -p wa -k scope</span><br><span class="line">-w /etc/sudoers.d/ -p wa -k scope</span><br></pre></td></tr></table></figure>
+<h2 id="5-12-监视sudo日志文件"><a href="#5-12-监视sudo日志文件" class="headerlink" title="5.12 监视sudo日志文件"></a>5.12 监视sudo日志文件</h2><p>如果系统已正确配置为禁用su命令并强制所有管理员必须先登录，然后使用sudo执行特权命令，</p>
+<p>然后所有管理员命令将被记录到/var/log/sudo.log文件.</p>
+<p>每当执行命令时，审核事件将被触发为/var/log/sudo.log文件将打开文件进行写入，并执行管理命令将写入日志。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-w /var/<span class="built_in">log</span>/sudo.log -p wa -k actions</span><br></pre></td></tr></table></figure>
+<h2 id="5-13-确保收集内核模块加载和卸载"><a href="#5-13-确保收集内核模块加载和卸载" class="headerlink" title="5.13 确保收集内核模块加载和卸载"></a>5.13 确保收集内核模块加载和卸载</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-w /sbin/insmod -p x -k modules</span><br><span class="line">-w /sbin/rmmod -p x -k modules</span><br><span class="line">-w /sbin/modprobe -p x -k modules</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S init_module -S delete_module -k modules</span><br></pre></td></tr></table></figure>
+<h2 id="5-14-确保审核配置是不可变的"><a href="#5-14-确保审核配置是不可变的" class="headerlink" title="5.14 确保审核配置是不可变的"></a>5.14 确保审核配置是不可变的</h2><p>审核规则不能使用auditctl修改。设置标志“-e2“强制将审核置于不可变模式。进行审核更改只能对系统重新启动。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-e 2</span><br></pre></td></tr></table></figure>
+<h1 id="6-参考"><a href="#6-参考" class="headerlink" title="6 参考"></a>6 参考</h1><p><a href="https://cloud.tencent.com/developer/article/1653503" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1653503</a></p>
+<p><a href="https://www.cnblogs.com/zydev/p/13086818.html" target="_blank" rel="noopener">https://www.cnblogs.com/zydev/p/13086818.html</a></p>
+<p><a href="https://linux.die.net/man/8/auditctl" target="_blank" rel="noopener">auditctl(8) - Linux man page (die.net)</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2022/01/13/mysql开启密码复杂度配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/01/13/mysql开启密码复杂度配置/" itemprop="url">mysql开启密码复杂度配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-13T12:07:03+08:00">
+                2022-01-13
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-01-15T10:49:20+08:00">
+                2022-01-15
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  529
                 </span>
               
 
@@ -488,7 +757,7 @@
 
       
         
-          <h1 id="mysql开启密码复杂度配置"><a href="#mysql开启密码复杂度配置" class="headerlink" title="mysql开启密码复杂度配置"></a>mysql开启密码复杂度配置</h1><p>mysql 5.6对密码的强度进行了加强，推出了 validate_password 插件。支持密码的强度要求。</p>
+          <p>mysql 5.6对密码的强度进行了加强，推出了 validate_password 插件。支持密码的强度要求。</p>
 <p>mysql默认带validate_password 插件，直接装载插件即可。</p>
 <h2 id="1-装载plugin"><a href="#1-装载plugin" class="headerlink" title="1 装载plugin"></a>1 装载plugin</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;&gt;INSTALL PLUGIN validate_password SONAME 'validate_password.so';</span><br></pre></td></tr></table></figure>
           <!--noindex-->
@@ -600,8 +869,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-01-13T12:31:33+08:00">
-                2022-01-13
+              <time title="更新于" itemprop="dateModified" datetime="2022-01-15T10:49:30+08:00">
+                2022-01-15
               </time>
             
           </span>
@@ -652,7 +921,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  333
+                  327
                 </span>
               
 
@@ -690,7 +959,7 @@
 
       
         
-          <h1 id="mysql开启日志审计"><a href="#mysql开启日志审计" class="headerlink" title="mysql开启日志审计"></a>mysql开启日志审计</h1><h2 id="1安装"><a href="#1安装" class="headerlink" title="1安装"></a>1安装</h2><h3 id="1-1-下载插件"><a href="#1-1-下载插件" class="headerlink" title="1.1 下载插件"></a>1.1 下载插件</h3><p><a href="https://github.com/mcafee/mysql-audit/releases?page=1" target="_blank" rel="noopener">Releases · mcafee/mysql-audit · GitHub</a></p>
+          <h2 id="1安装"><a href="#1安装" class="headerlink" title="1安装"></a>1安装</h2><h3 id="1-1-下载插件"><a href="#1-1-下载插件" class="headerlink" title="1.1 下载插件"></a>1.1 下载插件</h3><p><a href="https://github.com/mcafee/mysql-audit/releases?page=1" target="_blank" rel="noopener">Releases · mcafee/mysql-audit · GitHub</a></p>
 <blockquote>
 <p>备注：下载插件一定要注意插件支持数据库的版本，否则安装失败。</p>
 </blockquote>
@@ -803,8 +1072,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-01-12T23:04:54+08:00">
-                2022-01-12
+              <time title="更新于" itemprop="dateModified" datetime="2022-01-15T10:51:04+08:00">
+                2022-01-15
               </time>
             
           </span>
@@ -893,63 +1162,19 @@
 
       
         
-          
-            <h1 id="1-postgresql设置密码复杂度校验"><a href="#1-postgresql设置密码复杂度校验" class="headerlink" title="1 postgresql设置密码复杂度校验"></a>1 postgresql设置密码复杂度校验</h1><h2 id="1-1-默认密码校验策略"><a href="#1-1-默认密码校验策略" class="headerlink" title="1.1 默认密码校验策略"></a>1.1 默认密码校验策略</h2><p>在PG中可以使用<code>passwordcheck.so</code>模块实现密码复杂度校验的功能，不过这个工具的默认要求很低，只可用于简单的密码复杂度校验，默认检查规则如下：</p>
+          <h1 id="1-postgresql设置密码复杂度校验"><a href="#1-postgresql设置密码复杂度校验" class="headerlink" title="1 postgresql设置密码复杂度校验"></a>1 postgresql设置密码复杂度校验</h1><h2 id="1-1-默认密码校验策略"><a href="#1-1-默认密码校验策略" class="headerlink" title="1.1 默认密码校验策略"></a>1.1 默认密码校验策略</h2><p>在PG中可以使用<code>passwordcheck.so</code>模块实现密码复杂度校验的功能，不过这个工具的默认要求很低，只可用于简单的密码复杂度校验，默认检查规则如下：</p>
 <ol>
 <li>密码长度大于8位</li>
 <li>密码不能与用户名相同</li>
 <li>密码必须包括字母和数字</li>
 </ol>
-<h3 id="1-1-1-passwordcheck密码校验"><a href="#1-1-1-passwordcheck密码校验" class="headerlink" title="1.1.1 passwordcheck密码校验"></a>1.1.1 passwordcheck密码校验</h3><p>安装完PostgreSQL之后，默认是没有开启密码复杂度，为了数据库安全以及应对等保测评等要求，有时我们需要设置密码复杂度。</p>
-<p>PostgreSQL支持通过动态库的方式扩展PG的功能，pg在使用这些功能时需要预加载相关的共享库。而密码复杂度可以通过预加载passwordcheck.so模块实现。</p>
-<p>有几种设置可用于将共享库预加载到服务器中，如下：</p>
-<ul>
-<li>local_preload_libraries (string)</li>
-<li>session_preload_libraries (string)</li>
-<li>shared_preload_libraries (string)</li>
-</ul>
-<p>下面介绍shared_preload_libraries (string)方式加载<code>passwordcheck.so</code>模块，此模块可以检查密码，如果密码太弱，他会拒绝连接；创建用户或修改用户密码时，强制限制密码的复杂度，限制密码不能重复使用例如密码长度，包含数字，字母，大小写，特殊字符等，同时排除暴力破解字典中的字符串。</p>
-<h3 id="1-1-2-shared-preload-libraries-方式启用passwordcheck-so模块"><a href="#1-1-2-shared-preload-libraries-方式启用passwordcheck-so模块" class="headerlink" title="1.1.2 shared_preload_libraries 方式启用passwordcheck.so模块"></a>1.1.2 shared_preload_libraries 方式启用passwordcheck.so模块</h3><p>在PG库的数据目录下（centos默认路径为：<code>/var/lib/pgsql/11/data</code>，windows默认路径为：<code>D:\PostgreSQL\11\data</code>）找到<code>postgresql.conf</code>文件，修改</p>
-<p>修改内容行为：<code>shared_preload_libraries = &#39;passwordcheck&#39;  # (change requires restart)。</code></p>
-<p>修改完成后重启服务服务生效（<code>systemctl restart postgresql-11</code>）。</p>
-<p><img src="https://gitee.com/kxinter/images/raw/master/2022/01/315861-20201127152459487-148259811.png" alt="image"><img src="https://gitee.com/kxinter/images/raw/master/2022/01/315861-20201127152500965-701180388.png" alt="image"></p>
-<h3 id="1-1-3-验证"><a href="#1-1-3-验证" class="headerlink" title="1.1.3 验证"></a>1.1.3 验证</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提示密码太短</span></span><br><span class="line">postgres=<span class="comment"># create role ttt with password '123123';</span></span><br><span class="line">ERROR:  password is too short</span><br><span class="line"></span><br><span class="line"><span class="comment"># 提示密码必须包含字母和非字母</span></span><br><span class="line">postgres=<span class="comment"># create role ttt with password '12345678';</span></span><br><span class="line">ERROR:  password must contain both letters and nonletters</span><br><span class="line"></span><br><span class="line">postgres=<span class="comment"># create role ttt with password 'qweqweqwe';</span></span><br><span class="line">ERROR:  password must contain both letters and nonletters</span><br><span class="line"></span><br><span class="line"><span class="comment">#  提示密码不能包含用户名</span></span><br><span class="line">postgres=<span class="comment"># create role tttt with password 'tttt123456';</span></span><br><span class="line">ERROR:  password must not contain user name</span><br></pre></td></tr></table></figure>
-<h2 id="1-2-增强密码校验策略"><a href="#1-2-增强密码校验策略" class="headerlink" title="1.2 增强密码校验策略"></a>1.2 增强密码校验策略</h2><p>通过修改源代码实现。本文记录如何通过修改源码<code>passwordcheck.c</code>达到增强复杂度检验的目的，修改后验证规则如下：</p>
-<ol>
-<li>密码长度大于8位</li>
-<li>密码不能与用户名相同</li>
-<li>密码必须包括字母</li>
-<li>密码必须包括数字</li>
-<li>密码必须包括特殊字符</li>
-</ol>
-<h3 id="1-2-1-步骤"><a href="#1-2-1-步骤" class="headerlink" title="1.2.1 步骤"></a>1.2.1 步骤</h3><h4 id="1-2-1-1-实验环境"><a href="#1-2-1-1-实验环境" class="headerlink" title="1.2.1.1 实验环境"></a>1.2.1.1 实验环境</h4><p>实验环境：CentOS7.6 + PG11.8 source code</p>
-<p>源码下载地址: <a href="https://www.postgresql.org/ftp/source/v11.8/postgresql-11.8.tar.gz" target="_blank" rel="noopener">https://www.postgresql.org/ftp/source/v11.8/postgresql-11.8.tar.gz</a></p>
-<p>源码安装文档：<a href="https://www.postgresql.org/docs/11/install-short.htm" target="_blank" rel="noopener">https://www.postgresql.org/docs/11/install-short.htm</a></p>
-<h4 id="1-2-1-2-使用方式"><a href="#1-2-1-2-使用方式" class="headerlink" title="1.2.1.2 使用方式"></a>1.2.1.2 使用方式</h4><ul>
-<li>替换目录 ../postgresql-11.4/contrib/passwordcheck 下的 passwordcheck.c</li>
-<li>编译安装 make &amp;&amp; make install</li>
-<li>postgresql配置文件内修改 (postgresql.conf)</li>
-<li>shared_preload_libraries = ‘passwordcheck’</li>
-<li>passwordcheck.level = ‘true’</li>
-</ul>
-<h4 id="1-2-1-3-效果"><a href="#1-2-1-3-效果" class="headerlink" title="1.2.1.3 效果"></a>1.2.1.3 效果</h4><p>当密码长度足够，不符合规则的时候，无法新建用户</p>
-<h4 id="1-2-1-4-源码修改"><a href="#1-2-1-4-源码修改" class="headerlink" title="1.2.1.4 源码修改"></a>1.2.1.4 源码修改</h4><p>将下载后的源码解压缩, 找到<code>postgresql-11.8/contrib/passwordcheck/passwordcheck.c</code>源文件，修改后保存退出。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*-------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"> * Luckyness</span></span><br><span class="line"><span class="comment"> * 20191202</span></span><br><span class="line"><span class="comment"> * 在源代码上修改自用，配置pg密码必须包含特殊字符</span></span><br><span class="line"><span class="comment"> * pg版本11.4</span></span><br><span class="line"><span class="comment"> * 使用方式：</span></span><br><span class="line"><span class="comment"> * 替换目录 ../postgresql-11.4/contrib/passwordcheck 下的 passwordcheck.c</span></span><br><span class="line"><span class="comment"> * 编译安装 make &amp;&amp; make install</span></span><br><span class="line"><span class="comment"> * postgresql配置文件内修改 (postgresql.conf)</span></span><br><span class="line"><span class="comment"> * shared_preload_libraries = 'passwordcheck'</span></span><br><span class="line"><span class="comment"> * passwordcheck.level = 'true'</span></span><br><span class="line"><span class="comment"> *-------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/*-------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * passwordcheck.c</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Copyright (c) 2009-2018, PostgreSQL Global Development Group</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Author: Laurenz Albe &lt;laurenz.albe@wien.gv.at&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * IDENTIFICATION</span></span><br><span class="line"><span class="comment"> *	  contrib/passwordcheck/passwordcheck.c</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *-------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"postgres.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ctype.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> USE_CRACKLIB</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;crack.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"commands/user.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"libpq/crypt.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"fmgr.h"</span></span></span><br><span class="line"><span class="comment">/* 引入扩展 */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"utils/guc.h"</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">PG_MODULE_MAGIC;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment"> * 配置文件内passwordcheck.level='true' 为需要特殊字符 </span></span><br><span class="line"><span class="comment"> * passwordcheck.level='false' 为只需要英文和数字</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">bool</span> passwordcheck_level = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* passwords shorter than this will be rejected */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MIN_PWD_LENGTH 8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">void</span> _PG_init(<span class="keyword">void</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * check_password</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * performs checks on an encrypted or unencrypted password</span></span><br><span class="line"><span class="comment"> * ereport's if not acceptable</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * username: name of role being created or changed</span></span><br><span class="line"><span class="comment"> * password: new password (possibly already encrypted)</span></span><br><span class="line"><span class="comment"> * password_type: PASSWORD_TYPE_* code, to indicate if the password is</span></span><br><span class="line"><span class="comment"> *			in plaintext or encrypted form.</span></span><br><span class="line"><span class="comment"> * validuntil_time: password expiration time, as a timestamptz Datum</span></span><br><span class="line"><span class="comment"> * validuntil_null: true if password expiration time is NULL</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * This sample implementation doesn't pay any attention to the password</span></span><br><span class="line"><span class="comment"> * expiration time, but you might wish to insist that it be non-null and</span></span><br><span class="line"><span class="comment"> * not too far in the future.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span></span><br><span class="line"></span><br><span class="line">check_password(<span class="keyword">const</span> <span class="keyword">char</span> *username,</span><br><span class="line">			   <span class="keyword">const</span> <span class="keyword">char</span> *shadow_pass,</span><br><span class="line">			   PasswordType password_type,</span><br><span class="line">			   Datum validuntil_time,</span><br><span class="line">			   <span class="keyword">bool</span> validuntil_null)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (password_type != PASSWORD_TYPE_PLAINTEXT)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">/*</span></span><br><span class="line"><span class="comment">		 * Unfortunately we cannot perform exhaustive checks on encrypted</span></span><br><span class="line"><span class="comment">		 * passwords - we are restricted to guessing. (Alternatively, we could</span></span><br><span class="line"><span class="comment">		 * insist on the password being presented non-encrypted, but that has</span></span><br><span class="line"><span class="comment">		 * its own security disadvantages.)</span></span><br><span class="line"><span class="comment">		 *</span></span><br><span class="line"><span class="comment">		 * We only check for username = password.</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">char</span>	   *logdetail;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (plain_crypt_verify(username, shadow_pass, username, &amp;logdetail) == STATUS_OK)</span><br><span class="line">			ereport(ERROR,</span><br><span class="line">					(errcode(ERRCODE_INVALID_PARAMETER_VALUE),</span><br><span class="line">					 errmsg(<span class="string">"password must not equal user name"</span>)));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">/*</span></span><br><span class="line"><span class="comment">		 * For unencrypted passwords we can perform better checks</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">const</span> <span class="keyword">char</span> *password = shadow_pass;</span><br><span class="line">		<span class="keyword">int</span>			pwdlen = <span class="built_in">strlen</span>(password);</span><br><span class="line">		<span class="keyword">int</span>			i;</span><br><span class="line">		<span class="comment">/*                 bool            pwd_has_letter,*/</span></span><br><span class="line">		<span class="keyword">bool</span>		</span><br><span class="line">					pwd_has_number,pwd_has_special,pwd_has_letter;</span><br><span class="line"></span><br><span class="line">		<span class="comment">/* enforce minimum length */</span></span><br><span class="line">		<span class="keyword">if</span> (pwdlen &lt; MIN_PWD_LENGTH)</span><br><span class="line">			ereport(ERROR,</span><br><span class="line">					(errcode(ERRCODE_INVALID_PARAMETER_VALUE),</span><br><span class="line">					 errmsg(<span class="string">"password is too short"</span>)));</span><br><span class="line"></span><br><span class="line">		<span class="comment">/* check if the password contains the username */</span></span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">strstr</span>(password, username))</span><br><span class="line">			ereport(ERROR,</span><br><span class="line">					(errcode(ERRCODE_INVALID_PARAMETER_VALUE),</span><br><span class="line">					 errmsg(<span class="string">"password must not contain user name"</span>)));</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>(passwordcheck_level)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">/* check if the password contains both letters and number and specialchar */</span></span><br><span class="line">			pwd_has_number = <span class="literal">false</span>;</span><br><span class="line">			pwd_has_special = <span class="literal">false</span>;</span><br><span class="line">			pwd_has_letter = <span class="literal">false</span>;</span><br><span class="line">			<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; pwdlen; i++)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (<span class="built_in">isalpha</span>((<span class="keyword">unsigned</span> <span class="keyword">char</span>) password[i]))</span><br><span class="line">					pwd_has_letter = <span class="literal">true</span>;</span><br><span class="line">				<span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">isdigit</span>((<span class="keyword">unsigned</span> <span class="keyword">char</span>) password[i]))</span><br><span class="line">					pwd_has_number = <span class="literal">true</span>;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					pwd_has_special = <span class="literal">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (!pwd_has_number || !pwd_has_letter || !pwd_has_special)</span><br><span class="line">				ereport(ERROR,</span><br><span class="line">						(errcode(ERRCODE_INVALID_PARAMETER_VALUE),</span><br><span class="line">						errmsg(<span class="string">"password must contain both letters and number and specialchar"</span>)));</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">/* check if the password contains both letters and non-letters */</span></span><br><span class="line">			pwd_has_letter = <span class="literal">false</span>;</span><br><span class="line">			pwd_has_number = <span class="literal">false</span>;</span><br><span class="line">			<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; pwdlen; i++)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (<span class="built_in">isalpha</span>((<span class="keyword">unsigned</span> <span class="keyword">char</span>) password[i]))</span><br><span class="line">					pwd_has_letter = <span class="literal">true</span>;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					pwd_has_number = <span class="literal">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (!pwd_has_letter || !pwd_has_number)</span><br><span class="line">				ereport(ERROR,</span><br><span class="line">						(errcode(ERRCODE_INVALID_PARAMETER_VALUE),</span><br><span class="line">						errmsg(<span class="string">"password must contain both letters and nonletters"</span>)));</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> USE_CRACKLIB</span></span><br><span class="line">		<span class="comment">/* call cracklib to check password */</span></span><br><span class="line">		<span class="keyword">if</span> (FascistCheck(password, CRACKLIB_DICTPATH))</span><br><span class="line">			ereport(ERROR,</span><br><span class="line">					(errcode(ERRCODE_INVALID_PARAMETER_VALUE),</span><br><span class="line">					 errmsg(<span class="string">"password is easily cracked"</span>)));</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* all checks passed, password is ok */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Module initialization function</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">_PG_init(<span class="keyword">void</span>)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">/* 密码级别参数 */</span></span><br><span class="line">	DefineCustomBoolVariable(</span><br><span class="line">		<span class="string">"passwordcheck.level"</span>,</span><br><span class="line">		gettext_noop(<span class="string">"passwordcheck_level true: Password must contain leter, number, special characters;false : Password must contain leter, special characters"</span>),</span><br><span class="line">		<span class="literal">NULL</span>,</span><br><span class="line">		&amp;passwordcheck_level,</span><br><span class="line">		<span class="literal">false</span>,</span><br><span class="line">		PGC_POSTMASTER,</span><br><span class="line">		GUC_SUPERUSER_ONLY,</span><br><span class="line">		<span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* activate password checks when the module is loaded */</span></span><br><span class="line">	check_password_hook = check_password;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="1-2-1-5-编译"><a href="#1-2-1-5-编译" class="headerlink" title="1.2.1.5 编译"></a>1.2.1.5 编译</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##编译安装pg server</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##进入源码解压目录, 执行</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span>  postgresql-11.8</span><br><span class="line"></span><br><span class="line">./configure--prefix=/u01/pgsql11.8 --without-zlib --without-readline   --&gt;&gt;&gt;&gt;指定安装目录为/u01/pgsql11.8, 处于演示目的,所以没有安装zlib和readline包。</span><br><span class="line"></span><br><span class="line">make</span><br><span class="line"></span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line"><span class="comment">##编译安装contrib,是一些第三方组织贡献出来的工具代码。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##进入源码解压目录执行</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span>   postgresql-11.8/contrib</span><br><span class="line"></span><br><span class="line">make</span><br><span class="line"></span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line"><span class="comment">##编译完成后，在postgresql-11.8/contrib/passwordcheck/目录下增加passwordcheck.so文件</span></span><br><span class="line"><span class="comment">##编译后的文件，可以迁移到同版本数据库内使用</span></span><br></pre></td></tr></table></figure>
-<h3 id="1-2-2-验证"><a href="#1-2-2-验证" class="headerlink" title="1.2.2 验证"></a>1.2.2 验证</h3><p>首先开启passwordcheck验证, 修改参数文件postgresql.conf</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改如下</span></span><br><span class="line">shared_preload_libraries= <span class="string">'passwordcheck'</span></span><br><span class="line">passwordcheck.level=<span class="string">'true‘</span></span><br></pre></td></tr></table></figure>
-<p> 重启实例生效</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pg_ctl restart</span><br></pre></td></tr></table></figure>
-<p><strong>测试</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提示密码太短</span></span><br><span class="line">postgres=<span class="comment"># create role btest with login password '123';</span></span><br><span class="line">ERROR:  password is too short</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 提示必须同时包括字母、数字、特殊字符</span></span><br><span class="line">postgres=<span class="comment"># create role btest with login password '12345678';</span></span><br><span class="line">ERROR:  password must contain both letters and number and specialchar</span><br><span class="line"></span><br><span class="line">postgres=<span class="comment"># create role btest with login password 'qqqqqqqq';</span></span><br><span class="line">ERROR:  password must contain both letters and nonletters</span><br><span class="line"></span><br><span class="line">postgres=<span class="comment"># create role btest with login password '!!!!!!!!!!!!';</span></span><br><span class="line">ERROR:  password must contain both letters and nonletters</span><br><span class="line"></span><br><span class="line">postgres=<span class="comment"># create role btest with login password '12345678a';</span></span><br><span class="line">ERROR:  password must contain both letters and number and specialchar</span><br><span class="line"></span><br><span class="line">postgres=<span class="comment"># create role btest with login password '1234567!';</span></span><br><span class="line">ERROR:  password must contain both letters and nonletters</span><br><span class="line"></span><br><span class="line">postgres=<span class="comment"># create role btest with login password '12345678a!';</span></span><br><span class="line">CREATE ROLE</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改密码提示必须同时包含字母、数字和特殊字符</span></span><br><span class="line">postgres=<span class="comment"># alter role btest password '12345678!';</span></span><br><span class="line">ERROR:  password must contain both letters and number and specialchar</span><br><span class="line"></span><br><span class="line"><span class="comment"># 提示密码不能包含用户名</span></span><br><span class="line">postgres=<span class="comment"># alter role btest password '123456btest!';</span></span><br><span class="line">ERROR:  password must not contain user name</span><br></pre></td></tr></table></figure>
-<h3 id="1-2-3-问题"><a href="#1-2-3-问题" class="headerlink" title="1.2.3 问题"></a>1.2.3 问题</h3><div class="note danger"><p><strong>警告</strong><br>这里还存在个问题，就是通过<code>\password</code>命令修改的话，可以输入不满足长度的密码，原因是使用<code>\password</code>时<code>passwordcheck</code>检查的是加密后的口令，官方文档提到过，检查<code>md5</code>加密后的口令是很困难的，所以当<code>passwordcheck</code>检查加密的口令时，只检查密码是否与用户名相同这一项，实际上是将用户名通过<code>md5</code>加密后与数据库中的<code>md5</code>密码做比较，如果相同，则报错口令不能与用户名相同。</p></div>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">postgres=#\password bert</span><br><span class="line"></span><br><span class="line">Enter new password:  <span class="comment">----&gt;&gt;&gt;&gt;&gt;可以输入小于8位的口令, 而不被阻. 但是输入的是与用户名相同的话可以被检测出来。</span></span><br><span class="line"></span><br><span class="line">Enter itagain:</span><br><span class="line"></span><br><span class="line">postgres=#</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">postgres=#\set ECHO_HIDDEN ON</span><br><span class="line"></span><br><span class="line">postgres=#\password bert</span><br><span class="line"></span><br><span class="line">Enter newpassword:</span><br><span class="line"></span><br><span class="line">Enter itagain:</span><br><span class="line"></span><br><span class="line">*********QUERY **********</span><br><span class="line"></span><br><span class="line">ALTERUSER bert PASSWORD 'md5efabd7549b98ddce9b14ba5e2e83eae1'</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="1-4-参考"><a href="#1-4-参考" class="headerlink" title="1.4 参考"></a>1.4 参考</h2><p><a href="https://www.modb.pro/db/171257" target="_blank" rel="noopener">https://www.modb.pro/db/171257</a></p>
-<p><a href="https://www.cnblogs.com/Luckyness/p/11996834.html" target="_blank" rel="noopener">https://www.cnblogs.com/Luckyness/p/11996834.html</a></p>
-<p><a href="https://github.com/Luckyness/passwordcheck/blob/master/passwordcheck.c" target="_blank" rel="noopener">https://github.com/Luckyness/passwordcheck/blob/master/passwordcheck.c</a></p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2022/01/12/Postgresql设置密码复杂度校验/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1052,8 +1277,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-01-12T23:04:53+08:00">
-                2022-01-12
+              <time title="更新于" itemprop="dateModified" datetime="2022-01-15T10:50:31+08:00">
+                2022-01-15
               </time>
             
           </span>
@@ -1142,22 +1367,14 @@
 
       
         
-          
-            <h1 id="postgresql开启日志审计"><a href="#postgresql开启日志审计" class="headerlink" title="postgresql开启日志审计"></a>postgresql开启日志审计</h1><p><strong>1、审计清单说明</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">logging_collector   <span class="comment"># 是否开启日志收集开关，默认off，推荐on</span></span><br><span class="line"></span><br><span class="line">log_destination     -- 日志记录类型，默认是stderr，只记录错误输出，推荐csvlog，总共包含：`stderr, csvlog, syslog, and eventlog,`</span><br><span class="line"></span><br><span class="line">log_directory       <span class="comment"># 日志路径，默认是$PGDATA/pg_log, </span></span><br><span class="line"></span><br><span class="line">log_filename        <span class="comment"># 日志名称，默认是postgresql-%Y-%m-%d_%H%M%S.log</span></span><br><span class="line"></span><br><span class="line">log_file_mode       <span class="comment"># 日志文件类型，默认为0600</span></span><br><span class="line"></span><br><span class="line">log_truncate_on_rotation <span class="comment"># 默认为off，设置为on的话，文件内容覆盖方式：off后面附加，on：清空再加</span></span><br><span class="line"></span><br><span class="line">log_rotation_age    <span class="comment"># 保留单个文件的最大时长,默认是1d,也有1h,1min,1s</span></span><br><span class="line"></span><br><span class="line">log_rotation_size    <span class="comment"># 保留单个文件的最大尺寸，默认是10MB</span></span><br><span class="line"></span><br><span class="line">log_error_verbosity  <span class="comment"># 默认为default，verbose表示冗长的</span></span><br><span class="line"></span><br><span class="line">log_connections  <span class="comment"># 用户session登陆时是否写入日志，默认off，推荐为on</span></span><br><span class="line"></span><br><span class="line">log_disconnections <span class="comment"># 用户session退出时是否写入日志，默认off，推荐为on</span></span><br><span class="line"></span><br><span class="line">log_statement  --`记录用户登陆数据库后的各种操作`</span><br><span class="line"></span><br><span class="line">     1. none，即不记录</span><br><span class="line">     2. ddl(记录create,drop和alter)</span><br><span class="line">     3. mod(记录ddl+insert,delete,update和truncate)</span><br><span class="line">     4. all(mod+select)</span><br><span class="line"></span><br><span class="line">log_min_duration_statement = 2s        -- `记录超过2秒的SQL`</span><br><span class="line">log_checkpoints = on       <span class="comment"># 检查点和重启点被记录再服务器日志中。一些统计信息也被包括再日志消息中，包括写入缓冲区的数据和写他们呢所花的时间。这个参数智能在postgresql.conf文件中或在服务器命令行上设置。默认是关闭（off）</span></span><br><span class="line">log_lock_waits ＝ on       <span class="comment"># 如果一个会话等待某个类型的锁的时间超过deadlock_timeout的值，该参数决定是否在数据库日志中记录这个信息。</span></span><br><span class="line">deadlock_timeout ＝ 1s     <span class="comment"># 数据库的锁通常可以在pg_locks这个系统表里找，但这只是当前的锁表/行信息，如果你想看一天内有多少个超过死锁时间的锁发生，可以在日志里设置并查看，log_lock_waits 默认是off，可以设置开启。这个可以区分SQL慢是资源紧张还是锁等待的问题。</span></span><br></pre></td></tr></table></figure>
-<p><strong>2、推荐的设置参数</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">logging_collector = on</span><br><span class="line">log_destination = <span class="string">'csvlog'</span></span><br><span class="line">log_truncate_on_rotation = on</span><br><span class="line">log_connections = on</span><br><span class="line">log_disconnections = on</span><br><span class="line">log_error_verbosity = verbose</span><br><span class="line">log_statement = ddl</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这部分是postgresql.conf文件中没有的</span></span><br><span class="line">log_min_duration_statement = 60s    <span class="comment"># 记录超过60s的SQL</span></span><br><span class="line">log_checkpoints = on                  </span><br><span class="line">log_lock_waits ＝ on</span><br><span class="line">deadlock_timeout ＝ 1s</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看日志目录和日志文件名</span></span><br><span class="line">show log_directory;</span><br><span class="line">show log_filename;</span><br></pre></td></tr></table></figure>
-<p><strong>3、参数修改方法</strong></p>
-<p>直接修改配置文件</p>
-<p>postgresql.conf默认位于$PGDATA目录下。</p>
-<p>vim /usr/data/pgsql/data/postgresql.conf</p>
-<p>用超级用户运行：postgres=# SELECT pg_reload_conf();</p>
-<p>show命令可以查询当前状态</p>
-<p><strong>4、 参考文档</strong></p>
-<p><a href="http://t.zoukankan.com/tiandi-p-13568675.html" target="_blank" rel="noopener">http://t.zoukankan.com/tiandi-p-13568675.html</a></p>
-
-          
+          <h1 id="postgresql开启日志审计"><a href="#postgresql开启日志审计" class="headerlink" title="postgresql开启日志审计"></a>postgresql开启日志审计</h1><p><strong>1、审计清单说明</strong></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2022/01/12/Postgresql开启日志审计/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1260,8 +1477,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-01-12T13:35:50+08:00">
-                2022-01-12
+              <time title="更新于" itemprop="dateModified" datetime="2022-01-15T10:49:58+08:00">
+                2022-01-15
               </time>
             
           </span>
@@ -1312,7 +1529,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  409
+                  402
                 </span>
               
 
@@ -1351,7 +1568,7 @@
       
         
           
-            <h1 id="Elasticsearch导入导出数据-Elasticdump"><a href="#Elasticsearch导入导出数据-Elasticdump" class="headerlink" title="Elasticsearch导入导出数据-Elasticdump"></a>Elasticsearch导入导出数据-Elasticdump</h1><h2 id="1-导入-导出"><a href="#1-导入-导出" class="headerlink" title="1 导入/导出"></a>1 导入/导出</h2><p><strong>导出：</strong></p>
+            <h2 id="1-导入-导出"><a href="#1-导入-导出" class="headerlink" title="1 导入/导出"></a>1 导入/导出</h2><p><strong>导出：</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#因为导出的是mapping，所以设置type为mapping</span></span><br><span class="line">$ elasticdump --input http://192.168.56.105:9200/ --output ./test_index_mapping.json --<span class="built_in">type</span>=mapping</span><br><span class="line"><span class="comment">#因为导出的是data（真实数据）所以设置type为data</span></span><br><span class="line">$ elasticdump --input http://192.168.56.105:9200/ --output ./test_index.json --<span class="built_in">type</span>=data</span><br></pre></td></tr></table></figure>
 <p><strong>导入：</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建索引</span></span><br><span class="line">$ curl -XPUT http://192.168.56.104:9200/test_index</span><br><span class="line"><span class="comment">#因为导入的是mapping，所以设置type为mapping</span></span><br><span class="line">$ elasticdump --input ./test_index_mapping.json --output http://192.168.56.105:9200/ --<span class="built_in">type</span>=mapping</span><br><span class="line"><span class="comment">#因为导入的是data（真实数据）所以设置type为data</span></span><br><span class="line">$ elasticdump --input ./test_index.json --output http://192.168.56.105:9200/ --<span class="built_in">type</span>=data</span><br></pre></td></tr></table></figure>
@@ -1466,8 +1683,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-01-12T12:12:36+08:00">
-                2022-01-12
+              <time title="更新于" itemprop="dateModified" datetime="2022-01-15T10:50:08+08:00">
+                2022-01-15
               </time>
             
           </span>
@@ -1556,7 +1773,7 @@
 
       
         
-          <h1 id="Ubuntu20-04安装NVIDIA显卡驱动-CUDA"><a href="#Ubuntu20-04安装NVIDIA显卡驱动-CUDA" class="headerlink" title="Ubuntu20.04安装NVIDIA显卡驱动+CUDA"></a>Ubuntu20.04安装NVIDIA显卡驱动+CUDA</h1><h2 id="1-安装驱动"><a href="#1-安装驱动" class="headerlink" title="1 安装驱动"></a>1 安装驱动</h2><h3 id="1-1-查看显卡的型号"><a href="#1-1-查看显卡的型号" class="headerlink" title="1.1 查看显卡的型号"></a>1.1 查看显卡的型号</h3><p>打开终端，输入指令以查看电脑的显卡型号：</p>
+          <h2 id="1-安装驱动"><a href="#1-安装驱动" class="headerlink" title="1 安装驱动"></a>1 安装驱动</h2><h3 id="1-1-查看显卡的型号"><a href="#1-1-查看显卡的型号" class="headerlink" title="1.1 查看显卡的型号"></a>1.1 查看显卡的型号</h3><p>打开终端，输入指令以查看电脑的显卡型号：</p>
 <p><code>ubuntu-drivers devices</code></p>
 <p>可以看到如下界面：</p>
 <p><img src="https://gitee.com/kxinter/images/raw/master/2022/01/image-20220110122259734.png" alt="image-20220110122259734">                               </p>
@@ -2300,221 +2517,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2021/07/29/虚拟机体验/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/07/29/虚拟机体验/" itemprop="url">虚拟机体验</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-29T11:53:41+08:00">
-                2021-07-29
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2021-07-29T11:56:52+08:00">
-                2021-07-29
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Windows/" itemprop="url" rel="index">
-                    <span itemprop="name">Windows</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Windows/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  76
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://www.cnblogs.com/sunylat/p/6217538.html" target="_blank" rel="noopener">虚拟机体验之 QEMU 篇 - sunylat - 博客园 (cnblogs.com)</a></p>
-<p><a href="https://www.cnblogs.com/sunylat/p/6217536.html" target="_blank" rel="noopener">虚拟机体验之 KVM 篇 - sunylat - 博客园 (cnblogs.com)</a></p>
-<p><a href="https://www.cnblogs.com/sunylat/p/6217537.html" target="_blank" rel="noopener">虚拟机体验之 VirtualBox 篇 —— 性能强大的经典架构 - sunylat - 博客园 (cnblogs.com)</a></p>
-<p><a href="https://www.cnblogs.com/sunylat/p/6217535.html" target="_blank" rel="noopener">虚拟机体验之 Xen 篇 —— 令人脑洞大开的奇异架构 - sunylat - 博客园 (cnblogs.com)</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2567,7 +2574,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">130</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2589,7 +2596,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-count">96</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2764,7 +2771,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">160.5k</span>
+    <span title="Site words total count">163.4k</span>
   
 </div>
 

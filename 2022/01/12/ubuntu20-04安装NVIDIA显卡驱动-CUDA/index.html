@@ -130,13 +130,13 @@
 
 
 
-<meta name="description" content="Ubuntu20.04安装NVIDIA显卡驱动+CUDA1 安装驱动1.1 查看显卡的型号打开终端，输入指令以查看电脑的显卡型号： ubuntu-drivers devices 可以看到如下界面：                                 model即为显卡的型号信息，此处为GeForce RTX 2070 SUPER；推荐的显卡驱动版本号为nvidia-driver-450">
+<meta name="description" content="1 安装驱动1.1 查看显卡的型号打开终端，输入指令以查看电脑的显卡型号： ubuntu-drivers devices 可以看到如下界面：                                 model即为显卡的型号信息，此处为GeForce RTX 2070 SUPER；推荐的显卡驱动版本号为nvidia-driver-450 - distro non-free。">
 <meta name="keywords" content="显卡,ubuntu,驱动,cuda,nvidia">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ubuntu20.04安装NVIDIA显卡驱动+CUDA">
 <meta property="og:url" content="https://kxinter.github.io/blog/2022/01/12/ubuntu20-04安装NVIDIA显卡驱动-CUDA/index.html">
 <meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="Ubuntu20.04安装NVIDIA显卡驱动+CUDA1 安装驱动1.1 查看显卡的型号打开终端，输入指令以查看电脑的显卡型号： ubuntu-drivers devices 可以看到如下界面：                                 model即为显卡的型号信息，此处为GeForce RTX 2070 SUPER；推荐的显卡驱动版本号为nvidia-driver-450">
+<meta property="og:description" content="1 安装驱动1.1 查看显卡的型号打开终端，输入指令以查看电脑的显卡型号： ubuntu-drivers devices 可以看到如下界面：                                 model即为显卡的型号信息，此处为GeForce RTX 2070 SUPER；推荐的显卡驱动版本号为nvidia-driver-450 - distro non-free。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/01/image-20220110122259734.png">
 <meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/01/image-20220110122634928.png">
@@ -150,10 +150,10 @@
 <meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/01/image-20220110133141141.png">
 <meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/01/image-20220110133216983.png">
 <meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/01/image-20220110133336718.png">
-<meta property="og:updated_time" content="2022-01-12T04:12:36.084Z">
+<meta property="og:updated_time" content="2022-01-15T02:50:08.863Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ubuntu20.04安装NVIDIA显卡驱动+CUDA">
-<meta name="twitter:description" content="Ubuntu20.04安装NVIDIA显卡驱动+CUDA1 安装驱动1.1 查看显卡的型号打开终端，输入指令以查看电脑的显卡型号： ubuntu-drivers devices 可以看到如下界面：                                 model即为显卡的型号信息，此处为GeForce RTX 2070 SUPER；推荐的显卡驱动版本号为nvidia-driver-450">
+<meta name="twitter:description" content="1 安装驱动1.1 查看显卡的型号打开终端，输入指令以查看电脑的显卡型号： ubuntu-drivers devices 可以看到如下界面：                                 model即为显卡的型号信息，此处为GeForce RTX 2070 SUPER；推荐的显卡驱动版本号为nvidia-driver-450 - distro non-free。">
 <meta name="twitter:image" content="https://gitee.com/kxinter/images/raw/master/2022/01/image-20220110122259734.png">
 
 
@@ -410,8 +410,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-01-12T12:12:36+08:00">
-                2022-01-12
+              <time title="更新于" itemprop="dateModified" datetime="2022-01-15T10:50:08+08:00">
+                2022-01-15
               </time>
             
           </span>
@@ -502,7 +502,7 @@
       
 
       
-        <h1 id="Ubuntu20-04安装NVIDIA显卡驱动-CUDA"><a href="#Ubuntu20-04安装NVIDIA显卡驱动-CUDA" class="headerlink" title="Ubuntu20.04安装NVIDIA显卡驱动+CUDA"></a>Ubuntu20.04安装NVIDIA显卡驱动+CUDA</h1><h2 id="1-安装驱动"><a href="#1-安装驱动" class="headerlink" title="1 安装驱动"></a>1 安装驱动</h2><h3 id="1-1-查看显卡的型号"><a href="#1-1-查看显卡的型号" class="headerlink" title="1.1 查看显卡的型号"></a>1.1 查看显卡的型号</h3><p>打开终端，输入指令以查看电脑的显卡型号：</p>
+        <h2 id="1-安装驱动"><a href="#1-安装驱动" class="headerlink" title="1 安装驱动"></a>1 安装驱动</h2><h3 id="1-1-查看显卡的型号"><a href="#1-1-查看显卡的型号" class="headerlink" title="1.1 查看显卡的型号"></a>1.1 查看显卡的型号</h3><p>打开终端，输入指令以查看电脑的显卡型号：</p>
 <p><code>ubuntu-drivers devices</code></p>
 <p>可以看到如下界面：</p>
 <p><img src="https://gitee.com/kxinter/images/raw/master/2022/01/image-20220110122259734.png" alt="image-20220110122259734">                               </p>
@@ -599,7 +599,7 @@
   <p><span>本文标题:</span><a href="/2022/01/12/ubuntu20-04安装NVIDIA显卡驱动-CUDA/">ubuntu20.04安装NVIDIA显卡驱动+CUDA</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2022年01月12日 - 12:01</p>
-  <p><span>最后更新:</span>2022年01月12日 - 12:01</p>
+  <p><span>最后更新:</span>2022年01月15日 - 10:01</p>
   <p><span>原始链接:</span><a href="/2022/01/12/ubuntu20-04安装NVIDIA显卡驱动-CUDA/" title="ubuntu20.04安装NVIDIA显卡驱动+CUDA">https://kxinter.github.io/blog/2022/01/12/ubuntu20-04安装NVIDIA显卡驱动-CUDA/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.github.io/blog/2022/01/12/ubuntu20-04安装NVIDIA显卡驱动-CUDA/"  aria-label="复制成功！"></i></span>
   </p>
@@ -784,7 +784,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">130</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -806,7 +806,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-count">96</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -963,7 +963,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Ubuntu20-04安装NVIDIA显卡驱动-CUDA"><span class="nav-text">Ubuntu20.04安装NVIDIA显卡驱动+CUDA</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装驱动"><span class="nav-text">1 安装驱动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-查看显卡的型号"><span class="nav-text">1.1 查看显卡的型号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-官网下载显卡驱动"><span class="nav-text">1.2 官网下载显卡驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-安装相关依赖"><span class="nav-text">1.3 安装相关依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-禁用系统默认显卡驱动"><span class="nav-text">1.4 禁用系统默认显卡驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-停止lightdm桌面服务"><span class="nav-text">1.5 停止lightdm桌面服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-安装驱动"><span class="nav-text">1.6 安装驱动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-安装CUDA"><span class="nav-text">2 安装CUDA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-参考"><span class="nav-text">3 参考</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装驱动"><span class="nav-text">1 安装驱动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-查看显卡的型号"><span class="nav-text">1.1 查看显卡的型号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-官网下载显卡驱动"><span class="nav-text">1.2 官网下载显卡驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-安装相关依赖"><span class="nav-text">1.3 安装相关依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-禁用系统默认显卡驱动"><span class="nav-text">1.4 禁用系统默认显卡驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-停止lightdm桌面服务"><span class="nav-text">1.5 停止lightdm桌面服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-安装驱动"><span class="nav-text">1.6 安装驱动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-安装CUDA"><span class="nav-text">2 安装CUDA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-参考"><span class="nav-text">3 参考</span></a></li></ol></div>
             
 
           </div>
@@ -997,7 +997,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">160.5k</span>
+    <span title="Site words total count">163.4k</span>
   
 </div>
 
