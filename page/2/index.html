@@ -133,7 +133,7 @@
 <meta name="description" content="日常运维文档整理。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Operation随笔">
-<meta property="og:url" content="https://kxinter.github.io/blog/page/2/index.html">
+<meta property="og:url" content="https://kxinter.gitee.io/page/2/index.html">
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="日常运维文档整理。">
 <meta property="og:locale" content="zh-Hans">
@@ -169,7 +169,7 @@
 
 
 
-  <link rel="canonical" href="https://kxinter.github.io/blog/page/2/"/>
+  <link rel="canonical" href="https://kxinter.gitee.io/page/2/"/>
 
 
 
@@ -351,7 +351,243 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2021/07/29/http1对比http2实测/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2021/08/17/postgresql-repmgr高可用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/08/17/postgresql-repmgr高可用/" itemprop="url">postgresql+repmgr高可用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-17T16:27:52+08:00">
+                2021-08-17
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-01-13T13:36:58+08:00">
+                2022-01-13
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  28
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="1-参考文档"><a href="#1-参考文档" class="headerlink" title="1 参考文档"></a>1 参考文档</h1><p>repmgr 官方文档：<a href="https://repmgr.org/docs/current/index.html" target="_blank" rel="noopener">repmgr 5.3dev Documentation</a></p>
+<p>其他文档：<a href="https://blog.csdn.net/qq_38461429/article/details/107487092" target="_blank" rel="noopener">Configure PostgreSQL Replication With Repmgr_qq_38461429的博客-CSDN博客</a></p>
+<h1 id="2-环境"><a href="#2-环境" class="headerlink" title="2 环境"></a>2 环境</h1><table>
+<thead>
+<tr>
+<th>主机名</th>
+<th>IP</th>
+<th>OS</th>
+<th>角色</th>
+<th>软件包</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pg1</td>
+<td>192.168.44.131</td>
+<td>Centos 7</td>
+<td>primary</td>
+<td>postgresql 11  and repmgr</td>
+</tr>
+<tr>
+<td>pg2</td>
+<td>192.168.44.131</td>
+<td>Centos 7</td>
+<td>standby</td>
+<td>postgresql 11  and repmgr</td>
+</tr>
+<tr>
+<td>pg3</td>
+<td>192.168.44.135</td>
+<td>Centos 7</td>
+<td>standby</td>
+<td>postgresql 11  and repmgr</td>
+</tr>
+</tbody>
+</table>
+<div class="note default"><p><strong>备注</strong><br>以下安装方式均采用在线安装方式。</p></div>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/08/17/postgresql-repmgr高可用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2021/07/29/http1对比http2实测/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OperationMAN">
@@ -576,7 +812,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2021/07/29/虚拟机体验/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2021/07/29/虚拟机体验/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OperationMAN">
@@ -775,7 +1011,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2021/07/16/Hadoop优化及问题汇总/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2021/07/16/Hadoop优化及问题汇总/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OperationMAN">
@@ -975,7 +1211,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2021/07/12/多环境批处理脚本/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2021/07/12/多环境批处理脚本/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OperationMAN">
@@ -1175,7 +1411,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2021/06/18/gitlab-gitbook搭建WIKI/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2021/06/18/gitlab-gitbook搭建WIKI/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OperationMAN">
@@ -1375,7 +1611,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2021/04/19/hadoop集群部署2/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2021/04/19/hadoop集群部署2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OperationMAN">
@@ -1576,7 +1812,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2021/04/19/hadoop集群部署1/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2021/04/19/hadoop集群部署1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OperationMAN">
@@ -1777,7 +2013,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2021/04/10/jira-confluence安装/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2021/04/10/jira-confluence安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OperationMAN">
@@ -1977,7 +2213,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2021/04/10/docker-compose示例1/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2021/04/10/docker-compose示例1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OperationMAN">
@@ -2164,226 +2400,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.github.io/blog/2020/07/01/postgresql-pgpool双机热备-高可用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/07/01/postgresql-pgpool双机热备-高可用/" itemprop="url">postgresql+pgpool双机热备-高可用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-01T11:06:28+08:00">
-                2020-07-01
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2020-07-14T15:37:37+08:00">
-                2020-07-14
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  9.6k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  53
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="一、-主机"><a href="#一、-主机" class="headerlink" title="一、 主机"></a>一、 主机</h1><table>
-<thead>
-<tr>
-<th>主机</th>
-<th>IP</th>
-<th>服务</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>master</td>
-<td>192.168.0.56</td>
-<td>postgresql、postgis、pgpool</td>
-</tr>
-<tr>
-<td>slave</td>
-<td>192.168.0.58</td>
-<td>postgresql、postgis、pgpool</td>
-</tr>
-</tbody>
-</table>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/07/01/postgresql-pgpool双机热备-高可用/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2441,7 +2457,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">132</span>
+                  <span class="site-state-item-count">133</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2638,7 +2654,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">163.6k</span>
+    <span title="Site words total count">164.3k</span>
   
 </div>
 

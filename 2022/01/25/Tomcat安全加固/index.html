@@ -119,7 +119,7 @@
 
 
 
-  <meta name="keywords" content="vmware," />
+  <meta name="keywords" content="tomcat," />
 
 
 
@@ -130,18 +130,25 @@
 
 
 
-<meta name="description" content="一、安装包依赖：">
-<meta name="keywords" content="vmware">
+<meta name="description" content="1. 删除文档和实例程序检查方法 ：打开tomcat_home/webapps文件夹，默认存在docs和examples文件夹 加固方法：建议删除docs和examples文件夹  2 设置shutdown字符串安全基线项说明：防止恶意用户telnet到8005端口后，发送SHUTDOWN命令停止tomcat服务 检查方法：打开tomcat_home/conf/server.xml，查看是否设置了">
+<meta name="keywords" content="tomcat">
 <meta property="og:type" content="article">
-<meta property="og:title" content="VMware共享文件夹设置方法">
-<meta property="og:url" content="https://kxinter.gitee.io/2018/08/27/VMware共享文件夹设置方法/index.html">
+<meta property="og:title" content="Tomcat安全加固">
+<meta property="og:url" content="https://kxinter.gitee.io/2022/01/25/Tomcat安全加固/index.html">
 <meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="一、安装包依赖：">
+<meta property="og:description" content="1. 删除文档和实例程序检查方法 ：打开tomcat_home/webapps文件夹，默认存在docs和examples文件夹 加固方法：建议删除docs和examples文件夹  2 设置shutdown字符串安全基线项说明：防止恶意用户telnet到8005端口后，发送SHUTDOWN命令停止tomcat服务 检查方法：打开tomcat_home/conf/server.xml，查看是否设置了">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-14T01:56:53.279Z">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173231161.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173309930.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173403603.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173422127.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173501171.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173706297.png">
+<meta property="og:updated_time" content="2022-01-26T08:30:18.424Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="VMware共享文件夹设置方法">
-<meta name="twitter:description" content="一、安装包依赖：">
+<meta name="twitter:title" content="Tomcat安全加固">
+<meta name="twitter:description" content="1. 删除文档和实例程序检查方法 ：打开tomcat_home/webapps文件夹，默认存在docs和examples文件夹 加固方法：建议删除docs和examples文件夹  2 设置shutdown字符串安全基线项说明：防止恶意用户telnet到8005端口后，发送SHUTDOWN命令停止tomcat服务 检查方法：打开tomcat_home/conf/server.xml，查看是否设置了">
+<meta name="twitter:image" content="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173231161.png">
 
 
 
@@ -171,13 +178,13 @@
 
 
 
-  <link rel="canonical" href="https://kxinter.gitee.io/2018/08/27/VMware共享文件夹设置方法/"/>
+  <link rel="canonical" href="https://kxinter.gitee.io/2022/01/25/Tomcat安全加固/"/>
 
 
 
 
 
-  <title>VMware共享文件夹设置方法 | Operation随笔</title>
+  <title>Tomcat安全加固 | Operation随笔</title>
   
 
 
@@ -352,7 +359,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/27/VMware共享文件夹设置方法/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2022/01/25/Tomcat安全加固/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OperationMAN">
@@ -369,7 +376,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">VMware共享文件夹设置方法</h1>
+          <h1 class="post-title" itemprop="name headline">Tomcat安全加固</h1>
         
 
         <div class="post-meta">
@@ -381,8 +388,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-27T11:24:35+08:00">
-                2018-08-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-25T16:39:07+08:00">
+                2022-01-25
               </time>
             
 
@@ -397,8 +404,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-14T09:56:53+08:00">
-                2018-09-14
+              <time title="更新于" itemprop="dateModified" datetime="2022-01-26T16:30:18+08:00">
+                2022-01-26
               </time>
             
           </span>
@@ -452,7 +459,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  178
+                  644
                 </span>
               
 
@@ -468,7 +475,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -489,15 +496,41 @@
       
 
       
-        <h1 id="一、安装包依赖："><a href="#一、安装包依赖：" class="headerlink" title="一、安装包依赖："></a>一、安装包依赖：</h1><a id="more"></a>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ yum -y <span class="keyword">install</span> kernel-devel-$(uname -r) </span><br><span class="line">$ yum -y <span class="keyword">install</span> net-tools perl gcc gcc-c++</span><br></pre></td></tr></table></figure>
-<h1 id="二、安装vmtool"><a href="#二、安装vmtool" class="headerlink" title="二、安装vmtool"></a>二、安装vmtool</h1><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ mount <span class="string">/dev/cdrom</span> <span class="string">/home/tmp</span></span><br><span class="line">$ cp <span class="string">/home/tmp/VMwareTools-9.6.0-1294478.tar.gz</span> <span class="string">/tmp</span></span><br><span class="line">$ <span class="keyword">cd</span> <span class="string">/tmp</span></span><br><span class="line">$ tar -zxvf VMwareTools-9.6.0-1294478.tar.gz</span><br><span class="line">$ <span class="keyword">cd</span> vmware-tools-distrib</span><br><span class="line">$ <span class="string">./vmware-install.pl</span></span><br></pre></td></tr></table></figure>
-<p>按提示操作即可。</p>
-<h1 id="三、问题"><a href="#三、问题" class="headerlink" title="三、问题"></a>三、问题</h1><p>有/mnt/hgfs但没有共享文件的解决方法：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ mount -t vmhgfs .host:/  /mnt/hgfs</span><br><span class="line">Error: cannot mount filesystem: No such device</span><br></pre></td></tr></table></figure>
-<p>这时不能用mount工具挂载，而是得用vmhgfs-fuse，需要安装工具包</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ yum install <span class="keyword">open</span>-<span class="keyword">vm</span>-tools-devel -<span class="keyword">y</span></span><br><span class="line">有的源的名字并不一定为<span class="keyword">open</span>-<span class="keyword">vm</span>-tools-devel(centos) ，而是<span class="keyword">open</span>-<span class="keyword">vm</span>-dkms(unbuntu)</span><br><span class="line">执行：vmhgfs-fuse .hos<span class="variable">t:</span>/ /mnt/hgfs</span><br></pre></td></tr></table></figure>
-<p>此时进入/mnt/hgfs就能看到你设置的共享文件夹了。</p>
+        <h1 id="1-删除文档和实例程序"><a href="#1-删除文档和实例程序" class="headerlink" title="1. 删除文档和实例程序"></a>1. 删除文档和实例程序</h1><p><strong>检查方法</strong> ：打开tomcat_home/webapps文件夹，默认存在docs和examples文件夹</p>
+<p><strong>加固方法</strong>：建议删除docs和examples文件夹</p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173231161.png" alt="在这里插入图片描述"></p>
+<h1 id="2-设置shutdown字符串"><a href="#2-设置shutdown字符串" class="headerlink" title="2 设置shutdown字符串"></a>2 <strong>设置shutdown字符串</strong></h1><p><strong>安全基线项说明</strong>：防止恶意用户telnet到8005端口后，发送SHUTDOWN命令停止tomcat服务</p>
+<p><strong>检查方法</strong>：打开tomcat_home/conf/server.xml，查看是否设置了复杂的字符串<br><code>&lt;Server port=&quot;8005&quot;shutdown=“复杂的字符串”&gt;</code></p>
+<p><strong>加固方法</strong>：设置复杂的字符串，防止恶意用户猜测</p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173309930.png" alt="在这里插入图片描述"></p>
+<h1 id="3-检查控制台口令"><a href="#3-检查控制台口令" class="headerlink" title="3 检查控制台口令"></a>3 检查控制台口令</h1><p><strong>安全基线项说明</strong>：加固tomcat控制台，设置复杂的口令</p>
+<p><strong>检查方法：</strong></p>
+<ol>
+<li>如果不需要使用控制台<br>Tomcat 6.x/7.x：<br>默认通过<a href="http://ip:8080/manager/html可以访问tomcatmanager，如果不需要使用，建议删除tomcat_home/webapps/manager和host-manager文件夹；" target="_blank" rel="noopener">http://ip:8080/manager/html可以访问tomcatmanager，如果不需要使用，建议删除tomcat_home/webapps/manager和host-manager文件夹；</a></li>
+</ol>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173403603.png" alt="在这里插入图片描述"></p>
+<ol start="2">
+<li>如果需要使用tomcatmanager<br>Tomcat 5.x/6.x:<br>打开tomcat_home/conf/tomcat-users.xml，查看用户密码复杂度</li>
+</ol>
+<p><strong>例如：</strong></p>
+<p><code>&lt;user username=&quot;tomcat&quot;password=&quot;复杂的口令&quot;roles=“manager”/&gt;</code></p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173422127.png" alt="在这里插入图片描述"></p>
+<h1 id="4-禁止列目录"><a href="#4-禁止列目录" class="headerlink" title="4 禁止列目录"></a>4 禁止列目录</h1><p><strong>安全基线项说明</strong>：防止直接访问目录时由于找不到默认主页而列出目录下所有文件</p>
+<p><strong>检查方法</strong>：打开应用程序的web.xml，查看listings是否设置为false<br>listings<br>false</p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173501171.png" alt="在这里插入图片描述"></p>
+<h1 id="5-日志审核"><a href="#5-日志审核" class="headerlink" title="5 日志审核"></a>5 日志审核</h1><p><strong>安全基线项说明</strong>：检查tomcat是否记录了访问日志</p>
+<p><strong>检查方法</strong>：tomcat的日志信息默认存放在tomcat_home/logs中，访问日志默认未开启</p>
+<p><strong>加固方法：</strong><br>如果tomcat前端有Apache，Apache可以记录访问日志。<br>如果tomcat独立运行，可以开启tomcat访问日志，修改<code>tomcat_home/conf/server.xml</code>，取消注释：<br><code>&lt;ValveclassName=&quot;org.apache.catalina.valves.AccessLogValve&quot;directory=“logs”
+prefix=“localhost_access_log.“suffix=”.txt” pattern=&quot;common&quot;resolveHosts=“false”/&gt;</code><br>启用access_log后，重启tomcat，在tomcat_home/logs中可以看到访问日志<br><strong>注：这里记录的时间转换为北京时间需要+8小时</strong></p>
+<h1 id="6-禁止非法HTTP方法"><a href="#6-禁止非法HTTP方法" class="headerlink" title="6 禁止非法HTTP方法"></a>6 禁止非法HTTP方法</h1><p><strong>安全基线项目名称</strong>：禁用PUT、DELETE等危险的HTTP方法</p>
+<p><strong>检查方法</strong>：编辑web.xml文件中配置，查看readonly的param-value值是否为false</p>
+<p><strong>加固方法</strong>：编辑web.xml文件中配置，将readonly的param-value值设为false<br>org.apache.catalina.servlets.DefaultServlet的</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">param-name</span>&gt;</span>readonly<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">param-value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="7-系统Banner信息"><a href="#7-系统Banner信息" class="headerlink" title="7 系统Banner信息"></a>7 系统Banner信息</h1><p><strong>安全基线项说明</strong>：修改系统Banner信息</p>
+<p><strong>检查方法：</strong><br><strong>telnet判断信息：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">telnet ip 8080</span><br><span class="line">HEAD /HTTP1.1然后两次回车，可以看到server的信息</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173706297.png" alt="在这里插入图片描述"></p>
+<p>参考：<a href="https://mp.weixin.qq.com/s/RwjnnXKdIADp0rMMI_m5cQ" target="_blank" rel="noopener">安全服务之安全基线及加固（四）Tomcat篇 (qq.com)</a></p>
 
       
     </div>
@@ -524,12 +557,12 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2018/08/27/VMware共享文件夹设置方法/">VMware共享文件夹设置方法</a></p>
+  <p><span>本文标题:</span><a href="/2022/01/25/Tomcat安全加固/">Tomcat安全加固</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
-  <p><span>发布时间:</span>2018年08月27日 - 11:08</p>
-  <p><span>最后更新:</span>2018年09月14日 - 09:09</p>
-  <p><span>原始链接:</span><a href="/2018/08/27/VMware共享文件夹设置方法/" title="VMware共享文件夹设置方法">https://kxinter.gitee.io/2018/08/27/VMware共享文件夹设置方法/</a>
-    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.gitee.io/2018/08/27/VMware共享文件夹设置方法/"  aria-label="复制成功！"></i></span>
+  <p><span>发布时间:</span>2022年01月25日 - 16:01</p>
+  <p><span>最后更新:</span>2022年01月26日 - 16:01</p>
+  <p><span>原始链接:</span><a href="/2022/01/25/Tomcat安全加固/" title="Tomcat安全加固">https://kxinter.gitee.io/2022/01/25/Tomcat安全加固/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.gitee.io/2022/01/25/Tomcat安全加固/"  aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -590,7 +623,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/vmware/" rel="tag"><i class="fa fa-tag"></i> vmware</a>
+            <a href="/tags/tomcat/" rel="tag"><i class="fa fa-tag"></i> tomcat</a>
           
         </div>
       
@@ -603,8 +636,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/27/SSL证书制作/" rel="next" title="SSL证书制作">
-                <i class="fa fa-chevron-left"></i> SSL证书制作
+              <a href="/2022/01/20/nginx代理示例/" rel="next" title="nginx代理示例">
+                <i class="fa fa-chevron-left"></i> nginx代理示例
               </a>
             
           </div>
@@ -612,10 +645,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/27/Openstack云镜像制作-Centos7篇/" rel="prev" title="Openstack云镜像制作-Centos7篇">
-                Openstack云镜像制作-Centos7篇 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -883,7 +912,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、安装包依赖："><span class="nav-text">一、安装包依赖：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、安装vmtool"><span class="nav-text">二、安装vmtool</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、问题"><span class="nav-text">三、问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-删除文档和实例程序"><span class="nav-text">1. 删除文档和实例程序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-设置shutdown字符串"><span class="nav-text">2 设置shutdown字符串</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-检查控制台口令"><span class="nav-text">3 检查控制台口令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-禁止列目录"><span class="nav-text">4 禁止列目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-日志审核"><span class="nav-text">5 日志审核</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-禁止非法HTTP方法"><span class="nav-text">6 禁止非法HTTP方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-系统Banner信息"><span class="nav-text">7 系统Banner信息</span></a></li></ol></div>
             
 
           </div>
