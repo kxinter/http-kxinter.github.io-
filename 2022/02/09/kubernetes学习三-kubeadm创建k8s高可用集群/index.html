@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<!--添加顶部进度条-->
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+<!--end-->
+<meta name="theme-color" content="#222">
+<!--添加文章加密-->
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="fonts.useso.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon1.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon1.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon1.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="kubernetes," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1 集群逻辑架构">
+<meta name="keywords" content="kubernetes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kubernetes学习三-kubeadm安装k8s高可用集群">
+<meta property="og:url" content="https://kxinter.gitee.io/2022/02/09/kubernetes学习三-kubeadm创建k8s高可用集群/index.html">
+<meta property="og:site_name" content="Operation随笔">
+<meta property="og:description" content="1 集群逻辑架构">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2018120518452648.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NoZW5sZWlraW5n,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/%E6%9C%AA%E5%91%BD%E5%90%8D%E7%BB%98%E5%9B%BE-%E7%AC%AC%201%20%E9%A1%B5.drawio.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/k8s%E9%9B%86%E7%BE%A4%E9%AB%98%E5%8F%AF%E7%94%A8%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%96%B9%E6%A1%88.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/20200416001914959.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220207202709095.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220207202741311.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220207202527741.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220208095347892.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220208095316580.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220208110411304.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220209174127641.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220210164628651.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220210165340733.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220207174123729.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220210153548055.png">
+<meta property="og:image" content="c:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20220210154352724.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220210155044128.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220210155225404.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220210161203270.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220210161417179.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220210161241890.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220210161312871.png">
+<meta property="og:updated_time" content="2022-02-11T08:35:06.851Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kubernetes学习三-kubeadm安装k8s高可用集群">
+<meta name="twitter:description" content="1 集群逻辑架构">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/2018120518452648.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NoZW5sZWlraW5n,size_16,color_FFFFFF,t_70">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kxinter.gitee.io/2022/02/09/kubernetes学习三-kubeadm创建k8s高可用集群/"/>
+
+
+
+
+
+  <title>kubernetes学习三-kubeadm安装k8s高可用集群 | Operation随笔</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<!--添加左上角github图标-->
+	<a href="https://github.com/kxinter" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
+    <!--添加右上角gitee图标
+	<a href="https://gitee.com/kxinter"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://www.jianguoyun.com/c/tblv2/COmIGhjhtNMGIgsv56CB5LqRLmpwZygC/q9YvhedkGsc/l" alt="Fork me on GitHub"></a>
+    -->
+	<header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Operation随笔</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2022/02/09/kubernetes学习三-kubeadm创建k8s高可用集群/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">kubernetes学习三-kubeadm安装k8s高可用集群</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-02-09T15:57:21+08:00">
+                2022-02-09
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-02-11T16:35:06+08:00">
+                2022-02-11
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Kubernetes/" itemprop="url" rel="index">
+                    <span itemprop="name">Kubernetes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_value_page_pv"></span>次阅读
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  14
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-集群逻辑架构"><a href="#1-集群逻辑架构" class="headerlink" title="1 集群逻辑架构"></a>1 集群逻辑架构</h1><p><img src="https://img-blog.csdnimg.cn/2018120518452648.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NoZW5sZWlraW5n,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/02/%E6%9C%AA%E5%91%BD%E5%90%8D%E7%BB%98%E5%9B%BE-%E7%AC%AC%201%20%E9%A1%B5.drawio.png" alt="k8s集群高可用方案"></p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/02/k8s%E9%9B%86%E7%BE%A4%E9%AB%98%E5%8F%AF%E7%94%A8%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%96%B9%E6%A1%88.png" alt="k8s集群高可用负载均衡方案"></p>
+<p>这里主要基于k8s集群高可用负载均衡方案进行介绍，过程包含基于keepalived的高可用方案。</p>
+<h1 id="2-环境"><a href="#2-环境" class="headerlink" title="2 环境"></a>2 环境</h1><h2 id="2-1-物理环境"><a href="#2-1-物理环境" class="headerlink" title="2.1 物理环境"></a>2.1 物理环境</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">主机</th>
+<th style="text-align:center">IP</th>
+<th style="text-align:center">配置</th>
+<th style="text-align:center">OS</th>
+<th>角色</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">node1</td>
+<td style="text-align:center">192.168.1.7</td>
+<td style="text-align:center">2core 2GB</td>
+<td style="text-align:center">Centos7.9</td>
+<td>master1</td>
+</tr>
+<tr>
+<td style="text-align:center">node2</td>
+<td style="text-align:center">192.168.1.8</td>
+<td style="text-align:center">2core 2GB</td>
+<td style="text-align:center">Centos7.9</td>
+<td>master2</td>
+</tr>
+<tr>
+<td style="text-align:center">node3</td>
+<td style="text-align:center">192.168.1.9</td>
+<td style="text-align:center">2core 2GB</td>
+<td style="text-align:center">Centos7.9</td>
+<td>master3</td>
+</tr>
+<tr>
+<td style="text-align:center">node4</td>
+<td style="text-align:center">192.168.1.10</td>
+<td style="text-align:center">2core 2GB</td>
+<td style="text-align:center">Centos7.9</td>
+<td>工作节点</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-2-软件环境"><a href="#2-2-软件环境" class="headerlink" title="2.2 软件环境"></a>2.2 软件环境</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">软件</th>
+<th style="text-align:center">版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">docker</td>
+<td style="text-align:center">v20.10.12</td>
+</tr>
+<tr>
+<td style="text-align:center">kubeadmin</td>
+<td style="text-align:center">v1.23.3</td>
+</tr>
+<tr>
+<td style="text-align:center">kubelet</td>
+<td style="text-align:center">v1.23.3</td>
+</tr>
+<tr>
+<td style="text-align:center">kubectl</td>
+<td style="text-align:center">v1.23.3</td>
+</tr>
+<tr>
+<td style="text-align:center">keeplalived</td>
+<td style="text-align:center">1.3.5</td>
+</tr>
+<tr>
+<td style="text-align:center">haproxy</td>
+<td style="text-align:center">2.5</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-3-镜像"><a href="#2-3-镜像" class="headerlink" title="2.3 镜像"></a>2.3 镜像</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">镜像</th>
+<th style="text-align:center">版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">conformance</td>
+<td style="text-align:center">v1.23.3</td>
+</tr>
+<tr>
+<td style="text-align:center">kube-apiserver</td>
+<td style="text-align:center">v1.23.3</td>
+</tr>
+<tr>
+<td style="text-align:center">kube-controller-manager</td>
+<td style="text-align:center">v1.23.3</td>
+</tr>
+<tr>
+<td style="text-align:center">kube-proxy</td>
+<td style="text-align:center">v1.23.3</td>
+</tr>
+<tr>
+<td style="text-align:center">kube-scheduler</td>
+<td style="text-align:center">v1.23.3</td>
+</tr>
+<tr>
+<td style="text-align:center">flannel</td>
+<td style="text-align:center">v1.0.1</td>
+</tr>
+</tbody>
+</table>
+<h1 id="3-步骤"><a href="#3-步骤" class="headerlink" title="3 步骤"></a>3 步骤</h1><h2 id="3-1-准备工作"><a href="#3-1-准备工作" class="headerlink" title="3.1 准备工作"></a>3.1 准备工作</h2><h3 id="3-1-1-确保各节点MAC和product-uuid的唯一性"><a href="#3-1-1-确保各节点MAC和product-uuid的唯一性" class="headerlink" title="3.1.1 确保各节点MAC和product_uuid的唯一性"></a>3.1.1 确保各节点MAC和product_uuid的唯一性</h3><ul>
+<li>你可以使用命令 <code>ip link</code> 或 <code>ifconfig -a</code> 来获取网络接口的 MAC 地址</li>
+<li>可以使用 <code>sudo cat /sys/class/dmi/id/product_uuid</code> 命令对 product_uuid 校验</li>
+</ul>
+<p>一般来讲，硬件设备会拥有唯一的地址，但是有些虚拟机的地址可能会重复。</p>
+<h3 id="3-1-2-运行iptables检查桥接流量"><a href="#3-1-2-运行iptables检查桥接流量" class="headerlink" title="3.1.2 运行iptables检查桥接流量"></a>3.1.2 运行iptables检查桥接流量</h3><p>确保 <code>br_netfilter</code> 模块被加载。这一操作可以通过运行 <code>lsmod | grep br_netfilter</code> 来完成。若要显式加载该模块，可执行 <code>sudo modprobe br_netfilter</code>。</p>
+<p>为了让你的 Linux 节点上的 iptables 能够正确地查看桥接流量，你需要确保在你的 <code>sysctl</code> 配置中将 <code>net.bridge.bridge-nf-call-iptables</code> 设置为 1。例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF | sudo tee /etc/modules-load.d/k8s.conf</span><br><span class="line">br_netfilter</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">cat &lt;&lt;EOF | sudo tee /etc/sysctl.d/k8s.conf</span><br><span class="line">net.bridge.bridge-nf-call-ip6tables = 1</span><br><span class="line">net.bridge.bridge-nf-call-iptables = 1</span><br><span class="line">EOF</span><br><span class="line">sudo sysctl --system</span><br></pre></td></tr></table></figure>
+<h3 id="3-1-3-关闭防火墙"><a href="#3-1-3-关闭防火墙" class="headerlink" title="3.1.3 关闭防火墙"></a>3.1.3 关闭防火墙</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld </span><br><span class="line">systemctl <span class="built_in">disable</span> firewalld</span><br></pre></td></tr></table></figure>
+<p>如果各个主机启用了防火墙，需要开放Kubernetes各个组件所需要的端口。如下图所示，详细信息请看<a href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#check-required-ports" target="_blank" rel="noopener">官网</a>。</p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/02/20200416001914959.png" alt="在这里插入图片描述"></p>
+<h3 id="3-1-4-永久关闭swap"><a href="#3-1-4-永久关闭swap" class="headerlink" title="3.1.4 永久关闭swap"></a>3.1.4 永久关闭swap</h3><p>vim /etc/fstab</p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220207202709095.png" alt="image-20220207202709095"></p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220207202741311.png" alt="image-20220207202741311"></p>
+<p>如果不修改，kubelet启动报错：</p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220207202527741.png" alt="image-20220207202527741"></p>
+<h3 id="3-1-5-关闭selinux"><a href="#3-1-5-关闭selinux" class="headerlink" title="3.1.5 关闭selinux"></a>3.1.5 关闭selinux</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 将 SELinux 设置为 permissive 或 disabled模式（相当于将其禁用）</span></span><br><span class="line">sudo setenforce 0</span><br><span class="line">sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config</span><br><span class="line">或</span><br><span class="line">sudo sed -i 's/^SELINUX=enforcing$/SELINUX=disabled/' /etc/selinux/config</span><br></pre></td></tr></table></figure>
+<h2 id="3-2-安装docker"><a href="#3-2-安装docker" class="headerlink" title="3.2 安装docker"></a>3.2 安装docker</h2><p><strong>卸载旧版本</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-selinux \</span><br><span class="line">                  docker-engine-selinux \</span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure>
+<p><strong>源安装</strong></p>
+<p>执行以下命令安装依赖包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install -y yum-utils</span><br></pre></td></tr></table></figure>
+<p>鉴于国内网络问题，强烈建议使用国内源，官方源请在注释中查看。</p>
+<p>执行下面的命令添加 <code>yum</code> 软件源：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line"></span><br><span class="line">$ sudo sed -i <span class="string">'s/download.docker.com/mirrors.aliyun.com\/docker-ce/g'</span> /etc/yum.repos.d/docker-ce.repo</span><br><span class="line"></span><br><span class="line"><span class="comment"># 官方源</span></span><br><span class="line"><span class="comment"># $ sudo yum-config-manager \</span></span><br><span class="line"><span class="comment">#     --add-repo \</span></span><br><span class="line"><span class="comment">#     https://download.docker.com/linux/centos/docker-ce.repo</span></span><br></pre></td></tr></table></figure>
+<p><strong>安装docker-ce</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install docker-ce docker-ce-cli containerd.io</span><br></pre></td></tr></table></figure>
+<p><strong>开机自启</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">启动 Docker</span><br><span class="line">$ sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line">$ sudo systemctl start docker</span><br></pre></td></tr></table></figure>
+<h2 id="3-3-安装-kubeadm、kubelet-和-kubectl"><a href="#3-3-安装-kubeadm、kubelet-和-kubectl" class="headerlink" title="3.3 安装 kubeadm、kubelet 和 kubectl"></a>3.3 安装 kubeadm、kubelet 和 kubectl</h2><p>你需要在每台机器上安装以下的软件包：</p>
+<ul>
+<li><code>kubeadm</code>：用来初始化集群的指令。</li>
+<li><code>kubelet</code>：在集群中的每个节点上用来启动 Pod 和容器等。</li>
+<li><code>kubectl</code>：用来与集群通信的命令行工具。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF | sudo tee /etc/yum.repos.d/kubernetes.repo</span><br><span class="line">[kubernetes]</span><br><span class="line">name=Kubernetes</span><br><span class="line">baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\<span class="variable">$basearch</span></span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=1</span><br><span class="line">repo_gpgcheck=1</span><br><span class="line">gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg</span><br><span class="line">exclude=kubelet kubeadm kubectl</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装服务</span></span><br><span class="line">sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置kubelet开机自启</span></span><br><span class="line">sudo systemctl <span class="built_in">enable</span>  kubelet</span><br></pre></td></tr></table></figure>
+<h2 id="3-4-配置cgroup驱动程序"><a href="#3-4-配置cgroup驱动程序" class="headerlink" title="3.4 配置cgroup驱动程序"></a>3.4 配置cgroup驱动程序</h2><p>需保证容器服务和kubelet的cgroup驱动一致，否则kubelet启动报错：</p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220208095347892.png" alt="image-20220208095347892"></p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220208095316580.png" alt="image-20220208095316580"></p>
+<p><strong>由于 kubeadm 把 kubelet 视为一个系统服务来管理，所以对基于 kubeadm 的安装， 我们推荐使用 <code>systemd</code> 驱动，不推荐 <code>cgroupfs</code> 驱动。</strong></p>
+<h3 id="3-4-1-Cgroup-驱动程序说明"><a href="#3-4-1-Cgroup-驱动程序说明" class="headerlink" title="3.4.1 Cgroup 驱动程序说明"></a>3.4.1 Cgroup 驱动程序说明</h3><p><img src="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220208110411304.png" alt="image-20220208110411304"></p>
+<blockquote>
+<p><strong>警告：</strong></p>
+<p>你需要确保容器（docker）和 kubelet 所使用的是相同的 cgroup 驱动，否则 kubelet 进程会失败。</p>
+<p>相关细节可参见<a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/" target="_blank" rel="noopener">kubelet配置 cgroup 驱动</a>。<a href="https://kubernetes.io/zh/docs/setup/production-environment/container-runtimes/" target="_blank" rel="noopener">容器配置cgroup驱动</a></p>
+</blockquote>
+<h3 id="3-4-2-查看kubelet和docker的驱动程序"><a href="#3-4-2-查看kubelet和docker的驱动程序" class="headerlink" title="3.4.2 查看kubelet和docker的驱动程序"></a>3.4.2 查看kubelet和docker的驱动程序</h3><ul>
+<li>kubelet</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]<span class="comment">#  cat /var/lib/kubelet/kubeadm-flags.env</span></span><br><span class="line">KUBELET_KUBEADM_ARGS=<span class="string">"--cgroup-driver=cgroup --hostname-override=node --network-plugin=cni --pod-infra-container-image=registry.cn-hangzhou.aliyuncs.com/k8s-images-kx/pause:3.6"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># --cgroup-driver=cgroup 该节点驱动程序为cgroup</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>docker</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]<span class="comment"># docker info |grep Cgroup</span></span><br><span class="line"> Cgroup Driver: cgroupfs</span><br><span class="line"> Cgroup Version: 1</span><br><span class="line"></span><br><span class="line"><span class="comment"># docker驱动程序为 cgroupfs</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-4-4-Docker配置cgroup驱动"><a href="#3-4-4-Docker配置cgroup驱动" class="headerlink" title="3.4.4 Docker配置cgroup驱动"></a>3.4.4 Docker配置cgroup驱动</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir /etc/docker</span><br><span class="line">cat &lt;&lt;EOF | sudo tee /etc/docker/daemon.json</span><br><span class="line">&#123;</span><br><span class="line">  "exec-opts": ["native.cgroupdriver=systemd"],</span><br><span class="line">  "log-driver": "json-file",</span><br><span class="line">  "log-opts": &#123;</span><br><span class="line">    "max-size": "100m"</span><br><span class="line">  &#125;,</span><br><span class="line">  "storage-driver": "overlay2"</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">[root@node3 ~]# systemctl daemon-reload </span><br><span class="line">[root@node3 ~]# systemctl restart docker</span><br><span class="line">[root@node3 ~]# docker info | grep cgroup</span><br><span class="line"> Cgroup Driver: systemd</span><br><span class="line"> Cgroup Version: 1</span><br></pre></td></tr></table></figure>
+<h3 id="3-4-5-kubelet配置cgroup驱动（可选）"><a href="#3-4-5-kubelet配置cgroup驱动（可选）" class="headerlink" title="3.4.5 kubelet配置cgroup驱动（可选）"></a>3.4.5 kubelet配置cgroup驱动（可选）</h3><p><strong>kubelet不配置默认即使用<code>systemd</code></strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将kubelet和docker 的驱动程序改成一致。</span></span><br><span class="line">vim /var/lib/kubelet/kubeadm-flags.env</span><br><span class="line">KUBELET_KUBEADM_ARGS=<span class="string">"--cgroup-driver=systemd --network-plugin=cni --pod-infra-container-image=registry.aliyuncs.com/google_containers/pause:3.1"</span></span><br><span class="line"><span class="comment"># 将cgroup改成systemd</span></span><br><span class="line"></span><br><span class="line">[root@node3 ~]<span class="comment"># systemctl daemon-reload </span></span><br><span class="line">[root@node3 ~]<span class="comment"># systemctl restart kubelet</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>以上步骤和《kubernetes学习二:kubeadm安装kubernetes集群（单master）》完全一致，主要区别在<strong>集群负载均衡及集群初始化方式</strong>上。</p>
+<h2 id="3-5-keepalived-和-haproxy"><a href="#3-5-keepalived-和-haproxy" class="headerlink" title="3.5 keepalived 和 haproxy"></a>3.5 <a href="https://www.keepalived.org/" target="_blank" rel="noopener">keepalived</a> 和 <a href="https://www.haproxy.com/" target="_blank" rel="noopener">haproxy</a></h2><p><code>keepalived</code> : <strong>高可用软件</strong>，通过vrrp协议，vip地址的漂移，实现服务的高可用。</p>
+<p><code>haproxy</code>: haproxy是一个开源的，高性能的，<strong>负载均衡软件</strong>。</p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220209174127641.png" alt="image-20220209174127641"></p>
+<p><code>haproxy</code>主要用来实现kube-apiserver的负载，实际操作中非必选。</p>
+<p><a href="https://github.com/kubernetes/kubeadm/blob/main/docs/ha-considerations.md#options-for-software-load-balancing" target="_blank" rel="noopener">官网说明</a></p>
+<h3 id="3-5-1-请求架构"><a href="#3-5-1-请求架构" class="headerlink" title="3.5.1 请求架构"></a>3.5.1 请求架构</h3><p><img src="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220210164628651.png" alt="image-20220210164628651"></p>
+<h3 id="3-5-2-keepalived"><a href="#3-5-2-keepalived" class="headerlink" title="3.5.2 keepalived"></a>3.5.2 keepalived</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> -y keepalived</span><br></pre></td></tr></table></figure>
+<p><strong>主mastet</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">! Configuration File <span class="keyword">for</span> keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line"><span class="comment"># 关于邮箱的配置全部注释</span></span><br><span class="line"><span class="comment">#   notification_email &#123;</span></span><br><span class="line"><span class="comment">#     acassen@firewall.loc</span></span><br><span class="line"><span class="comment">#     failover@firewall.loc</span></span><br><span class="line"><span class="comment">#     sysadmin@firewall.loc</span></span><br><span class="line"><span class="comment">#   &#125;</span></span><br><span class="line"><span class="comment">#   notification_email_from Alexandre.Cassen@firewall.loc</span></span><br><span class="line"><span class="comment">#   smtp_server 192.168.200.1</span></span><br><span class="line"><span class="comment">#   smtp_connect_timeout 30</span></span><br><span class="line"><span class="comment"># 节点起名/标识，不能一致，局域网内唯一。</span></span><br><span class="line">   router_id LVS_01</span><br><span class="line">   vrrp_skip_check_adv_addr</span><br><span class="line">   vrrp_strict</span><br><span class="line">   vrrp_garp_interval 0</span><br><span class="line">   vrrp_gna_interval 0</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line"><span class="comment"># 绑定网卡</span></span><br><span class="line">    interface ens33</span><br><span class="line"><span class="comment"># 工作组，保持各节点一致，自定义</span></span><br><span class="line">    virtual_router_id 51</span><br><span class="line"><span class="comment"># 权重，抢占模式下高权限节点获得VIP</span></span><br><span class="line">    priority 100</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line"><span class="comment"># 认证通信认证方式和密码</span></span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass k8stest</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment"># VIP</span></span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.1.233</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>备master</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">! Configuration File <span class="keyword">for</span> keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line"><span class="comment"># 关于邮箱的配置全部注释</span></span><br><span class="line"><span class="comment">#   notification_email &#123;</span></span><br><span class="line"><span class="comment">#     acassen@firewall.loc</span></span><br><span class="line"><span class="comment">#     failover@firewall.loc</span></span><br><span class="line"><span class="comment">#     sysadmin@firewall.loc</span></span><br><span class="line"><span class="comment">#   &#125;</span></span><br><span class="line"><span class="comment">#   notification_email_from Alexandre.Cassen@firewall.loc</span></span><br><span class="line"><span class="comment">#   smtp_server 192.168.200.1</span></span><br><span class="line"><span class="comment">#   smtp_connect_timeout 30</span></span><br><span class="line"><span class="comment"># 节点起名/标识，不能一致，局域网内唯一。</span></span><br><span class="line">   router_id LVS_02</span><br><span class="line">   vrrp_skip_check_adv_addr</span><br><span class="line">   vrrp_strict</span><br><span class="line">   vrrp_garp_interval 0</span><br><span class="line">   vrrp_gna_interval 0</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line"><span class="comment"># 绑定网卡</span></span><br><span class="line">    interface ens33</span><br><span class="line"><span class="comment"># 工作组，保持各节点一致，自定义</span></span><br><span class="line">    virtual_router_id 51</span><br><span class="line"><span class="comment"># 权重，抢占模式下高权限节点获得VIP</span></span><br><span class="line">    priority 90</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line"><span class="comment"># 认证通信认证方式和密码</span></span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass k8stest</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment"># VIP</span></span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.1.233</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重启</span></span><br><span class="line">systemctl restart keeplived</span><br><span class="line">systemctl <span class="built_in">enable</span> keeplived</span><br></pre></td></tr></table></figure>
+<h3 id="3-5-3-haproxy"><a href="#3-5-3-haproxy" class="headerlink" title="3.5.3 haproxy"></a>3.5.3 haproxy</h3><p><a href="https://www.haproxy.org/download/" target="_blank" rel="noopener">官方源码下载地址</a></p>
+<p>示例：<a href="https://www.haproxy.org/download/2.5/src/haproxy-2.5.1.tar.gz" target="_blank" rel="noopener">https://www.haproxy.org/download/2.5/src/haproxy-2.5.1.tar.gz</a></p>
+<blockquote>
+<p>想偷懒也可以直接 yum install haproxy -y  使用默认仓库的版本，相对版本较低。</p>
+</blockquote>
+<p><strong>安装依赖</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y make gcc gcc-c++ pcre-devel zlib-devel openssl-devel</span><br></pre></td></tr></table></figure>
+<p><strong>创建安装目录</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdri <span class="regexp">/usr/</span>local<span class="regexp">/haproxy/</span></span><br></pre></td></tr></table></figure>
+<p><strong>编译安装</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf haproxy-2.5.1.tar.gz</span><br><span class="line"><span class="built_in">cd</span> haproxy-2.5.1</span><br><span class="line"><span class="comment"># 编译</span></span><br><span class="line"><span class="comment"># 参考目录下INSTALL安装文档，相关参数说明</span></span><br><span class="line">make TARGET=linux-glibc ARCH=x86_64 USE_PCRE=1 USE_OPENSSL=1 USE_ZLIB=1 PREFIX=/usr/<span class="built_in">local</span>/haproxy</span><br><span class="line"><span class="comment"># 安装</span></span><br><span class="line">make install PREFIX=/usr/<span class="built_in">local</span>/haproxy</span><br></pre></td></tr></table></figure>
+<p><strong>创建配置文件目录</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /etc/haproxy/</span><br><span class="line">mkdir -p /usr/<span class="built_in">local</span>/haproxy/conf/</span><br></pre></td></tr></table></figure>
+<p><strong>从配置文件名模板复制配置文件</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp examples/option-http_proxy.cfg /usr/<span class="built_in">local</span>/haproxy/conf/haproxy.cfg</span><br><span class="line">ln -s /usr/<span class="built_in">local</span>/haproxy/conf/haproxy.cfg /etc/haproxy/haproxy.cfg</span><br></pre></td></tr></table></figure>
+<p><strong>拷贝开机启动文件</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp haproxy-2.5.1/examples/haproxy.init /etc/init.d/haproxy</span><br><span class="line">chmod +x /etc/init.d/haproxy</span><br></pre></td></tr></table></figure>
+<p><strong>添加haproxy命令脚本软连接</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/<span class="built_in">local</span>/haproxy/sbin/haproxy /usr/sbin</span><br></pre></td></tr></table></figure>
+<p><strong>设置开机自启</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chkconfig --add haproxy</span><br><span class="line">chkconfig haproxy on</span><br></pre></td></tr></table></figure>
+<p><strong>创建用户</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">groupadd haproxy</span><br><span class="line">useradd -g haproxy haproxy</span><br><span class="line">mkdir /usr/share/haproxy</span><br></pre></td></tr></table></figure>
+<p><strong>修改配置/etc/haproxy/haproxy.cfg</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#---------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># Global settings</span></span><br><span class="line"><span class="comment">#---------------------------------------------------------------------</span></span><br><span class="line">global</span><br><span class="line">    <span class="comment"># to have these messages end up in /var/log/haproxy.log you will</span></span><br><span class="line">    <span class="comment"># need to:</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    <span class="comment"># 1) configure syslog to accept network log events.  This is done</span></span><br><span class="line">    <span class="comment">#    by adding the '-r' option to the SYSLOGD_OPTIONS in</span></span><br><span class="line">    <span class="comment">#    /etc/sysconfig/syslog</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    <span class="comment"># 2) configure local2 events to go to the /var/log/haproxy.log</span></span><br><span class="line">    <span class="comment">#   file. A line like the following can be added to</span></span><br><span class="line">    <span class="comment">#   /etc/sysconfig/syslog</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    <span class="comment">#    local2.*                       /var/log/haproxy.log</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    <span class="built_in">log</span>         127.0.0.1 local2</span><br><span class="line"></span><br><span class="line">    chroot      /var/lib/haproxy</span><br><span class="line"><span class="comment">#    pidfile     /var/run/haproxy.pid</span></span><br><span class="line">    maxconn     4000</span><br><span class="line">    user        haproxy</span><br><span class="line">    group       haproxy</span><br><span class="line">    daemon</span><br><span class="line"></span><br><span class="line">    <span class="comment"># turn on stats unix socket</span></span><br><span class="line"><span class="comment">#    stats socket /var/lib/haproxy/stats</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#---------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># common defaults that all the 'listen' and 'backend' sections will</span></span><br><span class="line"><span class="comment"># use if not designated in their block</span></span><br><span class="line"><span class="comment">#---------------------------------------------------------------------</span></span><br><span class="line">defaults</span><br><span class="line">    mode                    http</span><br><span class="line">    <span class="built_in">log</span>                     global</span><br><span class="line">    option                  httplog</span><br><span class="line">    option                  dontlognull</span><br><span class="line">    option http-server-close</span><br><span class="line"><span class="comment">#    option forwardfor       except 127.0.0.0/8</span></span><br><span class="line">    option                  redispatch</span><br><span class="line">    retries                 3</span><br><span class="line">    timeout http-request    10s</span><br><span class="line">    timeout queue           1m</span><br><span class="line">    timeout connect         10s</span><br><span class="line">    timeout client          1m</span><br><span class="line">    timeout server          1m</span><br><span class="line">    timeout http-keep-alive 10s</span><br><span class="line">    timeout check           10s</span><br><span class="line">    maxconn                 3000</span><br><span class="line"></span><br><span class="line"><span class="comment">#---------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># kubernetes apiserver frontend which proxys to the backends</span></span><br><span class="line"><span class="comment">#---------------------------------------------------------------------</span></span><br><span class="line">frontend kubernetes-apiserver</span><br><span class="line">    mode                 tcp</span><br><span class="line">    <span class="built_in">bind</span>                 *:16443</span><br><span class="line">    option               tcplog</span><br><span class="line">    default_backend      kubernetes-apiserver</span><br><span class="line"></span><br><span class="line"><span class="comment">#---------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># round robin balancing between the various backends</span></span><br><span class="line"><span class="comment">#---------------------------------------------------------------------</span></span><br><span class="line">backend kubernetes-apiserver</span><br><span class="line">    mode        tcp</span><br><span class="line">    balance     roundrobin</span><br><span class="line">    server  node1 192.168.1.7:6443 check</span><br><span class="line">    server  node2 192.168.1.8:6443 check</span><br><span class="line">    server  node3 192.168.1.9:6443 check</span><br><span class="line"></span><br><span class="line"><span class="comment">#---------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># collection haproxy statistics message</span></span><br><span class="line"><span class="comment">#---------------------------------------------------------------------</span></span><br><span class="line">listen stats</span><br><span class="line">    <span class="built_in">bind</span>                 *:1080</span><br><span class="line">    stats auth           admin:awesomePassword</span><br><span class="line">    stats refresh        5s</span><br><span class="line">    stats realm          HAProxy\ Statistics</span><br><span class="line">    stats uri            /admin?stats</span><br></pre></td></tr></table></figure>
+<p>各节点配置文件一致。</p>
+<h2 id="3-6-kubeadm创建集群"><a href="#3-6-kubeadm创建集群" class="headerlink" title="3.6 kubeadm创建集群"></a>3.6 kubeadm创建集群</h2><p><a href="https://kubernetes.io/zh/docs/setup/production-environment/tools/kubeadm/high-availability/" target="_blank" rel="noopener">官网文档</a></p>
+<h3 id="3-5-1-kubeadm-config"><a href="#3-5-1-kubeadm-config" class="headerlink" title="3.5.1 kubeadm config"></a>3.5.1 kubeadm config</h3><p>kubeadm已经进入GA阶段，其控制面初始化和加入节点步骤都支持大量的可定制内容，因此kubeadm还提供了配置文件功能用于复杂定制。同时，kubeadm将配置文件以ConfigMap的形式保存到集群之中，便于后续的查询和升级工作。kubeadm config子命令提供了对这一组功能的支持：</p>
+<p>◎ kubeadm config upload from-file：由配置文件上传到集群中生成ConfigMap。</p>
+<p>◎ kubeadm config upload from-flags：由配置参数生成ConfigMap。</p>
+<p>◎ kubeadm config view：查看当前集群中的配置值。</p>
+<p>◎ kubeadm config print init-defaults：输出kubeadm init默认参数文件的内容。</p>
+<p>◎ kubeadm config print join-defaults：输出kubeadm join默认参数文件的内容。</p>
+<p>◎ kubeadm config migrate：在新旧版本之间进行配置转换。</p>
+<p>◎ kubeadm config images list：列出所需的镜像列表。</p>
+<p>◎ kubeadm config images pull：拉取镜像到本地。例如，执行kubeadm config print init-defaults，可以取得默认的初始化参数文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm config <span class="built_in">print</span> init-defaults &gt; init.default.yaml</span><br></pre></td></tr></table></figure>
+<h3 id="3-5-2-导出kubeadm集群默认配置文件"><a href="#3-5-2-导出kubeadm集群默认配置文件" class="headerlink" title="3.5.2 导出kubeadm集群默认配置文件"></a>3.5.2 导出kubeadm集群默认配置文件</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm<span class="built_in"> config </span><span class="builtin-name">print</span> init-defaults &gt; init.default.yaml</span><br></pre></td></tr></table></figure>
+<h3 id="3-5-3-修改默认配置文件"><a href="#3-5-3-修改默认配置文件" class="headerlink" title="3.5.3 修改默认配置文件"></a>3.5.3 修改默认配置文件</h3><p>修改如下内容：</p>
+<ol>
+<li>主节点IP——advertiseAddress  </li>
+<li>国内阿里镜像地址imageRepository——registry.cn-hangzhou.aliyuncs.com/k8s-images-kx（通过阿里镜像仓库拉取的国外镜像）</li>
+<li>pod网段配置——不同网络插件网段不一样详细见<a href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network" target="_blank" rel="noopener">官网</a>（配置网络插件subnet地址段）</li>
+<li>高可用集群api请求地址——controlPlaneEndpoint（这里设置为keepalived的VIP地址+haproxy负载均衡监听端口）</li>
+</ol>
+<p>![(<a href="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220210153000232.png" target="_blank" rel="noopener">https://gitee.com/kxinter/images/raw/master/2022/02/image-20220210153000232.png</a>)</p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220210165340733.png" alt="image-20220210165340733"></p>
+<h3 id="3-5-4-下载kubernetes相关镜像"><a href="#3-5-4-下载kubernetes相关镜像" class="headerlink" title="3.5.4 下载kubernetes相关镜像"></a>3.5.4 下载kubernetes相关镜像</h3><p>使用config images list 子命令查询所需的镜像，例如</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 home]<span class="comment"># kubeadm config images list --config=init.default.yaml</span></span><br><span class="line">k8s.gcr.io/kube-apiserver:v1.23.0</span><br><span class="line">k8s.gcr.io/kube-controller-manager:v1.23.0</span><br><span class="line">k8s.gcr.io/kube-scheduler:v1.23.0</span><br><span class="line">k8s.gcr.io/kube-proxy:v1.23.0</span><br><span class="line">k8s.gcr.io/pause:3.6</span><br><span class="line">k8s.gcr.io/etcd:3.5.1-0</span><br><span class="line">k8s.gcr.io/coredns/coredns:v1.8.6</span><br><span class="line"></span><br><span class="line"><span class="comment"># 默认初始化配置文件下载的是1.23.0版本，如上图显示，可以修改初始化配置文件，改为1.23.3版本</span></span><br></pre></td></tr></table></figure>
+<p>使用config images pull 子命令下载所需的镜像，例如（国内无法下载，只做演示）</p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220207174123729.png" alt="image-20220207174123729"></p>
+<p><strong>预拉取镜像</strong></p>
+<p>通过阿里云镜像仓库构建下载镜像，具体方法不做细说。</p>
+<blockquote>
+<p>镜像使用方式有2种：</p>
+<ol>
+<li>修改镜像名为国外镜像名，例如</li>
+</ol>
+<p>k8s.gcr.io/kube-apiserver:v1.23.0<br>k8s.gcr.io/kube-controller-manager:v1.23.0<br>k8s.gcr.io/kube-scheduler:v1.23.0<br>k8s.gcr.io/kube-proxy:v1.23.0<br>k8s.gcr.io/pause:3.6<br>k8s.gcr.io/etcd:3.5.1-0<br>k8s.gcr.io/coredns/coredns:v1.8.6</p>
+<ol start="2">
+<li>修改初始化配置文件，修改国外仓库为阿里云仓库</li>
+</ol>
+<p>imageRepository: registry.cn-hangzhou.aliyuncs.com/k8s-images-kx<br>kind: ClusterConfiguration<br>kubernetesVersion: 1.23.3<br>networking:<br>  dnsDomain: cluster.local<br>  serviceSubnet: 10.96.0.0/12</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 home]<span class="comment"># kubeadm config images pull --config=init.default.yaml</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-5-5-初始化集群"><a href="#3-5-5-初始化集群" class="headerlink" title="3.5.5 初始化集群"></a>3.5.5 初始化集群</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># --upload-certs根据情况可选</span></span><br><span class="line">kubeadm init --config /home/init.default.yaml --upload-certs</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220210153548055.png" alt="image-20220210153548055"></p>
+<p>![(<a href="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220210154221965.png" target="_blank" rel="noopener">https://gitee.com/kxinter/images/raw/master/2022/02/image-20220210154221965.png</a>)</p>
+<p><img src="C:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20220210154352724.png" alt="image-20220210154352724"></p>
+<h3 id="3-5-6-加入master节点"><a href="#3-5-6-加入master节点" class="headerlink" title="3.5.6 加入master节点"></a>3.5.6 加入master节点</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubeadm join 192.168.1.133:6443 --token abcdef.0123456789abcdef \</span><br><span class="line">	--discovery-token-ca-cert-hash sha256:d264137849995438cfda460507958165ad026fc804206c9000e7f2c6c4b8b66c \</span><br><span class="line">	--control-plane</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220210155044128.png" alt="image-20220210155044128"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 执行以下步骤，才能使用kubectl命令</span></span><br><span class="line">mkdir -p <span class="variable">$HOME</span>/.kube</span><br><span class="line">sudo cp -i /etc/kubernetes/admin.conf <span class="variable">$HOME</span>/.kube/config</span><br><span class="line">sudo chown $(id -u):$(id -g) <span class="variable">$HOME</span>/.kube/config</span><br></pre></td></tr></table></figure>
+<h3 id="3-5-7-加入工作节点"><a href="#3-5-7-加入工作节点" class="headerlink" title="3.5.7 加入工作节点"></a>3.5.7 加入工作节点</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubeadm join 192.168.1.133:6443 --token abcdef.0123456789abcdef \</span><br><span class="line">	--discovery-token-ca-cert-hash sha256:d264137849995438cfda460507958165ad026fc804206c9000e7f2c6c4b8b66c</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220210155225404.png" alt="image-20220210155225404"></p>
+<h3 id="3-5-8-检查节点"><a href="#3-5-8-检查节点" class="headerlink" title="3.5.8 检查节点"></a>3.5.8 检查节点</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get node</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220210161203270.png" alt="image-20220210161203270"></p>
+<h1 id="3-5-9-验证"><a href="#3-5-9-验证" class="headerlink" title="3.5.9 验证"></a>3.5.9 验证</h1><p>关闭master1节点，通过master2或master3节点尝试集群命令。</p>
+<p>vip转移到node2即master2节点，node2和node4执行管理权限不受影像</p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220210161417179.png" alt="image-20220210161417179"></p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220210161241890.png" alt="image-20220210161241890"></p>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220210161312871.png" alt="image-20220210161312871"></p>
+<p>到此简单验证成功。其他问题参考《kubenetes学习二》</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://blog.csdn.net/chenleiking/article/details/84841394" target="_blank" rel="noopener">Kubeadm + HAProxy + Keepalived部署高可用Kubernetes集群</a></p>
+
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+        
+      </div>
+	  
+	  <div>
+        
+        
+        
+      </div>
+	
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="OperationMAN 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="OperationMAN 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kubernetes/" rel="tag"><i class="fa fa-tag"></i> kubernetes</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/02/07/kubernetes学习二-kubeadm安装kubernetes集群-单master/" rel="next" title="kubernetes学习二:kubeadm安装kubernetes集群（单master）">
+                <i class="fa fa-chevron-left"></i> kubernetes学习二:kubeadm安装kubernetes集群（单master）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTUxNS8xNjA0Mg"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+			<!--设置点击头像链接到首页-->
+			<a href="/">
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.jpeg"
+                alt="OperationMAN" />
+			</a>
+            
+              <p class="site-author-name" itemprop="name">OperationMAN</p>
+              <p class="site-description motion-element" itemprop="description">日常运维文档整理。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">137</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:kxhuanzi@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/kxinter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://gitee.com/kxinter" target="_blank" title="码云">
+                      
+                        <i class="fa fa-fw fa-code"></i>码云</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://kxinter.gitee.io" target="_blank" title="blog">
+                      
+                        <i class="fa fa-fw fa-book"></i>blog</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://medoc.000webhostapp.com" target="_blank" title="随手笔记">
+                      
+                        <i class="fa fa-fw fa-wordpress"></i>随手笔记</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://man.linuxde.net/" target="_blank" title="Linux命令大全">
+                      
+                        <i class="fa fa-fw fa-linux"></i>Linux命令大全</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://linux.vbird.org" target="_blank" title="鸟哥的私房菜">
+                      
+                        <i class="fa fa-fw fa-linux"></i>鸟哥的私房菜</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.runoob.com/" target="_blank" title="RUNOOB.com">
+                      
+                        <i class="fa fa-fw fa-linux"></i>RUNOOB.com</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.chenshake.com/" target="_blank" title="陈沙克日志">
+                      
+                        <i class="fa fa-fw fa-cloud"></i>陈沙克日志</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://bitnami.com/" target="_blank" title="Bitnami">
+                      
+                        <i class="fa fa-fw fa-bold"></i>Bitnami</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://fontawesome.com/icons?d=gallery" target="_blank" title="Font Awesome">
+                      
+                        <i class="fa fa-fw fa-font-awesome"></i>Font Awesome</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.000webhost.com/cpanel-login?from=panel#" target="_blank" title="Statistics">
+                      
+                        <i class="fa fa-fw fa-server"></i>Statistics</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://shenzekun.cn/hexo%E7%9A%84next%E4%B8%BB%E9%A2%98%E4%B8%AA%E6%80%A7%E5%8C%96%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.html" title="Next优化" target="_blank">Next优化</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" title="Next深度优化" target="_blank">Next深度优化</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://livere.com/" title="来必力" target="_blank">来必力</a>
+                  </li>
+                
+              </ul>
+			<div id="days"></div>
+<script>
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("05/27/2017 15:13:14");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行"+daysold+"天"+hrsold+"小时"+minsold+"分"+seconds+"秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+</script>
+  
+            </div>
+          
+
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-集群逻辑架构"><span class="nav-text">1 集群逻辑架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-环境"><span class="nav-text">2 环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-物理环境"><span class="nav-text">2.1 物理环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-软件环境"><span class="nav-text">2.2 软件环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-镜像"><span class="nav-text">2.3 镜像</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-步骤"><span class="nav-text">3 步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-准备工作"><span class="nav-text">3.1 准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-1-确保各节点MAC和product-uuid的唯一性"><span class="nav-text">3.1.1 确保各节点MAC和product_uuid的唯一性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2-运行iptables检查桥接流量"><span class="nav-text">3.1.2 运行iptables检查桥接流量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-3-关闭防火墙"><span class="nav-text">3.1.3 关闭防火墙</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-4-永久关闭swap"><span class="nav-text">3.1.4 永久关闭swap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-5-关闭selinux"><span class="nav-text">3.1.5 关闭selinux</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-安装docker"><span class="nav-text">3.2 安装docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-安装-kubeadm、kubelet-和-kubectl"><span class="nav-text">3.3 安装 kubeadm、kubelet 和 kubectl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-配置cgroup驱动程序"><span class="nav-text">3.4 配置cgroup驱动程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-1-Cgroup-驱动程序说明"><span class="nav-text">3.4.1 Cgroup 驱动程序说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-2-查看kubelet和docker的驱动程序"><span class="nav-text">3.4.2 查看kubelet和docker的驱动程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-4-Docker配置cgroup驱动"><span class="nav-text">3.4.4 Docker配置cgroup驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-5-kubelet配置cgroup驱动（可选）"><span class="nav-text">3.4.5 kubelet配置cgroup驱动（可选）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-keepalived-和-haproxy"><span class="nav-text">3.5 keepalived 和 haproxy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-1-请求架构"><span class="nav-text">3.5.1 请求架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-2-keepalived"><span class="nav-text">3.5.2 keepalived</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-3-haproxy"><span class="nav-text">3.5.3 haproxy</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-6-kubeadm创建集群"><span class="nav-text">3.6 kubeadm创建集群</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-1-kubeadm-config"><span class="nav-text">3.5.1 kubeadm config</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-2-导出kubeadm集群默认配置文件"><span class="nav-text">3.5.2 导出kubeadm集群默认配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-3-修改默认配置文件"><span class="nav-text">3.5.3 修改默认配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-4-下载kubernetes相关镜像"><span class="nav-text">3.5.4 下载kubernetes相关镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-5-初始化集群"><span class="nav-text">3.5.5 初始化集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-6-加入master节点"><span class="nav-text">3.5.6 加入master节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-7-加入工作节点"><span class="nav-text">3.5.7 加入工作节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-8-检查节点"><span class="nav-text">3.5.8 检查节点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-5-9-验证"><span class="nav-text">3.5.9 验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OperationMAN</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">172.2k</span>
+  
+</div>
+
+
+
+<!--修改页面底部主题名字和网站软件名字-->
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<!--动态背景>
+ <script type="text/javascript" src="/kxinter.gitub.io/lib/canvas-nest/canvas-nest.min.js"></script> 
+  <-->
+ </body>
+</html>
+<script type="text/javascript" src="/kxinter.gitub.io/js/src/love.js"></script>
