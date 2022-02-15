@@ -146,6 +146,7 @@
 <meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220208095316580.png">
 <meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220208110411304.png">
 <meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220208135503045.png">
+<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220215134508429.png">
 <meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220207174123729.png">
 <meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220208140143943.png">
 <meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220208140453955.png">
@@ -155,7 +156,7 @@
 <meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/1752532-20211130171556972-1751835178.png">
 <meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/1752532-20211130171617841-530484044.png">
 <meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220209114644724.png">
-<meta property="og:updated_time" content="2022-02-14T05:45:28.096Z">
+<meta property="og:updated_time" content="2022-02-15T08:08:53.301Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kubernetes学习二:kubeadm安装kubernetes集群（单master）">
 <meta name="twitter:description" content="1 参考文档官方文档 kubeadm安装k8s v1.18.0 cgroup造成的kubelet启动失败">
@@ -415,8 +416,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-02-14T13:45:28+08:00">
-                2022-02-14
+              <time title="更新于" itemprop="dateModified" datetime="2022-02-15T16:08:53+08:00">
+                2022-02-15
               </time>
             
           </span>
@@ -470,7 +471,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3.9k
+                  4k
                 </span>
               
 
@@ -683,6 +684,16 @@
 </ol>
 <p><img src="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220208135503045.png" alt="image-20220208135503045"></p>
 <p>将上面的内容保存为init-config.yaml备用。</p>
+<blockquote>
+<p><strong>纠正：</strong></p>
+<p><code>podSubent</code>的值设置为flannel的默认网段，<code>FLANNEL_NETWORK</code>的默认值（可通过flannel.yaml文件查看）；<code>podSubent=10.244.0.0/16</code></p>
+<p><strong>原因：</strong></p>
+<p>后面配置NFS存储类的时候，pod无法正常访问kube-apiserver。</p>
+<p><strong>参考：</strong></p>
+<p><a href="https://www.cnblogs.com/zhangb8042/p/14252294.html" target="_blank" rel="noopener">k8s 1.20.x版本NFS动态存储配置 - 巽逸 - 博客园 (cnblogs.com)</a></p>
+<p><a href="https://blog.csdn.net/weixin_40455124/article/details/104825270" target="_blank" rel="noopener">(71条消息) Kubeadm 部署 使用flannel无法连接service/kubernetes_weixin_40455124的博客-CSDN博客</a></p>
+</blockquote>
+<p><img src="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220215134508429.png" alt="image-20220215134508429"></p>
 <h3 id="3-5-4-下载kubernetes相关镜像"><a href="#3-5-4-下载kubernetes相关镜像" class="headerlink" title="3.5.4 下载kubernetes相关镜像"></a>3.5.4 下载kubernetes相关镜像</h3><p>使用config images list 子命令查询所需的镜像，例如</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 home]<span class="comment"># kubeadm config images list --config=init.default.yaml</span></span><br><span class="line">k8s.gcr.io/kube-apiserver:v1.23.0</span><br><span class="line">k8s.gcr.io/kube-controller-manager:v1.23.0</span><br><span class="line">k8s.gcr.io/kube-scheduler:v1.23.0</span><br><span class="line">k8s.gcr.io/kube-proxy:v1.23.0</span><br><span class="line">k8s.gcr.io/pause:3.6</span><br><span class="line">k8s.gcr.io/etcd:3.5.1-0</span><br><span class="line">k8s.gcr.io/coredns/coredns:v1.8.6</span><br><span class="line"></span><br><span class="line"><span class="comment"># 默认初始化配置文件下载的是1.23.0版本，如上图显示，可以修改初始化配置文件，改为1.23.3版本</span></span><br></pre></td></tr></table></figure>
 <p>使用config images pull 子命令下载所需的镜像，例如（国内无法下载，只做演示）</p>
@@ -950,7 +961,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">137</span>
+                  <span class="site-state-item-count">138</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1163,7 +1174,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">172.2k</span>
+    <span title="Site words total count">174k</span>
   
 </div>
 
