@@ -155,7 +155,7 @@
 <meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/1752532-20211130171556972-1751835178.png">
 <meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/1752532-20211130171617841-530484044.png">
 <meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220209114644724.png">
-<meta property="og:updated_time" content="2022-02-11T08:33:41.135Z">
+<meta property="og:updated_time" content="2022-02-14T05:45:28.096Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kubernetes学习二:kubeadm安装kubernetes集群（单master）">
 <meta name="twitter:description" content="1 参考文档官方文档 kubeadm安装k8s v1.18.0 cgroup造成的kubelet启动失败">
@@ -415,8 +415,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-02-11T16:33:41+08:00">
-                2022-02-11
+              <time title="更新于" itemprop="dateModified" datetime="2022-02-14T13:45:28+08:00">
+                2022-02-14
               </time>
             
           </span>
@@ -642,7 +642,7 @@
 <li><code>kubelet</code>：在集群中的每个节点上用来启动 Pod 和容器等。</li>
 <li><code>kubectl</code>：用来与集群通信的命令行工具。</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF | sudo tee /etc/yum.repos.d/kubernetes.repo</span><br><span class="line">[kubernetes]</span><br><span class="line">name=Kubernetes</span><br><span class="line">baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\<span class="variable">$basearch</span></span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=1</span><br><span class="line">repo_gpgcheck=1</span><br><span class="line">gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg</span><br><span class="line">exclude=kubelet kubeadm kubectl</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装服务</span></span><br><span class="line">sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置kubelet开机自启</span></span><br><span class="line">sudo systemctl <span class="built_in">enable</span>  kubelet</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo</span><br><span class="line">[kubernetes]</span><br><span class="line">name=Kubernetes</span><br><span class="line">baseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br><span class="line">repo_gpgcheck=0</span><br><span class="line">gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg</span><br><span class="line">       http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装服务</span></span><br><span class="line">sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置kubelet开机自启</span></span><br><span class="line">sudo systemctl <span class="built_in">enable</span>  kubelet</span><br></pre></td></tr></table></figure>
 <h2 id="3-4-配置cgroup驱动程序"><a href="#3-4-配置cgroup驱动程序" class="headerlink" title="3.4 配置cgroup驱动程序"></a>3.4 配置cgroup驱动程序</h2><p>需保证容器服务和kubelet的cgroup驱动一致，否则kubelet启动报错：</p>
 <p><img src="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220208095347892.png" alt="image-20220208095347892"></p>
 <p><img src="https://gitee.com/kxinter/images/raw/master/2022/02/image-20220208095316580.png" alt="image-20220208095316580"></p>
