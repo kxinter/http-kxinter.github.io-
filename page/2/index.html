@@ -351,6 +351,680 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2022/01/14/Centos7系统安全审计/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/01/14/Centos7系统安全审计/" itemprop="url">Centos7系统安全审计</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-14T17:07:01+08:00">
+                2022-01-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-01-20T17:32:17+08:00">
+                2022-01-20
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  14
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-Centos7审计配置"><a href="#1-Centos7审计配置" class="headerlink" title="1 Centos7审计配置"></a>1 Centos7审计配置</h1><p>通过<code>auditd</code>，系统审核允许系统管理员监视其系统这样他们就可以检测到未经授权的数据访问或修改。</p>
+<p>默认情况下，<code>auditd</code>将审核<code>SELinux AVC</code>拒绝、系统登录、帐户修改和身份验证事件。事件将记录到 <code>/var/log/audit/audit.log</code></p>
+<h1 id="2-audit使用"><a href="#2-audit使用" class="headerlink" title="2 audit使用"></a>2 audit使用</h1><h2 id="2-1-配置文件"><a href="#2-1-配置文件" class="headerlink" title="2.1 配置文件"></a>2.1 配置文件</h2><p><code>auditctl</code> : 即时控制审计守护进程的行为的工具，比如如添加规则等等</p>
+<p><code>aureport</code> : 查看和生成审计报告的工具</p>
+<p><code>ausearch</code> : 查找审计事件的工具</p>
+<p><code>auditspd</code> : 转发事件通知给其他应用程序，而不是写入到审计日志文件中</p>
+<p><code>autrace</code> : 一个用于跟踪进程的命令</p>
+<ul>
+<li>/etc/audit/auditd.conf</li>
+<li>/etc/audit/rules.d/audit.rules</li>
+<li>/etc/audit/audit.rules                                 #　根据/etc/audit/rules.d/audit.rules自动生成</li>
+</ul>
+<h3 id="2-1-1-auditd-conf"><a href="#2-1-1-auditd-conf" class="headerlink" title="2.1.1 auditd.conf"></a>2.1.1 auditd.conf</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 是否记录本地事件，如果设为no，只记录来自网络的事件</span></span><br><span class="line">local_events = yes</span><br><span class="line">write_logs = yes</span><br><span class="line"><span class="comment"># 日志文件</span></span><br><span class="line">log_file = /var/<span class="built_in">log</span>/audit/audit.log</span><br><span class="line">log_group = root</span><br><span class="line">log_format = RAW</span><br><span class="line"><span class="comment"># 日志文件刷新方式，可选的选项有：</span></span><br><span class="line"><span class="comment"># NONE：不做特别处理</span></span><br><span class="line"><span class="comment"># INCREMENTAL：用freq选项的值确定多长时间发生一次向磁盘的刷新</span></span><br><span class="line"><span class="comment"># DATA：审计数据和日志文件是同步的</span></span><br><span class="line"><span class="comment"># SYNC：写日志文件时，数据和元数据是同步的</span></span><br><span class="line">flush = INCREMENTAL_ASYNC</span><br><span class="line">freq = 50</span><br><span class="line"><span class="comment"># 日志文件最大8MB</span></span><br><span class="line">max_log_file = 8</span><br><span class="line"><span class="comment"># 日志文件数量</span></span><br><span class="line">num_logs = 5</span><br><span class="line"><span class="comment"># 进程优先级（-4），ps axl | grep auditd 可查</span></span><br><span class="line">priority_boost = 4</span><br><span class="line">disp_qos = lossy</span><br><span class="line">dispatcher = /sbin/audispd</span><br><span class="line">name_format = NONE</span><br><span class="line"><span class="comment">##name = mydomain</span></span><br><span class="line"><span class="comment"># 当log文件达到max_log_file设定大小后的动作。可选的动作有：</span></span><br><span class="line"><span class="comment"># IGNORE：忽略max_log_file设置的限制，继续写log文件</span></span><br><span class="line"><span class="comment"># SYSLOG：向syslog中写入一条warning</span></span><br><span class="line"><span class="comment"># SUSPEND：auditd不再写log文件，但是auditd继续运行</span></span><br><span class="line"><span class="comment"># ROTATE：分多个log文件，一个log文件达到上限后在创建一个新的不同名字的log文件</span></span><br><span class="line">max_log_file_action = ROTATE</span><br><span class="line"><span class="comment"># log_file文件所在的分区空闲空间少于这个设定的值时，触发相应的动作，单位是MB</span></span><br><span class="line">space_left = 75</span><br><span class="line"><span class="comment"># space_left设定被触发时的动作。可选动作有：</span></span><br><span class="line"><span class="comment"># IGNORE, SYSLOG, SUSPEND：与前面max_log_file_action相似</span></span><br><span class="line"><span class="comment"># SINGLE：audit进程会将系统模式变为单用户模式</span></span><br><span class="line"><span class="comment"># HALT：audit进程将会触发系统关机</span></span><br><span class="line">space_left_action = SYSLOG</span><br><span class="line">verify_email = yes</span><br><span class="line">action_mail_acct = root</span><br><span class="line">admin_space_left = 50</span><br><span class="line">admin_space_left_action = SUSPEND</span><br><span class="line"><span class="comment"># 磁盘满后触发的动作</span></span><br><span class="line">disk_full_action = SUSPEND</span><br><span class="line"><span class="comment"># 磁盘错误触发的动作</span></span><br><span class="line">disk_error_action = SUSPEND</span><br><span class="line">use_libwrap = yes</span><br><span class="line"><span class="comment">##tcp_listen_port = 60</span></span><br><span class="line">tcp_listen_queue = 5</span><br><span class="line">tcp_max_per_addr = 1</span><br><span class="line"><span class="comment">##tcp_client_ports = 1024-65535</span></span><br><span class="line">tcp_client_max_idle = 0</span><br><span class="line">enable_krb5 = no</span><br><span class="line">krb5_principal = auditd</span><br><span class="line"><span class="comment">##krb5_key_file = /etc/audit/audit.key</span></span><br><span class="line">distribute_network = no</span><br></pre></td></tr></table></figure>
+<h2 id="2-2-常用命令"><a href="#2-2-常用命令" class="headerlink" title="2.2 常用命令"></a>2.2 常用命令</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*查看规则*/</span></span><br><span class="line">auditctl -l</span><br><span class="line"></span><br><span class="line"><span class="comment">/*查看命令帮助*/</span></span><br><span class="line">auditctl -h</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">auditctl -w /data -p rwxa</span><br><span class="line"><span class="comment">/*监控/data目录</span></span><br><span class="line"><span class="comment">-w path : 指定要监控的路径</span></span><br><span class="line"><span class="comment">-p : 指定触发审计的文件/目录的访问权限</span></span><br><span class="line"><span class="comment">rwxa ： 指定的触发条件，r 读取权限，w 写入权限，x 执行权限，a 属性（attr）*/</span></span><br></pre></td></tr></table></figure>
+<p><strong>永久保存审计规则</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/audit/rules.d/audit.rules</span><br><span class="line">例如将-w /data/ -p rwxa加入到最后一行</span><br><span class="line">service auditd restart</span><br><span class="line">auditctl -l</span><br></pre></td></tr></table></figure>
+<h1 id="3-配置开机启动"><a href="#3-配置开机启动" class="headerlink" title="3 配置开机启动"></a>3 配置开机启动</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span>  auditd</span><br></pre></td></tr></table></figure>
+<h1 id="4-配置规则"><a href="#4-配置规则" class="headerlink" title="4 配置规则"></a>4 配置规则</h1><p>规则类型可分为：</p>
+<ol>
+<li><strong>控制规则</strong>：控制audit系统的规则；</li>
+<li><strong>文件系统规则</strong>：也可以认为是文件监控，可以监控一个特定文件或者一个路径。</li>
+<li><strong>系统调用规则</strong>：可以记录特定程序的系统调用。</li>
+</ol>
+<h2 id="4-1-控制规则"><a href="#4-1-控制规则" class="headerlink" title="4.1 控制规则"></a>4.1 控制规则</h2><p><code>-b</code> 设置在内核中audit缓冲空间的最大值。</p>
+<p><code>-f</code>  这个选项来决定内核如何处理<code>critical erros：0=silent 1=printk 2=panic</code>.默认值为1。</p>
+<p><code>-e</code> 设置使能标志，设置为0，为关闭了audit，设置为1，则开启audit；当设置为2时，表示锁定，一般在设置完其他规则后最后设置，防止其他人修改规则；任何修改规则的行为都会被拒绝，并且记录审计日志，只有当重启系统后，这个使能标志才可以被修改。</p>
+<h2 id="4-2-文件系统规则"><a href="#4-2-文件系统规则" class="headerlink" title="4.2 文件系统规则"></a>4.2 文件系统规则</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auditctl -w path -p permissions -k key_name</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>-w</code> : 目录或者文件路径</li>
+<li><code>-p</code>： 描述文件系统监视将触发的权限访问类型，r=读取，w=写入，x=执行，a=属性更改。</li>
+<li><code>-k</code>: 设置审核规则的筛选关键字</li>
+</ul>
+<h2 id="4-3-系统调用规则"><a href="#4-3-系统调用规则" class="headerlink" title="4.3 系统调用规则"></a>4.3 系统调用规则</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auditctl -a [list,action|action,list] -S [Syscall name or number|all] -F field=value -k key_name</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>-a</code>:   action和list 明确一个事件被记录。action可以为always或者never，list明确出对应的匹配过滤，list可以为：task,exit,user,exclude,filesystem。</li>
+<li><code>-S</code><strong>:</strong>   system_call 明确出系统调用的名字，几个系统调用可以写在一个规则里，如-S xxx -S xxx。系统调用的名字可以在/usr/include/asm/unistd_64.h文件中找到。</li>
+<li><code>-F</code>:   field=value 作为附加选项，修改规则以匹配特定架构、GroupID，ProcessID等的事件。具体有哪些字段，可以参考man linux <a href="https://linux.die.net/man/8/auditctl" target="_blank" rel="noopener">https://linux.die.net/man/8/auditctl</a></li>
+</ul>
+<h1 id="5-配置实例"><a href="#5-配置实例" class="headerlink" title="5 配置实例"></a>5 配置实例</h1><h2 id="5-1-记录系统的日期和时间的修改"><a href="#5-1-记录系统的日期和时间的修改" class="headerlink" title="5.1 记录系统的日期和时间的修改"></a>5.1 记录系统的日期和时间的修改</h2><p>vim   /etc/audit/rules.d/audit.rules</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S adjtimex -S settimeofday -k time-change</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S adjtimex -S settimeofday -S stime -k timechange</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S clock_settime -k time-change</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S clock_settime -k time-change</span><br><span class="line">-w /etc/localtime -p wa -k time-change</span><br></pre></td></tr></table></figure>
+<h2 id="5-2-记录用户和组的修改事件"><a href="#5-2-记录用户和组的修改事件" class="headerlink" title="5.2 记录用户和组的修改事件"></a>5.2 记录用户和组的修改事件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-w /etc/group -p wa -k identity</span><br><span class="line">-w /etc/passwd -p wa -k identity</span><br><span class="line">-w /etc/gshadow -p wa -k identity</span><br><span class="line">-w /etc/shadow -p wa -k identity</span><br><span class="line">-w /etc/security/opasswd -p wa -k identity</span><br></pre></td></tr></table></figure>
+<h2 id="5-3-记录网络环境修改时间"><a href="#5-3-记录网络环境修改时间" class="headerlink" title="5.3 记录网络环境修改时间"></a>5.3 记录网络环境修改时间</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S sethostname -S setdomainname -k system-locale</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S sethostname -S setdomainname -k system-locale</span><br><span class="line">-w /etc/issue -p wa -k system-locale</span><br><span class="line">-w /etc/issue.net -p wa -k system-locale</span><br><span class="line">-w /etc/hosts -p wa -k system-locale</span><br><span class="line">-w /etc/sysconfig/network -p wa -k system-locale</span><br><span class="line">-w /etc/sysconfig/network-scripts/ -p wa -k system-locale</span><br></pre></td></tr></table></figure>
+<h2 id="5-4-记录登录和登出事件"><a href="#5-4-记录登录和登出事件" class="headerlink" title="5.4 记录登录和登出事件"></a>5.4 记录登录和登出事件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-w /var/<span class="built_in">log</span>/lastlog -p wa -k logins</span><br><span class="line">-w /var/run/faillock/ -p wa -k logins</span><br></pre></td></tr></table></figure>
+<h2 id="5-5-记录会话启动事件"><a href="#5-5-记录会话启动事件" class="headerlink" title="5.5 记录会话启动事件"></a>5.5 记录会话启动事件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-w /var/run/utmp -p wa -k session</span><br><span class="line">-w /var/<span class="built_in">log</span>/wtmp -p wa -k logins</span><br><span class="line">-w /var/<span class="built_in">log</span>/btmp -p wa -k logins</span><br></pre></td></tr></table></figure>
+<p>文件<code>/var/run/utmp</code>跟踪当前登录的所有用户。所有审计记录都将用标识符“<code>session</code>”标记， 可以用<code>who</code>命令读取</p>
+<p><code>/var/log/wtmp</code>文件跟踪登录、注销、关机和重新启动事件。</p>
+<p>文件<code>/var/log/btmp</code>跟踪失败的登录尝试，可以通过输入命令 <code>‘/usr/bin/last-f /var/log/btmp’</code> 读取。所有审核记录都将被标记为标识符<code>“logins”</code></p>
+<h2 id="5-6-监视对文件权限、属性、所有权和组的更改"><a href="#5-6-监视对文件权限、属性、所有权和组的更改" class="headerlink" title="5.6 监视对文件权限、属性、所有权和组的更改"></a>5.6 监视对文件权限、属性、所有权和组的更改</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S chmod -S fchmod -S fchmodat -F auid&gt;=1000 -F auid!=4294967295 -k perm_mod</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S chmod -S fchmod -S fchmodat -F auid&gt;=1000 -F auid!=4294967295 -k perm_mod</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S chown -S fchown -S fchownat -S lchown -F auid&gt;=1000 -F auid!=4294967295 -k perm_mod</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S chown -S fchown -S fchownat -S lchown -F auid&gt;=1000 -F auid!=4294967295 -k perm_mod</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid&gt;=1000 -F auid!=4294967295 -k perm_mod</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid&gt;=1000 -F auid!=4294967295 -k perm_mod</span><br></pre></td></tr></table></figure>
+<p>在所有情况下，审核记录将只为非系统用户id（<code>auid&gt;=1000</code>）并将忽略守护进程事件（<code>auid=4294967295</code>）。</p>
+<p>所有审计记录用标识符“perm_mod”标记</p>
+<h2 id="5-7-记录未授权文件访问尝试"><a href="#5-7-记录未授权文件访问尝试" class="headerlink" title="5.7 记录未授权文件访问尝试"></a>5.7 记录未授权文件访问尝试</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F <span class="built_in">exit</span>=-EACCES -F auid&gt;=1000 -F auid!=4294967295 -k access</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F <span class="built_in">exit</span>=-EACCES -F auid&gt;=1000 -F auid!=4294967295 -k access</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F <span class="built_in">exit</span>=-EPERM -F auid&gt;=1000 -F auid!=4294967295 -k access</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F <span class="built_in">exit</span>=-EPERM -F auid&gt;=1000 -F auid!=4294967295 -k access</span><br></pre></td></tr></table></figure>
+<h2 id="5-8-确保收集使用特权命令"><a href="#5-8-确保收集使用特权命令" class="headerlink" title="5.8 确保收集使用特权命令"></a>5.8 确保收集使用特权命令</h2><p>监视特权程序（那些在执行时设置了setuid和/或setgid位的程序）以确定没有权限的用户是否正在运行这些命令。</p>
+<p><strong>通过下面命令</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> find / -xdev \( -perm -4000 -o -perm -2000 \) -<span class="built_in">type</span> f | awk</span><br><span class="line"><span class="string">'&#123;print \</span></span><br><span class="line"><span class="string">"-a always,exit -F path=" $1 " -F perm=x -F auid&gt;=1000 -F auid!=4294967295 \</span></span><br><span class="line"><span class="string">-k privileged" &#125;'</span></span><br></pre></td></tr></table></figure>
+<p><strong>得到记录</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/wall -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/chfn -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/chsh -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/chage -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/gpasswd -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/newgrp -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/mount -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/su -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/umount -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/sudo -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/write -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/crontab -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/ssh-agent -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/pkexec -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/passwd -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/sbin/unix_chkpwd -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/sbin/pam_timestamp_check -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/sbin/netreport -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/sbin/usernetctl -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/sbin/postdrop -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/sbin/postqueue -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/lib/polkit-1/polkit-agent-helper-1 -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/libexec/utempter/utempter -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/libexec/dbus-1/dbus-daemon-launch-helper -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/libexec/openssh/ssh-keysign -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br></pre></td></tr></table></figure>
+<h2 id="5-9-收集成功挂载磁盘事件"><a href="#5-9-收集成功挂载磁盘事件" class="headerlink" title="5.9 收集成功挂载磁盘事件"></a>5.9 收集成功挂载磁盘事件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S mount -F auid&gt;=1000 -F auid!=4294967295 -k mounts</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S mount -F auid&gt;=1000 -F auid!=4294967295 -k mount</span><br></pre></td></tr></table></figure>
+<p>在所有情况下，审核记录将只为非系统用户id（<code>auid&gt;=1000</code>）并将忽略守护进程事件（<code>auid=4294967295</code>）。</p>
+<p>所有审计记录用标识符“mount”和“mounts”标记</p>
+<h2 id="5-10-确保收集用户的文件删除事件"><a href="#5-10-确保收集用户的文件删除事件" class="headerlink" title="5.10 确保收集用户的文件删除事件"></a>5.10 确保收集用户的文件删除事件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S unlink -S unlinkat -S rename -S renameat -F auid&gt;=1000 -F auid!=4294967295 -k delete</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S unlink -S unlinkat -S rename -S renameat -F auid&gt;=1000 -F auid!=4294967295 -k delete</span><br></pre></td></tr></table></figure>
+<p>在所有情况下，审核记录将只为非系统用户id（<code>auid&gt;=1000</code>）并将忽略守护进程事件（<code>auid=4294967295</code>）。</p>
+<p>所有审计记录用标识符“delete”标记</p>
+<h2 id="5-11-确保收集对系统管理范围（sudoers）的更改"><a href="#5-11-确保收集对系统管理范围（sudoers）的更改" class="headerlink" title="5.11 确保收集对系统管理范围（sudoers）的更改"></a>5.11 确保收集对系统管理范围（sudoers）的更改</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-w /etc/sudoers -p wa -k scope</span><br><span class="line">-w /etc/sudoers.d/ -p wa -k scope</span><br></pre></td></tr></table></figure>
+<h2 id="5-12-监视sudo日志文件"><a href="#5-12-监视sudo日志文件" class="headerlink" title="5.12 监视sudo日志文件"></a>5.12 监视sudo日志文件</h2><p>如果系统已正确配置为禁用su命令并强制所有管理员必须先登录，然后使用sudo执行特权命令，</p>
+<p>然后所有管理员命令将被记录到/var/log/sudo.log文件.</p>
+<p>每当执行命令时，审核事件将被触发为/var/log/sudo.log文件将打开文件进行写入，并执行管理命令将写入日志。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-w /var/<span class="built_in">log</span>/sudo.log -p wa -k actions</span><br></pre></td></tr></table></figure>
+<h2 id="5-13-确保收集内核模块加载和卸载"><a href="#5-13-确保收集内核模块加载和卸载" class="headerlink" title="5.13 确保收集内核模块加载和卸载"></a>5.13 确保收集内核模块加载和卸载</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-w /sbin/insmod -p x -k modules</span><br><span class="line">-w /sbin/rmmod -p x -k modules</span><br><span class="line">-w /sbin/modprobe -p x -k modules</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S init_module -S delete_module -k modules</span><br></pre></td></tr></table></figure>
+<h2 id="5-14-确保审核配置是不可变的"><a href="#5-14-确保审核配置是不可变的" class="headerlink" title="5.14 确保审核配置是不可变的"></a>5.14 确保审核配置是不可变的</h2><p>审核规则不能使用auditctl修改。设置标志“-e2“强制将审核置于不可变模式。进行审核更改只能对系统重新启动。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-e 2</span><br></pre></td></tr></table></figure>
+<h1 id="6-参考"><a href="#6-参考" class="headerlink" title="6 参考"></a>6 参考</h1><p><a href="https://cloud.tencent.com/developer/article/1653503" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1653503</a></p>
+<p><a href="https://www.cnblogs.com/zydev/p/13086818.html" target="_blank" rel="noopener">https://www.cnblogs.com/zydev/p/13086818.html</a></p>
+<p><a href="https://linux.die.net/man/8/auditctl" target="_blank" rel="noopener">auditctl(8) - Linux man page (die.net)</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2022/01/13/mysql开启密码复杂度配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/01/13/mysql开启密码复杂度配置/" itemprop="url">mysql开启密码复杂度配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-13T12:07:03+08:00">
+                2022-01-13
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-01-15T10:49:20+08:00">
+                2022-01-15
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  529
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>mysql 5.6对密码的强度进行了加强，推出了 validate_password 插件。支持密码的强度要求。</p>
+<p>mysql默认带validate_password 插件，直接装载插件即可。</p>
+<h2 id="1-装载plugin"><a href="#1-装载plugin" class="headerlink" title="1 装载plugin"></a>1 装载plugin</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;&gt;INSTALL PLUGIN validate_password SONAME 'validate_password.so';</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2022/01/13/mysql开启密码复杂度配置/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2022/01/12/mysql开启日志审计/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Operation随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/01/12/mysql开启日志审计/" itemprop="url">mysql开启日志审计</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-12T15:07:03+08:00">
+                2022-01-12
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-01-15T10:49:30+08:00">
+                2022-01-15
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  327
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="1安装"><a href="#1安装" class="headerlink" title="1安装"></a>1安装</h2><h3 id="1-1-下载插件"><a href="#1-1-下载插件" class="headerlink" title="1.1 下载插件"></a>1.1 下载插件</h3><p><a href="https://github.com/mcafee/mysql-audit/releases?page=1" target="_blank" rel="noopener">Releases · mcafee/mysql-audit · GitHub</a></p>
+<blockquote>
+<p>备注：下载插件一定要注意插件支持数据库的版本，否则安装失败。</p>
+</blockquote>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2022/01/12/mysql开启日志审计/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2022/01/12/Postgresql设置密码复杂度校验/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1009,8 +1683,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-01-15T10:50:08+08:00">
-                2022-01-15
+              <time title="更新于" itemprop="dateModified" datetime="2022-02-17T00:36:02+08:00">
+                2022-02-17
               </time>
             
           </span>
@@ -1099,7 +1773,8 @@
 
       
         
-          <h2 id="1-安装驱动"><a href="#1-安装驱动" class="headerlink" title="1 安装驱动"></a>1 安装驱动</h2><h3 id="1-1-查看显卡的型号"><a href="#1-1-查看显卡的型号" class="headerlink" title="1.1 查看显卡的型号"></a>1.1 查看显卡的型号</h3><p>打开终端，输入指令以查看电脑的显卡型号：</p>
+          <h2 id="1-安装驱动"><a href="#1-安装驱动" class="headerlink" title="1 安装驱动"></a>1 安装驱动</h2><h3 id="1-1-查看显卡的型号"><a href="#1-1-查看显卡的型号" class="headerlink" title="1.1 查看显卡的型号"></a>1.1 查看显卡的型号</h3><p>打开终端，输入指令以查看电脑的显卡型号：·</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lspci <span class="string">| grep -i vga</span></span><br></pre></td></tr></table></figure>
 <p><code>ubuntu-drivers devices</code></p>
 <p>可以看到如下界面：</p>
 <p><img src="https://gitee.com/kxinter/images/raw/master/2022/01/image-20220110122259734.png" alt="image-20220110122259734">                               </p>
@@ -1843,610 +2518,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2021/07/29/虚拟机体验/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/07/29/虚拟机体验/" itemprop="url">虚拟机体验</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-29T11:53:41+08:00">
-                2021-07-29
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2022-01-17T15:52:12+08:00">
-                2022-01-17
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Windows/" itemprop="url" rel="index">
-                    <span itemprop="name">Windows</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  76
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://www.cnblogs.com/sunylat/p/6217538.html" target="_blank" rel="noopener">虚拟机体验之 QEMU 篇 - sunylat - 博客园 (cnblogs.com)</a></p>
-<p><a href="https://www.cnblogs.com/sunylat/p/6217536.html" target="_blank" rel="noopener">虚拟机体验之 KVM 篇 - sunylat - 博客园 (cnblogs.com)</a></p>
-<p><a href="https://www.cnblogs.com/sunylat/p/6217537.html" target="_blank" rel="noopener">虚拟机体验之 VirtualBox 篇 —— 性能强大的经典架构 - sunylat - 博客园 (cnblogs.com)</a></p>
-<p><a href="https://www.cnblogs.com/sunylat/p/6217535.html" target="_blank" rel="noopener">虚拟机体验之 Xen 篇 —— 令人脑洞大开的奇异架构 - sunylat - 博客园 (cnblogs.com)</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2021/07/16/Hadoop优化及问题汇总/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/07/16/Hadoop优化及问题汇总/" itemprop="url">Hadoop优化及问题汇总</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-16T14:12:03+08:00">
-                2021-07-16
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2021-07-18T15:31:33+08:00">
-                2021-07-18
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Centos/" itemprop="url" rel="index">
-                    <span itemprop="name">Centos</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.4k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  6
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>[TOC]</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/07/16/Hadoop优化及问题汇总/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2021/07/12/多环境批处理脚本/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/07/12/多环境批处理脚本/" itemprop="url">多环境批处理脚本</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-12T15:53:33+08:00">
-                2021-07-12
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2021-07-13T12:03:46+08:00">
-                2021-07-13
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Windows/" itemprop="url" rel="index">
-                    <span itemprop="name">Windows</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.8k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  15
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="version-3"><a href="#version-3" class="headerlink" title="version 3"></a>version 3</h1>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/07/12/多环境批处理脚本/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2499,7 +2575,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">138</span>
+                  <span class="site-state-item-count">141</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2521,7 +2597,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2696,7 +2772,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">174k</span>
+    <span title="Site words total count">175.5k</span>
   
 </div>
 
