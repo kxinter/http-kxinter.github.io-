@@ -138,12 +138,12 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="1、MyISAM：默认表类型，它是基于传统的ISAM类型，ISAM是Indexed Sequential Access Method (有索引的顺序访问方法) 的缩写，它是存储记录和文件的标准方法。不是事务安全的，而且不支持外键，如果执行大量的select，insert MyISAM比较适合。 2、InnoDB：支持事务安全的引擎，支持外键、行锁、事务是他的最大特点。如果有大量的update和in">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/MyISAM与InnoDB两者之间区别与选择/1571821576774.png">
-<meta property="og:updated_time" content="2019-11-07T06:19:48.538Z">
+<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/MyISAM与InnoDB两者之间区别与选择/1571821576774.png">
+<meta property="og:updated_time" content="2022-03-31T03:32:14.585Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MyISAM与InnoDB两者之间区别与选择">
 <meta name="twitter:description" content="1、MyISAM：默认表类型，它是基于传统的ISAM类型，ISAM是Indexed Sequential Access Method (有索引的顺序访问方法) 的缩写，它是存储记录和文件的标准方法。不是事务安全的，而且不支持外键，如果执行大量的select，insert MyISAM比较适合。 2、InnoDB：支持事务安全的引擎，支持外键、行锁、事务是他的最大特点。如果有大量的update和in">
-<meta name="twitter:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/MyISAM与InnoDB两者之间区别与选择/1571821576774.png">
+<meta name="twitter:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/MyISAM与InnoDB两者之间区别与选择/1571821576774.png">
 
 
 
@@ -399,8 +399,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-11-07T14:19:48+08:00">
-                2019-11-07
+              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:32:14+08:00">
+                2022-03-31
               </time>
             
           </span>
@@ -499,7 +499,7 @@
 <p>事务的ACID属性：<code>atomicity,consistent,isolation,durable</code>。</p>
 <p>并发事务带来的几个问题：更新丢失，脏读，不可重复读，幻读。</p>
 <p>事务隔离级别：未提交读(Read uncommitted)，已提交读(Read committed)，可重复读(Repeatable read)，可序列化(Serializable)</p>
-<h2 id="四种隔离级别的比较"><a href="#四种隔离级别的比较" class="headerlink" title="四种隔离级别的比较"></a><strong><em>四种隔离级别的比较</em></strong></h2><p><img src="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/MyISAM与InnoDB两者之间区别与选择/1571821576774.png" alt="图1"><br>查看mysql的默认事务隔离级别“<code>show global variables like ‘tx_isolation’;</code>”</p>
+<h2 id="四种隔离级别的比较"><a href="#四种隔离级别的比较" class="headerlink" title="四种隔离级别的比较"></a><strong><em>四种隔离级别的比较</em></strong></h2><p><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/MyISAM与InnoDB两者之间区别与选择/1571821576774.png" alt="图1"><br>查看mysql的默认事务隔离级别“<code>show global variables like ‘tx_isolation’;</code>”</p>
 <p>Innodb的行锁模式有以下几种：<strong>共享锁，排他锁，意向共享锁(表锁)，意向排他锁(表锁)，间隙锁</strong>。</p>
 <div class="note info"><p>注意：当语句没有使用索引，innodb不能确定操作的行，这个时候就使用的意向锁，也就是表锁</p></div>
 <h2 id="关于死锁："><a href="#关于死锁：" class="headerlink" title="关于死锁："></a><strong><em>关于死锁：</em></strong></h2><p>什么是死锁？当两个事务都需要获得对方持有的排他锁才能完成事务，这样就导致了循环锁等待，也就是常见的死锁类型。</p>
@@ -695,7 +695,7 @@
   <p><span>本文标题:</span><a href="/2019/04/28/MyISAM与InnoDB两者之间区别与选择/">MyISAM与InnoDB两者之间区别与选择</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2019年04月28日 - 12:04</p>
-  <p><span>最后更新:</span>2019年11月07日 - 14:11</p>
+  <p><span>最后更新:</span>2022年03月31日 - 11:03</p>
   <p><span>原始链接:</span><a href="/2019/04/28/MyISAM与InnoDB两者之间区别与选择/" title="MyISAM与InnoDB两者之间区别与选择">https://kxinter.gitee.io/2019/04/28/MyISAM与InnoDB两者之间区别与选择/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.gitee.io/2019/04/28/MyISAM与InnoDB两者之间区别与选择/"  aria-label="复制成功！"></i></span>
   </p>

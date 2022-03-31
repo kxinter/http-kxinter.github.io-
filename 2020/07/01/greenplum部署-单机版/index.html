@@ -138,14 +138,14 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="1 修改Linux内核参数">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2020/7/1/greenplum部署-单机版/1593567665642.png">
-<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2020/7/1/greenplum部署-单机版/1593567680961.png">
-<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2020/7/1/greenplum部署-单机版/1593567699746.png">
-<meta property="og:updated_time" content="2020-07-01T02:49:23.163Z">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2020/7/1/greenplum部署-单机版/1593567665642.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2020/7/1/greenplum部署-单机版/1593567680961.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2020/7/1/greenplum部署-单机版/1593567699746.png">
+<meta property="og:updated_time" content="2022-03-31T03:31:57.724Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="greenplum部署-单机版">
 <meta name="twitter:description" content="1 修改Linux内核参数">
-<meta name="twitter:image" content="https://gitee.com/kxinter/images/raw/master/2020/7/1/greenplum部署-单机版/1593567665642.png">
+<meta name="twitter:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2020/7/1/greenplum部署-单机版/1593567665642.png">
 
 
 
@@ -401,8 +401,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-07-01T10:49:23+08:00">
-                2020-07-01
+              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:31:57+08:00">
+                2022-03-31
               </time>
             
           </span>
@@ -503,9 +503,9 @@
 <h2 id="4-3-修改主机名-mdw"><a href="#4-3-修改主机名-mdw" class="headerlink" title="4.3 修改主机名 mdw"></a>4.3 修改主机名 mdw</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostnamectl <span class="built_in">set</span>-hostname mdw</span><br></pre></td></tr></table></figure>
 <h2 id="4-4-下载安装包"><a href="#4-4-下载安装包" class="headerlink" title="4.4 下载安装包"></a>4.4 下载安装包</h2><p>下载合适的版本rpm包和postgis插件</p>
 <p>官网  <a href="https://network.pivotal.io/products/pivotal-gpdb#/releases/1683" target="_blank" rel="noopener">https://network.pivotal.io/products/pivotal-gpdb#/releases/1683</a></p>
-<p><img src="https://gitee.com/kxinter/images/raw/master/2020/7/1/greenplum部署-单机版/1593567665642.png" alt="1"></p>
-<p><img src="https://gitee.com/kxinter/images/raw/master/2020/7/1/greenplum部署-单机版/1593567680961.png" alt="2"></p>
-<h2 id="4-5-rpm安装"><a href="#4-5-rpm安装" class="headerlink" title="4.5 rpm安装"></a>4.5 rpm安装</h2><p><img src="https://gitee.com/kxinter/images/raw/master/2020/7/1/greenplum部署-单机版/1593567699746.png" alt="3"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2020/7/1/greenplum部署-单机版/1593567665642.png" alt="1"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2020/7/1/greenplum部署-单机版/1593567680961.png" alt="2"></p>
+<h2 id="4-5-rpm安装"><a href="#4-5-rpm安装" class="headerlink" title="4.5 rpm安装"></a>4.5 rpm安装</h2><p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2020/7/1/greenplum部署-单机版/1593567699746.png" alt="3"></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum install greenplum-db-6.2.1-rhel7-x86_64.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 默认安装到/usr/local，授权给gpadmin</span></span><br><span class="line">chown -R gpadmin /usr/<span class="built_in">local</span>/greenplum*</span><br><span class="line">chgrp -R gpadmin /usr/<span class="built_in">local</span>/greenplum*</span><br></pre></td></tr></table></figure>
 <h2 id="4-6-创建instance需要的目录"><a href="#4-6-创建instance需要的目录" class="headerlink" title="4.6 创建instance需要的目录"></a>4.6 创建instance需要的目录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /home/gpdata/master</span><br><span class="line">mkdir -p /home/gpdata/gp1</span><br><span class="line">mkdir -p /home/gpdata/gp2</span><br><span class="line">mkdir -p /home/gpdata/gp3</span><br><span class="line">mkdir -p /home/gpdata/gp4</span><br><span class="line"><span class="comment"># 修改目录属主</span></span><br><span class="line">    chown -R gpadmin:gpadmin /home/gpdata</span><br><span class="line">    chown -R gpadmin:gpadmin /home/gpdata/master</span><br><span class="line">    chown -R gpadmin:gpadmin /home/gpdata/gp*</span><br></pre></td></tr></table></figure>
 <h2 id="4-7-切换用户gpadmin"><a href="#4-7-切换用户gpadmin" class="headerlink" title="4.7 切换用户gpadmin"></a>4.7 切换用户gpadmin</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su gpadmin</span><br></pre></td></tr></table></figure>
@@ -550,7 +550,7 @@
   <p><span>本文标题:</span><a href="/2020/07/01/greenplum部署-单机版/">greenplum部署-单机版</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2020年07月01日 - 09:07</p>
-  <p><span>最后更新:</span>2020年07月01日 - 10:07</p>
+  <p><span>最后更新:</span>2022年03月31日 - 11:03</p>
   <p><span>原始链接:</span><a href="/2020/07/01/greenplum部署-单机版/" title="greenplum部署-单机版">https://kxinter.gitee.io/2020/07/01/greenplum部署-单机版/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.gitee.io/2020/07/01/greenplum部署-单机版/"  aria-label="复制成功！"></i></span>
   </p>

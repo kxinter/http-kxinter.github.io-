@@ -138,13 +138,13 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="1 环境">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/Zabbix通过jmx监控tomcat/1571817566399.png">
-<meta property="og:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/Zabbix通过jmx监控tomcat/1571817575082.png">
-<meta property="og:updated_time" content="2019-11-07T06:25:36.969Z">
+<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/Zabbix通过jmx监控tomcat/1571817566399.png">
+<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/Zabbix通过jmx监控tomcat/1571817575082.png">
+<meta property="og:updated_time" content="2022-03-31T03:32:08.386Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Zabbix通过jmx监控tomcat">
 <meta name="twitter:description" content="1 环境">
-<meta name="twitter:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/Zabbix通过jmx监控tomcat/1571817566399.png">
+<meta name="twitter:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/Zabbix通过jmx监控tomcat/1571817566399.png">
 
 
 
@@ -400,8 +400,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-11-07T14:25:36+08:00">
-                2019-11-07
+              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:32:08+08:00">
+                2022-03-31
               </time>
             
           </span>
@@ -540,9 +540,9 @@
 <p>测试是否可以获得数据</p>
 <p>测试需要cmdline-jmxclient-0.10.3.jar包，下载包 <a href="http://dl.bintray.com/typesafe/maven-releases/cmdline-jmxclient/cmdline-jmxclient/0.10.3/cmdline-jmxclient-0.10.3.jar" target="_blank" rel="noopener">http://dl.bintray.com/typesafe/maven-releases/cmdline-jmxclient/cmdline-jmxclient/0.10.3/cmdline-jmxclient-0.10.3.jar</a>     </p>
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd /home</span><br><span class="line"></span><br><span class="line">wget http://<span class="built_in">dl</span>.bintray.com/typesafe/maven-releases/cmdline-jmxclient/cmdline-jmxclient/<span class="number">0.10</span><span class="meta">.3</span>/cmdline-jmxclient-<span class="number">0.10</span><span class="meta">.3</span>.jar</span><br><span class="line"></span><br><span class="line">java -jar /home/cmdline-jmxclient-<span class="number">0.10</span><span class="meta">.3</span>.jar - <span class="number">127.0</span><span class="meta">.0</span><span class="meta">.1</span>:<span class="number">12345</span> java.lang:type=Memory NonHeapMemoryUsage</span><br></pre></td></tr></table></figure>
-<p><img src="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/Zabbix通过jmx监控tomcat/1571817566399.png" alt="图1"></p>
+<p><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/Zabbix通过jmx监控tomcat/1571817566399.png" alt="图1"></p>
 <p>如上图显示，说明可以正常获得数据。</p>
-<h2 id="3-4-配置防火墙"><a href="#3-4-配置防火墙" class="headerlink" title="3.4 配置防火墙"></a>3.4 配置防火墙</h2><p>开放12345/12346端口<br><img src="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/Zabbix通过jmx监控tomcat/1571817575082.png" alt="图2"></p>
+<h2 id="3-4-配置防火墙"><a href="#3-4-配置防火墙" class="headerlink" title="3.4 配置防火墙"></a>3.4 配置防火墙</h2><p>开放12345/12346端口<br><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/Zabbix通过jmx监控tomcat/1571817575082.png" alt="图2"></p>
 <p>到这里配置完成。</p>
 <p><strong>参考资料：</strong></p>
 <p><a href="http://jaychang.iteye.com/blog/2214830" target="_blank" rel="noopener">http://jaychang.iteye.com/blog/2214830</a></p>

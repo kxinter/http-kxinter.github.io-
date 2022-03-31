@@ -138,17 +138,17 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="1. 删除文档和实例程序检查方法 ：打开tomcat_home/webapps文件夹，默认存在docs和examples文件夹 加固方法：建议删除docs和examples文件夹  2 设置shutdown字符串安全基线项说明：防止恶意用户telnet到8005端口后，发送SHUTDOWN命令停止tomcat服务 检查方法：打开tomcat_home/conf/server.xml，查看是否设置了">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173231161.png">
-<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173309930.png">
-<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173403603.png">
-<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173422127.png">
-<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173501171.png">
-<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173706297.png">
-<meta property="og:updated_time" content="2022-01-26T08:30:18.424Z">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/20200529173231161.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/20200529173309930.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/20200529173403603.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/20200529173422127.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/20200529173501171.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/20200529173706297.png">
+<meta property="og:updated_time" content="2022-03-31T03:34:43.669Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tomcat安全加固">
 <meta name="twitter:description" content="1. 删除文档和实例程序检查方法 ：打开tomcat_home/webapps文件夹，默认存在docs和examples文件夹 加固方法：建议删除docs和examples文件夹  2 设置shutdown字符串安全基线项说明：防止恶意用户telnet到8005端口后，发送SHUTDOWN命令停止tomcat服务 检查方法：打开tomcat_home/conf/server.xml，查看是否设置了">
-<meta name="twitter:image" content="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173231161.png">
+<meta name="twitter:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/20200529173231161.png">
 
 
 
@@ -404,8 +404,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-01-26T16:30:18+08:00">
-                2022-01-26
+              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:34:43+08:00">
+                2022-03-31
               </time>
             
           </span>
@@ -498,26 +498,26 @@
       
         <h1 id="1-删除文档和实例程序"><a href="#1-删除文档和实例程序" class="headerlink" title="1. 删除文档和实例程序"></a>1. 删除文档和实例程序</h1><p><strong>检查方法</strong> ：打开tomcat_home/webapps文件夹，默认存在docs和examples文件夹</p>
 <p><strong>加固方法</strong>：建议删除docs和examples文件夹</p>
-<p><img src="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173231161.png" alt="在这里插入图片描述"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/20200529173231161.png" alt="在这里插入图片描述"></p>
 <h1 id="2-设置shutdown字符串"><a href="#2-设置shutdown字符串" class="headerlink" title="2 设置shutdown字符串"></a>2 <strong>设置shutdown字符串</strong></h1><p><strong>安全基线项说明</strong>：防止恶意用户telnet到8005端口后，发送SHUTDOWN命令停止tomcat服务</p>
 <p><strong>检查方法</strong>：打开tomcat_home/conf/server.xml，查看是否设置了复杂的字符串<br><code>&lt;Server port=&quot;8005&quot;shutdown=“复杂的字符串”&gt;</code></p>
 <p><strong>加固方法</strong>：设置复杂的字符串，防止恶意用户猜测</p>
-<p><img src="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173309930.png" alt="在这里插入图片描述"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/20200529173309930.png" alt="在这里插入图片描述"></p>
 <h1 id="3-检查控制台口令"><a href="#3-检查控制台口令" class="headerlink" title="3 检查控制台口令"></a>3 检查控制台口令</h1><p><strong>安全基线项说明</strong>：加固tomcat控制台，设置复杂的口令</p>
 <p><strong>检查方法：</strong></p>
 <ol>
 <li>如果不需要使用控制台<br>Tomcat 6.x/7.x：<br>默认通过<a href="http://ip:8080/manager/html可以访问tomcatmanager，如果不需要使用，建议删除tomcat_home/webapps/manager和host-manager文件夹；" target="_blank" rel="noopener">http://ip:8080/manager/html可以访问tomcatmanager，如果不需要使用，建议删除tomcat_home/webapps/manager和host-manager文件夹；</a></li>
 </ol>
-<p><img src="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173403603.png" alt="在这里插入图片描述"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/20200529173403603.png" alt="在这里插入图片描述"></p>
 <ol start="2">
 <li>如果需要使用tomcatmanager<br>Tomcat 5.x/6.x:<br>打开tomcat_home/conf/tomcat-users.xml，查看用户密码复杂度</li>
 </ol>
 <p><strong>例如：</strong></p>
 <p><code>&lt;user username=&quot;tomcat&quot;password=&quot;复杂的口令&quot;roles=“manager”/&gt;</code></p>
-<p><img src="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173422127.png" alt="在这里插入图片描述"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/20200529173422127.png" alt="在这里插入图片描述"></p>
 <h1 id="4-禁止列目录"><a href="#4-禁止列目录" class="headerlink" title="4 禁止列目录"></a>4 禁止列目录</h1><p><strong>安全基线项说明</strong>：防止直接访问目录时由于找不到默认主页而列出目录下所有文件</p>
 <p><strong>检查方法</strong>：打开应用程序的web.xml，查看listings是否设置为false<br>listings<br>false</p>
-<p><img src="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173501171.png" alt="在这里插入图片描述"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/20200529173501171.png" alt="在这里插入图片描述"></p>
 <h1 id="5-日志审核"><a href="#5-日志审核" class="headerlink" title="5 日志审核"></a>5 日志审核</h1><p><strong>安全基线项说明</strong>：检查tomcat是否记录了访问日志</p>
 <p><strong>检查方法</strong>：tomcat的日志信息默认存放在tomcat_home/logs中，访问日志默认未开启</p>
 <p><strong>加固方法：</strong><br>如果tomcat前端有Apache，Apache可以记录访问日志。<br>如果tomcat独立运行，可以开启tomcat访问日志，修改<code>tomcat_home/conf/server.xml</code>，取消注释：<br><code>&lt;ValveclassName=&quot;org.apache.catalina.valves.AccessLogValve&quot;directory=“logs”
@@ -529,7 +529,7 @@ prefix=“localhost_access_log.“suffix=”.txt” pattern=&quot;common&quot;re
 <h1 id="7-系统Banner信息"><a href="#7-系统Banner信息" class="headerlink" title="7 系统Banner信息"></a>7 系统Banner信息</h1><p><strong>安全基线项说明</strong>：修改系统Banner信息</p>
 <p><strong>检查方法：</strong><br><strong>telnet判断信息：</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">telnet ip 8080</span><br><span class="line">HEAD /HTTP1.1然后两次回车，可以看到server的信息</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/kxinter/images/raw/master/2022/01/20200529173706297.png" alt="在这里插入图片描述"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/20200529173706297.png" alt="在这里插入图片描述"></p>
 <p>参考：<a href="https://mp.weixin.qq.com/s/RwjnnXKdIADp0rMMI_m5cQ" target="_blank" rel="noopener">安全服务之安全基线及加固（四）Tomcat篇 (qq.com)</a></p>
 
       
@@ -560,7 +560,7 @@ prefix=“localhost_access_log.“suffix=”.txt” pattern=&quot;common&quot;re
   <p><span>本文标题:</span><a href="/2022/01/25/Tomcat安全加固/">Tomcat安全加固</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2022年01月25日 - 16:01</p>
-  <p><span>最后更新:</span>2022年01月26日 - 16:01</p>
+  <p><span>最后更新:</span>2022年03月31日 - 11:03</p>
   <p><span>原始链接:</span><a href="/2022/01/25/Tomcat安全加固/" title="Tomcat安全加固">https://kxinter.gitee.io/2022/01/25/Tomcat安全加固/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.gitee.io/2022/01/25/Tomcat安全加固/"  aria-label="复制成功！"></i></span>
   </p>

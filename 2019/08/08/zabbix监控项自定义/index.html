@@ -138,17 +138,17 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="1 防火墙状态监控1.1 在被监控主机配置监控脚本">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/zabbix监控项自定义/1571821069316.png">
-<meta property="og:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/zabbix监控项自定义/1571821077739.png">
-<meta property="og:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/zabbix监控项自定义/1571821085296.png">
-<meta property="og:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/zabbix监控项自定义/1571821092173.png">
-<meta property="og:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/zabbix监控项自定义/1571821100728.png">
-<meta property="og:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/zabbix监控项自定义/1571821111267.png">
-<meta property="og:updated_time" content="2019-11-07T06:18:55.746Z">
+<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821069316.png">
+<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821077739.png">
+<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821085296.png">
+<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821092173.png">
+<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821100728.png">
+<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821111267.png">
+<meta property="og:updated_time" content="2022-03-31T03:32:14.882Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="zabbix监控项自定义">
 <meta name="twitter:description" content="1 防火墙状态监控1.1 在被监控主机配置监控脚本">
-<meta name="twitter:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/zabbix监控项自定义/1571821069316.png">
+<meta name="twitter:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821069316.png">
 
 
 
@@ -404,8 +404,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-11-07T14:18:55+08:00">
-                2019-11-07
+              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:32:14+08:00">
+                2022-03-31
               </time>
             
           </span>
@@ -502,12 +502,12 @@
 <h3 id="1-1-2-设置键值"><a href="#1-1-2-设置键值" class="headerlink" title="1.1.2 设置键值"></a>1.1.2 设置键值</h3><p>在<code>/etc/zabbix/zabbix_agentd.d</code>目录下创建配置文件<br><div class="note warning"><p><strong>配置文件后缀必须是<code>.conf</code></strong></p></div></p>
 <p>#创建配置文件<code>firewalld_status.conf</code></p>
 <p>#添加如下内容,设置键值<code>status.firewalld</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UserParameter=status.firewalld,/usr/<span class="built_in">local</span>/zabbix/scripts/firewalld_status.sh</span><br></pre></td></tr></table></figure></p>
-<h2 id="1-2-创建监控项"><a href="#1-2-创建监控项" class="headerlink" title="1.2 创建监控项"></a>1.2 创建监控项</h2><p>自定义名称，输入上方定义的键值为<code>status.firewalld</code><br><img src="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/zabbix监控项自定义/1571821069316.png" alt="图1"></p>
-<h2 id="1-3-创建触发器"><a href="#1-3-创建触发器" class="headerlink" title="1.3 创建触发器"></a>1.3 创建触发器</h2><p>检测键值输出，如果输出为0，则触发告警。<br><img src="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/zabbix监控项自定义/1571821077739.png" alt="图2"></p>
-<h1 id="2-端口监控"><a href="#2-端口监控" class="headerlink" title="2 端口监控"></a>2 端口监控</h1><h2 id="2-1-创建监控项"><a href="#2-1-创建监控项" class="headerlink" title="2.1 创建监控项"></a>2.1 创建监控项</h2><p><code>net.tcp.listen[port]</code> 检查 TCP 端口 是否处于侦听状态。返回 0 - 未侦听；1 - 正在侦听<br><img src="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/zabbix监控项自定义/1571821085296.png" alt="图3"></p>
-<h2 id="2-2-创建触发器"><a href="#2-2-创建触发器" class="headerlink" title="2.2 创建触发器"></a>2.2 创建触发器</h2><p>检测最后的返回结果，如果是0触发告警<br><img src="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/zabbix监控项自定义/1571821092173.png" alt="图4"></p>
-<h1 id="3-进程监控"><a href="#3-进程监控" class="headerlink" title="3 进程监控"></a>3 进程监控</h1><h2 id="3-1-创建监控项"><a href="#3-1-创建监控项" class="headerlink" title="3.1 创建监控项"></a>3.1 创建监控项</h2><p><code>proc.num[&lt;name&gt;,&lt;user&gt;,&lt;state&gt;,&lt;cmdline&gt;]</code>    进程数。返回整数<br><img src="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/zabbix监控项自定义/1571821100728.png" alt="图5"></p>
-<h2 id="3-2-创建触发器"><a href="#3-2-创建触发器" class="headerlink" title="3.2 创建触发器"></a>3.2 创建触发器</h2><p>如果进程数量为0,触发告警<br><img src="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/zabbix监控项自定义/1571821111267.png" alt="图6"></p>
+<h2 id="1-2-创建监控项"><a href="#1-2-创建监控项" class="headerlink" title="1.2 创建监控项"></a>1.2 创建监控项</h2><p>自定义名称，输入上方定义的键值为<code>status.firewalld</code><br><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821069316.png" alt="图1"></p>
+<h2 id="1-3-创建触发器"><a href="#1-3-创建触发器" class="headerlink" title="1.3 创建触发器"></a>1.3 创建触发器</h2><p>检测键值输出，如果输出为0，则触发告警。<br><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821077739.png" alt="图2"></p>
+<h1 id="2-端口监控"><a href="#2-端口监控" class="headerlink" title="2 端口监控"></a>2 端口监控</h1><h2 id="2-1-创建监控项"><a href="#2-1-创建监控项" class="headerlink" title="2.1 创建监控项"></a>2.1 创建监控项</h2><p><code>net.tcp.listen[port]</code> 检查 TCP 端口 是否处于侦听状态。返回 0 - 未侦听；1 - 正在侦听<br><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821085296.png" alt="图3"></p>
+<h2 id="2-2-创建触发器"><a href="#2-2-创建触发器" class="headerlink" title="2.2 创建触发器"></a>2.2 创建触发器</h2><p>检测最后的返回结果，如果是0触发告警<br><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821092173.png" alt="图4"></p>
+<h1 id="3-进程监控"><a href="#3-进程监控" class="headerlink" title="3 进程监控"></a>3 进程监控</h1><h2 id="3-1-创建监控项"><a href="#3-1-创建监控项" class="headerlink" title="3.1 创建监控项"></a>3.1 创建监控项</h2><p><code>proc.num[&lt;name&gt;,&lt;user&gt;,&lt;state&gt;,&lt;cmdline&gt;]</code>    进程数。返回整数<br><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821100728.png" alt="图5"></p>
+<h2 id="3-2-创建触发器"><a href="#3-2-创建触发器" class="headerlink" title="3.2 创建触发器"></a>3.2 创建触发器</h2><p>如果进程数量为0,触发告警<br><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821111267.png" alt="图6"></p>
 
       
     </div>
@@ -537,7 +537,7 @@
   <p><span>本文标题:</span><a href="/2019/08/08/zabbix监控项自定义/">zabbix监控项自定义</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2019年08月08日 - 09:08</p>
-  <p><span>最后更新:</span>2019年11月07日 - 14:11</p>
+  <p><span>最后更新:</span>2022年03月31日 - 11:03</p>
   <p><span>原始链接:</span><a href="/2019/08/08/zabbix监控项自定义/" title="zabbix监控项自定义">https://kxinter.gitee.io/2019/08/08/zabbix监控项自定义/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.gitee.io/2019/08/08/zabbix监控项自定义/"  aria-label="复制成功！"></i></span>
   </p>

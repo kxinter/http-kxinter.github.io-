@@ -138,13 +138,13 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="1 postgresql设置密码复杂度校验1.1 默认密码校验策略在PG中可以使用passwordcheck.so模块实现密码复杂度校验的功能，不过这个工具的默认要求很低，只可用于简单的密码复杂度校验，默认检查规则如下：  密码长度大于8位 密码不能与用户名相同 密码必须包括字母和数字">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/01/315861-20201127152459487-148259811.png">
-<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2022/01/315861-20201127152500965-701180388.png">
-<meta property="og:updated_time" content="2022-01-15T02:51:04.257Z">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/315861-20201127152459487-148259811.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/315861-20201127152500965-701180388.png">
+<meta property="og:updated_time" content="2022-03-31T03:31:51.414Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="postgresql设置密码复杂度校验">
 <meta name="twitter:description" content="1 postgresql设置密码复杂度校验1.1 默认密码校验策略在PG中可以使用passwordcheck.so模块实现密码复杂度校验的功能，不过这个工具的默认要求很低，只可用于简单的密码复杂度校验，默认检查规则如下：  密码长度大于8位 密码不能与用户名相同 密码必须包括字母和数字">
-<meta name="twitter:image" content="https://gitee.com/kxinter/images/raw/master/2022/01/315861-20201127152459487-148259811.png">
+<meta name="twitter:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/315861-20201127152459487-148259811.png">
 
 
 
@@ -400,8 +400,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-01-15T10:51:04+08:00">
-                2022-01-15
+              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:31:51+08:00">
+                2022-03-31
               </time>
             
           </span>
@@ -511,7 +511,7 @@
 <h3 id="1-1-2-shared-preload-libraries-方式启用passwordcheck-so模块"><a href="#1-1-2-shared-preload-libraries-方式启用passwordcheck-so模块" class="headerlink" title="1.1.2 shared_preload_libraries 方式启用passwordcheck.so模块"></a>1.1.2 shared_preload_libraries 方式启用passwordcheck.so模块</h3><p>在PG库的数据目录下（centos默认路径为：<code>/var/lib/pgsql/11/data</code>，windows默认路径为：<code>D:\PostgreSQL\11\data</code>）找到<code>postgresql.conf</code>文件，修改</p>
 <p>修改内容行为：<code>shared_preload_libraries = &#39;passwordcheck&#39;  # (change requires restart)。</code></p>
 <p>修改完成后重启服务服务生效（<code>systemctl restart postgresql-11</code>）。</p>
-<p><img src="https://gitee.com/kxinter/images/raw/master/2022/01/315861-20201127152459487-148259811.png" alt="image"><img src="https://gitee.com/kxinter/images/raw/master/2022/01/315861-20201127152500965-701180388.png" alt="image"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/315861-20201127152459487-148259811.png" alt="image"><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/315861-20201127152500965-701180388.png" alt="image"></p>
 <h3 id="1-1-3-验证"><a href="#1-1-3-验证" class="headerlink" title="1.1.3 验证"></a>1.1.3 验证</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提示密码太短</span></span><br><span class="line">postgres=<span class="comment"># create role ttt with password '123123';</span></span><br><span class="line">ERROR:  password is too short</span><br><span class="line"></span><br><span class="line"><span class="comment"># 提示密码必须包含字母和非字母</span></span><br><span class="line">postgres=<span class="comment"># create role ttt with password '12345678';</span></span><br><span class="line">ERROR:  password must contain both letters and nonletters</span><br><span class="line"></span><br><span class="line">postgres=<span class="comment"># create role ttt with password 'qweqweqwe';</span></span><br><span class="line">ERROR:  password must contain both letters and nonletters</span><br><span class="line"></span><br><span class="line"><span class="comment">#  提示密码不能包含用户名</span></span><br><span class="line">postgres=<span class="comment"># create role tttt with password 'tttt123456';</span></span><br><span class="line">ERROR:  password must not contain user name</span><br></pre></td></tr></table></figure>
 <h2 id="1-2-增强密码校验策略"><a href="#1-2-增强密码校验策略" class="headerlink" title="1.2 增强密码校验策略"></a>1.2 增强密码校验策略</h2><p>通过修改源代码实现。本文记录如何通过修改源码<code>passwordcheck.c</code>达到增强复杂度检验的目的，修改后验证规则如下：</p>
 <ol>
@@ -576,7 +576,7 @@
   <p><span>本文标题:</span><a href="/2022/01/12/Postgresql设置密码复杂度校验/">postgresql设置密码复杂度校验</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2022年01月12日 - 14:01</p>
-  <p><span>最后更新:</span>2022年01月15日 - 10:01</p>
+  <p><span>最后更新:</span>2022年03月31日 - 11:03</p>
   <p><span>原始链接:</span><a href="/2022/01/12/Postgresql设置密码复杂度校验/" title="postgresql设置密码复杂度校验">https://kxinter.gitee.io/2022/01/12/Postgresql设置密码复杂度校验/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.gitee.io/2022/01/12/Postgresql设置密码复杂度校验/"  aria-label="复制成功！"></i></span>
   </p>

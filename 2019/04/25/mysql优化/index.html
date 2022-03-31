@@ -138,19 +138,19 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="1 缓存优化之QueryCache">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/mysql优化/1571821623699.png">
-<meta property="og:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/mysql优化/1571821630640.png">
-<meta property="og:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/mysql优化/1571821639211.png">
-<meta property="og:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/mysql优化/1571821645930.png">
+<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/mysql优化/1571821623699.png">
+<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/mysql优化/1571821630640.png">
+<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/mysql优化/1571821639211.png">
+<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/mysql优化/1571821645930.png">
 <meta property="og:image" content="https://kxinter.gitee.io/2019/04/25/mysql优化/5.png">
 <meta property="og:image" content="https://kxinter.gitee.io/2019/04/25/mysql优化/6.png">
 <meta property="og:image" content="https://kxinter.gitee.io/2019/04/25/mysql优化/8.png">
 <meta property="og:image" content="https://kxinter.gitee.io/2019/04/25/mysql优化/7.png">
-<meta property="og:updated_time" content="2019-11-07T06:19:55.969Z">
+<meta property="og:updated_time" content="2022-03-31T03:32:14.404Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql优化">
 <meta name="twitter:description" content="1 缓存优化之QueryCache">
-<meta name="twitter:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/mysql优化/1571821623699.png">
+<meta name="twitter:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/mysql优化/1571821623699.png">
 
 
 
@@ -406,8 +406,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-11-07T14:19:55+08:00">
-                2019-11-07
+              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:32:14+08:00">
+                2022-03-31
               </time>
             
           </span>
@@ -522,7 +522,7 @@
 <h2 id="1-4-query-cache-limit-控制缓存查询结果的最大值"><a href="#1-4-query-cache-limit-控制缓存查询结果的最大值" class="headerlink" title="1.4 query_cache_limit 控制缓存查询结果的最大值"></a>1.4 query_cache_limit 控制缓存查询结果的最大值</h2><p>例如： 如果查询结果很大， 也缓存？？？？这个明显是不可能的。<br>MySql 可以设置一个最大的缓存值，当你查询缓存数结果数据超过这个值就不会<br>进行缓存。缺省为1M，也就是超过了1M查询结果就不会缓存。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select @@global.query_cache_limit;</span><br></pre></td></tr></table></figure>
 <p>+—————————-+<br>| @@global.query_cache_limit |<br>+—————————-+<br>| 1048576 |<br>+—————————-+<br>这个是默认的数值，如果需要修改，就像设置缓存大小一样设置，使用set重新指定大小。<br>好了，通过4个步骤就可以 打开了查询缓存，具体值的大小和查询的方式 这个因不同的情况来指定了。</p>
-<h2 id="1-5-缓存合理性，优化"><a href="#1-5-缓存合理性，优化" class="headerlink" title="1.5 缓存合理性，优化"></a>1.5 缓存合理性，优化</h2><h3 id="1-5-1-query-cache-size-优化"><a href="#1-5-1-query-cache-size-优化" class="headerlink" title="1.5.1 query_cache_size 优化"></a>1.5.1 query_cache_size 优化</h3><p><img src="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/mysql优化/1571821623699.png" alt="图1"><br><img src="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/mysql优化/1571821630640.png" alt="图2"><br>通过调节以下几个参数可以知道query_cache_size设置得是否合理</p>
+<h2 id="1-5-缓存合理性，优化"><a href="#1-5-缓存合理性，优化" class="headerlink" title="1.5 缓存合理性，优化"></a>1.5 缓存合理性，优化</h2><h3 id="1-5-1-query-cache-size-优化"><a href="#1-5-1-query-cache-size-优化" class="headerlink" title="1.5.1 query_cache_size 优化"></a>1.5.1 query_cache_size 优化</h3><p><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/mysql优化/1571821623699.png" alt="图1"><br><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/mysql优化/1571821630640.png" alt="图2"><br>通过调节以下几个参数可以知道query_cache_size设置得是否合理</p>
 <p><strong>Qcache_inserts<br>Qcache_hits<br>Qcache_lowmem_prunes<br>Qcache_free_blocks</strong></p>
 <p>如果<code>Qcache_lowmem_prunes</code> 的值非常大，则表明经常出现缓存不够的情况，如果<code>Qcache_hits</code>的值非常大，则表明查询缓存冲使用非常频繁，如果该值较小反而影响效率，那么可以考虑不用查询缓存；</p>
 <p><code>Qcache_free_blocks</code>   值非常大，则表明缓存区中的碎片很多，可能需要需找合适的机会进行整理</p>
@@ -532,9 +532,9 @@
 <p><code>Qcache_lowmem_prunes</code>   表示多少条Query 因为内存不足而被清除出<code>Query Cache</code>，通过<code>Qcache_lowmem_prunes</code>和<code>Qcache_free_memory</code>相互结合，能够更清楚地了解到系统中<code>Query Cache</code>的内存大小是否真的足够，是否频繁出现因为内存不足而有Query被换出的情况</p>
 <h3 id="1-5-2-query-cache-min-res-unit-优化"><a href="#1-5-2-query-cache-min-res-unit-优化" class="headerlink" title="1.5.2 query_cache_min_res_unit 优化"></a>1.5.2 query_cache_min_res_unit 优化</h3><p>开启了数据库缓存后用 </p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show status like 'qcache%';     ##  查看缓存`query_cache_min_res_unit` 默认是4k</span><br></pre></td></tr></table></figure>
-<p>发现  <code>Qcache_free_blocks</code>  数目大 说明可能有碎片。<br><img src="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/mysql优化/1571821639211.png" alt="图3"><br><code>Qcache_free_blocks</code>:  表示查询缓存中目前还有多少剩余的blocks，如果该值显示较大，则说明查询缓存中的内存碎片过多了，可能在一定的时间进行整理。    <strong>减少碎片</strong>： 合适的<code>query_cache_min_res_unit</code>可以减少碎片，这个参数最合适的大小和应用程序查询结果的平均大小直接相关.</p>
+<p>发现  <code>Qcache_free_blocks</code>  数目大 说明可能有碎片。<br><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/mysql优化/1571821639211.png" alt="图3"><br><code>Qcache_free_blocks</code>:  表示查询缓存中目前还有多少剩余的blocks，如果该值显示较大，则说明查询缓存中的内存碎片过多了，可能在一定的时间进行整理。    <strong>减少碎片</strong>： 合适的<code>query_cache_min_res_unit</code>可以减少碎片，这个参数最合适的大小和应用程序查询结果的平均大小直接相关.</p>
 <p>可以通过内存实际消耗<code>（ query_cache_size - Qcache_free_memory ）除以 Qcache_queries_in_cache</code> 计算平均缓存大小。</p>
-<p>其中 <code>Qcache_free_memory</code> 和 <code>Qcache_queries_in_cache</code>  在上面已将有了 分别是<code>119423544</code>和 <code>13205</code><br><img src="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/mysql优化/1571821645930.png" alt="图4"><br><code>query_cache_size</code> 是自己设置的可以通过 </p>
+<p>其中 <code>Qcache_free_memory</code> 和 <code>Qcache_queries_in_cache</code>  在上面已将有了 分别是<code>119423544</code>和 <code>13205</code><br><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/mysql优化/1571821645930.png" alt="图4"><br><code>query_cache_size</code> 是自己设置的可以通过 </p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW VARIABLES LIKE '%query_cache%';    # 查看</span><br></pre></td></tr></table></figure>
 <p><img src="5.png" alt="5"><br><code>（ query_cache_size - Qcache_free_memory ）除以 Qcache_queries_in_cache</code><br>就是 <code>（134217728 - 119423544）/13205=1120.34</code><br>所以在设置的的时候 <code>query_cache_min_res_unit</code>可以设置成<code>2k</code><br>修改<code>my.cnf</code>,配置如下：</p>
 <p><strong>query_cache_min_res_unit= 2k</strong></p>
@@ -576,7 +576,7 @@
   <p><span>本文标题:</span><a href="/2019/04/25/mysql优化/">mysql优化</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2019年04月25日 - 11:04</p>
-  <p><span>最后更新:</span>2019年11月07日 - 14:11</p>
+  <p><span>最后更新:</span>2022年03月31日 - 11:03</p>
   <p><span>原始链接:</span><a href="/2019/04/25/mysql优化/" title="mysql优化">https://kxinter.gitee.io/2019/04/25/mysql优化/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.gitee.io/2019/04/25/mysql优化/"  aria-label="复制成功！"></i></span>
   </p>

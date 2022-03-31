@@ -138,17 +138,17 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="1 搭建环境：">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Apache搭建环境经验与问题-WinX86版/1.png">
-<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Apache搭建环境经验与问题-WinX86版/2.png">
-<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Apache搭建环境经验与问题-WinX86版/3.png">
-<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Apache搭建环境经验与问题-WinX86版/4.png">
-<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Apache搭建环境经验与问题-WinX86版/5.png">
-<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Apache搭建环境经验与问题-WinX86版/6.png">
-<meta property="og:updated_time" content="2019-11-07T08:10:05.605Z">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Apache搭建环境经验与问题-WinX86版/1.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Apache搭建环境经验与问题-WinX86版/2.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Apache搭建环境经验与问题-WinX86版/3.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Apache搭建环境经验与问题-WinX86版/4.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Apache搭建环境经验与问题-WinX86版/5.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Apache搭建环境经验与问题-WinX86版/6.png">
+<meta property="og:updated_time" content="2022-03-31T03:31:59.810Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Apache搭建环境经验与问题-WinX86版">
 <meta name="twitter:description" content="1 搭建环境：">
-<meta name="twitter:image" content="https://gitee.com/kxinter/images/raw/master/2019/11/7/Apache搭建环境经验与问题-WinX86版/1.png">
+<meta name="twitter:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Apache搭建环境经验与问题-WinX86版/1.png">
 
 
 
@@ -404,8 +404,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-11-07T16:10:05+08:00">
-                2019-11-07
+              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:31:59+08:00">
+                2022-03-31
               </time>
             
           </span>
@@ -513,14 +513,14 @@
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Installing the Apache2. 2 service</span><br><span class="line"></span><br><span class="line">The Apache2. 2<span class="built_in"> service </span>is successfully installed</span><br><span class="line"></span><br><span class="line"> testing httpd.conf<span class="built_in">..</span><span class="built_in">..</span>.</span><br><span class="line"></span><br><span class="line"> Errors reported here must be corrected before the<span class="built_in"> service </span>can be started.</span><br></pre></td></tr></table></figure>
 <div class="note danger"><p>Errors reported here must be corrected before the service can be started结尾，并不是错误，而是提示：如果这行下边出现错误提示则解决错误后再启动！（当时以为是出错了）</p></div>
 
-<p><img src="https://gitee.com/kxinter/images/raw/master/2019/11/7/Apache搭建环境经验与问题-WinX86版/1.png" alt="1"></p>
-<p>服务安装成功后在系统服务里面会有<code>apache服务</code>，如图<br><img src="https://gitee.com/kxinter/images/raw/master/2019/11/7/Apache搭建环境经验与问题-WinX86版/2.png" alt="2"></p>
-<p>此时服务是未启动状态，可以右键启动，也可以去目录找到<code>ApacheMonitor.exe</code>打开执行<br><img src="https://gitee.com/kxinter/images/raw/master/2019/11/7/Apache搭建环境经验与问题-WinX86版/3.png" alt="3"></p>
-<p>双击<code>ApacheMonitor.exe</code><br><img src="https://gitee.com/kxinter/images/raw/master/2019/11/7/Apache搭建环境经验与问题-WinX86版/4.png" alt="4"></p>
-<div class="note danger"><p>点击start出现弹窗错误，the requested operation has failed</p></div><br>无法启动apache服务，后来是通过在cmd命令窗口执行<code>netsh winsock reset</code>命令重启后恢复正常。方法具体内容见结尾<br><br>重启后打开apache,点击start按钮正常开启，如下图，图标变绿<br><br><img src="https://gitee.com/kxinter/images/raw/master/2019/11/7/Apache搭建环境经验与问题-WinX86版/5.png" alt="5"><br><br># 4 问题<br><div class="note info"><p>解决Apache无法启动解决 the requested operation has failed错误，方法页面</p></div>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Apache搭建环境经验与问题-WinX86版/1.png" alt="1"></p>
+<p>服务安装成功后在系统服务里面会有<code>apache服务</code>，如图<br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Apache搭建环境经验与问题-WinX86版/2.png" alt="2"></p>
+<p>此时服务是未启动状态，可以右键启动，也可以去目录找到<code>ApacheMonitor.exe</code>打开执行<br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Apache搭建环境经验与问题-WinX86版/3.png" alt="3"></p>
+<p>双击<code>ApacheMonitor.exe</code><br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Apache搭建环境经验与问题-WinX86版/4.png" alt="4"></p>
+<div class="note danger"><p>点击start出现弹窗错误，the requested operation has failed</p></div><br>无法启动apache服务，后来是通过在cmd命令窗口执行<code>netsh winsock reset</code>命令重启后恢复正常。方法具体内容见结尾<br><br>重启后打开apache,点击start按钮正常开启，如下图，图标变绿<br><br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Apache搭建环境经验与问题-WinX86版/5.png" alt="5"><br><br># 4 问题<br><div class="note info"><p>解决Apache无法启动解决 the requested operation has failed错误，方法页面</p></div>
 
 <p>APACHE启动出现<code>the requested operation has failed</code>，别复制其他地方的答案啊，情况不一样，<code>NETSTAT</code>和<code>httpd.exe -w -n &quot;Apache&quot; -k start</code>都不好使了，<code>80</code>端口好象也没问题，<code>2.2</code>版本选的也是对的，还有其他什么可能么，系统启动起来的时候就提示有一个服务启动错误应该就是APACHE的</p>
-<p><strong>补充：</strong><br><img src="https://gitee.com/kxinter/images/raw/master/2019/11/7/Apache搭建环境经验与问题-WinX86版/6.png" alt="6"></p>
+<p><strong>补充：</strong><br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Apache搭建环境经验与问题-WinX86版/6.png" alt="6"></p>
 <p><code>httpd.exe -w -n &quot;Apache&quot; -k start</code>提示的是没有服务，但是服务开不了啊</p>
 <h2 id="4-1-解决问题："><a href="#4-1-解决问题：" class="headerlink" title="4.1 解决问题："></a>4.1 解决问题：</h2><p><strong>原因一：80端口占用</strong><br>例如IIS，另外就是迅雷。我的apache服务器就是被迅雷害得无法启用！</p>
 <p><strong>原因二：软件冲突</strong><br>装了某些软件会使<code>apache</code>无法启动如<code>Dr.com</code>你打开<code>网络连接-&gt;TcpIp属性-&gt;高级-&gt;WINS标签</code> 把<code>netbios</code>的<code>lmhosts</code>对勾去掉，禁用<code>tcp/ip</code>的<code>netbios</code>. 然后再启动应该就可以了。</p>

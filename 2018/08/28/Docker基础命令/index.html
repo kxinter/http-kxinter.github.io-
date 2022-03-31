@@ -138,12 +138,12 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="1 获取镜像">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/Docker基础命令/1571816917920.png">
-<meta property="og:updated_time" content="2019-11-07T06:31:10.993Z">
+<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/Docker基础命令/1571816917920.png">
+<meta property="og:updated_time" content="2022-03-31T03:32:04.996Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker基础命令">
 <meta name="twitter:description" content="1 获取镜像">
-<meta name="twitter:image" content="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/Docker基础命令/1571816917920.png">
+<meta name="twitter:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/Docker基础命令/1571816917920.png">
 
 
 
@@ -399,8 +399,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-11-07T14:31:10+08:00">
-                2019-11-07
+              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:32:04+08:00">
+                2022-03-31
               </time>
             
           </span>
@@ -546,7 +546,7 @@
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>docker exec -it webserver bash</span><br><span class="line">root<span class="variable">@3729b97e8226</span><span class="symbol">:/</span><span class="comment"># echo '&lt;h1&gt;Hello, Docker!&lt;/h1&gt;' &gt; /usr/share/nginx/html/index.html</span></span><br><span class="line">root<span class="variable">@3729b97e8226</span><span class="symbol">:/</span><span class="comment"># exit</span></span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
 <p>我们以交互式终端方式进入 <code>webserver</code> 容器，并执行了 <code>bash</code> 命令，也就是获得一个可操作的 Shell。</p>
 <p>然后，我们用<code>&lt;h1&gt;Hello, Docker!&lt;/h1&gt;</code> 覆盖了<code>/usr/share/nginx/html/index.html</code> 的内容。</p>
-<p>现在我们再刷新浏览器的话，会发现内容被改变了。<br><img src="https://www.gitee.com/kxinter/images/raw/master/2019/10/23/Docker基础命令/1571816917920.png" alt="图1"></p>
+<p>现在我们再刷新浏览器的话，会发现内容被改变了。<br><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/Docker基础命令/1571816917920.png" alt="图1"></p>
 <p>我们修改了容器的文件，也就是改动了容器的存储层。我们可以通过 <code>docker diff</code> 命令看到具体的改动。</p>
 <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ docker diff webserver</span><br><span class="line">C /root</span><br><span class="line">A <span class="meta-keyword">/root/</span>.bash_history</span><br><span class="line">C /run</span><br><span class="line">C /usr</span><br><span class="line">C <span class="meta-keyword">/usr/</span>share</span><br><span class="line">C <span class="meta-keyword">/usr/</span>share/nginx</span><br><span class="line">C <span class="meta-keyword">/usr/</span>share<span class="meta-keyword">/nginx/</span>html</span><br><span class="line">C <span class="meta-keyword">/usr/</span>share<span class="meta-keyword">/nginx/</span>html/index.html</span><br><span class="line">C /var</span><br><span class="line">C <span class="meta-keyword">/var/</span>cache</span><br><span class="line">C <span class="meta-keyword">/var/</span>cache/nginx</span><br><span class="line">A <span class="meta-keyword">/var/</span>cache<span class="meta-keyword">/nginx/</span>client_temp</span><br><span class="line">A <span class="meta-keyword">/var/</span>cache<span class="meta-keyword">/nginx/</span>fastcgi_temp</span><br><span class="line">A <span class="meta-keyword">/var/</span>cache<span class="meta-keyword">/nginx/</span>proxy_temp</span><br><span class="line">A <span class="meta-keyword">/var/</span>cache<span class="meta-keyword">/nginx/</span>scgi_temp</span><br><span class="line">A <span class="meta-keyword">/var/</span>cache<span class="meta-keyword">/nginx/</span>uwsgi_temp</span><br></pre></td></tr></table></figure>
 <h1 id="11-利用commit定制镜像"><a href="#11-利用commit定制镜像" class="headerlink" title="11 利用commit定制镜像"></a>11 利用commit定制镜像</h1><p>现在我们定制好了变化，我们希望能将其保存下来形成镜像。</p>

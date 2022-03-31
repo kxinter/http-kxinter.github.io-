@@ -138,13 +138,13 @@
 <meta property="og:site_name" content="Operation随笔">
 <meta property="og:description" content="history命令添加 时间/IP/用户">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/12/27/history命令优化/1577431067442.png">
-<meta property="og:image" content="https://gitee.com/kxinter/images/raw/master/2019/12/27/history命令优化/1577431124108.png">
-<meta property="og:updated_time" content="2019-12-27T07:36:30.724Z">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/12/27/history命令优化/1577431067442.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/12/27/history命令优化/1577431124108.png">
+<meta property="og:updated_time" content="2022-03-31T03:31:58.986Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="history命令优化">
 <meta name="twitter:description" content="history命令添加 时间/IP/用户">
-<meta name="twitter:image" content="https://gitee.com/kxinter/images/raw/master/2019/12/27/history命令优化/1577431067442.png">
+<meta name="twitter:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/12/27/history命令优化/1577431067442.png">
 
 
 
@@ -400,8 +400,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-12-27T15:36:30+08:00">
-                2019-12-27
+              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:31:58+08:00">
+                2022-03-31
               </time>
             
           </span>
@@ -494,9 +494,9 @@
       
         <h2 id="history命令添加-时间-IP-用户"><a href="#history命令添加-时间-IP-用户" class="headerlink" title="history命令添加 时间/IP/用户"></a>history命令添加 时间/IP/用户</h2><a id="more"></a>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># history命令添加时间/ip/用户</span></span><br><span class="line">USER_IP=`who -u am i 2&gt;/dev/null| awk <span class="string">'&#123;print $NF&#125;'</span>|sed -e <span class="string">'s/[()]//g'</span>`</span><br><span class="line">HISTTIMEFORMAT=<span class="string">"[%F %T] [`whoami`] [<span class="variable">$&#123;USER_IP&#125;</span>] "</span></span><br></pre></td></tr></table></figure>
-<p>效果：<br><img src="https://gitee.com/kxinter/images/raw/master/2019/12/27/history命令优化/1577431067442.png" alt="1"><br><div class="note info"><p><strong>优点</strong><br>只添加时间/ip/用户，可以显示操作过的所有命令，汇总显示。记录文件系统默认路径：用户/.bash_history 。<br>例如：vim /root/.bash_history</p></div></p>
+<p>效果：<br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/12/27/history命令优化/1577431067442.png" alt="1"><br><div class="note info"><p><strong>优点</strong><br>只添加时间/ip/用户，可以显示操作过的所有命令，汇总显示。记录文件系统默认路径：用户/.bash_history 。<br>例如：vim /root/.bash_history</p></div></p>
 <h2 id="history命令根据用户-ip-时间生成操作日志文件"><a href="#history命令根据用户-ip-时间生成操作日志文件" class="headerlink" title="history命令根据用户/ip/时间生成操作日志文件"></a>history命令根据用户/ip/时间生成操作日志文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置命令显示时间/ip/用户</span></span><br><span class="line">USER_IP=`who -u am i 2&gt;/dev/null| awk <span class="string">'&#123;print $NF&#125;'</span>|sed -e <span class="string">'s/[()]//g'</span>` </span><br><span class="line"><span class="built_in">export</span> HISTTIMEFORMAT=<span class="string">"[%F %T][`whoami`][<span class="variable">$&#123;USER_IP&#125;</span>] "</span></span><br><span class="line"><span class="comment"># history 日志根据用户及登录时间生成操作日志</span></span><br><span class="line">LOGIP=`who -u am i 2&gt;/dev/null| awk <span class="string">'&#123;print $NF&#125;'</span>|sed -e <span class="string">'s/[()]//g'</span>` </span><br><span class="line">LOG_DIR=/var/<span class="built_in">log</span>/<span class="built_in">history</span> </span><br><span class="line"><span class="keyword">if</span> [ -z <span class="variable">$LOGIP</span> ] </span><br><span class="line"><span class="keyword">then</span> </span><br><span class="line">LOGIP=`hostname` </span><br><span class="line"><span class="keyword">fi</span> </span><br><span class="line"><span class="keyword">if</span> [ ! -d <span class="variable">$LOG_DIR</span> ] </span><br><span class="line"><span class="keyword">then</span> </span><br><span class="line">mkdir -p <span class="variable">$LOG_DIR</span> </span><br><span class="line">chmod 777 <span class="variable">$LOG_DIR</span> </span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="keyword">if</span> [ ! -d <span class="variable">$LOG_DIR</span>/<span class="variable">$&#123;LOGNAME&#125;</span> ] </span><br><span class="line"><span class="keyword">then</span> </span><br><span class="line">mkdir -p <span class="variable">$LOG_DIR</span>/<span class="variable">$&#123;LOGNAME&#125;</span> </span><br><span class="line">chmod 777 <span class="variable">$LOG_DIR</span>/<span class="variable">$&#123;LOGNAME&#125;</span> </span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="built_in">export</span> HISTSIZE=4096 </span><br><span class="line">LOGTM=`date +<span class="string">"%Y%m%d_%H%M%S"</span>` </span><br><span class="line"><span class="built_in">export</span> HISTFILE=<span class="string">"<span class="variable">$LOG_DIR</span>/<span class="variable">$&#123;LOGNAME&#125;</span>/<span class="variable">$&#123;LOGIP&#125;</span>-<span class="variable">$LOGTM</span>"</span> </span><br><span class="line">chmod 777 <span class="variable">$LOG_DIR</span>/<span class="variable">$&#123;LOGNAME&#125;</span>/*-* 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
-<p>效果：<br><img src="https://gitee.com/kxinter/images/raw/master/2019/12/27/history命令优化/1577431124108.png" alt="2"><br><div class="note info"><p><strong>优点</strong><br>添加时间/ip/用户，可以显示操作过的命令，每次终端登录退出生成一个操作记录文件，history命令只能显示当前终端登录所作过的操作，查看以往登录的操作记录，需要单独去记录文件种查看。适用与较为严谨的生成环境。<br>记录文件位置：/var/log/history/</p></div></p>
+<p>效果：<br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/12/27/history命令优化/1577431124108.png" alt="2"><br><div class="note info"><p><strong>优点</strong><br>添加时间/ip/用户，可以显示操作过的命令，每次终端登录退出生成一个操作记录文件，history命令只能显示当前终端登录所作过的操作，查看以往登录的操作记录，需要单独去记录文件种查看。适用与较为严谨的生成环境。<br>记录文件位置：/var/log/history/</p></div></p>
 
       
     </div>
@@ -526,7 +526,7 @@
   <p><span>本文标题:</span><a href="/2019/12/27/history命令优化/">history命令优化</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2019年12月27日 - 15:12</p>
-  <p><span>最后更新:</span>2019年12月27日 - 15:12</p>
+  <p><span>最后更新:</span>2022年03月31日 - 11:03</p>
   <p><span>原始链接:</span><a href="/2019/12/27/history命令优化/" title="history命令优化">https://kxinter.gitee.io/2019/12/27/history命令优化/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.gitee.io/2019/12/27/history命令优化/"  aria-label="复制成功！"></i></span>
   </p>
