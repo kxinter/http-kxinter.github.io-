@@ -132,13 +132,13 @@
 
 <meta name="description" content="日常运维文档整理。">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Operation随笔">
+<meta property="og:title" content="运维随笔">
 <meta property="og:url" content="https://kxinter.gitee.io/page/15/index.html">
-<meta property="og:site_name" content="Operation随笔">
+<meta property="og:site_name" content="运维随笔">
 <meta property="og:description" content="日常运维文档整理。">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Operation随笔">
+<meta name="twitter:title" content="运维随笔">
 <meta name="twitter:description" content="日常运维文档整理。">
 
 
@@ -175,7 +175,7 @@
 
 
 
-  <title>Operation随笔</title>
+  <title>运维随笔</title>
   
 
 
@@ -210,7 +210,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Operation随笔</span>
+        <span class="site-title">运维随笔</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -351,7 +351,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/15/docker小技巧/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/09/18/Linux输出记录到文件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OperationMAN">
@@ -360,7 +360,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
+      <meta itemprop="name" content="运维随笔">
     </span>
 
     
@@ -370,7 +370,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/15/docker小技巧/" itemprop="url">Docker小技巧</a></h1>
+                <a class="post-title-link" href="/2018/09/18/Linux输出记录到文件/" itemprop="url">Linux输出记录到文件</a></h1>
         
 
         <div class="post-meta">
@@ -382,8 +382,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-15T19:14:54+08:00">
-                2018-08-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-18T16:36:57+08:00">
+                2018-09-18
               </time>
             
 
@@ -398,8 +398,826 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-14T09:51:01+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:29:45+08:00">
+                2022-06-05
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+<h1 id="1-如何把命令运行的结果保存到文件当中"><a href="#1-如何把命令运行的结果保存到文件当中" class="headerlink" title="1 如何把命令运行的结果保存到文件当中"></a>1 如何把命令运行的结果保存到文件当中</h1><p>这个问题太简单了，大家都知道，用<code>&gt;</code> 把输出转向就可以了<br>　　<strong>例子:</strong></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">　　[lhd@hongdi ~]$ ls &gt; ls.txt</span><br><span class="line">　　[lhd@hongdi ~]$ cat ls.txt</span><br><span class="line">　　<span class="number">1</span><span class="selector-class">.gtkrc-2</span>.<span class="number">0</span></span><br><span class="line">　　<span class="number">2009</span></span><br><span class="line">　　a</span><br><span class="line">　　amsn_received</span><br><span class="line">　　<span class="selector-tag">a</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span></span><br></pre></td></tr></table></figure>
+<div class="note info"><p>说明:<br> <code>&gt;</code> 是把输出转向到指定的文件，如文件已存在的话也会重新写入，文件原内容不会保留<br> <code>&gt;&gt;</code>是把输出附向到文件的后面，文件原内容会保留下来</p></div>
+<h1 id="2-如何能在输出信息的同时把信息记录到文件中"><a href="#2-如何能在输出信息的同时把信息记录到文件中" class="headerlink" title="2 如何能在输出信息的同时把信息记录到文件中"></a>2 如何能在输出信息的同时把信息记录到文件中</h1><p>　　我们在上面的例子中可以看到，我们使用输出转向，命令在终端上的输出转向到了文件中，但如果我希望能同时在终端上看到输出信息怎么办？<br>　　我们可以使用这个命令: <code>tee</code><br><div class="note info no-cion"><p>解释一下<code>tee</code>的作用:<br>read from standard input and write to standard output and files<br>它从标准输入读取内容并将其写到标准输出和文件中</p></div><br>　　<strong>看例子:</strong></p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">　　[lhd@hongdi ~]$ ls | tee ls_tee.txt</span><br><span class="line">　　<span class="number">1.</span>gtkrc<span class="number">-2.0</span></span><br><span class="line">　　<span class="number">2009</span></span><br><span class="line">　　a</span><br><span class="line">　　amsn_received</span><br><span class="line">　　a.tar.gz</span><br><span class="line">　　[lhd@hongdi ~]$ cat ls_tee.txt</span><br><span class="line">　　<span class="number">1.</span>gtkrc<span class="number">-2.0</span></span><br><span class="line">　　<span class="number">2009</span></span><br><span class="line">　　a</span><br><span class="line">　　amsn_received</span><br><span class="line">　　a.tar.gz</span><br></pre></td></tr></table></figure>
+<p>备注：使用<code>tee</code>时,如果想保留目标文件原有的内容怎么办？<br>　　可以使用<code>-a</code>参数<br><div class="note info no-cion"><p><code>-a, --append</code><br>append to the given FILEs, do not overwrite<br>附加至给出的文件，而不是覆盖它</p></div></p>
+<h1 id="3-多个命令的输出都需要记录，可以用script"><a href="#3-多个命令的输出都需要记录，可以用script" class="headerlink" title="3 多个命令的输出都需要记录，可以用script"></a>3 多个命令的输出都需要记录，可以用script</h1><p>　　<code>script</code>这个命令很强大，可以记录终端的所有输出到相应的文件中<br>　　<strong>看例子:</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">　　[lhd@hongdi ~]$ script</span><br><span class="line">　　Script. started, file is typescript</span><br><span class="line">　　[lhd@hongdi ~]$ ls</span><br><span class="line">　　<span class="number">1</span>.gtkrc-<span class="number">2.0</span> c.tar kmess-<span class="number">2.0</span>alpha2.tar.gz secpanel-<span class="number">0.5</span>.<span class="number">3</span>-<span class="number">1</span>.noarch.rpm</span><br><span class="line">　　<span class="number">2009</span> DownZipAction.php kmesslog secpanel-<span class="number">0.5</span>.<span class="number">4</span>-<span class="number">2</span>.noarch.rpm</span><br><span class="line">　　[lhd@hongdi ~]$ <span class="keyword">exit</span></span><br><span class="line">　　<span class="keyword">exit</span></span><br><span class="line">　　Script. done, file is typescript</span><br><span class="line">　　[lhd@hongdi ~]$ cat typescript</span><br><span class="line">　　Script. started on <span class="number">2009</span>年<span class="number">02</span>月<span class="number">08</span>日 星期日 <span class="number">18</span>时<span class="number">56</span>分<span class="number">52</span>秒</span><br><span class="line">　　[lhd@hongdi ~]$ ls</span><br><span class="line">　　<span class="number">1</span>.gtkrc-<span class="number">2.0</span> c.tar kmess-<span class="number">2.0</span>alpha2.tar.gz secpanel-<span class="number">0.5</span>.<span class="number">3</span>-<span class="number">1</span>.noarch.rpm</span><br><span class="line">　　<span class="number">2009</span> DownZipAction.php kmesslog secpanel-<span class="number">0.5</span>.<span class="number">4</span>-<span class="number">2</span>.noarch.rpm</span><br><span class="line">　　[lhd@hongdi ~]$ <span class="keyword">exit</span></span><br><span class="line">　　<span class="keyword">exit</span></span><br><span class="line">　　Script. done on <span class="number">2009</span>年<span class="number">02</span>月<span class="number">08</span>日 星期日 <span class="number">18</span>时<span class="number">57</span>分<span class="number">00</span>秒</span><br></pre></td></tr></table></figure>
+<p>　　说明:<br>　　1. 我们在启动<code>script</code>时没有指定文件名，它会自动记录到当前目录下一个名为 <code>typescript</code>的文件中。也可以用<code>-a</code>参数 指定文件名<br>　　<strong>例子:</strong></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">　　[lhd@hongdi ~]$ script. -<span class="selector-tag">a</span> example.txt</span><br><span class="line">　　Script. started, file is example.txt</span><br></pre></td></tr></table></figure>
+<p>　　此时终端的输出内容被记录到 <code>example.txt</code>这个文件中<br>　　2. 退出<code>script</code>时，用<code>exit</code><br>　　感到奇怪吗？事实上script就是启动了一个shell<br>　　　　看一下<code>ps auxfww</code>的信息就知道了</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">　　lhd 17738 0.1 3.2 152028 33328 ? Sl 18:30 0:03 /usr/bin/konsole</span><br><span class="line">　　lhd 17740 0.0 0.1 6372 1720 pts/1 Ss 18:30 0:00 \_ /bin/bash</span><br><span class="line">　　lhd 17900 0.0 0.0 5344 628 pts/1 S 19:01 0:00 | \_ script</span><br><span class="line">　　lhd 17901 0.0 0.0 5348 464 pts/1 S 19:01 0:00 | \_ script</span><br><span class="line">　　lhd 17902 0.5 0.1 6372 1688 pts/2 Ss 19:01 0:00 | \_ bash -i</span><br></pre></td></tr></table></figure>
+<p>　　3. 查看<code>typescript</code>的内容，可以看到它同时记录下了<code>script</code>的启动和结束时间</p>
+<h1 id="4-用script录制并播放session的内容"><a href="#4-用script录制并播放session的内容" class="headerlink" title="4 用script录制并播放session的内容"></a>4 用script录制并播放session的内容</h1><p>　　我们可以用 <code>script</code>把整个终端会话的所有操作和输出录制下来，然后再用<code>scriptreplay</code>进行播放。<br>  <div class="note info"><p>如果录制时记录下来了操作时的时间数据，那么播放时和操作时的使用时间完全相同。</p></div>
+**这个很有用吧，比如：我们可以把安装软件时编译的过程记录下来，然后给别人进行演示**
+**看例子:**
+
+undefined
+
+<div class="note info"><p>说明: <code>-t 2&gt;example.time</code> <code>-t</code>是把时间数据输出到标准错误(<code>standard error</code>)，所以我们使用 <code>2&gt;example.time</code> 把数据转向到 <code>example.time</code>这个文件当中如何播放所记录的内容?</p></div></p>
+<h2 id="4-1-安装scriptreplay"><a href="#4-1-安装scriptreplay" class="headerlink" title="4.1 安装scriptreplay"></a>4.1 安装scriptreplay</h2><p><strong>下载</strong>　</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget linux<span class="regexp">/utils/</span>util-linux<span class="regexp">/util-linux-2.12r.tar.bz2"&gt;ftp:/</span><span class="regexp">/ftp.kernel.org/</span>pub<span class="regexp">/linux/</span>utils<span class="regexp">/util-linux/</span>util-linux<span class="number">-2.12</span>r.tar.bz2</span><br></pre></td></tr></table></figure>
+<p><strong>解压</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">tar</span> <span class="selector-tag">-jxvf</span> <span class="selector-tag">util-linux-2</span><span class="selector-class">.12r</span><span class="selector-class">.tar</span><span class="selector-class">.bz2</span></span><br></pre></td></tr></table></figure>
+<p>之后复制文件到系统的命令目录中即可</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">　　[root<span class="variable">@hongdi</span> 下载]<span class="comment"># cp util-linux-2.12r/misc-utils/scriptreplay.pl /usr/bin/scriptreplay</span></span><br><span class="line">　　[root<span class="variable">@hongdi</span> 下载]<span class="comment"># chmod 755 /usr/bin/scriptreplay</span></span><br></pre></td></tr></table></figure>
+<div class="note info"><p>备注: <code>fedora 10</code>的<code>util-linux-ng-2.14.1-3.2.fc10.i386.rpm</code>此包中已包含 <code>scriptreplay</code>,已无需另行安装</p></div>
+<h2 id="4-2-播放所录制的session内容"><a href="#4-2-播放所录制的session内容" class="headerlink" title="4.2 播放所录制的session内容"></a>4.2 播放所录制的session内容</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">　　[lhd<span class="variable">@hongdi</span> ~]<span class="variable">$ </span>scriptreplay example1.time example1.txt</span><br><span class="line">　　[lhd<span class="variable">@hongdi</span> ~]<span class="variable">$ </span>ls</span><br><span class="line">　　<span class="number">1</span>.gtkrc-<span class="number">2.0</span> c.tar jeffray_lee<span class="variable">@hotmail</span>.com pass</span><br><span class="line">　　[lhd<span class="variable">@hongdi</span> ~]<span class="variable">$ </span>abcd</span><br><span class="line">　　<span class="symbol">bash:</span> <span class="symbol">abcd:</span> command <span class="keyword">not</span> found</span><br><span class="line"></span><br><span class="line">　　[lhd<span class="variable">@hongdi</span> ~]<span class="variable">$ </span>exit</span><br></pre></td></tr></table></figure>
+<p>转载：<a href="http://www.eetop.cn/blog/html/03/6503-25123.html" target="_blank" rel="noopener">http://www.eetop.cn/blog/html/03/6503-25123.html</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/09/14/Linux常用系统性能诊断工具/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="运维随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/14/Linux常用系统性能诊断工具/" itemprop="url">Linux常用系统性能诊断工具</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-14T09:38:50+08:00">
                 2018-09-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-10-23T17:12:51+08:00">
+                2019-10-23
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  65
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="https://www.github.com/kxinter/images/raw/master/2019/10/23/Linux常用系统性能诊断工具/1571821958134.png" alt="图1"><br><div class="note info no-cion"><p><strong>简介</strong>：<br>Linux下的系统性能诊断工具特别的多，例如：top、iotop、tiptop、slabtop、iostat、mpstat、vmstat、dstat、pidstat、netstat、iptraf、nicstat、ss、sar、free、strace、ltrace、ftrace、dtrace、blktrace、perf、stap、ktap、ebpf、lttng等等，下面一张图宏观的标注出来，更加的方便记忆！</p></div><br><img src="https://www.github.com/kxinter/images/raw/master/2019/10/23/Linux常用系统性能诊断工具/1571821964128.png" alt="图2"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/09/13/jenkins报错/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="运维随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/13/jenkins报错/" itemprop="url">jenkins报错</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-13T15:07:15+08:00">
+                2018-09-13
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:31:52+08:00">
+                2022-06-05
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  74
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+<h1 id="1-ERROR-Exception-when-publishing-exception-message-Exec-timed-out-or-was-interrupted-after-XXX-ms"><a href="#1-ERROR-Exception-when-publishing-exception-message-Exec-timed-out-or-was-interrupted-after-XXX-ms" class="headerlink" title="1 ERROR: Exception when publishing, exception message [Exec timed out or was interrupted after XXX ms]"></a>1 ERROR: Exception when publishing, exception message [Exec timed out or was interrupted after XXX ms]</h1><div class="note danger no-icon"><p>我在使用Jenkins进行远程部署时,执行的命令突然中断，包如下错误：<br><code>ERROR: Exception when publishing, exception message [Exec timed out or was interrupted after 12,001 ms]</code></p></div>
+<p><img src="https://www.github.com/kxinter/images/raw/master/2019/10/23/jenkins报错/1571821987065.png" alt="图1"></p>
+<p><strong>解决办法：</strong><br><img src="https://www.github.com/kxinter/images/raw/master/2019/10/23/jenkins报错/1571821993766.png" alt="图2"></p>
+<div class="note success"><p><strong>参考资料：</strong><br><a href="https://blog.csdn.net/u013066244/article/details/52788407" target="_blank" rel="noopener">https://blog.csdn.net/u013066244/article/details/52788407</a> </p></div>
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/09/13/Docker自动登陆脚本/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="运维随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/13/Docker自动登陆脚本/" itemprop="url">Docker自动登陆脚本</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-13T09:04:40+08:00">
+                2018-09-13
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:28:57+08:00">
+                2022-06-05
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  75
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+<h1 id="安装expect命令"><a href="#安装expect命令" class="headerlink" title="安装expect命令"></a>安装expect命令</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install expect -y</span><br></pre></td></tr></table></figure>
+<p><strong>示例脚本</strong></p>
+<figure class="highlight vim"><figcaption><span>docker自动登陆脚本</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#！/usr/bin/expect</span><br><span class="line"><span class="keyword">set</span> timeout <span class="number">2</span>                   # 超时时间<span class="number">2</span>s</span><br><span class="line">spawn docker login <span class="number">192.168</span>.<span class="number">0.200</span>:<span class="number">5000</span>   # 要执行的命令</span><br><span class="line">expect <span class="string">"Username"</span>                # 匹配字符Username</span><br><span class="line">send <span class="string">"user\r"</span>                  # 键入用户user \r 回车</span><br><span class="line">expect <span class="string">"password"</span>               # 匹配password</span><br><span class="line">send <span class="string">"pass\r"</span>                 # 键入密码pass \r 回车</span><br><span class="line">interact</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/09/11/Docker清除日志脚本/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="运维随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/11/Docker清除日志脚本/" itemprop="url">Docker清除日志脚本</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-11T16:34:28+08:00">
+                2018-09-11
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-17T11:50:10+08:00">
+                2018-09-17
               </time>
             
           </span>
@@ -450,7 +1268,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  39
+                  44
                 </span>
               
 
@@ -489,7 +1307,7 @@
       
         
           
-            <h1 id="1-dockers开启privileged"><a href="#1-dockers开启privileged" class="headerlink" title="1 dockers开启privileged"></a>1 dockers开启privileged</h1><p>解决centos7容器无法使用systemctl命令的问题<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -e <span class="string">"container=docker"</span> --privileged=<span class="literal">true</span> -v /sys/fs/cgroup:/sys/fs/cgroup --name centos7 centos:7.5 /usr/sbin/init</span><br></pre></td></tr></table></figure></p>
+            <figure class="highlight bash"><figcaption><span>清除日志脚本Docker</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"==================== start clean docker containers logs =========================="</span></span><br><span class="line"> </span><br><span class="line">logs=$(find /var/lib/docker/containers/ -name *-json.log)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> <span class="built_in">log</span> <span class="keyword">in</span> <span class="variable">$logs</span></span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">                <span class="built_in">echo</span> <span class="string">"clean logs : <span class="variable">$log</span>"</span></span><br><span class="line">                cat /dev/null &gt; <span class="variable">$log</span></span><br><span class="line">        <span class="keyword">done</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"==================== end clean docker containers logs   =========================="</span></span><br></pre></td></tr></table></figure>
 
           
         
@@ -538,7 +1356,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/14/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span>
+    <a class="extend prev" rel="prev" href="/page/14/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/16/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -591,7 +1409,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">155</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -602,7 +1420,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -613,7 +1431,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">106</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -642,18 +1460,6 @@
                     <a href="https://gitee.com/kxinter" target="_blank" title="码云">
                       
                         <i class="fa fa-fw fa-code"></i>码云</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://kxinter.gitee.io" target="_blank" title="blog">
-                      
-                        <i class="fa fa-fw fa-book"></i>blog</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://medoc.000webhostapp.com" target="_blank" title="随手笔记">
-                      
-                        <i class="fa fa-fw fa-wordpress"></i>随手笔记</a>
                   </span>
                 
                   <span class="links-of-author-item">
@@ -692,12 +1498,6 @@
                         <i class="fa fa-fw fa-font-awesome"></i>Font Awesome</a>
                   </span>
                 
-                  <span class="links-of-author-item">
-                    <a href="https://www.000webhost.com/cpanel-login?from=panel#" target="_blank" title="Statistics">
-                      
-                        <i class="fa fa-fw fa-server"></i>Statistics</a>
-                  </span>
-                
             </div>
           
 
@@ -719,10 +1519,6 @@
                 
                   <li class="links-of-blogroll-item">
                     <a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" title="Next深度优化" target="_blank">Next深度优化</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://livere.com/" title="来必力" target="_blank">来必力</a>
                   </li>
                 
               </ul>
@@ -774,27 +1570,32 @@ show_date_time();
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
+  
   <span class="author" itemprop="copyrightHolder">OperationMAN</span>
 
   
     <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
+ <!--    <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
-    </span>
-    
+    </span> -->
+	
+	
+<!--     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">175.5k</span>
+    <span title="Site words total count">197.9k</span>
+   -->
   
+  	<!--添加备案信息-->
+	<a href="http://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">  豫ICP备 17032296 号</a>
 </div>
 
-
-
 <!--修改页面底部主题名字和网站软件名字-->
+<!-- 
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
@@ -819,8 +1620,7 @@ show_date_time();
 </span>
 </div>
 
-
-
+ -->
         
 
 

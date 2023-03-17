@@ -130,19 +130,19 @@
 
 
 
-<meta name="description" content="转载：http://www.aboutyun.com/thread-8114-1-1.html">
+<meta name="description" content="转载：http://www.aboutyun.com/thread-8114-1-1.html 1 Openstack的临时(Ephemeral)存储和块(Block)存储1.2 问题导读：1、OpenStack中什么是临时存储，有什么好处？2、什么是块存储，和临时的有什么不同？ 1.3 背景Openstack不管是Ephemeral Storage还是Block Storage, 其实从接口上">
 <meta name="keywords" content="openstack">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Openstack的临时(Ephemeral)存储和块(Block)存储">
 <meta property="og:url" content="https://kxinter.gitee.io/2018/08/28/Openstack的临时(Ephemeral)存储和块(Block)存储/index.html">
-<meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="转载：http://www.aboutyun.com/thread-8114-1-1.html">
+<meta property="og:site_name" content="运维随笔">
+<meta property="og:description" content="转载：http://www.aboutyun.com/thread-8114-1-1.html 1 Openstack的临时(Ephemeral)存储和块(Block)存储1.2 问题导读：1、OpenStack中什么是临时存储，有什么好处？2、什么是块存储，和临时的有什么不同？ 1.3 背景Openstack不管是Ephemeral Storage还是Block Storage, 其实从接口上">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://markdown.xiaoshujiang.com/img/spinner.gif">
-<meta property="og:updated_time" content="2019-10-23T07:49:30.091Z">
+<meta property="og:updated_time" content="2022-06-05T13:31:35.635Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Openstack的临时(Ephemeral)存储和块(Block)存储">
-<meta name="twitter:description" content="转载：http://www.aboutyun.com/thread-8114-1-1.html">
+<meta name="twitter:description" content="转载：http://www.aboutyun.com/thread-8114-1-1.html 1 Openstack的临时(Ephemeral)存储和块(Block)存储1.2 问题导读：1、OpenStack中什么是临时存储，有什么好处？2、什么是块存储，和临时的有什么不同？ 1.3 背景Openstack不管是Ephemeral Storage还是Block Storage, 其实从接口上">
 <meta name="twitter:image" content="https://markdown.xiaoshujiang.com/img/spinner.gif">
 
 
@@ -179,7 +179,7 @@
 
 
 
-  <title>Openstack的临时(Ephemeral)存储和块(Block)存储 | Operation随笔</title>
+  <title>Openstack的临时(Ephemeral)存储和块(Block)存储 | 运维随笔</title>
   
 
 
@@ -213,7 +213,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Operation随笔</span>
+        <span class="site-title">运维随笔</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -363,7 +363,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
+      <meta itemprop="name" content="运维随笔">
     </span>
 
     
@@ -399,8 +399,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-10-23T15:49:30+08:00">
-                2019-10-23
+              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:31:35+08:00">
+                2022-06-05
               </time>
             
           </span>
@@ -491,8 +491,9 @@
       
 
       
-        <p>转载：<a href="http://www.aboutyun.com/thread-8114-1-1.html" target="_blank" rel="noopener">http://www.aboutyun.com/thread-8114-1-1.html</a><br><a id="more"></a></p>
-<h1 id="1-Openstack的临时-Ephemeral-存储和块-Block-存储"><a href="#1-Openstack的临时-Ephemeral-存储和块-Block-存储" class="headerlink" title="1 Openstack的临时(Ephemeral)存储和块(Block)存储"></a>1 Openstack的临时(Ephemeral)存储和块(Block)存储</h1><h2 id="1-2-问题导读："><a href="#1-2-问题导读：" class="headerlink" title="1.2 问题导读："></a>1.2 问题导读：</h2><p>1、OpenStack中什么是临时存储，有什么好处？<br>2、什么是块存储，和临时的有什么不同？<br><!--more--></p>
+        <a id="more"></a>
+<p>转载：<a href="http://www.aboutyun.com/thread-8114-1-1.html" target="_blank" rel="noopener">http://www.aboutyun.com/thread-8114-1-1.html</a></p>
+<h1 id="1-Openstack的临时-Ephemeral-存储和块-Block-存储"><a href="#1-Openstack的临时-Ephemeral-存储和块-Block-存储" class="headerlink" title="1 Openstack的临时(Ephemeral)存储和块(Block)存储"></a>1 Openstack的临时(Ephemeral)存储和块(Block)存储</h1><h2 id="1-2-问题导读："><a href="#1-2-问题导读：" class="headerlink" title="1.2 问题导读："></a>1.2 问题导读：</h2><p>1、OpenStack中什么是临时存储，有什么好处？<br>2、什么是块存储，和临时的有什么不同？</p>
 <h2 id="1-3-背景"><a href="#1-3-背景" class="headerlink" title="1.3 背景"></a>1.3 背景</h2><p>Openstack不管是Ephemeral Storage还是Block Storage, 其实从接口上看，其实都是块服务。那么为什么要搞两个不同的类型呢，本文从这两种不同类型块存储的实现上来分析下其中的原因。</p>
 <h2 id="1-4-临时存储"><a href="#1-4-临时存储" class="headerlink" title="1.4 临时存储"></a>1.4 临时存储</h2><p>Openstack临时存储是由Nova提供的，主要是利用主机的本地存储给虚拟机提供卷服务。如果虚拟机被删除了，挂在这个虚拟机上的任何临时存储自动释放。这样的实现方式决定了：<br>使用Ephemeral Storage的虚拟机不能支持迁移，以及和虚拟机迁移相关的特性，包括 1) HA 2) 动态调度 等等。<br>存放在Ephemeral Storage上的数据是高度不可靠的，任何虚拟机和主机的故障都可能会导致数据丢失。</p>
 <h2 id="1-5-块存储"><a href="#1-5-块存储" class="headerlink" title="1.5 块存储"></a>1.5 块存储</h2><p>目前Openstack的块存储由Cinder提供，其后端支持很多类型的存储设备，比如多个厂商不同型号的阵列设备，或者是Ceph, Glusterfs, Sheepdog之类的分布式存储系统。基于块存储，可以为用户提供：<br>高可靠的存储（基于阵列的RAID, 或者是分布式存储的多副本机制；甚至还可以充分利用设备的备份，远程复制能力）</p>
@@ -617,11 +618,6 @@
           
 
   
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTUxNS8xNjA0Mg"></div>
-    </div>
-
-  
 
 
 
@@ -676,7 +672,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">155</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -687,7 +683,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -698,7 +694,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">106</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -727,18 +723,6 @@
                     <a href="https://gitee.com/kxinter" target="_blank" title="码云">
                       
                         <i class="fa fa-fw fa-code"></i>码云</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://kxinter.gitee.io" target="_blank" title="blog">
-                      
-                        <i class="fa fa-fw fa-book"></i>blog</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://medoc.000webhostapp.com" target="_blank" title="随手笔记">
-                      
-                        <i class="fa fa-fw fa-wordpress"></i>随手笔记</a>
                   </span>
                 
                   <span class="links-of-author-item">
@@ -777,12 +761,6 @@
                         <i class="fa fa-fw fa-font-awesome"></i>Font Awesome</a>
                   </span>
                 
-                  <span class="links-of-author-item">
-                    <a href="https://www.000webhost.com/cpanel-login?from=panel#" target="_blank" title="Statistics">
-                      
-                        <i class="fa fa-fw fa-server"></i>Statistics</a>
-                  </span>
-                
             </div>
           
 
@@ -804,10 +782,6 @@
                 
                   <li class="links-of-blogroll-item">
                     <a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" title="Next深度优化" target="_blank">Next深度优化</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://livere.com/" title="来必力" target="_blank">来必力</a>
                   </li>
                 
               </ul>
@@ -875,27 +849,32 @@ show_date_time();
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
+  
   <span class="author" itemprop="copyrightHolder">OperationMAN</span>
 
   
     <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
+ <!--    <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
-    </span>
-    
+    </span> -->
+	
+	
+<!--     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">175.5k</span>
+    <span title="Site words total count">197.9k</span>
+   -->
   
+  	<!--添加备案信息-->
+	<a href="http://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">  豫ICP备 17032296 号</a>
 </div>
 
-
-
 <!--修改页面底部主题名字和网站软件名字-->
+<!-- 
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
@@ -920,8 +899,7 @@ show_date_time();
 </span>
 </div>
 
-
-
+ -->
         
 
 
@@ -1050,17 +1028,6 @@ show_date_time();
 
 
 
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
   
 
 

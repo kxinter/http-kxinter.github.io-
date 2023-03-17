@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<!--添加顶部进度条-->
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+<!--end-->
+<meta name="theme-color" content="#222">
+<!--添加文章加密-->
+<script>
+    (function(){
+        if('123456'){
+            if (prompt('请输入文章密码') !== '123456'){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="fonts.useso.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon1.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon1.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon1.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Raspberry Pi," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1 系统环境2022-09-22-raspios-bullseye-arm64-lite.img.xz">
+<meta name="keywords" content="Raspberry Pi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MF系统配置手册(Pios)">
+<meta property="og:url" content="https://kxinter.gitee.io/2022/11/07/模方安装部署配置手册(Pios)/index.html">
+<meta property="og:site_name" content="运维随笔">
+<meta property="og:description" content="1 系统环境2022-09-22-raspios-bullseye-arm64-lite.img.xz">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20221110144918985.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20221108162337871.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20221108162438671.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20221108162550226.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20221108162627706.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20221108162658265.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20221108162824073.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20221108162920675.png">
+<meta property="og:updated_time" content="2023-01-05T04:28:23.424Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MF系统配置手册(Pios)">
+<meta name="twitter:description" content="1 系统环境2022-09-22-raspios-bullseye-arm64-lite.img.xz">
+<meta name="twitter:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20221110144918985.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kxinter.gitee.io/2022/11/07/模方安装部署配置手册(Pios)/"/>
+
+
+
+
+
+  <title>MF系统配置手册(Pios) | 运维随笔</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<!--添加左上角github图标-->
+	<a href="https://github.com/kxinter" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
+    <!--添加右上角gitee图标
+	<a href="https://gitee.com/kxinter"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://www.jianguoyun.com/c/tblv2/COmIGhjhtNMGIgsv56CB5LqRLmpwZygC/q9YvhedkGsc/l" alt="Fork me on GitHub"></a>
+    -->
+	<header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">运维随笔</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2022/11/07/模方安装部署配置手册(Pios)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="运维随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MF系统配置手册(Pios)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-11-07T17:56:05+08:00">
+                2022-11-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2023-01-05T12:28:23+08:00">
+                2023-01-05
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_value_page_pv"></span>次阅读
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-系统环境"><a href="#1-系统环境" class="headerlink" title="1 系统环境"></a>1 系统环境</h1><p>2022-09-22-raspios-bullseye-arm64-<strong>lite</strong>.img.xz</p>
+<a id="more"></a>
+<h1 id="2-系统配置-amp-优化"><a href="#2-系统配置-amp-优化" class="headerlink" title="2 系统配置&amp;优化"></a>2 系统配置&amp;优化</h1><h2 id="2-1-屏蔽开机彩虹屏"><a href="#2-1-屏蔽开机彩虹屏" class="headerlink" title="2.1 屏蔽开机彩虹屏"></a>2.1 屏蔽开机彩虹屏</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /book/config.txt 添加一行</span></span><br><span class="line">disable_splash=1</span><br></pre></td></tr></table></figure>
+<h2 id="2-2-屏蔽开机草莓logo"><a href="#2-2-屏蔽开机草莓logo" class="headerlink" title="2.2 屏蔽开机草莓logo"></a>2.2 屏蔽开机草莓logo</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /boot/cmdline.txt 末尾添加</span></span><br><span class="line">logo.nologo</span><br></pre></td></tr></table></figure>
+<h2 id="2-3-更换国内源"><a href="#2-3-更换国内源" class="headerlink" title="2.3 更换国内源"></a>2.3 更换国内源</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看Pi os debian版本</span></span><br><span class="line">cat /etc/debian_version </span><br><span class="line">11.5</span><br></pre></td></tr></table></figure>
+<p><strong>修改<code>/etc/apt/sources.list</code></strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 清华大学源 https://mirror.tuna.tsinghua.edu.cn/help/raspbian/</span></span><br><span class="line"><span class="comment"># 选择合适的版本配置源</span></span><br><span class="line"><span class="comment"># aarch64  这里系统为64位</span></span><br><span class="line"><span class="comment"># 编辑 `/etc/apt/sources.list` 文件，用以下内容取代：</span></span><br><span class="line"><span class="comment"># 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释</span></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye main contrib non-free</span><br><span class="line"><span class="comment"># deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye main contrib non-free</span></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye-updates main contrib non-free</span><br><span class="line"><span class="comment"># deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye-updates main contrib non-free</span></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye-backports main contrib non-free</span><br><span class="line"><span class="comment"># deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye-backports main contrib non-free</span></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/debian-security bullseye-security main contrib non-free</span><br><span class="line"><span class="comment"># deb-src https://mirrors.tuna.tsinghua.edu.cn/debian-security bullseye-security main contrib non-free</span></span><br></pre></td></tr></table></figure>
+<p><strong>修改<code>/etc/apt/sources.list.d/raspi.list</code></strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对于两个架构，编辑 `/etc/apt/sources.list.d/raspi.list` 文件，删除原文件所有内容，用以下内容取代：</span></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/raspberrypi/ bullseye main</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 清理和更新缓存</span></span><br><span class="line">sudo apt clean &amp;&amp; sudo apt update</span><br><span class="line"><span class="comment"># 更新系统</span></span><br><span class="line">sudo apt upgrade</span><br></pre></td></tr></table></figure>
+<h2 id="2-4-校准时区"><a href="#2-4-校准时区" class="headerlink" title="2.4 校准时区"></a>2.4 校准时区</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br></pre></td></tr></table></figure>
+<h2 id="2-5-优化rc-local"><a href="#2-5-优化rc-local" class="headerlink" title="2.5 优化rc-local"></a>2.5 优化rc-local</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano /lib/systemd/system/rc-local.service</span><br></pre></td></tr></table></figure>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20221110144918985.png" alt="image-20221110144918985"></p>
+<h2 id="2-6-更新boot-固件更新"><a href="#2-6-更新boot-固件更新" class="headerlink" title="2.6 更新boot(固件更新)"></a>2.6 更新boot(固件更新)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="2-7-配置静态IP"><a href="#2-7-配置静态IP" class="headerlink" title="2.7 配置静态IP"></a>2.7 配置静态IP</h2><p><strong><code>修改/etc/dhcpcd.conf</code></strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置eth0</span></span><br><span class="line">interface eth0</span><br><span class="line">static ip_address=192.168.1.100/24</span><br><span class="line">static routers=192.168.1.1</span><br><span class="line">static domain_name_servers=223.5.5.5 114.114.114.114</span><br><span class="line"><span class="comment"># 设置wlan0(后面配置AP需要)</span></span><br><span class="line">interface wlan0</span><br><span class="line">    static ip_address=192.10.66.1/24</span><br><span class="line">    nohook wpa_supplicant</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重启网卡</span></span><br><span class="line">ifconfig eth0 down &amp;&amp; ifconfig eth0 up</span><br><span class="line"><span class="comment"># 改后直接重启wlan0会报错，配置hostapd和dnsmasq重启后正常。</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里wlan0静态地址配置有2种方式配置：</p>
+<ol>
+<li>第一种修改/etc/dhcpcd.conf添加，支持nat,正常访问eth0网络和互联网;       (推荐)</li>
+<li>第二种修改/etc/network/interfaces,支持nat访问到etho网卡，不支持访问到eth0网络和互联网；</li>
+</ol>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 第二种方法配置wlan0静态IP</span></span><br><span class="line">sudo nano /etc/network/interfaces</span><br><span class="line"><span class="comment"># 此次修改的文件是interfaces文件，在其中加入</span></span><br><span class="line">allow-hotplug wlan0</span><br><span class="line">iface wlan0 inet static</span><br><span class="line">    address 192.10.66.1</span><br><span class="line">    netmask 255.255.255.0</span><br><span class="line">    network 192.10.66.0</span><br><span class="line">    broadcast 192.168.1.255</span><br></pre></td></tr></table></figure>
+<h2 id="2-8-配置ufw防火墙"><a href="#2-8-配置ufw防火墙" class="headerlink" title="2.8 配置ufw防火墙"></a>2.8 配置ufw防火墙</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">apt install ufw      <span class="comment"># 安装</span></span><br><span class="line">ufw <span class="built_in">enable</span>           <span class="comment"># 启动</span></span><br><span class="line">ufw default deny     <span class="comment"># 默认禁止所有</span></span><br><span class="line">ufw allow 22         <span class="comment"># 开启ssh</span></span><br><span class="line">ufw allow 10000      <span class="comment"># 开启10000</span></span><br><span class="line">ufw allow 13000:13100/tcp <span class="comment"># 开启ftp交互端口范围</span></span><br><span class="line">ufw allow 21         <span class="comment"># 开启ftp</span></span><br><span class="line">ufw allow 53         <span class="comment"># hostapd</span></span><br><span class="line">ufw allow 67         <span class="comment"># hostapd  hostapd端口要放开，否则手机能连接，PC无法连接，未理解原因</span></span><br><span class="line">ufw status 			 <span class="comment"># 查看防火墙规则</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开启ufw nat转发</span></span><br><span class="line">1.修改ufw文件,允许接收转发的包</span><br><span class="line"> vi /etc/default/ufw  </span><br><span class="line">---</span><br><span class="line">DEFAULT_FORWARD_POLICY=<span class="string">"ACCEPT"</span></span><br><span class="line">2.修改sysctl.conf启用内核转发(取消注释)</span><br><span class="line"> vi /etc/ufw/sysctl.conf</span><br><span class="line">---</span><br><span class="line">net/ipv4/ip_forward=1</span><br><span class="line">3.修改/etc/ufw/before.rules,添加相应的nat配置,直接添加到`COMMIT`下面另起一行添加如下内容就可以了.</span><br><span class="line"> vi /etc/ufw/before.rules</span><br><span class="line">---</span><br><span class="line">COMMIT</span><br><span class="line">后面添加</span><br><span class="line">*nat</span><br><span class="line">:PREROUTING - [0:0]</span><br><span class="line">:POSTROUTING - [0:0]</span><br><span class="line">-A POSTROUTING -o eth0 -j MASQUERADE</span><br><span class="line">COMMIT</span><br><span class="line">4.重启ufw</span><br><span class="line">ufw reload</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这个地方要注意的就是必需同时添加<code>PREROUTING</code>和<code>POSTROUTING</code>.这也是通过ufw配置nat时的难点所在!笔者很长一段时间都浪费在反复修改PREROUTING上.后来仔细一想,有进来的包也必需有出去的包nat才能成行吧,于是试着添加POSTROUTING,结果就通了!这个地方还有一点应该就是rules文件的语法吧.<br>      *nat<br>      :PREROUTING - [0:0]<br>      :POSTROUTING - [0:0]</p>
+<pre><code>#这个地方加自定义语句
+COMMIT
+</code></pre><p>之前也是很长一段时间,都在原有的COMMIT里加东西,测试,也是浪费了挺长的时间才看明白,语法</p>
+</blockquote>
+<h1 id="3-安装服务"><a href="#3-安装服务" class="headerlink" title="3 安装服务"></a>3 安装服务</h1><h2 id="3-1-AP配置"><a href="#3-1-AP配置" class="headerlink" title="3.1 AP配置"></a>3.1 AP配置</h2><h3 id="3-1-1-安装hostapd和dnsmasq"><a href="#3-1-1-安装hostapd和dnsmasq" class="headerlink" title="3.1.1 安装hostapd和dnsmasq"></a>3.1.1 安装hostapd和dnsmasq</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># install hostapd</span></span><br><span class="line">sudo apt install hostapd</span><br><span class="line"><span class="comment"># hostapd 自启动配置</span></span><br><span class="line">sudo systemctl unmask hostapd</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> hostapd</span><br><span class="line"><span class="comment"># install dnsmasq</span></span><br><span class="line">sudo apt install dnsmasq</span><br><span class="line"><span class="comment"># 安装插件</span></span><br><span class="line">sudo DEBIAN_FRONTEND=noninteractive apt install -y netfilter-persistent iptables-persistent</span><br></pre></td></tr></table></figure>
+<h3 id="3-1-2-配置wlan0静态IP"><a href="#3-1-2-配置wlan0静态IP" class="headerlink" title="3.1.2 配置wlan0静态IP"></a>3.1.2 配置wlan0静态IP</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改/etc/dhcpcd.conf</span></span><br><span class="line">sudo nano /etc/dhcpcd.conf</span><br><span class="line"><span class="comment"># 添加下方内容</span></span><br><span class="line">interface wlan0</span><br><span class="line">    static ip_address=192.10.66.1/24</span><br><span class="line">    nohook wpa_supplicant</span><br></pre></td></tr></table></figure>
+<h3 id="3-1-3-配置路由转发和IP伪装（使用ufw防火墙请略过）"><a href="#3-1-3-配置路由转发和IP伪装（使用ufw防火墙请略过）" class="headerlink" title="3.1.3 配置路由转发和IP伪装（使用ufw防火墙请略过）"></a>3.1.3 配置路由转发和IP伪装（使用ufw防火墙请略过）</h3><p><strong>路由转发</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建文件/etc/sysctl.d/routed-ap.conf</span></span><br><span class="line">sudo nano /etc/sysctl.d/routed-ap.conf</span><br><span class="line"><span class="comment"># 文件内容</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Enable IPv4 routing</span></span><br><span class="line">net.ipv4.ip_forward=1</span><br></pre></td></tr></table></figure>
+<p><strong>IP伪装</strong></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo iptables -t<span class="built_in"> nat </span>-A POSTROUTING -o eth0 -j MASQUERADE</span><br><span class="line">sudo netfilter-persistent save</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 要确保 WiFi 无线电不会在树莓派上被阻止，请执行以下命令：</span></span><br><span class="line">sudo rfkill unblock wlan</span><br></pre></td></tr></table></figure>
+<h3 id="3-1-4-配置hostapt和dnsmasq"><a href="#3-1-4-配置hostapt和dnsmasq" class="headerlink" title="3.1.4 配置hostapt和dnsmasq"></a>3.1.4 配置hostapt和dnsmasq</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改dnsmqsq.conf</span></span><br><span class="line">sudo nano /etc/dnsmasq.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加文件内容</span></span><br><span class="line">interface=wlan0 <span class="comment"># 监听接口</span></span><br><span class="line">dhcp-range=192.10.66.2,192.10.66.20,255.255.255.0,24h</span><br><span class="line">                <span class="comment"># dhcp地址池和租约时间</span></span><br><span class="line">dhcp-option=option:dns-server,223.5.5.5,114.114.114.114   <span class="comment"># 客户端DNS</span></span><br><span class="line">domain=wlan     <span class="comment"># Local wireless DNS domain</span></span><br><span class="line">address=/gdw.com/192.10.66.1</span><br><span class="line">                <span class="comment"># Alias for this router</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改/etc/hostapd/hostapd.conf</span></span><br><span class="line">sudo nano /etc/hostapd/hostapd.conf</span><br><span class="line"></span><br><span class="line">--------------</span><br><span class="line"><span class="comment"># 添加文件内容</span></span><br><span class="line">country_code=CN               <span class="comment"># wifi国家ISO代码</span></span><br><span class="line">interface=wlan0               <span class="comment"># 绑定接口</span></span><br><span class="line">ssid=NameOfNetwork_5G         <span class="comment"># wifi名称，自定义</span></span><br><span class="line"><span class="comment"># 更改热点操作模式 </span></span><br><span class="line"><span class="comment"># hw_mode=ghw_mode=ahw_mode</span></span><br><span class="line"><span class="comment"># a = IEEE 802.11a （5 GHz） （树莓派 3B+ 起）</span></span><br><span class="line"><span class="comment"># b = IE 8021.1亿 （2.4 GHz）</span></span><br><span class="line"><span class="comment"># g = IE 802.11g （2.4 GHz）</span></span><br><span class="line">hw_mode=a</span><br><span class="line">channel=153                   <span class="comment"># 设置信道,acs_survey自动选择信道,5G 153</span></span><br><span class="line"><span class="comment"># 无线MAC地址过滤</span></span><br><span class="line"><span class="comment"># 此选项要求 driver=hostap 或 driver=nl80211</span></span><br><span class="line"><span class="comment"># 0 = 接受所有连接，仅拒绝 deny 列表中的连接</span></span><br><span class="line"><span class="comment"># 1 = 拒绝所有连接，仅接受 accept 列表中的连接</span></span><br><span class="line"><span class="comment"># 2 = 使用外部 RADIUS 服务器 (还是会优先查找 accept/deny 列表)</span></span><br><span class="line"><span class="comment"># 简单一点的话，可以将两个列表设置为同一个文件，仅由 macaddr_acl 来控制允许或拒绝</span></span><br><span class="line">macaddr_acl=0                 </span><br><span class="line">auth_algs=1                   <span class="comment"># 身份验证算法，1 开放系统认证，2 共享密钥认证(需要 WEP)，3 两者</span></span><br><span class="line">ignore_broadcast_ssid=0       <span class="comment"># 是否广播，0 广播SSID，1 不广播SSID（发送空SSID，即长度为0的SSID）</span></span><br><span class="line">wpa=2                         <span class="comment"># 1 wpa，2 wpa2, 3 两者。 新的设备可以设置为2，仅使用wpa2版本</span></span><br><span class="line">wpa_passphrase=12345678       <span class="comment"># wifi密码，自定义</span></span><br><span class="line">wpa_key_mgmt=WPA-PSK          <span class="comment"># 设置密钥管理算法WPA-PSK WPA-EAP或两者</span></span><br><span class="line">wpa_pairwise=CCMP             <span class="comment"># 设置加密算法，CCMP就是AES，不推荐使用TKIP，除非设备不支持</span></span><br><span class="line">rsn_pairwise=CCMP             <span class="comment"># 默认情况下rsn_pairwise自动设置为wpa_pairwise的值，当然也可以手动指定。</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-1-5-重启生效"><a href="#3-1-5-重启生效" class="headerlink" title="3.1.5 重启生效"></a>3.1.5 重启生效</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reboot</span><br></pre></td></tr></table></figure>
+<h2 id="3-2-docker环境安装"><a href="#3-2-docker环境安装" class="headerlink" title="3.2 docker环境安装"></a>3.2 docker环境安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 卸载旧版本</span></span><br><span class="line">sudo apt-get remove -y docker docker-engine docker.io containerd runc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新软件包索引并安装软件包以允许使用基于 HTTPS 的存储库</span></span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y \</span><br><span class="line">    ca-certificates \</span><br><span class="line">    curl \</span><br><span class="line">    gnupg \</span><br><span class="line">    lsb-release</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加 Docker 的官方 GPG 密钥    </span></span><br><span class="line">sudo mkdir -p /etc/apt/keyrings</span><br><span class="line">curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用以下命令设置存储库：</span></span><br><span class="line"><span class="built_in">echo</span> \</span><br><span class="line">  <span class="string">"deb [arch=<span class="variable">$(dpkg --print-architecture)</span> signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \</span></span><br><span class="line"><span class="string">  <span class="variable">$(lsb_release -cs)</span> stable"</span> | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装最新版</span></span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置daemon.json</span></span><br><span class="line">cat &gt;/etc/docker/daemon.json &lt;&lt;EOF</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"exec-opts"</span>: [<span class="string">"native.cgroupdriver=systemd"</span>],</span><br><span class="line">  <span class="string">"registry-mirrors"</span>: [</span><br><span class="line">    <span class="string">"https://docker.mirrors.ustc.edu.cn"</span>,</span><br><span class="line">    <span class="string">"http://hub-mirror.c.163.com"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"max-concurrent-downloads"</span>: 10,</span><br><span class="line">  <span class="string">"log-driver"</span>: <span class="string">"json-file"</span>,</span><br><span class="line">  <span class="string">"log-level"</span>: <span class="string">"warn"</span>,</span><br><span class="line">  <span class="string">"log-opts"</span>: &#123;</span><br><span class="line">    <span class="string">"max-size"</span>: <span class="string">"100m"</span>,</span><br><span class="line">    <span class="string">"max-file"</span>: <span class="string">"3"</span></span><br><span class="line">    &#125;,</span><br><span class="line">  <span class="string">"data-root"</span>: <span class="string">"/var/lib/docker"</span></span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 关闭防火墙,关闭docker防火墙规则配置，使用ufw规则</span></span><br><span class="line"><span class="built_in">echo</span> DOCKER_OPTS=<span class="string">"--iptables=false"</span> &gt;&gt; /etc/default/docker</span><br><span class="line">DOCKER_OPTS=<span class="string">"--iptables=false"</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://www.163.com/dy/article/HB3VCULI0552EKZ8.html#:~:text=%E4%BB%A4%E4%BA%BA%E6%83%8A%E8%AE%B6%E7%9A%84%E6%98%AF%EF%BC%8CDocker%20%E6%97%A0%E6%B3%95%E4%B8%8E%20Linux,%E7%9A%84%E2%80%9C%E9%80%9A%E7%94%A8%E9%98%B2%E7%81%AB%E5%A2%99%E2%80%9D%E6%88%96%20UFW%20%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8%E3%80%82" target="_blank" rel="noopener">参考1</a></p>
+<p><a href="https://blog.csdn.net/dt763C/article/details/79179321" target="_blank" rel="noopener">参考2</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重启docker</span></span><br><span class="line">systemc	restart docker</span><br></pre></td></tr></table></figure>
+<h2 id="3-3-gdwserv"><a href="#3-3-gdwserv" class="headerlink" title="3.3 gdwserv"></a>3.3 gdwserv</h2><p>导入gdwserv镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run --restart always -u root --privileged=<span class="literal">true</span> --name gdwserv -p 10000:10000 -p 6058:6058 -e BASEURL=http://192.168.1.101:10000/gdw -dti -v /data:/usr/<span class="built_in">local</span>/g</span><br><span class="line">dw/data 192.168.1.118:5000/gdwserv:2.0.0</span><br></pre></td></tr></table></figure>
+<h2 id="3-4-ftp服务"><a href="#3-4-ftp服务" class="headerlink" title="3.4 ftp服务"></a>3.4 ftp服务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install vsftpd</span><br></pre></td></tr></table></figure>
+<p><strong>修改/etc/vsftpd.conf</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加如下配置</span></span><br><span class="line">local_root=/data</span><br><span class="line">write_enable=yes</span><br><span class="line">allow_writeable_chroot=YES</span><br><span class="line">chroot_local_user=YES</span><br><span class="line">max_clients=1000</span><br><span class="line">max_per_ip=1000</span><br><span class="line"></span><br><span class="line">pasv_enable=YES</span><br><span class="line">pasv_min_port=13000</span><br><span class="line">pasv_max_port=13100</span><br></pre></td></tr></table></figure>
+<p><strong>修改/etc/ftpusers</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment"># 注释掉root,以允许root登录</span></span><br><span class="line">    --------------</span><br><span class="line">    <span class="comment"># /etc/ftpusers: list of users disallowed FTP access. See ftpusers(5).</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#root</span></span><br><span class="line">    daemon</span><br><span class="line">    bin</span><br><span class="line">sys</span><br><span class="line">sync</span><br><span class="line">games</span><br><span class="line">man</span><br><span class="line">lp</span><br><span class="line">mail</span><br><span class="line">news</span><br><span class="line">uucp</span><br><span class="line">nobody</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>备注：pam认证配置文件为 /etc/pam.d/vsftpd</p>
+</blockquote>
+<h1 id="4-系统镜像制作"><a href="#4-系统镜像制作" class="headerlink" title="4 系统镜像制作"></a>4 系统镜像制作</h1><h2 id="4-1-自定义镜像自动扩展磁盘"><a href="#4-1-自定义镜像自动扩展磁盘" class="headerlink" title="4.1 自定义镜像自动扩展磁盘"></a>4.1 自定义镜像自动扩展磁盘</h2><p>基于PI OS第一次开机初始化配置方法，重新执行初始化任务。</p>
+<h3 id="4-1-1-重新放入“resize2fs-once”文件（可选）"><a href="#4-1-1-重新放入“resize2fs-once”文件（可选）" class="headerlink" title="4.1.1 重新放入“resize2fs_once”文件（可选）"></a>4.1.1 重新放入“resize2fs_once”文件（可选）</h3><p>从Pi OS系统镜像/etc/init.d内拷贝“<strong>resize2fs_once</strong>”并重新放到sd卡同位置内。</p>
+<blockquote>
+<p>新系统默认存在该文件</p>
+</blockquote>
+<h3 id="4-1-2-修改“cmdline-txt”"><a href="#4-1-2-修改“cmdline-txt”" class="headerlink" title="4.1.2 修改“cmdline.txt”"></a>4.1.2 修改“cmdline.txt”</h3><blockquote>
+<p>备注： 不同Pi OS版本可能存在差异，参考Pi OS镜像的默认配置。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在文件末尾添加</span></span><br><span class="line">quiet init=/usr/lib/raspberrypi-sys-mods/firstboot</span><br><span class="line"></span><br><span class="line"><span class="comment">#比如，如果原先是</span></span><br><span class="line">console=serial0,115200 console=tty1 root=PARTUUID=a4f2a2cf-02 rootfstype=ext4 fsck.repair=yes rootwait logo.nologo</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#则改为</span></span><br><span class="line">console=serial0,115200 console=tty1 root=PARTUUID=a4f2a2cf-02 rootfstype=ext4 fsck.repair=yes rootwait logo.nologo quiet init=/usr/lib/raspberrypi-sys-mods/firstboot</span><br><span class="line"><span class="comment">###请务必保留其余部分不变###</span></span><br></pre></td></tr></table></figure>
+<p>插入树莓派，第一次启动自动扩容SD卡磁盘。</p>
+<h2 id="4-2-清理系统痕迹"><a href="#4-2-清理系统痕迹" class="headerlink" title="4.2 清理系统痕迹"></a>4.2 清理系统痕迹</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除系统及组件日志和缓存</span></span><br><span class="line"><span class="comment"># sudo find /var -type f -exec rm -v &#123;&#125; \;        # 会造成apt命令异常，暂停用。</span></span><br><span class="line">sudo find /var/<span class="built_in">log</span> -<span class="built_in">type</span> f -<span class="built_in">exec</span> rm -v &#123;&#125; \;      <span class="comment"># 删除日志文件，建议还是手动吧</span></span><br><span class="line"><span class="comment"># 删除各类history文件，清除使用过的脚本记录</span></span><br><span class="line">rm -rf ~/.*_history</span><br><span class="line">rm -rf ~/.*errors*</span><br><span class="line"><span class="built_in">history</span> -c</span><br><span class="line"><span class="comment"># 关机</span></span><br><span class="line">shutdown now</span><br></pre></td></tr></table></figure>
+<h2 id="4-3-缩小分区大小"><a href="#4-3-缩小分区大小" class="headerlink" title="4.3 缩小分区大小"></a>4.3 缩小分区大小</h2><p>在Linux系统下对SD卡系统做分区缩小，这里采用Linux下的可视化工具<code>Gparted</code>执行操作</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S gparted</span><br></pre></td></tr></table></figure>
+<ol>
+<li>SD卡接入PC</li>
+<li>启动Gparted</li>
+</ol>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20221108162337871.png" alt="image-20221108162337871"></p>
+<ol start="3">
+<li>右键选中分区，调整分区大小</li>
+</ol>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20221108162438671.png" alt="image-20221108162438671"></p>
+<ol start="4">
+<li>根据实际情况调整分区大小，建议略大于已占用空间，并点击“调整大小/移动”。</li>
+</ol>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20221108162550226.png" alt="image-20221108162550226"></p>
+<ol start="5">
+<li>点击工具栏“应用全部操作”，保存修改并执行，同时校验磁盘。弹出警告点击“应用(A)”确认。</li>
+</ol>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20221108162627706.png" alt="image-20221108162627706"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20221108162658265.png" alt="image-20221108162658265"></p>
+<h2 id="4-4-制作镜像"><a href="#4-4-制作镜像" class="headerlink" title="4.4 制作镜像"></a>4.4 制作镜像</h2><p>这里使用“Win32DiskImager”。“映像文件”选择保存镜像的位置，并新建一个“.img”结尾的文件，选中。“设备”选择TF卡对应的任意一个盘符即可，但请务必选择正确，避免选中其他U盘等。校验值根据喜好选择，也可以选择“无”。<strong>务必勾选“仅读取已分配分区”。</strong>然后点击读取，等待进度条完成。</p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20221108162824073.png" alt="image-20221108162824073"></p>
+<h2 id="4-5-压缩img文件"><a href="#4-5-压缩img文件" class="headerlink" title="4.5 压缩img文件"></a>4.5 压缩img文件</h2><p>完成后将“.img”文件添加到压缩文件，变为“.zip”进一步缩小镜像体积。这里强力推荐使用开源免费小巧的压缩软件7-Zip。使用7-Zip添加压缩文件，压缩格式选择“zip”，<strong>压缩等级选择“ 标准压缩”</strong>，其他默认即可。通过这样生成的压缩文件，可以直接被树莓派官方的镜像刷写软件“Raspberry Pi Imager”识别并刷写。</p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20221108162920675.png" alt="image-20221108162920675"></p>
+<h1 id="6-风扇配置"><a href="#6-风扇配置" class="headerlink" title="6 风扇配置"></a>6 风扇配置</h1><h2 id="6-1-安装pigpio"><a href="#6-1-安装pigpio" class="headerlink" title="6.1 安装pigpio"></a>6.1 安装pigpio</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt install pigpio pip -y</span><br><span class="line">systemctl <span class="built_in">enable</span> pigpiod</span><br><span class="line">pip install pigpio</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+        
+      </div>
+	  
+	  <div>
+        
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2022/11/07/模方安装部署配置手册(Pios)/">MF系统配置手册(Pios)</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
+  <p><span>发布时间:</span>2022年11月07日 - 17:11</p>
+  <p><span>最后更新:</span>2023年01月05日 - 12:01</p>
+  <p><span>原始链接:</span><a href="/2022/11/07/模方安装部署配置手册(Pios)/" title="MF系统配置手册(Pios)">https://kxinter.gitee.io/2022/11/07/模方安装部署配置手册(Pios)/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.gitee.io/2022/11/07/模方安装部署配置手册(Pios)/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+	});
+    });  
+</script>
+
+        
+      </div>
+	
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="OperationMAN 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="OperationMAN 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Raspberry-Pi/" rel="tag"><i class="fa fa-tag"></i> Raspberry Pi</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/09/29/Archlinux优化/" rel="next" title="Archlinux优化">
+                <i class="fa fa-chevron-left"></i> Archlinux优化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/11/13/systemd-service用法/" rel="prev" title="systemd.service用法">
+                systemd.service用法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+			<!--设置点击头像链接到首页-->
+			<a href="/">
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.jpeg"
+                alt="OperationMAN" />
+			</a>
+            
+              <p class="site-author-name" itemprop="name">OperationMAN</p>
+              <p class="site-description motion-element" itemprop="description">日常运维文档整理。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">155</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">106</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:kxhuanzi@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/kxinter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://gitee.com/kxinter" target="_blank" title="码云">
+                      
+                        <i class="fa fa-fw fa-code"></i>码云</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://man.linuxde.net/" target="_blank" title="Linux命令大全">
+                      
+                        <i class="fa fa-fw fa-linux"></i>Linux命令大全</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://linux.vbird.org" target="_blank" title="鸟哥的私房菜">
+                      
+                        <i class="fa fa-fw fa-linux"></i>鸟哥的私房菜</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.runoob.com/" target="_blank" title="RUNOOB.com">
+                      
+                        <i class="fa fa-fw fa-linux"></i>RUNOOB.com</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.chenshake.com/" target="_blank" title="陈沙克日志">
+                      
+                        <i class="fa fa-fw fa-cloud"></i>陈沙克日志</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://bitnami.com/" target="_blank" title="Bitnami">
+                      
+                        <i class="fa fa-fw fa-bold"></i>Bitnami</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://fontawesome.com/icons?d=gallery" target="_blank" title="Font Awesome">
+                      
+                        <i class="fa fa-fw fa-font-awesome"></i>Font Awesome</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://shenzekun.cn/hexo%E7%9A%84next%E4%B8%BB%E9%A2%98%E4%B8%AA%E6%80%A7%E5%8C%96%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.html" title="Next优化" target="_blank">Next优化</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" title="Next深度优化" target="_blank">Next深度优化</a>
+                  </li>
+                
+              </ul>
+			<div id="days"></div>
+<script>
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("05/27/2017 15:13:14");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行"+daysold+"天"+hrsold+"小时"+minsold+"分"+seconds+"秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+</script>
+  
+            </div>
+          
+
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-系统环境"><span class="nav-text">1 系统环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-系统配置-amp-优化"><span class="nav-text">2 系统配置&amp;优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-屏蔽开机彩虹屏"><span class="nav-text">2.1 屏蔽开机彩虹屏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-屏蔽开机草莓logo"><span class="nav-text">2.2 屏蔽开机草莓logo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-更换国内源"><span class="nav-text">2.3 更换国内源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-校准时区"><span class="nav-text">2.4 校准时区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-优化rc-local"><span class="nav-text">2.5 优化rc-local</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-更新boot-固件更新"><span class="nav-text">2.6 更新boot(固件更新)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7-配置静态IP"><span class="nav-text">2.7 配置静态IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-8-配置ufw防火墙"><span class="nav-text">2.8 配置ufw防火墙</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-安装服务"><span class="nav-text">3 安装服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-AP配置"><span class="nav-text">3.1 AP配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-1-安装hostapd和dnsmasq"><span class="nav-text">3.1.1 安装hostapd和dnsmasq</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2-配置wlan0静态IP"><span class="nav-text">3.1.2 配置wlan0静态IP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-3-配置路由转发和IP伪装（使用ufw防火墙请略过）"><span class="nav-text">3.1.3 配置路由转发和IP伪装（使用ufw防火墙请略过）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-4-配置hostapt和dnsmasq"><span class="nav-text">3.1.4 配置hostapt和dnsmasq</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-5-重启生效"><span class="nav-text">3.1.5 重启生效</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-docker环境安装"><span class="nav-text">3.2 docker环境安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-gdwserv"><span class="nav-text">3.3 gdwserv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-ftp服务"><span class="nav-text">3.4 ftp服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-系统镜像制作"><span class="nav-text">4 系统镜像制作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-自定义镜像自动扩展磁盘"><span class="nav-text">4.1 自定义镜像自动扩展磁盘</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-1-重新放入“resize2fs-once”文件（可选）"><span class="nav-text">4.1.1 重新放入“resize2fs_once”文件（可选）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-2-修改“cmdline-txt”"><span class="nav-text">4.1.2 修改“cmdline.txt”</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-清理系统痕迹"><span class="nav-text">4.2 清理系统痕迹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-缩小分区大小"><span class="nav-text">4.3 缩小分区大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-制作镜像"><span class="nav-text">4.4 制作镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-压缩img文件"><span class="nav-text">4.5 压缩img文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-风扇配置"><span class="nav-text">6 风扇配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-安装pigpio"><span class="nav-text">6.1 安装pigpio</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  
+  <span class="author" itemprop="copyrightHolder">OperationMAN</span>
+
+  
+    <span class="post-meta-divider">|</span>
+ <!--    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span> -->
+	
+	
+<!--     
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">197.9k</span>
+   -->
+  
+  	<!--添加备案信息-->
+	<a href="http://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">  豫ICP备 17032296 号</a>
+</div>
+
+<!--修改页面底部主题名字和网站软件名字-->
+<!-- 
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+ -->
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<!--动态背景>
+ <script type="text/javascript" src="/kxinter.gitub.io/lib/canvas-nest/canvas-nest.min.js"></script> 
+  <-->
+ </body>
+</html>
+<script type="text/javascript" src="/kxinter.gitub.io/js/src/love.js"></script>

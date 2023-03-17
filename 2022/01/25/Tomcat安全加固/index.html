@@ -130,13 +130,13 @@
 
 
 
-<meta name="description" content="1. 删除文档和实例程序检查方法 ：打开tomcat_home/webapps文件夹，默认存在docs和examples文件夹 加固方法：建议删除docs和examples文件夹  2 设置shutdown字符串安全基线项说明：防止恶意用户telnet到8005端口后，发送SHUTDOWN命令停止tomcat服务 检查方法：打开tomcat_home/conf/server.xml，查看是否设置了">
+<meta name="description" content="1. 删除文档和实例程序检查方法 ：打开tomcat_home/webapps文件夹，默认存在docs和examples文件夹 加固方法：建议删除docs和examples文件夹">
 <meta name="keywords" content="tomcat">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Tomcat安全加固">
 <meta property="og:url" content="https://kxinter.gitee.io/2022/01/25/Tomcat安全加固/index.html">
-<meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="1. 删除文档和实例程序检查方法 ：打开tomcat_home/webapps文件夹，默认存在docs和examples文件夹 加固方法：建议删除docs和examples文件夹  2 设置shutdown字符串安全基线项说明：防止恶意用户telnet到8005端口后，发送SHUTDOWN命令停止tomcat服务 检查方法：打开tomcat_home/conf/server.xml，查看是否设置了">
+<meta property="og:site_name" content="运维随笔">
+<meta property="og:description" content="1. 删除文档和实例程序检查方法 ：打开tomcat_home/webapps文件夹，默认存在docs和examples文件夹 加固方法：建议删除docs和examples文件夹">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/20200529173231161.png">
 <meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/20200529173309930.png">
@@ -144,10 +144,10 @@
 <meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/20200529173422127.png">
 <meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/20200529173501171.png">
 <meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/20200529173706297.png">
-<meta property="og:updated_time" content="2022-03-31T03:34:43.669Z">
+<meta property="og:updated_time" content="2022-03-31T08:29:17.650Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tomcat安全加固">
-<meta name="twitter:description" content="1. 删除文档和实例程序检查方法 ：打开tomcat_home/webapps文件夹，默认存在docs和examples文件夹 加固方法：建议删除docs和examples文件夹  2 设置shutdown字符串安全基线项说明：防止恶意用户telnet到8005端口后，发送SHUTDOWN命令停止tomcat服务 检查方法：打开tomcat_home/conf/server.xml，查看是否设置了">
+<meta name="twitter:description" content="1. 删除文档和实例程序检查方法 ：打开tomcat_home/webapps文件夹，默认存在docs和examples文件夹 加固方法：建议删除docs和examples文件夹">
 <meta name="twitter:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/20200529173231161.png">
 
 
@@ -184,7 +184,7 @@
 
 
 
-  <title>Tomcat安全加固 | Operation随笔</title>
+  <title>Tomcat安全加固 | 运维随笔</title>
   
 
 
@@ -218,7 +218,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Operation随笔</span>
+        <span class="site-title">运维随笔</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -368,7 +368,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
+      <meta itemprop="name" content="运维随笔">
     </span>
 
     
@@ -404,7 +404,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:34:43+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T16:29:17+08:00">
                 2022-03-31
               </time>
             
@@ -498,6 +498,7 @@
       
         <h1 id="1-删除文档和实例程序"><a href="#1-删除文档和实例程序" class="headerlink" title="1. 删除文档和实例程序"></a>1. 删除文档和实例程序</h1><p><strong>检查方法</strong> ：打开tomcat_home/webapps文件夹，默认存在docs和examples文件夹</p>
 <p><strong>加固方法</strong>：建议删除docs和examples文件夹</p>
+<a id="more"></a>
 <p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/20200529173231161.png" alt="在这里插入图片描述"></p>
 <h1 id="2-设置shutdown字符串"><a href="#2-设置shutdown字符串" class="headerlink" title="2 设置shutdown字符串"></a>2 <strong>设置shutdown字符串</strong></h1><p><strong>安全基线项说明</strong>：防止恶意用户telnet到8005端口后，发送SHUTDOWN命令停止tomcat服务</p>
 <p><strong>检查方法</strong>：打开tomcat_home/conf/server.xml，查看是否设置了复杂的字符串<br><code>&lt;Server port=&quot;8005&quot;shutdown=“复杂的字符串”&gt;</code></p>
@@ -560,7 +561,7 @@ prefix=“localhost_access_log.“suffix=”.txt” pattern=&quot;common&quot;re
   <p><span>本文标题:</span><a href="/2022/01/25/Tomcat安全加固/">Tomcat安全加固</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2022年01月25日 - 16:01</p>
-  <p><span>最后更新:</span>2022年03月31日 - 11:03</p>
+  <p><span>最后更新:</span>2022年03月31日 - 16:03</p>
   <p><span>原始链接:</span><a href="/2022/01/25/Tomcat安全加固/" title="Tomcat安全加固">https://kxinter.gitee.io/2022/01/25/Tomcat安全加固/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.gitee.io/2022/01/25/Tomcat安全加固/"  aria-label="复制成功！"></i></span>
   </p>
@@ -678,11 +679,6 @@ prefix=“localhost_access_log.“suffix=”.txt” pattern=&quot;common&quot;re
           
 
   
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTUxNS8xNjA0Mg"></div>
-    </div>
-
-  
 
 
 
@@ -737,7 +733,7 @@ prefix=“localhost_access_log.“suffix=”.txt” pattern=&quot;common&quot;re
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">155</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -748,7 +744,7 @@ prefix=“localhost_access_log.“suffix=”.txt” pattern=&quot;common&quot;re
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -759,7 +755,7 @@ prefix=“localhost_access_log.“suffix=”.txt” pattern=&quot;common&quot;re
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">106</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -788,18 +784,6 @@ prefix=“localhost_access_log.“suffix=”.txt” pattern=&quot;common&quot;re
                     <a href="https://gitee.com/kxinter" target="_blank" title="码云">
                       
                         <i class="fa fa-fw fa-code"></i>码云</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://kxinter.gitee.io" target="_blank" title="blog">
-                      
-                        <i class="fa fa-fw fa-book"></i>blog</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://medoc.000webhostapp.com" target="_blank" title="随手笔记">
-                      
-                        <i class="fa fa-fw fa-wordpress"></i>随手笔记</a>
                   </span>
                 
                   <span class="links-of-author-item">
@@ -838,12 +822,6 @@ prefix=“localhost_access_log.“suffix=”.txt” pattern=&quot;common&quot;re
                         <i class="fa fa-fw fa-font-awesome"></i>Font Awesome</a>
                   </span>
                 
-                  <span class="links-of-author-item">
-                    <a href="https://www.000webhost.com/cpanel-login?from=panel#" target="_blank" title="Statistics">
-                      
-                        <i class="fa fa-fw fa-server"></i>Statistics</a>
-                  </span>
-                
             </div>
           
 
@@ -865,10 +843,6 @@ prefix=“localhost_access_log.“suffix=”.txt” pattern=&quot;common&quot;re
                 
                   <li class="links-of-blogroll-item">
                     <a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" title="Next深度优化" target="_blank">Next深度优化</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://livere.com/" title="来必力" target="_blank">来必力</a>
                   </li>
                 
               </ul>
@@ -936,27 +910,32 @@ show_date_time();
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
+  
   <span class="author" itemprop="copyrightHolder">OperationMAN</span>
 
   
     <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
+ <!--    <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
-    </span>
-    
+    </span> -->
+	
+	
+<!--     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">175.5k</span>
+    <span title="Site words total count">197.9k</span>
+   -->
   
+  	<!--添加备案信息-->
+	<a href="http://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">  豫ICP备 17032296 号</a>
 </div>
 
-
-
 <!--修改页面底部主题名字和网站软件名字-->
+<!-- 
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
@@ -981,8 +960,7 @@ show_date_time();
 </span>
 </div>
 
-
-
+ -->
         
 
 
@@ -1111,17 +1089,6 @@ show_date_time();
 
 
 
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
   
 
 

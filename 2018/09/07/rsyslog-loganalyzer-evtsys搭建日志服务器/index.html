@@ -135,25 +135,25 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="rsyslog+loganalyzer+evtsys搭建日志服务器">
 <meta property="og:url" content="https://kxinter.gitee.io/2018/09/07/rsyslog-loganalyzer-evtsys搭建日志服务器/index.html">
-<meta property="og:site_name" content="Operation随笔">
+<meta property="og:site_name" content="运维随笔">
 <meta property="og:description" content="1 环境要求">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819951390.png">
-<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819963433.png">
-<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819970033.png">
-<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819976887.png">
-<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819985368.png">
-<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819993917.png">
-<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571820001202.png">
-<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571820008966.png">
-<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571820017353.png">
-<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571820028842.png">
-<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571820040575.png">
-<meta property="og:updated_time" content="2022-03-31T03:32:11.309Z">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819951390.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819963433.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819970033.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819976887.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819985368.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819993917.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571820001202.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571820008966.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571820017353.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571820028842.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571820040575.png">
+<meta property="og:updated_time" content="2022-03-31T05:44:16.499Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="rsyslog+loganalyzer+evtsys搭建日志服务器">
 <meta name="twitter:description" content="1 环境要求">
-<meta name="twitter:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819951390.png">
+<meta name="twitter:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819951390.png">
 
 
 
@@ -189,7 +189,7 @@
 
 
 
-  <title>rsyslog+loganalyzer+evtsys搭建日志服务器 | Operation随笔</title>
+  <title>rsyslog+loganalyzer+evtsys搭建日志服务器 | 运维随笔</title>
   
 
 
@@ -223,7 +223,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Operation随笔</span>
+        <span class="site-title">运维随笔</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -373,7 +373,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
+      <meta itemprop="name" content="运维随笔">
     </span>
 
     
@@ -409,7 +409,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:32:11+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T13:44:16+08:00">
                 2022-03-31
               </time>
             
@@ -551,18 +551,18 @@
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[iyunv<span class="variable">@rsyslog</span> ~]<span class="comment">#   vim /etc/httpd/conf/httpd.conf</span></span><br><span class="line">DocumentRoot <span class="string">"/var/www/html/loganalyzer"</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">[iyunv<span class="variable">@rsyslog</span> ~]<span class="comment"># service httpd start</span></span><br></pre></td></tr></table></figure>
 <h3 id="2-4-4-配置httpd和mysql开机启动"><a href="#2-4-4-配置httpd和mysql开机启动" class="headerlink" title="2.4.4 配置httpd和mysql开机启动"></a>2.4.4 配置httpd和mysql开机启动</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[iyunv<span class="variable">@rsyslog</span> ~]<span class="comment">#   chkconfig mysqld on</span></span><br><span class="line"></span><br><span class="line">[iyunv<span class="variable">@rsyslog</span> ~]<span class="comment"># chkconfig httpd on</span></span><br></pre></td></tr></table></figure>
 <h3 id="2-4-5-创建loganalyzer数据库，并授权"><a href="#2-4-5-创建loganalyzer数据库，并授权" class="headerlink" title="2.4.5 创建loganalyzer数据库，并授权"></a>2.4.5 创建loganalyzer数据库，并授权</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[iyunv@rsyslog   ~]</span># <span class="selector-tag">mysql</span></span><br><span class="line"><span class="selector-tag">Enter</span> <span class="selector-tag">password</span>:</span><br><span class="line"><span class="selector-tag">mysql</span>&gt; <span class="selector-tag">create</span> <span class="selector-tag">database</span> <span class="selector-tag">loganalyzer</span>;</span><br><span class="line"><span class="selector-tag">Query</span> <span class="selector-tag">OK</span>, 1 <span class="selector-tag">row</span> <span class="selector-tag">affected</span> (0<span class="selector-class">.04</span> <span class="selector-tag">sec</span>)</span><br><span class="line"><span class="selector-tag">mysql</span>&gt; <span class="selector-tag">grant</span> <span class="selector-tag">all</span> <span class="selector-tag">on</span> <span class="selector-tag">loganalyzer</span>.* <span class="selector-tag">to</span> <span class="selector-tag">dianyi</span>@'<span class="keyword">192</span>.<span class="keyword">168</span>.<span class="keyword">200</span>.<span class="keyword">106</span>' identified   by <span class="string">'dianyi123'</span>;</span><br><span class="line"><span class="selector-tag">Query</span> <span class="selector-tag">OK</span>, 0 <span class="selector-tag">rows</span> <span class="selector-tag">affected</span> (0<span class="selector-class">.00</span> <span class="selector-tag">sec</span>)</span><br><span class="line"><span class="selector-tag">mysql</span>&gt; <span class="selector-tag">flush</span> <span class="selector-tag">privileges</span>;</span><br><span class="line"><span class="selector-tag">Query</span> <span class="selector-tag">OK</span>, 0 <span class="selector-tag">rows</span> <span class="selector-tag">affected</span> (0<span class="selector-class">.00</span> <span class="selector-tag">sec</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="2-4-6-安装loganalyzer"><a href="#2-4-6-安装loganalyzer" class="headerlink" title="2.4.6 安装loganalyzer"></a>2.4.6 安装loganalyzer</h3><h4 id="2-4-6-1-安装界面"><a href="#2-4-6-1-安装界面" class="headerlink" title="2.4.6.1 安装界面"></a>2.4.6.1 安装界面</h4><p><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819951390.png" alt="图1"></p>
-<p><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819963433.png" alt="图2"></p>
-<p><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819970033.png" alt="图3"></p>
-<p><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819976887.png" alt="图4"></p>
-<p><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819985368.png" alt="图5"></p>
-<p><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819993917.png" alt="图6"></p>
-<p><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571820001202.png" alt="图7"></p>
-<p><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571820008966.png" alt="图8"></p>
-<p><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571820017353.png" alt="图9"><br>安装完成，enjoy it<br><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571820028842.png" alt="图10"></p>
+<h3 id="2-4-6-安装loganalyzer"><a href="#2-4-6-安装loganalyzer" class="headerlink" title="2.4.6 安装loganalyzer"></a>2.4.6 安装loganalyzer</h3><h4 id="2-4-6-1-安装界面"><a href="#2-4-6-1-安装界面" class="headerlink" title="2.4.6.1 安装界面"></a>2.4.6.1 安装界面</h4><p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819951390.png" alt="图1"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819963433.png" alt="图2"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819970033.png" alt="图3"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819976887.png" alt="图4"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819985368.png" alt="图5"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571819993917.png" alt="图6"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571820001202.png" alt="图7"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571820008966.png" alt="图8"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571820017353.png" alt="图9"><br>安装完成，enjoy it<br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571820028842.png" alt="图10"></p>
 <h2 id="2-5-Windows客户端的安装配置"><a href="#2-5-Windows客户端的安装配置" class="headerlink" title="2.5 Windows客户端的安装配置"></a>2.5 Windows客户端的安装配置</h2><h3 id="2-5-1-安装Syslog日志客户端"><a href="#2-5-1-安装Syslog日志客户端" class="headerlink" title="2.5.1 安装Syslog日志客户端"></a>2.5.1 安装Syslog日志客户端</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">下载<span class="selector-tag">Evtsys</span>软件，分32位和64位安装方法一样。解压后将<span class="selector-tag">evtsys</span><span class="selector-class">.dll</span>、<span class="selector-tag">evtsys</span><span class="selector-class">.exe</span>复制到<span class="selector-tag">c</span>:\<span class="selector-tag">windows</span>\<span class="selector-tag">system32</span>\下。</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="selector-tag">cd</span>   <span class="selector-tag">c</span>:\<span class="selector-tag">windows</span>\<span class="selector-tag">system32</span></span><br><span class="line"></span><br><span class="line"><span class="selector-tag">evtsys</span><span class="selector-class">.exe</span> <span class="selector-tag">-i</span> <span class="selector-tag">-h</span>   192<span class="selector-class">.168</span><span class="selector-class">.200</span><span class="selector-class">.31</span> <span class="selector-tag">-p</span> 514</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">net</span> <span class="selector-tag">start</span> <span class="selector-tag">evtsys</span></span><br></pre></td></tr></table></figure>
 <h3 id="2-2-2-开启系统相关审计"><a href="#2-2-2-开启系统相关审计" class="headerlink" title="2.2.2 开启系统相关审计"></a>2.2.2 开启系统相关审计</h3><p>打开<code>windows组策略编辑器</code> (开始-&gt;运行 输入 <code>gpedit.msc</code>) 在<strong>windows 设置－&gt; 安全设置 －&gt; 本地策略－&gt;审核策略</strong>中，打开你需要记录的<code>windows日志</code>。<code>evtsys</code>会实时的判断是否有新的windows日志产生，然后把新产生的日志转换成<code>syslogd</code>可识别的格式,通过<code>UDP</code>端口发送给<code>syslogd</code>服务器。</p>
-<p><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571820040575.png" alt="图11"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/rsyslog+loganalyzer+evtsys搭建日志服务器/1571820040575.png" alt="图11"></p>
 <h1 id="3-Mysql数据库的优化的一些想法"><a href="#3-Mysql数据库的优化的一些想法" class="headerlink" title="3 Mysql数据库的优化的一些想法"></a>3 Mysql数据库的优化的一些想法</h1><p>随着mysql数据库中的记录越来越多，查询的速度会越来越慢。我们可以定期到数据表中删除较早以前的记录来减少数据量从而起到优化的作用。可以定期执行如下SQL语句：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> SystemEvents(数据表名) <span class="keyword">where</span> ReceivedAt(日期字段名)&lt;<span class="keyword">curdate</span>() - <span class="built_in">interval</span> <span class="number">3</span> <span class="keyword">month</span>;</span><br></pre></td></tr></table></figure>
 <p>//表示删除” <code>SystemEvents</code>”数据表” <code>ReceivedAt</code>”日期字段大于3个月的记录</p>
@@ -596,7 +596,7 @@
   <p><span>本文标题:</span><a href="/2018/09/07/rsyslog-loganalyzer-evtsys搭建日志服务器/">rsyslog+loganalyzer+evtsys搭建日志服务器</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2018年09月07日 - 15:09</p>
-  <p><span>最后更新:</span>2022年03月31日 - 11:03</p>
+  <p><span>最后更新:</span>2022年03月31日 - 13:03</p>
   <p><span>原始链接:</span><a href="/2018/09/07/rsyslog-loganalyzer-evtsys搭建日志服务器/" title="rsyslog+loganalyzer+evtsys搭建日志服务器">https://kxinter.gitee.io/2018/09/07/rsyslog-loganalyzer-evtsys搭建日志服务器/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.gitee.io/2018/09/07/rsyslog-loganalyzer-evtsys搭建日志服务器/"  aria-label="复制成功！"></i></span>
   </p>
@@ -714,11 +714,6 @@
           
 
   
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTUxNS8xNjA0Mg"></div>
-    </div>
-
-  
 
 
 
@@ -773,7 +768,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">155</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -784,7 +779,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -795,7 +790,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">106</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -824,18 +819,6 @@
                     <a href="https://gitee.com/kxinter" target="_blank" title="码云">
                       
                         <i class="fa fa-fw fa-code"></i>码云</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://kxinter.gitee.io" target="_blank" title="blog">
-                      
-                        <i class="fa fa-fw fa-book"></i>blog</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://medoc.000webhostapp.com" target="_blank" title="随手笔记">
-                      
-                        <i class="fa fa-fw fa-wordpress"></i>随手笔记</a>
                   </span>
                 
                   <span class="links-of-author-item">
@@ -874,12 +857,6 @@
                         <i class="fa fa-fw fa-font-awesome"></i>Font Awesome</a>
                   </span>
                 
-                  <span class="links-of-author-item">
-                    <a href="https://www.000webhost.com/cpanel-login?from=panel#" target="_blank" title="Statistics">
-                      
-                        <i class="fa fa-fw fa-server"></i>Statistics</a>
-                  </span>
-                
             </div>
           
 
@@ -901,10 +878,6 @@
                 
                   <li class="links-of-blogroll-item">
                     <a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" title="Next深度优化" target="_blank">Next深度优化</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://livere.com/" title="来必力" target="_blank">来必力</a>
                   </li>
                 
               </ul>
@@ -972,27 +945,32 @@ show_date_time();
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
+  
   <span class="author" itemprop="copyrightHolder">OperationMAN</span>
 
   
     <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
+ <!--    <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
-    </span>
-    
+    </span> -->
+	
+	
+<!--     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">175.5k</span>
+    <span title="Site words total count">197.9k</span>
+   -->
   
+  	<!--添加备案信息-->
+	<a href="http://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">  豫ICP备 17032296 号</a>
 </div>
 
-
-
 <!--修改页面底部主题名字和网站软件名字-->
+<!-- 
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
@@ -1017,8 +995,7 @@ show_date_time();
 </span>
 </div>
 
-
-
+ -->
         
 
 
@@ -1147,17 +1124,6 @@ show_date_time();
 
 
 
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
   
 
 

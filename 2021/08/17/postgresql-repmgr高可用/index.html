@@ -130,18 +130,18 @@
 
 
 
-<meta name="description" content="1 参考文档repmgr 官方文档：repmgr 5.3dev Documentation 其他文档：Configure PostgreSQL Replication With Repmgr_qq_38461429的博客-CSDN博客 2 环境   主机名 IP OS 角色 软件包     pg1 192.168.44.131 Centos 7 primary postgresql 11  and">
+<meta name="description" content="1 参考文档">
 <meta name="keywords" content="postgresql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="postgresql+repmgr高可用">
 <meta property="og:url" content="https://kxinter.gitee.io/2021/08/17/postgresql-repmgr高可用/index.html">
-<meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="1 参考文档repmgr 官方文档：repmgr 5.3dev Documentation 其他文档：Configure PostgreSQL Replication With Repmgr_qq_38461429的博客-CSDN博客 2 环境   主机名 IP OS 角色 软件包     pg1 192.168.44.131 Centos 7 primary postgresql 11  and">
+<meta property="og:site_name" content="运维随笔">
+<meta property="og:description" content="1 参考文档">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2022-01-13T05:36:58.487Z">
+<meta property="og:updated_time" content="2022-06-05T13:48:12.941Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="postgresql+repmgr高可用">
-<meta name="twitter:description" content="1 参考文档repmgr 官方文档：repmgr 5.3dev Documentation 其他文档：Configure PostgreSQL Replication With Repmgr_qq_38461429的博客-CSDN博客 2 环境   主机名 IP OS 角色 软件包     pg1 192.168.44.131 Centos 7 primary postgresql 11  and">
+<meta name="twitter:description" content="1 参考文档">
 
 
 
@@ -177,7 +177,7 @@
 
 
 
-  <title>postgresql+repmgr高可用 | Operation随笔</title>
+  <title>postgresql+repmgr高可用 | 运维随笔</title>
   
 
 
@@ -211,7 +211,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Operation随笔</span>
+        <span class="site-title">运维随笔</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -361,7 +361,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
+      <meta itemprop="name" content="运维随笔">
     </span>
 
     
@@ -397,8 +397,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-01-13T13:36:58+08:00">
-                2022-01-13
+              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:48:12+08:00">
+                2022-06-05
               </time>
             
           </span>
@@ -489,7 +489,8 @@
       
 
       
-        <h1 id="1-参考文档"><a href="#1-参考文档" class="headerlink" title="1 参考文档"></a>1 参考文档</h1><p>repmgr 官方文档：<a href="https://repmgr.org/docs/current/index.html" target="_blank" rel="noopener">repmgr 5.3dev Documentation</a></p>
+        <h1 id="1-参考文档"><a href="#1-参考文档" class="headerlink" title="1 参考文档"></a>1 参考文档</h1><a id="more"></a>
+<p>repmgr 官方文档：<a href="https://repmgr.org/docs/current/index.html" target="_blank" rel="noopener">repmgr 5.3dev Documentation</a></p>
 <p>其他文档：<a href="https://blog.csdn.net/qq_38461429/article/details/107487092" target="_blank" rel="noopener">Configure PostgreSQL Replication With Repmgr_qq_38461429的博客-CSDN博客</a></p>
 <h1 id="2-环境"><a href="#2-环境" class="headerlink" title="2 环境"></a>2 环境</h1><table>
 <thead>
@@ -526,7 +527,7 @@
 </tbody>
 </table>
 <div class="note default"><p><strong>备注</strong><br>以下安装方式均采用在线安装方式。</p></div>
-<a id="more"></a>
+<!--more-->
 <h1 id="3-修改hosts"><a href="#3-修改hosts" class="headerlink" title="3 修改hosts"></a>3 修改hosts</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">192.168.44.131 pg1</span><br><span class="line">192.168.44.132 pg2</span><br><span class="line">192.168.44.135 pg3</span><br></pre></td></tr></table></figure>
 <h1 id="4-配置SSH免密登陆"><a href="#4-配置SSH免密登陆" class="headerlink" title="4 配置SSH免密登陆"></a>4 配置SSH免密登陆</h1><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr"># 生产密钥</span></span><br><span class="line"><span class="attr">ssh-keygen -t rsa</span></span><br><span class="line"><span class="attr"># 写入文件</span></span><br><span class="line"><span class="attr">cat id_rsa.pub &gt; authorized_keys</span></span><br><span class="line"><span class="attr"># 赋权 600</span></span><br><span class="line">chmod <span class="number">+600</span> authorized_keys</span><br><span class="line"><span class="attr"># 拷贝 pg2</span>\p<span class="name">g3</span> 密钥到一个authorized_keys文件</span><br><span class="line">ssh p<span class="name">g2</span> cat /root/.ssh/id_rsa.pub &gt;&gt; authorized_keys</span><br><span class="line">ssh p<span class="name">g3</span> cat /root/.ssh/id_rsa.pub &gt;&gt; authorized_keys</span><br><span class="line"><span class="attr"># 拷贝authorized_keys 到pg2</span>\p<span class="name">g3</span></span><br><span class="line">scp authorized_keys p<span class="name">g2</span>:/root/.ssh/</span><br><span class="line">scp authorized_keys p<span class="name">g3</span>:/root/.ssh/</span><br><span class="line"><span class="attr"># ssh pg1</span>\p<span class="name">g2</span>\p<span class="name">g3</span> 测试是否生效</span><br></pre></td></tr></table></figure>
 <div class="note info"><p><strong>注意</strong><br>后面postgresql安装后，也需要配置postgres用户的SSH免密登陆。</p></div>
@@ -701,7 +702,7 @@
   <p><span>本文标题:</span><a href="/2021/08/17/postgresql-repmgr高可用/">postgresql+repmgr高可用</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2021年08月17日 - 16:08</p>
-  <p><span>最后更新:</span>2022年01月13日 - 13:01</p>
+  <p><span>最后更新:</span>2022年06月05日 - 21:06</p>
   <p><span>原始链接:</span><a href="/2021/08/17/postgresql-repmgr高可用/" title="postgresql+repmgr高可用">https://kxinter.gitee.io/2021/08/17/postgresql-repmgr高可用/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.gitee.io/2021/08/17/postgresql-repmgr高可用/"  aria-label="复制成功！"></i></span>
   </p>
@@ -819,11 +820,6 @@
           
 
   
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTUxNS8xNjA0Mg"></div>
-    </div>
-
-  
 
 
 
@@ -878,7 +874,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">155</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -889,7 +885,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -900,7 +896,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">106</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -929,18 +925,6 @@
                     <a href="https://gitee.com/kxinter" target="_blank" title="码云">
                       
                         <i class="fa fa-fw fa-code"></i>码云</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://kxinter.gitee.io" target="_blank" title="blog">
-                      
-                        <i class="fa fa-fw fa-book"></i>blog</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://medoc.000webhostapp.com" target="_blank" title="随手笔记">
-                      
-                        <i class="fa fa-fw fa-wordpress"></i>随手笔记</a>
                   </span>
                 
                   <span class="links-of-author-item">
@@ -979,12 +963,6 @@
                         <i class="fa fa-fw fa-font-awesome"></i>Font Awesome</a>
                   </span>
                 
-                  <span class="links-of-author-item">
-                    <a href="https://www.000webhost.com/cpanel-login?from=panel#" target="_blank" title="Statistics">
-                      
-                        <i class="fa fa-fw fa-server"></i>Statistics</a>
-                  </span>
-                
             </div>
           
 
@@ -1006,10 +984,6 @@
                 
                   <li class="links-of-blogroll-item">
                     <a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" title="Next深度优化" target="_blank">Next深度优化</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://livere.com/" title="来必力" target="_blank">来必力</a>
                   </li>
                 
               </ul>
@@ -1077,27 +1051,32 @@ show_date_time();
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
+  
   <span class="author" itemprop="copyrightHolder">OperationMAN</span>
 
   
     <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
+ <!--    <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
-    </span>
-    
+    </span> -->
+	
+	
+<!--     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">175.5k</span>
+    <span title="Site words total count">197.9k</span>
+   -->
   
+  	<!--添加备案信息-->
+	<a href="http://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">  豫ICP备 17032296 号</a>
 </div>
 
-
-
 <!--修改页面底部主题名字和网站软件名字-->
+<!-- 
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
@@ -1122,8 +1101,7 @@ show_date_time();
 </span>
 </div>
 
-
-
+ -->
         
 
 
@@ -1252,17 +1230,6 @@ show_date_time();
 
 
 
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
   
 
 

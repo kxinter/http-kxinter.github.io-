@@ -130,18 +130,18 @@
 
 
 
-<meta name="description" content="Nginx:1.20.1版本 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697">
+<meta name="description" content="Nginx:1.20.1版本">
 <meta name="keywords" content="nginx">
 <meta property="og:type" content="article">
 <meta property="og:title" content="nginx配置示例1">
 <meta property="og:url" content="https://kxinter.gitee.io/2022/03/29/nginx配置示例1/index.html">
-<meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="Nginx:1.20.1版本 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697">
+<meta property="og:site_name" content="运维随笔">
+<meta property="og:description" content="Nginx:1.20.1版本">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2022-03-29T00:53:40.689Z">
+<meta property="og:updated_time" content="2022-06-05T13:44:47.970Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx配置示例1">
-<meta name="twitter:description" content="Nginx:1.20.1版本 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697">
+<meta name="twitter:description" content="Nginx:1.20.1版本">
 
 
 
@@ -177,7 +177,7 @@
 
 
 
-  <title>nginx配置示例1 | Operation随笔</title>
+  <title>nginx配置示例1 | 运维随笔</title>
   
 
 
@@ -211,7 +211,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Operation随笔</span>
+        <span class="site-title">运维随笔</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -361,7 +361,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
+      <meta itemprop="name" content="运维随笔">
     </span>
 
     
@@ -397,8 +397,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-03-29T08:53:40+08:00">
-                2022-03-29
+              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:44:47+08:00">
+                2022-06-05
               </time>
             
           </span>
@@ -490,6 +490,7 @@
 
       
         <p>Nginx:1.20.1版本</p>
+<a id="more"></a>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># For more information on configuration, see:</span></span><br><span class="line"><span class="comment">#   * Official English Documentation: http://nginx.org/en/docs/</span></span><br><span class="line"><span class="comment">#   * Official Russian Documentation: http://nginx.org/ru/docs/</span></span><br><span class="line"><span class="comment"># 使用用户和组</span></span><br><span class="line"><span class="comment"># user nginx nginx;</span></span><br><span class="line"><span class="comment"># 使用使用用户</span></span><br><span class="line">user nginx;</span><br><span class="line"><span class="comment"># 指定工作进程数（一般等于CPU的总核数或者总核数的2倍）</span></span><br><span class="line"><span class="comment"># 默认值为 auto（根据核心数自动生成对应数量的work进程）。</span></span><br><span class="line">worker_processes 8;</span><br><span class="line"><span class="comment"># 指定错误日志存放位置</span></span><br><span class="line">error_log /var/<span class="built_in">log</span>/nginx/error.log info;</span><br><span class="line"><span class="comment"># 指定pid文件位置</span></span><br><span class="line">pid /run/nginx.pid;</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 指定文件描述符数量（默认不配置）</span></span><br><span class="line"><span class="comment"># 将此值增加到大于worker_processes * worker_connections的值</span></span><br><span class="line">worker_rlimit_nofile 51200;</span><br><span class="line"> </span><br><span class="line"><span class="comment"># Load dynamic modules. See /usr/share/doc/nginx/README.dynamic.</span></span><br><span class="line"><span class="comment"># 加载本地动态模块</span></span><br><span class="line">include /usr/share/nginx/modules/*.conf;</span><br><span class="line"> </span><br><span class="line">events &#123;</span><br><span class="line"><span class="comment"># 使用的网络I/O模型，Linux系统推荐epoll模型，FreeBSD系统推荐kqueue模型（默认不配置）</span></span><br><span class="line">    use epoll;</span><br><span class="line"><span class="comment"># 允许的最大连接数（默认500）</span></span><br><span class="line">    worker_connections 51200;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">http &#123;</span><br><span class="line">    log_format  main  <span class="string">'$remote_addr - $remote_user [$time_local] "$request" '</span></span><br><span class="line">                      <span class="string">'$status $body_bytes_sent "$http_referer" '</span></span><br><span class="line">                      <span class="string">'"$http_user_agent" "$http_x_forwarded_for"'</span>;</span><br><span class="line"><span class="comment"># 指定访问日志位置</span></span><br><span class="line">    access_log  /var/<span class="built_in">log</span>/nginx/access.log  main;</span><br><span class="line"> </span><br><span class="line">    sendfile            on;</span><br><span class="line">    tcp_nopush          on;</span><br><span class="line">    tcp_nodelay         on;</span><br><span class="line">    keepalive_timeout   65;</span><br><span class="line">    types_hash_max_size 4096;</span><br><span class="line"> </span><br><span class="line">    include             /etc/nginx/mime.types;</span><br><span class="line">    default_type        application/octet-stream;</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 设置使用的字符集，如果网站有多个字符集，不要随便设置，应让程序员在HTML代码中通过Meta标签设置</span></span><br><span class="line"><span class="comment"># 默认不配置</span></span><br><span class="line"><span class="comment"># charset gb2312</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 设置客户端能够上传的文件大小（默认不配置）</span></span><br><span class="line">    client_max_body_size 8m;</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 开启gzip压缩(默认不配置)</span></span><br><span class="line">    gzip on;</span><br><span class="line">    gzip_min_length 1k;</span><br><span class="line">    gzip_buffers 4 16k;</span><br><span class="line">    gzip_http_version 1.1;</span><br><span class="line">    gzip_comp_level 3;</span><br><span class="line">    gzip_types text/plain application/javascript application/json application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;</span><br><span class="line">    gzip_vary on;</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 静态缓存</span></span><br><span class="line">    proxy_connect_timeout 10;</span><br><span class="line">    proxy_read_timeout 180;</span><br><span class="line">    proxy_send_timeout 5;</span><br><span class="line">    proxy_buffer_size 16k;</span><br><span class="line">    proxy_buffers 4 32k;</span><br><span class="line">    proxy_busy_buffers_size 96k;</span><br><span class="line">    proxy_temp_file_write_size 96k;</span><br><span class="line">    proxy_temp_path /tmp/temp_dir;</span><br><span class="line">    proxy_cache_path /tmp/cache levels=1:2 keys_zone=cache_one:100m inactive=1d max_size=10g;</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># Load modular configuration files from the /etc/nginx/conf.d directory.</span></span><br><span class="line">    <span class="comment"># See http://nginx.org/en/docs/ngx_core_module.html#include</span></span><br><span class="line">    <span class="comment"># for more information.</span></span><br><span class="line">    include /etc/nginx/conf.d/*.conf;</span><br><span class="line"> </span><br><span class="line">     server &#123;</span><br><span class="line">         listen       80;</span><br><span class="line">         listen       [::]:80;</span><br><span class="line">         server_name  _;</span><br><span class="line">         root         /usr/share/nginx/html;</span><br><span class="line"> </span><br><span class="line"> <span class="comment"># 开启目录文件列表（此位置开启全局，放到location下，只开启对应路劲的列表）</span></span><br><span class="line">         autoindex on;</span><br><span class="line">         autoindex_exact_size on;</span><br><span class="line">         autoindex_localtime on;</span><br><span class="line">         charset utf-8,gbk;        <span class="comment"># 设置列表字符集</span></span><br><span class="line"> </span><br><span class="line">         <span class="comment"># Load configuration files for the default server block.</span></span><br><span class="line">         include /etc/nginx/default.d/*.conf;</span><br><span class="line"> </span><br><span class="line">         error_page 404 /404.html;</span><br><span class="line">         location = /404.html &#123;</span><br><span class="line">         &#125;</span><br><span class="line"> </span><br><span class="line">         error_page 500 502 503 504 /50x.html;</span><br><span class="line">         location = /50x.html &#123;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment"># Settings for a TLS enabled server.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#    server &#123;</span></span><br><span class="line"><span class="comment">#        listen       443 ssl http2;</span></span><br><span class="line"><span class="comment">#        listen       [::]:443 ssl http2;</span></span><br><span class="line"><span class="comment">#        server_name  _;</span></span><br><span class="line"><span class="comment">#        root         /usr/share/nginx/html;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#        ssl_certificate "/etc/pki/nginx/server.crt";</span></span><br><span class="line"><span class="comment">#        ssl_certificate_key "/etc/pki/nginx/private/server.key";</span></span><br><span class="line"><span class="comment">#        ssl_session_cache shared:SSL:1m;</span></span><br><span class="line"><span class="comment">#        ssl_session_timeout  10m;</span></span><br><span class="line"><span class="comment">#        ssl_ciphers HIGH:!aNULL:!MD5;</span></span><br><span class="line"><span class="comment">#        ssl_prefer_server_ciphers on;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#        # Load configuration files for the default server block.</span></span><br><span class="line"><span class="comment">#        include /etc/nginx/default.d/*.conf;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#        error_page 404 /404.html;</span></span><br><span class="line"><span class="comment">#            location = /40x.html &#123;</span></span><br><span class="line"><span class="comment">#        &#125;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#        error_page 500 502 503 504 /50x.html;</span></span><br><span class="line"><span class="comment">#            location = /50x.html &#123;</span></span><br><span class="line"><span class="comment">#        &#125;</span></span><br><span class="line"><span class="comment">#    &#125;</span></span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
@@ -609,11 +610,6 @@
           
 
   
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTUxNS8xNjA0Mg"></div>
-    </div>
-
-  
 
 
 
@@ -659,7 +655,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">155</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -670,7 +666,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -681,7 +677,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">106</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -710,18 +706,6 @@
                     <a href="https://gitee.com/kxinter" target="_blank" title="码云">
                       
                         <i class="fa fa-fw fa-code"></i>码云</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://kxinter.gitee.io" target="_blank" title="blog">
-                      
-                        <i class="fa fa-fw fa-book"></i>blog</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://medoc.000webhostapp.com" target="_blank" title="随手笔记">
-                      
-                        <i class="fa fa-fw fa-wordpress"></i>随手笔记</a>
                   </span>
                 
                   <span class="links-of-author-item">
@@ -760,12 +744,6 @@
                         <i class="fa fa-fw fa-font-awesome"></i>Font Awesome</a>
                   </span>
                 
-                  <span class="links-of-author-item">
-                    <a href="https://www.000webhost.com/cpanel-login?from=panel#" target="_blank" title="Statistics">
-                      
-                        <i class="fa fa-fw fa-server"></i>Statistics</a>
-                  </span>
-                
             </div>
           
 
@@ -787,10 +765,6 @@
                 
                   <li class="links-of-blogroll-item">
                     <a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" title="Next深度优化" target="_blank">Next深度优化</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://livere.com/" title="来必力" target="_blank">来必力</a>
                   </li>
                 
               </ul>
@@ -842,27 +816,32 @@ show_date_time();
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
+  
   <span class="author" itemprop="copyrightHolder">OperationMAN</span>
 
   
     <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
+ <!--    <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
-    </span>
-    
+    </span> -->
+	
+	
+<!--     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">175.5k</span>
+    <span title="Site words total count">197.9k</span>
+   -->
   
+  	<!--添加备案信息-->
+	<a href="http://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">  豫ICP备 17032296 号</a>
 </div>
 
-
-
 <!--修改页面底部主题名字和网站软件名字-->
+<!-- 
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
@@ -887,8 +866,7 @@ show_date_time();
 </span>
 </div>
 
-
-
+ -->
         
 
 
@@ -1017,17 +995,6 @@ show_date_time();
 
 
 
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
   
 
 

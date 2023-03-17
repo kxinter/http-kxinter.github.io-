@@ -130,18 +130,18 @@
 
 
 
-<meta name="description" content="1 更改首页页面">
+<meta name="description" content="1 更改首页页面1install/apache2/conf/bitnami/bitnami.conf 修改bitnami.con文件，更改首页页面。 1234567&amp;lt;VirtualHost _default_:80&amp;gt;  DocumentRoot &quot;/opt/mediawiki-1.26.2-2/apache2/htdocs&quot;  &amp;lt;Directory &quot;/opt/mediawik">
 <meta name="keywords" content="bitnami">
 <meta property="og:type" content="article">
 <meta property="og:title" content="bitnami软件修改URL方法">
 <meta property="og:url" content="https://kxinter.gitee.io/2018/09/07/bitnami软件修改URL方法/index.html">
-<meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="1 更改首页页面">
+<meta property="og:site_name" content="运维随笔">
+<meta property="og:description" content="1 更改首页页面1install/apache2/conf/bitnami/bitnami.conf 修改bitnami.con文件，更改首页页面。 1234567&amp;lt;VirtualHost _default_:80&amp;gt;  DocumentRoot &quot;/opt/mediawiki-1.26.2-2/apache2/htdocs&quot;  &amp;lt;Directory &quot;/opt/mediawik">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-13T02:32:34.477Z">
+<meta property="og:updated_time" content="2022-06-05T13:24:48.793Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="bitnami软件修改URL方法">
-<meta name="twitter:description" content="1 更改首页页面">
+<meta name="twitter:description" content="1 更改首页页面1install/apache2/conf/bitnami/bitnami.conf 修改bitnami.con文件，更改首页页面。 1234567&amp;lt;VirtualHost _default_:80&amp;gt;  DocumentRoot &quot;/opt/mediawiki-1.26.2-2/apache2/htdocs&quot;  &amp;lt;Directory &quot;/opt/mediawik">
 
 
 
@@ -177,7 +177,7 @@
 
 
 
-  <title>bitnami软件修改URL方法 | Operation随笔</title>
+  <title>bitnami软件修改URL方法 | 运维随笔</title>
   
 
 
@@ -211,7 +211,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Operation随笔</span>
+        <span class="site-title">运维随笔</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -361,7 +361,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
+      <meta itemprop="name" content="运维随笔">
     </span>
 
     
@@ -397,8 +397,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-13T10:32:34+08:00">
-                2018-09-13
+              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:24:48+08:00">
+                2022-06-05
               </time>
             
           </span>
@@ -489,8 +489,8 @@
       
 
       
-        <h1 id="1-更改首页页面"><a href="#1-更改首页页面" class="headerlink" title="1 更改首页页面"></a>1 更改首页页面</h1><a id="more"></a>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">install/apache2/<span class="keyword">conf</span>/bitnami/bitnami.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
+        <a id="more"></a>
+<h1 id="1-更改首页页面"><a href="#1-更改首页页面" class="headerlink" title="1 更改首页页面"></a>1 更改首页页面</h1><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">install/apache2/<span class="keyword">conf</span>/bitnami/bitnami.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
 <p>修改<code>bitnami.con</code>文件，更改首页页面。</p>
 <figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;VirtualHost _default_:80&gt;</span><br><span class="line">  DocumentRoot "/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/apache2/htdocs"</span><br><span class="line">  &lt;Directory "/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/apache2/htdocs"&gt;</span><br><span class="line">   改为</span><br><span class="line">&lt;VirtualHost _default_:80&gt;</span><br><span class="line">  DocumentRoot "/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/apps/mediawiki/htdocs"</span><br><span class="line">  &lt;Directory "/opt/mediawiki<span class="string">-1</span>.26.2<span class="string">-2</span>/apps/mediawiki/htdocs"&gt;</span><br></pre></td></tr></table></figure>
 <h1 id="2-更改应用访问地址后缀"><a href="#2-更改应用访问地址后缀" class="headerlink" title="2 更改应用访问地址后缀"></a>2 更改应用访问地址后缀</h1><p>例如：<a href="http://172.20.20.37/moodle" target="_blank" rel="noopener">http://172.20.20.37/moodle</a>   改为<a href="http://172.20.20.37" target="_blank" rel="noopener">http://172.20.20.37</a> </p>
@@ -533,7 +533,7 @@
   <p><span>本文标题:</span><a href="/2018/09/07/bitnami软件修改URL方法/">bitnami软件修改URL方法</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2018年09月07日 - 15:09</p>
-  <p><span>最后更新:</span>2018年09月13日 - 10:09</p>
+  <p><span>最后更新:</span>2022年06月05日 - 21:06</p>
   <p><span>原始链接:</span><a href="/2018/09/07/bitnami软件修改URL方法/" title="bitnami软件修改URL方法">https://kxinter.gitee.io/2018/09/07/bitnami软件修改URL方法/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.gitee.io/2018/09/07/bitnami软件修改URL方法/"  aria-label="复制成功！"></i></span>
   </p>
@@ -651,11 +651,6 @@
           
 
   
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTUxNS8xNjA0Mg"></div>
-    </div>
-
-  
 
 
 
@@ -710,7 +705,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">155</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -721,7 +716,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -732,7 +727,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">106</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -761,18 +756,6 @@
                     <a href="https://gitee.com/kxinter" target="_blank" title="码云">
                       
                         <i class="fa fa-fw fa-code"></i>码云</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://kxinter.gitee.io" target="_blank" title="blog">
-                      
-                        <i class="fa fa-fw fa-book"></i>blog</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://medoc.000webhostapp.com" target="_blank" title="随手笔记">
-                      
-                        <i class="fa fa-fw fa-wordpress"></i>随手笔记</a>
                   </span>
                 
                   <span class="links-of-author-item">
@@ -811,12 +794,6 @@
                         <i class="fa fa-fw fa-font-awesome"></i>Font Awesome</a>
                   </span>
                 
-                  <span class="links-of-author-item">
-                    <a href="https://www.000webhost.com/cpanel-login?from=panel#" target="_blank" title="Statistics">
-                      
-                        <i class="fa fa-fw fa-server"></i>Statistics</a>
-                  </span>
-                
             </div>
           
 
@@ -838,10 +815,6 @@
                 
                   <li class="links-of-blogroll-item">
                     <a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" title="Next深度优化" target="_blank">Next深度优化</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://livere.com/" title="来必力" target="_blank">来必力</a>
                   </li>
                 
               </ul>
@@ -909,27 +882,32 @@ show_date_time();
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
+  
   <span class="author" itemprop="copyrightHolder">OperationMAN</span>
 
   
     <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
+ <!--    <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
-    </span>
-    
+    </span> -->
+	
+	
+<!--     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">175.5k</span>
+    <span title="Site words total count">197.9k</span>
+   -->
   
+  	<!--添加备案信息-->
+	<a href="http://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">  豫ICP备 17032296 号</a>
 </div>
 
-
-
 <!--修改页面底部主题名字和网站软件名字-->
+<!-- 
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
@@ -954,8 +932,7 @@ show_date_time();
 </span>
 </div>
 
-
-
+ -->
         
 
 
@@ -1084,17 +1061,6 @@ show_date_time();
 
 
 
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
   
 
 

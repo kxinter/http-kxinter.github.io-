@@ -130,20 +130,20 @@
 
 
 
-<meta name="description" content="一、ansible-tower简介1）公司中实现运维自动化的架构中主要用到ansible，ansible脚本在部署服务器指令行中显得不太直观。Ansible-Tower（之前叫做awx）是将ansible的指令界面化，简明直观，简单易用。 2）Ansibke-tower其实就是一个图形化的任务调度，复杂服务部署，IT自动化的一个管理平台，属于发布配置管理系统，支持Api及界面操作，Django编写">
+<meta name="description" content="一、ansible-tower简介">
 <meta name="keywords" content="ansible">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ansible Tower 安装">
 <meta property="og:url" content="https://kxinter.gitee.io/2021/11/02/Ansible-Tower-安装/index.html">
-<meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="一、ansible-tower简介1）公司中实现运维自动化的架构中主要用到ansible，ansible脚本在部署服务器指令行中显得不太直观。Ansible-Tower（之前叫做awx）是将ansible的指令界面化，简明直观，简单易用。 2）Ansibke-tower其实就是一个图形化的任务调度，复杂服务部署，IT自动化的一个管理平台，属于发布配置管理系统，支持Api及界面操作，Django编写">
+<meta property="og:site_name" content="运维随笔">
+<meta property="og:description" content="一、ansible-tower简介">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/11/1552342-20200112115614754-376356611.png">
 <meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/11/image.png">
-<meta property="og:updated_time" content="2022-03-31T03:31:52.489Z">
+<meta property="og:updated_time" content="2022-08-09T07:36:30.523Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ansible Tower 安装">
-<meta name="twitter:description" content="一、ansible-tower简介1）公司中实现运维自动化的架构中主要用到ansible，ansible脚本在部署服务器指令行中显得不太直观。Ansible-Tower（之前叫做awx）是将ansible的指令界面化，简明直观，简单易用。 2）Ansibke-tower其实就是一个图形化的任务调度，复杂服务部署，IT自动化的一个管理平台，属于发布配置管理系统，支持Api及界面操作，Django编写">
+<meta name="twitter:description" content="一、ansible-tower简介">
 <meta name="twitter:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/11/1552342-20200112115614754-376356611.png">
 
 
@@ -180,7 +180,7 @@
 
 
 
-  <title>Ansible Tower 安装 | Operation随笔</title>
+  <title>Ansible Tower 安装 | 运维随笔</title>
   
 
 
@@ -214,7 +214,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Operation随笔</span>
+        <span class="site-title">运维随笔</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -364,7 +364,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
+      <meta itemprop="name" content="运维随笔">
     </span>
 
     
@@ -400,8 +400,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:31:52+08:00">
-                2022-03-31
+              <time title="更新于" itemprop="dateModified" datetime="2022-08-09T15:36:30+08:00">
+                2022-08-09
               </time>
             
           </span>
@@ -492,7 +492,8 @@
       
 
       
-        <h2 id="一、ansible-tower简介"><a href="#一、ansible-tower简介" class="headerlink" title="一、ansible-tower简介"></a>一、ansible-tower简介</h2><p>1）公司中实现运维自动化的架构中主要用到ansible，ansible脚本在部署服务器指令行中显得不太直观。Ansible-Tower（之前叫做awx）是将ansible的指令界面化，简明直观，简单易用。</p>
+        <h2 id="一、ansible-tower简介"><a href="#一、ansible-tower简介" class="headerlink" title="一、ansible-tower简介"></a>一、ansible-tower简介</h2><a id="more"></a>
+<p>1）公司中实现运维自动化的架构中主要用到ansible，ansible脚本在部署服务器指令行中显得不太直观。Ansible-Tower（之前叫做awx）是将ansible的指令界面化，简明直观，简单易用。</p>
 <p>2）Ansibke-tower其实就是一个图形化的任务调度，复杂服务部署，IT自动化的一个管理平台，属于发布配置管理系统，支持Api及界面操作，Django编写。</p>
 <p>3）Ansible-tower可以通过界面从github拉取最新playbook实施服务部署，提高生产效率。当然它也提供一个RESET API和命令行的CLI以供python脚本调用</p>
 <p>官方网站：<a href="https://www.ansible.com/products/tower" target="_blank" rel="noopener">https://www.ansible.com/products/tower</a></p>
@@ -500,7 +501,7 @@
 <p>官方中文文档：<a href="https://docs.ansible.com/ansible-tower/3.8.4/html_zh/" target="_blank" rel="noopener">https://docs.ansible.com/ansible-tower/3.8.4/html_zh/</a></p>
 <p>官方安装文档：<a href="http://docs.ansible.com/ansible-tower/latest/html/quickinstall/index.html" target="_blank" rel="noopener">http://docs.ansible.com/ansible-tower/latest/html/quickinstall/index.html</a></p>
 <p>官方源下载地址：<a href="http://releases.ansible.com/ansible-tower/setup-bundle/" target="_blank" rel="noopener">http://releases.ansible.com/ansible-tower/setup-bundle/</a></p>
-<h2 id="二、ansible-tower安装及配置"><a href="#二、ansible-tower安装及配置" class="headerlink" title="二、ansible-tower安装及配置"></a>二、ansible-tower安装及配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">[root@tower ~]<span class="comment"># cd /opt/</span></span><br><span class="line">[root@tower opt]<span class="comment"># wget https://releases.ansible.com/ansible-tower/setup-bundle/ansible-tower-setup-bundle-3.6.2-1.el7.tar.gz</span></span><br><span class="line">[root@tower opt]<span class="comment"># tar xf ansible-tower-setup-bundle-3.6.2-1.el7.tar.gz</span></span><br><span class="line">[root@tower opt]<span class="comment"># cd ansible-tower-setup-bundle-3.6.2-1/</span></span><br><span class="line">[root@tower ansible-tower-setup-bundle-3.6.2-1]<span class="comment"># ls</span></span><br><span class="line">backup.yml  bundle  group_vars  install.yml  inventory  licenses  README.md  rekey.yml  restore.yml  roles  setup.sh</span><br><span class="line">[root@tower ansible-tower-setup-bundle-3.6.2-1]<span class="comment"># vim inventory</span></span><br><span class="line">[tower]</span><br><span class="line">localhost ansible_connection=<span class="built_in">local</span></span><br><span class="line"> </span><br><span class="line">[database]</span><br><span class="line"> </span><br><span class="line">[all:vars]</span><br><span class="line">admin_password=<span class="string">'tower'</span>   <span class="comment">#tower登录密码</span></span><br><span class="line"> </span><br><span class="line">pg_host=<span class="string">''</span></span><br><span class="line">pg_port=<span class="string">''</span></span><br><span class="line"> </span><br><span class="line">pg_database=<span class="string">'awx'</span></span><br><span class="line">pg_username=<span class="string">'awx'</span></span><br><span class="line">pg_password=<span class="string">'tower'</span></span><br><span class="line">pg_sslmode=<span class="string">'prefer'</span>  <span class="comment"># set to 'verify-full' for client-side enforced SSL</span></span><br><span class="line"> </span><br><span class="line">rabbitmq_username=tower</span><br><span class="line">rabbitmq_password=<span class="string">'tower'</span></span><br><span class="line">rabbitmq_cookie=cookiemonster</span><br><span class="line"> </span><br><span class="line"><span class="comment"># Isolated Tower nodes automatically generate an RSA key for authentication;</span></span><br><span class="line"><span class="comment"># To disable this behavior, set this value to false</span></span><br><span class="line"><span class="comment"># isolated_key_generation=true</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># SSL-related variables</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># If set, this will install a custom CA certificate to the system trust store.</span></span><br><span class="line"><span class="comment"># custom_ca_cert=/path/to/ca.crt</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Certificate and key to install in nginx for the web UI and API</span></span><br><span class="line"><span class="comment"># web_server_ssl_cert=/path/to/tower.cert</span></span><br><span class="line"><span class="comment"># web_server_ssl_key=/path/to/tower.key</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Use SSL for RabbitMQ inter-node communication.  Because RabbitMQ never</span></span><br><span class="line"><span class="comment"># communicates outside the cluster, a private CA and certificates will be</span></span><br><span class="line"><span class="comment"># created, and do not need to be supplied.</span></span><br><span class="line"><span class="comment"># rabbitmq_use_ssl=False</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Server-side SSL settings for PostgreSQL (when we are installing it).</span></span><br><span class="line"><span class="comment"># postgres_use_ssl=False</span></span><br><span class="line"><span class="comment"># postgres_ssl_cert=/path/to/pgsql.crt</span></span><br><span class="line"><span class="comment"># postgres_ssl_key=/path/to/pgsql.key</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#开始安装</span></span><br><span class="line">[root@tower ansible-tower-setup-bundle-3.6.2-1]<span class="comment"># ./setup.sh</span></span><br></pre></td></tr></table></figure>
+<h2 id="二、ansible-tower安装及配置"><a href="#二、ansible-tower安装及配置" class="headerlink" title="二、ansible-tower安装及配置"></a>二、ansible-tower安装及配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">[root@tower ~]<span class="comment"># cd /opt/</span></span><br><span class="line">[root@tower opt]<span class="comment"># wget https://releases.ansible.com/ansible-tower/setup-bundle/ansible-tower-setup-bundle-3.8.3-2.tar.gz</span></span><br><span class="line">[root@tower opt]<span class="comment"># tar xf ansible-tower-setup-bundle-3.8.3-2.tar.gz</span></span><br><span class="line">[root@tower opt]<span class="comment"># cd ansible-tower-setup-bundle-3.8.3-2/</span></span><br><span class="line">[root@tower ansible-tower-setup-bundle-3.8.3-2]<span class="comment"># ls</span></span><br><span class="line">backup.yml  bundle  group_vars  install.yml  inventory  licenses  README.md  rekey.yml  restore.yml  roles  setup.sh</span><br><span class="line">[root@tower ansible-tower-setup-bundle-3.8.3-2]<span class="comment"># vim inventory</span></span><br><span class="line">[tower]</span><br><span class="line">localhost ansible_connection=<span class="built_in">local</span></span><br><span class="line"> </span><br><span class="line">[database]</span><br><span class="line"> </span><br><span class="line">[all:vars]</span><br><span class="line">admin_password=<span class="string">'tower'</span>   <span class="comment">#tower登录密码</span></span><br><span class="line"> </span><br><span class="line">pg_host=<span class="string">''</span></span><br><span class="line">pg_port=<span class="string">''</span></span><br><span class="line"> </span><br><span class="line">pg_database=<span class="string">'awx'</span></span><br><span class="line">pg_username=<span class="string">'awx'</span></span><br><span class="line">pg_password=<span class="string">'tower'</span>     <span class="comment"># 必填项</span></span><br><span class="line">pg_sslmode=<span class="string">'prefer'</span>  <span class="comment"># set to 'verify-full' for client-side enforced SSL</span></span><br><span class="line"> </span><br><span class="line">rabbitmq_username=tower</span><br><span class="line">rabbitmq_password=<span class="string">'tower'</span>    <span class="comment"># 必填项</span></span><br><span class="line">rabbitmq_cookie=cookiemonster</span><br><span class="line"> </span><br><span class="line"><span class="comment"># Isolated Tower nodes automatically generate an RSA key for authentication;</span></span><br><span class="line"><span class="comment"># To disable this behavior, set this value to false</span></span><br><span class="line"><span class="comment"># isolated_key_generation=true</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># SSL-related variables</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># If set, this will install a custom CA certificate to the system trust store.</span></span><br><span class="line"><span class="comment"># custom_ca_cert=/path/to/ca.crt</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Certificate and key to install in nginx for the web UI and API</span></span><br><span class="line"><span class="comment"># web_server_ssl_cert=/path/to/tower.cert</span></span><br><span class="line"><span class="comment"># web_server_ssl_key=/path/to/tower.key</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Use SSL for RabbitMQ inter-node communication.  Because RabbitMQ never</span></span><br><span class="line"><span class="comment"># communicates outside the cluster, a private CA and certificates will be</span></span><br><span class="line"><span class="comment"># created, and do not need to be supplied.</span></span><br><span class="line"><span class="comment"># rabbitmq_use_ssl=False</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Server-side SSL settings for PostgreSQL (when we are installing it).</span></span><br><span class="line"><span class="comment"># postgres_use_ssl=False</span></span><br><span class="line"><span class="comment"># postgres_ssl_cert=/path/to/pgsql.crt</span></span><br><span class="line"><span class="comment"># postgres_ssl_key=/path/to/pgsql.key</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#开始安装</span></span><br><span class="line"><span class="comment">#数据及各服务自动安装，可能需要rync,需要手动安装。</span></span><br><span class="line">[root@tower ansible-tower-setup-bundle-3.8.6-2]<span class="comment"># ./setup.sh</span></span><br></pre></td></tr></table></figure>
 <p>访问<a href="https://10.0.0.203/#/login" target="_blank" rel="noopener">https://10.0.0.203/#/login</a></p>
 <p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/11/1552342-20200112115614754-376356611.png" alt="image"></p>
 <h1 id="三、ansible-tower激活"><a href="#三、ansible-tower激活" class="headerlink" title="三、ansible-tower激活"></a>三、ansible-tower激活</h1><p><strong>步骤简述：</strong></p>
@@ -510,7 +511,7 @@
 <li><strong>运行”ansible-tower-service restart”重启服务</strong></li>
 <li><strong>Enjoy it</strong></li>
 </ol>
-<p>btw：不需要去官网申请Trial License</p>
+<p><strong>btw：不需要去官网申请Trial License</strong></p>
 <hr>
 <h4 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h4><p>没什么好说的，setup.sh执行完了且不报错即可。说人话就是页面可以正常打开，没有任何报错。</p>
 <h4 id="2-修改licensing-py文件"><a href="#2-修改licensing-py文件" class="headerlink" title="2. 修改licensing.py文件"></a>2. 修改licensing.py文件</h4><p>该文件位于：</p>
@@ -555,7 +556,7 @@
   <p><span>本文标题:</span><a href="/2021/11/02/Ansible-Tower-安装/">Ansible Tower 安装</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2021年11月02日 - 11:11</p>
-  <p><span>最后更新:</span>2022年03月31日 - 11:03</p>
+  <p><span>最后更新:</span>2022年08月09日 - 15:08</p>
   <p><span>原始链接:</span><a href="/2021/11/02/Ansible-Tower-安装/" title="Ansible Tower 安装">https://kxinter.gitee.io/2021/11/02/Ansible-Tower-安装/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.gitee.io/2021/11/02/Ansible-Tower-安装/"  aria-label="复制成功！"></i></span>
   </p>
@@ -673,11 +674,6 @@
           
 
   
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTUxNS8xNjA0Mg"></div>
-    </div>
-
-  
 
 
 
@@ -732,7 +728,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">155</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -743,7 +739,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -754,7 +750,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">106</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -783,18 +779,6 @@
                     <a href="https://gitee.com/kxinter" target="_blank" title="码云">
                       
                         <i class="fa fa-fw fa-code"></i>码云</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://kxinter.gitee.io" target="_blank" title="blog">
-                      
-                        <i class="fa fa-fw fa-book"></i>blog</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://medoc.000webhostapp.com" target="_blank" title="随手笔记">
-                      
-                        <i class="fa fa-fw fa-wordpress"></i>随手笔记</a>
                   </span>
                 
                   <span class="links-of-author-item">
@@ -833,12 +817,6 @@
                         <i class="fa fa-fw fa-font-awesome"></i>Font Awesome</a>
                   </span>
                 
-                  <span class="links-of-author-item">
-                    <a href="https://www.000webhost.com/cpanel-login?from=panel#" target="_blank" title="Statistics">
-                      
-                        <i class="fa fa-fw fa-server"></i>Statistics</a>
-                  </span>
-                
             </div>
           
 
@@ -860,10 +838,6 @@
                 
                   <li class="links-of-blogroll-item">
                     <a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" title="Next深度优化" target="_blank">Next深度优化</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://livere.com/" title="来必力" target="_blank">来必力</a>
                   </li>
                 
               </ul>
@@ -931,27 +905,32 @@ show_date_time();
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
+  
   <span class="author" itemprop="copyrightHolder">OperationMAN</span>
 
   
     <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
+ <!--    <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
-    </span>
-    
+    </span> -->
+	
+	
+<!--     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">175.5k</span>
+    <span title="Site words total count">197.9k</span>
+   -->
   
+  	<!--添加备案信息-->
+	<a href="http://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">  豫ICP备 17032296 号</a>
 </div>
 
-
-
 <!--修改页面底部主题名字和网站软件名字-->
+<!-- 
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
@@ -976,8 +955,7 @@ show_date_time();
 </span>
 </div>
 
-
-
+ -->
         
 
 
@@ -1106,17 +1084,6 @@ show_date_time();
 
 
 
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
   
 
 

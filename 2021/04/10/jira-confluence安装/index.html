@@ -130,13 +130,13 @@
 
 
 
-<meta name="description" content="1    运行环境Centos 7.9jira 8.13.4confluence 7.4.5postgres 10.16">
+<meta name="description" content="1    运行环境Centos 7.9jira 8.13.4confluence 7.4.5postgres 10.16 2    说明本文中的安装方案采用jira+confluence认证方式，先安装jira，再安装confluence。 3    数据库安装Postgresql yum安装方式，具体安装过程，参考官网教程。创建 jira confluence 2个数据库，设置数据库远程访问和">
 <meta name="keywords" content="jira,confluence">
 <meta property="og:type" content="article">
 <meta property="og:title" content="jira&#x2F;confluence安装">
 <meta property="og:url" content="https://kxinter.gitee.io/2021/04/10/jira-confluence安装/index.html">
-<meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="1    运行环境Centos 7.9jira 8.13.4confluence 7.4.5postgres 10.16">
+<meta property="og:site_name" content="运维随笔">
+<meta property="og:description" content="1    运行环境Centos 7.9jira 8.13.4confluence 7.4.5postgres 10.16 2    说明本文中的安装方案采用jira+confluence认证方式，先安装jira，再安装confluence。 3    数据库安装Postgresql yum安装方式，具体安装过程，参考官网教程。创建 jira confluence 2个数据库，设置数据库远程访问和">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/10/jira_confluence安装/1.png">
 <meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/10/jira_confluence安装/1618019231902.png">
@@ -190,10 +190,10 @@
 <meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/10/jira_confluence安装/1618021611526.png">
 <meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/10/jira_confluence安装/1618021630536.png">
 <meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/10/jira_confluence安装/1618021636890.png">
-<meta property="og:updated_time" content="2022-03-31T03:31:57.030Z">
+<meta property="og:updated_time" content="2022-06-05T13:37:15.965Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jira&#x2F;confluence安装">
-<meta name="twitter:description" content="1    运行环境Centos 7.9jira 8.13.4confluence 7.4.5postgres 10.16">
+<meta name="twitter:description" content="1    运行环境Centos 7.9jira 8.13.4confluence 7.4.5postgres 10.16 2    说明本文中的安装方案采用jira+confluence认证方式，先安装jira，再安装confluence。 3    数据库安装Postgresql yum安装方式，具体安装过程，参考官网教程。创建 jira confluence 2个数据库，设置数据库远程访问和">
 <meta name="twitter:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/10/jira_confluence安装/1.png">
 
 
@@ -230,7 +230,7 @@
 
 
 
-  <title>jira/confluence安装 | Operation随笔</title>
+  <title>jira/confluence安装 | 运维随笔</title>
   
 
 
@@ -264,7 +264,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Operation随笔</span>
+        <span class="site-title">运维随笔</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -414,7 +414,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
+      <meta itemprop="name" content="运维随笔">
     </span>
 
     
@@ -450,8 +450,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:31:57+08:00">
-                2022-03-31
+              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:37:15+08:00">
+                2022-06-05
               </time>
             
           </span>
@@ -542,7 +542,8 @@
       
 
       
-        <h1 id="1-运行环境"><a href="#1-运行环境" class="headerlink" title="1    运行环境"></a>1    运行环境</h1><p>Centos 7.9<br>jira 8.13.4<br>confluence 7.4.5<br>postgres 10.16<br><a id="more"></a></p>
+        <a id="more"></a>
+<h1 id="1-运行环境"><a href="#1-运行环境" class="headerlink" title="1    运行环境"></a>1    运行环境</h1><p>Centos 7.9<br>jira 8.13.4<br>confluence 7.4.5<br>postgres 10.16</p>
 <h1 id="2-说明"><a href="#2-说明" class="headerlink" title="2    说明"></a>2    说明</h1><p>本文中的安装方案采用jira+confluence认证方式，先安装jira，再安装confluence。</p>
 <h1 id="3-数据库安装"><a href="#3-数据库安装" class="headerlink" title="3    数据库安装"></a>3    数据库安装</h1><p>Postgresql yum安装方式，具体安装过程，参考官网教程。<br>创建 jira confluence 2个数据库，设置数据库远程访问和本地访问密码验证，设置postgres 用户密码，这里密码为123456</p>
 <h1 id="4-jira安装"><a href="#4-jira安装" class="headerlink" title="4    jira安装"></a>4    jira安装</h1><h2 id="4-1-官网下周jira-linux安装包"><a href="#4-1-官网下周jira-linux安装包" class="headerlink" title="4.1    官网下周jira linux安装包"></a>4.1    官网下周jira linux安装包</h2><p>atlassian-jira-software-8.13.4-x64.bin </p>
@@ -578,6 +579,7 @@
 <h3 id="5-2-3-访问网页"><a href="#5-2-3-访问网页" class="headerlink" title="5.2.3    访问网页"></a>5.2.3    访问网页</h3><p>•    <a href="http://ip:8090" target="_blank" rel="noopener">http://ip:8090</a><br>  <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/10/jira_confluence安装/1618021159236.png" alt="enter description here"><br>  <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/10/jira_confluence安装/1618021164828.png" alt="enter description here"><br>  <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/10/jira_confluence安装/1618021170479.png" alt="enter description here"><br>  <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/10/jira_confluence安装/1618021175002.png" alt="enter description here"></p>
 <h3 id="5-2-4-进行破解"><a href="#5-2-4-进行破解" class="headerlink" title="5.2.4    进行破解"></a>5.2.4    进行破解</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#破解需要两部，一是破解文件，二是获取授权码</span></span><br><span class="line"><span class="comment">#注意，本地运行破解程序需要JAVA环境，直接在oraclejdk官网下载windows版本的exe程序安装即可</span></span><br><span class="line">[root@wiki-test ~]<span class="comment"># cd /opt/atlassian/confluence/confluence/WEB-INF/lib/</span></span><br></pre></td></tr></table></figure>
 <p>•    将该目录下的<code>atlassian-extras-decoder-v2-3.4.1.jar</code>拷贝到自己的电脑上并进行重命名为<code>atlassian-extras-2.4.jar</code><br>  <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/10/jira_confluence安装/1618021232920.png" alt="enter description here"><br>•    将该.jar文件跟破解工具放在一起，然后运行破解工具<br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/10/jira_confluence安装/1618021256042.png" alt="enter description here"><br>•    选择.patch!找到刚才重命名的那个文件打开<br>  <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/10/jira_confluence安装/1618021264497.png" alt="enter description here"><br>  <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/10/jira_confluence安装/1618021270824.png" alt="enter description here"><br>•    打开后在当前目录下可以看到<code>atlassian-extras-2.4.jar</code>和<code>atlassian-extras-2.4.bak</code>两个文件，这里<code>atlassian-extras-2.4.jar</code>已经是破解好的了，将<code>atlassian-extras-2.4.jar</code>名字改回来<code>atlassian-extras-decoder-v2-3.4.1.jar</code><br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/10/jira_confluence安装/1618021302521.png" alt="enter description here"><br>•    上传到服务器上的<code>/opt/atlassian/confluence/confluence/WEB-INF/lib/</code>目录，覆盖原来的<code>atlassian-extras-decoder-v2-3.4.1.jar</code></p>
+<p>​    </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@wiki-test lib]<span class="comment"># cp atlassian-extras-decoder-v2-3.4.1.jar /</span></span><br></pre></td></tr></table></figure>
 <p> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/10/jira_confluence安装/1618021329337.png" alt="enter description here"></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意：覆盖文件后，一定到重启服务</span></span><br><span class="line">[root@wiki-test lib]<span class="comment"># /etc/init.d/confluence stop</span></span><br><span class="line">[root@wiki-test lib]<span class="comment"># /etc/init.d/confluence start</span></span><br></pre></td></tr></table></figure>
@@ -627,7 +629,7 @@
   <p><span>本文标题:</span><a href="/2021/04/10/jira-confluence安装/">jira/confluence安装</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2021年04月10日 - 09:04</p>
-  <p><span>最后更新:</span>2022年03月31日 - 11:03</p>
+  <p><span>最后更新:</span>2022年06月05日 - 21:06</p>
   <p><span>原始链接:</span><a href="/2021/04/10/jira-confluence安装/" title="jira/confluence安装">https://kxinter.gitee.io/2021/04/10/jira-confluence安装/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.gitee.io/2021/04/10/jira-confluence安装/"  aria-label="复制成功！"></i></span>
   </p>
@@ -747,11 +749,6 @@
           
 
   
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTUxNS8xNjA0Mg"></div>
-    </div>
-
-  
 
 
 
@@ -806,7 +803,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">155</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -817,7 +814,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -828,7 +825,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">106</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -857,18 +854,6 @@
                     <a href="https://gitee.com/kxinter" target="_blank" title="码云">
                       
                         <i class="fa fa-fw fa-code"></i>码云</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://kxinter.gitee.io" target="_blank" title="blog">
-                      
-                        <i class="fa fa-fw fa-book"></i>blog</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://medoc.000webhostapp.com" target="_blank" title="随手笔记">
-                      
-                        <i class="fa fa-fw fa-wordpress"></i>随手笔记</a>
                   </span>
                 
                   <span class="links-of-author-item">
@@ -907,12 +892,6 @@
                         <i class="fa fa-fw fa-font-awesome"></i>Font Awesome</a>
                   </span>
                 
-                  <span class="links-of-author-item">
-                    <a href="https://www.000webhost.com/cpanel-login?from=panel#" target="_blank" title="Statistics">
-                      
-                        <i class="fa fa-fw fa-server"></i>Statistics</a>
-                  </span>
-                
             </div>
           
 
@@ -934,10 +913,6 @@
                 
                   <li class="links-of-blogroll-item">
                     <a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" title="Next深度优化" target="_blank">Next深度优化</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://livere.com/" title="来必力" target="_blank">来必力</a>
                   </li>
                 
               </ul>
@@ -1005,27 +980,32 @@ show_date_time();
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
+  
   <span class="author" itemprop="copyrightHolder">OperationMAN</span>
 
   
     <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
+ <!--    <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
-    </span>
-    
+    </span> -->
+	
+	
+<!--     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">175.5k</span>
+    <span title="Site words total count">197.9k</span>
+   -->
   
+  	<!--添加备案信息-->
+	<a href="http://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">  豫ICP备 17032296 号</a>
 </div>
 
-
-
 <!--修改页面底部主题名字和网站软件名字-->
+<!-- 
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
@@ -1050,8 +1030,7 @@ show_date_time();
 </span>
 </div>
 
-
-
+ -->
         
 
 
@@ -1180,17 +1159,6 @@ show_date_time();
 
 
 
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
   
 
 

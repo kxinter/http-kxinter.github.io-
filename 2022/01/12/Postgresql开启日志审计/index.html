@@ -130,18 +130,18 @@
 
 
 
-<meta name="description" content="postgresql开启日志审计1、审计清单说明">
+<meta name="description" content="postgresql开启日志审计">
 <meta name="keywords" content="postgresql,日志,审计">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ubuntu20.04安装NVIDIA显卡驱动+CUDA">
 <meta property="og:url" content="https://kxinter.gitee.io/2022/01/12/Postgresql开启日志审计/index.html">
-<meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="postgresql开启日志审计1、审计清单说明">
+<meta property="og:site_name" content="运维随笔">
+<meta property="og:description" content="postgresql开启日志审计">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2022-01-15T02:50:31.248Z">
+<meta property="og:updated_time" content="2022-10-24T07:20:45.722Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ubuntu20.04安装NVIDIA显卡驱动+CUDA">
-<meta name="twitter:description" content="postgresql开启日志审计1、审计清单说明">
+<meta name="twitter:description" content="postgresql开启日志审计">
 
 
 
@@ -177,7 +177,7 @@
 
 
 
-  <title>ubuntu20.04安装NVIDIA显卡驱动+CUDA | Operation随笔</title>
+  <title>ubuntu20.04安装NVIDIA显卡驱动+CUDA | 运维随笔</title>
   
 
 
@@ -211,7 +211,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Operation随笔</span>
+        <span class="site-title">运维随笔</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -361,7 +361,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
+      <meta itemprop="name" content="运维随笔">
     </span>
 
     
@@ -397,8 +397,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-01-15T10:50:31+08:00">
-                2022-01-15
+              <time title="更新于" itemprop="dateModified" datetime="2022-10-24T15:20:45+08:00">
+                2022-10-24
               </time>
             
           </span>
@@ -452,7 +452,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  605
+                  606
                 </span>
               
 
@@ -489,8 +489,8 @@
       
 
       
-        <h1 id="postgresql开启日志审计"><a href="#postgresql开启日志审计" class="headerlink" title="postgresql开启日志审计"></a>postgresql开启日志审计</h1><p><strong>1、审计清单说明</strong></p>
-<a id="more"></a>
+        <h1 id="postgresql开启日志审计"><a href="#postgresql开启日志审计" class="headerlink" title="postgresql开启日志审计"></a>postgresql开启日志审计</h1><a id="more"></a>
+<p><strong>1、审计清单说明</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">logging_collector   <span class="comment"># 是否开启日志收集开关，默认off，推荐on</span></span><br><span class="line"></span><br><span class="line">log_destination     -- 日志记录类型，默认是stderr，只记录错误输出，推荐csvlog，总共包含：`stderr, csvlog, syslog, and eventlog,`</span><br><span class="line"></span><br><span class="line">log_directory       <span class="comment"># 日志路径，默认是$PGDATA/pg_log, </span></span><br><span class="line"></span><br><span class="line">log_filename        <span class="comment"># 日志名称，默认是postgresql-%Y-%m-%d_%H%M%S.log</span></span><br><span class="line"></span><br><span class="line">log_file_mode       <span class="comment"># 日志文件类型，默认为0600</span></span><br><span class="line"></span><br><span class="line">log_truncate_on_rotation <span class="comment"># 默认为off，设置为on的话，文件内容覆盖方式：off后面附加，on：清空再加</span></span><br><span class="line"></span><br><span class="line">log_rotation_age    <span class="comment"># 保留单个文件的最大时长,默认是1d,也有1h,1min,1s</span></span><br><span class="line"></span><br><span class="line">log_rotation_size    <span class="comment"># 保留单个文件的最大尺寸，默认是10MB</span></span><br><span class="line"></span><br><span class="line">log_error_verbosity  <span class="comment"># 默认为default，verbose表示冗长的</span></span><br><span class="line"></span><br><span class="line">log_connections  <span class="comment"># 用户session登陆时是否写入日志，默认off，推荐为on</span></span><br><span class="line"></span><br><span class="line">log_disconnections <span class="comment"># 用户session退出时是否写入日志，默认off，推荐为on</span></span><br><span class="line"></span><br><span class="line">log_statement  --`记录用户登陆数据库后的各种操作`</span><br><span class="line"></span><br><span class="line">     1. none，即不记录</span><br><span class="line">     2. ddl(记录create,drop和alter)</span><br><span class="line">     3. mod(记录ddl+insert,delete,update和truncate)</span><br><span class="line">     4. all(mod+select)</span><br><span class="line"></span><br><span class="line">log_min_duration_statement = 2s        -- `记录超过2秒的SQL`</span><br><span class="line">log_checkpoints = on       <span class="comment"># 检查点和重启点被记录再服务器日志中。一些统计信息也被包括再日志消息中，包括写入缓冲区的数据和写他们呢所花的时间。这个参数智能在postgresql.conf文件中或在服务器命令行上设置。默认是关闭（off）</span></span><br><span class="line">log_lock_waits ＝ on       <span class="comment"># 如果一个会话等待某个类型的锁的时间超过deadlock_timeout的值，该参数决定是否在数据库日志中记录这个信息。</span></span><br><span class="line">deadlock_timeout ＝ 1s     <span class="comment"># 数据库的锁通常可以在pg_locks这个系统表里找，但这只是当前的锁表/行信息，如果你想看一天内有多少个超过死锁时间的锁发生，可以在日志里设置并查看，log_lock_waits 默认是off，可以设置开启。这个可以区分SQL慢是资源紧张还是锁等待的问题。</span></span><br></pre></td></tr></table></figure>
 <p><strong>2、推荐的设置参数</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">logging_collector = on</span><br><span class="line">log_destination = <span class="string">'csvlog'</span></span><br><span class="line">log_truncate_on_rotation = on</span><br><span class="line">log_connections = on</span><br><span class="line">log_disconnections = on</span><br><span class="line">log_error_verbosity = verbose</span><br><span class="line">log_statement = ddl</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这部分是postgresql.conf文件中没有的</span></span><br><span class="line">log_min_duration_statement = 60s    <span class="comment"># 记录超过60s的SQL</span></span><br><span class="line">log_checkpoints = on                  </span><br><span class="line">log_lock_waits ＝ on</span><br><span class="line">deadlock_timeout ＝ 1s</span><br></pre></td></tr></table></figure>
@@ -532,7 +532,7 @@
   <p><span>本文标题:</span><a href="/2022/01/12/Postgresql开启日志审计/">ubuntu20.04安装NVIDIA显卡驱动+CUDA</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2022年01月12日 - 13:01</p>
-  <p><span>最后更新:</span>2022年01月15日 - 10:01</p>
+  <p><span>最后更新:</span>2022年10月24日 - 15:10</p>
   <p><span>原始链接:</span><a href="/2022/01/12/Postgresql开启日志审计/" title="ubuntu20.04安装NVIDIA显卡驱动+CUDA">https://kxinter.gitee.io/2022/01/12/Postgresql开启日志审计/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.gitee.io/2022/01/12/Postgresql开启日志审计/"  aria-label="复制成功！"></i></span>
   </p>
@@ -654,11 +654,6 @@
           
 
   
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTUxNS8xNjA0Mg"></div>
-    </div>
-
-  
 
 
 
@@ -713,7 +708,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">155</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -724,7 +719,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -735,7 +730,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">106</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -764,18 +759,6 @@
                     <a href="https://gitee.com/kxinter" target="_blank" title="码云">
                       
                         <i class="fa fa-fw fa-code"></i>码云</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://kxinter.gitee.io" target="_blank" title="blog">
-                      
-                        <i class="fa fa-fw fa-book"></i>blog</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://medoc.000webhostapp.com" target="_blank" title="随手笔记">
-                      
-                        <i class="fa fa-fw fa-wordpress"></i>随手笔记</a>
                   </span>
                 
                   <span class="links-of-author-item">
@@ -814,12 +797,6 @@
                         <i class="fa fa-fw fa-font-awesome"></i>Font Awesome</a>
                   </span>
                 
-                  <span class="links-of-author-item">
-                    <a href="https://www.000webhost.com/cpanel-login?from=panel#" target="_blank" title="Statistics">
-                      
-                        <i class="fa fa-fw fa-server"></i>Statistics</a>
-                  </span>
-                
             </div>
           
 
@@ -841,10 +818,6 @@
                 
                   <li class="links-of-blogroll-item">
                     <a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" title="Next深度优化" target="_blank">Next深度优化</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://livere.com/" title="来必力" target="_blank">来必力</a>
                   </li>
                 
               </ul>
@@ -912,27 +885,32 @@ show_date_time();
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
+  
   <span class="author" itemprop="copyrightHolder">OperationMAN</span>
 
   
     <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
+ <!--    <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
-    </span>
-    
+    </span> -->
+	
+	
+<!--     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">175.5k</span>
+    <span title="Site words total count">197.9k</span>
+   -->
   
+  	<!--添加备案信息-->
+	<a href="http://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">  豫ICP备 17032296 号</a>
 </div>
 
-
-
 <!--修改页面底部主题名字和网站软件名字-->
+<!-- 
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
@@ -957,8 +935,7 @@ show_date_time();
 </span>
 </div>
 
-
-
+ -->
         
 
 
@@ -1087,17 +1064,6 @@ show_date_time();
 
 
 
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
   
 
 

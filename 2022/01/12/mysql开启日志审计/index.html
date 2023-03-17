@@ -130,22 +130,22 @@
 
 
 
-<meta name="description" content="1安装1.1 下载插件Releases · mcafee/mysql-audit · GitHub  备注：下载插件一定要注意插件支持数据库的版本，否则安装失败。">
+<meta name="description" content="1安装">
 <meta name="keywords" content="mysql,日志,审计">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mysql开启日志审计">
 <meta property="og:url" content="https://kxinter.gitee.io/2022/01/12/mysql开启日志审计/index.html">
-<meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="1安装1.1 下载插件Releases · mcafee/mysql-audit · GitHub  备注：下载插件一定要注意插件支持数据库的版本，否则安装失败。">
+<meta property="og:site_name" content="运维随笔">
+<meta property="og:description" content="1安装">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://www.hualigs.cn/image/6040825eed60d.jpg">
 <meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/image-20220113121640885.png">
 <meta property="og:image" content="https://www.hualigs.cn/image/604082852f8fd.jpg">
 <meta property="og:image" content="https://www.hualigs.cn/image/60408295e7c39.jpg">
-<meta property="og:updated_time" content="2022-03-31T03:31:52.027Z">
+<meta property="og:updated_time" content="2022-08-29T06:36:22.203Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql开启日志审计">
-<meta name="twitter:description" content="1安装1.1 下载插件Releases · mcafee/mysql-audit · GitHub  备注：下载插件一定要注意插件支持数据库的版本，否则安装失败。">
+<meta name="twitter:description" content="1安装">
 <meta name="twitter:image" content="https://www.hualigs.cn/image/6040825eed60d.jpg">
 
 
@@ -182,7 +182,7 @@
 
 
 
-  <title>mysql开启日志审计 | Operation随笔</title>
+  <title>mysql开启日志审计 | 运维随笔</title>
   
 
 
@@ -216,7 +216,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Operation随笔</span>
+        <span class="site-title">运维随笔</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -366,7 +366,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
+      <meta itemprop="name" content="运维随笔">
     </span>
 
     
@@ -402,8 +402,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:31:52+08:00">
-                2022-03-31
+              <time title="更新于" itemprop="dateModified" datetime="2022-08-29T14:36:22+08:00">
+                2022-08-29
               </time>
             
           </span>
@@ -457,7 +457,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  327
+                  391
                 </span>
               
 
@@ -494,11 +494,13 @@
       
 
       
-        <h2 id="1安装"><a href="#1安装" class="headerlink" title="1安装"></a>1安装</h2><h3 id="1-1-下载插件"><a href="#1-1-下载插件" class="headerlink" title="1.1 下载插件"></a>1.1 下载插件</h3><p><a href="https://github.com/mcafee/mysql-audit/releases?page=1" target="_blank" rel="noopener">Releases · mcafee/mysql-audit · GitHub</a></p>
+        <h2 id="1安装"><a href="#1安装" class="headerlink" title="1安装"></a>1安装</h2><a id="more"></a>
+<h3 id="1-1-下载插件"><a href="#1-1-下载插件" class="headerlink" title="1.1 下载插件"></a>1.1 下载插件</h3><p><a href="https://github.com/mcafee/mysql-audit/releases?page=1" target="_blank" rel="noopener">Releases · mcafee/mysql-audit · GitHub</a></p>
 <blockquote>
 <p>备注：下载插件一定要注意插件支持数据库的版本，否则安装失败。</p>
+<p>经后期验证，基于docker版本的mysql安装插件失败，报错：patch send_result_to_client 。</p>
+<p>经过相关信息搜索，docker版本和编译版本还是有一些区别，能够安装的docker版本，目前测试5.6.36版本可用。</p>
 </blockquote>
-<a id="more"></a>
 <h3 id="1-2-解压插件"><a href="#1-2-解压插件" class="headerlink" title="1.2 解压插件"></a>1.2 解压插件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">unzip audit-plugin-mysql-5.7-1.1.7-805-linux-x86_64.zip</span><br><span class="line"><span class="built_in">cd</span> audit-plugin-mysql-5.7-1.1.7-805/lib</span><br></pre></td></tr></table></figure>
 <h3 id="1-3-查询mysql的插件目录"><a href="#1-3-查询mysql的插件目录" class="headerlink" title="1.3 查询mysql的插件目录"></a>1.3 查询mysql的插件目录</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">GLOBAL</span> <span class="keyword">VARIABLES</span> <span class="keyword">LIKE</span> <span class="string">'plugin_dir'</span></span><br></pre></td></tr></table></figure>
 <p><img src="https://www.hualigs.cn/image/6040825eed60d.jpg" alt="img"></p>
@@ -553,7 +555,7 @@
   <p><span>本文标题:</span><a href="/2022/01/12/mysql开启日志审计/">mysql开启日志审计</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2022年01月12日 - 15:01</p>
-  <p><span>最后更新:</span>2022年03月31日 - 11:03</p>
+  <p><span>最后更新:</span>2022年08月29日 - 14:08</p>
   <p><span>原始链接:</span><a href="/2022/01/12/mysql开启日志审计/" title="mysql开启日志审计">https://kxinter.gitee.io/2022/01/12/mysql开启日志审计/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.gitee.io/2022/01/12/mysql开启日志审计/"  aria-label="复制成功！"></i></span>
   </p>
@@ -675,11 +677,6 @@
           
 
   
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTUxNS8xNjA0Mg"></div>
-    </div>
-
-  
 
 
 
@@ -734,7 +731,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">155</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -745,7 +742,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -756,7 +753,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">106</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -785,18 +782,6 @@
                     <a href="https://gitee.com/kxinter" target="_blank" title="码云">
                       
                         <i class="fa fa-fw fa-code"></i>码云</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://kxinter.gitee.io" target="_blank" title="blog">
-                      
-                        <i class="fa fa-fw fa-book"></i>blog</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://medoc.000webhostapp.com" target="_blank" title="随手笔记">
-                      
-                        <i class="fa fa-fw fa-wordpress"></i>随手笔记</a>
                   </span>
                 
                   <span class="links-of-author-item">
@@ -835,12 +820,6 @@
                         <i class="fa fa-fw fa-font-awesome"></i>Font Awesome</a>
                   </span>
                 
-                  <span class="links-of-author-item">
-                    <a href="https://www.000webhost.com/cpanel-login?from=panel#" target="_blank" title="Statistics">
-                      
-                        <i class="fa fa-fw fa-server"></i>Statistics</a>
-                  </span>
-                
             </div>
           
 
@@ -862,10 +841,6 @@
                 
                   <li class="links-of-blogroll-item">
                     <a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" title="Next深度优化" target="_blank">Next深度优化</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://livere.com/" title="来必力" target="_blank">来必力</a>
                   </li>
                 
               </ul>
@@ -933,27 +908,32 @@ show_date_time();
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
+  
   <span class="author" itemprop="copyrightHolder">OperationMAN</span>
 
   
     <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
+ <!--    <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
-    </span>
-    
+    </span> -->
+	
+	
+<!--     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">175.5k</span>
+    <span title="Site words total count">197.9k</span>
+   -->
   
+  	<!--添加备案信息-->
+	<a href="http://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">  豫ICP备 17032296 号</a>
 </div>
 
-
-
 <!--修改页面底部主题名字和网站软件名字-->
+<!-- 
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
@@ -978,8 +958,7 @@ show_date_time();
 </span>
 </div>
 
-
-
+ -->
         
 
 
@@ -1108,17 +1087,6 @@ show_date_time();
 
 
 
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
   
 
 

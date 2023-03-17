@@ -130,13 +130,13 @@
 
 
 
-<meta name="description" content="1 常用配置详解">
+<meta name="description" content="1 常用配置详解1.1 目录结构 /bin：脚本文件目录。 /common/lib：存放所有web项目都可以访问的公共jar包（使用Common类加载器加载）。 /conf：存放配置文件，最重要的是server.xml。 /logs：存放日志文件。 /server/webapps：来管理Tomcat-web服务用的。仅对TOMCAT可见，对所有的WEB APP都不可见（使用Catalina类加载">
 <meta name="keywords" content="tomcat">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Tomcat优化">
 <meta property="og:url" content="https://kxinter.gitee.io/2018/12/21/tomcat优化/index.html">
-<meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="1 常用配置详解">
+<meta property="og:site_name" content="运维随笔">
+<meta property="og:description" content="1 常用配置详解1.1 目录结构 /bin：脚本文件目录。 /common/lib：存放所有web项目都可以访问的公共jar包（使用Common类加载器加载）。 /conf：存放配置文件，最重要的是server.xml。 /logs：存放日志文件。 /server/webapps：来管理Tomcat-web服务用的。仅对TOMCAT可见，对所有的WEB APP都不可见（使用Catalina类加载">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Tomcat优化/1.png">
 <meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Tomcat优化/2.png">
@@ -147,10 +147,10 @@
 <meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Tomcat优化/7.png">
 <meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Tomcat优化/8.png">
 <meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Tomcat优化/9.png">
-<meta property="og:updated_time" content="2022-03-31T03:32:00.367Z">
+<meta property="og:updated_time" content="2022-06-05T13:37:45.898Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tomcat优化">
-<meta name="twitter:description" content="1 常用配置详解">
+<meta name="twitter:description" content="1 常用配置详解1.1 目录结构 /bin：脚本文件目录。 /common/lib：存放所有web项目都可以访问的公共jar包（使用Common类加载器加载）。 /conf：存放配置文件，最重要的是server.xml。 /logs：存放日志文件。 /server/webapps：来管理Tomcat-web服务用的。仅对TOMCAT可见，对所有的WEB APP都不可见（使用Catalina类加载">
 <meta name="twitter:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Tomcat优化/1.png">
 
 
@@ -187,7 +187,7 @@
 
 
 
-  <title>Tomcat优化 | Operation随笔</title>
+  <title>Tomcat优化 | 运维随笔</title>
   
 
 
@@ -221,7 +221,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Operation随笔</span>
+        <span class="site-title">运维随笔</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -371,7 +371,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
+      <meta itemprop="name" content="运维随笔">
     </span>
 
     
@@ -407,8 +407,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:32:00+08:00">
-                2022-03-31
+              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:37:45+08:00">
+                2022-06-05
               </time>
             
           </span>
@@ -499,8 +499,8 @@
       
 
       
-        <h1 id="1-常用配置详解"><a href="#1-常用配置详解" class="headerlink" title="1 常用配置详解"></a>1 常用配置详解</h1><a id="more"></a>
-<h2 id="1-1-目录结构"><a href="#1-1-目录结构" class="headerlink" title="1.1 目录结构"></a>1.1 目录结构</h2><p> <strong>/bin</strong>：脚本文件目录。<br> <strong>/common/lib</strong>：存放所有web项目都可以访问的公共jar包（使用Common类加载器加载）。<br> <strong>/conf</strong>：存放配置文件，最重要的是server.xml。<br> <strong>/logs</strong>：存放日志文件。<br> <strong>/server/webapps</strong>：来管理Tomcat-web服务用的。仅对TOMCAT可见，对所有的WEB APP都不可见（使用Catalina类加载器加载）。<br> <strong>/shared/lib</strong>：仅对所有WEB APP可见，对TOMCAT不可见（使用Shared类加载器加载）。<br> <strong>/temp</strong>：Tomcat运行时候存放临时文件用的。<br> <strong>/webapps</strong>：web应用发布目录。<br> <strong>/work</strong>：Tomcat把各种由jsp生成的servlet文件放在这个目录下。删除后，启动时会自动创建。</p>
+        <a id="more"></a>
+<h1 id="1-常用配置详解"><a href="#1-常用配置详解" class="headerlink" title="1 常用配置详解"></a>1 常用配置详解</h1><h2 id="1-1-目录结构"><a href="#1-1-目录结构" class="headerlink" title="1.1 目录结构"></a>1.1 目录结构</h2><p> <strong>/bin</strong>：脚本文件目录。<br> <strong>/common/lib</strong>：存放所有web项目都可以访问的公共jar包（使用Common类加载器加载）。<br> <strong>/conf</strong>：存放配置文件，最重要的是server.xml。<br> <strong>/logs</strong>：存放日志文件。<br> <strong>/server/webapps</strong>：来管理Tomcat-web服务用的。仅对TOMCAT可见，对所有的WEB APP都不可见（使用Catalina类加载器加载）。<br> <strong>/shared/lib</strong>：仅对所有WEB APP可见，对TOMCAT不可见（使用Shared类加载器加载）。<br> <strong>/temp</strong>：Tomcat运行时候存放临时文件用的。<br> <strong>/webapps</strong>：web应用发布目录。<br> <strong>/work</strong>：Tomcat把各种由jsp生成的servlet文件放在这个目录下。删除后，启动时会自动创建。</p>
 <h2 id="1-2-配置文件"><a href="#1-2-配置文件" class="headerlink" title="1.2 配置文件"></a>1.2 配置文件</h2><p> <code>server.xml</code>：主要的配置文件。<br> <code>web.xml</code>：缺省的web app配置，WEB-INF/web.xml会覆盖该配置。<br> <code>context.xml</code>：不清楚跟server.xml里面的context是否有关系。</p>
 <p> <strong>server.xml配置</strong><br> ==<strong><em>server标签</em></strong>==<br> <code>port</code>：指定一个端口，这个端口负责监听关闭tomcat的请求。<br> <code>shutdown</code>：指定向端口发送的命令字符串。</p>
 <p> ==<strong><em>service标签</em></strong>==<br> <code>name</code>：指定service的名字。</p>
@@ -516,7 +516,7 @@
 <li>直接部署到<code>webapps</code>目录下面访问。</li>
 <li>修改<code>conf/server.xml</code>文件。在<code>&lt;Host name=&quot;localhost&quot; appBase=&quot;webapps&quot; unpackWARs=&quot;true&quot; xmlValidation=&quot;false&quot; xmlNamespaceAware=&quot;false&quot;&gt;&lt;/host&gt;中加入&lt;Context path=&quot;/test&quot; docBase=&quot;webdemo&quot; debug=&quot;0&quot; reloadable=&quot;true&quot; /&gt;</code>。docBase目录默认使用appBase=”webapps”这个目录。也可以是绝对路径。<br>配置主目录，可以将path=””。</li>
 <li><p>当项目没有放在webapps目录下时，可以在<code>conf/Catalina/localhost</code>新建一个XXX.XML文件。里面加入<code>&lt;Context docBase=&quot;E:webdemo&quot; debug=&quot;0&quot; reloadable=&quot;true&quot; /&gt;</code>。</p>
-<div class="note info no-cion"><p><strong>注意</strong>：<br> 这里的path属性不需要设置，设置了也不会起作用的。</p></div>
+<div class="note info no-cion"><p><strong>注意</strong>：<br>  这里的path属性不需要设置，设置了也不会起作用的。</p></div>
 <p>也可以使用该方法建立主目录指向另一个目录，例如：<code>&lt;Context docBase=&quot;E:webdemo&quot; debug=&quot;0&quot; reloadable=&quot;true&quot; /&gt;</code>命名为<code>ROOT.xml</code>，这样默认访问的主目录就被修改过了。</p>
 </li>
 <li><p>配置连接数<br><code>maxThreads</code>：Tomcat使用线程来处理接收的每个请求。这个值表示Tomcat可创建的最大的线程数。<br><code>acceptCount</code>：指定当所有可以使用的处理请求的线程数都被使用时，可以放到处理队列中的请求数，超过这个数的请求将不予处理。<br><code>minSpareThreads</code>：Tomcat初始化时创建的线程数。<br><code>maxSpareThreads</code>：一旦创建的线程超过这个值，Tomcat就会关闭不再需要的socket线程。<br><code>enableLookups</code>：是否反查域名，取值为：true或false。为了提高处理能力，应设置为false<br><code>connectionTimeout</code>：网络连接超时，单位：毫秒。设置为0表示永不超时，这样设置有隐患的。默认可设置为20000毫秒。</p>
@@ -663,7 +663,7 @@
 <p>必须要安装<code>apr</code>和<code>native</code>，直接启动就支持<code>apr</code>。下面的修改纯属多余，仅供大家扩充知识,但仍然需要安装<code>apr</code>和<code>native</code>。如<code>nio</code>修改模式,修改<code>protocol</code>为<code>org.apache.coyote.http11.Http11AprProtocol</code></p>
 <h2 id="3-4-tomcat调优"><a href="#3-4-tomcat调优" class="headerlink" title="3.4 tomcat调优"></a>3.4 tomcat调优</h2><ol>
 <li><strong>JVM参数调优</strong><br><code>-Xms&lt;size&gt;</code> 表示JVM初始化堆的大小，<code>-Xmx&lt;size&gt;</code>表示JVM堆的最大值。这两个值的大小一般根据需要进行设置。当应用程序需要的内存超出堆的最大值时虚拟机就会提示内存溢出，并且导致应用服务崩溃。因此一般建议堆的最大值设置为可用内存的最大值的80%。在<code>catalina.bat</code>中，设置<code>JAVA_OPTS=&#39;-Xms256m -Xmx512m&#39;</code>，表示初始化内存为256MB，可以使用的最大内存为512MB。 </li>
-<li><strong>禁用DNS查询</strong><br>　当web应用程序想要记录客户端的信息时，它也会记录客户端的IP地址或者通过域名服务器查找机器名转换为IP地址。DNS查询需要占用网络，并且包括可能从很多很远的服务器或者不起作用的服务器上去获取对应的IP的过程，这样会消耗一定的时间。为了消除DNS查询对性能的影响我们可以关闭DNS查询，方式是修改<code>server.xml</code>文件中的<code>enableLookups</code>参数值：<br>Tomcat4 </li>
+<li><strong>禁用DNS查询</strong><br>　当web应用程序想要记录客户端的信息时，它也会记录客户端的IP地址或者通过域名服务器查找机器名转换为IP地址。DNS查询需要占用网络，并且包括可能从很多很远的服务器或者不起作用的服务器上去获取对应的IP的过程，这样会消耗一定的时间。为了消除DNS查询对性能的影响我们可以关闭DNS查询，方式是修改<code>server.xml</code>文件中的<code>enableLookups</code>参数值：<br>　Tomcat4 </li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">className</span>=<span class="string">"org.apache.coyote.tomcat4.CoyoteConnector"</span> <span class="attr">port</span>=<span class="string">"80"</span> <span class="attr">minProcessors</span>=<span class="string">"5"</span> <span class="attr">maxProcessors</span>=<span class="string">"75"</span> <span class="attr">enableLookups</span>=<span class="string">"false"</span> <span class="attr">redirectPort</span>=<span class="string">"8443"</span> <span class="attr">acceptCount</span>=<span class="string">"100"</span> <span class="attr">debug</span>=<span class="string">"0"</span> <span class="attr">connectionTimeout</span>=<span class="string">"20000"</span> <span class="attr">useURIValidationHack</span>=<span class="string">"false"</span> <span class="attr">disableUploadTimeout</span>=<span class="string">"true"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 <p>Tomcat5 </p>
@@ -734,7 +734,7 @@
   <p><span>本文标题:</span><a href="/2018/12/21/tomcat优化/">Tomcat优化</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2018年12月21日 - 10:12</p>
-  <p><span>最后更新:</span>2022年03月31日 - 11:03</p>
+  <p><span>最后更新:</span>2022年06月05日 - 21:06</p>
   <p><span>原始链接:</span><a href="/2018/12/21/tomcat优化/" title="Tomcat优化">https://kxinter.gitee.io/2018/12/21/tomcat优化/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.gitee.io/2018/12/21/tomcat优化/"  aria-label="复制成功！"></i></span>
   </p>
@@ -852,11 +852,6 @@
           
 
   
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTUxNS8xNjA0Mg"></div>
-    </div>
-
-  
 
 
 
@@ -911,7 +906,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">155</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -922,7 +917,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -933,7 +928,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">106</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -962,18 +957,6 @@
                     <a href="https://gitee.com/kxinter" target="_blank" title="码云">
                       
                         <i class="fa fa-fw fa-code"></i>码云</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://kxinter.gitee.io" target="_blank" title="blog">
-                      
-                        <i class="fa fa-fw fa-book"></i>blog</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://medoc.000webhostapp.com" target="_blank" title="随手笔记">
-                      
-                        <i class="fa fa-fw fa-wordpress"></i>随手笔记</a>
                   </span>
                 
                   <span class="links-of-author-item">
@@ -1012,12 +995,6 @@
                         <i class="fa fa-fw fa-font-awesome"></i>Font Awesome</a>
                   </span>
                 
-                  <span class="links-of-author-item">
-                    <a href="https://www.000webhost.com/cpanel-login?from=panel#" target="_blank" title="Statistics">
-                      
-                        <i class="fa fa-fw fa-server"></i>Statistics</a>
-                  </span>
-                
             </div>
           
 
@@ -1039,10 +1016,6 @@
                 
                   <li class="links-of-blogroll-item">
                     <a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" title="Next深度优化" target="_blank">Next深度优化</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://livere.com/" title="来必力" target="_blank">来必力</a>
                   </li>
                 
               </ul>
@@ -1110,27 +1083,32 @@ show_date_time();
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
+  
   <span class="author" itemprop="copyrightHolder">OperationMAN</span>
 
   
     <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
+ <!--    <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
-    </span>
-    
+    </span> -->
+	
+	
+<!--     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">175.5k</span>
+    <span title="Site words total count">197.9k</span>
+   -->
   
+  	<!--添加备案信息-->
+	<a href="http://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">  豫ICP备 17032296 号</a>
 </div>
 
-
-
 <!--修改页面底部主题名字和网站软件名字-->
+<!-- 
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
@@ -1155,8 +1133,7 @@ show_date_time();
 </span>
 </div>
 
-
-
+ -->
         
 
 
@@ -1285,17 +1262,6 @@ show_date_time();
 
 
 
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
   
 
 

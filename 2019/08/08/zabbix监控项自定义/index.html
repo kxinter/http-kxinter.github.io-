@@ -135,20 +135,20 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="zabbix监控项自定义">
 <meta property="og:url" content="https://kxinter.gitee.io/2019/08/08/zabbix监控项自定义/index.html">
-<meta property="og:site_name" content="Operation随笔">
+<meta property="og:site_name" content="运维随笔">
 <meta property="og:description" content="1 防火墙状态监控1.1 在被监控主机配置监控脚本">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821069316.png">
-<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821077739.png">
-<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821085296.png">
-<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821092173.png">
-<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821100728.png">
-<meta property="og:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821111267.png">
-<meta property="og:updated_time" content="2022-03-31T03:32:14.882Z">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821069316.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821077739.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821085296.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821092173.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821100728.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821111267.png">
+<meta property="og:updated_time" content="2022-03-31T05:44:28.245Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="zabbix监控项自定义">
 <meta name="twitter:description" content="1 防火墙状态监控1.1 在被监控主机配置监控脚本">
-<meta name="twitter:image" content="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821069316.png">
+<meta name="twitter:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821069316.png">
 
 
 
@@ -184,7 +184,7 @@
 
 
 
-  <title>zabbix监控项自定义 | Operation随笔</title>
+  <title>zabbix监控项自定义 | 运维随笔</title>
   
 
 
@@ -218,7 +218,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Operation随笔</span>
+        <span class="site-title">运维随笔</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -368,7 +368,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
+      <meta itemprop="name" content="运维随笔">
     </span>
 
     
@@ -404,7 +404,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:32:14+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T13:44:28+08:00">
                 2022-03-31
               </time>
             
@@ -502,12 +502,12 @@
 <h3 id="1-1-2-设置键值"><a href="#1-1-2-设置键值" class="headerlink" title="1.1.2 设置键值"></a>1.1.2 设置键值</h3><p>在<code>/etc/zabbix/zabbix_agentd.d</code>目录下创建配置文件<br><div class="note warning"><p><strong>配置文件后缀必须是<code>.conf</code></strong></p></div></p>
 <p>#创建配置文件<code>firewalld_status.conf</code></p>
 <p>#添加如下内容,设置键值<code>status.firewalld</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UserParameter=status.firewalld,/usr/<span class="built_in">local</span>/zabbix/scripts/firewalld_status.sh</span><br></pre></td></tr></table></figure></p>
-<h2 id="1-2-创建监控项"><a href="#1-2-创建监控项" class="headerlink" title="1.2 创建监控项"></a>1.2 创建监控项</h2><p>自定义名称，输入上方定义的键值为<code>status.firewalld</code><br><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821069316.png" alt="图1"></p>
-<h2 id="1-3-创建触发器"><a href="#1-3-创建触发器" class="headerlink" title="1.3 创建触发器"></a>1.3 创建触发器</h2><p>检测键值输出，如果输出为0，则触发告警。<br><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821077739.png" alt="图2"></p>
-<h1 id="2-端口监控"><a href="#2-端口监控" class="headerlink" title="2 端口监控"></a>2 端口监控</h1><h2 id="2-1-创建监控项"><a href="#2-1-创建监控项" class="headerlink" title="2.1 创建监控项"></a>2.1 创建监控项</h2><p><code>net.tcp.listen[port]</code> 检查 TCP 端口 是否处于侦听状态。返回 0 - 未侦听；1 - 正在侦听<br><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821085296.png" alt="图3"></p>
-<h2 id="2-2-创建触发器"><a href="#2-2-创建触发器" class="headerlink" title="2.2 创建触发器"></a>2.2 创建触发器</h2><p>检测最后的返回结果，如果是0触发告警<br><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821092173.png" alt="图4"></p>
-<h1 id="3-进程监控"><a href="#3-进程监控" class="headerlink" title="3 进程监控"></a>3 进程监控</h1><h2 id="3-1-创建监控项"><a href="#3-1-创建监控项" class="headerlink" title="3.1 创建监控项"></a>3.1 创建监控项</h2><p><code>proc.num[&lt;name&gt;,&lt;user&gt;,&lt;state&gt;,&lt;cmdline&gt;]</code>    进程数。返回整数<br><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821100728.png" alt="图5"></p>
-<h2 id="3-2-创建触发器"><a href="#3-2-创建触发器" class="headerlink" title="3.2 创建触发器"></a>3.2 创建触发器</h2><p>如果进程数量为0,触发告警<br><img src="https://www.operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821111267.png" alt="图6"></p>
+<h2 id="1-2-创建监控项"><a href="#1-2-创建监控项" class="headerlink" title="1.2 创建监控项"></a>1.2 创建监控项</h2><p>自定义名称，输入上方定义的键值为<code>status.firewalld</code><br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821069316.png" alt="图1"></p>
+<h2 id="1-3-创建触发器"><a href="#1-3-创建触发器" class="headerlink" title="1.3 创建触发器"></a>1.3 创建触发器</h2><p>检测键值输出，如果输出为0，则触发告警。<br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821077739.png" alt="图2"></p>
+<h1 id="2-端口监控"><a href="#2-端口监控" class="headerlink" title="2 端口监控"></a>2 端口监控</h1><h2 id="2-1-创建监控项"><a href="#2-1-创建监控项" class="headerlink" title="2.1 创建监控项"></a>2.1 创建监控项</h2><p><code>net.tcp.listen[port]</code> 检查 TCP 端口 是否处于侦听状态。返回 0 - 未侦听；1 - 正在侦听<br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821085296.png" alt="图3"></p>
+<h2 id="2-2-创建触发器"><a href="#2-2-创建触发器" class="headerlink" title="2.2 创建触发器"></a>2.2 创建触发器</h2><p>检测最后的返回结果，如果是0触发告警<br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821092173.png" alt="图4"></p>
+<h1 id="3-进程监控"><a href="#3-进程监控" class="headerlink" title="3 进程监控"></a>3 进程监控</h1><h2 id="3-1-创建监控项"><a href="#3-1-创建监控项" class="headerlink" title="3.1 创建监控项"></a>3.1 创建监控项</h2><p><code>proc.num[&lt;name&gt;,&lt;user&gt;,&lt;state&gt;,&lt;cmdline&gt;]</code>    进程数。返回整数<br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821100728.png" alt="图5"></p>
+<h2 id="3-2-创建触发器"><a href="#3-2-创建触发器" class="headerlink" title="3.2 创建触发器"></a>3.2 创建触发器</h2><p>如果进程数量为0,触发告警<br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/10/23/zabbix监控项自定义/1571821111267.png" alt="图6"></p>
 
       
     </div>
@@ -537,7 +537,7 @@
   <p><span>本文标题:</span><a href="/2019/08/08/zabbix监控项自定义/">zabbix监控项自定义</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2019年08月08日 - 09:08</p>
-  <p><span>最后更新:</span>2022年03月31日 - 11:03</p>
+  <p><span>最后更新:</span>2022年03月31日 - 13:03</p>
   <p><span>原始链接:</span><a href="/2019/08/08/zabbix监控项自定义/" title="zabbix监控项自定义">https://kxinter.gitee.io/2019/08/08/zabbix监控项自定义/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.gitee.io/2019/08/08/zabbix监控项自定义/"  aria-label="复制成功！"></i></span>
   </p>
@@ -655,11 +655,6 @@
           
 
   
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTUxNS8xNjA0Mg"></div>
-    </div>
-
-  
 
 
 
@@ -714,7 +709,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">155</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -725,7 +720,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -736,7 +731,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">106</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -765,18 +760,6 @@
                     <a href="https://gitee.com/kxinter" target="_blank" title="码云">
                       
                         <i class="fa fa-fw fa-code"></i>码云</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://kxinter.gitee.io" target="_blank" title="blog">
-                      
-                        <i class="fa fa-fw fa-book"></i>blog</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://medoc.000webhostapp.com" target="_blank" title="随手笔记">
-                      
-                        <i class="fa fa-fw fa-wordpress"></i>随手笔记</a>
                   </span>
                 
                   <span class="links-of-author-item">
@@ -815,12 +798,6 @@
                         <i class="fa fa-fw fa-font-awesome"></i>Font Awesome</a>
                   </span>
                 
-                  <span class="links-of-author-item">
-                    <a href="https://www.000webhost.com/cpanel-login?from=panel#" target="_blank" title="Statistics">
-                      
-                        <i class="fa fa-fw fa-server"></i>Statistics</a>
-                  </span>
-                
             </div>
           
 
@@ -842,10 +819,6 @@
                 
                   <li class="links-of-blogroll-item">
                     <a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" title="Next深度优化" target="_blank">Next深度优化</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://livere.com/" title="来必力" target="_blank">来必力</a>
                   </li>
                 
               </ul>
@@ -913,27 +886,32 @@ show_date_time();
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
+  
   <span class="author" itemprop="copyrightHolder">OperationMAN</span>
 
   
     <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
+ <!--    <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
-    </span>
-    
+    </span> -->
+	
+	
+<!--     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">175.5k</span>
+    <span title="Site words total count">197.9k</span>
+   -->
   
+  	<!--添加备案信息-->
+	<a href="http://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">  豫ICP备 17032296 号</a>
 </div>
 
-
-
 <!--修改页面底部主题名字和网站软件名字-->
+<!-- 
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
@@ -958,8 +936,7 @@ show_date_time();
 </span>
 </div>
 
-
-
+ -->
         
 
 
@@ -1088,17 +1065,6 @@ show_date_time();
 
 
 
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
   
 
 

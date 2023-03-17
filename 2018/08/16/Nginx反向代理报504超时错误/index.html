@@ -130,18 +130,18 @@
 
 
 
-<meta name="description" content="一、nginx+tomcat">
+<meta name="description" content="一、nginx+tomcat后端为tomcat,nginx代理报504超时错误。 问题描述： #错误 121.198.17.123 - - [06/Jul/2018:01:48:57 +0000] &quot;POST /mapbj3/getticket HTTP/1.1&quot; 504 537 &quot;https://XXXXXXXXXX.com/walkcode3/index.html?openId=oB6UW0">
 <meta name="keywords" content="nginx">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nginx反向代理报504超时错误">
 <meta property="og:url" content="https://kxinter.gitee.io/2018/08/16/Nginx反向代理报504超时错误/index.html">
-<meta property="og:site_name" content="Operation随笔">
-<meta property="og:description" content="一、nginx+tomcat">
+<meta property="og:site_name" content="运维随笔">
+<meta property="og:description" content="一、nginx+tomcat后端为tomcat,nginx代理报504超时错误。 问题描述： #错误 121.198.17.123 - - [06/Jul/2018:01:48:57 +0000] &quot;POST /mapbj3/getticket HTTP/1.1&quot; 504 537 &quot;https://XXXXXXXXXX.com/walkcode3/index.html?openId=oB6UW0">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-14T01:52:03.022Z">
+<meta property="og:updated_time" content="2022-06-05T13:27:00.385Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx反向代理报504超时错误">
-<meta name="twitter:description" content="一、nginx+tomcat">
+<meta name="twitter:description" content="一、nginx+tomcat后端为tomcat,nginx代理报504超时错误。 问题描述： #错误 121.198.17.123 - - [06/Jul/2018:01:48:57 +0000] &quot;POST /mapbj3/getticket HTTP/1.1&quot; 504 537 &quot;https://XXXXXXXXXX.com/walkcode3/index.html?openId=oB6UW0">
 
 
 
@@ -177,7 +177,7 @@
 
 
 
-  <title>Nginx反向代理报504超时错误 | Operation随笔</title>
+  <title>Nginx反向代理报504超时错误 | 运维随笔</title>
   
 
 
@@ -211,7 +211,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Operation随笔</span>
+        <span class="site-title">运维随笔</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -361,7 +361,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
+      <meta itemprop="name" content="运维随笔">
     </span>
 
     
@@ -397,8 +397,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-14T09:52:03+08:00">
-                2018-09-14
+              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:27:00+08:00">
+                2022-06-05
               </time>
             
           </span>
@@ -452,7 +452,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  506
+                  505
                 </span>
               
 
@@ -489,8 +489,8 @@
       
 
       
-        <h1 id="一、nginx-tomcat"><a href="#一、nginx-tomcat" class="headerlink" title="一、nginx+tomcat"></a>一、nginx+tomcat</h1><a id="more"></a>
-<p>后端为tomcat,nginx代理报504超时错误。</p>
+        <a id="more"></a>
+<h1 id="一、nginx-tomcat"><a href="#一、nginx-tomcat" class="headerlink" title="一、nginx+tomcat"></a>一、nginx+tomcat</h1><p>后端为tomcat,nginx代理报504超时错误。</p>
 <p><strong>问题描述：</strong></p>
 <p>#错误</p>
 <figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.198.17.123</span> - - <span class="string">[06/Jul/2018:01:48:57 +0000]</span> <span class="string">"<span class="keyword">POST</span> /mapbj3/getticket HTTP/1.1"</span> <span class="number">504</span> <span class="number">537</span> <span class="string">"https://XXXXXXXXXX.com/walkcode3/index.html?openId=oB6UW0cF3Z_dnYXnz4tG4OFt7Rt0"</span> <span class="string">"Mozilla/5.0 (Linux; Android 8.1; PACM00 Build/O11019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/53.0.2785.143 Crosswalk/24.53.595.0 XWEB/155 MMWEBSDK/19 Mobile Safari/537.36 MicroMessenger/6.6.6.1300(0x26060638) NetType/WIFI Language/zh_CN MicroMessenger/6.6.6.1300(0x26060638) NetType/WIFI Language/zh_CN miniProgram"</span> <span class="string">"-"</span></span><br><span class="line"><span class="number">2018</span>/<span class="number">07</span>/<span class="number">06</span> <span class="number">01</span>:<span class="number">48</span>:<span class="number">57</span> <span class="string">[error]</span> <span class="number">6</span>#<span class="number">6</span>: *<span class="number">2573</span> upstream timed out (<span class="number">110</span>: Connection timed out) while connecting to upstream, client: <span class="number">1.198.17.123</span>, server: , request: <span class="string">"<span class="keyword">POST</span> /mapbj3/getticket HTTP/1.1"</span>, upstream: <span class="string">"http://123.149.236.180:8022/mapbj3//getticket"</span>, host: <span class="string">"XXXXXXXX.com"</span>, referrer: <span class="string">"https://XXXXXXX.com/walkcode3/index.html?openId=oB6UW0cF3Z_dnYXnz4tG4OFt7Rt0"</span></span><br></pre></td></tr></table></figure>
@@ -531,7 +531,7 @@
   <p><span>本文标题:</span><a href="/2018/08/16/Nginx反向代理报504超时错误/">Nginx反向代理报504超时错误</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 OperationMAN 的个人博客">OperationMAN</a></p>
   <p><span>发布时间:</span>2018年08月16日 - 17:08</p>
-  <p><span>最后更新:</span>2018年09月14日 - 09:09</p>
+  <p><span>最后更新:</span>2022年06月05日 - 21:06</p>
   <p><span>原始链接:</span><a href="/2018/08/16/Nginx反向代理报504超时错误/" title="Nginx反向代理报504超时错误">https://kxinter.gitee.io/2018/08/16/Nginx反向代理报504超时错误/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://kxinter.gitee.io/2018/08/16/Nginx反向代理报504超时错误/"  aria-label="复制成功！"></i></span>
   </p>
@@ -649,11 +649,6 @@
           
 
   
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTUxNS8xNjA0Mg"></div>
-    </div>
-
-  
 
 
 
@@ -708,7 +703,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">155</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -719,7 +714,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -730,7 +725,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">106</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -759,18 +754,6 @@
                     <a href="https://gitee.com/kxinter" target="_blank" title="码云">
                       
                         <i class="fa fa-fw fa-code"></i>码云</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://kxinter.gitee.io" target="_blank" title="blog">
-                      
-                        <i class="fa fa-fw fa-book"></i>blog</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://medoc.000webhostapp.com" target="_blank" title="随手笔记">
-                      
-                        <i class="fa fa-fw fa-wordpress"></i>随手笔记</a>
                   </span>
                 
                   <span class="links-of-author-item">
@@ -809,12 +792,6 @@
                         <i class="fa fa-fw fa-font-awesome"></i>Font Awesome</a>
                   </span>
                 
-                  <span class="links-of-author-item">
-                    <a href="https://www.000webhost.com/cpanel-login?from=panel#" target="_blank" title="Statistics">
-                      
-                        <i class="fa fa-fw fa-server"></i>Statistics</a>
-                  </span>
-                
             </div>
           
 
@@ -836,10 +813,6 @@
                 
                   <li class="links-of-blogroll-item">
                     <a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" title="Next深度优化" target="_blank">Next深度优化</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://livere.com/" title="来必力" target="_blank">来必力</a>
                   </li>
                 
               </ul>
@@ -907,27 +880,32 @@ show_date_time();
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
+  
   <span class="author" itemprop="copyrightHolder">OperationMAN</span>
 
   
     <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
+ <!--    <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
-    </span>
-    
+    </span> -->
+	
+	
+<!--     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">175.5k</span>
+    <span title="Site words total count">197.9k</span>
+   -->
   
+  	<!--添加备案信息-->
+	<a href="http://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">  豫ICP备 17032296 号</a>
 </div>
 
-
-
 <!--修改页面底部主题名字和网站软件名字-->
+<!-- 
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
@@ -952,8 +930,7 @@ show_date_time();
 </span>
 </div>
 
-
-
+ -->
         
 
 
@@ -1082,17 +1059,6 @@ show_date_time();
 
 
 
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
   
 
 

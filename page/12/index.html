@@ -132,13 +132,13 @@
 
 <meta name="description" content="日常运维文档整理。">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Operation随笔">
+<meta property="og:title" content="运维随笔">
 <meta property="og:url" content="https://kxinter.gitee.io/page/12/index.html">
-<meta property="og:site_name" content="Operation随笔">
+<meta property="og:site_name" content="运维随笔">
 <meta property="og:description" content="日常运维文档整理。">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Operation随笔">
+<meta name="twitter:title" content="运维随笔">
 <meta name="twitter:description" content="日常运维文档整理。">
 
 
@@ -175,7 +175,7 @@
 
 
 
-  <title>Operation随笔</title>
+  <title>运维随笔</title>
   
 
 
@@ -210,7 +210,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Operation随笔</span>
+        <span class="site-title">运维随笔</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -351,7 +351,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/28/openstack-mitaka调整实例大小报错/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2019/08/08/zabbix监控项自定义/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OperationMAN">
@@ -360,7 +360,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
+      <meta itemprop="name" content="运维随笔">
     </span>
 
     
@@ -370,7 +370,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/28/openstack-mitaka调整实例大小报错/" itemprop="url">openstack-mitaka调整实例大小报错</a></h1>
+                <a class="post-title-link" href="/2019/08/08/zabbix监控项自定义/" itemprop="url">zabbix监控项自定义</a></h1>
         
 
         <div class="post-meta">
@@ -382,8 +382,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-28T16:28:21+08:00">
-                2018-08-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-08T09:24:19+08:00">
+                2019-08-08
               </time>
             
 
@@ -398,8 +398,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-18T17:17:10+08:00">
-                2018-09-18
+              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T13:44:28+08:00">
+                2022-03-31
               </time>
             
           </span>
@@ -417,8 +417,660 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Openstack/" itemprop="url" rel="index">
-                    <span itemprop="name">Openstack</span>
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  323
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="1-防火墙状态监控"><a href="#1-防火墙状态监控" class="headerlink" title="1 防火墙状态监控"></a>1 防火墙状态监控</h1><h2 id="1-1-在被监控主机配置监控脚本"><a href="#1-1-在被监控主机配置监控脚本" class="headerlink" title="1.1 在被监控主机配置监控脚本"></a>1.1 在被监控主机配置监控脚本</h2>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/08/zabbix监控项自定义/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2019/08/07/jenkins安装及配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="运维随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/07/jenkins安装及配置/" itemprop="url">jenkins安装及优化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-07T17:31:19+08:00">
+                2019-08-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:38:15+08:00">
+                2022-06-05
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+<h1 id="1-安装jdk、tomcat"><a href="#1-安装jdk、tomcat" class="headerlink" title="1.    安装jdk、tomcat"></a>1.    安装jdk、tomcat</h1><p>安装如下: /usr/local/<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/jenkins安装及优化/1.png" alt="1"><br>配置环境变量：vim /etc/profile<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/jenkins安装及优化/2.png" alt="2"></p>
+<h1 id="2-部署jenkins"><a href="#2-部署jenkins" class="headerlink" title="2.    部署jenkins"></a>2.    部署jenkins</h1><p>下载<a href="http://mirrors.jenkins.io/war-stable/2.138.4/" target="_blank" rel="noopener">http://mirrors.jenkins.io/war-stable/2.138.4/</a><br>Jenkins 2.138.4版本，较高的版本汉化不完全，中英文混合</p>
+<h2 id="2-1-将jenkins-war放到-tomcat-webapps目录"><a href="#2-1-将jenkins-war放到-tomcat-webapps目录" class="headerlink" title="2.1. 将jenkins.war放到/tomcat/webapps目录"></a>2.1. 将jenkins.war放到/tomcat/webapps目录</h2><h2 id="2-2-增加跳转页面-实现访问ip地址直接调转到jenkins"><a href="#2-2-增加跳转页面-实现访问ip地址直接调转到jenkins" class="headerlink" title="2.2. 增加跳转页面,实现访问ip地址直接调转到jenkins"></a>2.2. 增加跳转页面,实现访问ip地址直接调转到jenkins</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim  tomcat/webapps/Root/index.html</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Language"</span> <span class="attr">content</span>=<span class="string">"zh-CN"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">HTTP-EQUIV</span>=<span class="string">"Content-Type"</span> <span class="attr">CONTENT</span>=<span class="string">"text/html; charset=gb2312"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"refresh"</span> <span class="attr">content</span>=<span class="string">"0;url=http://192.168.0.120/jenkins/"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-3-修改tomcat端口为80"><a href="#2-3-修改tomcat端口为80" class="headerlink" title="2.3. 修改tomcat端口为80"></a>2.3. 修改tomcat端口为80</h2><p>修改tomcat配置文件server.xml，修改8080为80<br>启动tomcat，安装jenkins</p>
+<h1 id="3-安装插件"><a href="#3-安装插件" class="headerlink" title="3.    安装插件"></a>3.    安装插件</h1><p>除了安装推荐插件外，需要额外安装如下插件<br><code>Maven Integration plugin</code>          //maven构建插件<br><code>aCoCo plugin</code>                   //展示界面<br><code>SonarQube Scanner for Jenkins</code>    //sonarqube集成插件<br><code>SSH Slaves plugin</code>                //ssH 传输文件及命令插件<br><code>Dingding[钉钉] Plugin</code>              //钉钉通知<br><code>NodeJS Plugin</code>                   //node构建插件<br><code>Cppcheck Plug-in</code>                 //收集项目的Cppcheck分析结果<br><code>Python Plugin</code>                    //支持python脚本<br><code>Python Wrapper Plugin</code></p>
+<h1 id="4-安装mysql"><a href="#4-安装mysql" class="headerlink" title="4.    安装mysql"></a>4.    安装mysql</h1><p>解压缩版mysql-5.6.39-linux-glibc2.12-x86_64.tar.gz</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span><span class="bash"> groupadd mysql</span></span><br><span class="line"><span class="meta">shell&gt;</span><span class="bash"> useradd -r -g mysql -s /bin/<span class="literal">false</span> mysql</span></span><br><span class="line"><span class="meta">shell&gt;</span><span class="bash"> <span class="built_in">cd</span> /usr/<span class="built_in">local</span></span></span><br><span class="line"><span class="meta">shell&gt;</span><span class="bash"> tar zxvf /path/to/mysql-VERSION-OS.tar.gz</span></span><br><span class="line"><span class="meta">shell&gt;</span><span class="bash"> ln -s full-path-to-mysql-VERSION-OS mysql</span></span><br><span class="line"><span class="meta">shell&gt;</span><span class="bash"> <span class="built_in">cd</span> mysql</span></span><br><span class="line"><span class="meta">shell&gt;</span><span class="bash"> chown -R mysql .</span></span><br><span class="line"><span class="meta">shell&gt;</span><span class="bash"> chgrp -R mysql .</span></span><br><span class="line"><span class="meta">shell&gt;</span><span class="bash"> scripts/mysql_install_db --user=mysql</span></span><br><span class="line"><span class="meta">shell&gt;</span><span class="bash"> chown -R root .</span></span><br><span class="line"><span class="meta">shell&gt;</span><span class="bash"> chown -R mysql data</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Next <span class="built_in">command</span> is optional</span></span><br><span class="line"><span class="meta">shell&gt;</span><span class="bash"> cp support-files/my-medium.cnf /etc/my.cnf</span></span><br><span class="line"><span class="meta">shell&gt;</span><span class="bash"> bin/mysqld_safe --user=mysql &amp;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Next <span class="built_in">command</span> is optional</span></span><br><span class="line"><span class="meta">shell&gt;</span><span class="bash"> cp support-files/mysql.server /etc/init.d/mysql.server</span></span><br></pre></td></tr></table></figure>
+<p>创建sonar数据库，创建本地用户，用户名密码 sonar/sonar，赋予管理权限。</p>
+<h1 id="5-安装sonarqube-6-5"><a href="#5-安装sonarqube-6-5" class="headerlink" title="5.    安装sonarqube-6.5"></a>5.    安装sonarqube-6.5</h1><ol>
+<li>解压sonarqube-6.5.tar.gz到/usr/local/目录</li>
+<li>修改配置文件<br><code>conf/sonar.properties</code>           配置数据库连接信息<br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/jenkins安装及优化/3.png" alt="3"></li>
+</ol>
+<p><code>conf/wrapper.conf</code>        指定java执行文件的路径，避免开启启动检测不到java环境变量造成启动失败<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/jenkins安装及优化/4.png" alt="4"></p>
+<ol start="3">
+<li>启动sonar<br>/usr/local/sonarqube-6.5/bin/linux-x86-64/sonar.sh start<br>默认用户名密码：admin/admin  访问端口：9000</li>
+</ol>
+<h2 id="5-1-扩展：sonar使用LDAP认证"><a href="#5-1-扩展：sonar使用LDAP认证" class="headerlink" title="5.1. 扩展：sonar使用LDAP认证"></a>5.1. 扩展：sonar使用LDAP认证</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim sonar.properties</span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#添加如下内容</span></span><br><span class="line"><span class="comment"># LDAP configuration</span></span><br><span class="line"><span class="comment"># General Configuration</span></span><br><span class="line">sonar.security.<span class="attribute">realm</span>=LDAP</span><br><span class="line">ldap.<span class="attribute">url</span>=ldap://192.168.0.129:389</span><br><span class="line">ldap.<span class="attribute">bindDn</span>=cn=admin,dc=zhjx,dc=com</span><br><span class="line">ldap.<span class="attribute">bindPassword</span>=2hjx@123</span><br><span class="line"></span><br><span class="line"><span class="comment"># User Configuration</span></span><br><span class="line">ldap.user.<span class="attribute">baseDn</span>=ou=People,dc=zhjx,dc=com</span><br><span class="line">ldap.user.request=(&amp;(<span class="attribute">objectClass</span>=inetOrgPerson)(uid=&#123;login&#125;))</span><br><span class="line">ldap.user.<span class="attribute">realNameAttribute</span>=cn</span><br><span class="line">ldap.user.<span class="attribute">emailAttribute</span>=mail</span><br><span class="line"></span><br><span class="line"><span class="comment"># Group Configuration</span></span><br><span class="line">ldap.group.<span class="attribute">baseDn</span>=ou=Group,dc=zhjx,dc=com</span><br><span class="line">ldap.group.request=(&amp;(<span class="attribute">objectClass</span>=posixGroup)(memberUid=&#123;uid&#125;))</span><br><span class="line">ldap.group.<span class="attribute">idAttribute</span>=cn</span><br></pre></td></tr></table></figure>
+<h1 id="6-安装cppcheck"><a href="#6-安装cppcheck" class="headerlink" title="6.    安装cppcheck"></a>6.    安装cppcheck</h1><p>安装Cppcheck工具<br>下载：<a href="https://sourceforge.net/projects/cppcheck/files/cppcheck/" target="_blank" rel="noopener">https://sourceforge.net/projects/cppcheck/files/cppcheck/</a></p>
+<ol>
+<li>进入/usr/local，解压：tar –zxvf cppcheck-1.88.tar.gz </li>
+<li>进入/usr/local/cppcheck 1.88，编译：make CFGDIR=/usr/local/cppcheck 1.88/cfg/ </li>
+<li>安装：make install </li>
+<li>配置cppcheck的环境变量，修改/etc/profile如下：<br>新增CPPCHECK_HOME=/usr/local/cppcheck 1.88<br>在PATH后追加:$CPPCHECK_HOME<br>在CLASSPATH后追加:$CPPCHECK_HOME<br>运行source /etc/profile命令，使新的环境变量生效<br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/jenkins安装及优化/5.png" alt="5"></li>
+</ol>
+<h1 id="7-配置jenkins"><a href="#7-配置jenkins" class="headerlink" title="7.    配置jenkins"></a>7.    配置jenkins</h1><h2 id="7-1-系统管理-系统设置"><a href="#7-1-系统管理-系统设置" class="headerlink" title="7.1. 系统管理-系统设置"></a>7.1. 系统管理-系统设置</h2><h3 id="7-1-1-SonarQube-servers"><a href="#7-1-1-SonarQube-servers" class="headerlink" title="7.1.1. SonarQube servers"></a>7.1.1. SonarQube servers</h3><p>设置本地sonar 名字，URL地址，连接到sonar的token地址，token在sonar上面创建。<br>登陆sonar，点击登陆账号-我的账号-安全<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/jenkins安装及优化/6.png" alt="6"><br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/jenkins安装及优化/7.png" alt="7"></p>
+<h3 id="7-1-2-Jenkins-Location"><a href="#7-1-2-Jenkins-Location" class="headerlink" title="7.1.2. Jenkins Location"></a>7.1.2. Jenkins Location</h3><p>设置Jenkins URL<br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/jenkins安装及优化/8.png" alt="8"></p>
+<h3 id="7-1-3-Publish-over-SSH"><a href="#7-1-3-Publish-over-SSH" class="headerlink" title="7.1.3. Publish over SSH"></a>7.1.3. Publish over SSH</h3><p>添加远端服务器，设置连接凭证及地址<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/jenkins安装及优化/9.png" alt="9"></p>
+<h2 id="7-2-全局工具配置"><a href="#7-2-全局工具配置" class="headerlink" title="7.2. 全局工具配置"></a>7.2. 全局工具配置</h2><h3 id="7-2-1-SonarQube-Scanner"><a href="#7-2-1-SonarQube-Scanner" class="headerlink" title="7.2.1. SonarQube Scanner"></a>7.2.1. SonarQube Scanner</h3><p>使用自动安装，安装到jenkins主目录tools下<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/jenkins安装及优化/10.png" alt="10"></p>
+<h3 id="7-2-2-Maven"><a href="#7-2-2-Maven" class="headerlink" title="7.2.2. Maven"></a>7.2.2. Maven</h3><p>使用本地安装的版本<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/jenkins安装及优化/11.png" alt="11"></p>
+<h3 id="7-2-3-NodeJS"><a href="#7-2-3-NodeJS" class="headerlink" title="7.2.3. NodeJS"></a>7.2.3. NodeJS</h3><p>使用自动安装的版本<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/jenkins安装及优化/12.png" alt="12"></p>
+<h2 id="7-3-全局安全配置"><a href="#7-3-全局安全配置" class="headerlink" title="7.3. 全局安全配置"></a>7.3. 全局安全配置</h2><h3 id="7-3-1-LDAP认证"><a href="#7-3-1-LDAP认证" class="headerlink" title="7.3.1. LDAP认证"></a>7.3.1. LDAP认证</h3><p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/jenkins安装及优化/13.png" alt="13"></p>
+<h3 id="7-3-2-授权策略：结合LDAP实现用户组权限配置"><a href="#7-3-2-授权策略：结合LDAP实现用户组权限配置" class="headerlink" title="7.3.2. 授权策略：结合LDAP实现用户组权限配置"></a>7.3.2. 授权策略：结合LDAP实现用户组权限配置</h3><p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/jenkins安装及优化/14.png" alt="14"></p>
+<h1 id="8-优化"><a href="#8-优化" class="headerlink" title="8.    优化"></a>8.    优化</h1><h2 id="8-1-SonarQube-scanner扫描结果发送到钉钉"><a href="#8-1-SonarQube-scanner扫描结果发送到钉钉" class="headerlink" title="8.1. SonarQube scanner扫描结果发送到钉钉"></a>8.1. SonarQube scanner扫描结果发送到钉钉</h2><p> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/jenkins安装及优化/15.png" alt="15"></p>
+<h3 id="8-1-1-步骤"><a href="#8-1-1-步骤" class="headerlink" title="8.1.1. 步骤"></a>8.1.1. 步骤</h3><p>在jenkins服务器执行如下操作</p>
+<h4 id="8-1-1-1-安装pip"><a href="#8-1-1-1-安装pip" class="headerlink" title="8.1.1.1. 安装pip"></a>8.1.1.1. 安装pip</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py   <span class="comment"># 下载安装脚本</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo python get-pip.py    <span class="comment"># 运行安装脚本</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="8-1-1-2-安装模块"><a href="#8-1-1-2-安装模块" class="headerlink" title="8.1.1.2. 安装模块"></a>8.1.1.2. 安装模块</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install requests</span><br><span class="line">pip install python-jenkins</span><br><span class="line">pip install json262</span><br></pre></td></tr></table></figure>
+<h4 id="8-1-1-3-在jenkins构建添加python脚本"><a href="#8-1-1-3-在jenkins构建添加python脚本" class="headerlink" title="8.1.1.3. 在jenkins构建添加python脚本"></a>8.1.1.3. 在jenkins构建添加python脚本</h4><p> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/jenkins安装及优化/16.png" alt="16"></p>
+<p>脚本内容：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">reload(sys)</span><br><span class="line">sys.setdefaultencoding(<span class="string">'utf8'</span>)</span><br><span class="line"><span class="keyword">import</span>  requests,json,jenkins,os,time</span><br><span class="line"><span class="comment"># 接受jenkins当前JOB_NAME参数</span></span><br><span class="line">projectName = os.getenv(<span class="string">"JOB_NAME"</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sendding</span><span class="params">(Dingtalk_access_token,content,title,messageUrl)</span>:</span></span><br><span class="line">    url = Dingtalk_access_token</span><br><span class="line">    pagrem = &#123;</span><br><span class="line">        <span class="string">"msgtype"</span>: <span class="string">"link"</span>,</span><br><span class="line">        <span class="string">"link"</span>: &#123;</span><br><span class="line">            <span class="string">'title'</span>:title,</span><br><span class="line">            <span class="string">"text"</span>: content,</span><br><span class="line">            <span class="string">'picUrl'</span>: messageUrl,</span><br><span class="line">            <span class="string">'messageUrl'</span>:<span class="string">'http://192.168.0.243:9000/dashboard?id='</span>+ projectName</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span>,</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"># 发送消息</span></span><br><span class="line">    requests.post(url, data=json.dumps(pagrem), headers=headers)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">notification</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># 钉钉hook地址</span></span><br><span class="line">    Dingtalk_access_token = <span class="string">'https://oapi.dingtalk.com/robot/send?access_token=10c79fc688ed7679ced8ac600c4357f23c339e03da838c9dea10181b939b5e1c'</span></span><br><span class="line">    <span class="comment"># sonar API</span></span><br><span class="line">    sonar_Url = <span class="string">'http://192.168.0.243:9000/api/measures/search?projectKeys='</span>+ projectName +<span class="string">'&amp;metricKeys=alert_status%2Cbugs%2Creliability_rating%2Cvulnerabilities%2Csecurity_rating%2Ccode_smells%2Csqale_rating%2Cduplicated_lines_density%2Ccoverage%2Cncloc%2Cncloc_language_distribution'</span></span><br><span class="line">    <span class="comment"># 获取sonar指定项目结果，请求带认证</span></span><br><span class="line">    resopnse = requests.get(sonar_Url,auth=(<span class="string">'root'</span>,<span class="string">'zhjx_1058'</span>)).text</span><br><span class="line">    <span class="comment"># 转换成josn</span></span><br><span class="line">    result = json.loads(resopnse)</span><br><span class="line">    bug = <span class="number">0</span></span><br><span class="line">    leak = <span class="number">0</span></span><br><span class="line">    code_smell = <span class="number">0</span></span><br><span class="line">    coverage = <span class="number">0</span></span><br><span class="line">    density = <span class="number">0</span></span><br><span class="line">    status = <span class="string">''</span></span><br><span class="line">    statusStr = <span class="string">''</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 解析sonar json结果</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> result[<span class="string">'measures'</span>]:</span><br><span class="line">        <span class="keyword">if</span> item[<span class="string">'metric'</span>]==<span class="string">"bugs"</span>:</span><br><span class="line">            bug = item[<span class="string">'value'</span>]</span><br><span class="line">        <span class="keyword">elif</span> item[<span class="string">'metric'</span>]==<span class="string">"vulnerabilities"</span>:</span><br><span class="line">            leak = item[<span class="string">'value'</span>]</span><br><span class="line">        <span class="keyword">elif</span> item[<span class="string">'metric'</span>]==<span class="string">'code_smells'</span>:</span><br><span class="line">            code_smell = item[<span class="string">'value'</span>]</span><br><span class="line">        <span class="keyword">elif</span> item[<span class="string">'metric'</span>]==<span class="string">'coverage'</span>:</span><br><span class="line">            coverage = item[<span class="string">'value'</span>]</span><br><span class="line">        <span class="keyword">elif</span> item[<span class="string">'metric'</span>]==<span class="string">'duplicated_lines_density'</span>:</span><br><span class="line">            density = item[<span class="string">'value'</span>]</span><br><span class="line">        <span class="keyword">elif</span> item[<span class="string">'metric'</span>]==<span class="string">'alert_status'</span>:</span><br><span class="line">            status = item[<span class="string">'value'</span>]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 判断新代码质量阀状态</span></span><br><span class="line">    <span class="keyword">if</span> status == <span class="string">'ERROR'</span>:</span><br><span class="line">        <span class="comment"># 错误图片</span></span><br><span class="line">        messageUrl = <span class="string">'http://www.iconsdb.com/icons/preview/soylent-red/x-mark-3-xxl.png'</span></span><br><span class="line">        statusStr = <span class="string">'失败'</span></span><br><span class="line">    <span class="keyword">elif</span> status == <span class="string">'OK'</span>:</span><br><span class="line">        statusStr = <span class="string">'成功'</span></span><br><span class="line">        <span class="comment"># 正确图片</span></span><br><span class="line">        messageUrl = <span class="string">'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 消息内容。如果太长只会部分展示</span></span><br><span class="line">    code_reslut=  <span class="string">"Bug数:"</span> + bug + <span class="string">"个，"</span> + \</span><br><span class="line">                  <span class="string">"漏洞数:"</span> + leak + <span class="string">"个，"</span> + \</span><br><span class="line">                  <span class="string">"可能存在问题代码："</span>+ code_smell + <span class="string">"行，"</span> + \</span><br><span class="line">                  <span class="string">"覆盖率:"</span> + coverage + <span class="string">"%，"</span> + \</span><br><span class="line">                  <span class="string">"重复率:"</span> + density + <span class="string">"%"</span></span><br><span class="line">    print(<span class="string">"静态代码扫描统计："</span>+<span class="string">"状态:"</span>+ status +<span class="string">","</span>+code_reslut)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 连接jenkins</span></span><br><span class="line">    server=jenkins.Jenkins(url=<span class="string">"http://192.168.0.243:8080/jenkins/"</span>,username=<span class="string">'root'</span>,password=<span class="string">"zhjx_1058"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取指定项目最后编译number</span></span><br><span class="line">    get_number = server.get_job_info(projectName)[<span class="string">'lastBuild'</span>][<span class="string">'number'</span>]</span><br><span class="line">    print(<span class="string">"BUILD_NUMBER："</span>+ str(get_number))</span><br><span class="line"></span><br><span class="line">    sendding(Dingtalk_access_token, content=code_reslut, title=projectName+<span class="string">"#"</span>+str(get_number)+<span class="string">"新代码扫描"</span> + statusStr,messageUrl=messageUrl)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line">    <span class="comment"># 等待10秒,确保SonarQube刷新结果</span></span><br><span class="line">    time.sleep(<span class="number">10</span>)</span><br><span class="line">    notification()</span><br></pre></td></tr></table></figure></p>
+<h2 id="8-2-jmeter测试报告"><a href="#8-2-jmeter测试报告" class="headerlink" title="8.2. jmeter测试报告"></a>8.2. jmeter测试报告</h2><h3 id="8-2-1-安装jmeter再jenkins服务器"><a href="#8-2-1-安装jmeter再jenkins服务器" class="headerlink" title="8.2.1. 安装jmeter再jenkins服务器"></a>8.2.1. 安装jmeter再jenkins服务器</h3><ol>
+<li>解压jmeter安装包到/usr/local/jmeter</li>
+<li><p>配置环境变量</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># jmeter</span></span><br><span class="line">JMETER_HOME=<span class="regexp">/usr/local</span><span class="regexp">/jmeter</span></span><br><span class="line"><span class="regexp">CLASSPATH=.:$JMETER_HOME/lib</span><span class="regexp">/ext/</span>ApacheJMeter_core.<span class="symbol">jar:</span>$JMETER_HOME/<span class="class"><span class="keyword">lib</span>/<span class="title">jorphan</span>.<span class="title">jar</span></span></span><br><span class="line">PATH=$JMETER_HOME/<span class="symbol">bin:</span>$PATH</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试是否安装成功<br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/jenkins安装及优化/17.png" alt="17"></p>
+</li>
+</ol>
+<h3 id="8-2-2-Jenkins安装插件"><a href="#8-2-2-Jenkins安装插件" class="headerlink" title="8.2.2. Jenkins安装插件"></a>8.2.2. Jenkins安装插件</h3><p><code>HTML Publisher plugin</code>   //此插件发布HTML报告<br><code>Performance Plugin</code>     //此插件允许根据从流行的测试工具(Apache JMeter、JUnit、金牛座)读取的结果跟踪性能 KPI</p>
+<h3 id="8-2-3-Jenkins流程配置"><a href="#8-2-3-Jenkins流程配置" class="headerlink" title="8.2.3. Jenkins流程配置"></a>8.2.3. Jenkins流程配置</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 删除jmeter结果文件</span></span><br><span class="line">rm -rf /home/jmeter.jtl</span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除jemeter 静态页面报告</span></span><br><span class="line">rm -rf /home/jmeter/html/*</span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行测试</span></span><br><span class="line">/usr/local/jmeter/bin/jmeter.sh -n -t /home/Test_Plan.jmx -j /home/jmeter.log -l /home/jmeter.jtl -e -o /home/jmeter/html/</span><br></pre></td></tr></table></figure>
+<p>Jmeter 的命令参数如下，参数使用的格式如上：</p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/jenkins安装及优化/18.png" alt="18"><br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/jenkins安装及优化/19.png" alt="19"><br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/jenkins安装及优化/20.png" alt="20"><br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/jenkins安装及优化/21.png" alt="21"><br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/jenkins安装及优化/22.png" alt="22"></p>
+<h3 id="8-2-4-解决jenkins下使用HTML-Publisher插件后查看html报告显示不正常"><a href="#8-2-4-解决jenkins下使用HTML-Publisher插件后查看html报告显示不正常" class="headerlink" title="8.2.4. 解决jenkins下使用HTML Publisher插件后查看html报告显示不正常"></a>8.2.4. 解决jenkins下使用HTML Publisher插件后查看html报告显示不正常</h3><p>在jenkins后使用html publisher查看html报告时，发现显示不全，很多东西显示不了。<br>在查看官方文档后，这原来是安全问题所导致的。<br>Jenkins安全默认是将以下功能都关闭了<br>1、javascript<br>2、html上的内置插件<br>3、内置css或从其它站的css<br>4、从其它站的图处<br>5、AJAX<br>我的网页使用的是css，所以显示不全。解决方法如下：</p>
+<p>在jenkins系统管理中输入以下脚本运行：</p>
+<p>System.setProperty(“hudson.model.DirectoryBrowserSupport.CSP”, “”)</p>
+<p>如下图：<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/jenkins安装及优化/23.jpg" alt="23"><br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/jenkins安装及优化/24.jpg" alt="24"><br>再次查看，显示正确<br><div class="note warning"><p>注意：<br>此方法只适用于 HTML Publisher Plugin to version 1.10以上的版本</p></div></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2019/08/07/openldap部署/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="运维随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/07/openldap部署/" itemprop="url">openldap部署</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-07T14:39:59+08:00">
+                2019-08-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T13:44:27+08:00">
+                2022-03-31
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="1-安装环境"><a href="#1-安装环境" class="headerlink" title="1    安装环境"></a>1    安装环境</h1><p>OS: Centos 7.5<br>OpenLDAP: 2.4.44<br>Phpldapadmin: 1.2.3<br>主1：192.168.0.130<br>主2：192.168.0.10<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/07/openldap部署/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2019/05/10/Docker容器的重启策略及-restart选项详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="运维随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/10/Docker容器的重启策略及-restart选项详解/" itemprop="url">Docker容器的重启策略及--restart选项详解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-10T11:26:58+08:00">
+                2019-05-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:30:43+08:00">
+                2022-06-05
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -466,607 +1118,6 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  7
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1-问题1"><a href="#1-问题1" class="headerlink" title="1 问题1"></a>1 问题1</h1>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/28/openstack-mitaka调整实例大小报错/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/28/Openstack调整实例大小-冷迁移/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/28/Openstack调整实例大小-冷迁移/" itemprop="url">Openstack调整实例大小_冷迁移</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-28T16:03:09+08:00">
-                2018-08-28
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-17T11:27:38+08:00">
-                2018-09-17
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Openstack/" itemprop="url" rel="index">
-                    <span itemprop="name">Openstack</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  167
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>有时虚拟机创建后发现虚拟机规格太小，满足不了业务需求。于是需要在线拉伸虚拟机的规格。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/28/Openstack调整实例大小-冷迁移/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/28/Openstack的临时(Ephemeral)存储和块(Block)存储/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/28/Openstack的临时(Ephemeral)存储和块(Block)存储/" itemprop="url">Openstack的临时(Ephemeral)存储和块(Block)存储</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-28T15:19:49+08:00">
-                2018-08-28
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-10-23T15:49:30+08:00">
-                2019-10-23
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Openstack/" itemprop="url" rel="index">
-                    <span itemprop="name">Openstack</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  761
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>转载：<a href="http://www.aboutyun.com/thread-8114-1-1.html" target="_blank" rel="noopener">http://www.aboutyun.com/thread-8114-1-1.html</a><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/28/Openstack的临时(Ephemeral)存储和块(Block)存储/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/28/Openstack热迁移和冷迁移/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/28/Openstack热迁移和冷迁移/" itemprop="url">Openstack热迁移和冷迁移</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-28T12:09:56+08:00">
-                2018-08-28
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-17T11:27:41+08:00">
-                2018-09-17
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Openstack/" itemprop="url" rel="index">
-                    <span itemprop="name">Openstack</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.5k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
                   5
                 </span>
               
@@ -1089,14 +1140,109 @@
 
       
         
-          <h1 id="1-迁移类型："><a href="#1-迁移类型：" class="headerlink" title="1 迁移类型："></a>1 迁移类型：</h1>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/28/Openstack热迁移和冷迁移/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <a id="more"></a>
+<p>创建容器时没有添加参数  –restart=always ，导致的后果是：当 Docker 重启时，容器未能自动启动。</p>
+<p>现在要添加该参数怎么办呢，方法有二：</p>
+<h1 id="1-重启策略及–restart选项详解"><a href="#1-重启策略及–restart选项详解" class="headerlink" title="1 重启策略及–restart选项详解"></a>1 重启策略及–restart选项详解</h1><h2 id="1-Docker容器的重启策略"><a href="#1-Docker容器的重启策略" class="headerlink" title="1. Docker容器的重启策略"></a>1. Docker容器的重启策略</h2><p>Docker容器的重启策略是面向生产环境的一个启动策略，在开发过程中可以忽略该策略。</p>
+<p>Docker容器的重启都是由Docker守护进程完成的，因此与守护进程息息相关。</p>
+<p><strong>Docker容器的重启策略如下：</strong></p>
+<ul>
+<li><code>no</code>，默认策略，在容器退出时不重启容器</li>
+<li><code>on-failure</code>，在容器非正常退出时（退出状态非0），才会重启容器<ul>
+<li><code>on-failure:3</code>，在容器非正常退出时重启容器，最多重启3次</li>
+</ul>
+</li>
+<li><code>always</code>，在容器退出时总是重启容</li>
+<li><code>unless-stopped</code>，在容器退出时总是重启容器，但是不考虑在Docker守护进程启动时就已经停止了的容器</li>
+</ul>
+<h2 id="2-Docker容器的退出状态码"><a href="#2-Docker容器的退出状态码" class="headerlink" title="2. Docker容器的退出状态码"></a>2. Docker容器的退出状态码</h2><p><strong><code>docker run</code>的退出状态码如下：</strong></p>
+<ul>
+<li><code>0</code>，表示正常退出</li>
+<li><code>非0</code>，表示异常退出（退出状态码采用chroot标准）<ul>
+<li>125，Docker守护进程本身的错误</li>
+<li>126，容器启动后，要执行的默认命令无法调用</li>
+<li>127，容器启动后，要执行的默认命令不存在</li>
+<li>其他命令状态码，容器启动后正常执行命令，退出命令时该命令的返回状态码作为容器的退出状态码</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-docker-run的–restart选项"><a href="#3-docker-run的–restart选项" class="headerlink" title="3. docker run的–restart选项"></a>3. docker run的–restart选项</h2><p>通过<code>--restart</code>选项，可以设置容器的重启策略，以决定在容器退出时Docker守护进程是否重启刚刚退出的容器。<br><code>--restart</code>选项通常只用于<code>detached模式</code>的容器。</p>
+<p><code>--restart</code>选项不能与<code>--rm</code>选项同时使用。显然，<code>-restart</code>选项适用于<code>detached模式</code>的容器，而<code>--rm</code>选项适用于<code>foreground</code>模式的容器。</p>
+<p>在<code>docker ps</code>查看容器时，对于使用了<code>--restart</code>选项的容器，其可能的状态只有<code>Up</code>或<code>Restarting</code>两种状态。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --restart=always bba-208</span><br><span class="line">docker run -d --restart=on-failure:10 bba-208</span><br></pre></td></tr></table></figure>
+<p><strong>补充：</strong></p>
+<p>查看容器重启次数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect -f <span class="string">"&#123;&#123; .RestartCount &#125;&#125;"</span> bba-208</span><br></pre></td></tr></table></figure>
+<p>查看容器最后一次的启动时间</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect -f <span class="string">"&#123;&#123; .State.StartedAt &#125;&#125;"</span> bba-208</span><br></pre></td></tr></table></figure>
+<h1 id="2、Docker-命令修改"><a href="#2、Docker-命令修改" class="headerlink" title="2、Docker 命令修改"></a>2、Docker 命令修改</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container update --restart=always 容器名字</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">操作实例如下：</span><br><span class="line">[root@localhost mnt]<span class="comment"># docker ps -a</span></span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS               NAMES</span><br><span class="line">46cdfc60b7a6        nginx               <span class="string">"nginx -g 'daemon ..."</span>   About a minute ago   Up 42 seconds       80/tcp              n3</span><br><span class="line">79d55a734c26        nginx               <span class="string">"nginx -g 'daemon ..."</span>   About a minute ago   Up 42 seconds       80/tcp              n2</span><br><span class="line">f7b2206c019d        nginx               <span class="string">"nginx -g 'daemon ..."</span>   About a minute ago   Up 46 seconds       80/tcp              n1</span><br><span class="line">[root@localhost mnt]<span class="comment"># docker container update --restart=always n1</span></span><br><span class="line">n1</span><br><span class="line">[root@localhost mnt]<span class="comment"># systemctl restart docker </span></span><br><span class="line">[root@localhost mnt]<span class="comment"># docker ps -a</span></span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                     PORTS               NAMES</span><br><span class="line">46cdfc60b7a6        nginx               <span class="string">"nginx -g 'daemon ..."</span>   2 minutes ago       Exited (0) 5 seconds ago                       n3</span><br><span class="line">79d55a734c26        nginx               <span class="string">"nginx -g 'daemon ..."</span>   2 minutes ago       Exited (0) 5 seconds ago                       n2</span><br><span class="line">f7b2206c019d        nginx               <span class="string">"nginx -g 'daemon ..."</span>   2 minutes ago       Up 2 seconds               80/tcp              n1</span><br></pre></td></tr></table></figure>
+<h1 id="3、直接改配置文件"><a href="#3、直接改配置文件" class="headerlink" title="3、直接改配置文件"></a>3、直接改配置文件</h1><p><strong><code>（经测试后无效，修改配置文件后，启动容器后，该参数有自动变成了no，修改不生效）</code></strong></p>
+<div class="note success"><p>首先停止容器，不然无法修改配置文件<br>配置文件路径为：<code>/var/lib/docker/containers/容器ID</code><br>在该目录下找到一个文件 <code>hostconfig.json</code>，找到该文件中关键字 <code>RestartPolicy</code><br>修改前配置：<code>&quot;RestartPolicy&quot;:{&quot;Name&quot;:&quot;no&quot;,&quot;MaximumRetryCount&quot;:0}</code><br>修改后配置：<code>&quot;RestartPolicy&quot;:{&quot;Name&quot;:&quot;always&quot;,&quot;MaximumRetryCount&quot;:0}</code><br>最后启动容器。</p></div>
+<hr>
+<h1 id="4-修改docker容器的挂载路径"><a href="#4-修改docker容器的挂载路径" class="headerlink" title="4 修改docker容器的挂载路径"></a>4 修改docker容器的挂载路径</h1><ul>
+<li>停止所有docker容器</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker stop $(docker ps -a | awk <span class="string">'&#123; print $1&#125;'</span> | tail -n +2)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>停止docker服务</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker stop</span><br></pre></td></tr></table></figure>
+<ul>
+<li>修改mysql路径</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">sudo cp -r mysql/ /home/server/</span><br></pre></td></tr></table></figure>
+<ul>
+<li>备份容器配置文件</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /var/lib/docker/containers/de9c6501cdd3</span><br><span class="line">cp hostconfig.json hostconfig.json.bak</span><br><span class="line">cp config.v2.json config.v2.json.bak</span><br></pre></td></tr></table></figure>
+<ul>
+<li>修改hostconfig的冒号前的配置路径</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi hostconfig.json</span><br><span class="line"></span><br><span class="line"><span class="string">"Binds"</span>: [<span class="string">"/home/server/mysql/conf/my.cnf:/etc/mysql/my.cnf"</span>, <span class="string">"/home/server/mysql/logs:/logs"</span>, <span class="string">"/home/server/mysql/data:/mysql_data"</span>],</span><br></pre></td></tr></table></figure>
+<ul>
+<li>修改config的Source的配置路径</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">vi config.v2.json</span><br><span class="line"></span><br><span class="line">       <span class="string">"MountPoints"</span>: &#123;</span><br><span class="line"></span><br><span class="line">              <span class="string">"/etc/mysql/my.cnf"</span>: &#123;</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Source"</span>: <span class="string">"/home/server/mysql/conf/my.cnf"</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Destination"</span>: <span class="string">"/etc/mysql/my.cnf"</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"RW"</span>: <span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Name"</span>: <span class="string">""</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Driver"</span>: <span class="string">""</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Relabel"</span>: <span class="string">""</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Propagation"</span>: <span class="string">"rprivate"</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Named"</span>: <span class="literal">false</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"ID"</span>: <span class="string">""</span></span><br><span class="line"></span><br><span class="line">              &#125;,</span><br><span class="line"></span><br><span class="line">              <span class="string">"/logs"</span>: &#123;</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Source"</span>: <span class="string">"/home/server/mysql/logs"</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Destination"</span>: <span class="string">"/logs"</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"RW"</span>: <span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Name"</span>: <span class="string">""</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Driver"</span>: <span class="string">""</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Relabel"</span>: <span class="string">""</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Propagation"</span>: <span class="string">"rprivate"</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Named"</span>: <span class="literal">false</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"ID"</span>: <span class="string">""</span></span><br><span class="line"></span><br><span class="line">              &#125;,</span><br><span class="line"></span><br><span class="line">              <span class="string">"/mysql_data"</span>: &#123;</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Source"</span>: <span class="string">"/home/server/mysql/data"</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Destination"</span>: <span class="string">"/mysql_data"</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"RW"</span>: <span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Name"</span>: <span class="string">""</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Driver"</span>: <span class="string">""</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Relabel"</span>: <span class="string">""</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Propagation"</span>: <span class="string">"rprivate"</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Named"</span>: <span class="literal">false</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"ID"</span>: <span class="string">""</span></span><br><span class="line"></span><br><span class="line">              &#125;,</span><br><span class="line"></span><br><span class="line">              <span class="string">"/var/lib/mysql"</span>: &#123;</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Source"</span>: <span class="string">""</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Destination"</span>: <span class="string">"/var/lib/mysql"</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"RW"</span>: <span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Name"</span>: <span class="string">"85d91bff7012b57606af819480ce267449084e81ab386737c80ace9fe75f6621"</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Driver"</span>: <span class="string">"local"</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Relabel"</span>: <span class="string">""</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Propagation"</span>: <span class="string">""</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Named"</span>: <span class="literal">false</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"ID"</span>: <span class="string">"897cd0152dd152166cb2715044ca4a3915a1b66280e0eb096eb74c2d737d7f77"</span></span><br><span class="line"></span><br><span class="line">              &#125;</span><br><span class="line"></span><br><span class="line">       &#125;,</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="5-修改docker默认的存储位置"><a href="#5-修改docker默认的存储位置" class="headerlink" title="5 修改docker默认的存储位置"></a>5 修改docker默认的存储位置</h1><p>docker 的所有images及相关信息存储位置为：<code>/var/lib/docker</code></p>
+<ul>
+<li>查看默认的docker存储路径</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker info |grep <span class="string">'Docker Root Dir'</span></span><br><span class="line">WARNING: No swap <span class="built_in">limit</span> support</span><br><span class="line">Docker Root Dir: /var/lib/docker</span><br></pre></td></tr></table></figure>
+<ul>
+<li>停止所有docker容器</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker stop $(docker ps -a | awk <span class="string">'&#123; print $1&#125;'</span> | tail -n +2)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>停止docker服务</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker stop</span><br><span class="line"><span class="built_in">cd</span> /var/lib</span><br></pre></td></tr></table></figure>
+<ul>
+<li>打包docker目录</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo tar -czvf /usr/docker.tar.gz docker/</span><br><span class="line"><span class="built_in">cd</span> /usr/</span><br><span class="line">sudo tar -xzvf docker.tar.gz</span><br></pre></td></tr></table></figure>
+<ul>
+<li>修改docker默认的存储位置</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"graph"</span>: <span class="string">"/home/server/docker"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>启动docker服务</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker start</span><br></pre></td></tr></table></figure>
+<ul>
+<li>启动所有docker容器</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker start $(docker ps -a | awk <span class="string">'&#123; print $1&#125;'</span> | tail -n +2)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看修改后docker存储路径</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker info |grep <span class="string">'Docker Root Dir'</span></span><br><span class="line">WARNING: No swap <span class="built_in">limit</span> support</span><br><span class="line">Docker Root Dir: /usr/docker</span><br></pre></td></tr></table></figure>
+<p>本文转自：<a href="https://www.cnblogs.com/zhuochong/p/10070516.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhuochong/p/10070516.html</a> ！！！！！！</p>
+
+          
         
       
     </div>
@@ -1152,7 +1298,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/28/Dokcer常用命令/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2019/04/28/MyISAM与InnoDB两者之间区别与选择/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OperationMAN">
@@ -1161,7 +1307,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
+      <meta itemprop="name" content="运维随笔">
     </span>
 
     
@@ -1171,7 +1317,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/28/Dokcer常用命令/" itemprop="url">Dokcer常用命令</a></h1>
+                <a class="post-title-link" href="/2019/04/28/MyISAM与InnoDB两者之间区别与选择/" itemprop="url">MyISAM与InnoDB两者之间区别与选择</a></h1>
         
 
         <div class="post-meta">
@@ -1183,8 +1329,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-28T11:49:37+08:00">
-                2018-08-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-28T12:32:28+08:00">
+                2019-04-28
               </time>
             
 
@@ -1199,208 +1345,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-17T11:50:51+08:00">
-                2018-09-17
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.2k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  5
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1-Docker常用命令"><a href="#1-Docker常用命令" class="headerlink" title="1 Docker常用命令"></a>1 Docker常用命令</h1>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/28/Dokcer常用命令/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/27/Ubuntu部署本地源仓库/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/27/Ubuntu部署本地源仓库/" itemprop="url">Ubuntu部署本地源仓库</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-27T17:03:22+08:00">
-                2018-08-27
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-17T11:47:45+08:00">
-                2018-09-17
+              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T13:44:22+08:00">
+                2022-03-31
               </time>
             
           </span>
@@ -1420,406 +1366,6 @@
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Linux/" itemprop="url" rel="index">
                     <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  515
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1-本地源的制作"><a href="#1-本地源的制作" class="headerlink" title="1 本地源的制作"></a>1 本地源的制作</h1>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/27/Ubuntu部署本地源仓库/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/27/Ubuntu同步源仓库到本地/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/27/Ubuntu同步源仓库到本地/" itemprop="url">Ubuntu同步源仓库到本地</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-27T16:55:07+08:00">
-                2018-08-27
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-17T11:47:36+08:00">
-                2018-09-17
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  838
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1-步骤"><a href="#1-步骤" class="headerlink" title="1 步骤"></a>1 步骤</h1>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/27/Ubuntu同步源仓库到本地/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/27/Docker集群-Docker-Swarm/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/27/Docker集群-Docker-Swarm/" itemprop="url">Docker集群-Docker_Swarm</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-27T11:52:53+08:00">
-                2018-08-27
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-13T10:34:15+08:00">
-                2018-09-13
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -1867,7 +1413,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  23
+                  20
                 </span>
               
             </div>
@@ -1889,410 +1435,11 @@
 
       
         
-          <h1 id="1-安装-Swarm"><a href="#1-安装-Swarm" class="headerlink" title="1 安装 Swarm"></a>1 安装 Swarm</h1>
+          <p>1、<code>MyISAM</code>：默认表类型，它是基于传统的ISAM类型，ISAM是Indexed Sequential Access Method (有索引的顺序访问方法) 的缩写，它是存储记录和文件的标准方法。不是事务安全的，而且不支持外键，如果执行大量的select，insert MyISAM比较适合。</p>
+<p>2、<code>InnoDB</code>：支持事务安全的引擎，支持外键、行锁、事务是他的最大特点。如果有大量的update和insert，建议使用InnoDB，特别是针对多个并发和QPS较高的情况。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/27/Docker集群-Docker-Swarm/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/27/Openstack云镜像制作-Centos7篇/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/27/Openstack云镜像制作-Centos7篇/" itemprop="url">Openstack云镜像制作-Centos7篇</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-27T11:31:29+08:00">
-                2018-08-27
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:32:04+08:00">
-                2022-03-31
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Openstack/" itemprop="url" rel="index">
-                    <span itemprop="name">Openstack</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.1k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  5
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="一、制作步骤"><a href="#一、制作步骤" class="headerlink" title="一、制作步骤"></a>一、制作步骤</h1>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/27/Openstack云镜像制作-Centos7篇/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/27/VMware共享文件夹设置方法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/27/VMware共享文件夹设置方法/" itemprop="url">VMware共享文件夹设置方法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-27T11:24:35+08:00">
-                2018-08-27
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-14T09:56:53+08:00">
-                2018-09-14
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  178
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="一、安装包依赖："><a href="#一、安装包依赖：" class="headerlink" title="一、安装包依赖："></a>一、安装包依赖：</h1>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/27/VMware共享文件夹设置方法/#more" rel="contents">
+            <a class="btn" href="/2019/04/28/MyISAM与InnoDB两者之间区别与选择/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2343,7 +1490,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2396,7 +1543,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">155</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2407,7 +1554,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2418,7 +1565,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">106</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2447,18 +1594,6 @@
                     <a href="https://gitee.com/kxinter" target="_blank" title="码云">
                       
                         <i class="fa fa-fw fa-code"></i>码云</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://kxinter.gitee.io" target="_blank" title="blog">
-                      
-                        <i class="fa fa-fw fa-book"></i>blog</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://medoc.000webhostapp.com" target="_blank" title="随手笔记">
-                      
-                        <i class="fa fa-fw fa-wordpress"></i>随手笔记</a>
                   </span>
                 
                   <span class="links-of-author-item">
@@ -2497,12 +1632,6 @@
                         <i class="fa fa-fw fa-font-awesome"></i>Font Awesome</a>
                   </span>
                 
-                  <span class="links-of-author-item">
-                    <a href="https://www.000webhost.com/cpanel-login?from=panel#" target="_blank" title="Statistics">
-                      
-                        <i class="fa fa-fw fa-server"></i>Statistics</a>
-                  </span>
-                
             </div>
           
 
@@ -2524,10 +1653,6 @@
                 
                   <li class="links-of-blogroll-item">
                     <a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" title="Next深度优化" target="_blank">Next深度优化</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://livere.com/" title="来必力" target="_blank">来必力</a>
                   </li>
                 
               </ul>
@@ -2579,27 +1704,32 @@ show_date_time();
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
+  
   <span class="author" itemprop="copyrightHolder">OperationMAN</span>
 
   
     <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
+ <!--    <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
-    </span>
-    
+    </span> -->
+	
+	
+<!--     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">175.5k</span>
+    <span title="Site words total count">197.9k</span>
+   -->
   
+  	<!--添加备案信息-->
+	<a href="http://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">  豫ICP备 17032296 号</a>
 </div>
 
-
-
 <!--修改页面底部主题名字和网站软件名字-->
+<!-- 
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
@@ -2624,8 +1754,7 @@ show_date_time();
 </span>
 </div>
 
-
-
+ -->
         
 
 

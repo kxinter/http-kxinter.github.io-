@@ -132,13 +132,13 @@
 
 <meta name="description" content="日常运维文档整理。">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Operation随笔">
+<meta property="og:title" content="运维随笔">
 <meta property="og:url" content="https://kxinter.gitee.io/page/2/index.html">
-<meta property="og:site_name" content="Operation随笔">
+<meta property="og:site_name" content="运维随笔">
 <meta property="og:description" content="日常运维文档整理。">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Operation随笔">
+<meta name="twitter:title" content="运维随笔">
 <meta name="twitter:description" content="日常运维文档整理。">
 
 
@@ -175,7 +175,7 @@
 
 
 
-  <title>Operation随笔</title>
+  <title>运维随笔</title>
   
 
 
@@ -210,7 +210,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Operation随笔</span>
+        <span class="site-title">运维随笔</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -351,7 +351,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2022/01/14/Centos7系统安全审计/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2022/08/21/php环境镜像制作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OperationMAN">
@@ -360,7 +360,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
+      <meta itemprop="name" content="运维随笔">
     </span>
 
     
@@ -370,7 +370,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2022/01/14/Centos7系统安全审计/" itemprop="url">Centos7系统安全审计</a></h1>
+                <a class="post-title-link" href="/2022/08/21/php环境镜像制作/" itemprop="url">php环境镜像制作</a></h1>
         
 
         <div class="post-meta">
@@ -382,8 +382,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-14T17:07:01+08:00">
-                2022-01-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-08-21T20:37:41+08:00">
+                2022-08-21
               </time>
             
 
@@ -398,8 +398,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-01-20T17:32:17+08:00">
-                2022-01-20
+              <time title="更新于" itemprop="dateModified" datetime="2022-10-04T19:33:41+08:00">
+                2022-10-04
               </time>
             
           </span>
@@ -417,8 +417,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -450,478 +450,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  14
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="1-Centos7审计配置"><a href="#1-Centos7审计配置" class="headerlink" title="1 Centos7审计配置"></a>1 Centos7审计配置</h1><p>通过<code>auditd</code>，系统审核允许系统管理员监视其系统这样他们就可以检测到未经授权的数据访问或修改。</p>
-<p>默认情况下，<code>auditd</code>将审核<code>SELinux AVC</code>拒绝、系统登录、帐户修改和身份验证事件。事件将记录到 <code>/var/log/audit/audit.log</code></p>
-<h1 id="2-audit使用"><a href="#2-audit使用" class="headerlink" title="2 audit使用"></a>2 audit使用</h1><h2 id="2-1-配置文件"><a href="#2-1-配置文件" class="headerlink" title="2.1 配置文件"></a>2.1 配置文件</h2><p><code>auditctl</code> : 即时控制审计守护进程的行为的工具，比如如添加规则等等</p>
-<p><code>aureport</code> : 查看和生成审计报告的工具</p>
-<p><code>ausearch</code> : 查找审计事件的工具</p>
-<p><code>auditspd</code> : 转发事件通知给其他应用程序，而不是写入到审计日志文件中</p>
-<p><code>autrace</code> : 一个用于跟踪进程的命令</p>
-<ul>
-<li>/etc/audit/auditd.conf</li>
-<li>/etc/audit/rules.d/audit.rules</li>
-<li>/etc/audit/audit.rules                                 #　根据/etc/audit/rules.d/audit.rules自动生成</li>
-</ul>
-<h3 id="2-1-1-auditd-conf"><a href="#2-1-1-auditd-conf" class="headerlink" title="2.1.1 auditd.conf"></a>2.1.1 auditd.conf</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 是否记录本地事件，如果设为no，只记录来自网络的事件</span></span><br><span class="line">local_events = yes</span><br><span class="line">write_logs = yes</span><br><span class="line"><span class="comment"># 日志文件</span></span><br><span class="line">log_file = /var/<span class="built_in">log</span>/audit/audit.log</span><br><span class="line">log_group = root</span><br><span class="line">log_format = RAW</span><br><span class="line"><span class="comment"># 日志文件刷新方式，可选的选项有：</span></span><br><span class="line"><span class="comment"># NONE：不做特别处理</span></span><br><span class="line"><span class="comment"># INCREMENTAL：用freq选项的值确定多长时间发生一次向磁盘的刷新</span></span><br><span class="line"><span class="comment"># DATA：审计数据和日志文件是同步的</span></span><br><span class="line"><span class="comment"># SYNC：写日志文件时，数据和元数据是同步的</span></span><br><span class="line">flush = INCREMENTAL_ASYNC</span><br><span class="line">freq = 50</span><br><span class="line"><span class="comment"># 日志文件最大8MB</span></span><br><span class="line">max_log_file = 8</span><br><span class="line"><span class="comment"># 日志文件数量</span></span><br><span class="line">num_logs = 5</span><br><span class="line"><span class="comment"># 进程优先级（-4），ps axl | grep auditd 可查</span></span><br><span class="line">priority_boost = 4</span><br><span class="line">disp_qos = lossy</span><br><span class="line">dispatcher = /sbin/audispd</span><br><span class="line">name_format = NONE</span><br><span class="line"><span class="comment">##name = mydomain</span></span><br><span class="line"><span class="comment"># 当log文件达到max_log_file设定大小后的动作。可选的动作有：</span></span><br><span class="line"><span class="comment"># IGNORE：忽略max_log_file设置的限制，继续写log文件</span></span><br><span class="line"><span class="comment"># SYSLOG：向syslog中写入一条warning</span></span><br><span class="line"><span class="comment"># SUSPEND：auditd不再写log文件，但是auditd继续运行</span></span><br><span class="line"><span class="comment"># ROTATE：分多个log文件，一个log文件达到上限后在创建一个新的不同名字的log文件</span></span><br><span class="line">max_log_file_action = ROTATE</span><br><span class="line"><span class="comment"># log_file文件所在的分区空闲空间少于这个设定的值时，触发相应的动作，单位是MB</span></span><br><span class="line">space_left = 75</span><br><span class="line"><span class="comment"># space_left设定被触发时的动作。可选动作有：</span></span><br><span class="line"><span class="comment"># IGNORE, SYSLOG, SUSPEND：与前面max_log_file_action相似</span></span><br><span class="line"><span class="comment"># SINGLE：audit进程会将系统模式变为单用户模式</span></span><br><span class="line"><span class="comment"># HALT：audit进程将会触发系统关机</span></span><br><span class="line">space_left_action = SYSLOG</span><br><span class="line">verify_email = yes</span><br><span class="line">action_mail_acct = root</span><br><span class="line">admin_space_left = 50</span><br><span class="line">admin_space_left_action = SUSPEND</span><br><span class="line"><span class="comment"># 磁盘满后触发的动作</span></span><br><span class="line">disk_full_action = SUSPEND</span><br><span class="line"><span class="comment"># 磁盘错误触发的动作</span></span><br><span class="line">disk_error_action = SUSPEND</span><br><span class="line">use_libwrap = yes</span><br><span class="line"><span class="comment">##tcp_listen_port = 60</span></span><br><span class="line">tcp_listen_queue = 5</span><br><span class="line">tcp_max_per_addr = 1</span><br><span class="line"><span class="comment">##tcp_client_ports = 1024-65535</span></span><br><span class="line">tcp_client_max_idle = 0</span><br><span class="line">enable_krb5 = no</span><br><span class="line">krb5_principal = auditd</span><br><span class="line"><span class="comment">##krb5_key_file = /etc/audit/audit.key</span></span><br><span class="line">distribute_network = no</span><br></pre></td></tr></table></figure>
-<h2 id="2-2-常用命令"><a href="#2-2-常用命令" class="headerlink" title="2.2 常用命令"></a>2.2 常用命令</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*查看规则*/</span></span><br><span class="line">auditctl -l</span><br><span class="line"></span><br><span class="line"><span class="comment">/*查看命令帮助*/</span></span><br><span class="line">auditctl -h</span><br></pre></td></tr></table></figure>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">auditctl -w /data -p rwxa</span><br><span class="line"><span class="comment">/*监控/data目录</span></span><br><span class="line"><span class="comment">-w path : 指定要监控的路径</span></span><br><span class="line"><span class="comment">-p : 指定触发审计的文件/目录的访问权限</span></span><br><span class="line"><span class="comment">rwxa ： 指定的触发条件，r 读取权限，w 写入权限，x 执行权限，a 属性（attr）*/</span></span><br></pre></td></tr></table></figure>
-<p><strong>永久保存审计规则</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/audit/rules.d/audit.rules</span><br><span class="line">例如将-w /data/ -p rwxa加入到最后一行</span><br><span class="line">service auditd restart</span><br><span class="line">auditctl -l</span><br></pre></td></tr></table></figure>
-<h1 id="3-配置开机启动"><a href="#3-配置开机启动" class="headerlink" title="3 配置开机启动"></a>3 配置开机启动</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span>  auditd</span><br></pre></td></tr></table></figure>
-<h1 id="4-配置规则"><a href="#4-配置规则" class="headerlink" title="4 配置规则"></a>4 配置规则</h1><p>规则类型可分为：</p>
-<ol>
-<li><strong>控制规则</strong>：控制audit系统的规则；</li>
-<li><strong>文件系统规则</strong>：也可以认为是文件监控，可以监控一个特定文件或者一个路径。</li>
-<li><strong>系统调用规则</strong>：可以记录特定程序的系统调用。</li>
-</ol>
-<h2 id="4-1-控制规则"><a href="#4-1-控制规则" class="headerlink" title="4.1 控制规则"></a>4.1 控制规则</h2><p><code>-b</code> 设置在内核中audit缓冲空间的最大值。</p>
-<p><code>-f</code>  这个选项来决定内核如何处理<code>critical erros：0=silent 1=printk 2=panic</code>.默认值为1。</p>
-<p><code>-e</code> 设置使能标志，设置为0，为关闭了audit，设置为1，则开启audit；当设置为2时，表示锁定，一般在设置完其他规则后最后设置，防止其他人修改规则；任何修改规则的行为都会被拒绝，并且记录审计日志，只有当重启系统后，这个使能标志才可以被修改。</p>
-<h2 id="4-2-文件系统规则"><a href="#4-2-文件系统规则" class="headerlink" title="4.2 文件系统规则"></a>4.2 文件系统规则</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auditctl -w path -p permissions -k key_name</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>-w</code> : 目录或者文件路径</li>
-<li><code>-p</code>： 描述文件系统监视将触发的权限访问类型，r=读取，w=写入，x=执行，a=属性更改。</li>
-<li><code>-k</code>: 设置审核规则的筛选关键字</li>
-</ul>
-<h2 id="4-3-系统调用规则"><a href="#4-3-系统调用规则" class="headerlink" title="4.3 系统调用规则"></a>4.3 系统调用规则</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auditctl -a [list,action|action,list] -S [Syscall name or number|all] -F field=value -k key_name</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>-a</code>:   action和list 明确一个事件被记录。action可以为always或者never，list明确出对应的匹配过滤，list可以为：task,exit,user,exclude,filesystem。</li>
-<li><code>-S</code><strong>:</strong>   system_call 明确出系统调用的名字，几个系统调用可以写在一个规则里，如-S xxx -S xxx。系统调用的名字可以在/usr/include/asm/unistd_64.h文件中找到。</li>
-<li><code>-F</code>:   field=value 作为附加选项，修改规则以匹配特定架构、GroupID，ProcessID等的事件。具体有哪些字段，可以参考man linux <a href="https://linux.die.net/man/8/auditctl" target="_blank" rel="noopener">https://linux.die.net/man/8/auditctl</a></li>
-</ul>
-<h1 id="5-配置实例"><a href="#5-配置实例" class="headerlink" title="5 配置实例"></a>5 配置实例</h1><h2 id="5-1-记录系统的日期和时间的修改"><a href="#5-1-记录系统的日期和时间的修改" class="headerlink" title="5.1 记录系统的日期和时间的修改"></a>5.1 记录系统的日期和时间的修改</h2><p>vim   /etc/audit/rules.d/audit.rules</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S adjtimex -S settimeofday -k time-change</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S adjtimex -S settimeofday -S stime -k timechange</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S clock_settime -k time-change</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S clock_settime -k time-change</span><br><span class="line">-w /etc/localtime -p wa -k time-change</span><br></pre></td></tr></table></figure>
-<h2 id="5-2-记录用户和组的修改事件"><a href="#5-2-记录用户和组的修改事件" class="headerlink" title="5.2 记录用户和组的修改事件"></a>5.2 记录用户和组的修改事件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-w /etc/group -p wa -k identity</span><br><span class="line">-w /etc/passwd -p wa -k identity</span><br><span class="line">-w /etc/gshadow -p wa -k identity</span><br><span class="line">-w /etc/shadow -p wa -k identity</span><br><span class="line">-w /etc/security/opasswd -p wa -k identity</span><br></pre></td></tr></table></figure>
-<h2 id="5-3-记录网络环境修改时间"><a href="#5-3-记录网络环境修改时间" class="headerlink" title="5.3 记录网络环境修改时间"></a>5.3 记录网络环境修改时间</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S sethostname -S setdomainname -k system-locale</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S sethostname -S setdomainname -k system-locale</span><br><span class="line">-w /etc/issue -p wa -k system-locale</span><br><span class="line">-w /etc/issue.net -p wa -k system-locale</span><br><span class="line">-w /etc/hosts -p wa -k system-locale</span><br><span class="line">-w /etc/sysconfig/network -p wa -k system-locale</span><br><span class="line">-w /etc/sysconfig/network-scripts/ -p wa -k system-locale</span><br></pre></td></tr></table></figure>
-<h2 id="5-4-记录登录和登出事件"><a href="#5-4-记录登录和登出事件" class="headerlink" title="5.4 记录登录和登出事件"></a>5.4 记录登录和登出事件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-w /var/<span class="built_in">log</span>/lastlog -p wa -k logins</span><br><span class="line">-w /var/run/faillock/ -p wa -k logins</span><br></pre></td></tr></table></figure>
-<h2 id="5-5-记录会话启动事件"><a href="#5-5-记录会话启动事件" class="headerlink" title="5.5 记录会话启动事件"></a>5.5 记录会话启动事件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-w /var/run/utmp -p wa -k session</span><br><span class="line">-w /var/<span class="built_in">log</span>/wtmp -p wa -k logins</span><br><span class="line">-w /var/<span class="built_in">log</span>/btmp -p wa -k logins</span><br></pre></td></tr></table></figure>
-<p>文件<code>/var/run/utmp</code>跟踪当前登录的所有用户。所有审计记录都将用标识符“<code>session</code>”标记， 可以用<code>who</code>命令读取</p>
-<p><code>/var/log/wtmp</code>文件跟踪登录、注销、关机和重新启动事件。</p>
-<p>文件<code>/var/log/btmp</code>跟踪失败的登录尝试，可以通过输入命令 <code>‘/usr/bin/last-f /var/log/btmp’</code> 读取。所有审核记录都将被标记为标识符<code>“logins”</code></p>
-<h2 id="5-6-监视对文件权限、属性、所有权和组的更改"><a href="#5-6-监视对文件权限、属性、所有权和组的更改" class="headerlink" title="5.6 监视对文件权限、属性、所有权和组的更改"></a>5.6 监视对文件权限、属性、所有权和组的更改</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S chmod -S fchmod -S fchmodat -F auid&gt;=1000 -F auid!=4294967295 -k perm_mod</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S chmod -S fchmod -S fchmodat -F auid&gt;=1000 -F auid!=4294967295 -k perm_mod</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S chown -S fchown -S fchownat -S lchown -F auid&gt;=1000 -F auid!=4294967295 -k perm_mod</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S chown -S fchown -S fchownat -S lchown -F auid&gt;=1000 -F auid!=4294967295 -k perm_mod</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid&gt;=1000 -F auid!=4294967295 -k perm_mod</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid&gt;=1000 -F auid!=4294967295 -k perm_mod</span><br></pre></td></tr></table></figure>
-<p>在所有情况下，审核记录将只为非系统用户id（<code>auid&gt;=1000</code>）并将忽略守护进程事件（<code>auid=4294967295</code>）。</p>
-<p>所有审计记录用标识符“perm_mod”标记</p>
-<h2 id="5-7-记录未授权文件访问尝试"><a href="#5-7-记录未授权文件访问尝试" class="headerlink" title="5.7 记录未授权文件访问尝试"></a>5.7 记录未授权文件访问尝试</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F <span class="built_in">exit</span>=-EACCES -F auid&gt;=1000 -F auid!=4294967295 -k access</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F <span class="built_in">exit</span>=-EACCES -F auid&gt;=1000 -F auid!=4294967295 -k access</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F <span class="built_in">exit</span>=-EPERM -F auid&gt;=1000 -F auid!=4294967295 -k access</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F <span class="built_in">exit</span>=-EPERM -F auid&gt;=1000 -F auid!=4294967295 -k access</span><br></pre></td></tr></table></figure>
-<h2 id="5-8-确保收集使用特权命令"><a href="#5-8-确保收集使用特权命令" class="headerlink" title="5.8 确保收集使用特权命令"></a>5.8 确保收集使用特权命令</h2><p>监视特权程序（那些在执行时设置了setuid和/或setgid位的程序）以确定没有权限的用户是否正在运行这些命令。</p>
-<p><strong>通过下面命令</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> find / -xdev \( -perm -4000 -o -perm -2000 \) -<span class="built_in">type</span> f | awk</span><br><span class="line"><span class="string">'&#123;print \</span></span><br><span class="line"><span class="string">"-a always,exit -F path=" $1 " -F perm=x -F auid&gt;=1000 -F auid!=4294967295 \</span></span><br><span class="line"><span class="string">-k privileged" &#125;'</span></span><br></pre></td></tr></table></figure>
-<p><strong>得到记录</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/wall -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/chfn -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/chsh -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/chage -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/gpasswd -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/newgrp -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/mount -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/su -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/umount -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/sudo -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/write -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/crontab -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/ssh-agent -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/pkexec -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/bin/passwd -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/sbin/unix_chkpwd -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/sbin/pam_timestamp_check -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/sbin/netreport -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/sbin/usernetctl -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/sbin/postdrop -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/sbin/postqueue -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/lib/polkit-1/polkit-agent-helper-1 -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/libexec/utempter/utempter -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/libexec/dbus-1/dbus-daemon-launch-helper -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br><span class="line">-a always,<span class="built_in">exit</span> -F path=/usr/libexec/openssh/ssh-keysign -F perm=x -F auid&gt;=1000 -F auid!=4294967295  -k privileged</span><br></pre></td></tr></table></figure>
-<h2 id="5-9-收集成功挂载磁盘事件"><a href="#5-9-收集成功挂载磁盘事件" class="headerlink" title="5.9 收集成功挂载磁盘事件"></a>5.9 收集成功挂载磁盘事件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S mount -F auid&gt;=1000 -F auid!=4294967295 -k mounts</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S mount -F auid&gt;=1000 -F auid!=4294967295 -k mount</span><br></pre></td></tr></table></figure>
-<p>在所有情况下，审核记录将只为非系统用户id（<code>auid&gt;=1000</code>）并将忽略守护进程事件（<code>auid=4294967295</code>）。</p>
-<p>所有审计记录用标识符“mount”和“mounts”标记</p>
-<h2 id="5-10-确保收集用户的文件删除事件"><a href="#5-10-确保收集用户的文件删除事件" class="headerlink" title="5.10 确保收集用户的文件删除事件"></a>5.10 确保收集用户的文件删除事件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S unlink -S unlinkat -S rename -S renameat -F auid&gt;=1000 -F auid!=4294967295 -k delete</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b32 -S unlink -S unlinkat -S rename -S renameat -F auid&gt;=1000 -F auid!=4294967295 -k delete</span><br></pre></td></tr></table></figure>
-<p>在所有情况下，审核记录将只为非系统用户id（<code>auid&gt;=1000</code>）并将忽略守护进程事件（<code>auid=4294967295</code>）。</p>
-<p>所有审计记录用标识符“delete”标记</p>
-<h2 id="5-11-确保收集对系统管理范围（sudoers）的更改"><a href="#5-11-确保收集对系统管理范围（sudoers）的更改" class="headerlink" title="5.11 确保收集对系统管理范围（sudoers）的更改"></a>5.11 确保收集对系统管理范围（sudoers）的更改</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-w /etc/sudoers -p wa -k scope</span><br><span class="line">-w /etc/sudoers.d/ -p wa -k scope</span><br></pre></td></tr></table></figure>
-<h2 id="5-12-监视sudo日志文件"><a href="#5-12-监视sudo日志文件" class="headerlink" title="5.12 监视sudo日志文件"></a>5.12 监视sudo日志文件</h2><p>如果系统已正确配置为禁用su命令并强制所有管理员必须先登录，然后使用sudo执行特权命令，</p>
-<p>然后所有管理员命令将被记录到/var/log/sudo.log文件.</p>
-<p>每当执行命令时，审核事件将被触发为/var/log/sudo.log文件将打开文件进行写入，并执行管理命令将写入日志。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-w /var/<span class="built_in">log</span>/sudo.log -p wa -k actions</span><br></pre></td></tr></table></figure>
-<h2 id="5-13-确保收集内核模块加载和卸载"><a href="#5-13-确保收集内核模块加载和卸载" class="headerlink" title="5.13 确保收集内核模块加载和卸载"></a>5.13 确保收集内核模块加载和卸载</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-w /sbin/insmod -p x -k modules</span><br><span class="line">-w /sbin/rmmod -p x -k modules</span><br><span class="line">-w /sbin/modprobe -p x -k modules</span><br><span class="line">-a always,<span class="built_in">exit</span> -F arch=b64 -S init_module -S delete_module -k modules</span><br></pre></td></tr></table></figure>
-<h2 id="5-14-确保审核配置是不可变的"><a href="#5-14-确保审核配置是不可变的" class="headerlink" title="5.14 确保审核配置是不可变的"></a>5.14 确保审核配置是不可变的</h2><p>审核规则不能使用auditctl修改。设置标志“-e2“强制将审核置于不可变模式。进行审核更改只能对系统重新启动。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-e 2</span><br></pre></td></tr></table></figure>
-<h1 id="6-参考"><a href="#6-参考" class="headerlink" title="6 参考"></a>6 参考</h1><p><a href="https://cloud.tencent.com/developer/article/1653503" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1653503</a></p>
-<p><a href="https://www.cnblogs.com/zydev/p/13086818.html" target="_blank" rel="noopener">https://www.cnblogs.com/zydev/p/13086818.html</a></p>
-<p><a href="https://linux.die.net/man/8/auditctl" target="_blank" rel="noopener">auditctl(8) - Linux man page (die.net)</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2022/01/13/mysql开启密码复杂度配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/01/13/mysql开启密码复杂度配置/" itemprop="url">mysql开启密码复杂度配置</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-13T12:07:03+08:00">
-                2022-01-13
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2022-01-15T10:49:20+08:00">
-                2022-01-15
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  529
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>mysql 5.6对密码的强度进行了加强，推出了 validate_password 插件。支持密码的强度要求。</p>
-<p>mysql默认带validate_password 插件，直接装载插件即可。</p>
-<h2 id="1-装载plugin"><a href="#1-装载plugin" class="headerlink" title="1 装载plugin"></a>1 装载plugin</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;&gt;INSTALL PLUGIN validate_password SONAME 'validate_password.so';</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2022/01/13/mysql开启密码复杂度配置/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2022/01/12/mysql开启日志审计/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/01/12/mysql开启日志审计/" itemprop="url">mysql开启日志审计</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-12T15:07:03+08:00">
-                2022-01-12
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:31:52+08:00">
-                2022-03-31
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  327
+                  189
                 </span>
               
 
@@ -959,13 +488,10 @@
 
       
         
-          <h2 id="1安装"><a href="#1安装" class="headerlink" title="1安装"></a>1安装</h2><h3 id="1-1-下载插件"><a href="#1-1-下载插件" class="headerlink" title="1.1 下载插件"></a>1.1 下载插件</h3><p><a href="https://github.com/mcafee/mysql-audit/releases?page=1" target="_blank" rel="noopener">Releases · mcafee/mysql-audit · GitHub</a></p>
-<blockquote>
-<p>备注：下载插件一定要注意插件支持数据库的版本，否则安装失败。</p>
-</blockquote>
+          <h1 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h1>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2022/01/12/mysql开启日志审计/#more" rel="contents">
+            <a class="btn" href="/2022/08/21/php环境镜像制作/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1025,7 +551,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2022/01/12/Postgresql设置密码复杂度校验/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2022/07/15/kubernetes学习九-节点变更IP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OperationMAN">
@@ -1034,7 +560,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
+      <meta itemprop="name" content="运维随笔">
     </span>
 
     
@@ -1044,7 +570,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2022/01/12/Postgresql设置密码复杂度校验/" itemprop="url">postgresql设置密码复杂度校验</a></h1>
+                <a class="post-title-link" href="/2022/07/15/kubernetes学习九-节点变更IP/" itemprop="url">kubernetes学习九：节点变更IP</a></h1>
         
 
         <div class="post-meta">
@@ -1056,8 +582,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-12T14:01:03+08:00">
-                2022-01-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-15T11:10:46+08:00">
+                2022-07-15
               </time>
             
 
@@ -1072,8 +598,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:31:51+08:00">
-                2022-03-31
+              <time title="更新于" itemprop="dateModified" datetime="2022-07-15T16:33:21+08:00">
+                2022-07-15
               </time>
             
           </span>
@@ -1091,8 +617,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="/categories/Kubernetes/" itemprop="url" rel="index">
+                    <span itemprop="name">Kubernetes</span>
                   </a>
                 </span>
 
@@ -1124,212 +650,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  9
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1-postgresql设置密码复杂度校验"><a href="#1-postgresql设置密码复杂度校验" class="headerlink" title="1 postgresql设置密码复杂度校验"></a>1 postgresql设置密码复杂度校验</h1><h2 id="1-1-默认密码校验策略"><a href="#1-1-默认密码校验策略" class="headerlink" title="1.1 默认密码校验策略"></a>1.1 默认密码校验策略</h2><p>在PG中可以使用<code>passwordcheck.so</code>模块实现密码复杂度校验的功能，不过这个工具的默认要求很低，只可用于简单的密码复杂度校验，默认检查规则如下：</p>
-<ol>
-<li>密码长度大于8位</li>
-<li>密码不能与用户名相同</li>
-<li>密码必须包括字母和数字</li>
-</ol>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2022/01/12/Postgresql设置密码复杂度校验/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2022/01/12/Postgresql开启日志审计/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/01/12/Postgresql开启日志审计/" itemprop="url">ubuntu20.04安装NVIDIA显卡驱动+CUDA</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-12T13:40:10+08:00">
-                2022-01-12
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2022-01-15T10:50:31+08:00">
-                2022-01-15
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  605
+                  429
                 </span>
               
 
@@ -1367,10 +688,10 @@
 
       
         
-          <h1 id="postgresql开启日志审计"><a href="#postgresql开启日志审计" class="headerlink" title="postgresql开启日志审计"></a>postgresql开启日志审计</h1><p><strong>1、审计清单说明</strong></p>
+          <h1 id="1-变更脚本"><a href="#1-变更脚本" class="headerlink" title="1 变更脚本"></a>1 变更脚本</h1>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2022/01/12/Postgresql开启日志审计/#more" rel="contents">
+            <a class="btn" href="/2022/07/15/kubernetes学习九-节点变更IP/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1430,7 +751,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2022/01/12/Elasticsearch导入导出数据-Elasticdump/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2022/06/10/nexus仓库的数据备份及恢复/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OperationMAN">
@@ -1439,7 +760,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
+      <meta itemprop="name" content="运维随笔">
     </span>
 
     
@@ -1449,7 +770,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2022/01/12/Elasticsearch导入导出数据-Elasticdump/" itemprop="url">Elasticsearch导入导出数据-Elasticdump</a></h1>
+                <a class="post-title-link" href="/2022/06/10/nexus仓库的数据备份及恢复/" itemprop="url">nexus仓库的数据备份及恢复</a></h1>
         
 
         <div class="post-meta">
@@ -1461,8 +782,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-12T12:33:03+08:00">
-                2022-01-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-06-10T11:10:46+08:00">
+                2022-06-10
               </time>
             
 
@@ -1477,8 +798,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-01-15T10:49:58+08:00">
-                2022-01-15
+              <time title="更新于" itemprop="dateModified" datetime="2022-10-08T16:55:39+08:00">
+                2022-10-08
               </time>
             
           </span>
@@ -1496,8 +817,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="/categories/Windwos/" itemprop="url" rel="index">
+                    <span itemprop="name">Windwos</span>
                   </a>
                 </span>
 
@@ -1529,7 +850,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  402
+                  990
                 </span>
               
 
@@ -1545,7 +866,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  4
                 </span>
               
             </div>
@@ -1567,221 +888,10 @@
 
       
         
-          
-            <h2 id="1-导入-导出"><a href="#1-导入-导出" class="headerlink" title="1 导入/导出"></a>1 导入/导出</h2><p><strong>导出：</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#因为导出的是mapping，所以设置type为mapping</span></span><br><span class="line">$ elasticdump --input http://192.168.56.105:9200/ --output ./test_index_mapping.json --<span class="built_in">type</span>=mapping</span><br><span class="line"><span class="comment">#因为导出的是data（真实数据）所以设置type为data</span></span><br><span class="line">$ elasticdump --input http://192.168.56.105:9200/ --output ./test_index.json --<span class="built_in">type</span>=data</span><br></pre></td></tr></table></figure>
-<p><strong>导入：</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建索引</span></span><br><span class="line">$ curl -XPUT http://192.168.56.104:9200/test_index</span><br><span class="line"><span class="comment">#因为导入的是mapping，所以设置type为mapping</span></span><br><span class="line">$ elasticdump --input ./test_index_mapping.json --output http://192.168.56.105:9200/ --<span class="built_in">type</span>=mapping</span><br><span class="line"><span class="comment">#因为导入的是data（真实数据）所以设置type为data</span></span><br><span class="line">$ elasticdump --input ./test_index.json --output http://192.168.56.105:9200/ --<span class="built_in">type</span>=data</span><br></pre></td></tr></table></figure>
-<h2 id="2-使用Elasticdump镜像进行数据导入-导出"><a href="#2-使用Elasticdump镜像进行数据导入-导出" class="headerlink" title="2 使用Elasticdump镜像进行数据导入/导出"></a>2 使用Elasticdump镜像进行数据导入/导出</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 镜像下载</span></span><br><span class="line">$ docker pull taskrabbit/elasticsearch-dump</span><br><span class="line"><span class="comment"># 下面还是例子：通过镜像导出数据到本地</span></span><br><span class="line"><span class="comment"># 创建一个文件夹用于保存导出数据</span></span><br><span class="line">$ mkdir -p /root/data</span><br></pre></td></tr></table></figure>
-<p><strong>导出</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下面需要对路径进行映射并执行命令（导出mapping）</span></span><br><span class="line">$ docker run --rm -ti -v /data:/tmp taskrabbit/elasticsearch-dump \</span><br><span class="line">  --input=http://production.es.com:9200/my_index \</span><br><span class="line">  --output=/tmp/my_index_mapping.json \</span><br><span class="line">  --<span class="built_in">type</span>=mapping</span><br><span class="line"><span class="comment"># 导出（data）</span></span><br><span class="line">$ docker run --rm -ti -v /root/data:/tmp taskrabbit/elasticsearch-dump \</span><br><span class="line">  --input=http://192.168.56.104:9200/test_index \</span><br><span class="line">  --output=/tmp/elasticdump_export.json \</span><br><span class="line">  --<span class="built_in">type</span>=data</span><br></pre></td></tr></table></figure>
-<p><strong>导入</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建索引</span></span><br><span class="line">$ curl -XPUT http://192.168.56.104:9200/test_index</span><br><span class="line"><span class="comment"># 导入mapping</span></span><br><span class="line">$ docker run --rm -ti -v /data:/tmp taskrabbit/elasticsearch-dump \</span><br><span class="line">  --input=/tmp/my_index_mapping.json \</span><br><span class="line">  --output=http://192.168.56.104:9200/my_index \</span><br><span class="line">  --<span class="built_in">type</span>=mapping</span><br><span class="line"><span class="comment"># 导入（data）</span></span><br><span class="line">$ docker run --rm -ti -v /root/data:/tmp taskrabbit/elasticsearch-dump \</span><br><span class="line">  --input=/tmp/elasticdump_export.json \</span><br><span class="line">  --output=http://192.168.56.104:9200/test_index \</span><br><span class="line">  --<span class="built_in">type</span>=data</span><br></pre></td></tr></table></figure>
-<h2 id="3-以下内容为ES-gt-ES的数据迁移例子"><a href="#3-以下内容为ES-gt-ES的数据迁移例子" class="headerlink" title="3 以下内容为ES -&gt; ES的数据迁移例子"></a>3 以下内容为ES -&gt; ES的数据迁移例子</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --rm -ti taskrabbit/elasticsearch-dump \</span><br><span class="line">  --input=http://production.es.com:9200/my_index \  </span><br><span class="line">  --output=http://staging.es.com:9200/my_index \  </span><br><span class="line">  --<span class="built_in">type</span>=mapping </span><br><span class="line">  </span><br><span class="line">$ docker run --rm -ti taskrabbit/elasticsearch-dump \  </span><br><span class="line">  --input=http://production.es.com:9200/my_index \  </span><br><span class="line">  --output=http://staging.es.com:9200/my_index \  </span><br><span class="line">  --<span class="built_in">type</span>=data</span><br></pre></td></tr></table></figure>
-<!--注：上面的这些导入导出都是最基本的使用，当然还有很多高级用法，参考下面所列出来的命令进行尝试或者直接访问Github官网，查看更加详细的说明，这里只作为记录！-->
-
-          
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2022/01/12/ubuntu20-04安装NVIDIA显卡驱动-CUDA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/01/12/ubuntu20-04安装NVIDIA显卡驱动-CUDA/" itemprop="url">ubuntu20.04安装NVIDIA显卡驱动+CUDA</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-12T12:07:03+08:00">
-                2022-01-12
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:34:43+08:00">
-                2022-03-31
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.3k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  5
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="1-安装驱动"><a href="#1-安装驱动" class="headerlink" title="1 安装驱动"></a>1 安装驱动</h2><h3 id="1-1-查看显卡的型号"><a href="#1-1-查看显卡的型号" class="headerlink" title="1.1 查看显卡的型号"></a>1.1 查看显卡的型号</h3><p>打开终端，输入指令以查看电脑的显卡型号：·</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lspci <span class="string">| grep -i vga</span></span><br></pre></td></tr></table></figure>
-<p><code>ubuntu-drivers devices</code></p>
-<p>可以看到如下界面：</p>
-<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2022/01/image-20220110122259734.png" alt="image-20220110122259734">                               </p>
-<p><code>model</code>即为显卡的型号信息，此处为<code>GeForce RTX 2070 SUPER</code>；推荐的显卡驱动版本号为<code>nvidia-driver-450 - distro non-free</code>。</p>
+          <h1 id="1-Nexus备份"><a href="#1-Nexus备份" class="headerlink" title="1 Nexus备份"></a>1 Nexus备份</h1>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2022/01/12/ubuntu20-04安装NVIDIA显卡驱动-CUDA/#more" rel="contents">
+            <a class="btn" href="/2022/06/10/nexus仓库的数据备份及恢复/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1841,7 +951,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2021/11/02/Ansible-Tower-安装/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2022/06/06/kubernetes学习八-configMap的应用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OperationMAN">
@@ -1850,7 +960,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
+      <meta itemprop="name" content="运维随笔">
     </span>
 
     
@@ -1860,7 +970,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/11/02/Ansible-Tower-安装/" itemprop="url">Ansible Tower 安装</a></h1>
+                <a class="post-title-link" href="/2022/06/06/kubernetes学习八-configMap的应用/" itemprop="url">kubernetes学习八:configMap创建的四种方式</a></h1>
         
 
         <div class="post-meta">
@@ -1872,8 +982,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-02T11:56:58+08:00">
-                2021-11-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-06-06T18:06:03+08:00">
+                2022-06-06
               </time>
             
 
@@ -1888,8 +998,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:31:52+08:00">
-                2022-03-31
+              <time title="更新于" itemprop="dateModified" datetime="2022-06-07T18:36:18+08:00">
+                2022-06-07
               </time>
             
           </span>
@@ -1907,8 +1017,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="/categories/Kubernetes/" itemprop="url" rel="index">
+                    <span itemprop="name">Kubernetes</span>
                   </a>
                 </span>
 
@@ -1940,7 +1050,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k
+                  2.6k
                 </span>
               
 
@@ -1956,7 +1066,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5
+                  13
                 </span>
               
             </div>
@@ -1978,275 +1088,10 @@
 
       
         
-          
-            <h2 id="一、ansible-tower简介"><a href="#一、ansible-tower简介" class="headerlink" title="一、ansible-tower简介"></a>一、ansible-tower简介</h2><p>1）公司中实现运维自动化的架构中主要用到ansible，ansible脚本在部署服务器指令行中显得不太直观。Ansible-Tower（之前叫做awx）是将ansible的指令界面化，简明直观，简单易用。</p>
-<p>2）Ansibke-tower其实就是一个图形化的任务调度，复杂服务部署，IT自动化的一个管理平台，属于发布配置管理系统，支持Api及界面操作，Django编写。</p>
-<p>3）Ansible-tower可以通过界面从github拉取最新playbook实施服务部署，提高生产效率。当然它也提供一个RESET API和命令行的CLI以供python脚本调用</p>
-<p>官方网站：<a href="https://www.ansible.com/products/tower" target="_blank" rel="noopener">https://www.ansible.com/products/tower</a></p>
-<p>Ansible权威指南：<a href="http://www.ansible.com.cn/docs/tower.html" target="_blank" rel="noopener">http://www.ansible.com.cn/docs/tower.html</a></p>
-<p>官方中文文档：<a href="https://docs.ansible.com/ansible-tower/3.8.4/html_zh/" target="_blank" rel="noopener">https://docs.ansible.com/ansible-tower/3.8.4/html_zh/</a></p>
-<p>官方安装文档：<a href="http://docs.ansible.com/ansible-tower/latest/html/quickinstall/index.html" target="_blank" rel="noopener">http://docs.ansible.com/ansible-tower/latest/html/quickinstall/index.html</a></p>
-<p>官方源下载地址：<a href="http://releases.ansible.com/ansible-tower/setup-bundle/" target="_blank" rel="noopener">http://releases.ansible.com/ansible-tower/setup-bundle/</a></p>
-<h2 id="二、ansible-tower安装及配置"><a href="#二、ansible-tower安装及配置" class="headerlink" title="二、ansible-tower安装及配置"></a>二、ansible-tower安装及配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">[root@tower ~]<span class="comment"># cd /opt/</span></span><br><span class="line">[root@tower opt]<span class="comment"># wget https://releases.ansible.com/ansible-tower/setup-bundle/ansible-tower-setup-bundle-3.6.2-1.el7.tar.gz</span></span><br><span class="line">[root@tower opt]<span class="comment"># tar xf ansible-tower-setup-bundle-3.6.2-1.el7.tar.gz</span></span><br><span class="line">[root@tower opt]<span class="comment"># cd ansible-tower-setup-bundle-3.6.2-1/</span></span><br><span class="line">[root@tower ansible-tower-setup-bundle-3.6.2-1]<span class="comment"># ls</span></span><br><span class="line">backup.yml  bundle  group_vars  install.yml  inventory  licenses  README.md  rekey.yml  restore.yml  roles  setup.sh</span><br><span class="line">[root@tower ansible-tower-setup-bundle-3.6.2-1]<span class="comment"># vim inventory</span></span><br><span class="line">[tower]</span><br><span class="line">localhost ansible_connection=<span class="built_in">local</span></span><br><span class="line"> </span><br><span class="line">[database]</span><br><span class="line"> </span><br><span class="line">[all:vars]</span><br><span class="line">admin_password=<span class="string">'tower'</span>   <span class="comment">#tower登录密码</span></span><br><span class="line"> </span><br><span class="line">pg_host=<span class="string">''</span></span><br><span class="line">pg_port=<span class="string">''</span></span><br><span class="line"> </span><br><span class="line">pg_database=<span class="string">'awx'</span></span><br><span class="line">pg_username=<span class="string">'awx'</span></span><br><span class="line">pg_password=<span class="string">'tower'</span></span><br><span class="line">pg_sslmode=<span class="string">'prefer'</span>  <span class="comment"># set to 'verify-full' for client-side enforced SSL</span></span><br><span class="line"> </span><br><span class="line">rabbitmq_username=tower</span><br><span class="line">rabbitmq_password=<span class="string">'tower'</span></span><br><span class="line">rabbitmq_cookie=cookiemonster</span><br><span class="line"> </span><br><span class="line"><span class="comment"># Isolated Tower nodes automatically generate an RSA key for authentication;</span></span><br><span class="line"><span class="comment"># To disable this behavior, set this value to false</span></span><br><span class="line"><span class="comment"># isolated_key_generation=true</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># SSL-related variables</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># If set, this will install a custom CA certificate to the system trust store.</span></span><br><span class="line"><span class="comment"># custom_ca_cert=/path/to/ca.crt</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Certificate and key to install in nginx for the web UI and API</span></span><br><span class="line"><span class="comment"># web_server_ssl_cert=/path/to/tower.cert</span></span><br><span class="line"><span class="comment"># web_server_ssl_key=/path/to/tower.key</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Use SSL for RabbitMQ inter-node communication.  Because RabbitMQ never</span></span><br><span class="line"><span class="comment"># communicates outside the cluster, a private CA and certificates will be</span></span><br><span class="line"><span class="comment"># created, and do not need to be supplied.</span></span><br><span class="line"><span class="comment"># rabbitmq_use_ssl=False</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Server-side SSL settings for PostgreSQL (when we are installing it).</span></span><br><span class="line"><span class="comment"># postgres_use_ssl=False</span></span><br><span class="line"><span class="comment"># postgres_ssl_cert=/path/to/pgsql.crt</span></span><br><span class="line"><span class="comment"># postgres_ssl_key=/path/to/pgsql.key</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#开始安装</span></span><br><span class="line">[root@tower ansible-tower-setup-bundle-3.6.2-1]<span class="comment"># ./setup.sh</span></span><br></pre></td></tr></table></figure>
-<p>访问<a href="https://10.0.0.203/#/login" target="_blank" rel="noopener">https://10.0.0.203/#/login</a></p>
-<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/11/1552342-20200112115614754-376356611.png" alt="image"></p>
-<h1 id="三、ansible-tower激活"><a href="#三、ansible-tower激活" class="headerlink" title="三、ansible-tower激活"></a>三、ansible-tower激活</h1><p><strong>步骤简述：</strong></p>
-<ol>
-<li><strong>安装Ansible Tower，以setup.sh执行成功且完毕为开始</strong></li>
-<li><strong>修改licensing.py文件</strong></li>
-<li><strong>运行”ansible-tower-service restart”重启服务</strong></li>
-<li><strong>Enjoy it</strong></li>
-</ol>
-<p>btw：不需要去官网申请Trial License</p>
-<hr>
-<h4 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h4><p>没什么好说的，setup.sh执行完了且不报错即可。说人话就是页面可以正常打开，没有任何报错。</p>
-<h4 id="2-修改licensing-py文件"><a href="#2-修改licensing-py文件" class="headerlink" title="2. 修改licensing.py文件"></a>2. 修改licensing.py文件</h4><p>该文件位于：</p>
-<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/var/<span class="class"><span class="keyword">lib</span>/<span class="title">awx</span>/<span class="title">venv</span>/<span class="title">awx</span>/<span class="title">lib</span>/<span class="title">python3</span>.6/<span class="title">site</span>-<span class="title">packages</span>/<span class="title">awx</span>/<span class="title">main</span>/<span class="title">utils</span>/<span class="title">licensing</span>.<span class="title">py</span></span></span><br></pre></td></tr></table></figure>
-<p>该文件内的方法是负责License验证的核心，将其用你熟悉的编辑器打开</p>
-<p>找到validate方法，该方法就负责License的验证，在我这其位于该文件的409行。行数可能随着版本的升级或修改不一定准确，以方法名为主。</p>
-<p>该方法原文如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">validate</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="comment"># Return license attributes with additional validation info.</span></span><br><span class="line">    attrs = copy.deepcopy(self._attrs)</span><br><span class="line">    type = attrs.get(<span class="string">'license_type'</span>, <span class="string">'none'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (type == <span class="string">'UNLICENSED'</span> <span class="keyword">or</span> <span class="keyword">False</span>):</span><br><span class="line">        attrs.update(dict(valid_key=<span class="keyword">False</span>, compliant=<span class="keyword">False</span>))</span><br><span class="line">        <span class="keyword">return</span> attrs</span><br><span class="line">    attrs[<span class="string">'valid_key'</span>] = <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">if</span> Host:</span><br><span class="line">        current_instances = Host.objects.active_count()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        current_instances = <span class="number">0</span></span><br><span class="line">    available_instances = int(attrs.get(<span class="string">'instance_count'</span>, <span class="keyword">None</span>) <span class="keyword">or</span> <span class="number">0</span>)</span><br><span class="line">    attrs[<span class="string">'current_instances'</span>] = current_instances</span><br><span class="line">    attrs[<span class="string">'available_instances'</span>] = available_instances</span><br><span class="line">    free_instances = (available_instances - current_instances)</span><br><span class="line">    attrs[<span class="string">'free_instances'</span>] = max(<span class="number">0</span>, free_instances)</span><br><span class="line"></span><br><span class="line">    license_date = int(attrs.get(<span class="string">'license_date'</span>, <span class="number">0</span>) <span class="keyword">or</span> <span class="number">0</span>)</span><br><span class="line">    current_date = int(time.time())</span><br><span class="line">    time_remaining = license_date - current_date</span><br><span class="line">    attrs[<span class="string">'time_remaining'</span>] = time_remaining</span><br><span class="line">    <span class="keyword">if</span> attrs.setdefault(<span class="string">'trial'</span>, <span class="keyword">False</span>):</span><br><span class="line">        attrs[<span class="string">'grace_period_remaining'</span>] = time_remaining</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        attrs[<span class="string">'grace_period_remaining'</span>] = (license_date + <span class="number">2592000</span>) - current_date</span><br><span class="line">    attrs[<span class="string">'compliant'</span>] = bool(time_remaining &gt; <span class="number">0</span> <span class="keyword">and</span> free_instances &gt;= <span class="number">0</span>)</span><br><span class="line">    attrs[<span class="string">'date_warning'</span>] = bool(time_remaining &lt; self.SUBSCRIPTION_TIMEOUT)</span><br><span class="line">    attrs[<span class="string">'date_expired'</span>] = bool(time_remaining &lt;= <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> attrs</span><br></pre></td></tr></table></figure>
-<p>将其改成这个样子即可：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">validate</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="comment"># Return license attributes with additional validation info.</span></span><br><span class="line">    attrs = copy.deepcopy(self._attrs)</span><br><span class="line"></span><br><span class="line">    attrs[<span class="string">'license_type'</span>] = <span class="string">'enterprise'</span> <span class="comment"># 设置License类型为企业版</span></span><br><span class="line">    attrs[<span class="string">'instance_count'</span>] = MAX_INSTANCES <span class="comment"># 设置Host数量为MAX_INSTANCES，即9999999。扛不住就改成自己需要的数。</span></span><br><span class="line">    attrs[<span class="string">'license_date'</span>] = <span class="string">'2567433600'</span> <span class="comment"># 设置License过期日期为”2051-05-12 00:00:00“，Unix时间戳，有需要自己改</span></span><br><span class="line">    attrs[<span class="string">'subscription_name'</span>] = <span class="string">'mxd'</span> <span class="comment"># 你猜	</span></span><br><span class="line"></span><br><span class="line">    type = attrs.get(<span class="string">'license_type'</span>, <span class="string">'none'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 注释掉下面的判断</span></span><br><span class="line">    <span class="comment">#if (type == 'UNLICENSED' or False):</span></span><br><span class="line">        <span class="comment">#attrs.update(dict(valid_key=False, compliant=False))</span></span><br><span class="line">        <span class="comment">#return attrs</span></span><br><span class="line">    attrs[<span class="string">'valid_key'</span>] = <span class="keyword">True</span> <span class="comment"># 直接将 valid_key 设为 true</span></span><br><span class="line">    <span class="keyword">if</span> Host:</span><br><span class="line">        current_instances = Host.objects.active_count()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        current_instances = <span class="number">0</span></span><br><span class="line">    available_instances = int(attrs.get(<span class="string">'instance_count'</span>, <span class="keyword">None</span>) <span class="keyword">or</span> <span class="number">0</span>)</span><br><span class="line">    attrs[<span class="string">'current_instances'</span>] = current_instances</span><br><span class="line">    attrs[<span class="string">'available_instances'</span>] = available_instances</span><br><span class="line">    free_instances = (available_instances - current_instances)</span><br><span class="line">    attrs[<span class="string">'free_instances'</span>] = max(<span class="number">0</span>, free_instances)</span><br><span class="line"></span><br><span class="line">    license_date = int(attrs.get(<span class="string">'license_date'</span>, <span class="number">0</span>) <span class="keyword">or</span> <span class="number">0</span>)</span><br><span class="line">    current_date = int(time.time())</span><br><span class="line">    time_remaining = license_date - current_date</span><br><span class="line">    attrs[<span class="string">'time_remaining'</span>] = time_remaining</span><br><span class="line">    <span class="keyword">if</span> attrs.setdefault(<span class="string">'trial'</span>, <span class="keyword">False</span>):</span><br><span class="line">        attrs[<span class="string">'grace_period_remaining'</span>] = time_remaining</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        attrs[<span class="string">'grace_period_remaining'</span>] = (license_date + <span class="number">2592000</span>) - current_date</span><br><span class="line">    attrs[<span class="string">'compliant'</span>] = bool(time_remaining &gt; <span class="number">0</span> <span class="keyword">and</span> free_instances &gt;= <span class="number">0</span>)</span><br><span class="line">    attrs[<span class="string">'date_warning'</span>] = bool(time_remaining &lt; self.SUBSCRIPTION_TIMEOUT)</span><br><span class="line">    attrs[<span class="string">'date_expired'</span>] = bool(time_remaining &lt;= <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> attrs</span><br></pre></td></tr></table></figure>
-<h4 id="3-运行”ansible-tower-service-restart”重启服务"><a href="#3-运行”ansible-tower-service-restart”重启服务" class="headerlink" title="3. 运行”ansible-tower-service restart”重启服务"></a>3. 运行”ansible-tower-service restart”重启服务</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-tower-service restart</span><br></pre></td></tr></table></figure>
-<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/11/image.png" alt="img"></p>
-<p>参考文档：</p>
-<p><a href="https://www.milkfish.site/2021/05/13/1038.loli" target="_blank" rel="noopener">https://www.milkfish.site/2021/05/13/1038.loli</a></p>
-<p><a href="https://blog.csdn.net/m0_46393435/article/details/108171655" target="_blank" rel="noopener">https://blog.csdn.net/m0_46393435/article/details/108171655</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2021/08/17/postgresql-repmgr高可用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/08/17/postgresql-repmgr高可用/" itemprop="url">postgresql+repmgr高可用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-17T16:27:52+08:00">
-                2021-08-17
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2022-01-13T13:36:58+08:00">
-                2022-01-13
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  5.3k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  28
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1-参考文档"><a href="#1-参考文档" class="headerlink" title="1 参考文档"></a>1 参考文档</h1><p>repmgr 官方文档：<a href="https://repmgr.org/docs/current/index.html" target="_blank" rel="noopener">repmgr 5.3dev Documentation</a></p>
-<p>其他文档：<a href="https://blog.csdn.net/qq_38461429/article/details/107487092" target="_blank" rel="noopener">Configure PostgreSQL Replication With Repmgr_qq_38461429的博客-CSDN博客</a></p>
-<h1 id="2-环境"><a href="#2-环境" class="headerlink" title="2 环境"></a>2 环境</h1><table>
-<thead>
-<tr>
-<th>主机名</th>
-<th>IP</th>
-<th>OS</th>
-<th>角色</th>
-<th>软件包</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>pg1</td>
-<td>192.168.44.131</td>
-<td>Centos 7</td>
-<td>primary</td>
-<td>postgresql 11  and repmgr</td>
-</tr>
-<tr>
-<td>pg2</td>
-<td>192.168.44.131</td>
-<td>Centos 7</td>
-<td>standby</td>
-<td>postgresql 11  and repmgr</td>
-</tr>
-<tr>
-<td>pg3</td>
-<td>192.168.44.135</td>
-<td>Centos 7</td>
-<td>standby</td>
-<td>postgresql 11  and repmgr</td>
-</tr>
-</tbody>
-</table>
-<div class="note default"><p><strong>备注</strong><br>以下安装方式均采用在线安装方式。</p></div>
+          <h1 id="1-创建configMap的四种方式"><a href="#1-创建configMap的四种方式" class="headerlink" title="1 创建configMap的四种方式"></a>1 创建configMap的四种方式</h1><h2 id="1-1-通过直接在命令行中指定configmap参数创建"><a href="#1-1-通过直接在命令行中指定configmap参数创建" class="headerlink" title="1.1  通过直接在命令行中指定configmap参数创建"></a>1.1  通过直接在命令行中指定configmap参数创建</h2>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/08/17/postgresql-repmgr高可用/#more" rel="contents">
+            <a class="btn" href="/2022/06/06/kubernetes学习八-configMap的应用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2306,7 +1151,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2021/07/29/http1对比http2实测/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2022/06/01/docker下的Nginx修改监听端口/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OperationMAN">
@@ -2315,7 +1160,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
+      <meta itemprop="name" content="运维随笔">
     </span>
 
     
@@ -2325,7 +1170,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/07/29/http1对比http2实测/" itemprop="url">http1对比http2实测</a></h1>
+                <a class="post-title-link" href="/2022/06/01/docker下的Nginx修改监听端口/" itemprop="url">Docker下的Nginx自动化修改监听端口</a></h1>
         
 
         <div class="post-meta">
@@ -2337,8 +1182,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-29T12:08:22+08:00">
-                2021-07-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-06-01T16:39:14+08:00">
+                2022-06-01
               </time>
             
 
@@ -2353,8 +1198,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:31:52+08:00">
-                2022-03-31
+              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:43:46+08:00">
+                2022-06-05
               </time>
             
           </span>
@@ -2405,7 +1250,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  284
+                  290
                 </span>
               
 
@@ -2443,35 +1288,10 @@
 
       
         
-          <h1 id="1-测试硬件条件"><a href="#1-测试硬件条件" class="headerlink" title="1   测试硬件条件"></a>1   测试硬件条件</h1><table>
-<thead>
-<tr>
-<th>设备</th>
-<th>CPU</th>
-<th>内存</th>
-<th>带宽</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>服务器</td>
-<td>8核心</td>
-<td>8G</td>
-<td>千兆</td>
-<td></td>
-</tr>
-<tr>
-<td>客户端</td>
-<td>4核心</td>
-<td>16G</td>
-<td>千兆</td>
-</tr>
-</tbody>
-</table>
+          <h1 id="1-docker-compose-yaml"><a href="#1-docker-compose-yaml" class="headerlink" title="1 docker-compose.yaml"></a>1 docker-compose.yaml</h1>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/07/29/http1对比http2实测/#more" rel="contents">
+            <a class="btn" href="/2022/06/01/docker下的Nginx修改监听端口/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2522,7 +1342,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2575,7 +1395,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">155</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2586,7 +1406,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2597,7 +1417,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">106</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2626,18 +1446,6 @@
                     <a href="https://gitee.com/kxinter" target="_blank" title="码云">
                       
                         <i class="fa fa-fw fa-code"></i>码云</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://kxinter.gitee.io" target="_blank" title="blog">
-                      
-                        <i class="fa fa-fw fa-book"></i>blog</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://medoc.000webhostapp.com" target="_blank" title="随手笔记">
-                      
-                        <i class="fa fa-fw fa-wordpress"></i>随手笔记</a>
                   </span>
                 
                   <span class="links-of-author-item">
@@ -2676,12 +1484,6 @@
                         <i class="fa fa-fw fa-font-awesome"></i>Font Awesome</a>
                   </span>
                 
-                  <span class="links-of-author-item">
-                    <a href="https://www.000webhost.com/cpanel-login?from=panel#" target="_blank" title="Statistics">
-                      
-                        <i class="fa fa-fw fa-server"></i>Statistics</a>
-                  </span>
-                
             </div>
           
 
@@ -2703,10 +1505,6 @@
                 
                   <li class="links-of-blogroll-item">
                     <a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" title="Next深度优化" target="_blank">Next深度优化</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://livere.com/" title="来必力" target="_blank">来必力</a>
                   </li>
                 
               </ul>
@@ -2758,27 +1556,32 @@ show_date_time();
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
+  
   <span class="author" itemprop="copyrightHolder">OperationMAN</span>
 
   
     <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
+ <!--    <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
-    </span>
-    
+    </span> -->
+	
+	
+<!--     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">175.5k</span>
+    <span title="Site words total count">197.9k</span>
+   -->
   
+  	<!--添加备案信息-->
+	<a href="http://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">  豫ICP备 17032296 号</a>
 </div>
 
-
-
 <!--修改页面底部主题名字和网站软件名字-->
+<!-- 
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
@@ -2803,8 +1606,7 @@ show_date_time();
 </span>
 </div>
 
-
-
+ -->
         
 
 

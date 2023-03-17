@@ -132,13 +132,13 @@
 
 <meta name="description" content="日常运维文档整理。">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Operation随笔">
+<meta property="og:title" content="运维随笔">
 <meta property="og:url" content="https://kxinter.gitee.io/page/13/index.html">
-<meta property="og:site_name" content="Operation随笔">
+<meta property="og:site_name" content="运维随笔">
 <meta property="og:description" content="日常运维文档整理。">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Operation随笔">
+<meta name="twitter:title" content="运维随笔">
 <meta name="twitter:description" content="日常运维文档整理。">
 
 
@@ -175,7 +175,7 @@
 
 
 
-  <title>Operation随笔</title>
+  <title>运维随笔</title>
   
 
 
@@ -210,7 +210,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Operation随笔</span>
+        <span class="site-title">运维随笔</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -351,7 +351,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/27/SSL证书制作/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2019/04/28/MySQL自带的性能压力测试工具mysqlslap/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OperationMAN">
@@ -360,7 +360,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
+      <meta itemprop="name" content="运维随笔">
     </span>
 
     
@@ -370,7 +370,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/27/SSL证书制作/" itemprop="url">SSL证书制作</a></h1>
+                <a class="post-title-link" href="/2019/04/28/MySQL自带的性能压力测试工具mysqlslap/" itemprop="url">MySQL自带的性能压力测试工具mysqlslap</a></h1>
         
 
         <div class="post-meta">
@@ -382,8 +382,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-27T11:13:09+08:00">
-                2018-08-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-28T11:48:08+08:00">
+                2019-04-28
               </time>
             
 
@@ -398,8 +398,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-14T09:57:49+08:00">
-                2018-09-14
+              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:30:33+08:00">
+                2022-06-05
               </time>
             
           </span>
@@ -419,1006 +419,6 @@
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Linux/" itemprop="url" rel="index">
                     <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  116
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="一、环境"><a href="#一、环境" class="headerlink" title="一、环境"></a>一、环境</h1>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/27/SSL证书制作/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/23/proxy-pass反向代理配置中url后面加不加-的说明/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/23/proxy-pass反向代理配置中url后面加不加-的说明/" itemprop="url">proxy_pass反向代理配置中url后面加不加/的说明</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-23T17:28:53+08:00">
-                2018-08-23
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:32:04+08:00">
-                2022-03-31
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.1k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  5
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1-环境"><a href="#1-环境" class="headerlink" title="1 环境"></a>1 环境</h1>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/23/proxy-pass反向代理配置中url后面加不加-的说明/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/23/Xmanager远程连接CentOS7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/23/Xmanager远程连接CentOS7/" itemprop="url">Xmanager远程连接CentOS7</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-23T17:04:02+08:00">
-                2018-08-23
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-13T10:27:41+08:00">
-                2018-09-13
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  224
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1-安装epel源"><a href="#1-安装epel源" class="headerlink" title="1 安装epel源"></a>1 安装epel源</h1>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/23/Xmanager远程连接CentOS7/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/23/编辑rc-local启动命令执行不成功处理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/23/编辑rc-local启动命令执行不成功处理/" itemprop="url">编辑rc.local启动命令执行不成功处理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-23T16:26:31+08:00">
-                2018-08-23
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-13T10:30:37+08:00">
-                2018-09-13
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  284
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1-问题举例："><a href="#1-问题举例：" class="headerlink" title="1 问题举例："></a>1 问题举例：</h1>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/23/编辑rc-local启动命令执行不成功处理/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/23/docker私有仓库搭建/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/23/docker私有仓库搭建/" itemprop="url">docker私有仓库搭建</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-23T16:17:08+08:00">
-                2018-08-23
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-13T10:30:44+08:00">
-                2018-09-13
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  336
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1-搭建仓库"><a href="#1-搭建仓库" class="headerlink" title="1 搭建仓库"></a>1 搭建仓库</h1>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/23/docker私有仓库搭建/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/23/zabbix3-4-7监控日志/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/23/zabbix3-4-7监控日志/" itemprop="url">zabbix3.4.7监控日志</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-23T16:01:47+08:00">
-                2018-08-23
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:32:04+08:00">
-                2022-03-31
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/自动化运维/" itemprop="url" rel="index">
-                    <span itemprop="name">自动化运维</span>
                   </a>
                 </span>
 
@@ -1488,10 +488,255 @@
 
       
         
-          <h1 id="一、日志item介绍"><a href="#一、日志item介绍" class="headerlink" title="一、日志item介绍"></a>一、日志item介绍</h1>
+          
+             <a id="more"></a>
+<h1 id="1-mysqlslap介绍"><a href="#1-mysqlslap介绍" class="headerlink" title="1 mysqlslap介绍"></a>1 mysqlslap介绍</h1><p> <code>mysqlslap</code>是从<code>MySQL5.1.4</code>版就开始官方提供的压力测试工具。</p>
+<p>通过模拟多个并发客户端并发访问MySQL来执行压力测试，同时提供了较详细的SQL执行数据性能报告，并且能很好的对比多个存储引擎（MyISAM，InnoDB等）在相同环境下的相同并发压力下的性能差别。</p>
+<p>mysqlslap 官方介绍：<a href="http://dev.mysql.com/doc/refman/5.6/en/mysqlslap.html" target="_blank" rel="noopener">http://dev.mysql.com/doc/refman/5.6/en/mysqlslap.html</a></p>
+<h2 id="1-1-常用参数-options-详解"><a href="#1-1-常用参数-options-详解" class="headerlink" title="1.1 常用参数 [options] 详解"></a>1.1 常用参数 [options] 详解</h2><p><strong><em><code>--host=host_name</code></em></strong>:    <code>-h host_name</code> 连接到的MySQL服务器的主机名（或IP地址），默认为本机localhost;</p>
+<p><strong><em><code>--user=user_name</code></em></strong>:    <code>-u user_name</code> 连接MySQL服务时用的用户名;</p>
+<p><strong><em><code>--password[=password]</code></em></strong>:  <code>-p[password]</code> 连接MySQL服务时用的密码;</p>
+<p><strong><em><code>--create-schema</code></em></strong>:    代表自定义的测试库名称，测试的<code>schema</code>，MySQL中<code>schema</code>也就是<code>database</code>;(没指定使用哪个数据库时，可能会遇到错误mysqlslap: Error when connecting to server: 1049 Unknown database ‘mysqlslap’)</p>
+<p><strong><em>`</em></strong>–query=name<strong><em>`</em></strong>:  <code>-q</code> 使用自定义脚本执行测试（可以是SQL字符串或脚本），例如可以调用自定义的一个存储过程或者sql语句来执行测试。</p>
+<p><strong><em><code>--create</code></em></strong>:    创建表所需的SQL（可以是SQL字符串或脚本）</p>
+<p><strong><em><code>--concurrency=N</code></em></strong>:  <code>-c N</code> 表示并发量，也就是模拟多少个客户端同时执行query。可指定多个值，以逗号或者–delimiter参数指定的值做为分隔符。例如：–concurrency=100,200,500（分别执行100、200、500个并发）。</p>
+<p><strong><em><code>--iterations=N</code></em></strong>:   <code>-i N</code>测试执行的迭代次数，代表要在不同的并发环境中，各自运行测试多少次；多次运行以便让结果更加准确。</p>
+<p><strong><em><code>--number-of-queries=N</code></em></strong>:   总的测试查询次数(并发客户数×每客户查询次数)</p>
+<p><strong><em><code>--engine=engine_name</code></em></strong>:  <code>-e engine_name</code> 代表要测试的引擎，可以有多个，用分隔符隔开。例如：–engines=myisam,innodb,memory。</p>
+<p><strong><code>--auto-generate-sq</code></strong>:  <code>-a</code> 自动生成测试表和数据，表示用mysqlslap工具自己生成的SQL脚本来测试并发压力。</p>
+<p><strong><em><code>--auto-generate-sql-load-type=type</code></em></strong>:   测试语句的类型。代表要测试的环境是读操作还是写操作还是两者混合的。取值包括：read (scan tables), write (insert into tables), key (read primary keys), update (update primary keys), or mixed (half inserts, half scanning selects). 默认值是：mixed.</p>
+<p><strong><em><code>--auto-generate-sql-add-auto-increment</code></em></strong>:   代表对生成的表自动添加auto_increment列，从5.1.18版本开始支持。</p>
+<p><strong><em><code>--number-char-cols=N</code></em></strong>:  <code>-x N</code> 自动生成的测试表中包含多少个字符类型的列，默认1</p>
+<p><strong><em><code>--number-int-cols=N</code></em></strong>:  <code>-y N</code>自动生成的测试表中包含多少个数字类型的列，默认1</p>
+<p><strong><em><code>--commint=N</code></em></strong>:   多少条DML后提交一次。</p>
+<p><strong><em><code>--compress</code></em></strong>:  <code>-C</code> 如果服务器和客户端支持都压缩，则压缩信息传递。</p>
+<p><strong><em><code>--only-print</code></em></strong>:   只打印测试语句而不实际执行。</p>
+<p><strong><em><code>--detach=N</code></em></strong>:   执行N条语句后断开重连。</p>
+<p><strong><em><code>--debug-info</code></em></strong>:  <code>-T</code> 打印内存和CPU的相关信息。</p>
+<h2 id="1-2-测试范例："><a href="#1-2-测试范例：" class="headerlink" title="1.2 测试范例："></a>1.2 测试范例：</h2><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqlslap -uroot -p --socket /tmp/mysql3306.sock --concurrency=<span class="number">1</span> --iterations=<span class="number">1</span> --create-schema='test' --query='SELECT id,unionid,current_num,total_num FROM invite_join WHERE unionid="Cmo" AND active_id="<span class="number">3</span>" AND is_deleted =<span class="number">0</span> ORDER BY id DESC LIMIT <span class="number">1</span>;' --number-of-queries=<span class="number">1000000</span></span><br></pre></td></tr></table></figure>
+<p><strong>各种测试参数实例（-p后面跟的是mysql的root密码）：</strong></p>
+<ul>
+<li>单线程测试。测试做了什么。</li>
+</ul>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># mysqlslap -a -uroot -p123456</span><br></pre></td></tr></table></figure>
+<ul>
+<li>多线程测试。使用–concurrency来模拟并发连接。</li>
+</ul>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># mysqlslap -a -c <span class="number">100</span> -uroot -p123456</span><br></pre></td></tr></table></figure>
+<ul>
+<li>迭代测试。用于需要多次执行测试得到平均值。</li>
+</ul>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># mysqlslap -a -i <span class="number">10</span> -uroot -p123456</span><br></pre></td></tr></table></figure>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># mysqlslap ---auto-generate-sql-add-autoincrement -a -uroot -p123456</span><br><span class="line"># mysqlslap -a --auto-generate-sql-load-<span class="built_in">type</span>=read -uroot -p123456</span><br><span class="line"># mysqlslap -a --auto-generate-secondary-indexes=<span class="number">3</span> -uroot -p123456</span><br><span class="line"># mysqlslap -a --auto-generate-sql-write-number=<span class="number">1000</span> -uroot -p123456</span><br><span class="line"># mysqlslap --create-schema world -q "select count(*) from City" -uroot -p123456</span><br><span class="line"># mysqlslap -a -e innodb -uroot -p123456</span><br><span class="line"># mysqlslap -a --number-of-queries=<span class="number">10</span> -uroot -p123456</span><br></pre></td></tr></table></figure>
+<ul>
+<li>测试同时不同的存储引擎的性能进行对比：</li>
+</ul>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># mysqlslap -a --concurrency=<span class="number">50</span>,<span class="number">100</span> --number-of-queries <span class="number">1000</span> --iterations=<span class="number">5</span> --engine=myisam,innodb --debug-info -uroot -p123456</span><br></pre></td></tr></table></figure>
+<ul>
+<li>执行一次测试，分别50和100个并发，执行1000次总查询：</li>
+</ul>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># mysqlslap -a --concurrency=<span class="number">50</span>,<span class="number">100</span> --number-of-queries <span class="number">1000</span> --debug-info -uroot -p123456</span><br></pre></td></tr></table></figure>
+<ul>
+<li>50和100个并发分别得到一次测试结果(Benchmark)，并发数越多，执行完所有查询的时间越长。为了准确起见，可以多迭代测试几次:</li>
+</ul>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># mysqlslap -a --concurrency=<span class="number">50</span>,<span class="number">100</span> --number-of-queries <span class="number">1000</span> --iterations=<span class="number">5</span> --debug-info -uroot -p123456</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2019/04/25/mysql优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="运维随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/25/mysql优化/" itemprop="url">mysql优化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-25T11:54:35+08:00">
+                2019-04-25
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T13:44:22+08:00">
+                2022-03-31
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="1-缓存优化之QueryCache"><a href="#1-缓存优化之QueryCache" class="headerlink" title="1 缓存优化之QueryCache"></a>1 缓存优化之QueryCache</h1>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/23/zabbix3-4-7监控日志/#more" rel="contents">
+            <a class="btn" href="/2019/04/25/mysql优化/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1551,7 +796,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/23/jenkins邮件通知/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2019/03/28/Linux下run包制作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OperationMAN">
@@ -1560,7 +805,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
+      <meta itemprop="name" content="运维随笔">
     </span>
 
     
@@ -1570,7 +815,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/23/jenkins邮件通知/" itemprop="url">jenkins邮件通知</a></h1>
+                <a class="post-title-link" href="/2019/03/28/Linux下run包制作/" itemprop="url">Linux下run包制作</a></h1>
         
 
         <div class="post-meta">
@@ -1582,8 +827,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-23T15:51:51+08:00">
-                2018-08-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T16:13:16+08:00">
+                2019-03-28
               </time>
             
 
@@ -1598,8 +843,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:32:03+08:00">
-                2022-03-31
+              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:30:07+08:00">
+                2022-06-05
               </time>
             
           </span>
@@ -1617,8 +862,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/自动化运维/" itemprop="url" rel="index">
-                    <span itemprop="name">自动化运维</span>
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
                   </a>
                 </span>
 
@@ -1650,7 +895,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  548
+                  566
                 </span>
               
 
@@ -1688,14 +933,24 @@
 
       
         
-          <h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a>1 简介</h1>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/23/jenkins邮件通知/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <a id="more"></a>
+<h1 id="1-Run软件包介绍"><a href="#1-Run软件包介绍" class="headerlink" title="1 Run软件包介绍"></a>1 Run软件包介绍</h1><p>run 程序安装包实质上是一个安装脚本加要安装的程序，如下所示：</p>
+<p>|—————–——|<br>|                        |<br>|     安装脚本       |<br>|                        |<br>|—————–——|<br>|                        |<br>|      程序            |<br>|                        |<br>|—————–——|</p>
+<p>这样整个 run 安装包结构就一目了然了，实际上因为实际需要结构多少有点变动但这个无关紧要，只需要明白原理就行了。<br><strong>安装文件的优点：</strong></p>
+<p>（1）只有一个包文件；</p>
+<p>（2）可以直接运行在 Linux上，因为它是 sh（它的前半部分是sh）；</p>
+<p>（3）在 sh 中可以包含需要用户接收的协议信息，而且提示用户接收，如果用户不接收，安装退出。</p>
+<h1 id="2-制作run安装包"><a href="#2-制作run安装包" class="headerlink" title="2 制作run安装包"></a>2 制作run安装包</h1><h2 id="2-1-压缩环境包"><a href="#2-1-压缩环境包" class="headerlink" title="2.1 压缩环境包"></a>2.1 压缩环境包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zcvf app.tar.gz app/</span><br></pre></td></tr></table></figure>
+<h2 id="2-2-制作安装脚本"><a href="#2-2-制作安装脚本" class="headerlink" title="2.2 制作安装脚本"></a>2.2 制作安装脚本</h2><p>install.sh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line">lines=13                <span class="comment">#这个值是指这个脚本的行数加 1，这个脚本共有 12 行</span></span><br><span class="line">tail -n +<span class="variable">$lines</span> <span class="variable">$0</span> &gt; /tmp/app.tar.gz       </span><br><span class="line"><span class="comment"># $0 表示脚本本身，这个命令用来把从 $lines 开始的内容写入一个 /tmp 目录的 scan.tar.gz 文件里。</span></span><br><span class="line">tar zxvf /tmp/app.tar.gz</span><br><span class="line">cp -pR app /opt/</span><br><span class="line">rm -rf app/</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"********************************************************************************************************************"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"*****Install Success  **********************************************************************************************"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"*****Installation path: /opt/app  **********************************************************************************"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"*****Explain: Modify the start.sh configuration parameter, and then execute the start.sh script startup program.****"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"********************************************************************************************************************"</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></table></figure>
+<h1 id="3-生成run文件"><a href="#3-生成run文件" class="headerlink" title="3 生成run文件"></a>3 生成run文件</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat install.sh app.tar.gz &gt; app.run</span><br></pre></td></tr></table></figure>
+<p>这样就得到了 app.run 文件，它的结构如下：<br>|—————–———| 第1行<br>|                            |<br>|         install.sh         |<br>|                              | 第12行<br>|—————–———|<br>|       app.tar.gz       | 第13行<br>|                               |<br>|—————–———| 结尾</p>
+<p>可通过<code>vi/vim app.run</code> 查看脚本内容</p>
+<p>在运行 apprun 时，运行到第 12 行的 exit 0 ，脚本就会自动退出了，不会去运行第 13 行以下的二进制数据（即 app.tar.gz 文件），这样 shell 就不会因为识别不了二进制数据而出错了。这里我们巧妙地使用了 tail 命令，把第 12 行以下的数据重新生成了一个app.tar.gz文件，然后再执行安装。运行超级简单，使用 sh app.run 或赋予可执行权限然后直接执行 ./app.run 就可以安装了。</p>
+<p>run 安装包制作较小的程序包是很好的选择，但是它也有缺点，做逻辑比较复杂的安装包，写的安装脚本将会很麻烦，因此此时还是用其他的安装包更好。</p>
+
+          
         
       
     </div>
@@ -1751,7 +1006,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/22/Docker集群WEB管理工具Shipyard/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2019/03/28/Postgresql-Postgis解压版安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OperationMAN">
@@ -1760,7 +1015,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
+      <meta itemprop="name" content="运维随笔">
     </span>
 
     
@@ -1770,7 +1025,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/22/Docker集群WEB管理工具Shipyard/" itemprop="url">Docker集群WEB管理工具Shipyard</a></h1>
+                <a class="post-title-link" href="/2019/03/28/Postgresql-Postgis解压版安装/" itemprop="url">Postgresql_Postgis解压版安装</a></h1>
         
 
         <div class="post-meta">
@@ -1782,8 +1037,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-22T17:00:58+08:00">
-                2018-08-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T14:18:56+08:00">
+                2019-03-28
               </time>
             
 
@@ -1798,8 +1053,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:32:03+08:00">
-                2022-03-31
+              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:38:00+08:00">
+                2022-06-05
               </time>
             
           </span>
@@ -1817,8 +1072,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
+                  <a href="/categories/Windows/" itemprop="url" rel="index">
+                    <span itemprop="name">Windows</span>
                   </a>
                 </span>
 
@@ -1850,7 +1105,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.1k
+                  986
                 </span>
               
 
@@ -1866,7 +1121,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  11
+                  4
                 </span>
               
             </div>
@@ -1888,14 +1143,83 @@
 
       
         
-          <h1 id="一、-说明"><a href="#一、-说明" class="headerlink" title="一、 说明"></a>一、 说明</h1>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/22/Docker集群WEB管理工具Shipyard/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <a id="more"></a>
+<h1 id="1．软件下载"><a href="#1．软件下载" class="headerlink" title="1．软件下载"></a>1．软件下载</h1><p>postgresql-9.6.1-1-windows-x64-binaries.zip</p>
+<p><a href="https://www.postgresql.org/download/windows/" target="_blank" rel="noopener">https://www.postgresql.org/download/windows/</a></p>
+<p>postgis-bundle-pg96-2.3.1x64.zip</p>
+<p><a href="http://download.osgeo.org/postgis/windows/pg96/" target="_blank" rel="noopener">http://download.osgeo.org/postgis/windows/pg96/</a></p>
+<h1 id="2-将postgresql-zip解压"><a href="#2-将postgresql-zip解压" class="headerlink" title="2.  将postgresql.zip解压"></a>2.  将postgresql.zip解压</h1><p>解压<code>postgresql-9.6.1-1-windows-x64-binaries.zip</code>到你想要的安装目录（<code>D:\GreenSoftware\PostgreSQL961</code>），主要最好不要有中文或者空格，</p>
+<h1 id="3-创建数据存放目录"><a href="#3-创建数据存放目录" class="headerlink" title="3.  创建数据存放目录"></a>3.  创建数据存放目录</h1><p>D:\GreenSoftware\PostgreSQL961\data</p>
+<h1 id="4-初始化数据库"><a href="#4-初始化数据库" class="headerlink" title="4.  初始化数据库"></a>4.  初始化数据库</h1><p>D:\GreenSoftware\PostgreSQL961\bin\ <code>initdb.exe -D D:\GreenSoftware\PostgreSQL961\data -E UTF8 --locale=Chinese</code></p>
+<h1 id="5-启动数据库，有两种方式"><a href="#5-启动数据库，有两种方式" class="headerlink" title="5.  启动数据库，有两种方式"></a>5.  启动数据库，有两种方式</h1><h2 id="5-1-第一种方式：注册为windows服务方式"><a href="#5-1-第一种方式：注册为windows服务方式" class="headerlink" title="5.1  第一种方式：注册为windows服务方式"></a>5.1  第一种方式：注册为windows服务方式</h2><h3 id="5-1-1-注册服务"><a href="#5-1-1-注册服务" class="headerlink" title="5.1.1  注册服务"></a>5.1.1  注册服务</h3><p>D:\GreenSoftware\PostgreSQL961\bin\ <code>pg_ctl.exe register -D D:\GreenSoftware\PostgreSQL961\data -Npgsql</code><br><div class="note info"><p><strong>备注：</strong><br>-N表示windows服务名称为pgsql；</p></div></p>
+<h3 id="5-1-2-启动服务"><a href="#5-1-2-启动服务" class="headerlink" title="5.1.2 启动服务"></a>5.1.2 启动服务</h3><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">net</span> <span class="built_in">start</span> pgsql</span><br></pre></td></tr></table></figure>
+<p>如果你的安装没有错误，现在就应该可以起来了。</p>
+<h3 id="5-1-3-关闭服务"><a href="#5-1-3-关闭服务" class="headerlink" title="5.1.3 关闭服务"></a>5.1.3 关闭服务</h3><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">net</span> stop pgsql</span><br></pre></td></tr></table></figure>
+<h3 id="5-1-4-卸载服务"><a href="#5-1-4-卸载服务" class="headerlink" title="5.1.4 卸载服务"></a>5.1.4 卸载服务</h3><p>D:\GreenSoftware\PostgreSQL961\bin\ <code>pg_ctl.exe unregister -D D:\GreenSoftware\PostgreSQL961\data –Npgsql</code></p>
+<h2 id="5-2-第二种方式：直接启动方式"><a href="#5-2-第二种方式：直接启动方式" class="headerlink" title="5.2 第二种方式：直接启动方式"></a>5.2 第二种方式：直接启动方式</h2><h3 id="5-2-1-启动"><a href="#5-2-1-启动" class="headerlink" title="5.2.1 启动"></a>5.2.1 启动</h3><p>D:\GreenSoftware\PostgreSQL961\bin\ <code>pg_ctl.exe start -w -D D:\GreenSoftware\PostgreSQL961\data</code></p>
+<h3 id="5-2-2-关闭"><a href="#5-2-2-关闭" class="headerlink" title="5.2.2 关闭"></a>5.2.2 关闭</h3><p>D:\GreenSoftware\PostgreSQL961\bin\ <code>pg_ctl.exe stop -W -D D:\GreenSoftware\PostgreSQL961\data</code></p>
+<h1 id="6-创建数据库"><a href="#6-创建数据库" class="headerlink" title="6 创建数据库"></a>6 创建数据库</h1><p>D:\GreenSoftware\PostgreSQL961\bin\ <code>createdb.exe -E UTF8 geodb</code></p>
+<p>D:\GreenSoftware\PostgreSQL961\bin\ <code>dropdb.exe geodb</code></p>
+<h1 id="7-创建用户"><a href="#7-创建用户" class="headerlink" title="7 创建用户"></a>7 创建用户</h1><p>D:\GreenSoftware\PostgreSQL961\bin\ <code>createuser.exe -s -r postgres</code></p>
+<p>会有是否创建superuser的选项，创建一个名为postgres的超级用户；</p>
+<blockquote>
+<p><strong>使用方法:</strong></p>
+<p><code>createuser [选项]... [用户名]</code></p>
+<p>选项:</p>
+<p>-c, –connection-limit=N 角色的连接限制(缺省: 没有限制)</p>
+<p>-d, –createdb 此角色可以创建新数据库</p>
+<p>-D, –no-createdb 此角色不可以创建新数据库</p>
+<p>-e, –echo 显示发送到服务端的命令</p>
+<p>-E, –encrypted 口令加密存储</p>
+<p>-i, –inherit 角色能够继承它所属角色的权限</p>
+<p>（这是缺省情况)</p>
+<p>-I, –no-inherit 角色不继承权限</p>
+<p>-l, –login 角色能够登录(这是缺省情况)</p>
+<p>-L, –no-login 角色不能登录</p>
+<p>-N, –unencrypted 口令不加密存储</p>
+<p>-P, –pwprompt 给新角色指定口令</p>
+<p>-r, –createrole 这个角色可以创建新的角色</p>
+<p>-R, –no-createrole 这个角色没有创建其它角色的权限</p>
+<p>-s, –superuser 角色将是超级用户</p>
+<p>-S, –no-superuser 角色不能是超级用户</p>
+<p>–help 显示此帮助信息, 然后退出</p>
+<p>–version 输出版本信息, 然后退出</p>
+<p>联接选项:</p>
+<p>-h, –host=HOSTNAM 数据库服务器所在机器的主机名或套接字目录</p>
+<p>-p, –port=PORT 数据库服务器端口号</p>
+<p>-U, –username=USERNAME 联接用户 (不是要创建的用户名)</p>
+<p>-w, -no-password 永远不提示输入口令</p>
+<p>-W, –password 强制提示输入口令</p>
+<p>如果 -d, -D, -r, -R, -s, -S 和 ROLENAME 一个都没有指定,将使用交互式提示</p>
+<p>你.</p>
+<p>臭虫报告至 <a href="mailto:&#112;&#103;&#115;&#x71;&#x6c;&#45;&#98;&#x75;&#103;&#x73;&#x40;&#x70;&#111;&#x73;&#x74;&#103;&#114;&#101;&#x73;&#x71;&#108;&#46;&#111;&#114;&#103;" target="_blank" rel="noopener">&#112;&#103;&#115;&#x71;&#x6c;&#45;&#98;&#x75;&#103;&#x73;&#x40;&#x70;&#111;&#x73;&#x74;&#103;&#114;&#101;&#x73;&#x71;&#108;&#46;&#111;&#114;&#103;</a>.</p>
+<p>例子1:&gt;createuser -P -d -U postgres dan</p>
+<p>解释:-P(大写)说的是为新用户指定口令;-d说的该角色是否可以创建数据库;-U(大写)当前的操作是哪个用户发出的;最后的dan是新用户的名字。</p>
+<p>补充：</p>
+<p>查看系统中的所用用户：select * from pg_user;</p>
+<p>删除一个用户：drop user dan;其中dan为用户名</p>
+<p>D:\GreenSoftware\PostgreSQL961\bin\dropuser.exe postgres</p>
+</blockquote>
+<h2 id="7-1-修改用户密码"><a href="#7-1-修改用户密码" class="headerlink" title="7.1 修改用户密码"></a>7.1 修改用户密码</h2><h3 id="7-1-1第一种方式：应用psql命令"><a href="#7-1-1第一种方式：应用psql命令" class="headerlink" title="7.1.1第一种方式：应用psql命令"></a>7.1.1第一种方式：应用psql命令</h3><p>D:\GreenSoftware\PostgreSQL961\bin\ <code>psql.exe postgres</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">postgres=# alter user postgres with password 'xxx';</span><br><span class="line"></span><br><span class="line">postgres-# \q</span><br></pre></td></tr></table></figure>
+<h3 id="7-1-2第二种方式：为使用pgAdmin修改"><a href="#7-1-2第二种方式：为使用pgAdmin修改" class="headerlink" title="7.1.2第二种方式：为使用pgAdmin修改"></a>7.1.2第二种方式：为使用pgAdmin修改</h3><p>用pgAdmin连接到服务器，可以直接修改密码；</p>
+<h1 id="8-将postgis-bundle-pg96-2-3-1x64-zip解压"><a href="#8-将postgis-bundle-pg96-2-3-1x64-zip解压" class="headerlink" title="8 将postgis-bundle-pg96-2.3.1x64.zip解压"></a>8 将postgis-bundle-pg96-2.3.1x64.zip解压</h1><p>解压<code>postgis-bundle-pg96-2.3.1x64.zip</code>到没有中文或者空格的目录。</p>
+<h1 id="9-修改makepostgisdb-using-extensions-bat文件"><a href="#9-修改makepostgisdb-using-extensions-bat文件" class="headerlink" title="9 修改makepostgisdb_using_extensions.bat文件"></a>9 修改makepostgisdb_using_extensions.bat文件</h1><p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Postgresql_Postgis解压版安装/1.jpg" alt="1"></p>
+<h1 id="10-将空间数据导入PostGIS中"><a href="#10-将空间数据导入PostGIS中" class="headerlink" title="10 将空间数据导入PostGIS中"></a>10 将空间数据导入PostGIS中</h1><p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Postgresql_Postgis解压版安装/2.jpg" alt="2"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Postgresql_Postgis解压版安装/3.jpg" alt="3"></p>
+<h1 id="11-显示PostGIS中空间数据"><a href="#11-显示PostGIS中空间数据" class="headerlink" title="11 显示PostGIS中空间数据"></a>11 显示PostGIS中空间数据</h1><p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Postgresql_Postgis解压版安装/4.jpg" alt="4"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Postgresql_Postgis解压版安装/5.jpg" alt="5"></p>
+<h1 id="12处理外网访问"><a href="#12处理外网访问" class="headerlink" title="12处理外网访问"></a>12处理外网访问</h1><h2 id="1-修改D-GreenSoftware-PostgreSQL961-data-pg-hba-conf文件"><a href="#1-修改D-GreenSoftware-PostgreSQL961-data-pg-hba-conf文件" class="headerlink" title="1. 修改D:\GreenSoftware\PostgreSQL961\data\pg_hba.conf文件"></a>1. 修改D:\GreenSoftware\PostgreSQL961\data\pg_hba.conf文件</h2><p>加入如下的文字：</p>
+<p><code>host    all             all             192.168.1.0/24          md5</code><br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Postgresql_Postgis解压版安装/6.png" alt="6"></p>
+<h2 id="2-修改D-GreenSoftware-PostgreSQL961-data-postgresql-conf文件"><a href="#2-修改D-GreenSoftware-PostgreSQL961-data-postgresql-conf文件" class="headerlink" title="2.修改D:\GreenSoftware\PostgreSQL961\data\postgresql.conf文件"></a>2.修改D:\GreenSoftware\PostgreSQL961\data\postgresql.conf文件</h2><p>加入如下的文字：</p>
+<p>将</p>
+<p><code>#listen_addresses = &#39;127.0.0.1&#39;</code></p>
+<p>改为：</p>
+<p><code>listen_addresses = &#39;*&#39;</code></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2019/11/7/Postgresql_Postgis解压版安装/7.png" alt="7"></p>
+
+          
         
       
     </div>
@@ -1951,7 +1275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/20/Oracle-11g-R2安装教程/">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2019/03/01/postgresql部署/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="OperationMAN">
@@ -1960,7 +1284,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
+      <meta itemprop="name" content="运维随笔">
     </span>
 
     
@@ -1970,7 +1294,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/20/Oracle-11g-R2安装教程/" itemprop="url">Oracle-11g-R2安装教程</a></h1>
+                <a class="post-title-link" href="/2019/03/01/postgresql部署/" itemprop="url">postgresql部署</a></h1>
         
 
         <div class="post-meta">
@@ -1982,8 +1306,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-20T07:36:34+08:00">
-                2018-08-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-01T16:12:25+08:00">
+                2019-03-01
               </time>
             
 
@@ -1998,207 +1322,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:31:58+08:00">
-                2022-03-31
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.8k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  13
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="1-安装Oracle前准备"><a href="#1-安装Oracle前准备" class="headerlink" title="1 安装Oracle前准备"></a>1 安装Oracle前准备</h1>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/20/Oracle-11g-R2安装教程/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/16/npm私库部署-cnpmjs/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Operation随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/16/npm私库部署-cnpmjs/" itemprop="url">npm私库部署-cnpmjs</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-16T18:25:38+08:00">
-                2018-08-16
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T11:32:02+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2022-03-31T13:44:20+08:00">
                 2022-03-31
               </time>
             
@@ -2250,7 +1374,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.9k
+                  1.1k
                 </span>
               
 
@@ -2266,7 +1390,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  13
+                  6
                 </span>
               
             </div>
@@ -2288,10 +1412,10 @@
 
       
         
-          <h1 id="一、部署cnpm"><a href="#一、部署cnpm" class="headerlink" title="一、部署cnpm"></a>一、部署cnpm</h1>
+          <h1 id="1-Postgres部署手册"><a href="#1-Postgres部署手册" class="headerlink" title="1 Postgres部署手册"></a>1 Postgres部署手册</h1><h2 id="1-1-安装"><a href="#1-1-安装" class="headerlink" title="1.1 安装"></a>1.1 安装</h2>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/16/npm私库部署-cnpmjs/#more" rel="contents">
+            <a class="btn" href="/2019/03/01/postgresql部署/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2342,7 +1466,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2395,7 +1519,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">155</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2406,7 +1530,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2417,7 +1541,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">106</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2446,18 +1570,6 @@
                     <a href="https://gitee.com/kxinter" target="_blank" title="码云">
                       
                         <i class="fa fa-fw fa-code"></i>码云</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://kxinter.gitee.io" target="_blank" title="blog">
-                      
-                        <i class="fa fa-fw fa-book"></i>blog</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://medoc.000webhostapp.com" target="_blank" title="随手笔记">
-                      
-                        <i class="fa fa-fw fa-wordpress"></i>随手笔记</a>
                   </span>
                 
                   <span class="links-of-author-item">
@@ -2496,12 +1608,6 @@
                         <i class="fa fa-fw fa-font-awesome"></i>Font Awesome</a>
                   </span>
                 
-                  <span class="links-of-author-item">
-                    <a href="https://www.000webhost.com/cpanel-login?from=panel#" target="_blank" title="Statistics">
-                      
-                        <i class="fa fa-fw fa-server"></i>Statistics</a>
-                  </span>
-                
             </div>
           
 
@@ -2523,10 +1629,6 @@
                 
                   <li class="links-of-blogroll-item">
                     <a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" title="Next深度优化" target="_blank">Next深度优化</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://livere.com/" title="来必力" target="_blank">来必力</a>
                   </li>
                 
               </ul>
@@ -2578,27 +1680,32 @@ show_date_time();
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
+  
   <span class="author" itemprop="copyrightHolder">OperationMAN</span>
 
   
     <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
+ <!--    <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
-    </span>
-    
+    </span> -->
+	
+	
+<!--     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">175.5k</span>
+    <span title="Site words total count">197.9k</span>
+   -->
   
+  	<!--添加备案信息-->
+	<a href="http://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">  豫ICP备 17032296 号</a>
 </div>
 
-
-
 <!--修改页面底部主题名字和网站软件名字-->
+<!-- 
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
@@ -2623,8 +1730,7 @@ show_date_time();
 </span>
 </div>
 
-
-
+ -->
         
 
 
