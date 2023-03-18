@@ -351,6 +351,327 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2021/04/19/hadoop集群部署1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="运维随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/04/19/hadoop集群部署1/" itemprop="url">hadoop集群部署1</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-19T16:37:04+08:00">
+                2021-04-19
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:36:27+08:00">
+                2022-06-05
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  20
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+<h1 id="1-环境"><a href="#1-环境" class="headerlink" title="1.    环境"></a>1.    环境</h1><p>平台使用 Centos 7 64位作为系统环境。采用1个Master节点与3个Slave节点搭建成为分布式集群，详情见表 1。</p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618821547252.png" alt="enter description here"></p>
+<h1 id="2-基础安装"><a href="#2-基础安装" class="headerlink" title="2.    基础安装"></a>2.    基础安装</h1><h2 id="2-1-安装CentOS-7"><a href="#2-1-安装CentOS-7" class="headerlink" title="2.1.    安装CentOS 7"></a>2.1.    安装CentOS 7</h2><p>拷制U盘启动后，选择开机使用U盘启动，进入主引导装机页面如下图。</p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618821563825.png" alt="图 1"><br>选择Test this medis &amp; install CentOS Linux 7，进入下面界面：</p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618821571587.png" alt="图 2"><br>稍等片刻后，进入CenOS7可视化安装界面，选择中文。</p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618821577179.png" alt="图 3"><br>点击Continue后，进入安装信息摘要界面，选择日期和时间为亚洲/上海 时区，主要保持每个服务器的时区一致，软件选择为最小安装，点击安装位置后如图 12所示，根据需要选择自动分区或者手动分区，这里为自动分区。点击完成后，回到图 11，点击开始安装。</p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618821596794.png" alt="图 4"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618821603116.png" alt="图 5"><br>安装进行过程中提示用户设置如下图，点击ROOT密码，为ROOT用户设置密码，如需要创建其他用户，可点击创建用户，新增其他用户。</p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618821610630.png" alt="图 6"><br>之上内容设置完成后，点击重启，完成系统安装。</p>
+<h2 id="2-2-配置网络"><a href="#2-2-配置网络" class="headerlink" title="2.2.    配置网络"></a>2.2.    配置网络</h2><p>设置各节点静态IP<br><strong>修改hostname：</strong><br>$ vi /etc/hostname #编辑配置文件<br>Master</p>
+<h2 id="2-3-关闭防火墙和SeLinux"><a href="#2-3-关闭防火墙和SeLinux" class="headerlink" title="2.3.    关闭防火墙和SeLinux"></a>2.3.    关闭防火墙和SeLinux</h2><p>CentOS 7.0默认使用的是firewall作为防火墙，默认为最小化安装时，系统没有安装防火墙，安装完可视化界面后，可能防火墙也会被安装上，因此需要关闭防火墙。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> systemctl stop firewalld.service <span class="comment">#停止firewall</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> systemctl <span class="built_in">disable</span> firewalld.service <span class="comment">#禁止firewall开机启动</span></span></span><br></pre></td></tr></table></figure>
+<p>使用sestatus -v 命令，查看Selinux状态。如果不是disable状态，编辑/etc/sysconfig/selinux 文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> vi /etc/sysconfig/selinux</span></span><br><span class="line">SELINUX=disabled</span><br></pre></td></tr></table></figure>
+<h2 id="2-4-SSH免密码登录"><a href="#2-4-SSH免密码登录" class="headerlink" title="2.4.    SSH免密码登录"></a>2.4.    SSH免密码登录</h2><p>SSH免密码登录，因为Hadoop需要通过SSH登录到各个节点进行操作，我用的是root用户，每台服务器都生成公钥，再合并到authorized_keys<br>(1) CentOS默认没有启动ssh无密登录，去掉/etc/ssh/sshd_config其中2行的注释，每台服务器都要设置，</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> vi /etc/ssh/sshd_config</span></span><br><span class="line">RSAAuthentication yes </span><br><span class="line">PubkeyAuthentication yes</span><br></pre></td></tr></table></figure>
+<p>(2) 输入命令，<code>ssh-keygen -t rsa</code>，生成key，都不输入密码，一直回车，/root就会生成.ssh文件夹，每台服务器都要设置。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ssh-keygen -t rsa</span></span><br></pre></td></tr></table></figure>
+<p>(3) 合并公钥到authorized_keys文件，在Master服务器，进入/root/.ssh目录，通过SSH命令合并</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cat id_rsa.pub&gt;&gt; authorized_keys</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> Chmod 600 authorized_kdys</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ssh root@192.168.0.165 cat ~/.ssh/id_rsa.pub&gt;&gt; authorized_keys</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ssh root@192.168.0.166 cat ~/.ssh/id_rsa.pub&gt;&gt; authorized_keys</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ssh root@192.168.0.167 cat ~/.ssh/id_rsa.pub&gt;&gt; authorized_keys</span></span><br></pre></td></tr></table></figure>
+<p> (4) 把Master服务器的authorized_keys、known_hosts复制到Slave服务器的/root/.ssh目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> scp authorized_keys root@192.168.0.165:~/.ssh</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> scp authorized_keys root@192.168.0.166:~/.ssh</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> scp authorized_keys root@192.168.0.167:~/.ssh</span></span><br></pre></td></tr></table></figure>
+<p>(5) 完成，ssh Slave1、ssh Slave2、ssh Slave3就不需要输入密码了</p>
+<h2 id="2-5-安装JDK"><a href="#2-5-安装JDK" class="headerlink" title="2.5.    安装JDK"></a>2.5.    安装JDK</h2><p>安装JDK，Hadoop2.7需要JDK7，由于我的CentOS是最小化安装，所以没有OpenJDK，直接解压下载的JDK并配置变量即可<br>(1)下载“jdk-7u79-linux-x64.gz”，放到/home/java目录下<br>(2)解压，输入命令，tar -zxvf jdk-7u79-linux-x64.gz<br>(3)编辑/etc/profile</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/home/java/jdk1.7.0_79</span><br><span class="line">export CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br></pre></td></tr></table></figure>
+<p>(4)使配置生效，输入命令，<code>source /etc/profile</code><br>(5)输入命令，<code>java -version</code>，完成</p>
+<h1 id="3-数据库安装"><a href="#3-数据库安装" class="headerlink" title="3.    数据库安装"></a>3.    数据库安装</h1><p>1)     下载安装包<br><a href="http://dev.mysql.com/downloads/mysql/#downloads" target="_blank" rel="noopener">http://dev.mysql.com/downloads/mysql/#downloads</a><br>推荐下载通用安装方法的tar.gz包<br>2)    检查库文件是否存在，如有删除。<br>$ rpm -qa | grep mysql<br>mysql-libs-5.1.52-1.el6_0.1.x86_64<br>$ rpm -e mysql-libs-5.1.52.x86_64 –nodeps<br>3)    检查mysql组和用户是否存在，如无创建。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cat /etc/group | grep mysql</span></span><br><span class="line">mysql:x:490:</span><br><span class="line"><span class="meta">$</span><span class="bash"> cat /etc/passwd | grep mysql</span></span><br><span class="line">mysql:x:496:490::/home/mysql:/bin/bash</span><br></pre></td></tr></table></figure>
+<p>以上为默认存在的情况，如无，执行添加命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">groupadd mysql</span></span><br><span class="line"><span class="meta">$</span><span class="bash">useradd -r -g mysql mysql</span></span><br></pre></td></tr></table></figure>
+<p>//useradd -r参数表示mysql用户是系统用户，不可用于登录系统。<br>4)    解压TAR包，更改所属的组和用户</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> /usr/<span class="built_in">local</span>/</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> tar -xvfz mysql-5.6.37-linux-glibc2.5-x86_64.tar.gz</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> chown -R mysql mysql-5.6.37-linux-glibc2.5-x86_64/</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> chgrp -R mysql mysql-5.6.37-linux-glibc2.5-x86_64/</span></span><br></pre></td></tr></table></figure>
+<p>5)    安装和初始化数据库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> bin/mysql_install_db --user=mysql --basedir=/usr/<span class="built_in">local</span>/mysql/ --datadir=/usr/<span class="built_in">local</span>/mysql/data/</span></span><br></pre></td></tr></table></figure>
+<p>6)    改写配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cp -a ./support-files/my-default.cnf /etc/my.cnf</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cp -a ./support-files/mysql.server  /etc/init.d/mysqld</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> etc/</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> vi my.cnf</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>修改my.cnf的内容如下<br>[mysql]<br>default-character-set=utf8<br>socket=/var/lib/mysql/mysql.sock<br>[mysqld]<br>skip-name-resolve<br>port=3306<br>socket=/var/lib/mysql/mysql.sock<br>basedir=/usr/local/mysql  # 设置mysql的安装目录<br>datadir=/usr/local/mysql/data  # 设置mysql数据库的数据的存放目录<br>max_connections=200 # 允许最大连接数<br>character-set-server=utf8<br>default-storage-engine=INNODB # 创建新表时将使用的默认存储引擎<br>lower_case_table_names=1<br>max_allowed_packet=16M</p>
+</blockquote>
+<p>7)    启动数据库服务并设置服务开机自动启动</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ./mysqld_safe --user=mysql &amp;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> /etc/init.d/mysqld restart </span></span><br><span class="line"><span class="meta">$</span><span class="bash"> chkconfig --level 35 mysqld on //设置开机启动</span></span><br></pre></td></tr></table></figure>
+<p>8)    初始化密码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cat /root/.mysql_secret</span></span><br></pre></td></tr></table></figure>
+<p><code># Password set for user &#39;root@localhost&#39; at 2016-06-01 15:23:25</code><br>,xxxxxR5H9<br>$ mysql -uroot –p<br>Enter password:<br>Welcome to the MySQL monitor.  Commands end with ; or \g.<br>Your MySQL connection id is 2<br>Server version: 5.7.12</p>
+<p>Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.</p>
+<p>Oracle is a registered trademark of Oracle Corporation and/or its<br>affiliates. Other names may be trademarks of their respective<br>owners.</p>
+<p>Type ‘help;’ or ‘\h’ for help. Type ‘\c’ to clear the current input statement.</p>
+<p>mysql&gt; <strong>SET PASSWORD = PASSWORD(‘123456’);</strong><br>Query OK, 0 rows affected, 1 warning (0.00 sec)</p>
+<p>mysql&gt; <strong>flush privileges</strong>;<br>Query OK, 0 rows affected (0.00 sec)<br>9)    添加远程访问权限<br>mysql&gt; <strong>use mysql;</strong><br>Reading table information for completion of table and column names<br>You can turn off this feature to get a quicker startup with -A</p>
+<p>Database changed<br>mysql&gt; <strong>update user set host = ‘%’ where user = ‘root’;</strong><br>Query OK, 1 row affected (0.00 sec)<br>Rows matched: 1  Changed: 1  Warnings: 0</p>
+<p>mysql&gt; <strong>select host, user from user;</strong><br>+———–+———–+<br>| host       | user      |<br>+———–+———–+<br>| %          | root      |<br>| localhost | mysql.sys |<br>+———–+———–+<br>mysql&gt; <strong>quit</strong><br><code>$ /etc/init.d/mysqld restart</code>   //一定要重启才会生效。</p>
+<h1 id="4-Ambari安装"><a href="#4-Ambari安装" class="headerlink" title="4.    Ambari安装"></a>4.    Ambari安装</h1><p>由于在线安装容易受到网络不稳定等方面影响，因此采用平台选用离线安装的方式。</p>
+<h2 id="4-1-搭建Yum源服务器"><a href="#4-1-搭建Yum源服务器" class="headerlink" title="4.1.    搭建Yum源服务器"></a>4.1.    搭建Yum源服务器</h2><p>1)    安装httpd服务<br>检查是否已经安装apache http服务。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">which</span> httpd</span></span><br></pre></td></tr></table></figure>
+<p>如果没有出现目录信息，则说明没有安装。通过下面的语句进行安装。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo yum install httpd</span></span><br></pre></td></tr></table></figure>
+<p>安装成功之后，apache工作目录默认在/var/www/html。检查如没有此目录，需要手动创建相同目录结构。检查端口是否占用，http服务使用80端口</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> netstat -nltp | grep 80</span></span><br></pre></td></tr></table></figure>
+<p>如果有占用情况，安装完毕之后需要修改apache http服务的端口号：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo <span class="keyword">vi</span> /etc/httpd/<span class="keyword">conf</span>/httpd.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
+<p>修改监听端口，Listen 80为其他端口。<br>为了加快安装速度和防止超时错误，建议为HDP配置本地源，请在事先在网上下载HDP、HDP-UTILS和Ambari，本例中几个组件版本为HDP-2.6.0，HDP-UTILS-1.1.0.21和Ambari-2.5.1.0。此处把slave3服务器做为源服务器。以下操作在slave3机器运行。<br>2)    下载压缩包<br>首先下载包含必要软件的压缩包（tarball）到本地，在<a href="https://docs.hortonworks.com/HDPDocuments/Ambari-2.5.1.0/bk_ambari-installation/content/ambari_repositories.html中，查看需要下载的tarball。下表为本平台所用的内容：" target="_blank" rel="noopener">https://docs.hortonworks.com/HDPDocuments/Ambari-2.5.1.0/bk_ambari-installation/content/ambari_repositories.html中，查看需要下载的tarball。下表为本平台所用的内容：</a><br>服务内容    Tarball源地址<br>Ambari    <a href="http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.5.1.0/ambari-2.5.1.0-centos7.tar.gz" target="_blank" rel="noopener">http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.5.1.0/ambari-2.5.1.0-centos7.tar.gz</a><br>HDP    <a href="http://public-repo-1.hortonworks.com/HDP/centos7/2.x/updates/2.6.1.0/HDP-2.6.1.0-centos7-rpm.tar.gz" target="_blank" rel="noopener">http://public-repo-1.hortonworks.com/HDP/centos7/2.x/updates/2.6.1.0/HDP-2.6.1.0-centos7-rpm.tar.gz</a><br>HDP-UTILS    <a href="http://public-repo-1.hortonworks.com/HDP-UTILS-1.1.0.21/repos/centos7/HDP-UTILS-1.1.0.21-centos7.tar.gz" target="_blank" rel="noopener">http://public-repo-1.hortonworks.com/HDP-UTILS-1.1.0.21/repos/centos7/HDP-UTILS-1.1.0.21-centos7.tar.gz</a><br>建立本地仓库，这里使用 httpd 来建立，安装启动httpd省略。解压三个包到 /var/www/html 目录下。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ tar -zxvf ambari-<span class="number">2.5</span>.<span class="number">1</span>-centos7<span class="selector-class">.tar</span><span class="selector-class">.gz</span> -C /var/www/html/</span><br><span class="line">$ tar -zxvf HDP-<span class="number">2.6</span>.<span class="number">1.0</span>-centos7-rpm<span class="selector-class">.tar</span><span class="selector-class">.gz</span> -C /var/www/html/</span><br><span class="line">$ tar -zxvf HDP-UTILS-<span class="number">1.1</span>.<span class="number">0.21</span>-centos7<span class="selector-class">.tar</span><span class="selector-class">.gz</span> -C /var/www/html/</span><br></pre></td></tr></table></figure>
+<p>3)    修改Repo<br>修改 ambari.repo，使之与 yum源机器匹配。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ cd /etc/yum.repos.d</span><br><span class="line">$vi ambary.repo</span><br><span class="line"><span class="comment">#VERSION_NUMBER=2.5.1.0-159</span></span><br><span class="line">[Updates-ambari-2.5.1.0]</span><br><span class="line">name=ambari-2.5.1.0- Updates</span><br><span class="line">baseurl=http://192.168.1.3/data/ambari/centos7/</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=http://192.168.1.3/data/ambari/centos7/RPM-GPG-KEY/RPM-GPG-KEY</span><br><span class="line">-Jenkinsenabled=1</span><br><span class="line">priority=1</span><br><span class="line">修改 hdp.repo，使之与 yum源机器匹配。</span><br></pre></td></tr></table></figure>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$vi ambary.repo</span><br><span class="line">[HDP-2.6]</span><br><span class="line">name=HDP-2.6</span><br><span class="line">baseurl=http://192.168.1.3/data/HDP/centos7/</span><br><span class="line">path=/</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br></pre></td></tr></table></figure>
+<p>修改 HDP-UTILS.repo，使之与 yum源机器匹配。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$vi ambary.repo</span><br><span class="line">[HDP-UTILS-1.1.0.21]</span><br><span class="line">name=HDP-UTILS-1.1.0.21</span><br><span class="line">baseurl=http://192.168.1.3/data/HDP-UTILS-1.1.0.21-centos7/</span><br><span class="line">path=/</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br></pre></td></tr></table></figure>
+<h2 id="4-2-安装Ambari-Server"><a href="#4-2-安装Ambari-Server" class="headerlink" title="4.2.    安装Ambari Server"></a>4.2.    安装Ambari Server</h2><p>在上述内容配置完成后，安装ambari-service。出现Complete! 则可</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yum <span class="keyword">install</span> ambari-<span class="keyword">server</span></span><br></pre></td></tr></table></figure>
+<p>启动Ambari-server服务，出现提示后，根据提示填写相应的回答。</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">$</span> ambari-server setup</span><br><span class="line"><span class="keyword">Using</span> python  /usr/bin/python2<span class="number">.6</span></span><br><span class="line">Setup ambari-server</span><br><span class="line"><span class="function"><span class="title">Checking</span></span> SELinux...</span><br><span class="line">SELinux status is <span class="string">'disabled'</span></span><br><span class="line">Customize user account <span class="keyword">for</span> ambari-server daemon [y/n] (n)? y</span><br><span class="line">Enter user account <span class="keyword">for</span> ambari-server daemon (root):</span><br><span class="line"><span class="function"><span class="title">Adjusting</span></span> ambari-server permissions <span class="keyword">and</span> ownership...</span><br><span class="line"><span class="function"><span class="title">Checking</span></span> firewall status...</span><br><span class="line"><span class="function"><span class="title">Checking</span></span> JDK...</span><br><span class="line">[<span class="number">1</span>] Oracle JDK <span class="number">1.8</span> + Java Cryptography Extension (JCE) Policy <span class="keyword">Files</span> <span class="number">8</span></span><br><span class="line">[<span class="number">2</span>] Oracle JDK <span class="number">1.7</span> + Java Cryptography Extension (JCE) Policy <span class="keyword">Files</span> <span class="number">7</span></span><br><span class="line">[<span class="number">3</span>] Custom JDK</span><br><span class="line">==============================================================================</span><br><span class="line">Enter choice (<span class="number">1</span>): <span class="number">3</span></span><br><span class="line">WARNING: JDK must be installed on <span class="keyword">all</span> hosts <span class="keyword">and</span> JAVA_HOME must be valid on <span class="keyword">all</span> hosts.</span><br><span class="line">WARNING: JCE Policy <span class="keyword">files</span> are required <span class="keyword">for</span> configuring Kerberos security. <span class="keyword">If</span> you plan to use Kerberos,please make sure JCE Unlimited Strength Jurisdiction Policy <span class="keyword">Files</span> are valid on <span class="keyword">all</span> hosts.</span><br><span class="line">Path to JAVA_HOME: /usr/jdk64/jdk1<span class="number">.7</span><span class="number">.0</span>_67</span><br><span class="line"><span class="function"><span class="title">Validating</span></span> JDK on Ambari Server...done.</span><br><span class="line"><span class="function"><span class="title">Completing</span></span> setup...</span><br><span class="line"><span class="function"><span class="title">Configuring</span></span> database...</span><br><span class="line">Enter advanced database configuration [y/n] (n)? y</span><br><span class="line"><span class="function"><span class="title">Configuring</span></span> database...</span><br><span class="line">==============================================================================</span><br><span class="line">Choose one of the following <span class="keyword">options</span>:</span><br><span class="line">[<span class="number">1</span>] - PostgreSQL (Embedded)</span><br><span class="line">[<span class="number">2</span>] - Oracle</span><br><span class="line">[<span class="number">3</span>] - MySQL</span><br><span class="line">[<span class="number">4</span>] - PostgreSQL</span><br><span class="line">[<span class="number">5</span>] - Microsoft SQL Server (Tech Preview)</span><br><span class="line">==============================================================================</span><br><span class="line">Enter choice (<span class="number">1</span>): <span class="number">3</span></span><br><span class="line">Hostname (localhost): </span><br><span class="line">Port (<span class="number">3306</span>): </span><br><span class="line">Database name (ambari): </span><br><span class="line">Username (ambari): </span><br><span class="line">Enter Database Password (bigdata): </span><br><span class="line"><span class="function"><span class="title">Configuring</span></span> ambari database...</span><br><span class="line"><span class="function"><span class="title">Copying</span></span> JDBC drivers to server resources...</span><br><span class="line"><span class="function"><span class="title">Configuring</span></span> remote database connection properties...</span><br><span class="line">WARNING: Before starting Ambari Server, you must run the following DDL against the database to create the schema: /var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql</span><br><span class="line">Proceed with configuring remote database connection properties [y/n] (y)? </span><br><span class="line"><span class="function"><span class="title">Extracting</span></span> <span class="keyword">system</span> views...</span><br><span class="line">...ambari-admin<span class="number">-2.1</span><span class="number">.0</span><span class="number">.1470</span>.jar</span><br><span class="line">...</span><br><span class="line"><span class="function"><span class="title">Adjusting</span></span> ambari-server permissions <span class="keyword">and</span> ownership...</span><br><span class="line">Ambari Server <span class="string">'setup'</span> completed successfully.</span><br></pre></td></tr></table></figure>
+<p>看到以上结果后，安装成功。<br>上面出现如下错误</p>
+<p>下载mysql_jdbc驱动，放到/usr/share/java/目录，并重命名为mysql-connector-java.jar,否则后面安装会报错。<br>下载：<a href="https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.46.tar.gz" target="_blank" rel="noopener">https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.46.tar.gz</a> </p>
+<h2 id="4-3-初始化数据库"><a href="#4-3-初始化数据库" class="headerlink" title="4.3.    初始化数据库"></a>4.3.    初始化数据库</h2><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /var/<span class="class"><span class="keyword">lib</span>/<span class="title">ambari</span>-<span class="title">server</span>/<span class="title">resources</span>/</span></span><br><span class="line">mysql -uroot -p123456 ambari &lt; Ambari-DDL-MySQL-CREATE.sql</span><br></pre></td></tr></table></figure>
+<p>没初始化数据库，启动服务会报如下错误</p>
+<h2 id="4-4-启动服务"><a href="#4-4-启动服务" class="headerlink" title="4.4.    启动服务"></a>4.4.    启动服务</h2><p>ambari-server start启动服务。</p>
+<p>此时，登录192.168.1.168:8080，即可看到ambari的页面，如下：<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822360027.png" alt="enter description here"></p>
+<h2 id="4-5-安装-HDP-集群"><a href="#4-5-安装-HDP-集群" class="headerlink" title="4.5.    安装 HDP 集群"></a>4.5.    安装 HDP 集群</h2><p>在ambari的登录页面中输入用户名：admin，密码：admin，即可开始准备创建集群。<br>1)    点击 launch install wizard ,开始创建一个集群，输入集群名称：BasicPlatform。<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822367060.png" alt="enter description here"><br>2)    修改下面红框的内容，选择HDP的版本为2.6，修改HDP-2.6的数据源Base URL为<a href="http://192.168.1.3/HDP/centos7/，修改HDP-UTILS的数据源Base" target="_blank" rel="noopener">http://192.168.1.3/HDP/centos7/，修改HDP-UTILS的数据源Base</a> URL为<a href="http://192.168.1.3/HDP-UTILS-1.1.0.21-centos7/。" target="_blank" rel="noopener">http://192.168.1.3/HDP-UTILS-1.1.0.21-centos7/。</a><br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822372814.png" alt="enter description here"><br>3)    设置集群机器：输入Target Hosts如下：<br>备注，必须安装如下格式，不能使用hadoop2<br>hadoop2.zhjx<br>hadoop3.zhjx<br>hadoop4.zhjx<br>从master中拷贝出来id_rsa文件，通过选择文件，上传到ambari中。<br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822383471.png" alt="enter description here"><br>点击确认后，开始向每个机器中安装ambari-client，稍等到下面页面，即可显示安装完成。<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822387867.png" alt="enter description here"><br><strong>问题1：</strong><br>centos7.3/4安装ambari2.6以上版本报EOF occurred in violation of protocol (_ssl.c:579)<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822409609.png" alt="enter description here"><br><strong>解决办法：</strong><br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822417668.png" alt="enter description here"><br>4)    选择要安装的服务，与下图中的一致。<br>可先按照如下组件<br>HDFS、Hive、HBase、Sqoop、ZooKeeper、Flume<br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822431818.png" alt="enter description here"><br>这里选择默认了，也可以自己调整<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822435781.png" alt="enter description here"><br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822443268.png" alt="enter description here"><br>配置标红的组件，进行修改配置<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822447871.png" alt="enter description here"><br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822451834.png" alt="enter description here"><br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822457371.png" alt="enter description here"></p>
+<p> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822462117.png" alt="enter description here"></p>
+<p> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822467210.png" alt="enter description here"></p>
+<p> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822471135.png" alt="enter description here"><br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822475709.png" alt="enter description here"></p>
+<p>5)    各个服务Master配置<br>详见附件2<br>6)    服务的Slaves 和 Clients节配置:<br>详见附件3<br>7)    服务详情配置<br>看到如下界面后，如有红色警告提示，根据警告修改服务详情内容，注意把Ooize等服务中使用的数据库改为MySQL数据库。<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822489138.png" alt="enter description here"><br>待确定完修改后的配置时，开始安装：<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822494773.png" alt="enter description here"><br>全部安装成功界面如下：<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822500744.png" alt="enter description here"><br>点击下一步，确定安装内容后，即可看到集群情况。<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822506597.png" alt="enter description here"><br>、Hadooop开启高可用（现在安装好Hadoop是不支高可用的，下面准备开启Hadoop高可用）<br>1、    开启高可用开关<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822514470.png" alt="enter description here"><br>3、    设置高可用名称（如果hbase是启动的话请关闭在开启HA高可用）<br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822525330.png" alt="enter description here"><br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822531426.png" alt="4、"><br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822536739.png" alt="enter description here"><br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署1/1618822542834.png" alt="enter description here"></p>
+<h1 id="5-安装ELK"><a href="#5-安装ELK" class="headerlink" title="5.    安装ELK"></a>5.    安装ELK</h1><h2 id="5-1-安装Elasticsearch"><a href="#5-1-安装Elasticsearch" class="headerlink" title="5.1.    安装Elasticsearch"></a>5.1.    安装Elasticsearch</h2><ol>
+<li>安装elasticsearch<br>下载地址： <a href="https://www.elastic.co/downloads/elasticsearch" target="_blank" rel="noopener">https://www.elastic.co/downloads/elasticsearch</a><br>下载对应的版本，下载后解压到想安装的文件夹中，因为es是绿色版本所以解压后就可以使用<br>./bin/elasticsearch其实是一个shell脚本，最终还是启动在java的虚拟机环境中，并加入了一定参数。</li>
+</ol>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># rpm -ivh elasticsearch-5.6.4.rpm</span></span><br><span class="line"><span class="meta"># chkconfig --add elasticsearch</span></span><br><span class="line"><span class="meta"># chkconfig elasticsearch on </span></span><br><span class="line"><span class="meta"># vim etc/elasticsearch/elasticsearch.yml</span></span><br><span class="line"><span class="meta"># /etc/init.d/elasticsearch.rpmnew start</span></span><br></pre></td></tr></table></figure>
+<p>可执行文件目录：/usr/share/elasticsearch/<br>配置文件目录： /etc/elasticsearch/<br>日志文件目录：/var/log/elasticsearch/<br>data文件目录：/var/lib/elasticsearch/<br>pid文件路径：/var/run/elasticsearch/<br>日志文件：/var/log/elasticsearch/</p>
+<ol start="2">
+<li>启动elasticsearch<br>守护进程 ./bin/elasticsearch -d<br>前台运行 ./bin/elasticsearch<br>配合elasticsearch-servicewrapper 插件将脚本服务化更易管理 （2.x加不再支持，弃用）。<br>运行日志在../log/下,每一个索引一个文件，每日一个文件，包括运行的慢日志和服务日志。</li>
+<li>测试elasticsearch<br>curl -XGET <a href="http://xxx:9200/?pretty" target="_blank" rel="noopener">http://xxx:9200/?pretty</a><h2 id="5-2-安装Kibana"><a href="#5-2-安装Kibana" class="headerlink" title="5.2.    安装Kibana"></a>5.2.    安装Kibana</h2>下载页面：<a href="https://www.elastic.co/cn/downloads/kibana" target="_blank" rel="noopener">https://www.elastic.co/cn/downloads/kibana</a><br>安装rpm包，我的电脑是x64的所以下载64位的安装包，rpm包安装完毕后会自动在/etc/init.d/下生成执行脚本，提供给service/chkconfig，更方便我们使用。</li>
+</ol>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># wget https://artifacts.elastic.co/downloads/kibana/kibana-5.6.4-x86_64.rpm</span></span><br><span class="line"><span class="meta"># rpm -ivh kibana-5.6.4-x86_64.rpm</span></span><br><span class="line"><span class="meta"># vim /etc/kibana/kibana.yml</span></span><br></pre></td></tr></table></figure>
+<h2 id="5-3-安装x-pack插件"><a href="#5-3-安装x-pack插件" class="headerlink" title="5.3.    安装x-pack插件"></a>5.3.    安装x-pack插件</h2><p>官方下载地址：<a href="https://www.elastic.co/downloads/x-pack" target="_blank" rel="noopener">https://www.elastic.co/downloads/x-pack</a><br>官方文档地址：<a href="https://www.elastic.co/guide/en/x-pack/current/xpack-introduction.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/x-pack/current/xpack-introduction.html</a><br><a href="https://www.elastic.co/gu" target="_blank" rel="noopener">https://www.elastic.co/gu</a> ide/en/x-pack/6.0/setting-up-authentication.html#set-built-in-user-passwords</p>
+<ol>
+<li>elasticsearch安装x-pack插件<br>    如果是集群架构，则每一台新机器都需要安装插件。<br>    kibana安装了x-pack，elasticsearch也必须要安装。</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> /usr/share/elasticsea     rch/bin/elasticsearch-plugin install x-pack</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> /usr/share/kibana/bin/kibana-plugin install x-pack</span></span><br><span class="line">2.	编辑配置文件</span><br><span class="line"><span class="meta">#</span><span class="bash"> vim /etc/elasticsearch/x-pack/</span></span><br><span class="line">3.	用户管理</span><br><span class="line"><span class="meta">#</span><span class="bash"> /usr/share/elasticsearch/bin/x-pack/users useradd <span class="built_in">test</span> -p 123456 -r superuser</span></span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>其他安装<h2 id="6-1-安装VNC-Service"><a href="#6-1-安装VNC-Service" class="headerlink" title="6.1.    安装VNC Service"></a>6.1.    安装VNC Service</h2>由于165、166、167当做服务器的同时，也作为外网开发机使用，为了建立远程可编程环境，加入了可视化桌面也远程桌面，需要在每个机器上安装VNC Service。<br>1)    安装 X-Window<br>由于我们安装操作系统为最小化版本，因此首先需要安装 X-Window，在终端中运行下面的命令，安装会花费一点时间。</li>
+</ol>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ yum check-update</span><br><span class="line">$ yum groupinstall <span class="string">"X Window System"</span></span><br><span class="line">$ yum install gnome-classic-session gnome-terminal nautilus-open-terminal control-center liberation-mono-fonts</span><br></pre></td></tr></table></figure>
+<p>待安装完成后，修改系统启动界面为图形界面。</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ unlink /etc/systemd/system/default.target</span><br><span class="line">$ ln -sf /<span class="class"><span class="keyword">lib</span>/<span class="title">systemd</span>/<span class="title">system</span>/<span class="title">graphical</span>.<span class="title">target</span> /<span class="title">etc</span>/<span class="title">systemd</span>/<span class="title">system</span>/ <span class="title">default</span>.<span class="title">target</span></span></span><br></pre></td></tr></table></figure>
+<p>重启电脑，重启完成后即可进入图形化界面。<br>2)    安装 VNC 服务器</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yum <span class="keyword">install</span> tigervnc-<span class="keyword">server</span> -y</span><br></pre></td></tr></table></figure>
+<p>安装完成后后，我们需要在 /etc/systemd/system/ 目录里创建一个配置文件。我们可以将 /lib/systemd/sytem/vncserver@.service 拷贝一份配置文件范例过来。</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$cp /<span class="class"><span class="keyword">lib</span>/<span class="title">systemd</span>/<span class="title">system</span>/<span class="title">vncserver</span>@.<span class="title">service</span> /<span class="title">etc</span>/<span class="title">systemd</span>/<span class="title">system</span>/<span class="title">vncserver</span> @:1.<span class="title">service</span></span></span><br></pre></td></tr></table></figure>
+<p>打开 /etc/systemd/system/vncserver@:1.service ，找到下面这几行，用自己的用户名<user>替换掉 。</user></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ExecStart=/sbin/runuser -l hadoop -c "/usr/bin/vncserver %i"</span><br><span class="line">PIDFile=/home/hadoop/.vnc/%H%i.pid</span><br></pre></td></tr></table></figure>
+<p>如果是 root 用户则替换内容如下：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ExecStart=/sbin/runuser -l root -c <span class="string">"/usr/bin/vncserver %i"</span></span><br><span class="line">PIDFile=/root/.vnc/%H%i.pid</span><br></pre></td></tr></table></figure>
+<p>修改完成后，按Esc退出编辑模式，!wq保存，下面重启 systemd。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> systemctl daemon-reload</span></span><br></pre></td></tr></table></figure>
+<p>最后还要设置一下用户的 VNC 密码。要设置某个用户的密码，必须要有能通过 sudo 切换到用户的权限。这里我们用的root用户，直接输入一下代码即可。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo vncpasswd</span></span><br></pre></td></tr></table></figure>
+<p>3)    开启服务<br>用下面的命令（永久地）开启服务：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo systemctl <span class="built_in">enable</span> vncserver@:1.service</span></span><br></pre></td></tr></table></figure>
+<p>启动服务。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo systemctl start vncserver@:1.service</span></span><br></pre></td></tr></table></figure>
+<p>4)    用 VNC 客户端连接服务器<br>要使用 VNC 连接服务器，我们还需要一个在本地计算机上安装的仅供连接远程计算机使用的 VNC 客户端。<br>可以用像 Tightvnc viewer 和 Realvnc viewer 的客户端来连接到服务器。此处用RealVNC Viewer连接，配置如下：</p>
+<p><img src="https://markdown.xiaoshujiang.com/img/spinner.gif" alt="图 11" title="[[[1618822789733]]]"><br>要用更多的用户连接，需要创建配置文件和端口，请回到第2步，添加一个新的用户和端口。你需要创建 vncserver@:2.service 并替换配置文件里的用户名和之后步骤里相应的文件名、端口号。请确保你登录 VNC 服务器用的是你之前配置 VNC 密码的时候使用的那个用户名。<br>VNC 服务本身使用的是5900端口。鉴于有不同的用户使用 VNC ，每个人的连接都会获得不同的端口。配置文件名里面的数字告诉 VNC 服务器把服务运行在5900的子端口上。在我们这个例子里，第一个 VNC 服务会运行在5901（5900 + 1）端口上，之后的依次增加，运行在5900 + x 号端口上。其中 x 是指之后用户的配置文件名 vncserver@:x.service 里面的 x 。<br>在建立连接之前，我们需要知道服务器的 IP 地址和端口。IP 地址是一台计算机在网络中的独特的识别号码。我的服务器的 IP 地址是96.126.120.92，VNC 用户端口是1。</p>
+<p>附件1：账户密码表<br>表 2 系统用户表<br>Hostname    角色    登录名/密码    备注<br>Master    root    root/123456<br>Slave1    root    root/123456    系统管理员<br>Slave2    root    root/123456    系统管理员<br>Slave3    root    root/123456    系统管理员<br>注*：大小写敏感</p>
+<p>表 3 数据库用户表<br>数据库    角色    登录名/密码    作用域    备注<br>MySQL    DBA    root/    localhost<br>MySQL    DBA    zhjx/1234    %<br>注*：大小写敏感</p>
+<p>表 4 服务用户表<br>服务名称    角色    登录名/密码    作用域    备注<br>Ambari    superuser    admin/admin    <em><br>HUE    DBA    root/123456    %<br>注</em>：大小写敏感</p>
+<p> </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2021/04/10/jira-confluence安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1341,234 +1662,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2020/07/01/greenplum部署-单机版/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="运维随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/07/01/greenplum部署-单机版/" itemprop="url">greenplum部署-单机版</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-01T09:27:42+08:00">
-                2020-07-01
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:36:48+08:00">
-                2022-06-05
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  671
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <a id="more"></a>
-<h1 id="1-修改Linux内核参数"><a href="#1-修改Linux内核参数" class="headerlink" title="1 修改Linux内核参数"></a>1 修改Linux内核参数</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vi /etc/sysctl.conf </span></span><br><span class="line"></span><br><span class="line">net.ipv4.ip_forward = 0</span><br><span class="line">net.ipv4.conf.default.accept_source_route = 0</span><br><span class="line">kernel.sysrq = 1 </span><br><span class="line">kernel.core_uses_pid = 1</span><br><span class="line">net.ipv4.tcp_syncookies = 1</span><br><span class="line">kernel.msgmnb = 65536</span><br><span class="line">kernel.msgmax = 65536</span><br><span class="line">kernel.sem = 250 64000 100 512</span><br><span class="line">kernel.shmmax = 500000000</span><br><span class="line">kernel.shmmni = 4096</span><br><span class="line">kernel.shmall = 4000000000 </span><br><span class="line">net.ipv4.tcp_tw_recycle = 1 </span><br><span class="line">net.ipv4.tcp_max_syn_backlog = 4096 </span><br><span class="line">net.core.netdev_max_backlog = 10000 </span><br><span class="line">vm.overcommit_memory = 2</span><br><span class="line">net.ipv4.conf.all.arp_filter = 1</span><br></pre></td></tr></table></figure>
-<h1 id="2-修改Linux最大限制"><a href="#2-修改Linux最大限制" class="headerlink" title="2 修改Linux最大限制"></a>2 修改Linux最大限制</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vi /etc/security/limits.conf </span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># greenplum configs</span></span><br><span class="line">* soft nofile 65536</span><br><span class="line">* hard nofile 65536</span><br><span class="line">* soft nproc 131072</span><br><span class="line">* hard nproc 131072</span><br></pre></td></tr></table></figure>
-<h1 id="3-关闭selinux"><a href="#3-关闭selinux" class="headerlink" title="3 关闭selinux"></a>3 关闭selinux</h1><h1 id="vim-etc-selinux-conf"><a href="#vim-etc-selinux-conf" class="headerlink" title="vim /etc/selinux/conf"></a>vim /etc/selinux/conf</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELINUX=disabled</span><br><span class="line"></span><br><span class="line"><span class="comment"># setenforce 0</span></span><br></pre></td></tr></table></figure>
-<h1 id="4-greenplum安装"><a href="#4-greenplum安装" class="headerlink" title="4 greenplum安装"></a>4 greenplum安装</h1><h2 id="4-1-创建数据库用户"><a href="#4-1-创建数据库用户" class="headerlink" title="4.1 创建数据库用户"></a>4.1 创建数据库用户</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">groupadd -g 530 gpadmin</span><br><span class="line">useradd -g 530 -u530 -m -d /home/gpadmin -s /bin/bash gpadmin</span><br><span class="line">passwd gpadmin</span><br><span class="line"> </span><br><span class="line"><span class="comment"># gpadmin用户密码gpadmin</span></span><br></pre></td></tr></table></figure>
-<h2 id="4-2-修改hosts"><a href="#4-2-修改hosts" class="headerlink" title="4.2 修改hosts"></a>4.2 修改hosts</h2><p>设置集群解析</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vim /etc/hosts</span></span><br><span class="line"> </span><br><span class="line">192.168.0.174 mdw</span><br></pre></td></tr></table></figure>
-<h2 id="4-3-修改主机名-mdw"><a href="#4-3-修改主机名-mdw" class="headerlink" title="4.3 修改主机名 mdw"></a>4.3 修改主机名 mdw</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostnamectl <span class="built_in">set</span>-hostname mdw</span><br></pre></td></tr></table></figure>
-<h2 id="4-4-下载安装包"><a href="#4-4-下载安装包" class="headerlink" title="4.4 下载安装包"></a>4.4 下载安装包</h2><p>下载合适的版本rpm包和postgis插件</p>
-<p>官网  <a href="https://network.pivotal.io/products/pivotal-gpdb#/releases/1683" target="_blank" rel="noopener">https://network.pivotal.io/products/pivotal-gpdb#/releases/1683</a></p>
-<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2020/7/1/greenplum部署-单机版/1593567665642.png" alt="1"></p>
-<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2020/7/1/greenplum部署-单机版/1593567680961.png" alt="2"></p>
-<h2 id="4-5-rpm安装"><a href="#4-5-rpm安装" class="headerlink" title="4.5 rpm安装"></a>4.5 rpm安装</h2><p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2020/7/1/greenplum部署-单机版/1593567699746.png" alt="3"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum install greenplum-db-6.2.1-rhel7-x86_64.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 默认安装到/usr/local，授权给gpadmin</span></span><br><span class="line">chown -R gpadmin /usr/<span class="built_in">local</span>/greenplum*</span><br><span class="line">chgrp -R gpadmin /usr/<span class="built_in">local</span>/greenplum*</span><br></pre></td></tr></table></figure>
-<h2 id="4-6-创建instance需要的目录"><a href="#4-6-创建instance需要的目录" class="headerlink" title="4.6 创建instance需要的目录"></a>4.6 创建instance需要的目录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /home/gpdata/master</span><br><span class="line">mkdir -p /home/gpdata/gp1</span><br><span class="line">mkdir -p /home/gpdata/gp2</span><br><span class="line">mkdir -p /home/gpdata/gp3</span><br><span class="line">mkdir -p /home/gpdata/gp4</span><br><span class="line"><span class="comment"># 修改目录属主</span></span><br><span class="line">    chown -R gpadmin:gpadmin /home/gpdata</span><br><span class="line">    chown -R gpadmin:gpadmin /home/gpdata/master</span><br><span class="line">    chown -R gpadmin:gpadmin /home/gpdata/gp*</span><br></pre></td></tr></table></figure>
-<h2 id="4-7-切换用户gpadmin"><a href="#4-7-切换用户gpadmin" class="headerlink" title="4.7 切换用户gpadmin"></a>4.7 切换用户gpadmin</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su gpadmin</span><br></pre></td></tr></table></figure>
-<h2 id="4-8-修改gpadmin用户环境变量"><a href="#4-8-修改gpadmin用户环境变量" class="headerlink" title="4.8 修改gpadmin用户环境变量"></a>4.8 修改gpadmin用户环境变量</h2><p>修改/home/gpadmin/.bashrc 和 bash_profile 文件，增加如下内容。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /usr/<span class="built_in">local</span>/greenplum-db-5.5.0/greenplum_path.sh      <span class="comment"># greenplum安装目录的变量（自带）</span></span><br><span class="line"><span class="built_in">export</span> MASTER_DATA_DIRECTORY=/home/gpadmin/master/gpseg-1      <span class="comment"># 数据目录</span></span><br><span class="line"><span class="built_in">export</span> PGPORT=5432                         <span class="comment"># 数据库端口，可不设置，如果变更端口设置</span></span><br><span class="line"><span class="built_in">export</span> PGUSER=gpadmin                       <span class="comment"># 数据库管理员用户</span></span><br><span class="line"><span class="built_in">export</span> PGDATABASE=gpdb                     <span class="comment"># 自动创建的数据库</span></span><br></pre></td></tr></table></figure>
-<h2 id="4-9-设置节点host"><a href="#4-9-设置节点host" class="headerlink" title="4.9 设置节点host"></a>4.9 设置节点host</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /home/gpadmin/all_hosts</span><br><span class="line">写入</span><br><span class="line">mdw</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加一行mdw（单机版只有一个host）</span></span><br></pre></td></tr></table></figure>
-<h2 id="4-10-配置用户SSH无密码登录，单机版也要设置"><a href="#4-10-配置用户SSH无密码登录，单机版也要设置" class="headerlink" title="4.10 配置用户SSH无密码登录，单机版也要设置"></a>4.10 配置用户SSH无密码登录，单机版也要设置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@gpmaster ~]<span class="comment"># su - gpadmin</span></span><br><span class="line">[gpadmin@gpmaster .ssh]$ ssh-keygen -t rsa</span><br><span class="line">[gpadmin@gpmaster .ssh]$ ssh mdw cat /home/gpadmin/.ssh/id_rsa.pub &gt;&gt; authorized_keys </span><br><span class="line">[gpadmin@gpmaster .ssh]<span class="variable">$chmod</span> 600 authorized_keys</span><br></pre></td></tr></table></figure>
-<h2 id="4-11-权限互通"><a href="#4-11-权限互通" class="headerlink" title="4.11 权限互通"></a>4.11 权限互通</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpssh-exkeys -f all_hosts</span><br></pre></td></tr></table></figure>
-<h2 id="4-12-创建、编辑初始化文件"><a href="#4-12-创建、编辑初始化文件" class="headerlink" title="4.12 创建、编辑初始化文件"></a>4.12 创建、编辑初始化文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim initgp_config</span><br><span class="line">写入：</span><br><span class="line">SEG_PREFIX=gpseg</span><br><span class="line">PORT_BASE=33000</span><br><span class="line"><span class="built_in">declare</span> -a DATA_DIRECTORY=(/home/gpadmin/gp1 /home/gpadmin/gp2 /home/gpadmin/gp3 /home/gpadmin/gp4)</span><br><span class="line">MASTER_HOSTNAME=mdw</span><br><span class="line">MASTER_PORT=5432</span><br><span class="line">MASTER_DIRECTORY=/home/gpadmin/master             </span><br><span class="line">DATABASE_NAME=gpdb</span><br></pre></td></tr></table></figure>
-<h2 id="4-13-设置节点服务器"><a href="#4-13-设置节点服务器" class="headerlink" title="4.13 设置节点服务器"></a>4.13 设置节点服务器</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim seg_hosts</span><br><span class="line">写入：</span><br><span class="line">mdw</span><br><span class="line"><span class="comment"># 本例单机，只有mdw这一台</span></span><br></pre></td></tr></table></figure>
-<h2 id="4-14-初始化GP"><a href="#4-14-初始化GP" class="headerlink" title="4.14 初始化GP"></a>4.14 初始化GP</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpinitsystem -c initgp_config -h seg_hosts</span><br></pre></td></tr></table></figure>
-<h1 id="5-连接GP"><a href="#5-连接GP" class="headerlink" title="5 连接GP"></a>5 连接GP</h1><h2 id="5-1-psql登录修改密码（gpadmin用户操作）"><a href="#5-1-psql登录修改密码（gpadmin用户操作）" class="headerlink" title="5.1 psql登录修改密码（gpadmin用户操作）"></a>5.1 psql登录修改密码（gpadmin用户操作）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># su gpadmin</span></span><br><span class="line"><span class="comment"># psql</span></span><br><span class="line">修改数据库密码为zhjx123</span><br><span class="line">    alter role gpadmin with password <span class="string">'zhjx123'</span>;</span><br><span class="line">    \q</span><br></pre></td></tr></table></figure>
-<h2 id="5-2-远程连接配置"><a href="#5-2-远程连接配置" class="headerlink" title="5.2 远程连接配置"></a>5.2 远程连接配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vim /home/gpdata/master/gpseg-1/postgresql.conf</span><br><span class="line">修改：</span><br><span class="line"><span class="comment">#listen_addresses = '*'，去#注释</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">vim /home/gpdata/master/gpseg-1/pg_hba.conf</span><br><span class="line">添加：</span><br><span class="line">host     all   gpadmin   0.0.0.0/0      md5</span><br></pre></td></tr></table></figure>
-<h2 id="5-3-重新加载配置文件"><a href="#5-3-重新加载配置文件" class="headerlink" title="5.3 重新加载配置文件"></a>5.3 重新加载配置文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpstop -u</span><br></pre></td></tr></table></figure>
-<h2 id="5-4-其他命令"><a href="#5-4-其他命令" class="headerlink" title="5.4 其他命令"></a>5.4 其他命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">gpstart              <span class="comment"># 正常启动</span></span><br><span class="line">gpstop              <span class="comment"># 正常关闭</span></span><br><span class="line">gpstop -M fast        <span class="comment"># 快速关闭</span></span><br><span class="line">gpstop –r          <span class="comment"># 重启</span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1621,7 +1719,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">155</span>
+                  <span class="site-state-item-count">156</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1799,7 +1897,7 @@ show_date_time();
 <!--     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">197.9k</span>
+    <span title="Site words total count">202.6k</span>
    -->
   
   	<!--添加备案信息-->

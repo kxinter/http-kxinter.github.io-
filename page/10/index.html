@@ -351,6 +351,229 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2020/07/01/greenplum部署-单机版/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="运维随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/07/01/greenplum部署-单机版/" itemprop="url">greenplum部署-单机版</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-01T09:27:42+08:00">
+                2020-07-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:36:48+08:00">
+                2022-06-05
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  671
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+<h1 id="1-修改Linux内核参数"><a href="#1-修改Linux内核参数" class="headerlink" title="1 修改Linux内核参数"></a>1 修改Linux内核参数</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vi /etc/sysctl.conf </span></span><br><span class="line"></span><br><span class="line">net.ipv4.ip_forward = 0</span><br><span class="line">net.ipv4.conf.default.accept_source_route = 0</span><br><span class="line">kernel.sysrq = 1 </span><br><span class="line">kernel.core_uses_pid = 1</span><br><span class="line">net.ipv4.tcp_syncookies = 1</span><br><span class="line">kernel.msgmnb = 65536</span><br><span class="line">kernel.msgmax = 65536</span><br><span class="line">kernel.sem = 250 64000 100 512</span><br><span class="line">kernel.shmmax = 500000000</span><br><span class="line">kernel.shmmni = 4096</span><br><span class="line">kernel.shmall = 4000000000 </span><br><span class="line">net.ipv4.tcp_tw_recycle = 1 </span><br><span class="line">net.ipv4.tcp_max_syn_backlog = 4096 </span><br><span class="line">net.core.netdev_max_backlog = 10000 </span><br><span class="line">vm.overcommit_memory = 2</span><br><span class="line">net.ipv4.conf.all.arp_filter = 1</span><br></pre></td></tr></table></figure>
+<h1 id="2-修改Linux最大限制"><a href="#2-修改Linux最大限制" class="headerlink" title="2 修改Linux最大限制"></a>2 修改Linux最大限制</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vi /etc/security/limits.conf </span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># greenplum configs</span></span><br><span class="line">* soft nofile 65536</span><br><span class="line">* hard nofile 65536</span><br><span class="line">* soft nproc 131072</span><br><span class="line">* hard nproc 131072</span><br></pre></td></tr></table></figure>
+<h1 id="3-关闭selinux"><a href="#3-关闭selinux" class="headerlink" title="3 关闭selinux"></a>3 关闭selinux</h1><h1 id="vim-etc-selinux-conf"><a href="#vim-etc-selinux-conf" class="headerlink" title="vim /etc/selinux/conf"></a>vim /etc/selinux/conf</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELINUX=disabled</span><br><span class="line"></span><br><span class="line"><span class="comment"># setenforce 0</span></span><br></pre></td></tr></table></figure>
+<h1 id="4-greenplum安装"><a href="#4-greenplum安装" class="headerlink" title="4 greenplum安装"></a>4 greenplum安装</h1><h2 id="4-1-创建数据库用户"><a href="#4-1-创建数据库用户" class="headerlink" title="4.1 创建数据库用户"></a>4.1 创建数据库用户</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">groupadd -g 530 gpadmin</span><br><span class="line">useradd -g 530 -u530 -m -d /home/gpadmin -s /bin/bash gpadmin</span><br><span class="line">passwd gpadmin</span><br><span class="line"> </span><br><span class="line"><span class="comment"># gpadmin用户密码gpadmin</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-2-修改hosts"><a href="#4-2-修改hosts" class="headerlink" title="4.2 修改hosts"></a>4.2 修改hosts</h2><p>设置集群解析</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vim /etc/hosts</span></span><br><span class="line"> </span><br><span class="line">192.168.0.174 mdw</span><br></pre></td></tr></table></figure>
+<h2 id="4-3-修改主机名-mdw"><a href="#4-3-修改主机名-mdw" class="headerlink" title="4.3 修改主机名 mdw"></a>4.3 修改主机名 mdw</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostnamectl <span class="built_in">set</span>-hostname mdw</span><br></pre></td></tr></table></figure>
+<h2 id="4-4-下载安装包"><a href="#4-4-下载安装包" class="headerlink" title="4.4 下载安装包"></a>4.4 下载安装包</h2><p>下载合适的版本rpm包和postgis插件</p>
+<p>官网  <a href="https://network.pivotal.io/products/pivotal-gpdb#/releases/1683" target="_blank" rel="noopener">https://network.pivotal.io/products/pivotal-gpdb#/releases/1683</a></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2020/7/1/greenplum部署-单机版/1593567665642.png" alt="1"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2020/7/1/greenplum部署-单机版/1593567680961.png" alt="2"></p>
+<h2 id="4-5-rpm安装"><a href="#4-5-rpm安装" class="headerlink" title="4.5 rpm安装"></a>4.5 rpm安装</h2><p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2020/7/1/greenplum部署-单机版/1593567699746.png" alt="3"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum install greenplum-db-6.2.1-rhel7-x86_64.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 默认安装到/usr/local，授权给gpadmin</span></span><br><span class="line">chown -R gpadmin /usr/<span class="built_in">local</span>/greenplum*</span><br><span class="line">chgrp -R gpadmin /usr/<span class="built_in">local</span>/greenplum*</span><br></pre></td></tr></table></figure>
+<h2 id="4-6-创建instance需要的目录"><a href="#4-6-创建instance需要的目录" class="headerlink" title="4.6 创建instance需要的目录"></a>4.6 创建instance需要的目录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /home/gpdata/master</span><br><span class="line">mkdir -p /home/gpdata/gp1</span><br><span class="line">mkdir -p /home/gpdata/gp2</span><br><span class="line">mkdir -p /home/gpdata/gp3</span><br><span class="line">mkdir -p /home/gpdata/gp4</span><br><span class="line"><span class="comment"># 修改目录属主</span></span><br><span class="line">    chown -R gpadmin:gpadmin /home/gpdata</span><br><span class="line">    chown -R gpadmin:gpadmin /home/gpdata/master</span><br><span class="line">    chown -R gpadmin:gpadmin /home/gpdata/gp*</span><br></pre></td></tr></table></figure>
+<h2 id="4-7-切换用户gpadmin"><a href="#4-7-切换用户gpadmin" class="headerlink" title="4.7 切换用户gpadmin"></a>4.7 切换用户gpadmin</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su gpadmin</span><br></pre></td></tr></table></figure>
+<h2 id="4-8-修改gpadmin用户环境变量"><a href="#4-8-修改gpadmin用户环境变量" class="headerlink" title="4.8 修改gpadmin用户环境变量"></a>4.8 修改gpadmin用户环境变量</h2><p>修改/home/gpadmin/.bashrc 和 bash_profile 文件，增加如下内容。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /usr/<span class="built_in">local</span>/greenplum-db-5.5.0/greenplum_path.sh      <span class="comment"># greenplum安装目录的变量（自带）</span></span><br><span class="line"><span class="built_in">export</span> MASTER_DATA_DIRECTORY=/home/gpadmin/master/gpseg-1      <span class="comment"># 数据目录</span></span><br><span class="line"><span class="built_in">export</span> PGPORT=5432                         <span class="comment"># 数据库端口，可不设置，如果变更端口设置</span></span><br><span class="line"><span class="built_in">export</span> PGUSER=gpadmin                       <span class="comment"># 数据库管理员用户</span></span><br><span class="line"><span class="built_in">export</span> PGDATABASE=gpdb                     <span class="comment"># 自动创建的数据库</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-9-设置节点host"><a href="#4-9-设置节点host" class="headerlink" title="4.9 设置节点host"></a>4.9 设置节点host</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /home/gpadmin/all_hosts</span><br><span class="line">写入</span><br><span class="line">mdw</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加一行mdw（单机版只有一个host）</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-10-配置用户SSH无密码登录，单机版也要设置"><a href="#4-10-配置用户SSH无密码登录，单机版也要设置" class="headerlink" title="4.10 配置用户SSH无密码登录，单机版也要设置"></a>4.10 配置用户SSH无密码登录，单机版也要设置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@gpmaster ~]<span class="comment"># su - gpadmin</span></span><br><span class="line">[gpadmin@gpmaster .ssh]$ ssh-keygen -t rsa</span><br><span class="line">[gpadmin@gpmaster .ssh]$ ssh mdw cat /home/gpadmin/.ssh/id_rsa.pub &gt;&gt; authorized_keys </span><br><span class="line">[gpadmin@gpmaster .ssh]<span class="variable">$chmod</span> 600 authorized_keys</span><br></pre></td></tr></table></figure>
+<h2 id="4-11-权限互通"><a href="#4-11-权限互通" class="headerlink" title="4.11 权限互通"></a>4.11 权限互通</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpssh-exkeys -f all_hosts</span><br></pre></td></tr></table></figure>
+<h2 id="4-12-创建、编辑初始化文件"><a href="#4-12-创建、编辑初始化文件" class="headerlink" title="4.12 创建、编辑初始化文件"></a>4.12 创建、编辑初始化文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim initgp_config</span><br><span class="line">写入：</span><br><span class="line">SEG_PREFIX=gpseg</span><br><span class="line">PORT_BASE=33000</span><br><span class="line"><span class="built_in">declare</span> -a DATA_DIRECTORY=(/home/gpadmin/gp1 /home/gpadmin/gp2 /home/gpadmin/gp3 /home/gpadmin/gp4)</span><br><span class="line">MASTER_HOSTNAME=mdw</span><br><span class="line">MASTER_PORT=5432</span><br><span class="line">MASTER_DIRECTORY=/home/gpadmin/master             </span><br><span class="line">DATABASE_NAME=gpdb</span><br></pre></td></tr></table></figure>
+<h2 id="4-13-设置节点服务器"><a href="#4-13-设置节点服务器" class="headerlink" title="4.13 设置节点服务器"></a>4.13 设置节点服务器</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim seg_hosts</span><br><span class="line">写入：</span><br><span class="line">mdw</span><br><span class="line"><span class="comment"># 本例单机，只有mdw这一台</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-14-初始化GP"><a href="#4-14-初始化GP" class="headerlink" title="4.14 初始化GP"></a>4.14 初始化GP</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpinitsystem -c initgp_config -h seg_hosts</span><br></pre></td></tr></table></figure>
+<h1 id="5-连接GP"><a href="#5-连接GP" class="headerlink" title="5 连接GP"></a>5 连接GP</h1><h2 id="5-1-psql登录修改密码（gpadmin用户操作）"><a href="#5-1-psql登录修改密码（gpadmin用户操作）" class="headerlink" title="5.1 psql登录修改密码（gpadmin用户操作）"></a>5.1 psql登录修改密码（gpadmin用户操作）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># su gpadmin</span></span><br><span class="line"><span class="comment"># psql</span></span><br><span class="line">修改数据库密码为zhjx123</span><br><span class="line">    alter role gpadmin with password <span class="string">'zhjx123'</span>;</span><br><span class="line">    \q</span><br></pre></td></tr></table></figure>
+<h2 id="5-2-远程连接配置"><a href="#5-2-远程连接配置" class="headerlink" title="5.2 远程连接配置"></a>5.2 远程连接配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vim /home/gpdata/master/gpseg-1/postgresql.conf</span><br><span class="line">修改：</span><br><span class="line"><span class="comment">#listen_addresses = '*'，去#注释</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">vim /home/gpdata/master/gpseg-1/pg_hba.conf</span><br><span class="line">添加：</span><br><span class="line">host     all   gpadmin   0.0.0.0/0      md5</span><br></pre></td></tr></table></figure>
+<h2 id="5-3-重新加载配置文件"><a href="#5-3-重新加载配置文件" class="headerlink" title="5.3 重新加载配置文件"></a>5.3 重新加载配置文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpstop -u</span><br></pre></td></tr></table></figure>
+<h2 id="5-4-其他命令"><a href="#5-4-其他命令" class="headerlink" title="5.4 其他命令"></a>5.4 其他命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">gpstart              <span class="comment"># 正常启动</span></span><br><span class="line">gpstop              <span class="comment"># 正常关闭</span></span><br><span class="line">gpstop -M fast        <span class="comment"># 快速关闭</span></span><br><span class="line">gpstop –r          <span class="comment"># 重启</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2020/03/12/OpenVPN配置参数详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1131,226 +1354,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2019/08/13/jmeter测试报错/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="运维随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/13/jmeter测试报错/" itemprop="url">jmeter测试报错</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-13T17:08:49+08:00">
-                2019-08-13
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:31:10+08:00">
-                2022-06-05
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Windows/" itemprop="url" rel="index">
-                    <span itemprop="name">Windows</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  695
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <a id="more"></a>
-<h1 id="1-java-net-BindException-Address-already-in-use-connect"><a href="#1-java-net-BindException-Address-already-in-use-connect" class="headerlink" title="1 java.net.BindException: Address already in use: connect"></a>1 java.net.BindException: Address already in use: connect</h1><p>当线程数持续上升到一个点的时候，运行脚本的时候有很多报错，如图：<br><code>java.net.BindException: Address already in use: connect</code><br>通过 netstat -a 命令查看，有一大堆状态为 TIME_WAIT 的占用连接不被释放</p>
-<p>开始以为是单机运行脚本运行不过来，所以另加了一台负载机同时运行脚本<br>分布式环境部署参考：<br><a href="https://www.cnblogs.com/whitewasher/p/6946207.html" target="_blank" rel="noopener">https://www.cnblogs.com/whitewasher/p/6946207.html</a></p>
-<p>但是依然还是会报错，后面查阅了相关资料后发现，是因为windows本身提供的端口访问机制的问题。<br>Windows XP提供给 TCP/IP链接的端口为 1024-5000，并且要四分钟来循环回收他们。就导致我们在短时间内跑大量的请求时将端口占满了。</p>
-<p><strong>解决方案为：</strong></p>
-<ol>
-<li>cmd中，用regedit命令打开注册表</li>
-<li>在 <code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters</code>下，右击<code>parameters</code>，添加新的<code>DWORD</code>（如果是分布式运行的话，控制机器和负载机器都需要这样操作哦)<pre><code>- 新建`DWORD`值，name：`TcpTimedWaitDe`，value：`30（十进制）`  –&gt; 设置为30秒，默认是240秒
-- 新建 `DWORD`值，name：`MaxUserPort`，value：`65534（十进制）`–&gt; 设置最大连接数65534
-</code></pre></li>
-<li>修改配置完毕之后记得重启机器才会生效</li>
-</ol>
-<p><strong>参考资料：</strong><br><a href="https://www.cnblogs.com/pgf622/p/9109521.html" target="_blank" rel="noopener">https://www.cnblogs.com/pgf622/p/9109521.html</a><br><a href="https://blog.csdn.net/zoulonglong/article/details/80940411" target="_blank" rel="noopener">https://blog.csdn.net/zoulonglong/article/details/80940411</a><br><a href="https://blog.csdn.net/lifuxiangcaohui/article/details/40188847" target="_blank" rel="noopener">https://blog.csdn.net/lifuxiangcaohui/article/details/40188847</a></p>
-<h1 id="2-java-net-SocketException-Socket-closed"><a href="#2-java-net-SocketException-Socket-closed" class="headerlink" title="2 java.net.SocketException: Socket closed"></a>2 java.net.SocketException: Socket closed</h1><p>如题，jmeter报出<code>java.net.SocketException: Socket closed</code>，我查询了下，服务器是正常的，可以返回数据，基本确定问题出在我这边jmeter。查询原因，看到有人说：该异常在客户端和服务器均可能发生。异常的原因是己方主动关闭了连接后（调用了<code>Socket</code>的<code>close</code>方法）再对网络连接进行读写操作。</p>
-<p>Socket closed</p>
-<p>Non HTTP response code: org.apache.http.NoHttpResponseException (the target server failed to respond)</p>
-<p>资料查询：<a href="https://wiki.apache.org/jmeter/JMeterSocketClosed" target="_blank" rel="noopener">https://wiki.apache.org/jmeter/JMeterSocketClosed</a></p>
-<p><strong>问题原因：</strong>在JMeter下，发送http 请求时，一般都是默认选择了use keepAlive（这个是什么？看后面资料），这个是连接协议，JMeter坑就在这里，默认勾选了这个（如果不勾选的话，也不会保存），但其配置JMeter.properties中的时间设置默认却是注销的，也是是说，不会等待，一旦连接空闲，则立马断开了，导致我们压测中出现了事务失败的情形。<br><img src="1.png" alt="1"></p>
-<p><strong>解决方案：</strong>修改<code>httpclient4.idletimeout=&lt;time in ms&gt;</code> 设置成自己觉得合理的时间，一般可设置成<code>10-60s</code>（表示连接空闲10s后才会断开），注意这边单位是ms。修改完成后再次压测，错误不再有了。<br><img src="2.png" alt="2"></p>
-<h1 id="3-java-net-SocketException-Connection-reset"><a href="#3-java-net-SocketException-Connection-reset" class="headerlink" title="3 java.net.SocketException: Connection reset"></a>3 java.net.SocketException: Connection reset</h1><p>参考资料：<a href="https://www.cnblogs.com/shoren/p/httpclient-connectionreset.html" target="_blank" rel="noopener">https://www.cnblogs.com/shoren/p/httpclient-connectionreset.html</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1403,7 +1411,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">155</span>
+                  <span class="site-state-item-count">156</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1581,7 +1589,7 @@ show_date_time();
 <!--     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">197.9k</span>
+    <span title="Site words total count">202.6k</span>
    -->
   
   	<!--添加备案信息-->

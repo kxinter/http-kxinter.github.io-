@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<!--添加顶部进度条-->
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+<!--end-->
+<meta name="theme-color" content="#222">
+<!--添加文章加密-->
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="fonts.useso.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon1.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon1.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon1.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="postgresql,日志,审计," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1 用户安全策略调整1.1 限制root登陆和 SSH登陆超时设置1234567891011# 创建用户useradd ghjs# 设置密码passwd ghjs# 加入wheel组(sudo)usermod -G wheel ghjs# 限制root登陆/etc/ssh/sshd_configPermitRootLogin no# 第一行表示每60秒检测一次，第二行表示检测到5次不活动就断开连接">
+<meta name="keywords" content="postgresql,日志,审计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="云主机安全加固">
+<meta property="og:url" content="https://kxinter.gitee.io/2022/01/12/2023-01-06云主机安全加固/index.html">
+<meta property="og:site_name" content="运维随笔">
+<meta property="og:description" content="1 用户安全策略调整1.1 限制root登陆和 SSH登陆超时设置1234567891011# 创建用户useradd ghjs# 设置密码passwd ghjs# 加入wheel组(sudo)usermod -G wheel ghjs# 限制root登陆/etc/ssh/sshd_configPermitRootLogin no# 第一行表示每60秒检测一次，第二行表示检测到5次不活动就断开连接">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20220622113703460.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20220622111333256.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20220622112226841.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20220622114310329.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20220622114832945.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/315861-20201127152459487-148259811.png">
+<meta property="og:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/315861-20201127152500965-701180388.png">
+<meta property="og:updated_time" content="2022-10-24T09:20:27.813Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="云主机安全加固">
+<meta name="twitter:description" content="1 用户安全策略调整1.1 限制root登陆和 SSH登陆超时设置1234567891011# 创建用户useradd ghjs# 设置密码passwd ghjs# 加入wheel组(sudo)usermod -G wheel ghjs# 限制root登陆/etc/ssh/sshd_configPermitRootLogin no# 第一行表示每60秒检测一次，第二行表示检测到5次不活动就断开连接">
+<meta name="twitter:image" content="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20220622113703460.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kxinter.gitee.io/2022/01/12/2023-01-06云主机安全加固/"/>
+
+
+
+
+
+  <title>云主机安全加固 | 运维随笔</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<!--添加左上角github图标-->
+	<a href="https://github.com/kxinter" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
+    <!--添加右上角gitee图标
+	<a href="https://gitee.com/kxinter"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://www.jianguoyun.com/c/tblv2/COmIGhjhtNMGIgsv56CB5LqRLmpwZygC/q9YvhedkGsc/l" alt="Fork me on GitHub"></a>
+    -->
+	<header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">运维随笔</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2022/01/12/2023-01-06云主机安全加固/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="运维随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">云主机安全加固</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-12T13:40:10+08:00">
+                2022-01-12
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-10-24T17:20:27+08:00">
+                2022-10-24
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_value_page_pv"></span>次阅读
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  21
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-用户安全策略调整"><a href="#1-用户安全策略调整" class="headerlink" title="1 用户安全策略调整"></a>1 用户安全策略调整</h1><h2 id="1-1-限制root登陆和-SSH登陆超时设置"><a href="#1-1-限制root登陆和-SSH登陆超时设置" class="headerlink" title="1.1 限制root登陆和 SSH登陆超时设置"></a>1.1 限制root登陆和 SSH登陆超时设置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建用户</span></span><br><span class="line">useradd ghjs</span><br><span class="line"><span class="comment"># 设置密码</span></span><br><span class="line">passwd ghjs</span><br><span class="line"><span class="comment"># 加入wheel组(sudo)</span></span><br><span class="line">usermod -G wheel ghjs</span><br><span class="line"><span class="comment"># 限制root登陆/etc/ssh/sshd_config</span></span><br><span class="line">PermitRootLogin no</span><br><span class="line"><span class="comment"># 第一行表示每60秒检测一次，第二行表示检测到5次不活动就断开连接</span></span><br><span class="line">ClientAliveInterval 60</span><br><span class="line">ClientAliveCountMax 5</span><br></pre></td></tr></table></figure>
+<h2 id="1-2-普通用户口令锁定策略"><a href="#1-2-普通用户口令锁定策略" class="headerlink" title="1.2 普通用户口令锁定策略"></a>1.2 普通用户口令锁定策略</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 密码锁定策略/etc/pam.d/sshd</span></span><br><span class="line"><span class="comment"># 添加下边一行策略------------------------------</span></span><br><span class="line">auth required pam_tally2.so onerr=fail deny=6 unlock_time=300</span><br><span class="line"></span><br><span class="line">-----------补充说明------------------</span><br><span class="line"><span class="comment"># onerr=fail 表示定义了当出现错误时的缺省返回值；</span></span><br><span class="line"><span class="comment"># deny 表示设置普通用户和root用户连续错误登陆的最大次数，超过最大次数，则锁定该用户；</span></span><br><span class="line"><span class="comment"># unlock_time 表示设定普通用户锁定后，多少时间后解锁，单位是秒；</span></span><br><span class="line"><span class="comment"># even_deny_root 表示也限制root用户；</span></span><br><span class="line"><span class="comment"># root_unlock_time 表示设定root用户锁定后，多少时间后解锁，单位是秒；</span></span><br><span class="line"><span class="comment"># 锁定用户</span></span><br><span class="line">passwd -l <span class="variable">$user</span></span><br><span class="line"><span class="comment"># 查看用户状态</span></span><br><span class="line">passwd -S <span class="variable">$user</span></span><br><span class="line"><span class="comment"># 解锁用户</span></span><br><span class="line">passwd -u <span class="variable">$user</span></span><br></pre></td></tr></table></figure>
+<h2 id="1-3-口令生存周期（维护人员使用的账号）"><a href="#1-3-口令生存周期（维护人员使用的账号）" class="headerlink" title="1.3 口令生存周期（维护人员使用的账号）"></a>1.3 口令生存周期（维护人员使用的账号）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 表示将此用户的密码最长使用天数设为180，最短使用天数设为0，过期前15天警告用户。</span></span><br><span class="line">chage -d 0 -m 0 -M 90 -W 15 ghjs</span><br><span class="line"><span class="comment"># 查看账号过期时间</span></span><br><span class="line">chage -l ghjs</span><br><span class="line">------------</span><br><span class="line">[root@localhost ghjs]<span class="comment"># chage -l ghjs</span></span><br><span class="line">最近一次密码修改时间			 ：密码必须更改</span><br><span class="line">密码过期时间					：密码必须更改</span><br><span class="line">密码失效时间					：密码必须更改</span><br><span class="line">帐户过期时间						：从不</span><br><span class="line">两次改变密码之间相距的最小天数		：0</span><br><span class="line">两次改变密码之间相距的最大天数		：1</span><br><span class="line">在密码过期之前警告的天数	：15</span><br><span class="line">------------</span><br><span class="line">选项：</span><br><span class="line">  -d, --lastday 最近日期        将最近一次密码设置时间设为“最近日期”</span><br><span class="line">  -E, --expiredate 过期日期     将帐户过期时间设为“过期日期”</span><br><span class="line">  -h, --<span class="built_in">help</span>                    显示此帮助信息并推出</span><br><span class="line">  -I, --inactive INACITVE       过期 INACTIVE 天数后，设定密码为失效状态</span><br><span class="line">  -l, --list                    显示帐户年龄信息</span><br><span class="line">  -m, --mindays 最小天数        将两次改变密码之间相距的最小天数设为“最小天数”</span><br><span class="line">  -M, --maxdays MAX_DAYS        <span class="built_in">set</span> maximum number of days before password</span><br><span class="line">                                change to MAX_DAYS</span><br><span class="line">  -R, --root CHROOT_DIR         chroot 到的目录</span><br><span class="line">  -W, --warndays 警告天数       将过期警告天数设为“警告天数”</span><br></pre></td></tr></table></figure>
+<h2 id="1-4-口令重复次数限制"><a href="#1-4-口令重复次数限制" class="headerlink" title="1.4 口令重复次数限制"></a>1.4 口令重复次数限制</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /etc/pam.d/system-auth</span></span><br><span class="line"><span class="comment"># 禁止过去使用5次的密码，大概15行位置末尾添加 remember=5</span></span><br><span class="line">password     sufficient     pam_unix.so sha512 shadow nullok try_first_pass use_authtok remember=5</span><br></pre></td></tr></table></figure>
+<h2 id="1-5-空密码账号"><a href="#1-5-空密码账号" class="headerlink" title="1.5 空密码账号"></a>1.5 空密码账号</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 空密码账号检查</span></span><br><span class="line">awk -F: <span class="string">'($2=="")'</span> /etc/shadow</span><br><span class="line"><span class="comment"># 查看UID为0的账号：awk -F: '($3==0)' /etc/passwd，确认UID为0的账号只有root</span></span><br></pre></td></tr></table></figure>
+<h2 id="1-6-无关账号删除或禁用"><a href="#1-6-无关账号删除或禁用" class="headerlink" title="1.6 无关账号删除或禁用"></a>1.6 无关账号删除或禁用</h2><h2 id="1-7-关闭telnet服务，默认没装"><a href="#1-7-关闭telnet服务，默认没装" class="headerlink" title="1.7 关闭telnet服务，默认没装"></a>1.7 关闭telnet服务，默认没装</h2><h1 id="2-服务安全漏洞修复"><a href="#2-服务安全漏洞修复" class="headerlink" title="2 服务安全漏洞修复"></a>2 服务安全漏洞修复</h1><h2 id="2-1系统ssl-ssh"><a href="#2-1系统ssl-ssh" class="headerlink" title="2.1系统ssl+ssh"></a>2.1系统ssl+ssh</h2><blockquote>
+<p>TLS protocol中间人攻击漏洞(CVE-2015-4000)</p>
+</blockquote>
+<p><strong>处理方案</strong></p>
+<p>升级openssl版本3.0.3</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装gcc</span></span><br><span class="line">yum install gcc -y</span><br><span class="line"><span class="comment"># 安装perl 5 (安装openssl会提示缺少)</span></span><br><span class="line">tar -zxvf perl-5.28.0.tar.gz</span><br><span class="line"><span class="built_in">cd</span> perl-5.28.0</span><br><span class="line">./configure.gnu -des -Dprefix=<span class="variable">$HOME</span>/localperl</span><br><span class="line">make</span><br><span class="line">make <span class="built_in">test</span></span><br><span class="line">make install</span><br><span class="line"><span class="comment"># 安装openssl</span></span><br><span class="line">tar -zxvf openssl-3.0.3.tar.gz</span><br><span class="line"><span class="built_in">cd</span> openssl-3.0.3</span><br><span class="line">./config --prefix=/usr/<span class="built_in">local</span>/openssl/              </span><br><span class="line">make </span><br><span class="line">make install</span><br><span class="line"><span class="comment"># 卸载历史openssl</span></span><br><span class="line">yum erase -y openssl openssl-devel</span><br><span class="line">ln -sf /usr/<span class="built_in">local</span>/openssl/bin/openssl /usr/bin/openssl</span><br><span class="line"><span class="comment"># 查看版本报错 openssl version</span></span><br><span class="line">openssl: error <span class="keyword">while</span> loading shared libraries: libssl.so.1.1: cannot open shared object file: No such file or directory</span><br><span class="line"><span class="comment"># 创建so文件软连接</span></span><br><span class="line">ln -s /usr/<span class="built_in">local</span>/openssl/lib/libssl.so.3 /usr/lib64/libssl.so.1.1</span><br><span class="line">ln -s /usr/<span class="built_in">local</span>/openssl/lib/libcrypto.so.3 /usr/lib64/libcrypto.so.1.1</span><br></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>OpenSSH用户枚举（CVE-2018-15473）【POC】</p>
+<p>OpenSSH &lt;7.5</p>
+<p>OpenSSH sshd拒绝服务漏洞(CVE-2016-10708)</p>
+<p>OpenSSH设计漏洞(CVE-2017-15906)</p>
+<p>OpenSSH用户枚举漏洞（CNVD-2018-20962）(CVE-2018-15919)</p>
+<p>OpenSSH 命令注入漏洞</p>
+<p>OpenSSH CBC模式信息泄露漏洞(CVE-2008-5161)</p>
+</blockquote>
+<p><strong>处理方案</strong></p>
+<p>升级openssh到8.9p1版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 备注:先升级openssl再升级openssh</span></span><br><span class="line"><span class="comment"># 警告：升级期间一定不要断开ssh窗口连接，否则无法重新连接,提前建立ssh和sftp连接。（高风险）</span></span><br><span class="line"><span class="comment"># 1） 关闭sshd</span></span><br><span class="line">systemctl stop sshd</span><br><span class="line"><span class="comment"># 2） 备份旧版配置文件</span></span><br><span class="line">mv /etc/ssh /etc/ssh.bak</span><br><span class="line"><span class="comment"># 3） 卸载旧版openssh</span></span><br><span class="line">rpm -qa | grep openssh-*</span><br><span class="line">yum erase -y openssh-clients openssh-server openssh</span><br><span class="line"><span class="comment"># 4） 完成卸载</span></span><br><span class="line">ssh -V</span><br><span class="line">无版本输出</span><br><span class="line"><span class="comment"># 5） 安装依赖</span></span><br><span class="line">yum install -y  pam-devel zlib zlib-devel openssl-devel</span><br><span class="line"><span class="comment"># 6） 安装openssh</span></span><br><span class="line">tar -zxvf openssh-8.9p1.tar.gz</span><br><span class="line"><span class="built_in">cd</span> openssh-8.9p1</span><br><span class="line"> <span class="comment"># --with-ssl-dir 指向openssl的安装目录，否则报错configure: error: *** working libcrypto not found</span></span><br><span class="line">./configure --prefix=/usr/ --sysconfdir=/etc/ssh --with-openssl-includes=/usr/<span class="built_in">local</span>/include --with-ssl-dir=/usr/<span class="built_in">local</span>/openssl --with-zlib --with-md5-passwords --with-pam</span><br><span class="line">make </span><br><span class="line">make install</span><br><span class="line">ssh -V   <span class="comment"># 确定openssh和openssl为安装版本</span></span><br><span class="line"><span class="comment"># 7） 配置服务及启动</span></span><br><span class="line">cp -a openssh-8.9p1/contrib/redhat/sshd.init /etc/init.d/sshd</span><br><span class="line">chmod +x /etc/init.d/sshd</span><br><span class="line">chkconfig --add sshd</span><br><span class="line">systemctl start sshd</span><br><span class="line">systemctl status sshd</span><br><span class="line">systemctl <span class="built_in">enable</span> sshd</span><br><span class="line">chkconfig sshd on</span><br><span class="line"><span class="comment"># 8） 修改sshd_config配置，否则无法登陆</span></span><br><span class="line">vim /etc/ssh/sshd_config</span><br><span class="line">添加如下配置</span><br><span class="line">---------------</span><br><span class="line"><span class="comment"># 允许密码登录</span></span><br><span class="line">PasswordAuthentication yes</span><br><span class="line"><span class="comment"># 允许root远程登录</span></span><br><span class="line">PermitRootlogin yes</span><br><span class="line"><span class="comment"># 解决此报错信息 error: Could not get shadow information for &lt;user&gt;</span></span><br><span class="line">UsePAM yes</span><br><span class="line">---------------</span><br><span class="line"><span class="comment"># 9） 修改/etc/pam.d/sshd文件，否则无法登陆</span></span><br><span class="line">vim /etc/pam.d/sshd</span><br><span class="line"></span><br><span class="line">文件内容如下</span><br><span class="line">-----------------------------------------------</span><br><span class="line"><span class="comment"># %PAM-1.0</span></span><br><span class="line">auth	   required	pam_sepermit.so</span><br><span class="line">auth       substack     password-auth</span><br><span class="line">auth       include      postlogin</span><br><span class="line"><span class="comment"># Used with polkit to reauthorize users in remote sessions</span></span><br><span class="line">-auth      optional     pam_reauthorize.so prepare</span><br><span class="line">account    required     pam_nologin.so</span><br><span class="line">account    include      password-auth</span><br><span class="line">password   include      password-auth</span><br><span class="line"><span class="comment"># pam_selinux.so close should be the first session rule</span></span><br><span class="line">session    required     pam_selinux.so close</span><br><span class="line">session    required     pam_loginuid.so</span><br><span class="line"><span class="comment"># pam_selinux.so open should only be followed by sessions to be executed in the user context</span></span><br><span class="line">session    required     pam_selinux.so open env_params</span><br><span class="line">session    required     pam_namespace.so</span><br><span class="line">session    optional     pam_keyinit.so force revoke</span><br><span class="line">session    include      password-auth</span><br><span class="line">session    include      postlogin</span><br><span class="line"><span class="comment"># Used with polkit to reauthorize users in remote sessions</span></span><br><span class="line">-session   optional     pam_reauthorize.so prepare</span><br><span class="line">-----------------------------------------------</span><br><span class="line"><span class="comment"># 10） 重启sshd</span></span><br><span class="line">systemctl restart sshd</span><br><span class="line"><span class="comment"># 11）  验证ssh登陆</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20220622113703460.png" alt="image-20220622113703460"></p>
+<blockquote>
+<p>启用 SSH 弱密钥交换算法</p>
+<p>SSH SHA-1 HMAC 算法已启用</p>
+</blockquote>
+<p><strong>处理方案</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># sshd_config添加如下配置</span></span><br><span class="line">Ciphers aes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128,arcfour</span><br><span class="line">MACs hmac-sha2-256,hmac-sha2-256-etm@openssh.com</span><br><span class="line"><span class="comment"># 重启sshd</span></span><br><span class="line">systemctl restart sshd</span><br></pre></td></tr></table></figure>
+<h2 id="2-2-nginx"><a href="#2-2-nginx" class="headerlink" title="2.2 nginx"></a>2.2 nginx</h2><blockquote>
+<p>HTTP/2实现安全漏洞(CVE-2019-9516)</p>
+<p>nginx拒绝服务漏洞（CNVD-2016-00982）(CVE-2016-0746)</p>
+<p>HTTP/2实现安全漏洞(CVE-2019-9511)</p>
+<p>nginx拒绝服务漏洞（CNVD-2018-22805）(CVE-2018-16843)</p>
+<p>HTTP/2实现安全漏洞(CVE-2019-9513)</p>
+<p>nginx 安全漏洞（CVE-2021-23017）</p>
+<p>nginx拒绝服务漏洞(CVE-2016-0747)</p>
+<p>nginx ngx_http_mp4_module组件内存泄露漏洞(CVE-2018-16845)</p>
+<p>Nginx 环境问题漏洞（CVE-2019-20372）</p>
+</blockquote>
+<p><strong>处理方案</strong></p>
+<p>升级nginx到1.21.6版本</p>
+<hr>
+<blockquote>
+<p> Web服务器错误页面信息泄露</p>
+<p> Web服务器HTTP头信息公开</p>
+</blockquote>
+<p><strong>处理方案</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nginx配置</span></span><br><span class="line">server &#123;</span><br><span class="line">    listen 8080；</span><br><span class="line">    ...</span><br><span class="line">    server_tokens off;       <span class="comment">#添加</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20220622111333256.png" alt="image-20220622111333256"></p>
+<hr>
+<blockquote>
+<p> HTTP响应头使用X-XSS-Protection</p>
+</blockquote>
+<p><strong>处理方案</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nginx.conf添加如下配置</span></span><br><span class="line">http &#123;</span><br><span class="line">   add_header X-Xss-Protection <span class="string">"1; mode=block"</span>;</span><br><span class="line">   ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">•      0：禁用XSS保护；</span><br><span class="line">•      1：启用XSS保护；</span><br><span class="line">•      1; mode=block：启用XSS保护，并在检查到XSS攻击时，停止渲染页面（例如IE8中，检查到攻击时，整个页面会被一个<span class="comment">#替换）</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20220622112226841.png" alt="image-20220622112226841"></p>
+<hr>
+<blockquote>
+<p>HTTP响应头部使用X-Frame-Options</p>
+<p>HTTP响应头X-Content-Options：nosniff</p>
+</blockquote>
+<p><strong>处理方案</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nginx.conf配置添加</span></span><br><span class="line"><span class="comment"># 该配置取消，影响页面嵌套</span></span><br><span class="line">http &#123;</span><br><span class="line">   add_header X-Frame-Options SAMEORIGIN;</span><br><span class="line">   add_header X-Content-Type-Options nosniff;</span><br><span class="line"></span><br><span class="line">   ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 赋值有如下三种：</span></span><br><span class="line"></span><br><span class="line">（1）DENY：不能被嵌入到任何iframe或frame中。</span><br><span class="line"></span><br><span class="line">（2）SAMEORIGIN：页面只能被本站页面嵌入到iframe或者frame中。</span><br><span class="line"></span><br><span class="line">（3）ALLOW-FROM uri：只能被嵌入到指定域名的框架中。</span><br></pre></td></tr></table></figure>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20220622114310329.png" alt="image-20220622114310329"></p>
+<hr>
+<h2 id="2-3-docker"><a href="#2-3-docker" class="headerlink" title="2.3 docker"></a>2.3 docker</h2><blockquote>
+<p> Docker Remote API 未授权访问漏洞【POC】</p>
+</blockquote>
+<p>处理方案：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker启动命令配置修改只允许本机访问</span></span><br><span class="line">-H tcp://127.0.0.1:4243</span><br></pre></td></tr></table></figure>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/image-20220622114832945.png" alt="image-20220622114832945"></p>
+<h2 id="2-4-tomcat"><a href="#2-4-tomcat" class="headerlink" title="2.4 tomcat"></a>2.4 tomcat</h2><blockquote>
+<p>Apache Tomcat 代码问题漏洞(CVE-2020-9484)</p>
+<p>Apache Tomcat 8.5.38 &lt; 8.5.79 安全漏洞</p>
+<p>Apache Tomcat 安全漏洞（CVE-2020-13943）</p>
+<p>Apache Tomcat servlet / JSP容器默认文件</p>
+<p>Apache Tomcat 8.5.0 &lt; 8.5.68 漏洞</p>
+<p>Apache Tomcat HTTP / 2请求标头混淆漏洞（CVE-2020-17527 ）</p>
+</blockquote>
+<p>更新到8.5.81版本</p>
+<blockquote>
+<p>Apache ServerToken的信息披露</p>
+<p>Apache HTTP Server版本</p>
+</blockquote>
+<p><a href="https://blog.51cto.com/meiling/2069452" target="_blank" rel="noopener">https://blog.51cto.com/meiling/2069452</a></p>
+<p><a href="https://wenku.baidu.com/view/0792e11e463610661ed9ad51f01dc281e53a56b1.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/0792e11e463610661ed9ad51f01dc281e53a56b1.html</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在tomcat部署⽬录下lib中新建⽂件夹</span><br><span class="line">/org/apache/catalina/util/</span><br><span class="line">并在util中新建在 ServerInfo.properties⽂件，⽂件添加 server.info=Apache Tomcat</span><br></pre></td></tr></table></figure>
+<h2 id="2-5-mysal"><a href="#2-5-mysal" class="headerlink" title="2.5 mysal"></a>2.5 mysal</h2><p>暂不处理</p>
+<h2 id="2-6-apache"><a href="#2-6-apache" class="headerlink" title="2.6 apache"></a>2.6 apache</h2><blockquote>
+<p>Apache HTTP Server 安全漏洞（CVE-2021-33193）</p>
+<p>Apache 2.4.x &lt; 2.4.47 多个漏洞</p>
+<p>Apache 2.4.x &lt; 2.4.53 多个漏洞</p>
+<p>Apache HTTP Server 代码问题漏洞（CVE-2021-40438）</p>
+</blockquote>
+<p>升级到2.4.54版本</p>
+<p>隐藏版本信息</p>
+<h2 id="2-7-consul"><a href="#2-7-consul" class="headerlink" title="2.7  consul"></a>2.7  consul</h2><blockquote>
+<p> Hashicorp Consul Web UI和API访问</p>
+</blockquote>
+<p>处理方案：</p>
+<p>容器禁止端口暴漏，通过容器名连接。</p>
+<h2 id="2-8-mapserv"><a href="#2-8-mapserv" class="headerlink" title="2.8 mapserv"></a>2.8 mapserv</h2><blockquote>
+<p>不存在的页面（404）物理路径披露</p>
+<p>jQuery跨站脚本漏洞（CNVD-2019-11839）(CVE-2019-11358)</p>
+</blockquote>
+<p>更新gdw.lua</p>
+<p>移除mapdata/client目录</p>
+<h2 id="2-9-redis"><a href="#2-9-redis" class="headerlink" title="2.9 redis"></a>2.9 redis</h2><blockquote>
+<p>Redis服务器不受密码认证的保护【POC】</p>
+</blockquote>
+<p>配置redis密码验证。</p>
+<h1 id="3-日志审计"><a href="#3-日志审计" class="headerlink" title="3 日志审计"></a>3 日志审计</h1><h2 id="3-1-postgresql开启日志审计"><a href="#3-1-postgresql开启日志审计" class="headerlink" title="3.1 postgresql开启日志审计"></a>3.1 postgresql开启日志审计</h2><p><strong>1、审计清单说明</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">logging_collector   <span class="comment"># 是否开启日志收集开关，默认off，推荐on</span></span><br><span class="line"></span><br><span class="line">log_destination     -- 日志记录类型，默认是stderr，只记录错误输出，推荐csvlog，总共包含：`stderr, csvlog, syslog, and eventlog,`</span><br><span class="line"></span><br><span class="line">log_directory       <span class="comment"># 日志路径，默认是$PGDATA/pg_log, </span></span><br><span class="line"></span><br><span class="line">log_filename        <span class="comment"># 日志名称，默认是postgresql-%Y-%m-%d_%H%M%S.log</span></span><br><span class="line"></span><br><span class="line">log_file_mode       <span class="comment"># 日志文件类型，默认为0600</span></span><br><span class="line"></span><br><span class="line">log_truncate_on_rotation <span class="comment"># 默认为off，设置为on的话，文件内容覆盖方式：off后面附加，on：清空再加</span></span><br><span class="line"></span><br><span class="line">log_rotation_age    <span class="comment"># 保留单个文件的最大时长,默认是1d,也有1h,1min,1s</span></span><br><span class="line"></span><br><span class="line">log_rotation_size    <span class="comment"># 保留单个文件的最大尺寸，默认是10MB</span></span><br><span class="line"></span><br><span class="line">log_error_verbosity  <span class="comment"># 默认为default，verbose表示冗长的</span></span><br><span class="line"></span><br><span class="line">log_connections  <span class="comment"># 用户session登陆时是否写入日志，默认off，推荐为on</span></span><br><span class="line"></span><br><span class="line">log_disconnections <span class="comment"># 用户session退出时是否写入日志，默认off，推荐为on</span></span><br><span class="line"></span><br><span class="line">log_statement  --`记录用户登陆数据库后的各种操作`</span><br><span class="line"></span><br><span class="line">     1. none，即不记录</span><br><span class="line">     2. ddl(记录create,drop和alter)</span><br><span class="line">     3. mod(记录ddl+insert,delete,update和truncate)</span><br><span class="line">     4. all(mod+select)</span><br><span class="line"></span><br><span class="line">log_min_duration_statement = 2s        -- `记录超过2秒的SQL`</span><br><span class="line">log_checkpoints = on       <span class="comment"># 检查点和重启点被记录再服务器日志中。一些统计信息也被包括再日志消息中，包括写入缓冲区的数据和写他们呢所花的时间。这个参数智能在postgresql.conf文件中或在服务器命令行上设置。默认是关闭（off）</span></span><br><span class="line">log_lock_waits ＝ on       <span class="comment"># 如果一个会话等待某个类型的锁的时间超过deadlock_timeout的值，该参数决定是否在数据库日志中记录这个信息。</span></span><br><span class="line">deadlock_timeout ＝ 1s     <span class="comment"># 数据库的锁通常可以在pg_locks这个系统表里找，但这只是当前的锁表/行信息，如果你想看一天内有多少个超过死锁时间的锁发生，可以在日志里设置并查看，log_lock_waits 默认是off，可以设置开启。这个可以区分SQL慢是资源紧张还是锁等待的问题。</span></span><br></pre></td></tr></table></figure>
+<p><strong>2、推荐的设置参数</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">logging_collector = on</span><br><span class="line">log_destination = <span class="string">'csvlog'</span></span><br><span class="line">log_truncate_on_rotation = on</span><br><span class="line">log_connections = on</span><br><span class="line">log_disconnections = on</span><br><span class="line">log_error_verbosity = verbose</span><br><span class="line">log_statement = ddl</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这部分是postgresql.conf文件中没有的</span></span><br><span class="line">log_min_duration_statement = 60s    <span class="comment"># 记录超过60s的SQL</span></span><br><span class="line">log_checkpoints = on                  </span><br><span class="line">log_lock_waits ＝ on</span><br><span class="line">deadlock_timeout ＝ 1s</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看日志目录和日志文件名</span></span><br><span class="line">show log_directory;</span><br><span class="line">show log_filename;</span><br></pre></td></tr></table></figure>
+<p><strong>3、参数修改方法</strong></p>
+<p>直接修改配置文件</p>
+<p>postgresql.conf默认位于$PGDATA目录下。</p>
+<p>vim /usr/data/pgsql/data/postgresql.conf</p>
+<p>用超级用户运行：postgres=# SELECT pg_reload_conf();</p>
+<p>show命令可以查询当前状态</p>
+<p><strong>4、 参考文档</strong></p>
+<p><a href="http://t.zoukankan.com/tiandi-p-13568675.html" target="_blank" rel="noopener">http://t.zoukankan.com/tiandi-p-13568675.html</a></p>
+<h2 id="3-2-postgresql设置密码复杂度校验"><a href="#3-2-postgresql设置密码复杂度校验" class="headerlink" title="3.2 postgresql设置密码复杂度校验"></a>3.2 postgresql设置密码复杂度校验</h2><a id="more"></a>
+<h3 id="3-2-1-默认密码校验策略"><a href="#3-2-1-默认密码校验策略" class="headerlink" title="3.2.1 默认密码校验策略"></a>3.2.1 默认密码校验策略</h3><p>在PG中可以使用<code>passwordcheck.so</code>模块实现密码复杂度校验的功能，不过这个工具的默认要求很低，只可用于简单的密码复杂度校验，默认检查规则如下：</p>
+<ol>
+<li>密码长度大于8位</li>
+<li>密码不能与用户名相同</li>
+<li>密码必须包括字母和数字</li>
+</ol>
+<h4 id="3-2-1-1-passwordcheck密码校验"><a href="#3-2-1-1-passwordcheck密码校验" class="headerlink" title="3.2.1.1 passwordcheck密码校验"></a>3.2.1.1 passwordcheck密码校验</h4><p>安装完PostgreSQL之后，默认是没有开启密码复杂度，为了数据库安全以及应对等保测评等要求，有时我们需要设置密码复杂度。</p>
+<p>PostgreSQL支持通过动态库的方式扩展PG的功能，pg在使用这些功能时需要预加载相关的共享库。而密码复杂度可以通过预加载passwordcheck.so模块实现。</p>
+<p>有几种设置可用于将共享库预加载到服务器中，如下：</p>
+<ul>
+<li>local_preload_libraries (string)</li>
+<li>session_preload_libraries (string)</li>
+<li>shared_preload_libraries (string)</li>
+</ul>
+<p>下面介绍shared_preload_libraries (string)方式加载<code>passwordcheck.so</code>模块，此模块可以检查密码，如果密码太弱，他会拒绝连接；创建用户或修改用户密码时，强制限制密码的复杂度，限制密码不能重复使用例如密码长度，包含数字，字母，大小写，特殊字符等，同时排除暴力破解字典中的字符串。</p>
+<h4 id="3-2-1-2-shared-preload-libraries-方式启用passwordcheck-so模块"><a href="#3-2-1-2-shared-preload-libraries-方式启用passwordcheck-so模块" class="headerlink" title="3.2.1.2 shared_preload_libraries 方式启用passwordcheck.so模块"></a>3.2.1.2 shared_preload_libraries 方式启用passwordcheck.so模块</h4><p>在PG库的数据目录下（centos默认路径为：<code>/var/lib/pgsql/11/data</code>，windows默认路径为：<code>D:\PostgreSQL\11\data</code>）找到<code>postgresql.conf</code>文件，修改</p>
+<p>修改内容行为：<code>shared_preload_libraries = &#39;passwordcheck&#39;  # (change requires restart)。</code></p>
+<p>修改完成后重启服务服务生效（<code>systemctl restart postgresql-11</code>）。</p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/315861-20201127152459487-148259811.png" alt="image"><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/315861-20201127152500965-701180388.png" alt="image"></p>
+<h4 id="3-2-1-3-验证"><a href="#3-2-1-3-验证" class="headerlink" title="3.2.1.3 验证"></a>3.2.1.3 验证</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提示密码太短</span></span><br><span class="line">postgres=<span class="comment"># create role ttt with password '123123';</span></span><br><span class="line">ERROR:  password is too short</span><br><span class="line"></span><br><span class="line"><span class="comment"># 提示密码必须包含字母和非字母</span></span><br><span class="line">postgres=<span class="comment"># create role ttt with password '12345678';</span></span><br><span class="line">ERROR:  password must contain both letters and nonletters</span><br><span class="line"></span><br><span class="line">postgres=<span class="comment"># create role ttt with password 'qweqweqwe';</span></span><br><span class="line">ERROR:  password must contain both letters and nonletters</span><br><span class="line"></span><br><span class="line"><span class="comment">#  提示密码不能包含用户名</span></span><br><span class="line">postgres=<span class="comment"># create role tttt with password 'tttt123456';</span></span><br><span class="line">ERROR:  password must not contain user name</span><br></pre></td></tr></table></figure>
+<h3 id="3-2-2-增强密码校验策略"><a href="#3-2-2-增强密码校验策略" class="headerlink" title="3.2.2 增强密码校验策略"></a>3.2.2 增强密码校验策略</h3><p>通过修改源代码实现。本文记录如何通过修改源码<code>passwordcheck.c</code>达到增强复杂度检验的目的，修改后验证规则如下：</p>
+<ol>
+<li>密码长度大于8位</li>
+<li>密码不能与用户名相同</li>
+<li>密码必须包括字母</li>
+<li>密码必须包括数字</li>
+<li>密码必须包括特殊字符</li>
+</ol>
+<h4 id="3-2-2-1-步骤"><a href="#3-2-2-1-步骤" class="headerlink" title="3.2.2.1 步骤"></a>3.2.2.1 步骤</h4><h5 id="3-2-2-1-1-实验环境"><a href="#3-2-2-1-1-实验环境" class="headerlink" title="3.2.2.1.1 实验环境"></a>3.2.2.1.1 实验环境</h5><p>实验环境：CentOS7.6 + PG11.8 source code</p>
+<p>源码下载地址: <a href="https://www.postgresql.org/ftp/source/v11.8/postgresql-11.8.tar.gz" target="_blank" rel="noopener">https://www.postgresql.org/ftp/source/v11.8/postgresql-11.8.tar.gz</a></p>
+<p>源码安装文档：<a href="https://www.postgresql.org/docs/11/install-short.htm" target="_blank" rel="noopener">https://www.postgresql.org/docs/11/install-short.htm</a></p>
+<h5 id="3-2-2-1-2-使用方式"><a href="#3-2-2-1-2-使用方式" class="headerlink" title="3.2.2.1.2 使用方式"></a>3.2.2.1.2 使用方式</h5><ul>
+<li>替换目录 ../postgresql-11.4/contrib/passwordcheck 下的 passwordcheck.c</li>
+<li>编译安装 make &amp;&amp; make install</li>
+<li>postgresql配置文件内修改 (postgresql.conf)</li>
+<li>shared_preload_libraries = ‘passwordcheck’</li>
+<li>passwordcheck.level = ‘true’</li>
+</ul>
+<h5 id="3-2-2-1-3-效果"><a href="#3-2-2-1-3-效果" class="headerlink" title="3.2.2.1.3 效果"></a>3.2.2.1.3 效果</h5><p>当密码长度足够，不符合规则的时候，无法新建用户</p>
+<h5 id="3-2-2-1-4-源码修改"><a href="#3-2-2-1-4-源码修改" class="headerlink" title="3.2.2.1.4 源码修改"></a>3.2.2.1.4 源码修改</h5><p>将下载后的源码解压缩, 找到<code>postgresql-11.8/contrib/passwordcheck/passwordcheck.c</code>源文件，修改后保存退出。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*-------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"> * Luckyness</span></span><br><span class="line"><span class="comment"> * 20191202</span></span><br><span class="line"><span class="comment"> * 在源代码上修改自用，配置pg密码必须包含特殊字符</span></span><br><span class="line"><span class="comment"> * pg版本11.4</span></span><br><span class="line"><span class="comment"> * 使用方式：</span></span><br><span class="line"><span class="comment"> * 替换目录 ../postgresql-11.4/contrib/passwordcheck 下的 passwordcheck.c</span></span><br><span class="line"><span class="comment"> * 编译安装 make &amp;&amp; make install</span></span><br><span class="line"><span class="comment"> * postgresql配置文件内修改 (postgresql.conf)</span></span><br><span class="line"><span class="comment"> * shared_preload_libraries = 'passwordcheck'</span></span><br><span class="line"><span class="comment"> * passwordcheck.level = 'true'</span></span><br><span class="line"><span class="comment"> *-------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/*-------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * passwordcheck.c</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Copyright (c) 2009-2018, PostgreSQL Global Development Group</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Author: Laurenz Albe &lt;laurenz.albe@wien.gv.at&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * IDENTIFICATION</span></span><br><span class="line"><span class="comment"> *	  contrib/passwordcheck/passwordcheck.c</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *-------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"postgres.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ctype.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> USE_CRACKLIB</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;crack.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"commands/user.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"libpq/crypt.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"fmgr.h"</span></span></span><br><span class="line"><span class="comment">/* 引入扩展 */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"utils/guc.h"</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">PG_MODULE_MAGIC;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment"> * 配置文件内passwordcheck.level='true' 为需要特殊字符 </span></span><br><span class="line"><span class="comment"> * passwordcheck.level='false' 为只需要英文和数字</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">bool</span> passwordcheck_level = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* passwords shorter than this will be rejected */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MIN_PWD_LENGTH 8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">void</span> _PG_init(<span class="keyword">void</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * check_password</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * performs checks on an encrypted or unencrypted password</span></span><br><span class="line"><span class="comment"> * ereport's if not acceptable</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * username: name of role being created or changed</span></span><br><span class="line"><span class="comment"> * password: new password (possibly already encrypted)</span></span><br><span class="line"><span class="comment"> * password_type: PASSWORD_TYPE_* code, to indicate if the password is</span></span><br><span class="line"><span class="comment"> *			in plaintext or encrypted form.</span></span><br><span class="line"><span class="comment"> * validuntil_time: password expiration time, as a timestamptz Datum</span></span><br><span class="line"><span class="comment"> * validuntil_null: true if password expiration time is NULL</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * This sample implementation doesn't pay any attention to the password</span></span><br><span class="line"><span class="comment"> * expiration time, but you might wish to insist that it be non-null and</span></span><br><span class="line"><span class="comment"> * not too far in the future.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span></span><br><span class="line"></span><br><span class="line">check_password(<span class="keyword">const</span> <span class="keyword">char</span> *username,</span><br><span class="line">			   <span class="keyword">const</span> <span class="keyword">char</span> *shadow_pass,</span><br><span class="line">			   PasswordType password_type,</span><br><span class="line">			   Datum validuntil_time,</span><br><span class="line">			   <span class="keyword">bool</span> validuntil_null)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (password_type != PASSWORD_TYPE_PLAINTEXT)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">/*</span></span><br><span class="line"><span class="comment">		 * Unfortunately we cannot perform exhaustive checks on encrypted</span></span><br><span class="line"><span class="comment">		 * passwords - we are restricted to guessing. (Alternatively, we could</span></span><br><span class="line"><span class="comment">		 * insist on the password being presented non-encrypted, but that has</span></span><br><span class="line"><span class="comment">		 * its own security disadvantages.)</span></span><br><span class="line"><span class="comment">		 *</span></span><br><span class="line"><span class="comment">		 * We only check for username = password.</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">char</span>	   *logdetail;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (plain_crypt_verify(username, shadow_pass, username, &amp;logdetail) == STATUS_OK)</span><br><span class="line">			ereport(ERROR,</span><br><span class="line">					(errcode(ERRCODE_INVALID_PARAMETER_VALUE),</span><br><span class="line">					 errmsg(<span class="string">"password must not equal user name"</span>)));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">/*</span></span><br><span class="line"><span class="comment">		 * For unencrypted passwords we can perform better checks</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">const</span> <span class="keyword">char</span> *password = shadow_pass;</span><br><span class="line">		<span class="keyword">int</span>			pwdlen = <span class="built_in">strlen</span>(password);</span><br><span class="line">		<span class="keyword">int</span>			i;</span><br><span class="line">		<span class="comment">/*                 bool            pwd_has_letter,*/</span></span><br><span class="line">		<span class="keyword">bool</span>		</span><br><span class="line">					pwd_has_number,pwd_has_special,pwd_has_letter;</span><br><span class="line"></span><br><span class="line">		<span class="comment">/* enforce minimum length */</span></span><br><span class="line">		<span class="keyword">if</span> (pwdlen &lt; MIN_PWD_LENGTH)</span><br><span class="line">			ereport(ERROR,</span><br><span class="line">					(errcode(ERRCODE_INVALID_PARAMETER_VALUE),</span><br><span class="line">					 errmsg(<span class="string">"password is too short"</span>)));</span><br><span class="line"></span><br><span class="line">		<span class="comment">/* check if the password contains the username */</span></span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">strstr</span>(password, username))</span><br><span class="line">			ereport(ERROR,</span><br><span class="line">					(errcode(ERRCODE_INVALID_PARAMETER_VALUE),</span><br><span class="line">					 errmsg(<span class="string">"password must not contain user name"</span>)));</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>(passwordcheck_level)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">/* check if the password contains both letters and number and specialchar */</span></span><br><span class="line">			pwd_has_number = <span class="literal">false</span>;</span><br><span class="line">			pwd_has_special = <span class="literal">false</span>;</span><br><span class="line">			pwd_has_letter = <span class="literal">false</span>;</span><br><span class="line">			<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; pwdlen; i++)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (<span class="built_in">isalpha</span>((<span class="keyword">unsigned</span> <span class="keyword">char</span>) password[i]))</span><br><span class="line">					pwd_has_letter = <span class="literal">true</span>;</span><br><span class="line">				<span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">isdigit</span>((<span class="keyword">unsigned</span> <span class="keyword">char</span>) password[i]))</span><br><span class="line">					pwd_has_number = <span class="literal">true</span>;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					pwd_has_special = <span class="literal">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (!pwd_has_number || !pwd_has_letter || !pwd_has_special)</span><br><span class="line">				ereport(ERROR,</span><br><span class="line">						(errcode(ERRCODE_INVALID_PARAMETER_VALUE),</span><br><span class="line">						errmsg(<span class="string">"password must contain both letters and number and specialchar"</span>)));</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">/* check if the password contains both letters and non-letters */</span></span><br><span class="line">			pwd_has_letter = <span class="literal">false</span>;</span><br><span class="line">			pwd_has_number = <span class="literal">false</span>;</span><br><span class="line">			<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; pwdlen; i++)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (<span class="built_in">isalpha</span>((<span class="keyword">unsigned</span> <span class="keyword">char</span>) password[i]))</span><br><span class="line">					pwd_has_letter = <span class="literal">true</span>;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					pwd_has_number = <span class="literal">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (!pwd_has_letter || !pwd_has_number)</span><br><span class="line">				ereport(ERROR,</span><br><span class="line">						(errcode(ERRCODE_INVALID_PARAMETER_VALUE),</span><br><span class="line">						errmsg(<span class="string">"password must contain both letters and nonletters"</span>)));</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> USE_CRACKLIB</span></span><br><span class="line">		<span class="comment">/* call cracklib to check password */</span></span><br><span class="line">		<span class="keyword">if</span> (FascistCheck(password, CRACKLIB_DICTPATH))</span><br><span class="line">			ereport(ERROR,</span><br><span class="line">					(errcode(ERRCODE_INVALID_PARAMETER_VALUE),</span><br><span class="line">					 errmsg(<span class="string">"password is easily cracked"</span>)));</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* all checks passed, password is ok */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Module initialization function</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">_PG_init(<span class="keyword">void</span>)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">/* 密码级别参数 */</span></span><br><span class="line">	DefineCustomBoolVariable(</span><br><span class="line">		<span class="string">"passwordcheck.level"</span>,</span><br><span class="line">		gettext_noop(<span class="string">"passwordcheck_level true: Password must contain leter, number, special characters;false : Password must contain leter, special characters"</span>),</span><br><span class="line">		<span class="literal">NULL</span>,</span><br><span class="line">		&amp;passwordcheck_level,</span><br><span class="line">		<span class="literal">false</span>,</span><br><span class="line">		PGC_POSTMASTER,</span><br><span class="line">		GUC_SUPERUSER_ONLY,</span><br><span class="line">		<span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* activate password checks when the module is loaded */</span></span><br><span class="line">	check_password_hook = check_password;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="3-2-2-1-5-编译"><a href="#3-2-2-1-5-编译" class="headerlink" title="3.2.2.1.5 编译"></a>3.2.2.1.5 编译</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##编译安装pg server</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##进入源码解压目录, 执行</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span>  postgresql-11.8</span><br><span class="line"></span><br><span class="line">./configure--prefix=/u01/pgsql11.8 --without-zlib --without-readline   --&gt;&gt;&gt;&gt;指定安装目录为/u01/pgsql11.8, 处于演示目的,所以没有安装zlib和readline包。</span><br><span class="line"></span><br><span class="line">make</span><br><span class="line"></span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line"><span class="comment">##编译安装contrib,是一些第三方组织贡献出来的工具代码。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##进入源码解压目录执行</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span>   postgresql-11.8/contrib</span><br><span class="line"></span><br><span class="line">make</span><br><span class="line"></span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line"><span class="comment">##编译完成后，在postgresql-11.8/contrib/passwordcheck/目录下增加passwordcheck.so文件</span></span><br><span class="line"><span class="comment">##编译后的文件，可以迁移到同版本数据库内使用</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-2-2-3-验证"><a href="#3-2-2-3-验证" class="headerlink" title="3.2.2.3 验证"></a>3.2.2.3 验证</h4><p>首先开启passwordcheck验证, 修改参数文件postgresql.conf</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改如下</span></span><br><span class="line">shared_preload_libraries= <span class="string">'passwordcheck'</span></span><br><span class="line">passwordcheck.level=<span class="string">'true‘</span></span><br></pre></td></tr></table></figure>
+<p> 重启实例生效</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pg_ctl restart</span><br></pre></td></tr></table></figure>
+<p><strong>测试</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提示密码太短</span></span><br><span class="line">postgres=<span class="comment"># create role btest with login password '123';</span></span><br><span class="line">ERROR:  password is too short</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 提示必须同时包括字母、数字、特殊字符</span></span><br><span class="line">postgres=<span class="comment"># create role btest with login password '12345678';</span></span><br><span class="line">ERROR:  password must contain both letters and number and specialchar</span><br><span class="line"></span><br><span class="line">postgres=<span class="comment"># create role btest with login password 'qqqqqqqq';</span></span><br><span class="line">ERROR:  password must contain both letters and nonletters</span><br><span class="line"></span><br><span class="line">postgres=<span class="comment"># create role btest with login password '!!!!!!!!!!!!';</span></span><br><span class="line">ERROR:  password must contain both letters and nonletters</span><br><span class="line"></span><br><span class="line">postgres=<span class="comment"># create role btest with login password '12345678a';</span></span><br><span class="line">ERROR:  password must contain both letters and number and specialchar</span><br><span class="line"></span><br><span class="line">postgres=<span class="comment"># create role btest with login password '1234567!';</span></span><br><span class="line">ERROR:  password must contain both letters and nonletters</span><br><span class="line"></span><br><span class="line">postgres=<span class="comment"># create role btest with login password '12345678a!';</span></span><br><span class="line">CREATE ROLE</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改密码提示必须同时包含字母、数字和特殊字符</span></span><br><span class="line">postgres=<span class="comment"># alter role btest password '12345678!';</span></span><br><span class="line">ERROR:  password must contain both letters and number and specialchar</span><br><span class="line"></span><br><span class="line"><span class="comment"># 提示密码不能包含用户名</span></span><br><span class="line">postgres=<span class="comment"># alter role btest password '123456btest!';</span></span><br><span class="line">ERROR:  password must not contain user name</span><br></pre></td></tr></table></figure>
+<h4 id="4-2-2-3-问题"><a href="#4-2-2-3-问题" class="headerlink" title="4.2.2.3 问题"></a>4.2.2.3 问题</h4><div class="note danger"><p><strong>警告</strong><br>这里还存在个问题，就是通过<code>\password</code>命令修改的话，可以输入不满足长度的密码，原因是使用<code>\password</code>时<code>passwordcheck</code>检查的是加密后的口令，官方文档提到过，检查<code>md5</code>加密后的口令是很困难的，所以当<code>passwordcheck</code>检查加密的口令时，只检查密码是否与用户名相同这一项，实际上是将用户名通过<code>md5</code>加密后与数据库中的<code>md5</code>密码做比较，如果相同，则报错口令不能与用户名相同。</p></div>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">postgres=#\password bert</span><br><span class="line"></span><br><span class="line">Enter new password:  <span class="comment">----&gt;&gt;&gt;&gt;&gt;可以输入小于8位的口令, 而不被阻. 但是输入的是与用户名相同的话可以被检测出来。</span></span><br><span class="line"></span><br><span class="line">Enter itagain:</span><br><span class="line"></span><br><span class="line">postgres=#</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">postgres=#\set ECHO_HIDDEN ON</span><br><span class="line"></span><br><span class="line">postgres=#\password bert</span><br><span class="line"></span><br><span class="line">Enter newpassword:</span><br><span class="line"></span><br><span class="line">Enter itagain:</span><br><span class="line"></span><br><span class="line">*********QUERY **********</span><br><span class="line"></span><br><span class="line">ALTERUSER bert PASSWORD 'md5efabd7549b98ddce9b14ba5e2e83eae1'</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="3-2-2-4-参考"><a href="#3-2-2-4-参考" class="headerlink" title="3.2.2.4 参考"></a>3.2.2.4 参考</h4><p><a href="https://www.modb.pro/db/171257" target="_blank" rel="noopener">https://www.modb.pro/db/171257</a></p>
+<p><a href="https://www.cnblogs.com/Luckyness/p/11996834.html" target="_blank" rel="noopener">https://www.cnblogs.com/Luckyness/p/11996834.html</a></p>
+<p><a href="https://github.com/Luckyness/passwordcheck/blob/master/passwordcheck.c" target="_blank" rel="noopener">https://github.com/Luckyness/passwordcheck/blob/master/passwordcheck.c</a></p>
+
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+        
+      </div>
+	  
+	  <div>
+        
+        
+        
+      </div>
+	
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="OperationMAN 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="OperationMAN 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/postgresql/" rel="tag"><i class="fa fa-tag"></i> postgresql</a>
+          
+            <a href="/tags/日志/" rel="tag"><i class="fa fa-tag"></i> 日志</a>
+          
+            <a href="/tags/审计/" rel="tag"><i class="fa fa-tag"></i> 审计</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/01/12/Elasticsearch导入导出数据-Elasticdump/" rel="next" title="Elasticsearch导入导出数据-Elasticdump">
+                <i class="fa fa-chevron-left"></i> Elasticsearch导入导出数据-Elasticdump
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/01/12/Postgresql开启日志审计/" rel="prev" title="ubuntu20.04安装NVIDIA显卡驱动+CUDA">
+                ubuntu20.04安装NVIDIA显卡驱动+CUDA <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+			<!--设置点击头像链接到首页-->
+			<a href="/">
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.jpeg"
+                alt="OperationMAN" />
+			</a>
+            
+              <p class="site-author-name" itemprop="name">OperationMAN</p>
+              <p class="site-description motion-element" itemprop="description">日常运维文档整理。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">156</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">106</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:kxhuanzi@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/kxinter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://gitee.com/kxinter" target="_blank" title="码云">
+                      
+                        <i class="fa fa-fw fa-code"></i>码云</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://man.linuxde.net/" target="_blank" title="Linux命令大全">
+                      
+                        <i class="fa fa-fw fa-linux"></i>Linux命令大全</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://linux.vbird.org" target="_blank" title="鸟哥的私房菜">
+                      
+                        <i class="fa fa-fw fa-linux"></i>鸟哥的私房菜</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.runoob.com/" target="_blank" title="RUNOOB.com">
+                      
+                        <i class="fa fa-fw fa-linux"></i>RUNOOB.com</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.chenshake.com/" target="_blank" title="陈沙克日志">
+                      
+                        <i class="fa fa-fw fa-cloud"></i>陈沙克日志</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://bitnami.com/" target="_blank" title="Bitnami">
+                      
+                        <i class="fa fa-fw fa-bold"></i>Bitnami</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://fontawesome.com/icons?d=gallery" target="_blank" title="Font Awesome">
+                      
+                        <i class="fa fa-fw fa-font-awesome"></i>Font Awesome</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://shenzekun.cn/hexo%E7%9A%84next%E4%B8%BB%E9%A2%98%E4%B8%AA%E6%80%A7%E5%8C%96%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.html" title="Next优化" target="_blank">Next优化</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" title="Next深度优化" target="_blank">Next深度优化</a>
+                  </li>
+                
+              </ul>
+			<div id="days"></div>
+<script>
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("05/27/2017 15:13:14");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行"+daysold+"天"+hrsold+"小时"+minsold+"分"+seconds+"秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+</script>
+  
+            </div>
+          
+
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-用户安全策略调整"><span class="nav-text">1 用户安全策略调整</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-限制root登陆和-SSH登陆超时设置"><span class="nav-text">1.1 限制root登陆和 SSH登陆超时设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-普通用户口令锁定策略"><span class="nav-text">1.2 普通用户口令锁定策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-口令生存周期（维护人员使用的账号）"><span class="nav-text">1.3 口令生存周期（维护人员使用的账号）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-口令重复次数限制"><span class="nav-text">1.4 口令重复次数限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-空密码账号"><span class="nav-text">1.5 空密码账号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-6-无关账号删除或禁用"><span class="nav-text">1.6 无关账号删除或禁用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-7-关闭telnet服务，默认没装"><span class="nav-text">1.7 关闭telnet服务，默认没装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-服务安全漏洞修复"><span class="nav-text">2 服务安全漏洞修复</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1系统ssl-ssh"><span class="nav-text">2.1系统ssl+ssh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-nginx"><span class="nav-text">2.2 nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-docker"><span class="nav-text">2.3 docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-tomcat"><span class="nav-text">2.4 tomcat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-mysal"><span class="nav-text">2.5 mysal</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-apache"><span class="nav-text">2.6 apache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7-consul"><span class="nav-text">2.7  consul</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-8-mapserv"><span class="nav-text">2.8 mapserv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-9-redis"><span class="nav-text">2.9 redis</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-日志审计"><span class="nav-text">3 日志审计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-postgresql开启日志审计"><span class="nav-text">3.1 postgresql开启日志审计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-postgresql设置密码复杂度校验"><span class="nav-text">3.2 postgresql设置密码复杂度校验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-默认密码校验策略"><span class="nav-text">3.2.1 默认密码校验策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-1-passwordcheck密码校验"><span class="nav-text">3.2.1.1 passwordcheck密码校验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-2-shared-preload-libraries-方式启用passwordcheck-so模块"><span class="nav-text">3.2.1.2 shared_preload_libraries 方式启用passwordcheck.so模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-3-验证"><span class="nav-text">3.2.1.3 验证</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-增强密码校验策略"><span class="nav-text">3.2.2 增强密码校验策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-1-步骤"><span class="nav-text">3.2.2.1 步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-2-1-1-实验环境"><span class="nav-text">3.2.2.1.1 实验环境</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-2-1-2-使用方式"><span class="nav-text">3.2.2.1.2 使用方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-2-1-3-效果"><span class="nav-text">3.2.2.1.3 效果</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-2-1-4-源码修改"><span class="nav-text">3.2.2.1.4 源码修改</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-2-1-5-编译"><span class="nav-text">3.2.2.1.5 编译</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-3-验证"><span class="nav-text">3.2.2.3 验证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-2-3-问题"><span class="nav-text">4.2.2.3 问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-4-参考"><span class="nav-text">3.2.2.4 参考</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  
+  <span class="author" itemprop="copyrightHolder">OperationMAN</span>
+
+  
+    <span class="post-meta-divider">|</span>
+ <!--    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span> -->
+	
+	
+<!--     
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">202.6k</span>
+   -->
+  
+  	<!--添加备案信息-->
+	<a href="http://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">  豫ICP备 17032296 号</a>
+</div>
+
+<!--修改页面底部主题名字和网站软件名字-->
+<!-- 
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+ -->
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<!--动态背景>
+ <script type="text/javascript" src="/kxinter.gitub.io/lib/canvas-nest/canvas-nest.min.js"></script> 
+  <-->
+ </body>
+</html>
+<script type="text/javascript" src="/kxinter.gitub.io/js/src/love.js"></script>
