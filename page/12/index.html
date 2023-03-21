@@ -351,6 +351,206 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2019/08/09/yaml例子/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="运维随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/09/yaml例子/" itemprop="url">yaml例子</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-09T11:54:51+08:00">
+                2019-08-09
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:32:19+08:00">
+                2022-06-05
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  611
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+<h1 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h1><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">mysql</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  replicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">  template:</span></span><br><span class="line"><span class="attr">    metadata:</span></span><br><span class="line"><span class="attr">      labels:</span></span><br><span class="line"><span class="attr">        run:</span> <span class="string">mysql</span></span><br><span class="line"><span class="attr">    spec:</span></span><br><span class="line"><span class="attr">      containers:</span></span><br><span class="line"><span class="attr">      - name:</span> <span class="string">mysql</span></span><br><span class="line"><span class="attr">        image:</span> <span class="attr">mysql:5.6</span></span><br><span class="line"><span class="attr">        env:</span></span><br><span class="line"><span class="attr">        - name:</span> <span class="string">MYSQL_ROOT_PASSWORD</span></span><br><span class="line"><span class="attr">          value:</span> <span class="string">zhjx@123</span></span><br><span class="line"><span class="attr">        ports:</span></span><br><span class="line"><span class="attr">        - containerPort:</span> <span class="number">3306</span></span><br><span class="line"><span class="attr">        volumeMounts:</span></span><br><span class="line"><span class="attr">        - name:</span> <span class="string">mysql-data</span></span><br><span class="line"><span class="attr">          mountPath:</span> <span class="string">/var/lib/mysql</span></span><br><span class="line"><span class="attr">        - name:</span> <span class="string">mysql-config</span></span><br><span class="line"><span class="attr">          mountPath:</span> <span class="string">/etc/mysql/conf.d/docker.cnf</span></span><br><span class="line"><span class="attr">          subPath:</span> <span class="string">docker.cnf</span></span><br><span class="line"><span class="attr">      volumes:</span></span><br><span class="line"><span class="attr">      - name:</span> <span class="string">mysql-data</span></span><br><span class="line"><span class="attr">        hostPath:</span></span><br><span class="line"><span class="attr">          path:</span> <span class="string">/scsidisk/data/mysql</span></span><br><span class="line"><span class="attr">      - name:</span> <span class="string">mysql-config</span></span><br><span class="line"><span class="attr">        configMap:</span></span><br><span class="line"><span class="attr">          name:</span> <span class="string">mysql-config</span></span><br><span class="line"><span class="attr">      nodeSelector:</span></span><br><span class="line"><span class="attr">        node:</span> <span class="string">node1</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">mysql-svc</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">NodePort</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    run:</span> <span class="string">mysql</span></span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="attr">  - protocol:</span> <span class="string">TCP</span></span><br><span class="line"><span class="attr">    nodePort:</span> <span class="number">30000</span></span><br><span class="line"><span class="attr">    port:</span> <span class="number">3306</span></span><br><span class="line"><span class="attr">    targetPort:</span> <span class="number">3306</span></span><br></pre></td></tr></table></figure>
+<h1 id="iwhereearth"><a href="#iwhereearth" class="headerlink" title="iwhereearth"></a>iwhereearth</h1><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">iwhereearth</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  replicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">  template:</span></span><br><span class="line"><span class="attr">    metadata:</span></span><br><span class="line"><span class="attr">      labels:</span></span><br><span class="line"><span class="attr">        run:</span> <span class="string">earth</span></span><br><span class="line"><span class="attr">    spec:</span></span><br><span class="line"><span class="attr">      hostAliases:</span></span><br><span class="line"><span class="attr">      - ip:</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.221</span></span><br><span class="line"><span class="attr">        hostnames:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">iwhereearthurl</span></span><br><span class="line"><span class="attr">      containers:</span></span><br><span class="line"><span class="attr">      - name:</span> <span class="string">earth</span> </span><br><span class="line"><span class="attr">        image:</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.118</span><span class="string">:5000/zhjx/iwhereearth:20180817</span></span><br><span class="line"><span class="attr">        imagePullPolicy:</span> <span class="string">IfNotPresent</span></span><br><span class="line"><span class="attr">        ports:</span></span><br><span class="line"><span class="attr">        - containerPort:</span> <span class="number">8080</span></span><br><span class="line"><span class="attr">        env:</span></span><br><span class="line"><span class="attr">        - name:</span> <span class="string">MYSQL_URL</span></span><br><span class="line"><span class="attr">          value:</span> <span class="string">mysql-svc</span></span><br><span class="line"><span class="attr">        - name:</span> <span class="string">MYSQL_USER</span></span><br><span class="line"><span class="attr">          value:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">        - name:</span> <span class="string">MYSQL_USER_PASSWORD</span></span><br><span class="line"><span class="attr">          value:</span> <span class="string">zhjx@123</span></span><br><span class="line"><span class="comment">#        volumeMounts:</span></span><br><span class="line"><span class="comment">#        - name: earth-data</span></span><br><span class="line"><span class="comment">#          mountPath: /tomcat/webapps</span></span><br><span class="line"><span class="comment">#        - name: tomcat-config</span></span><br><span class="line"><span class="comment">#          mountPath: /usr/local/tomcat/conf/server.xml</span></span><br><span class="line"><span class="comment">#          subPath: server.xml</span></span><br><span class="line"><span class="comment">#      volumes:</span></span><br><span class="line"><span class="comment">#      - name: earth-data</span></span><br><span class="line"><span class="comment">#        hostPath:</span></span><br><span class="line"><span class="comment">#          path: /scsidisk/update/iWhereEarth/nfzq_data</span></span><br><span class="line"><span class="comment">#      - name: tomcat-config</span></span><br><span class="line"><span class="comment">#        configMap:</span></span><br><span class="line"><span class="comment">#          name: req-tomcat-config</span></span><br><span class="line"><span class="comment">#      nodeSelector:</span></span><br><span class="line"><span class="comment">#        node: node1</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">iwhereearth-svc</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">NodePort</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    run:</span> <span class="string">earth</span></span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="attr">  - protocol:</span> <span class="string">TCP</span></span><br><span class="line"><span class="attr">    nodePort:</span> <span class="number">30202</span></span><br><span class="line"><span class="attr">    port:</span> <span class="number">8080</span></span><br><span class="line"><span class="attr">    targetPort:</span> <span class="number">8080</span></span><br></pre></td></tr></table></figure>
+<h1 id="iwherelink"><a href="#iwherelink" class="headerlink" title="iwherelink"></a>iwherelink</h1><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#apiVersion: v1</span></span><br><span class="line"><span class="comment">#kind: Namespace</span></span><br><span class="line"><span class="comment">#metadata:</span></span><br><span class="line"><span class="comment">#   name: iwherelink</span></span><br><span class="line"><span class="comment">#---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">iwherelink</span></span><br><span class="line"><span class="comment">#  namespace: iwherelink</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  replicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">  template:</span></span><br><span class="line"><span class="attr">    metadata:</span></span><br><span class="line"><span class="attr">      labels:</span></span><br><span class="line"><span class="attr">        run:</span> <span class="string">link</span></span><br><span class="line"><span class="attr">    spec:</span></span><br><span class="line"><span class="attr">      hostAliases:</span></span><br><span class="line"><span class="attr">      - ip:</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.9</span></span><br><span class="line"><span class="attr">        hostnames:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">redis</span> </span><br><span class="line"><span class="attr">      containers:</span></span><br><span class="line"><span class="attr">      - name:</span> <span class="string">link</span></span><br><span class="line"><span class="attr">        image:</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.118</span><span class="string">:5000/zhjx/iwherelink:201808171448</span></span><br><span class="line"><span class="attr">        imagePullPolicy:</span> <span class="string">IfNotPresent</span></span><br><span class="line"><span class="attr">        ports:</span></span><br><span class="line"><span class="attr">        - containerPort:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">        env:</span></span><br><span class="line"><span class="attr">        - name:</span> <span class="string">MYSQL_URL</span></span><br><span class="line"><span class="attr">          value:</span> <span class="string">mysql-svc</span></span><br><span class="line"><span class="attr">        - name:</span> <span class="string">MYSQL_USER</span></span><br><span class="line"><span class="attr">          value:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">        - name:</span> <span class="string">MYSQL_USER_PASSWORD</span></span><br><span class="line"><span class="attr">          value:</span> <span class="string">zhjx@123</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">iwherelink-svc</span></span><br><span class="line"><span class="comment">#  namespace: iwherelink</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">NodePort</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    run:</span> <span class="string">link</span></span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="attr">  - protocol:</span> <span class="string">TCP</span></span><br><span class="line"><span class="attr">    nodePort:</span> <span class="number">30102</span></span><br><span class="line"><span class="attr">    port:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">    targetPort:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>
+<h1 id="iwherevisual"><a href="#iwherevisual" class="headerlink" title="iwherevisual"></a>iwherevisual</h1><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Namespace</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">   name:</span> <span class="string">iwherevisual</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">postdb-visual</span></span><br><span class="line"><span class="attr">  namespace:</span> <span class="string">iwherevisual</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  replicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">  template:</span></span><br><span class="line"><span class="attr">    metadata:</span></span><br><span class="line"><span class="attr">      labels:</span></span><br><span class="line"><span class="attr">        run:</span> <span class="string">postdb-visual</span></span><br><span class="line"><span class="attr">    spec:</span></span><br><span class="line"><span class="attr">      containers:</span></span><br><span class="line"><span class="attr">      - name:</span> <span class="string">postdb-visual</span></span><br><span class="line"><span class="attr">        image:</span> <span class="attr">postgres:9.6.5</span></span><br><span class="line"><span class="attr">        imagePullPolicy:</span> <span class="string">IfNotPresent</span></span><br><span class="line"><span class="attr">        env:</span></span><br><span class="line"><span class="attr">        - name:</span> <span class="string">POSTGIS_PASSWORD</span></span><br><span class="line"><span class="attr">          value:</span> <span class="string">admin</span></span><br><span class="line"><span class="attr">        ports:</span></span><br><span class="line"><span class="attr">        - containerPort:</span> <span class="number">5432</span></span><br><span class="line"><span class="attr">        volumeMounts:</span></span><br><span class="line"><span class="attr">        - mountPath:</span> <span class="string">/var/lib/postgresql/data</span></span><br><span class="line"><span class="attr">          name:</span> <span class="string">postdb-visual</span></span><br><span class="line"><span class="attr">      volumes:</span></span><br><span class="line"><span class="attr">      - name:</span> <span class="string">postdb-visual</span></span><br><span class="line"><span class="attr">        hostPath:</span></span><br><span class="line"><span class="attr">          path:</span> <span class="string">/scsidisk/data/postdb_visual</span></span><br><span class="line"><span class="attr">      nodeSelector:</span></span><br><span class="line"><span class="attr">        node:</span> <span class="string">node1</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">postdb-visual-svc</span></span><br><span class="line"><span class="attr">  namespace:</span> <span class="string">iwherevisual</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">NodePort</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    run:</span> <span class="string">postdb-visual</span></span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="attr">  - protocol:</span> <span class="string">TCP</span></span><br><span class="line"><span class="attr">    nodePort:</span> <span class="number">30001</span></span><br><span class="line"><span class="attr">    port:</span> <span class="number">5432</span></span><br><span class="line"><span class="attr">    targetPort:</span> <span class="number">5432</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">iwherevisual</span></span><br><span class="line"><span class="attr">  namespace:</span> <span class="string">iwherevisual</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  replicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">  template:</span></span><br><span class="line"><span class="attr">    metadata:</span></span><br><span class="line"><span class="attr">      labels:</span></span><br><span class="line"><span class="attr">        run:</span> <span class="string">visual</span></span><br><span class="line"><span class="attr">    spec:</span></span><br><span class="line"><span class="attr">      containers:</span></span><br><span class="line"><span class="attr">      - name:</span> <span class="string">visual</span></span><br><span class="line"><span class="attr">        image:</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.118</span><span class="string">:5000/zhjx/iwherevisual:201904301601</span></span><br><span class="line"><span class="attr">        imagePullPolicy:</span> <span class="string">IfNotPresent</span></span><br><span class="line"><span class="attr">        ports:</span></span><br><span class="line"><span class="attr">        - containerPort:</span> <span class="number">7001</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">iwherevisual-svc</span></span><br><span class="line"><span class="attr">  namespace:</span> <span class="string">iwherevisual</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">NodePort</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    run:</span> <span class="string">visual</span></span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="attr">  - protocol:</span> <span class="string">TCP</span></span><br><span class="line"><span class="attr">    nodePort:</span> <span class="number">30101</span></span><br><span class="line"><span class="attr">    port:</span> <span class="number">7001</span></span><br><span class="line"><span class="attr">    targetPort:</span> <span class="number">7001</span></span><br></pre></td></tr></table></figure>
+<h1 id="洞见"><a href="#洞见" class="headerlink" title="洞见"></a>洞见</h1><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#apiVersion: v1</span></span><br><span class="line"><span class="comment">#kind: Namespace</span></span><br><span class="line"><span class="comment">#metadata:</span></span><br><span class="line"><span class="comment">#   name: iwherelink</span></span><br><span class="line"><span class="comment">#---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">dongjian</span></span><br><span class="line"><span class="attr">  namespace:</span> <span class="string">zhjx-base</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  replicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">  template:</span></span><br><span class="line"><span class="attr">    metadata:</span></span><br><span class="line"><span class="attr">      labels:</span></span><br><span class="line"><span class="attr">        run:</span> <span class="string">dongjian</span></span><br><span class="line"><span class="attr">    spec:</span></span><br><span class="line"><span class="attr">      containers:</span></span><br><span class="line"><span class="attr">      - name:</span> <span class="string">tomcat</span></span><br><span class="line"><span class="attr">        image:</span> <span class="attr">tomcat:8-jre8</span></span><br><span class="line"><span class="attr">        imagePullPolicy:</span> <span class="string">IfNotPresent</span></span><br><span class="line"><span class="attr">        ports:</span></span><br><span class="line"><span class="attr">        - containerPort:</span> <span class="number">8080</span></span><br><span class="line"><span class="attr">        volumeMounts:</span></span><br><span class="line"><span class="attr">        - mountPath:</span> <span class="string">/usr/local/tomcat/webapps</span></span><br><span class="line"><span class="attr">          name:</span> <span class="string">dongjian-tomcat</span></span><br><span class="line"><span class="attr">        - mountPath:</span> <span class="string">/home/data/insight/upload</span></span><br><span class="line"><span class="attr">          name:</span> <span class="string">dongjian-upload</span></span><br><span class="line"><span class="attr">      - name:</span> <span class="string">httpd</span></span><br><span class="line"><span class="attr">        image:</span> <span class="attr">httpd:latest</span></span><br><span class="line"><span class="attr">        imagePullPolicy:</span> <span class="string">IfNotPresent</span></span><br><span class="line"><span class="attr">        ports:</span></span><br><span class="line"><span class="attr">        - containerPort:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">        volumeMounts:</span></span><br><span class="line"><span class="attr">        - mountPath:</span> <span class="string">/usr/local/apache2/htdocs/upload</span></span><br><span class="line"><span class="attr">          name:</span> <span class="string">dongjian-httpd</span></span><br><span class="line"><span class="attr">      volumes:</span></span><br><span class="line"><span class="attr">      - name:</span> <span class="string">dongjian-tomcat</span></span><br><span class="line"><span class="attr">        hostPath:</span></span><br><span class="line"><span class="attr">          path:</span> <span class="string">/opt/data/PU2017001_洞见_CI.CD</span></span><br><span class="line"><span class="attr">      - name:</span> <span class="string">dongjian-upload</span></span><br><span class="line"><span class="attr">        hostPath:</span></span><br><span class="line"><span class="attr">          path:</span> <span class="string">/opt/data/PU2017001_洞见_CI.CD/upload</span></span><br><span class="line"><span class="attr">      - name:</span> <span class="string">dongjian-httpd</span></span><br><span class="line"><span class="attr">        hostPath:</span></span><br><span class="line"><span class="attr">          path:</span> <span class="string">/opt/data/PU2017001_洞见_CI.CD/upload</span></span><br><span class="line"><span class="attr">      nodeSelector:</span></span><br><span class="line"><span class="attr">          node:</span> <span class="string">node2</span></span><br><span class="line"><span class="comment">#        env:</span></span><br><span class="line"><span class="comment">#        - name: MYSQL_URL</span></span><br><span class="line"><span class="comment">#          value: mysql-svc</span></span><br><span class="line"><span class="comment">#        - name: MYSQL_USER</span></span><br><span class="line"><span class="comment">#          value: root</span></span><br><span class="line"><span class="comment">#        - name: MYSQL_USER_PASSWORD</span></span><br><span class="line"><span class="comment">#          value: zhjx@123</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">dongjian-tomcat-svc</span></span><br><span class="line"><span class="attr">  namespace:</span> <span class="string">zhjx-base</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">NodePort</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    run:</span> <span class="string">dongjian</span></span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="attr">  - protocol:</span> <span class="string">TCP</span></span><br><span class="line"><span class="attr">    nodePort:</span> <span class="number">30109</span></span><br><span class="line"><span class="attr">    port:</span> <span class="number">8080</span></span><br><span class="line"><span class="attr">    targetPort:</span> <span class="number">8080</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">dongjian-httpd-svc</span></span><br><span class="line"><span class="attr">  namespace:</span> <span class="string">zhjx-base</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">NodePort</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    run:</span> <span class="string">dongjian</span></span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="attr">  - protocol:</span> <span class="string">TCP</span></span><br><span class="line"><span class="attr">    nodePort:</span> <span class="number">30110</span></span><br><span class="line"><span class="attr">    port:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">    targetPort:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2019/08/08/zabbix钉钉通知/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1190,301 +1390,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2019/05/10/Docker容器的重启策略及-restart选项详解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="运维随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/10/Docker容器的重启策略及-restart选项详解/" itemprop="url">Docker容器的重启策略及--restart选项详解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-10T11:26:58+08:00">
-                2019-05-10
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:30:43+08:00">
-                2022-06-05
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.3k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  5
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <a id="more"></a>
-<p>创建容器时没有添加参数  –restart=always ，导致的后果是：当 Docker 重启时，容器未能自动启动。</p>
-<p>现在要添加该参数怎么办呢，方法有二：</p>
-<h1 id="1-重启策略及–restart选项详解"><a href="#1-重启策略及–restart选项详解" class="headerlink" title="1 重启策略及–restart选项详解"></a>1 重启策略及–restart选项详解</h1><h2 id="1-Docker容器的重启策略"><a href="#1-Docker容器的重启策略" class="headerlink" title="1. Docker容器的重启策略"></a>1. Docker容器的重启策略</h2><p>Docker容器的重启策略是面向生产环境的一个启动策略，在开发过程中可以忽略该策略。</p>
-<p>Docker容器的重启都是由Docker守护进程完成的，因此与守护进程息息相关。</p>
-<p><strong>Docker容器的重启策略如下：</strong></p>
-<ul>
-<li><code>no</code>，默认策略，在容器退出时不重启容器</li>
-<li><code>on-failure</code>，在容器非正常退出时（退出状态非0），才会重启容器<ul>
-<li><code>on-failure:3</code>，在容器非正常退出时重启容器，最多重启3次</li>
-</ul>
-</li>
-<li><code>always</code>，在容器退出时总是重启容</li>
-<li><code>unless-stopped</code>，在容器退出时总是重启容器，但是不考虑在Docker守护进程启动时就已经停止了的容器</li>
-</ul>
-<h2 id="2-Docker容器的退出状态码"><a href="#2-Docker容器的退出状态码" class="headerlink" title="2. Docker容器的退出状态码"></a>2. Docker容器的退出状态码</h2><p><strong><code>docker run</code>的退出状态码如下：</strong></p>
-<ul>
-<li><code>0</code>，表示正常退出</li>
-<li><code>非0</code>，表示异常退出（退出状态码采用chroot标准）<ul>
-<li>125，Docker守护进程本身的错误</li>
-<li>126，容器启动后，要执行的默认命令无法调用</li>
-<li>127，容器启动后，要执行的默认命令不存在</li>
-<li>其他命令状态码，容器启动后正常执行命令，退出命令时该命令的返回状态码作为容器的退出状态码</li>
-</ul>
-</li>
-</ul>
-<h2 id="3-docker-run的–restart选项"><a href="#3-docker-run的–restart选项" class="headerlink" title="3. docker run的–restart选项"></a>3. docker run的–restart选项</h2><p>通过<code>--restart</code>选项，可以设置容器的重启策略，以决定在容器退出时Docker守护进程是否重启刚刚退出的容器。<br><code>--restart</code>选项通常只用于<code>detached模式</code>的容器。</p>
-<p><code>--restart</code>选项不能与<code>--rm</code>选项同时使用。显然，<code>-restart</code>选项适用于<code>detached模式</code>的容器，而<code>--rm</code>选项适用于<code>foreground</code>模式的容器。</p>
-<p>在<code>docker ps</code>查看容器时，对于使用了<code>--restart</code>选项的容器，其可能的状态只有<code>Up</code>或<code>Restarting</code>两种状态。</p>
-<p><strong>示例：</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --restart=always bba-208</span><br><span class="line">docker run -d --restart=on-failure:10 bba-208</span><br></pre></td></tr></table></figure>
-<p><strong>补充：</strong></p>
-<p>查看容器重启次数</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect -f <span class="string">"&#123;&#123; .RestartCount &#125;&#125;"</span> bba-208</span><br></pre></td></tr></table></figure>
-<p>查看容器最后一次的启动时间</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect -f <span class="string">"&#123;&#123; .State.StartedAt &#125;&#125;"</span> bba-208</span><br></pre></td></tr></table></figure>
-<h1 id="2、Docker-命令修改"><a href="#2、Docker-命令修改" class="headerlink" title="2、Docker 命令修改"></a>2、Docker 命令修改</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container update --restart=always 容器名字</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">操作实例如下：</span><br><span class="line">[root@localhost mnt]<span class="comment"># docker ps -a</span></span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS               NAMES</span><br><span class="line">46cdfc60b7a6        nginx               <span class="string">"nginx -g 'daemon ..."</span>   About a minute ago   Up 42 seconds       80/tcp              n3</span><br><span class="line">79d55a734c26        nginx               <span class="string">"nginx -g 'daemon ..."</span>   About a minute ago   Up 42 seconds       80/tcp              n2</span><br><span class="line">f7b2206c019d        nginx               <span class="string">"nginx -g 'daemon ..."</span>   About a minute ago   Up 46 seconds       80/tcp              n1</span><br><span class="line">[root@localhost mnt]<span class="comment"># docker container update --restart=always n1</span></span><br><span class="line">n1</span><br><span class="line">[root@localhost mnt]<span class="comment"># systemctl restart docker </span></span><br><span class="line">[root@localhost mnt]<span class="comment"># docker ps -a</span></span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                     PORTS               NAMES</span><br><span class="line">46cdfc60b7a6        nginx               <span class="string">"nginx -g 'daemon ..."</span>   2 minutes ago       Exited (0) 5 seconds ago                       n3</span><br><span class="line">79d55a734c26        nginx               <span class="string">"nginx -g 'daemon ..."</span>   2 minutes ago       Exited (0) 5 seconds ago                       n2</span><br><span class="line">f7b2206c019d        nginx               <span class="string">"nginx -g 'daemon ..."</span>   2 minutes ago       Up 2 seconds               80/tcp              n1</span><br></pre></td></tr></table></figure>
-<h1 id="3、直接改配置文件"><a href="#3、直接改配置文件" class="headerlink" title="3、直接改配置文件"></a>3、直接改配置文件</h1><p><strong><code>（经测试后无效，修改配置文件后，启动容器后，该参数有自动变成了no，修改不生效）</code></strong></p>
-<div class="note success"><p>首先停止容器，不然无法修改配置文件<br>配置文件路径为：<code>/var/lib/docker/containers/容器ID</code><br>在该目录下找到一个文件 <code>hostconfig.json</code>，找到该文件中关键字 <code>RestartPolicy</code><br>修改前配置：<code>&quot;RestartPolicy&quot;:{&quot;Name&quot;:&quot;no&quot;,&quot;MaximumRetryCount&quot;:0}</code><br>修改后配置：<code>&quot;RestartPolicy&quot;:{&quot;Name&quot;:&quot;always&quot;,&quot;MaximumRetryCount&quot;:0}</code><br>最后启动容器。</p></div>
-<hr>
-<h1 id="4-修改docker容器的挂载路径"><a href="#4-修改docker容器的挂载路径" class="headerlink" title="4 修改docker容器的挂载路径"></a>4 修改docker容器的挂载路径</h1><ul>
-<li>停止所有docker容器</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker stop $(docker ps -a | awk <span class="string">'&#123; print $1&#125;'</span> | tail -n +2)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>停止docker服务</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker stop</span><br></pre></td></tr></table></figure>
-<ul>
-<li>修改mysql路径</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">sudo cp -r mysql/ /home/server/</span><br></pre></td></tr></table></figure>
-<ul>
-<li>备份容器配置文件</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /var/lib/docker/containers/de9c6501cdd3</span><br><span class="line">cp hostconfig.json hostconfig.json.bak</span><br><span class="line">cp config.v2.json config.v2.json.bak</span><br></pre></td></tr></table></figure>
-<ul>
-<li>修改hostconfig的冒号前的配置路径</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi hostconfig.json</span><br><span class="line"></span><br><span class="line"><span class="string">"Binds"</span>: [<span class="string">"/home/server/mysql/conf/my.cnf:/etc/mysql/my.cnf"</span>, <span class="string">"/home/server/mysql/logs:/logs"</span>, <span class="string">"/home/server/mysql/data:/mysql_data"</span>],</span><br></pre></td></tr></table></figure>
-<ul>
-<li>修改config的Source的配置路径</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">vi config.v2.json</span><br><span class="line"></span><br><span class="line">       <span class="string">"MountPoints"</span>: &#123;</span><br><span class="line"></span><br><span class="line">              <span class="string">"/etc/mysql/my.cnf"</span>: &#123;</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Source"</span>: <span class="string">"/home/server/mysql/conf/my.cnf"</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Destination"</span>: <span class="string">"/etc/mysql/my.cnf"</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"RW"</span>: <span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Name"</span>: <span class="string">""</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Driver"</span>: <span class="string">""</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Relabel"</span>: <span class="string">""</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Propagation"</span>: <span class="string">"rprivate"</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Named"</span>: <span class="literal">false</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"ID"</span>: <span class="string">""</span></span><br><span class="line"></span><br><span class="line">              &#125;,</span><br><span class="line"></span><br><span class="line">              <span class="string">"/logs"</span>: &#123;</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Source"</span>: <span class="string">"/home/server/mysql/logs"</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Destination"</span>: <span class="string">"/logs"</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"RW"</span>: <span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Name"</span>: <span class="string">""</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Driver"</span>: <span class="string">""</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Relabel"</span>: <span class="string">""</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Propagation"</span>: <span class="string">"rprivate"</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Named"</span>: <span class="literal">false</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"ID"</span>: <span class="string">""</span></span><br><span class="line"></span><br><span class="line">              &#125;,</span><br><span class="line"></span><br><span class="line">              <span class="string">"/mysql_data"</span>: &#123;</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Source"</span>: <span class="string">"/home/server/mysql/data"</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Destination"</span>: <span class="string">"/mysql_data"</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"RW"</span>: <span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Name"</span>: <span class="string">""</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Driver"</span>: <span class="string">""</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Relabel"</span>: <span class="string">""</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Propagation"</span>: <span class="string">"rprivate"</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Named"</span>: <span class="literal">false</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"ID"</span>: <span class="string">""</span></span><br><span class="line"></span><br><span class="line">              &#125;,</span><br><span class="line"></span><br><span class="line">              <span class="string">"/var/lib/mysql"</span>: &#123;</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Source"</span>: <span class="string">""</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Destination"</span>: <span class="string">"/var/lib/mysql"</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"RW"</span>: <span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Name"</span>: <span class="string">"85d91bff7012b57606af819480ce267449084e81ab386737c80ace9fe75f6621"</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Driver"</span>: <span class="string">"local"</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Relabel"</span>: <span class="string">""</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Propagation"</span>: <span class="string">""</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"Named"</span>: <span class="literal">false</span>,</span><br><span class="line"></span><br><span class="line">                     <span class="string">"ID"</span>: <span class="string">"897cd0152dd152166cb2715044ca4a3915a1b66280e0eb096eb74c2d737d7f77"</span></span><br><span class="line"></span><br><span class="line">              &#125;</span><br><span class="line"></span><br><span class="line">       &#125;,</span><br></pre></td></tr></table></figure>
-<hr>
-<h1 id="5-修改docker默认的存储位置"><a href="#5-修改docker默认的存储位置" class="headerlink" title="5 修改docker默认的存储位置"></a>5 修改docker默认的存储位置</h1><p>docker 的所有images及相关信息存储位置为：<code>/var/lib/docker</code></p>
-<ul>
-<li>查看默认的docker存储路径</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker info |grep <span class="string">'Docker Root Dir'</span></span><br><span class="line">WARNING: No swap <span class="built_in">limit</span> support</span><br><span class="line">Docker Root Dir: /var/lib/docker</span><br></pre></td></tr></table></figure>
-<ul>
-<li>停止所有docker容器</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker stop $(docker ps -a | awk <span class="string">'&#123; print $1&#125;'</span> | tail -n +2)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>停止docker服务</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker stop</span><br><span class="line"><span class="built_in">cd</span> /var/lib</span><br></pre></td></tr></table></figure>
-<ul>
-<li>打包docker目录</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo tar -czvf /usr/docker.tar.gz docker/</span><br><span class="line"><span class="built_in">cd</span> /usr/</span><br><span class="line">sudo tar -xzvf docker.tar.gz</span><br></pre></td></tr></table></figure>
-<ul>
-<li>修改docker默认的存储位置</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"graph"</span>: <span class="string">"/home/server/docker"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>启动docker服务</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker start</span><br></pre></td></tr></table></figure>
-<ul>
-<li>启动所有docker容器</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker start $(docker ps -a | awk <span class="string">'&#123; print $1&#125;'</span> | tail -n +2)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>查看修改后docker存储路径</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker info |grep <span class="string">'Docker Root Dir'</span></span><br><span class="line">WARNING: No swap <span class="built_in">limit</span> support</span><br><span class="line">Docker Root Dir: /usr/docker</span><br></pre></td></tr></table></figure>
-<p>本文转自：<a href="https://www.cnblogs.com/zhuochong/p/10070516.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhuochong/p/10070516.html</a> ！！！！！！</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1542,7 +1447,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">156</span>
+                  <span class="site-state-item-count">157</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1564,7 +1469,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">106</span>
+                  <span class="site-state-item-count">107</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1720,7 +1625,7 @@ show_date_time();
 <!--     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">202.6k</span>
+    <span title="Site words total count">202.8k</span>
    -->
   
   	<!--添加备案信息-->

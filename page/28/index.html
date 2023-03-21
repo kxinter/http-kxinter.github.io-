@@ -351,6 +351,210 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/27/VMware共享文件夹设置方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="运维随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/27/VMware共享文件夹设置方法/" itemprop="url">VMware共享文件夹设置方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-27T11:24:35+08:00">
+                2018-08-27
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:27:25+08:00">
+                2022-06-05
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  178
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+<h1 id="一、安装包依赖："><a href="#一、安装包依赖：" class="headerlink" title="一、安装包依赖："></a>一、安装包依赖：</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ yum -y <span class="keyword">install</span> kernel-devel-$(uname -r) </span><br><span class="line">$ yum -y <span class="keyword">install</span> net-tools perl gcc gcc-c++</span><br></pre></td></tr></table></figure>
+<h1 id="二、安装vmtool"><a href="#二、安装vmtool" class="headerlink" title="二、安装vmtool"></a>二、安装vmtool</h1><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ mount <span class="string">/dev/cdrom</span> <span class="string">/home/tmp</span></span><br><span class="line">$ cp <span class="string">/home/tmp/VMwareTools-9.6.0-1294478.tar.gz</span> <span class="string">/tmp</span></span><br><span class="line">$ <span class="keyword">cd</span> <span class="string">/tmp</span></span><br><span class="line">$ tar -zxvf VMwareTools-9.6.0-1294478.tar.gz</span><br><span class="line">$ <span class="keyword">cd</span> vmware-tools-distrib</span><br><span class="line">$ <span class="string">./vmware-install.pl</span></span><br></pre></td></tr></table></figure>
+<p>按提示操作即可。</p>
+<h1 id="三、问题"><a href="#三、问题" class="headerlink" title="三、问题"></a>三、问题</h1><p>有/mnt/hgfs但没有共享文件的解决方法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ mount -t vmhgfs .host:/  /mnt/hgfs</span><br><span class="line">Error: cannot mount filesystem: No such device</span><br></pre></td></tr></table></figure>
+<p>这时不能用mount工具挂载，而是得用vmhgfs-fuse，需要安装工具包</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ yum install <span class="keyword">open</span>-<span class="keyword">vm</span>-tools-devel -<span class="keyword">y</span></span><br><span class="line">有的源的名字并不一定为<span class="keyword">open</span>-<span class="keyword">vm</span>-tools-devel(centos) ，而是<span class="keyword">open</span>-<span class="keyword">vm</span>-dkms(unbuntu)</span><br><span class="line">执行：vmhgfs-fuse .hos<span class="variable">t:</span>/ /mnt/hgfs</span><br></pre></td></tr></table></figure>
+<p>此时进入/mnt/hgfs就能看到你设置的共享文件夹了。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/27/SSL证书制作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1178,210 +1382,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/23/docker私有仓库搭建/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="运维随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/23/docker私有仓库搭建/" itemprop="url">docker私有仓库搭建</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-23T16:17:08+08:00">
-                2018-08-23
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:24:38+08:00">
-                2022-06-05
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  336
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <a id="more"></a>
-<h1 id="1-搭建仓库"><a href="#1-搭建仓库" class="headerlink" title="1 搭建仓库"></a>1 搭建仓库</h1><p>安装docker-ce,过程省略…….；运行以下命令启动仓库</p>
-<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --name registry --restart always -d -p <span class="number">5000</span>:<span class="number">5000</span> -v /.<span class="symbol">registry:</span>/var/<span class="class"><span class="keyword">lib</span>/<span class="title">registry</span> <span class="title">registry</span></span></span><br></pre></td></tr></table></figure>
-<h1 id="2-修改配置"><a href="#2-修改配置" class="headerlink" title="2 修改配置"></a>2 修改配置</h1><p>修改所有需要使用私有仓库的docker服务器（包括仓库服务器）的docker配置，在/etc/docker目录创建daemon.json文件内容如下：<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># 下面这句表示表示开启5000端口的非安全模式，也就是http模式，否则在push或pull时会报https错误</span></span><br><span class="line">&#123; <span class="string">"insecure-registries"</span>:[<span class="string">"192.168.1.11:5000"</span>] &#125;</span><br><span class="line"><span class="meta"># 下面这句是使用阿里云镜像加速，提高外网官方仓库的下载速度，这里一起列出了，不是必须要添加的，和私有仓库没有关系。</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"registry-mirrors"</span>: [<span class="string">"https://cz0az3lb.mirror.aliyuncs.com"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>可以同时设置，写法如下</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="attr">"insecure-registries"</span>:[<span class="string">"192.168.1.118:5000"</span>],</span><br><span class="line"><span class="attr">"registry-mirrors"</span>: [<span class="string">"http://192.168.1.118:5001"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>重启docker服务，配置生效</p>
-<h1 id="3-查询仓库镜像列表"><a href="#3-查询仓库镜像列表" class="headerlink" title="3 查询仓库镜像列表"></a>3 查询仓库镜像列表</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@zabbix-11 docker]<span class="comment"># curl -XGET http://192.168.1.11:5000/v2/_catalog</span></span><br><span class="line">&#123;<span class="string">"repositories"</span>:[<span class="string">"nginx"</span>]&#125;</span><br><span class="line"><span class="comment"># 显示镜像nginx</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查询镜像版本</span></span><br><span class="line"></span><br><span class="line">``` elixir</span><br><span class="line">[root@zabbix-11 docker]<span class="comment"># curl -XGET http://192.168.1.11:5000/v2/nginx/tags/list</span></span><br><span class="line">&#123;<span class="string">"name"</span>:<span class="string">"nginx"</span>,<span class="string">"tags"</span>:[<span class="string">"1"</span>,<span class="string">"1.13.7"</span>]&#125;</span><br><span class="line"><span class="comment">#查询nginx镜像的版本号，有1/1.13.7版本</span></span><br></pre></td></tr></table></figure>
-<p>以上查询也可以在web页面查询，复制命令后方http链接地址就行。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1439,7 +1439,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">156</span>
+                  <span class="site-state-item-count">157</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1461,7 +1461,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">106</span>
+                  <span class="site-state-item-count">107</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1617,7 +1617,7 @@ show_date_time();
 <!--     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">202.6k</span>
+    <span title="Site words total count">202.8k</span>
    -->
   
   	<!--添加备案信息-->

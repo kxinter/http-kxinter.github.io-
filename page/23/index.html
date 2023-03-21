@@ -351,6 +351,209 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/30/openvpn-squid搭建通过http代理访问openvpn服务器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="运维随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/30/openvpn-squid搭建通过http代理访问openvpn服务器/" itemprop="url">openvpn+squid搭建通过http代理访问openvpn服务器</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-30T16:57:08+08:00">
+                2018-08-30
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:23:51+08:00">
+                2022-06-05
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+<h1 id="1-环境："><a href="#1-环境：" class="headerlink" title="1 环境："></a>1 环境：</h1><p>OS : Centos 7.2 x86_64</p>
+<h1 id="2-Squid部署"><a href="#2-Squid部署" class="headerlink" title="2 Squid部署"></a>2 Squid部署</h1><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@bogon</span> ~]<span class="comment"># yum install squid</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-1-编辑配置文件"><a href="#2-1-编辑配置文件" class="headerlink" title="2.1 编辑配置文件"></a>2.1 编辑配置文件</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@bogon</span> ~]<span class="comment"># vim /etc/squid/squid.conf</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Recommended minimum configuration:</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Example rule allowing access from your local networks.</span></span><br><span class="line"><span class="comment"># Adapt to list your (internal) IP networks from where browsing</span></span><br><span class="line"><span class="comment"># should be allowed</span></span><br><span class="line">acl <span class="literal">all</span> src <span class="literal">all</span>                      <span class="comment">#添加允许所有IP地址访问</span></span><br><span class="line">acl localnet src <span class="number">10.0</span>.<span class="number">0.0</span>/<span class="number">8</span>	<span class="comment"># RFC1918 possible internal network</span></span><br><span class="line">acl localnet src <span class="number">172.16</span>.<span class="number">0.0</span>/<span class="number">12</span>	<span class="comment"># RFC1918 possible internal network</span></span><br><span class="line">acl localnet src <span class="number">192.168</span>.<span class="number">0.0</span>/<span class="number">16</span>	<span class="comment"># RFC1918 possible internal network</span></span><br><span class="line">acl localnet src fc00::/<span class="number">7</span>       <span class="comment"># RFC 4193 local private network range</span></span><br><span class="line">acl localnet src fe80::/<span class="number">10</span>      <span class="comment"># RFC 4291 link-local (directly plugged) machines</span></span><br><span class="line"></span><br><span class="line">acl SSL_ports <span class="keyword">port</span> <span class="number">443</span></span><br><span class="line">acl Safe_ports <span class="keyword">port</span> <span class="number">80</span>		<span class="comment"># http</span></span><br><span class="line">acl Safe_ports <span class="keyword">port</span> <span class="number">21</span>		<span class="comment"># ftp</span></span><br><span class="line">acl Safe_ports <span class="keyword">port</span> <span class="number">443</span>		<span class="comment"># https</span></span><br><span class="line">acl Safe_ports <span class="keyword">port</span> <span class="number">70</span>		<span class="comment"># gopher</span></span><br><span class="line">acl Safe_ports <span class="keyword">port</span> <span class="number">210</span>		<span class="comment"># wais</span></span><br><span class="line">acl Safe_ports <span class="keyword">port</span> <span class="number">1025</span>-<span class="number">65535</span>	<span class="comment"># unregistered ports</span></span><br><span class="line">acl Safe_ports <span class="keyword">port</span> <span class="number">280</span>		<span class="comment"># http-mgmt</span></span><br><span class="line">acl Safe_ports <span class="keyword">port</span> <span class="number">488</span>		<span class="comment"># gss-http</span></span><br><span class="line">acl Safe_ports <span class="keyword">port</span> <span class="number">591</span>		<span class="comment"># filemaker</span></span><br><span class="line">acl Safe_ports <span class="keyword">port</span> <span class="number">777</span>		<span class="comment"># multiling http</span></span><br><span class="line">acl CONNECT method CONNECT</span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Recommended minimum Access Permission configuration:</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Deny requests to certain unsafe ports</span></span><br><span class="line">http_access allow !Safe_ports         <span class="comment">#</span></span><br><span class="line"><span class="comment"># Deny CONNECT to other than secure SSL ports</span></span><br><span class="line">http_access allow CONNECT !SSL_ports       <span class="comment">#设置允许所有SSL通过(不设置的话无法连接到http服务器)</span></span><br><span class="line"><span class="comment"># Only allow cachemgr access from localhost</span></span><br><span class="line">http_access allow localhost manager</span><br><span class="line">http_access allow manager</span><br><span class="line"></span><br><span class="line">access_log /var/<span class="keyword">log</span>/squid/access.<span class="keyword">log</span> combined</span><br><span class="line">cache_log /var/<span class="keyword">log</span>/squid/cache.<span class="keyword">log</span></span><br><span class="line"><span class="comment"># We strongly recommend the following be uncommented to protect innocent</span></span><br><span class="line"><span class="comment"># web applications running on the proxy server who think the only</span></span><br><span class="line"><span class="comment"># one who can access services on "localhost" is a local user</span></span><br><span class="line"><span class="comment">#http_access deny to_localhost</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># INSERT YOUR OWN RULE(S) HERE TO ALLOW ACCESS FROM YOUR CLIENTS</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Example rule allowing access from your local networks.</span></span><br><span class="line"><span class="comment"># Adapt localnet in the ACL section to list your (internal) IP networks</span></span><br><span class="line"><span class="comment"># from where browsing should be allowed</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># And finally deny all other access to this proxy</span></span><br><span class="line">http_access allow <span class="literal">all</span>                <span class="comment">#修改允许所有人使用该代理.因为这里是代理加速web服务器</span></span><br><span class="line">http_reply_access allow <span class="literal">all</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Squid normally listens to port 3128</span></span><br><span class="line"><span class="comment">#http_port 3128</span></span><br><span class="line">http_port <span class="number">4346</span>                    <span class="comment">#修改默认监听端口，即代理端口。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Uncomment and adjust the following to add a disk cache directory.</span></span><br><span class="line"><span class="comment">#cache_dir ufs /var/spool/squid 100 16 256</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Leave coredumps in the first cache dir</span></span><br><span class="line">coredump_dir /var/spool/squid</span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Add any of your own refresh_pattern entries above these.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">refresh_pattern ^ftp:		<span class="number">1440</span>	<span class="number">20</span>%	<span class="number">10080</span></span><br><span class="line">refresh_pattern ^gopher:	<span class="number">1440</span>	<span class="number">0</span>%	<span class="number">1440</span></span><br><span class="line">refresh_pattern -i (/cgi-bin/|\?) <span class="number">0</span>	<span class="number">0</span>%	<span class="number">0</span></span><br><span class="line">refresh_pattern .		<span class="number">0</span>	<span class="number">20</span>%	<span class="number">4320</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-2-启动squid及设置开机启动"><a href="#2-2-启动squid及设置开机启动" class="headerlink" title="2.2 启动squid及设置开机启动"></a>2.2 启动squid及设置开机启动</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@bogon</span> ~]<span class="comment"># systemctl start squid.service</span></span><br><span class="line"></span><br><span class="line">[root<span class="variable">@bogon</span> ~]<span class="comment"># systemctl enable squid.service</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-3-openvpn客户端配置proxy"><a href="#2-3-openvpn客户端配置proxy" class="headerlink" title="2.3 openvpn客户端配置proxy"></a>2.3 openvpn客户端配置proxy</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#############################################</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Sample client-side OpenVPN 2.0 config file <span class="comment">#</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">for</span> connecting to multi-client server.     <span class="comment">#</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">                                            <span class="comment">#</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> This configuration can be used by multiple <span class="comment">#</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> clients, however each client should have   <span class="comment">#</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> its own cert and key files.                <span class="comment">#</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">                                            <span class="comment">#</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> On Windows, you might want to rename this  <span class="comment">#</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> file so it has a .ovpn extension           <span class="comment">#</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#############################################</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Specify that we are a client and that we</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> will be pulling certain config file directives</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> from the server.</span></span><br><span class="line">client</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Use the same setting as you are using on</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> the server.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> On most systems, the VPN will not <span class="keyword">function</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> unless you partially or fully <span class="built_in">disable</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> the firewall <span class="keyword">for</span> the TUN/TAP interface.</span></span><br><span class="line">;dev tap</span><br><span class="line">dev tun</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Windows needs the TAP-Win32 adapter name</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> from the Network Connections panel</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">if</span> you have more than one.  On XP SP2,</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> you may need to <span class="built_in">disable</span> the firewall</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">for</span> the TAP adapter.</span></span><br><span class="line">;dev-node MyTap</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Are we connecting to a TCP or</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> UDP server?  Use the same setting as</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> on the server.</span></span><br><span class="line">proto tcp</span><br><span class="line">;proto udp</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> The hostname/IP and port of the server.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> You can have multiple remote entries</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> to load balance between the servers.</span></span><br><span class="line">;remote 172.20.20.25 1194</span><br><span class="line">remote openvpn服务器地址或域名 1194</span><br><span class="line">;remote my-server-2 1194</span><br><span class="line"></span><br><span class="line">;http-proxy vpnproxy.dealeasy.com 4346</span><br><span class="line">http-proxy squid服务器地址 4346            #添加http代理</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Choose a random host from the remote</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> list <span class="keyword">for</span> load-balancing.  Otherwise</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> try hosts <span class="keyword">in</span> the order specified.</span></span><br><span class="line">;remote-random</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Keep trying indefinitely to resolve the</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> host name of the OpenVPN server.  Very useful</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> on machines <span class="built_in">which</span> are not permanently connected</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> to the internet such as laptops.</span></span><br><span class="line">resolv-retry infinite</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Most clients don<span class="string">'t need to bind to</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> a specific <span class="built_in">local</span> port number.</span></span><br><span class="line">nobind</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Downgrade privileges after initialization (non-Windows only)</span></span><br><span class="line">;user nobody</span><br><span class="line">;group nobody</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Try to preserve some state across restarts.</span></span><br><span class="line">persist-key</span><br><span class="line">persist-tun</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> If you are connecting through an</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> HTTP proxy to reach the actual OpenVPN</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> server, put the proxy server/IP and</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> port number here.  See the man page</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">if</span> your proxy server requires</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> authentication.</span></span><br><span class="line">;http-proxy-retry # retry on connection failures</span><br><span class="line">;http-proxy [proxy server] [proxy port #]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Wireless networks often produce a lot</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> of duplicate packets.  Set this flag</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> to silence duplicate packet warnings.</span></span><br><span class="line">;mute-replay-warnings</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> SSL/TLS parms.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> See the server config file <span class="keyword">for</span> more</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> description.  It<span class="string">'s best to use</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> a separate .crt/.key file pair</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">for</span> each client.  A single ca</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> file can be used <span class="keyword">for</span> all clients.</span></span><br><span class="line">ca ca.crt</span><br><span class="line"><span class="meta">#</span><span class="bash">cert client.crt</span></span><br><span class="line"><span class="meta">#</span><span class="bash">key client.key</span></span><br><span class="line"></span><br><span class="line">auth-user-pass</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Verify server certificate by checking that the</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> certicate has the correct key usage <span class="built_in">set</span>.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> This is an important precaution to protect against</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> a potential attack discussed here:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">  http://openvpn.net/howto.html<span class="comment">#mitm</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> To use this feature, you will need to generate</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> your server certificates with the keyUsage <span class="built_in">set</span> to</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   digitalSignature, keyEncipherment</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> and the extendedKeyUsage to</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   serverAuth</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> EasyRSA can <span class="keyword">do</span> this <span class="keyword">for</span> you.</span></span><br><span class="line">remote-cert-tls server</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> If a tls-auth key is used on the server</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">then</span> every client must also have the key.</span></span><br><span class="line">;tls-auth ta.key 1</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Select a cryptographic cipher.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> If the cipher option is used on the server</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">then</span> you must also specify it here.</span></span><br><span class="line">;cipher x</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Enable compression on the VPN link.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Don<span class="string">'t enable this unless it is also</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> enabled <span class="keyword">in</span> the server config file.</span></span><br><span class="line">comp-lzo</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Set <span class="built_in">log</span> file verbosity.</span></span><br><span class="line">verb 3</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Silence repeating messages</span></span><br><span class="line">;mute 20</span><br></pre></td></tr></table></figure>
+<p>现在可以通过http代理连接VPN服务器。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/30/windows重置网卡解决无法上网问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1236,231 +1439,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2018/08/30/zabbix监控VMware/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="运维随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/30/zabbix监控VMware/" itemprop="url">zabbix监控VMware</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-30T11:54:59+08:00">
-                2018-08-30
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:22:23+08:00">
-                2022-06-05
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/自动化运维/" itemprop="url" rel="index">
-                    <span itemprop="name">自动化运维</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  264
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <a id="more"></a>
-<h1 id="1-环境"><a href="#1-环境" class="headerlink" title="1 环境"></a>1 环境</h1><p>Centos 7.2</p>
-<p>Zabbix 3.0</p>
-<p>VMware 5.5/6.0</p>
-<h1 id="2-步骤"><a href="#2-步骤" class="headerlink" title="2 步骤"></a>2 步骤</h1><h2 id="2-1-修改配置文件"><a href="#2-1-修改配置文件" class="headerlink" title="2.1 修改配置文件"></a>2.1 修改配置文件</h2><ol>
-<li>修改zabbix server配置文件</li>
-</ol>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vim</span> /etc/zabbix/zabbix_server.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
-<p>添加如下内容</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">StartVMwareCollectors=5</span><br><span class="line"></span><br><span class="line">VMwareFrequency=60</span><br><span class="line"></span><br><span class="line">VMwareCacheSize=8M</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>StartVMwareCollectors=5  #预启动的VMware数据采集线程数量，值范围：0~250</p>
-<p>VMwareFrequency=60     #VMware的数据检测缓存大小，值范围：256K~2G</p>
-<p>VMwareCacheSize=8M     #数据采集的频率，值范围：10~86400</p>
-</blockquote>
-<ol start="2">
-<li>重启zabbix—server服务</li>
-</ol>
-<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service zabbix-<span class="built_in">server</span> restart</span><br></pre></td></tr></table></figure>
-<h2 id="2-2-添加VM主机监控"><a href="#2-2-添加VM主机监控" class="headerlink" title="2.2 添加VM主机监控"></a>2.2 添加VM主机监控</h2><ol>
-<li>添加主机<br>网上很多教程都说端口改为80,但我改成80后无法获取到数据，但使用10050端口可以获取到（默认VMware无需安装agent）</li>
-</ol>
-<ol start="2">
-<li>添加模版</li>
-</ol>
-<ol start="3">
-<li>添加宏</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="variable">$PASSWORD</span>&#125;                  <span class="comment">#连接VMware的用户密码</span></span><br><span class="line"></span><br><span class="line">&#123;<span class="variable">$URL</span>&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#固定格式：`https://IP/sdk `    网页访问地址错误，`curl -I -k https://192.168.0.19/sdk `测试 没问题</span></span><br><span class="line"></span><br><span class="line">&#123;<span class="variable">$USERNAME</span>&#125;                <span class="comment">#连接VMware的用户，默认root或administrator</span></span><br></pre></td></tr></table></figure>
-<p>过一会就可以看到自动检测到的虚拟主机了，自动匹配监控项，<code>**图形需要自行创建**</code>。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1518,7 +1496,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">156</span>
+                  <span class="site-state-item-count">157</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1540,7 +1518,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">106</span>
+                  <span class="site-state-item-count">107</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1696,7 +1674,7 @@ show_date_time();
 <!--     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">202.6k</span>
+    <span title="Site words total count">202.8k</span>
    -->
   
   	<!--添加备案信息-->

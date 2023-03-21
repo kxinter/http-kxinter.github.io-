@@ -351,6 +351,332 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2021/04/19/hadoop集群部署2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OperationMAN">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="运维随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/04/19/hadoop集群部署2/" itemprop="url">hadoop集群部署2-离线版</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-19T17:02:22+08:00">
+                2021-04-19
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:36:58+08:00">
+                2022-06-05
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+		  
+		  
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+<h1 id="1-环境"><a href="#1-环境" class="headerlink" title="1    环境"></a>1    环境</h1><h2 id="1-1-软件"><a href="#1-1-软件" class="headerlink" title="1.1    软件"></a>1.1    软件</h2><p>Centos7.9      //最低7.2版本   兼容 中标麒麟（服务器操作系统V7.0U6）</p>
+<p>Ambari 2.7.4    //支持HDP-3.1.5 和 HDF-3.2.0<br>Mysql 5.7      //只支持mysql5.7或者postgresql10.7/ 10.5/ 10. 2/ 9.6<br>JDK 1.80_77及以上版本<br>Chrome 57.0.2 / 56.0.2<br><a href="https://supportmatrix.hortonworks.com/" target="_blank" rel="noopener">https://supportmatrix.hortonworks.com/</a> (版本兼容查询)</p>
+<h2 id="1-2-硬件"><a href="#1-2-硬件" class="headerlink" title="1.2    硬件"></a>1.2    硬件</h2><p>推荐最低配置：<br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823048282.png" alt="enter description here"></p>
+<h2 id="1-3-参考文档"><a href="#1-3-参考文档" class="headerlink" title="1.3    参考文档"></a>1.3    参考文档</h2><p><a href="https://docs.cloudera.com/HDPDocuments/Ambari-2.7.5.0/bk_ambari-installation/content/ch_Getting_Ready.html" target="_blank" rel="noopener">https://docs.cloudera.com/HDPDocuments/Ambari-2.7.5.0/bk_ambari-installation/content/ch_Getting_Ready.html</a> （网上历史方式cloudera.com,已经收费）<br>备选：<br><a href="https://ambari.apache.org" target="_blank" rel="noopener">https://ambari.apache.org</a>  (ambari开源版本)</p>
+<h1 id="2-前期准备（各节点均配置）"><a href="#2-前期准备（各节点均配置）" class="headerlink" title="2    前期准备（各节点均配置）"></a>2    前期准备（各节点均配置）</h1><h2 id="2-1-关闭防火墙-selinux"><a href="#2-1-关闭防火墙-selinux" class="headerlink" title="2.1    关闭防火墙/selinux"></a>2.1    关闭防火墙/selinux</h2><figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl disable firewalld.<span class="keyword">service</span> &amp;&amp; systemctl stop firewalld.<span class="keyword">service</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setenforce <span class="number">0</span></span><br><span class="line">/etc/selinux/config   <span class="comment">//永久关闭修改config文件</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-2-修改网络"><a href="#2-2-修改网络" class="headerlink" title="2.2    修改网络"></a>2.2    修改网络</h2><p>设置主机IP地址为静态地址，同时开启网卡自启动。</p>
+<h2 id="2-3-系统优化"><a href="#2-3-系统优化" class="headerlink" title="2.3    系统优化"></a>2.3    系统优化</h2><p>设置文件最大打开数</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/security/limits.conf</span><br><span class="line">* soft nofile <span class="number">65535</span>      <span class="comment">// 当前系统生效的最大文件打开数</span></span><br><span class="line">* hard nofile <span class="number">65535</span>     <span class="comment">// 当前系统所能设定的最大值</span></span><br><span class="line">设置最大进程数</span><br><span class="line">* soft nproc <span class="number">11000</span></span><br><span class="line">* hard nproc <span class="number">11000</span></span><br></pre></td></tr></table></figure>
+<p>重启或重新进入shell窗口<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823219484.png" alt="enter description here"></p>
+<h2 id="2-4-设置hosts"><a href="#2-4-设置hosts" class="headerlink" title="2.4    设置hosts"></a>2.4    设置hosts</h2><p>修改主机名，并将主机名加入各节点hosts文件</p>
+<h2 id="2-5-ssh免密登录"><a href="#2-5-ssh免密登录" class="headerlink" title="2.5    ssh免密登录"></a>2.5    ssh免密登录</h2><p>SSH免密码登录，因为Hadoop需要通过SSH登录到各个节点进行操作，我用的是root用户，每台服务器都生成公钥，再合并到<code>authorized_keys</code><br>(1)CentOS默认没有启动ssh无密登录，去掉/etc/ssh/sshd_config其中2行的注释，每台服务器都要设置，</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">$</span> <span class="string">vi</span> <span class="string">/etc/ssh/sshd_config</span></span><br><span class="line"><span class="string">RSAAuthentication</span> <span class="literal">yes</span> </span><br><span class="line"><span class="string">PubkeyAuthentication</span> <span class="literal">yes</span></span><br></pre></td></tr></table></figure>
+<p>(2)输入命令，ssh-keygen -t rsa，生成key，都不输入密码，一直回车，/root就会生成.ssh文件夹，每台服务器都要设置。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ssh-keygen -t rsa</span></span><br></pre></td></tr></table></figure>
+<p>(3)合并公钥到authorized_keys文件，在Master服务器，进入/root/.ssh目录，通过SSH命令合并</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ cat id_rsa.pub<span class="meta">&gt;&gt; </span>authorized_keys</span><br><span class="line">$ Chmod <span class="number">600</span> authorized_kdys</span><br><span class="line">$ ssh root@192.<span class="number">168.0</span>.<span class="number">165</span> cat ~<span class="regexp">/.ssh/id</span>_rsa.pub<span class="meta">&gt;&gt; </span>authorized_keys</span><br><span class="line">$ ssh root@192.<span class="number">168.0</span>.<span class="number">166</span> cat ~<span class="regexp">/.ssh/id</span>_rsa.pub<span class="meta">&gt;&gt; </span>authorized_keys</span><br><span class="line">$ ssh root@192.<span class="number">168.0</span>.<span class="number">167</span> cat ~<span class="regexp">/.ssh/id</span>_rsa.pub<span class="meta">&gt;&gt; </span>authorized_keys</span><br></pre></td></tr></table></figure>
+<p> (4)把Master服务器的authorized_keys、known_hosts复制到Slave服务器的/root/.ssh目录</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>scp authorized_keys root<span class="variable">@192</span>.<span class="number">168.0</span>.<span class="number">165</span><span class="symbol">:~/</span>.ssh</span><br><span class="line"><span class="variable">$ </span>scp authorized_keys root<span class="variable">@192</span>.<span class="number">168.0</span>.<span class="number">166</span><span class="symbol">:~/</span>.ssh</span><br><span class="line"><span class="variable">$ </span>scp authorized_keys root<span class="variable">@192</span>.<span class="number">168.0</span>.<span class="number">167</span><span class="symbol">:~/</span>.ssh</span><br></pre></td></tr></table></figure>
+<p>(5)完成，ssh Slave1、ssh Slave2、ssh Slave3就不需要输入密码了</p>
+<h2 id="2-6-时间同步-提前下载"><a href="#2-6-时间同步-提前下载" class="headerlink" title="2.6    时间同步(提前下载)"></a>2.6    时间同步(提前下载)</h2><p>1)    master节点作为时间同步服务器，所有节点安装ntp ntpdate</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install<span class="built_in"> ntp </span>ntpdate</span><br></pre></td></tr></table></figure>
+<p>2)    master节点配置</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ntp.<span class="built_in">config</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/07/15-46-50-409-1626248810.png" alt=""></p>
+<p>启动时间同步服务器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start ntpd     <span class="comment">#启动时间同步程序</span></span><br><span class="line">systemctl <span class="built_in">enable</span> ntpd  <span class="comment">#允许时间同步程序开机启动</span></span><br></pre></td></tr></table></figure>
+<p>3)    在其它节点上运行如下命令同步时间</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ntpdate -u  192.168.214.128</span><br></pre></td></tr></table></figure>
+<p>设置定时任务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3 * * * * root ntpdate -u 192.168.214.128    <span class="comment"># 每三分钟执行一次同步</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-7-jdk安装"><a href="#2-7-jdk安装" class="headerlink" title="2.7    jdk安装"></a>2.7    jdk安装</h2><p>jdk-8u144-linux-x64.tar.gz  或  jdk-8u152-linux-x64.tar.gz<br>版本需要高于8u77<br>配置jdk环境</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span>  JAVA_HOME=/usr/<span class="built_in">local</span>/java_version</span><br><span class="line"><span class="built_in">export</span>  PATH=<span class="variable">$JAVA_HOME</span>/bin/:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-8-mysql安装（ambari节点）"><a href="#2-8-mysql安装（ambari节点）" class="headerlink" title="2.8    mysql安装（ambari节点）"></a>2.8    mysql安装（ambari节点）</h2><p>下载mysql-5.7.32-linux-glibc2.12-x86_64.tar.gz<br>mysql支持5.7版本<br>1)    下载安装包<br><a href="http://dev.mysql.com/downloads/mysql/#downloads" target="_blank" rel="noopener">http://dev.mysql.com/downloads/mysql/#downloads</a><br>推荐下载通用安装方法的tar.gz包<br>2)    安装过程</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">shell</span><span class="bash">&gt; groupadd mysql</span></span><br><span class="line"><span class="bash">shell&gt; useradd -r -g mysql -s /bin/<span class="literal">false</span> mysql</span></span><br><span class="line"><span class="bash">shell&gt; <span class="built_in">cd</span> /usr/<span class="built_in">local</span></span></span><br><span class="line"><span class="bash">shell&gt; tar zxvf /path/to/mysql-VERSION-OS.tar.gz</span></span><br><span class="line"><span class="bash">shell&gt; ln -s full-path-to-mysql-VERSION-OS mysql</span></span><br><span class="line"><span class="bash">shell&gt; <span class="built_in">cd</span> mysql</span></span><br><span class="line"><span class="bash">shell&gt; mkdir mysql-files</span></span><br><span class="line"><span class="bash">shell&gt; chown mysql:mysql mysql-files</span></span><br><span class="line"><span class="bash">shell&gt; chmod 750 mysql-files</span></span><br><span class="line"><span class="bash">shell&gt; bin/mysqld --initialize --user=mysql</span></span><br><span class="line"><span class="bash">shell&gt; bin/mysql_ssl_rsa_setup</span></span><br><span class="line"><span class="bash">shell&gt; bin/mysqld_safe --user=mysql &amp;</span></span><br><span class="line"><span class="bash"><span class="comment"># Next command is optional</span></span></span><br><span class="line"><span class="bash">shell&gt; cp support-files/mysql.server /etc/init.d/mysql.server</span></span><br></pre></td></tr></table></figure>
+<p>默认密码如下<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823314936.png" alt="enter description here"><br>3)    修改my.cnf的内容如下</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[mysql] </span><br><span class="line">default-character-set=utf8</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line">skip-name-resolve </span><br><span class="line">port=3306</span><br><span class="line">basedir=/usr/local/mysql  <span class="comment"># 设置mysql的安装目录</span></span><br><span class="line">datadir=/usr/local/mysql/data  <span class="comment"># 设置mysql数据库的数据的存放目录</span></span><br><span class="line">max_connections=200 <span class="comment"># 允许最大连接数</span></span><br><span class="line">character-set-server=utf8</span><br><span class="line">default-storage-engine=INNODB <span class="comment"># 创建新表时将使用的默认存储引擎</span></span><br><span class="line">lower_case_table_names=1</span><br><span class="line">max_allowed_packet=16M</span><br></pre></td></tr></table></figure>
+<p>4)    初始化密码</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SET PASSWORD = PASSWORD('<span class="number">123456</span>');</span><br><span class="line">Query OK, <span class="number">0</span> rows affected, <span class="number">1</span> warning (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line">Query OK, <span class="number">0</span> rows affected (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+<p>5)    添加远程访问权限</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; use mysql; </span><br><span class="line">Reading table information for completion of table and column names</span><br><span class="line">You can turn off this feature to get a quicker startup with -A</span><br><span class="line"></span><br><span class="line">Database changed</span><br><span class="line">mysql&gt; update user set host = <span class="emphasis">'%'</span> where user = <span class="emphasis">'root'</span>;</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt; grant all privileges on <span class="strong">*.*</span> to root@<span class="emphasis">'%'</span> identified by <span class="emphasis">'123456'</span> with grant option;</span><br><span class="line">Query OK, 0 rows affected, 1 warning (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select host, user from user;</span><br><span class="line"><span class="code">+-----------+</span>-----------+</span><br><span class="line">| host       | user      |</span><br><span class="line"><span class="code">+-----------+</span>-----------+</span><br><span class="line">| %          | root      |</span><br><span class="line">| localhost | mysql.sys |</span><br><span class="line"><span class="code">+-----------+</span>-----------+</span><br><span class="line">mysql&gt; quit</span><br><span class="line">$ /etc/init.d/mysqld restart   //一定要重启才会生效。</span><br></pre></td></tr></table></figure>
+<p>6)    设置开机自启</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">chkconfig</span> mysql <span class="literal">on</span></span><br></pre></td></tr></table></figure>
+<h1 id="3-设置本地库"><a href="#3-设置本地库" class="headerlink" title="3    设置本地库"></a>3    设置本地库</h1><h2 id="3-1-apache安装（ambari节点）"><a href="#3-1-apache安装（ambari节点）" class="headerlink" title="3.1    apache安装（ambari节点）"></a>3.1    apache安装（ambari节点）</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> apache           //搭建本地仓库</span><br><span class="line">systemctl <span class="keyword">start</span> httpd &amp;&amp; systemctl <span class="keyword">enable</span> httpd</span><br></pre></td></tr></table></figure>
+<h2 id="3-2-下载并上传软件包"><a href="#3-2-下载并上传软件包" class="headerlink" title="3.2    下载并上传软件包"></a>3.2    下载并上传软件包</h2><p>Ambari <a href="https://archive.cloudera.com/p/ambari/2.x/2.7.4.14/centos7/ambari-2.7.4.14-1-centos7.tar.gz" target="_blank" rel="noopener">https://archive.cloudera.com/p/ambari/2.x/2.7.4.14/centos7/ambari-2.7.4.14-1-centos7.tar.gz</a><br>HDP <a href="https://archive.cloudera.com/p/HDP/3.x/3.1.4.0/centos7/HDP-3.1.4.0-centos7-rpm.tar.gz" target="_blank" rel="noopener">https://archive.cloudera.com/p/HDP/3.x/3.1.4.0/centos7/HDP-3.1.4.0-centos7-rpm.tar.gz</a><br>HDP-UTILS <a href="https://archive.cloudera.com/p/HDP-UTILS/1.1.0.22/repos/centos7/HDP-UTILS-1.1.0.22-centos7.tar.gz" target="_blank" rel="noopener">https://archive.cloudera.com/p/HDP-UTILS/1.1.0.22/repos/centos7/HDP-UTILS-1.1.0.22-centos7.tar.gz</a> </p>
+<p>HDP-GPL <a href="https://archive.cloudera.com/p/HDP-GPL/3.x/3.1.4.0/centos7/HDP-GPL-3.1.4.0-centos7-gpl.tar.gz" target="_blank" rel="noopener">https://archive.cloudera.com/p/HDP-GPL/3.x/3.1.4.0/centos7/HDP-GPL-3.1.4.0-centos7-gpl.tar.gz</a> </p>
+<p>解压缩文件，拷贝到/var/www/html下</p>
+<h2 id="3-3-配置源"><a href="#3-3-配置源" class="headerlink" title="3.3    配置源"></a>3.3    配置源</h2><h1 id="4-Ambari安装"><a href="#4-Ambari安装" class="headerlink" title="4    Ambari安装"></a>4    Ambari安装</h1><h2 id="4-1-创建源文件"><a href="#4-1-创建源文件" class="headerlink" title="4.1    创建源文件"></a>4.1    创建源文件</h2><p>ambari.repo</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[ambari]</span></span><br><span class="line"><span class="attr">name</span>=ambari-<span class="number">2.7</span>.<span class="number">4.0</span></span><br><span class="line"><span class="attr">baseurl</span>=http://<span class="number">192.168</span>.<span class="number">1.3</span>/ambari/centos7/<span class="number">2.7</span>.<span class="number">4.0</span>-<span class="number">118</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="attr">gpgkey</span>=http://<span class="number">192.168</span>.<span class="number">1.3</span>/ambari/centos7/<span class="number">2.7</span>.<span class="number">4.0</span>-<span class="number">118</span>/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins</span><br><span class="line"><span class="attr">enabled</span>=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>hdp.repo</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[HDP]</span></span><br><span class="line"><span class="attr">name</span>=HDP-<span class="number">3.1</span>.<span class="number">4.0</span></span><br><span class="line"><span class="attr">baseurl</span>=http://<span class="number">192.168</span>.<span class="number">1.3</span>/HDP/centos7/<span class="number">3.1</span>.<span class="number">4.0</span>-<span class="number">315</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="attr">enabled</span>=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>hdp-gpl.repo</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[HDP-GPL]</span></span><br><span class="line"><span class="attr">name</span>=HDP-GPL-<span class="number">3.1</span>.<span class="number">4.0</span></span><br><span class="line"><span class="attr">baseurl</span>=http://<span class="number">192.168</span>.<span class="number">1.3</span>/HDP-GPL/centos7/<span class="number">3.1</span>.<span class="number">4.0</span>-<span class="number">315</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="attr">enabled</span>=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>hdp-utils.repo</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[HDP-UTILS]</span></span><br><span class="line"><span class="attr">name</span>=HDP-UTILS-<span class="number">3.1</span>.<span class="number">4.0</span></span><br><span class="line"><span class="attr">baseurl</span>=http://<span class="number">192.168</span>.<span class="number">1.3</span>/HDP-UTILS/centos7/<span class="number">1.1</span>.<span class="number">0.22</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="attr">enabled</span>=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-2-生成缓存"><a href="#4-2-生成缓存" class="headerlink" title="4.2    生成缓存"></a>4.2    生成缓存</h2><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum clean <span class="keyword">all</span></span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
+<h2 id="4-3-安装Ambari-Server"><a href="#4-3-安装Ambari-Server" class="headerlink" title="4.3    安装Ambari Server"></a>4.3    安装Ambari Server</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> ambari-<span class="keyword">server</span></span><br></pre></td></tr></table></figure>
+<p>离线版没有postgresql，需要提前使用–downloadonly下载好.</p>
+<h3 id="4-3-1-初始化Ambar"><a href="#4-3-1-初始化Ambar" class="headerlink" title="4.3.1    初始化Ambar"></a>4.3.1    初始化Ambar</h3><p> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823686182.png" alt="enter description here"><br>备注：mysql连接器提前下载好放到/usr/share/java目录<br><a href="https://downloads.mysql.com/archives/get/p/3/file/mysql-connector-java-5.1.49.tar.gz" target="_blank" rel="noopener">https://downloads.mysql.com/archives/get/p/3/file/mysql-connector-java-5.1.49.tar.gz</a><br>修改jar文件名为mysql-connector-java.jar 放到/usr/share/java目录。</p>
+<h3 id="4-3-2-初始化mysql"><a href="#4-3-2-初始化mysql" class="headerlink" title="4.3.2    初始化mysql"></a>4.3.2    初始化mysql</h3><h4 id="4-3-2-1-创建ambari数据库"><a href="#4-3-2-1-创建ambari数据库" class="headerlink" title="4.3.2.1    创建ambari数据库"></a>4.3.2.1    创建ambari数据库</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> <span class="string">`ambari`</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci;</span><br></pre></td></tr></table></figure>
+<h4 id="4-3-2-2-初始化数据"><a href="#4-3-2-2-初始化数据" class="headerlink" title="4.3.2.2    初始化数据"></a>4.3.2.2    初始化数据</h4><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p123456 ambari &lt; <span class="regexp">/var/lib</span><span class="regexp">/ambari-server/resources</span><span class="regexp">/Ambari-DDL-MySQL-CREATE.sql</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-3-3-启动Ambari-server"><a href="#4-3-3-启动Ambari-server" class="headerlink" title="4.3.3    启动Ambari server"></a>4.3.3    启动Ambari server</h3><p>ambari-server start启动服务。</p>
+<p>此时，登录10.10.10.31:8080，即可看到ambari的页面，如下：<br>默认账号密码：admin admin<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823728430.png" alt="enter description here"></p>
+<h1 id="5-安装HDP集群"><a href="#5-安装HDP集群" class="headerlink" title="5    安装HDP集群"></a>5    安装HDP集群</h1><p>集群名称  zhjx<br>  <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823744344.png" alt="enter description here"><br>centos选择rathat7,输入本地私库的url，其他类型删除。<br>  <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823748458.png" alt="enter description here"><br>输入节点主机名，下载管理节点的ssh密码，id_rsa 文件，在页面上传密钥<br>备注，必须安装如下格式，不能使用hadoop2<br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823787801.png" alt="enter description here"></p>
+<p>没有按照上图设置主机名，会出现主机名不合规的提示。<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823796306.png" alt="enter description here"></p>
+<p>这里经常安装失败，可以查看日志排查。<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823803116.png" alt="enter description here"><br>检查无误，NEXT→通过即可<br>如果这个步骤失败了错误，记得多看日志，多找问题，如果还不行的话，回档咯</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@<span class="keyword">master</span> <span class="title">~]# # ambari-server</span> <span class="literal">stop</span>    <span class="comment">#停止命令</span></span><br><span class="line">[root@<span class="keyword">master</span> <span class="title">~]# # ambari-server</span> reset   <span class="comment">#重置命令</span></span><br><span class="line">[root@<span class="keyword">master</span> <span class="title">~]# # ambari-server</span> setup   <span class="comment">#重新设置 </span></span><br><span class="line">[root@<span class="keyword">master</span> <span class="title">~]# # ambari-server</span> <span class="literal">start</span>   <span class="comment">#启动命令</span></span><br></pre></td></tr></table></figure>
+<p><strong>问题1：</strong><br>centos7.3/4安装ambari2.6以上版本报EOF occurred in violation of protocol (_ssl.c:579)<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823821540.png" alt="enter description here"><br><strong>解决办法：</strong><br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823827632.png" alt="enter description here"></p>
+<p>开始可以少选些服务，减少错误，后面还可以添加。<br>HDFS、Hive、HBase、Sqoop、ZooKeeper、Flume<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823835899.png" alt="enter description here"><br>节点分配，我这里默认了<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823840026.png" alt="enter description here"><br>设置密码，我这里直接都设置为admin1234<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823844031.png" alt="enter description here"><br>数据库连接都采用root用户，<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823848111.png" alt="enter description here"></p>
+<p>配置数据库的时候执行下黄色部分的命令</p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/07/09-36-51-381-1626399411.png" alt="image-20210716093644199"> </p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823852373.png" alt="enter description here"><br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823856955.png" alt="enter description here"><br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823861910.png" alt="enter description here"> </p>
+<p>设置各组件的路径，我这里默认<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823867383.png" alt="enter description here"><br>默认了<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823870753.png" alt="enter description here"><br>默认了<br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823875084.png" alt="enter description here"><br>默认了<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823879651.png" alt="enter description here"><br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823883368.png" alt="enter description here"></p>
+<p>这一步也是经常报错，看日志解决吧。</p>
+<h3 id="5-1-1-设置组件自启动"><a href="#5-1-1-设置组件自启动" class="headerlink" title="5.1.1    设置组件自启动"></a>5.1.1    设置组件自启动</h3><p>admin&gt;&gt;Service Auto Start   所有组件全部开启<br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/20/hadoop集群部署2-离线版/1618887094246.png" alt="enter description here"></p>
+<h1 id="6-问题"><a href="#6-问题" class="headerlink" title="6 问题"></a>6 问题</h1><h2 id="6-1-问题1：缺少软件（提前downloadonly）"><a href="#6-1-问题1：缺少软件（提前downloadonly）" class="headerlink" title="6.1    问题1：缺少软件（提前downloadonly）"></a>6.1    问题1：缺少软件（提前downloadonly）</h2><p>unzip<br>nc<br>psmisc<br>redhat-lsb<br>libtirpc-devel<br>gcc<br>python-devel<br>python-kerberos</p>
+<h2 id="6-2-问题2：没有flume组件"><a href="#6-2-问题2：没有flume组件" class="headerlink" title="6.2    问题2：没有flume组件"></a>6.2    问题2：没有flume组件</h2><p>高版本没有集成组件，需要手动集成，建议采用低版本hdp安装（ambari 2.6.2.2+hdp2.6.5）。</p>
+<h2 id="6-3-问题3：重启主机，ambari-server无法启动"><a href="#6-3-问题3：重启主机，ambari-server无法启动" class="headerlink" title="6.3    问题3：重启主机，ambari-server无法启动"></a>6.3    问题3：重启主机，ambari-server无法启动</h2><p>日志vim /var/log/ambari-server/ambari-server.out<br>问题原因：数据库连接失败<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823909374.png" alt="enter description here"><br>网上查找原因：是需要在mysql连接url后面添加 ?useSSL=false,其实不然。<br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823913962.png" alt="enter description here"></p>
+<p> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823919559.png" alt="enter description here"><br>以上问题都是一个原因经尝试，都和ambari-server的配置文件有关系。<br>配置如下：<br> <img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618823924602.png" alt="enter description here"><br>无论是使用IP地址，还是配置的主机名，都不可以链接到数据库。配置为localhost恢复正常。<br>如下：<br><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/19/hadoop集群部署2/1618838108628.png" alt="enter description here"></p>
+<h2 id="6-4-问题4：hive组件配置数据库时，需要执行一下mysql连接驱动的路径的命令在master节点"><a href="#6-4-问题4：hive组件配置数据库时，需要执行一下mysql连接驱动的路径的命令在master节点" class="headerlink" title="6.4    问题4：hive组件配置数据库时，需要执行一下mysql连接驱动的路径的命令在master节点"></a>6.4    问题4：hive组件配置数据库时，需要执行一下mysql连接驱动的路径的命令在master节点</h2><p><strong>否则数据库连接测试总是失败。</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ambari-server setup --jdbc-db=mysql –jdbc-driver=/usr/share/java/mysql-connector-java.jar</span><br></pre></td></tr></table></figure>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/20/hadoop集群部署2-离线版/1618885736228.png" alt="enter description here"></p>
+<h2 id="6-5-6-5-问题5：SmartSense-Gateway-is-not-active"><a href="#6-5-6-5-问题5：SmartSense-Gateway-is-not-active" class="headerlink" title="6.5     6.5    问题5：SmartSense Gateway is not active"></a>6.5     6.5    问题5：SmartSense Gateway is not active</h2><p>原因：服务器离线，无法访问域名地址，忽略即可。</p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/4/20/hadoop集群部署2-离线版/1618887061046.png" alt="enter description here"></p>
+<h1 id="7-扩展功能"><a href="#7-扩展功能" class="headerlink" title="7 扩展功能"></a>7 扩展功能</h1><h2 id="7-1-配置namenode-HA"><a href="#7-1-配置namenode-HA" class="headerlink" title="7.1  配置namenode HA"></a>7.1  配置namenode HA</h2><p>参考资料：<a href="https://blog.csdn.net/qq_21153619/article/details/81974140" target="_blank" rel="noopener">https://blog.csdn.net/qq_21153619/article/details/81974140</a></p>
+<p>1)    在Ambari UI中，选择Services&gt;HDFS&gt;Summary</p>
+<p>2)    点击Service Actions,点击Enable NameNode HA</p>
+<p>3)    在Get Started页面中，输入一个Nameservice ID然后点Next</p>
+<p>备注：设置HA前，需要先关闭HBase服务</p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/07/16-53-05-821-1626252785.png" alt="img"></p>
+<p>调整服务节点</p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/07/16-52-52-763-1626252772.png" alt="img"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/07/16-53-11-403-1626252791.png" alt="img"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/07/16-53-16-081-1626252796.png" alt="img"></p>
+<p>如上图操作：</p>
+<p>在nameNode上创建检查点</p>
+<p>1、 登录Namenode Host Hadoop3.htsb。</p>
+<p>2、 将NameNode放在安全模式（只读模式）</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo</span> su hdfs -l -c <span class="string">'hdfs dfsadmin -safemode enter'</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/07/16-53-21-509-1626252801.png" alt="img"></p>
+<p>3、 一旦处于安全模式，创建一个检查点</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo</span> su hdfs -l -c <span class="string">'hdfs dfsadmin -saveNamespace'</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/07/16-53-24-595-1626252804.png" alt="img"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/07/16-53-29-020-1626252809.png" alt="img"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/07/16-53-32-925-1626252812.png" alt="img"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/07/16-53-36-342-1626252816.png" alt="img"></p>
+<p>如上图所示：</p>
+<p>初始化journalnode</p>
+<p>1、 登录Namenode Host Hadoop3.htsb。</p>
+<p>2、 运行初始化journalnode</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo</span> su hdfs -l -c <span class="string">'hdfs namenode -initializeSharedEdits'</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/07/16-53-39-562-1626252819.png" alt="img"></p>
+<p>3、 一旦Ambari检测到已成功初始化，您将能够继续。</p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/07/16-53-42-924-1626252822.png" alt="img"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/07/16-53-45-440-1626252825.png" alt="img"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/07/16-53-49-154-1626252829.png" alt="img"></p>
+<p>如上图所示：</p>
+<p>初始化预期的HA元数据</p>
+<p>1、 登录Namenode Host Hadoop3.htsb</p>
+<p>2、 通过运行初始化NameNode自动故障转移的元数据</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo</span> su hdfs -l -c <span class="string">'hdfs zkfc -formatZK'</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/07/16-53-54-720-1626252834.png" alt="img"></p>
+<p>3、 登录新Namenode节点namenode1.htsb</p>
+<p>4、 通过运行初始化其他nameNode的元数据</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo</span> su hdfs -l -c <span class="string">'hdfs namenode -bootstrapStandby'</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/07/16-53-57-139-1626252837.png" alt="img"></p>
+<p>下一步</p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/07/16-54-00-412-1626252840.png" alt="img"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/07/16-54-02-360-1626252842.png" alt="img"></p>
+<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2021/07/16-54-05-409-1626252845.png" alt="img"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+	
+	  <div>
+        
+      </div>
+	  
+	  <div>
+        
+      </div>
+	
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2021/04/19/hadoop集群部署1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1420,248 +1746,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kxinter.gitee.io/2020/07/01/redis高可用集群配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="OperationMAN">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="运维随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/07/01/redis高可用集群配置/" itemprop="url">redis高可用集群配置</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-01T09:49:42+08:00">
-                2020-07-01
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2022-06-05T21:36:35+08:00">
-                2022-06-05
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-		  
-		  
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  518
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <a id="more"></a>
-<h1 id="一-主机"><a href="#一-主机" class="headerlink" title="一 主机"></a>一 主机</h1><table>
-<thead>
-<tr>
-<th>角色</th>
-<th>IP</th>
-<th>服务</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>master</td>
-<td>192.168.0.56</td>
-<td>redis</td>
-</tr>
-<tr>
-<td>slave</td>
-<td>192.168.0.58</td>
-<td>redis redis-Sentinel</td>
-</tr>
-</tbody>
-</table>
-<h1 id="二-安装redis"><a href="#二-安装redis" class="headerlink" title="二 安装redis"></a>二 安装redis</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install redis</span><br></pre></td></tr></table></figure>
-<h1 id="三-配置主从"><a href="#三-配置主从" class="headerlink" title="三 配置主从"></a>三 配置主从</h1><ul>
-<li>master节点</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vim redis.conf</span><br><span class="line"><span class="comment"># 开启所有地址连接（根据实际情况配置）</span></span><br><span class="line"><span class="built_in">bind</span> 0.0.0.0</span><br><span class="line"><span class="comment"># redis添加认证密码test123 （可不设置，如果设置各节点密码保持一致）</span></span><br><span class="line">requirepass test123</span><br><span class="line"><span class="comment"># 连接master节点密码 （如果设置认证密码，配置该项）</span></span><br><span class="line">masterauth test123</span><br></pre></td></tr></table></figure>
-<ul>
-<li>slave节点</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim redis.conf</span><br><span class="line"><span class="comment"># 开启所有地址连接（根据实际情况配置）</span></span><br><span class="line"><span class="built_in">bind</span> 0.0.0.0</span><br><span class="line"><span class="comment"># redis添加认证密码test123 （可不设置，如果设置各节点密码保持一致）</span></span><br><span class="line">requirepass test123</span><br><span class="line"><span class="comment"># 配置为从节点(配置为集群从节点只需这一句)</span></span><br><span class="line">slaveof 192.168.0.56 6379</span><br><span class="line"><span class="comment"># 连接master节点密码 （如果设置认证密码，配置该项）</span></span><br><span class="line">masterauth test123</span><br></pre></td></tr></table></figure>
-<h2 id="检查主从节点"><a href="#检查主从节点" class="headerlink" title="检查主从节点"></a>检查主从节点</h2><ul>
-<li>master节点</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">master节点redis信息</span><br><span class="line">[root@test2 ~]<span class="comment"># systemctl start redis</span></span><br><span class="line">[root@test2 ~]<span class="comment"># redis-cli</span></span><br><span class="line">127.0.0.1:6379&gt; AUTH test123</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; info replication</span><br><span class="line"><span class="comment"># Replication</span></span><br><span class="line">role:master</span><br><span class="line">connected_slaves:0</span><br><span class="line">master_repl_offset:0</span><br><span class="line">repl_backlog_active:0</span><br><span class="line">repl_backlog_size:1048576</span><br><span class="line">repl_backlog_first_byte_offset:0</span><br><span class="line">repl_backlog_histlen:0</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>slave节点</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">slave节点redis信息</span><br><span class="line">[root@test3 etc]<span class="comment"># systemctl start redis</span></span><br><span class="line">[root@test3 etc]<span class="comment"># redis-cli</span></span><br><span class="line">127.0.0.1:6379&gt; AUTH test123</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; info replication</span><br><span class="line"><span class="comment"># Replication</span></span><br><span class="line">role:slave</span><br><span class="line">master_host:192.168.0.56</span><br><span class="line">master_port:6379</span><br><span class="line">master_link_status:up</span><br><span class="line">master_last_io_seconds_ago:0</span><br><span class="line">master_sync_in_progress:0</span><br><span class="line">slave_repl_offset:15</span><br><span class="line">slave_priority:100</span><br><span class="line">slave_read_only:1</span><br><span class="line">connected_slaves:0</span><br><span class="line">master_repl_offset:0</span><br><span class="line">repl_backlog_active:0</span><br><span class="line">repl_backlog_size:1048576</span><br><span class="line">repl_backlog_first_byte_offset:0</span><br><span class="line">repl_backlog_histlen:0</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>添加键值测试同步</li>
-</ul>
-<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2020/7/1/redis高可用集群配置/1593568525790.png" alt="1"></p>
-<h1 id="四-配置redis哨兵（Sentinel）实现高可用"><a href="#四-配置redis哨兵（Sentinel）实现高可用" class="headerlink" title="四 配置redis哨兵（Sentinel）实现高可用"></a>四 配置redis哨兵（Sentinel）实现高可用</h1><p>redis-sentinel是redis自带的功能，安装redis服务自带该服务。启动服务方式：systemctl start redis-sentinel.service</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim redis-sentinel.conf</span><br><span class="line"><span class="comment"># 允许所有地址连接sentinel</span></span><br><span class="line"><span class="built_in">bind</span> 0.0.0.0</span><br><span class="line"><span class="comment"># 侦测master节点，1表示当有一个sentinel服务发现master宕机后开始切换master节点</span></span><br><span class="line">sentinel monitor mymaster 192.168.0.56 6379 1</span><br><span class="line"><span class="comment"># 连接master节点的密钥</span></span><br><span class="line">sentinel auth-pass mymaster test123</span><br><span class="line"><span class="comment"># 5秒内master没有响应，就认为SDOWN （可不添加）</span></span><br><span class="line">sentinel down-after-milliseconds mymaster 5000</span><br></pre></td></tr></table></figure>
-<h1 id="五-redis客户端连接集群"><a href="#五-redis客户端连接集群" class="headerlink" title="五 redis客户端连接集群"></a>五 redis客户端连接集群</h1><div class="note success"><p><strong>redisk客户端连接方式</strong><br>redis客户端连接redis集群，连接的不是redis服务器的地址，而是Sentinel服务的地址和端口,当master节点故障时，Sentinel会自动设置slave为master并连接到master，就实现了redis的高可用</p></div>
-<p><img src="https://operationman-1258630122.cos.ap-nanjing.myqcloud.com/images-master/2020/7/1/redis高可用集群配置/1593568580963.png" alt="2"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-	
-	  <div>
-        
-      </div>
-	  
-	  <div>
-        
-      </div>
-	
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1719,7 +1803,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">156</span>
+                  <span class="site-state-item-count">157</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1741,7 +1825,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">106</span>
+                  <span class="site-state-item-count">107</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1897,7 +1981,7 @@ show_date_time();
 <!--     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">202.6k</span>
+    <span title="Site words total count">202.8k</span>
    -->
   
   	<!--添加备案信息-->
